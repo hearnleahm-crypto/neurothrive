@@ -34,7 +34,7 @@ const DIETARY = [
   { id: "low_sugar", label: "Low Sugar", emoji: "🍬" },
   { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
   { id: "keto", label: "Keto", emoji: "🥑" },
-  { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
+  { id: "pork_free", label: "Pork-Free", emoji: "🐷" },
   { id: "halal", label: "Halal", emoji: "☪️" },
   { id: "kosher", label: "Kosher", emoji: "✡️" },
 ];
@@ -368,8 +368,9 @@ const DIET_EXCLUSIONS = {
   keto: ["high_carb"],
   low_sugar: ["high_sugar"],
   low_sodium: ["high_sodium"],
-  halal: [],
-  kosher: [],
+  pork_free: ["pork"],
+  halal: ["pork"],
+  kosher: ["pork"],
 };
 
 const filterMeals = (meals, selectedDiet, condition) => {
