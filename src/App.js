@@ -1115,15 +1115,39 @@ function buildMealExplanation(meal, conditionId) {
   const condLabel = MENTAL_CONDITIONS.find(c => c.id === conditionId)?.label || "general wellness";
   const ingredients = parseIngredients(meal);
 
+  // Condition-specific intros explaining WHY this meal for THIS condition
+  const intros = {
+    adhd:          `This is a great meal for ADHD because it directly targets the dopamine and norepinephrine systems that ADHD affects most. Every ingredient was chosen to provide steady brain energy, neurotransmitter precursors, and the nutrients that focus and impulse control depend on.`,
+    anxiety:       `This is a great meal for Anxiety because each ingredient works to calm the nervous system from the inside out — lowering cortisol, supporting GABA production, and reducing the neuroinflammation that keeps the brain in a heightened threat state.`,
+    depression:    `This is a great meal for Depression because it delivers the specific nutrients — serotonin precursors, B vitamins, anti-inflammatory compounds, and BDNF boosters — that depression depletes and that antidepressant treatment depends on.`,
+    bipolar:       `This is a great meal for Bipolar Disorder because it stabilizes blood glucose (a key trigger for mood cycling), provides omega-3s and magnesium for neurological stability, and delivers the neurotransmitter precursors both mood phases require.`,
+    schizophrenia: `This is a great meal for Schizophrenia because it targets the dopamine pathway regulation, oxidative stress, and neuroinflammation that are the three most documented neurological features of schizophrenia — through whole food sources your body can use directly.`,
+    autism:        `This is a great meal for Autism Spectrum because it supports the gut-brain axis (where much of the serotonin relevant to autism is produced), provides B6 for neurotransmitter synthesis, and delivers omega-3s for brain cell membrane health — all in sensory-friendly forms.`,
+    ptsd:          `This is a great meal for PTSD because it works to lower the chronically elevated cortisol baseline, rebuild the serotonin and dopamine that trauma depletes, and support the hippocampal repair that PTSD's physical effects on the brain require.`,
+    did:           `This is a great meal for DID because it provides stable, consistent brain fuel that supports grounding and prevents the blood sugar swings that can increase dissociation and destabilize the system's sense of internal consistency.`,
+    bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar — one of the most accessible and direct dietary tools for reducing emotional reactivity — while delivering serotonin precursors and magnesium that support the calm the nervous system needs.`,
+    npd:           `This is a great meal for general brain health because it delivers complete protein, anti-inflammatory compounds, and B vitamins that support healthy dopamine regulation, stress resilience, and cognitive function.`,
+    hpd:           `This is a great meal for general brain health because its combination of protein, complex carbohydrates, and micronutrients supports steady neurotransmitter production, emotional regulation, and consistent brain energy.`,
+    aspd:          `This is a great meal for general brain health because it provides the amino acids, B vitamins, and anti-inflammatory nutrients that support healthy prefrontal cortex function and impulse regulation.`,
+    ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly — OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins in this meal are the exact building blocks serotonin synthesis requires.`,
+    eating:        `This is a nourishing, balanced meal that provides complete nutrition — protein for muscle and brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability and reduce the anxiety that often accompanies eating disorder recovery.`,
+    phobia:        `This is a great meal for managing Phobias and anxiety because it supports GABA production and cortisol regulation — the two neurological levers most directly involved in the physiological fear response that phobias trigger.`,
+    bfrb:          `This is a great meal for Body-Focused Repetitive Behaviors because it delivers magnesium and B vitamins that reduce the nervous system hyperarousal and anxiety that BFRB urges are often driven by.`,
+    ppd:           `This is a great meal for general brain health because its anti-inflammatory nutrients, B vitamins, and complete protein support the neurochemical balance and stress regulation that support clearer, calmer thinking.`,
+    spd:           `This is a great meal for general brain health because it delivers omega-3s, B vitamins, and complete protein that support dopamine regulation and the social motivation circuits that schizoid personality affects.`,
+    default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients — neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals — that support your neurological wellbeing.`,
+  };
+
+  const intro = intros[conditionId] || intros.default;
+
   if (ingredients.length === 0) {
-    return `This meal delivers a balanced combination of protein, complex carbohydrates, and micronutrients selected to support your brain while managing ${condLabel}. Every food on this plan was chosen with your neurological needs in mind — you're nourishing yourself with intention.`;
+    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind — you're nourishing yourself with intention.`;
   }
 
   const bullets = ingredients.map(key => {
     const data = INGREDIENT_SCIENCE[key];
     if (!data) return null;
     const condNote = data.conditions[conditionId] || data.conditions["default"] || data.what_it_does;
-    // Capitalize the ingredient name nicely
     const name = key === "sweetpotato" ? "Sweet potato"
       : key === "brownrice" ? "Brown rice"
       : key === "chiaseeds" ? "Chia seeds"
@@ -1136,20 +1160,20 @@ function buildMealExplanation(meal, conditionId) {
   }).filter(Boolean);
 
   const closings = {
-    adhd: "Every bite here is working to support your focus, emotional regulation, and dopamine system — your brain deserves this kind of care.",
-    anxiety: "This combination works together to calm your nervous system from the inside out — you're feeding your calm.",
-    depression: "Each ingredient here is chosen to gently lift the neurotransmitter systems that depression suppresses — you're doing something real for yourself by eating this.",
-    bipolar: "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished — stability on the plate supports stability in the mind.",
+    adhd:          "Every bite here is working to support your focus, emotional regulation, and dopamine system — your brain deserves this kind of care.",
+    anxiety:       "This combination works together to calm your nervous system from the inside out — you're feeding your calm.",
+    depression:    "Each ingredient here is chosen to gently lift the neurotransmitter systems that depression suppresses — you're doing something real for yourself by eating this.",
+    bipolar:       "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished — stability on the plate supports stability in the mind.",
     schizophrenia: "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain — this is targeted nourishment.",
-    autism: "This meal is designed to support your gut-brain connection, sensory processing, and neurotransmitter health in a way your body can use.",
-    ptsd: "This meal is quietly working to lower your cortisol baseline and support the serotonin systems that trauma suppresses — small acts of nourishment matter.",
-    ocd: "The serotonin support in this meal is real and direct — you're feeding the exact system that OCD challenges most.",
-    bpd: "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation — this meal provides both.",
-    did: "Consistent, nourishing meals help ground and stabilize — this one was built to support your brain's need for steady fuel and neurotransmitter balance.",
-    default: "You're nourishing your brain with intention — every ingredient here was chosen with your mental health in mind.",
+    autism:        "This meal is designed to support your gut-brain connection, sensory processing, and neurotransmitter health in a way your body can use.",
+    ptsd:          "This meal is quietly working to lower your cortisol baseline and support the serotonin systems that trauma suppresses — small acts of nourishment matter.",
+    ocd:           "The serotonin support in this meal is real and direct — you're feeding the exact system that OCD challenges most.",
+    bpd:           "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation — this meal provides both.",
+    did:           "Consistent, nourishing meals help ground and stabilize — this one was built to support your brain's need for steady fuel and neurotransmitter balance.",
+    default:       "You're nourishing your brain with intention — every ingredient here was chosen with your mental health in mind.",
   };
 
-  return bullets.join("\n\n") + "\n\n" + (closings[conditionId] || closings.default);
+  return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + (closings[conditionId] || closings.default);
 }
 
 export default function NeuroThrive() {
