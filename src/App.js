@@ -1204,7 +1204,8 @@ export default function NeuroThrive() {
   };
 
   const getAltMeal = (currentMeal, mealType) => {
-    const typeKey = mealType === "Breakfast" ? "breakfast" : mealType === "Lunch" ? "lunch" : mealType === "Dinner" ? "dinner" : "snacks";
+    const label = mealType.toLowerCase();
+    const typeKey = label.includes("breakfast") ? "breakfast" : label.includes("lunch") ? "lunch" : label.includes("dinner") ? "dinner" : "snacks";
     const condition = selectedConditions[0] || "default";
     const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition).map(m => m.name).filter(n => n !== currentMeal);
     if (pool.length === 0) return;
@@ -1494,6 +1495,14 @@ export default function NeuroThrive() {
                         onMouseEnter={e => e.currentTarget.style.background="rgba(122,158,126,0.14)"}
                         onMouseLeave={e => e.currentTarget.style.background="rgba(122,158,126,0.07)"}
                       >🍳 Recipe</button>
+                      {altMeal[currentDay[key]] && (
+                        <button
+                          onClick={() => openRecipe(altMeal[currentDay[key]], label)}
+                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(122,158,126,0.3)", background:"rgba(122,158,126,0.07)", color:"#8fb893", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                          onMouseEnter={e => e.currentTarget.style.background="rgba(122,158,126,0.14)"}
+                          onMouseLeave={e => e.currentTarget.style.background="rgba(122,158,126,0.07)"}
+                        >🍳 Alt Recipe</button>
+                      )}
                       <button
                         onClick={() => getAltMeal(currentDay[key], label)}
                         style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(160,140,110,0.25)", background:"rgba(160,140,110,0.06)", color:"#c4a882", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
