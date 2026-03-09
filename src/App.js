@@ -34,7 +34,8 @@ const DIETARY = [
   { id: "low_sugar", label: "Low Sugar", emoji: "🍬" },
   { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
   { id: "keto", label: "Keto", emoji: "🥑" },
-  { id: "pork_free", label: "Pork-Free", emoji: "🐷" },
+  { id: "pork_free", label: "Pork-Free", emoji: "🚫" },
+  { id: "rice_free", label: "Rice-Free", emoji: "🌾" },
   { id: "halal", label: "Halal", emoji: "☪️" },
   { id: "kosher", label: "Kosher", emoji: "✡️" },
 ];
@@ -369,6 +370,7 @@ const DIET_EXCLUSIONS = {
   low_sugar: ["high_sugar"],
   low_sodium: ["high_sodium"],
   pork_free: ["pork"],
+  rice_free: ["rice"],
   halal: ["pork"],
   kosher: ["pork"],
 };
@@ -1037,6 +1039,7 @@ export default function NeuroThrive() {
   const [explainModal, setExplainModal] = useState(null);
   const [explainText, setExplainText] = useState("");
   const [modalTab, setModalTab] = useState("why");
+  const [altMeal, setAltMeal] = useState({});
   const [weekView, setWeekView] = useState(false);
   const [planCycle, setPlanCycle] = useState(1);
   const [cycleStartDate, setCycleStartDate] = useState(null);
@@ -1198,6 +1201,15 @@ export default function NeuroThrive() {
     setExplainModal({ meal, mealType });
     setExplainText(getExplanation(meal, ""));
     setModalTab("recipe");
+  };
+
+  const getAltMeal = (currentMeal, mealType) => {
+    const typeKey = mealType === "Breakfast" ? "breakfast" : mealType === "Lunch" ? "lunch" : mealType === "Dinner" ? "dinner" : "snacks";
+    const condition = selectedConditions[0] || "default";
+    const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition).map(m => m.name).filter(n => n !== currentMeal);
+    if (pool.length === 0) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    setAltMeal(prev => ({ ...prev, [currentMeal]: pick }));
   };
 
   const saveLog = () => {
@@ -1463,7 +1475,13 @@ export default function NeuroThrive() {
                       <span style={{ color:"#8fb893", marginTop:"2px", flexShrink:0, fontSize:"8px" }}>●</span>
                       <span style={{ flex:1, color:"#f0ebe2", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{currentDay[key]}</span>
                     </div>
-                    <div style={{ display:"flex", gap:"8px" }}>
+                    {altMeal[currentDay[key]] && (
+                      <div style={{ marginBottom:"12px", padding:"10px 12px", borderRadius:"10px", background:"rgba(122,158,126,0.08)", border:"1px solid rgba(122,158,126,0.2)" }}>
+                        <div style={{ color:"#8fb893", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px", marginBottom:"4px" }}>ALTERNATIVE</div>
+                        <div style={{ color:"#f0ebe2", fontSize:"14px", fontWeight:"600" }}>{altMeal[currentDay[key]]}</div>
+                      </div>
+                    )}
+                    <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
                       <button
                         onClick={() => openExplain(currentDay[key], label)}
                         style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(160,140,110,0.2)", background:"rgba(160,140,110,0.07)", color:"#a8c5a0", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
@@ -1476,6 +1494,12 @@ export default function NeuroThrive() {
                         onMouseEnter={e => e.currentTarget.style.background="rgba(122,158,126,0.14)"}
                         onMouseLeave={e => e.currentTarget.style.background="rgba(122,158,126,0.07)"}
                       >🍳 Recipe</button>
+                      <button
+                        onClick={() => getAltMeal(currentDay[key], label)}
+                        style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(160,140,110,0.25)", background:"rgba(160,140,110,0.06)", color:"#c4a882", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                        onMouseEnter={e => e.currentTarget.style.background="rgba(160,140,110,0.14)"}
+                        onMouseLeave={e => e.currentTarget.style.background="rgba(160,140,110,0.06)"}
+                      >✨ Alternative</button>
                     </div>
                   </div>
                 ))}
