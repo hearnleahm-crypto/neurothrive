@@ -115,6 +115,26 @@ const ALL_MEALS = {
     { name: "Oatmeal with Honey & Sliced Banana", tags: ["gluten"], conditions: ["autism","default"] },
     { name: "Pancakes with Maple Syrup & Sliced Banana", tags: ["egg","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Soft Scrambled Eggs with Buttered Toast", tags: ["egg","gluten","dairy"], conditions: ["autism","default"] },
+    // ── Hearty breakfasts — bacon, sausage, brisket, bread, corn, tortillas ──
+    { name: "Bacon & Egg Breakfast Burrito in a Flour Tortilla", tags: ["pork","meat","egg","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Bacon, Egg & Cheese on Whole Grain Toast", tags: ["pork","meat","egg","gluten","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Scrambled Eggs with Crispy Bacon & Roasted Sweet Potato", tags: ["pork","meat","egg"], conditions: ["adhd","bipolar","default"] },
+    { name: "Pork Sausage & Egg Skillet with Sautéed Peppers & Onions", tags: ["pork","meat","egg"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket Hash with Roasted Potatoes & Fried Egg", tags: ["pork","meat","egg"], conditions: ["adhd","depression","default"] },
+    { name: "Bacon & Avocado Breakfast Bowl with Brown Rice", tags: ["pork","meat"], conditions: ["adhd","anxiety","default"] },
+    { name: "Cornbread with Scrambled Eggs & Turkey Sausage", tags: ["corn","gluten","egg","meat"], conditions: ["depression","default"] },
+    { name: "Corn Tortilla Breakfast Tacos with Eggs, Bacon & Salsa", tags: ["corn","pork","meat","egg"], conditions: ["adhd","depression","default"] },
+    { name: "Sourdough Toast with Bacon, Tomato & Avocado", tags: ["gluten","pork","meat"], conditions: ["adhd","depression","default"] },
+    { name: "Whole Grain Waffles with Turkey Sausage & Maple Syrup", tags: ["gluten","egg","dairy","meat"], conditions: ["depression","bipolar","default"] },
+    { name: "Bagel with Egg, Bacon & Cheddar", tags: ["gluten","pork","meat","egg","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Pulled Brisket & Egg Bowl with Roasted Corn & Avocado", tags: ["pork","meat","egg","corn"], conditions: ["adhd","default"] },
+    { name: "Sausage & Sweet Potato Breakfast Skillet", tags: ["pork","meat"], conditions: ["adhd","bipolar","default"] },
+    { name: "Bacon & Spinach Omelette with Whole Grain Toast", tags: ["pork","meat","egg","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Flour Tortilla Wrap with Scrambled Eggs, Sausage & Peppers", tags: ["gluten","pork","meat","egg"], conditions: ["adhd","depression","default"] },
+    { name: "Cornmeal Porridge with Honey & Sliced Banana", tags: ["corn"], conditions: ["depression","anxiety","default"] },
+    { name: "Grilled Sourdough with Almond Butter & Sliced Banana", tags: ["gluten","nuts"], conditions: ["anxiety","depression","default"] },
+    { name: "Avocado Toast on Sourdough with Everything Bagel Seasoning", tags: ["gluten"], conditions: ["anxiety","depression","default"] },
+    { name: "Whole Grain English Muffin with Peanut Butter & Honey", tags: ["gluten","nuts"], conditions: ["anxiety","ocd","default"] },
   ],
   lunch: [
     { name: "Grilled Chicken Breast with Watermelon & Feta Salad", tags: ["dairy","meat"], conditions: ["adhd","default"] },
@@ -177,6 +197,24 @@ const ALL_MEALS = {
     { name: "Grilled Cheese Sandwich with Plain Chicken Soup", tags: ["meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Turkey & Cheese Roll-Up with Apple Slices", tags: ["meat","dairy"], conditions: ["autism","default"] },
     { name: "Plain Pasta with Mild Tomato Sauce & Chicken", tags: ["meat","gluten"], conditions: ["autism","default"] },
+    // ── Hearty lunches — sandwiches, wraps, tortillas, brisket, bacon, corn ──
+    { name: "Smoked Brisket Sandwich on Whole Grain Bread with Coleslaw", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket Tacos on Corn Tortillas with Pickled Onion & Cilantro", tags: ["pork","meat","corn"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket & Roasted Corn Bowl with Avocado & Brown Rice", tags: ["pork","meat","corn"], conditions: ["adhd","bipolar","default"] },
+    { name: "BLT on Sourdough with Avocado & Tomato", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Bacon & Egg Salad Sandwich on Whole Grain Bread", tags: ["pork","meat","egg","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Bacon Cheeseburger on Whole Grain Bun with Side Salad", tags: ["pork","meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Sausage & Pepper Hoagie on Whole Grain Roll", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Beef & Corn Tortilla Tacos with Guacamole & Salsa", tags: ["meat","corn"], conditions: ["adhd","anxiety","default"] },
+    { name: "Chicken & Black Bean Corn Tortilla Tacos", tags: ["meat","corn"], conditions: ["anxiety","depression","default"] },
+    { name: "Steak & Cheese Sub on Whole Grain Hoagie Roll", tags: ["meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Turkey, Bacon & Avocado Club on Sourdough", tags: ["meat","pork","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Grilled Chicken Corn Tortilla Tacos with Mango Salsa", tags: ["meat","corn"], conditions: ["adhd","anxiety","default"] },
+    { name: "Pulled Brisket & Sweet Potato Bowl", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Roast Beef Sandwich on Whole Grain Bread with Horseradish", tags: ["meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Chicken Burrito on a Flour Tortilla with Brown Rice & Black Beans", tags: ["meat","gluten"], conditions: ["adhd","anxiety","default"] },
+    { name: "Beef Quesadilla on Flour Tortilla with Guacamole", tags: ["meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Corn Chowder with Whole Grain Bread Roll", tags: ["corn","gluten","dairy"], conditions: ["anxiety","depression","default"] },
   ],
   dinner: [
     { name: "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side", tags: ["meat"], conditions: ["adhd","default"] },
@@ -246,6 +284,27 @@ const ALL_MEALS = {
     { name: "Baked Salmon with Sweet Potato & Green Beans", tags: ["fish"], conditions: ["anxiety","default"] },
     { name: "Grilled Salmon with Brown Rice & Steamed Broccoli", tags: ["fish"], conditions: ["ocd","bipolar","default"] },
     { name: "Lemon Butter Salmon with Rice & Snap Peas", tags: ["fish","dairy"], conditions: ["bpd","default"] },
+    // ── Hearty dinners — brisket, bacon, sausage, corn, tortillas, bread ──
+    { name: "Slow-Smoked Beef Brisket with Roasted Sweet Potato & Broccoli", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Brisket & Black Bean Bowl with Brown Rice & Roasted Corn", tags: ["pork","meat","corn"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket Tacos on Corn Tortillas with Avocado & Pickled Red Onion", tags: ["pork","meat","corn"], conditions: ["adhd","depression","default"] },
+    { name: "Beef Brisket Chili with Cornbread", tags: ["pork","meat","corn","gluten"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Bacon-Wrapped Chicken Thighs with Roasted Asparagus & Sweet Potato", tags: ["pork","meat"], conditions: ["adhd","depression","default"] },
+    { name: "Bacon & Beef Burger on Whole Grain Bun with Sweet Potato Fries", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Pork Sausage & White Bean Stew with Crusty Bread", tags: ["pork","meat","gluten"], conditions: ["depression","bipolar","default"] },
+    { name: "Sausage, Pepper & Onion Sheet Pan Dinner with Brown Rice", tags: ["pork","meat"], conditions: ["adhd","depression","default"] },
+    { name: "Hearty Beef Stew with Whole Grain Bread & Root Vegetables", tags: ["meat","gluten"], conditions: ["depression","bipolar","ptsd","default"] },
+    { name: "BBQ Chicken on Corn Tortillas with Coleslaw & Corn", tags: ["meat","corn"], conditions: ["adhd","depression","default"] },
+    { name: "Chicken Fajita Bowl with Corn Tortillas, Peppers & Guacamole", tags: ["meat","corn"], conditions: ["adhd","anxiety","default"] },
+    { name: "Steak Fajitas on Flour Tortillas with Peppers & Onions", tags: ["meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Grilled Chicken & Corn Street Tacos on Corn Tortillas", tags: ["meat","corn"], conditions: ["adhd","anxiety","default"] },
+    { name: "Baked Pork Tenderloin with Roasted Sweet Potato & Green Beans", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Smoked Sausage & Lentil Soup with Whole Grain Roll", tags: ["pork","meat","gluten"], conditions: ["depression","bipolar","default"] },
+    { name: "Ground Beef Enchiladas on Corn Tortillas with Black Beans", tags: ["meat","corn","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Roast Chicken with Cornbread Stuffing & Roasted Veggies", tags: ["meat","corn","gluten","egg","dairy"], conditions: ["depression","bipolar","default"] },
+    { name: "Beef Meatloaf with Mashed Potatoes & Steamed Broccoli", tags: ["meat","egg","gluten"], conditions: ["depression","bipolar","ptsd","default"] },
+    { name: "Bacon, Potato & Broccoli Casserole", tags: ["pork","meat","dairy"], conditions: ["adhd","depression","default"] },
+    { name: "Pork Chops with Roasted Apples, Sweet Potato & Rosemary", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
   ],
   snacks: [
     { name: "Apple Slices + Sliced Deli Turkey Roll-Ups", tags: ["meat"], conditions: ["adhd","default"] },
@@ -311,6 +370,12 @@ const ALL_MEALS = {
     { name: "Sliced Strawberries", tags: [], conditions: ["autism","default"] },
     { name: "Vanilla Yogurt & Granola", tags: ["dairy","gluten"], conditions: ["autism","default"] },
     { name: "Peeled Orange Slices", tags: [], conditions: ["autism","default"] },
+    // ── Hearty snacks ──
+    { name: "Hard-Boiled Eggs & Beef Jerky", tags: ["egg","meat"], conditions: ["adhd","default"] },
+    { name: "Corn Tortilla Chips & Guacamole", tags: ["corn"], conditions: ["anxiety","default"] },
+    { name: "Whole Grain Toast with Bacon & Sliced Avocado", tags: ["gluten","pork","meat"], conditions: ["adhd","default"] },
+    { name: "Bacon & Cheese Roll-Up", tags: ["pork","meat","dairy"], conditions: ["adhd","default"] },
+    { name: "Cornbread Muffin & Hard-Boiled Egg", tags: ["corn","gluten","egg"], conditions: ["depression","default"] },
   ],
 };
 
@@ -367,24 +432,30 @@ const DAY1_MEALS = {
 };
 
 const LENTIL_KEYWORDS = ["lentil", "Lentil"];
+const GLUTEN_KEYWORDS = ["toast","bread","tortilla","wrap","sandwich","burrito","bagel","muffin","waffle","pancake","pasta","noodle","roll","hoagie","sub","quesadilla","bun","cornbread","cracker","cereal","granola","oatmeal","oats","porridge"];
+const isGlutenMeal = (name) => GLUTEN_KEYWORDS.some(k => name.toLowerCase().includes(k));
 
 const build30DayMenu = (condition, selectedDiet) => {
   const breakfastPool = filterMeals(ALL_MEALS.breakfast, selectedDiet, condition);
   const lunchPool = filterMeals(ALL_MEALS.lunch, selectedDiet, condition);
   const dinnerPool = filterMeals(ALL_MEALS.dinner, selectedDiet, condition);
   const snackPool = filterMeals(ALL_MEALS.snacks, selectedDiet, condition);
+
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
   const splitPool = (pool) => ({ early: pool.filter(m => !isLentil(m.name)), any: pool });
   const bSplit = splitPool(breakfastPool);
   const lSplit = splitPool(lunchPool);
   const dSplit = splitPool(dinnerPool);
   const sSplit = splitPool(snackPool);
+
   const pick = (pool, count) => {
     const shuffled = shuffle(pool);
     const results = [];
     for (let i = 0; i < count; i++) results.push(shuffled[i % shuffled.length].name);
     return results;
   };
+
+  // Build raw arrays
   const breakfastsEarly = pick(bSplit.early, 6);
   const lunchesEarly = pick(lSplit.early, 6);
   const dinnersEarly = pick(dSplit.early, 6);
@@ -393,17 +464,154 @@ const build30DayMenu = (condition, selectedDiet) => {
   const lunchesLate = pick(lSplit.any, 23);
   const dinnersLate = pick(dSplit.any, 23);
   const snacksLate = pick(sSplit.any, 23);
+
   const day1Base = DAY1_MEALS[condition] || DAY1_MEALS.default;
   const d1b = breakfastPool.find(m => m.name === day1Base.breakfast)?.name || breakfastsEarly[0];
   const d1l = lunchPool.find(m => m.name === day1Base.lunch)?.name || lunchesEarly[0];
   const d1d = dinnerPool.find(m => m.name === day1Base.dinner)?.name || dinnersEarly[0];
   const d1s = snackPool.find(m => m.name === day1Base.snacks)?.name || snacksEarly[0];
+
+  // Non-gluten fallback pickers
+  const nonGlutenBreakfast = breakfastPool.filter(m => !isGlutenMeal(m.name));
+  const nonGlutenLunch = lunchPool.filter(m => !isGlutenMeal(m.name));
+  const nonGlutenDinner = dinnerPool.filter(m => !isGlutenMeal(m.name));
+  const getNonGluten = (pool, fallback) => {
+    if (pool.length === 0) return fallback;
+    return pool[Math.floor(Math.random() * pool.length)].name;
+  };
+
   return Array.from({ length: 30 }, (_, i) => {
     if (i === 0) return { day: 1, breakfast: d1b, lunch: d1l, dinner: d1d, snacks: d1s };
-    if (i <= 6)  return { day: i+1, breakfast: breakfastsEarly[i-1], lunch: lunchesEarly[i-1], dinner: dinnersEarly[i-1], snacks: snacksEarly[i-1] };
-    return { day: i+1, breakfast: breakfastsLate[i-7], lunch: lunchesLate[i-7], dinner: dinnersLate[i-7], snacks: snacksLate[i-7] };
+
+    const b = i <= 6 ? breakfastsEarly[i-1] : breakfastsLate[i-7];
+    const l = i <= 6 ? lunchesEarly[i-1] : lunchesLate[i-7];
+    const d = i <= 6 ? dinnersEarly[i-1] : dinnersLate[i-7];
+    const s = i <= 6 ? snacksEarly[i-1] : snacksLate[i-7];
+
+    // Count how many of the 3 main meals contain bread/gluten items
+    // Allow max 1 per day — replace extras with non-gluten options
+    const meals = [
+      { slot: "b", name: b, isG: isGlutenMeal(b) },
+      { slot: "l", name: l, isG: isGlutenMeal(l) },
+      { slot: "d", name: d, isG: isGlutenMeal(d) },
+    ];
+    let glutenCount = meals.filter(m => m.isG).length;
+    const result = { b, l, d };
+    if (glutenCount > 1) {
+      // Keep only the first gluten meal, swap the rest to non-gluten
+      let kept = false;
+      for (const m of meals) {
+        if (m.isG) {
+          if (!kept) { kept = true; continue; }
+          // Replace this slot with a non-gluten option
+          if (m.slot === "b") result.b = getNonGluten(nonGlutenBreakfast, b);
+          if (m.slot === "l") result.l = getNonGluten(nonGlutenLunch, l);
+          if (m.slot === "d") result.d = getNonGluten(nonGlutenDinner, d);
+        }
+      }
+    }
+    return { day: i+1, breakfast: result.b, lunch: result.l, dinner: result.d, snacks: s };
   });
 };
+
+// ── Calorie Estimator ────────────────────────────────────────────────────────
+// Estimates calories from meal name keywords — returns a range string like "480–560 kcal"
+function estimateCalories(mealName) {
+  const m = mealName.toLowerCase();
+
+  // Snack-sized (under 300)
+  if (m.includes("jerky") || m.includes("handful") || m.includes("sliced banana") ||
+      m.includes("sliced strawberr") || m.includes("orange slices") || m.includes("peeled orange") ||
+      m.includes("chamomile")) return "120–180 kcal";
+
+  if (m.includes("apple slices") || m.includes("celery") || m.includes("cucumber") ||
+      m.includes("rice cake") || m.includes("edamame") || m.includes("roasted chickpeas"))
+    return "150–220 kcal";
+
+  if (m.includes("dark chocolate") || m.includes("trail mix") || m.includes("mixed berry") ||
+      m.includes("fruit bowl") || m.includes("mango slices") || m.includes("peach slices") ||
+      m.includes("grapes") || m.includes("cherries") || m.includes("watermelon chunks") ||
+      m.includes("pineapple chunks") || m.includes("kiwi") || m.includes("banana + "))
+    return "160–240 kcal";
+
+  if (m.includes("peanut butter") && (m.includes("apple") || m.includes("celery") || m.includes("cracker")))
+    return "220–300 kcal";
+
+  if (m.includes("greek yogurt") && !m.includes("parfait")) return "180–260 kcal";
+  if (m.includes("hummus")) return "180–250 kcal";
+  if (m.includes("guacamole") && m.includes("chip")) return "200–280 kcal";
+  if (m.includes("almond") || m.includes("walnut") || m.includes("cashew") || m.includes("nuts"))
+    return "200–280 kcal";
+
+  // Breakfast range
+  if (m.includes("smoothie bowl") || m.includes("smoothie")) return "320–420 kcal";
+  if (m.includes("oatmeal") || m.includes("oats") || m.includes("porridge") || m.includes("overnight oat"))
+    return "340–440 kcal";
+  if (m.includes("chia pudding") || m.includes("chia seed pudding")) return "280–360 kcal";
+  if (m.includes("greek yogurt parfait") || m.includes("yogurt parfait")) return "320–400 kcal";
+  if (m.includes("pancake") || m.includes("waffle")) return "420–560 kcal";
+  if (m.includes("avocado toast") || (m.includes("avocado") && m.includes("toast"))) return "380–480 kcal";
+  if (m.includes("scrambled egg") || m.includes("omelette") || m.includes("egg skillet")) return "380–500 kcal";
+  if (m.includes("breakfast burrito") || m.includes("breakfast taco")) return "480–620 kcal";
+  if (m.includes("bagel")) return "480–600 kcal";
+  if (m.includes("english muffin")) return "320–400 kcal";
+  if (m.includes("cornmeal porridge") || m.includes("cornbread") && m.includes("egg")) return "360–460 kcal";
+  if (m.includes("toast") && (m.includes("peanut butter") || m.includes("almond butter"))) return "360–460 kcal";
+  if (m.includes("sourdough") && !m.includes("bacon")) return "340–440 kcal";
+  if ((m.includes("bacon") || m.includes("sausage")) && m.includes("egg")) return "480–620 kcal";
+  if (m.includes("brisket hash")) return "520–660 kcal";
+  if (m.includes("whole grain") && m.includes("fruit")) return "340–440 kcal";
+
+  // Lunch range
+  if (m.includes("salad") && !m.includes("chicken") && !m.includes("steak") && !m.includes("turkey"))
+    return "220–340 kcal";
+  if (m.includes("salad") && (m.includes("chicken") || m.includes("turkey"))) return "380–500 kcal";
+  if (m.includes("caesar salad")) return "420–540 kcal";
+  if (m.includes("soup") && !m.includes("stew")) return "320–440 kcal";
+  if (m.includes("wrap") && (m.includes("chicken") || m.includes("turkey"))) return "440–560 kcal";
+  if (m.includes("burrito")) return "560–720 kcal";
+  if (m.includes("quesadilla")) return "520–680 kcal";
+  if (m.includes("sandwich") || m.includes("club") || m.includes("sub") || m.includes("hoagie"))
+    return "480–620 kcal";
+  if (m.includes("blt")) return "440–560 kcal";
+  if (m.includes("burger") || m.includes("cheeseburger")) return "580–740 kcal";
+  if (m.includes("taco") && (m.includes("corn tortilla") || m.includes("lettuce"))) return "380–500 kcal";
+  if (m.includes("bowl") && (m.includes("rice") || m.includes("quinoa"))) return "480–620 kcal";
+  if (m.includes("lentil") || m.includes("chickpea") || m.includes("black bean")) return "380–500 kcal";
+
+  // Dinner range
+  if (m.includes("steak") || m.includes("sirloin") || m.includes("ribeye")) return "520–680 kcal";
+  if (m.includes("brisket") && m.includes("chili")) return "580–740 kcal";
+  if (m.includes("brisket")) return "540–700 kcal";
+  if (m.includes("meatloaf")) return "520–660 kcal";
+  if (m.includes("pork chop") || m.includes("pork tenderloin")) return "480–620 kcal";
+  if (m.includes("bacon-wrapped") || m.includes("bacon wrapped")) return "500–640 kcal";
+  if (m.includes("sausage") && m.includes("stew")) return "480–620 kcal";
+  if (m.includes("sausage") && m.includes("pepper")) return "460–580 kcal";
+  if (m.includes("enchilada")) return "540–700 kcal";
+  if (m.includes("fajita")) return "500–660 kcal";
+  if (m.includes("salmon")) return "440–580 kcal";
+  if (m.includes("chicken thigh")) return "480–620 kcal";
+  if (m.includes("chicken breast") || m.includes("chicken breast")) return "420–560 kcal";
+  if (m.includes("turkey") && m.includes("meatball")) return "420–540 kcal";
+  if (m.includes("ground beef") || m.includes("ground turkey")) return "460–600 kcal";
+  if (m.includes("stir-fry") || m.includes("stir fry")) return "440–580 kcal";
+  if (m.includes("curry")) return "480–620 kcal";
+  if (m.includes("stew")) return "460–600 kcal";
+  if (m.includes("pasta") || m.includes("noodle")) return "500–660 kcal";
+  if (m.includes("casserole")) return "480–620 kcal";
+  if (m.includes("stuffed pepper")) return "440–580 kcal";
+  if (m.includes("roasted") && m.includes("chicken")) return "440–580 kcal";
+  if (m.includes("taco") && m.includes("dinner")) return "480–620 kcal";
+  if (m.includes("taco bowl") || (m.includes("taco") && m.includes("bowl"))) return "500–640 kcal";
+
+  // Generic fallbacks by meal type feel
+  if (m.includes("bowl")) return "460–600 kcal";
+  if (m.includes("chicken")) return "420–560 kcal";
+  if (m.includes("turkey")) return "400–540 kcal";
+  if (m.includes("beef")) return "480–620 kcal";
+  return "380–520 kcal";
+}
 
 const CONDITION_FOCUS = {
   adhd: ["fresh fruit & lean protein","omega-3s","iron & zinc","natural sugars over processed"],
@@ -1111,43 +1319,62 @@ function parseIngredients(mealName) {
   return found;
 }
 
-function buildMealExplanation(meal, conditionId) {
-  const condLabel = MENTAL_CONDITIONS.find(c => c.id === conditionId)?.label || "general wellness";
+function buildMealExplanation(meal, conditionIds) {
+  // Accept either a single string or an array
+  const ids = Array.isArray(conditionIds) ? conditionIds : [conditionIds];
+  const activeIds = ids.filter(id => id && id !== "default");
+  const primaryId = activeIds[0] || "default";
+
+  const condLabels = activeIds.length > 0
+    ? activeIds.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean)
+    : ["general wellness"];
+  const condString = condLabels.length === 1
+    ? condLabels[0]
+    : condLabels.slice(0, -1).join(", ") + " and " + condLabels[condLabels.length - 1];
+
   const ingredients = parseIngredients(meal);
 
-  // Condition-specific intros explaining WHY this meal for THIS condition
   const intros = {
-    adhd:          `This is a great meal for ADHD because it directly targets the dopamine and norepinephrine systems that ADHD affects most. Every ingredient was chosen to provide steady brain energy, neurotransmitter precursors, and the nutrients that focus and impulse control depend on.`,
+    adhd:          `This is a great meal for ADHD because it directly targets the dopamine and norepinephrine systems that ADHD affects most — providing steady brain energy, neurotransmitter precursors, and the nutrients focus and impulse control depend on.`,
     anxiety:       `This is a great meal for Anxiety because each ingredient works to calm the nervous system from the inside out — lowering cortisol, supporting GABA production, and reducing the neuroinflammation that keeps the brain in a heightened threat state.`,
     depression:    `This is a great meal for Depression because it delivers the specific nutrients — serotonin precursors, B vitamins, anti-inflammatory compounds, and BDNF boosters — that depression depletes and that antidepressant treatment depends on.`,
-    bipolar:       `This is a great meal for Bipolar Disorder because it stabilizes blood glucose (a key trigger for mood cycling), provides omega-3s and magnesium for neurological stability, and delivers the neurotransmitter precursors both mood phases require.`,
-    schizophrenia: `This is a great meal for Schizophrenia because it targets the dopamine pathway regulation, oxidative stress, and neuroinflammation that are the three most documented neurological features of schizophrenia — through whole food sources your body can use directly.`,
-    autism:        `This is a great meal for Autism Spectrum because it supports the gut-brain axis (where much of the serotonin relevant to autism is produced), provides B6 for neurotransmitter synthesis, and delivers omega-3s for brain cell membrane health — all in sensory-friendly forms.`,
-    ptsd:          `This is a great meal for PTSD because it works to lower the chronically elevated cortisol baseline, rebuild the serotonin and dopamine that trauma depletes, and support the hippocampal repair that PTSD's physical effects on the brain require.`,
-    did:           `This is a great meal for DID because it provides stable, consistent brain fuel that supports grounding and prevents the blood sugar swings that can increase dissociation and destabilize the system's sense of internal consistency.`,
-    bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar — one of the most accessible and direct dietary tools for reducing emotional reactivity — while delivering serotonin precursors and magnesium that support the calm the nervous system needs.`,
-    npd:           `This is a great meal for general brain health because it delivers complete protein, anti-inflammatory compounds, and B vitamins that support healthy dopamine regulation, stress resilience, and cognitive function.`,
-    hpd:           `This is a great meal for general brain health because its combination of protein, complex carbohydrates, and micronutrients supports steady neurotransmitter production, emotional regulation, and consistent brain energy.`,
-    aspd:          `This is a great meal for general brain health because it provides the amino acids, B vitamins, and anti-inflammatory nutrients that support healthy prefrontal cortex function and impulse regulation.`,
-    ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly — OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins in this meal are the exact building blocks serotonin synthesis requires.`,
-    eating:        `This is a nourishing, balanced meal that provides complete nutrition — protein for muscle and brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability and reduce the anxiety that often accompanies eating disorder recovery.`,
-    phobia:        `This is a great meal for managing Phobias and anxiety because it supports GABA production and cortisol regulation — the two neurological levers most directly involved in the physiological fear response that phobias trigger.`,
-    bfrb:          `This is a great meal for Body-Focused Repetitive Behaviors because it delivers magnesium and B vitamins that reduce the nervous system hyperarousal and anxiety that BFRB urges are often driven by.`,
-    ppd:           `This is a great meal for general brain health because its anti-inflammatory nutrients, B vitamins, and complete protein support the neurochemical balance and stress regulation that support clearer, calmer thinking.`,
-    spd:           `This is a great meal for general brain health because it delivers omega-3s, B vitamins, and complete protein that support dopamine regulation and the social motivation circuits that schizoid personality affects.`,
-    default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients — neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals — that support your neurological wellbeing.`,
+    bipolar:       `This is a great meal for Bipolar Disorder because it stabilizes blood glucose (a key mood cycling trigger), provides omega-3s and magnesium for neurological stability, and delivers the neurotransmitter precursors both mood phases require.`,
+    schizophrenia: `This is a great meal for Schizophrenia because it targets dopamine pathway regulation, oxidative stress, and neuroinflammation — the three most documented neurological features of schizophrenia — through whole food sources your body uses directly.`,
+    autism:        `This is a great meal for Autism Spectrum because it supports the gut-brain axis, provides B6 for neurotransmitter synthesis, and delivers omega-3s for brain cell membrane health — all in sensory-friendly forms.`,
+    ptsd:          `This is a great meal for PTSD because it works to lower the chronically elevated cortisol baseline, rebuild the serotonin and dopamine that trauma depletes, and support hippocampal repair.`,
+    did:           `This is a great meal for DID because it provides stable, consistent brain fuel that supports grounding and prevents the blood sugar swings that can increase dissociation.`,
+    bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar — one of the most direct dietary tools for reducing emotional reactivity — while delivering serotonin precursors and magnesium the nervous system needs.`,
+    npd:           `This is a great meal for brain health because it delivers complete protein, anti-inflammatory compounds, and B vitamins that support dopamine regulation, stress resilience, and cognitive function.`,
+    hpd:           `This is a great meal for brain health because its combination of protein, complex carbohydrates, and micronutrients supports steady neurotransmitter production, emotional regulation, and consistent brain energy.`,
+    aspd:          `This is a great meal for brain health because it provides amino acids, B vitamins, and anti-inflammatory nutrients that support healthy prefrontal cortex function and impulse regulation.`,
+    ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly — OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins here are the exact building blocks serotonin synthesis requires.`,
+    eating:        `This is a nourishing, balanced meal that provides complete nutrition — protein for brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability during recovery.`,
+    phobia:        `This is a great meal for managing Phobias because it supports GABA production and cortisol regulation — the two neurological levers most directly involved in the physiological fear response.`,
+    bfrb:          `This is a great meal for Body-Focused Repetitive Behaviors because it delivers magnesium and B vitamins that reduce the nervous system hyperarousal that BFRB urges are often driven by.`,
+    ppd:           `This is a great meal for brain health because its anti-inflammatory nutrients, B vitamins, and complete protein support neurochemical balance and stress regulation.`,
+    spd:           `This is a great meal for brain health because it delivers omega-3s, B vitamins, and complete protein that support dopamine regulation and cognitive function.`,
+    default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients — neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals.`,
   };
 
-  const intro = intros[conditionId] || intros.default;
+  // Build intro — if multiple conditions, name them all up front
+  let intro = "";
+  if (activeIds.length > 1) {
+    const introLines = activeIds.map(id => intros[id] || intros.default);
+    intro = `This meal was chosen specifically for your combination of ${condString}.\n\n` +
+      introLines.map((line, i) => `${condLabels[i]}: ${line.replace(/^This is a great meal for [^b][^e][^c]*because /i, "").charAt(0).toUpperCase() + line.replace(/^This is a great meal for [^b][^e][^c]*because /i, "").slice(1)}`).join("\n");
+  } else {
+    intro = intros[primaryId] || intros.default;
+  }
 
   if (ingredients.length === 0) {
     return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind — you're nourishing yourself with intention.`;
   }
 
+  // For each ingredient, if multiple conditions show the most relevant note
   const bullets = ingredients.map(key => {
     const data = INGREDIENT_SCIENCE[key];
     if (!data) return null;
-    const condNote = data.conditions[conditionId] || data.conditions["default"] || data.what_it_does;
+
     const name = key === "sweetpotato" ? "Sweet potato"
       : key === "brownrice" ? "Brown rice"
       : key === "chiaseeds" ? "Chia seeds"
@@ -1156,7 +1383,25 @@ function buildMealExplanation(meal, conditionId) {
       : key === "darkchocolate" ? "Dark chocolate"
       : key === "peanutbutter" ? "Peanut butter"
       : key.charAt(0).toUpperCase() + key.slice(1);
-    return `• ${name}: contains ${data.nutrient}. ${condNote.charAt(0).toUpperCase() + condNote.slice(1)}.`;
+
+    if (activeIds.length > 1) {
+      // Show a note for each condition that has a specific entry
+      const condNotes = activeIds
+        .filter(id => data.conditions[id])
+        .map(id => {
+          const label = MENTAL_CONDITIONS.find(c => c.id === id)?.label || id;
+          const note = data.conditions[id];
+          return `  → For ${label}: ${note.charAt(0).toUpperCase() + note.slice(1)}.`;
+        });
+      if (condNotes.length === 0) {
+        const fallback = data.conditions["default"] || data.what_it_does;
+        return `• ${name}: contains ${data.nutrient}. ${fallback.charAt(0).toUpperCase() + fallback.slice(1)}.`;
+      }
+      return `• ${name}: contains ${data.nutrient}.\n${condNotes.join("\n")}`;
+    } else {
+      const condNote = data.conditions[primaryId] || data.conditions["default"] || data.what_it_does;
+      return `• ${name}: contains ${data.nutrient}. ${condNote.charAt(0).toUpperCase() + condNote.slice(1)}.`;
+    }
   }).filter(Boolean);
 
   const closings = {
@@ -1173,7 +1418,11 @@ function buildMealExplanation(meal, conditionId) {
     default:       "You're nourishing your brain with intention — every ingredient here was chosen with your mental health in mind.",
   };
 
-  return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + (closings[conditionId] || closings.default);
+  const closing = activeIds.length > 1
+    ? `You're managing ${condString} — this meal works across all of them, and every ingredient was placed here with your full picture in mind.`
+    : (closings[primaryId] || closings.default);
+
+  return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + closing;
 }
 
 export default function NeuroThrive() {
@@ -1256,8 +1505,10 @@ export default function NeuroThrive() {
 
   // ── Build explanation — instant, local, always specific ─────────────────
   const openExplain = (meal, mealType) => {
-    const conditionLabel = MENTAL_CONDITIONS.find(c => c.id === (selectedConditions[0] || "default"))?.label || "general wellness";
-    const text = buildMealExplanation(meal, selectedConditions[0] || "default");
+    const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+    const condLabels = condIds.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean);
+    const conditionLabel = condLabels.length > 0 ? condLabels.join(" & ") : "general wellness";
+    const text = buildMealExplanation(meal, condIds);
     setExplainModal({ meal, mealType, conditionLabel });
     setModalTab("why");
     setExplainText(text);
@@ -1266,7 +1517,9 @@ export default function NeuroThrive() {
 
   // ── Open modal on Recipe tab ──────────────────────────────────────────────
   const openRecipe = (meal, mealType) => {
-    const conditionLabel = MENTAL_CONDITIONS.find(c => c.id === (selectedConditions[0] || "default"))?.label || "general wellness";
+    const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+    const condLabels = condIds.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean);
+    const conditionLabel = condLabels.length > 0 ? condLabels.join(" & ") : "general wellness";
     setExplainModal({ meal, mealType, conditionLabel });
     setModalTab("recipe");
     setExplainText("");
@@ -1277,7 +1530,8 @@ export default function NeuroThrive() {
   const handleModalTab = (tab) => {
     setModalTab(tab);
     if (tab === "why" && explainModal) {
-      const text = buildMealExplanation(explainModal.meal, selectedConditions[0] || "default");
+      const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+      const text = buildMealExplanation(explainModal.meal, condIds);
       setExplainText(text);
     }
   };
@@ -1610,9 +1864,13 @@ export default function NeuroThrive() {
                       <div style={S.mealLabel}>{label}</div>
 
                       {/* Main meal */}
-                      <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"14px" }}>
+                      <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
                         <span style={{ color:"#8fb893", marginTop:"2px", flexShrink:0, fontSize:"8px" }}>●</span>
                         <span style={{ flex:1, color:"#f0ebe2", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{mainMeal}</span>
+                      </div>
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", marginBottom:"12px", padding:"4px 10px", borderRadius:"20px", background:"rgba(143,184,147,0.1)", border:"1px solid rgba(143,184,147,0.2)" }}>
+                        <span style={{ fontSize:"12px" }}>🔥</span>
+                        <span style={{ color:"#8fb893", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(mainMeal)}</span>
                       </div>
 
                       {/* Main meal buttons */}
@@ -1635,7 +1893,11 @@ export default function NeuroThrive() {
                       {alt && (
                         <div style={{ marginTop:"4px", padding:"12px 14px", borderRadius:"12px", background:"rgba(122,158,126,0.06)", border:"1px solid rgba(122,158,126,0.18)" }}>
                           <div style={{ color:"#8fb893", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Alternative</div>
-                          <div style={{ color:"#f0ebe2", fontSize:"14px", fontWeight:"600", lineHeight:1.4, marginBottom:"10px" }}>{alt}</div>
+                          <div style={{ color:"#f0ebe2", fontSize:"14px", fontWeight:"600", lineHeight:1.4, marginBottom:"8px" }}>{alt}</div>
+                          <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", marginBottom:"10px", padding:"3px 9px", borderRadius:"20px", background:"rgba(143,184,147,0.1)", border:"1px solid rgba(143,184,147,0.2)" }}>
+                            <span style={{ fontSize:"11px" }}>🔥</span>
+                            <span style={{ color:"#8fb893", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
+                          </div>
                           <div style={{ display:"flex", gap:"7px", flexWrap:"wrap" }}>
                             <button
                               style={{ flex:1, padding:"8px 10px", borderRadius:"9px", border:"1px solid rgba(160,140,110,0.2)", background:"rgba(160,140,110,0.07)", color:"#a8c5a0", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}
@@ -1781,24 +2043,57 @@ export default function NeuroThrive() {
               <p style={{ color:"#9c8e7e", fontSize:"13px", lineHeight:1.7, margin:0 }}>These suggestions are based on peer-reviewed research and are provided for educational purposes only. They are <strong style={{color:"#d8cfc4"}}>not medical advice</strong> and are not intended to diagnose, treat, or replace any prescribed medication. Always speak with your healthcare provider before starting supplements, especially if you take medication or have a health condition.</p>
             </div>
             {(() => {
-              const conditionKey = selectedConditions.length > 0 ? (SUPPLEMENT_CONDITION_MAP[selectedConditions[0]] || "default") : "default";
-              const supps = SUPPLEMENTS[conditionKey] || SUPPLEMENTS.default;
-              const condLabel = selectedConditions.length > 0 ? MENTAL_CONDITIONS.find(c=>c.id===selectedConditions[0])?.label : null;
+              // Gather supplements for ALL selected conditions, deduplicated by name
+              const allSupps = [];
+              const seenNames = new Set();
+              const condKeys = selectedConditions.length > 0
+                ? selectedConditions.map(id => SUPPLEMENT_CONDITION_MAP[id] || "default")
+                : ["default"];
+              // Use a Set to avoid pulling the same supplement key twice
+              const seenKeys = new Set();
+              condKeys.forEach(key => {
+                if (seenKeys.has(key)) return;
+                seenKeys.add(key);
+                const supps = SUPPLEMENTS[key] || SUPPLEMENTS.default;
+                supps.forEach(s => {
+                  if (!seenNames.has(s.name)) {
+                    seenNames.add(s.name);
+                    // Tag which condition(s) this supplement is for
+                    const forConditions = selectedConditions
+                      .filter(id => (SUPPLEMENT_CONDITION_MAP[id] || "default") === key)
+                      .map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label)
+                      .filter(Boolean);
+                    allSupps.push({ ...s, forConditions });
+                  }
+                });
+              });
+
+              const condLabels = selectedConditions
+                .map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label)
+                .filter(Boolean);
+
               return (
                 <div>
-                  {condLabel && (
+                  {condLabels.length > 0 && (
                     <div style={{ ...S.card, marginBottom:"20px", padding:"12px 18px" }}>
                       <span style={{ fontSize:"11px", color:"#9c8e7e", textTransform:"uppercase", letterSpacing:"2px" }}>Personalised for: </span>
-                      <span style={{ color:"#8fb893", fontWeight:"600", fontSize:"13px" }}>{condLabel}</span>
+                      <span style={{ color:"#8fb893", fontWeight:"600", fontSize:"13px" }}>{condLabels.join(" · ")}</span>
                     </div>
                   )}
-                  {supps.map((s, i) => (
+                  {allSupps.map((s, i) => (
                     <details key={i} style={{ ...S.card, marginBottom:"12px", padding:"0", overflow:"hidden" }}>
                       <summary style={{ padding:"18px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:"14px", listStyle:"none" }}>
                         <span style={{ fontSize:"26px", flexShrink:0 }}>{s.emoji}</span>
                         <div style={{ flex:1 }}>
                           <div style={{ color:"#f0ebe2", fontSize:"15px", fontWeight:"500", marginBottom:"3px" }}>{s.name}</div>
                           <div style={{ color:"#8fb893", fontSize:"12px", fontWeight:"500" }}>{s.dose}</div>
+                          {s.forConditions && s.forConditions.length > 0 && selectedConditions.length > 1 && (
+                            <div style={{ marginTop:"5px", display:"flex", gap:"5px", flexWrap:"wrap" }}>
+                              {s.forConditions.map(label => (
+                                <span key={label} style={{ fontSize:"10px", fontWeight:"600", padding:"2px 8px", borderRadius:"10px", background:"rgba(143,184,147,0.15)", color:"#8fb893", letterSpacing:"0.5px" }}>{label}</span>
+                              ))}
+                            </div>
+                          )}
                         </div>
                         <span style={{ color:"#9c8e7e", fontSize:"18px", flexShrink:0 }}>+</span>
                       </summary>
