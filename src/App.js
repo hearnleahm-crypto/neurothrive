@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const supabase = createClient(
+  "https://gobmsfzpryeaqxkfbnfa.supabase.co",
+  "sb_publishable_xG2_jd1824Ns89gZ7VdVYg_w_v_m1HI"
+);
 
 const MENTAL_CONDITIONS = [
   { id: "adhd", label: "ADHD", emoji: "⚡" },
@@ -1452,48 +1458,198 @@ export default function NeuroThrive() {
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
+
+  // ── Auth state ──────────────────────────────────────────────────────────────
+  const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [authScreen, setAuthScreen] = useState("login"); // "login" | "signup" | "reset"
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authName, setAuthName] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authWorking, setAuthWorking] = useState(false);
+  const [authSuccess, setAuthSuccess] = useState("");
   const [reminderSaved, setReminderSaved] = useState(false);
 
   // Cache for AI explanations — persists in session without re-renders
   const explanationCache = useRef({});
 
-  // Load persisted state on mount
+  // ── Auth listener — runs on mount ──────────────────────────────────────────
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setAuthLoading(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // ── Load user data from Supabase when logged in ────────────────────────────
+  useEffect(() => {
+    if (!user) return;
     const load = async () => {
       try {
-        const saved = await window.storage.get("neurothrive-session");
-        if (saved) {
-          const d = JSON.parse(saved.value);
-          if (d.selectedConditions) setSelectedConditions(d.selectedConditions);
-          if (d.selectedDiet) setSelectedDiet(d.selectedDiet);
-          if (d.menu30) setMenu30(d.menu30);
-          if (d.logs) setLogs(d.logs);
-          if (d.planCycle) setPlanCycle(d.planCycle);
-          if (d.cycleStartDate) setCycleStartDate(d.cycleStartDate);
-          if (d.step && d.step > 0) setStep(d.step);
-          if (d.remindersEnabled) setRemindersEnabled(d.remindersEnabled);
-          if (d.reminderTimes) setReminderTimes(d.reminderTimes);
-          if (d.reminderActive) setReminderActive(d.reminderActive);
+        const { data } = await supabase
+          .from("user_data")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+        if (data) {
+          if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
+          if (data.selected_diet) setSelectedDiet(data.selected_diet);
+          if (data.menu30) setMenu30(data.menu30);
+          if (data.logs) setLogs(data.logs);
+          if (data.plan_cycle) setPlanCycle(data.plan_cycle);
+          if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
+          if (data.step && data.step > 0) setStep(data.step);
+          if (data.reminders_enabled) setRemindersEnabled(data.reminders_enabled);
+          if (data.reminder_times) setReminderTimes(data.reminder_times);
+          if (data.reminder_active) setReminderActive(data.reminder_active);
         }
       } catch(e) {}
       setDataLoaded(true);
     };
     load();
-  }, []);
+  }, [user]);
 
+  // ── Save user data to Supabase whenever state changes ─────────────────────
   useEffect(() => {
-    if (!dataLoaded) return;
+    if (!dataLoaded || !user) return;
     const save = async () => {
       try {
-        await window.storage.set("neurothrive-session", JSON.stringify({
-          selectedConditions, selectedDiet, menu30, logs,
-          planCycle, cycleStartDate, step,
-          remindersEnabled, reminderTimes, reminderActive
-        }));
+        await supabase.from("user_data").upsert({
+          id: user.id,
+          selected_conditions: selectedConditions,
+          selected_diet: selectedDiet,
+          menu30,
+          logs,
+          plan_cycle: planCycle,
+          cycle_start_date: cycleStartDate,
+          step,
+          reminders_enabled: remindersEnabled,
+          reminder_times: reminderTimes,
+          reminder_active: reminderActive,
+          updated_at: new Date().toISOString(),
+        });
       } catch(e) {}
     };
     save();
-  }, [selectedConditions, selectedDiet, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dataLoaded]);
+  }, [selectedConditions, selectedDiet, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dataLoaded, user]);
+
+  // ── Auth functions ──────────────────────────────────────────────────────────
+  const handleSignUp = async () => {
+    setAuthError(""); setAuthWorking(true);
+    const { error } = await supabase.auth.signUp({ email: authEmail, password: authPassword });
+    if (error) setAuthError(error.message);
+    else setAuthSuccess("Check your email to confirm your account, then log in!");
+    setAuthWorking(false);
+  };
+
+  const handleLogin = async () => {
+    setAuthError(""); setAuthWorking(true);
+    const { error } = await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword });
+    if (error) setAuthError(error.message);
+    setAuthWorking(false);
+  };
+
+  const handleReset = async () => {
+    setAuthError(""); setAuthWorking(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(authEmail);
+    if (error) setAuthError(error.message);
+    else setAuthSuccess("Password reset email sent — check your inbox!");
+    setAuthWorking(false);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null); setStep(0); setMenu30(null);
+    setSelectedConditions([]); setSelectedDiet([]);
+    setLogs([]); setDataLoaded(false);
+  };
+
+  // ── Auth screen styles ─────────────────────────────────────────────────────
+  const SA = {
+    overlay: { minHeight:"100vh", background:"linear-gradient(160deg,#0f0d0a 0%,#1c1814 50%,#151210 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Jost',sans-serif" },
+    card: { background:"linear-gradient(145deg,#1e1a15,#251f18)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", border:"1px solid rgba(143,184,147,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.5)" },
+    logo: { textAlign:"center", marginBottom:"32px" },
+    logoText: { fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#f0ebe2", letterSpacing:"2px" },
+    logoSub: { fontSize:"12px", color:"#8fb893", letterSpacing:"3px", textTransform:"uppercase", marginTop:"4px" },
+    label: { fontSize:"12px", color:"#9c8e7e", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px", display:"block" },
+    input: { width:"100%", padding:"14px 16px", borderRadius:"12px", border:"1px solid rgba(160,140,110,0.25)", background:"rgba(255,248,235,0.05)", color:"#f0ebe2", fontSize:"15px", fontFamily:"'Jost',sans-serif", outline:"none", boxSizing:"border-box", marginBottom:"16px" },
+    btn: { width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#7a9e7e,#5a7d5e)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Jost',sans-serif", marginTop:"8px" },
+    link: { color:"#8fb893", fontSize:"13px", cursor:"pointer", textDecoration:"underline", background:"none", border:"none", fontFamily:"'Jost',sans-serif", padding:0 },
+    error: { color:"#e07070", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(220,100,100,0.1)", borderRadius:"10px", border:"1px solid rgba(220,100,100,0.2)" },
+    success: { color:"#8fb893", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(143,184,147,0.1)", borderRadius:"10px", border:"1px solid rgba(143,184,147,0.2)" },
+    divider: { textAlign:"center", color:"#9c8e7e", fontSize:"12px", margin:"16px 0" },
+  };
+
+  // ── Show auth screen if not logged in ──────────────────────────────────────
+  if (authLoading) return (
+    <div style={{ ...SA.overlay }}>
+      <div style={{ color:"#8fb893", fontSize:"16px", fontFamily:"'Jost',sans-serif" }}>Loading...</div>
+    </div>
+  );
+
+  if (!user) return (
+    <div style={SA.overlay}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600;700&display=swap');`}</style>
+      <div style={SA.card}>
+        <div style={SA.logo}>
+          <div style={SA.logoText}>🌿 NeuroThrive</div>
+          <div style={SA.logoSub}>Nourish your mind</div>
+        </div>
+
+        {authScreen === "login" && (
+          <>
+            <label style={SA.label}>Email</label>
+            <input style={SA.input} type="email" placeholder="your@email.com" value={authEmail} onChange={e => setAuthEmail(e.target.value)} />
+            <label style={SA.label}>Password</label>
+            <input style={SA.input} type="password" placeholder="••••••••" value={authPassword} onChange={e => setAuthPassword(e.target.value)} />
+            {authError && <div style={SA.error}>{authError}</div>}
+            {authSuccess && <div style={SA.success}>{authSuccess}</div>}
+            <button style={SA.btn} onClick={handleLogin} disabled={authWorking}>{authWorking ? "Signing in..." : "Sign In"}</button>
+            <div style={SA.divider}>───── or ─────</div>
+            <div style={{ textAlign:"center", display:"flex", flexDirection:"column", gap:"10px" }}>
+              <button style={SA.link} onClick={() => { setAuthScreen("signup"); setAuthError(""); setAuthSuccess(""); }}>Create a new account</button>
+              <button style={SA.link} onClick={() => { setAuthScreen("reset"); setAuthError(""); setAuthSuccess(""); }}>Forgot password?</button>
+            </div>
+          </>
+        )}
+
+        {authScreen === "signup" && (
+          <>
+            <label style={SA.label}>Email</label>
+            <input style={SA.input} type="email" placeholder="your@email.com" value={authEmail} onChange={e => setAuthEmail(e.target.value)} />
+            <label style={SA.label}>Password</label>
+            <input style={SA.input} type="password" placeholder="Min 6 characters" value={authPassword} onChange={e => setAuthPassword(e.target.value)} />
+            {authError && <div style={SA.error}>{authError}</div>}
+            {authSuccess && <div style={SA.success}>{authSuccess}</div>}
+            <button style={SA.btn} onClick={handleSignUp} disabled={authWorking}>{authWorking ? "Creating account..." : "Create Account"}</button>
+            <div style={SA.divider}>───── or ─────</div>
+            <div style={{ textAlign:"center" }}>
+              <button style={SA.link} onClick={() => { setAuthScreen("login"); setAuthError(""); setAuthSuccess(""); }}>Already have an account? Sign in</button>
+            </div>
+          </>
+        )}
+
+        {authScreen === "reset" && (
+          <>
+            <p style={{ color:"#9c8e7e", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Enter your email and we'll send you a link to reset your password.</p>
+            <label style={SA.label}>Email</label>
+            <input style={SA.input} type="email" placeholder="your@email.com" value={authEmail} onChange={e => setAuthEmail(e.target.value)} />
+            {authError && <div style={SA.error}>{authError}</div>}
+            {authSuccess && <div style={SA.success}>{authSuccess}</div>}
+            <button style={SA.btn} onClick={handleReset} disabled={authWorking}>{authWorking ? "Sending..." : "Send Reset Email"}</button>
+            <div style={{ textAlign:"center", marginTop:"16px" }}>
+              <button style={SA.link} onClick={() => { setAuthScreen("login"); setAuthError(""); setAuthSuccess(""); }}>← Back to sign in</button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     if (!cycleStartDate || !menu30) return;
@@ -1703,6 +1859,7 @@ export default function NeuroThrive() {
             <button key={s} style={S.navTab(step===i+1)} onClick={() => setStep(i+1)}>{s}</button>
           ))}
         </div>
+        <button onClick={handleLogout} style={{ marginLeft:"8px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(160,140,110,0.25)", background:"transparent", color:"#9c8e7e", fontSize:"11px", fontWeight:"600", cursor:"pointer", letterSpacing:"0.5px", flexShrink:0 }}>Sign Out</button>
       </nav>
 
       <div style={S.main}>
