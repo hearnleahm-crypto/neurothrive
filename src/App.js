@@ -982,19 +982,217 @@ const getRecipe = (meal) => {
 };
 
 const AFFIRMATIONS = [
+  // ── Identity & Worth ──────────────────────────────────────────────────────
   { text: "Your brain is not broken. It is beautifully different.", author: "NeuroThrive" },
+  { text: "You are more than your diagnosis. You are whole, worthy, and valid.", author: "NeuroThrive" },
   { text: "You are allowed to take up space — in every room, on every plate.", author: "NeuroThrive" },
+  { text: "Your worth is not measured by your productivity.", author: "NeuroThrive" },
+  { text: "You are not too much. You are not too little. You are exactly enough.", author: "NeuroThrive" },
+  { text: "Your sensitivity is not a weakness. It is a form of depth.", author: "NeuroThrive" },
+  { text: "You did not choose your diagnosis. You did choose to keep going.", author: "NeuroThrive" },
+  { text: "You are a whole person, not a collection of symptoms.", author: "NeuroThrive" },
+  { text: "Being different is not a deficit. It is a different kind of brilliance.", author: "NeuroThrive" },
+  { text: "Your story is not over. This is just one chapter.", author: "NeuroThrive" },
+  { text: "You deserve to be here. In this room. In this body. In this life.", author: "NeuroThrive" },
+  { text: "You are worthy of care, including from yourself.", author: "NeuroThrive" },
+  { text: "Your existence alone has value. Not what you produce. Not what you perform.", author: "NeuroThrive" },
+  { text: "The parts of you that feel like too much are often the parts people love most.", author: "NeuroThrive" },
+  { text: "You are not defined by your hardest days.", author: "NeuroThrive" },
+  { text: "Imperfect and whole. Struggling and worthy. These can all be true at once.", author: "NeuroThrive" },
+  { text: "You carry things that most people can't see. That kind of strength deserves recognition.", author: "NeuroThrive" },
+  { text: "You are not your worst thought about yourself.", author: "NeuroThrive" },
+  { text: "The courage it takes to live authentically with a mental health condition is extraordinary.", author: "NeuroThrive" },
+  { text: "You are someone's reason to smile, even on the days you can't feel it.", author: "NeuroThrive" },
+
+  // ── Healing & Progress ───────────────────────────────────────────────────
   { text: "Healing is not linear. Neither is eating well. Both take time.", author: "NeuroThrive" },
   { text: "You showed up today. That alone is worth celebrating.", author: "NeuroThrive" },
-  { text: "The body you're in deserves nourishment — exactly as it is, right now.", author: "NeuroThrive" },
   { text: "Small steps are still steps. One meal, one moment, one breath at a time.", author: "NeuroThrive" },
-  { text: "You are more than your diagnosis. You are whole, worthy, and valid.", author: "NeuroThrive" },
-  { text: "Rest is productive. Eating is productive. Existing is productive.", author: "NeuroThrive" },
   { text: "Even on the hard days, you are doing something remarkable by still trying.", author: "NeuroThrive" },
+  { text: "Progress is rarely a straight line. Zigzags still move forward.", author: "NeuroThrive" },
+  { text: "Recovery is not about being fixed. It's about learning to live well.", author: "NeuroThrive" },
+  { text: "Every good day you've had proves another is possible.", author: "NeuroThrive" },
+  { text: "Healing looks different on every person. Trust your version of it.", author: "NeuroThrive" },
+  { text: "You have already survived 100% of your hardest days. That record stands.", author: "NeuroThrive" },
+  { text: "The fact that you're still here, still trying, still hoping — that is everything.", author: "NeuroThrive" },
+  { text: "One nourishing meal is a step forward. Always.", author: "NeuroThrive" },
+  { text: "You don't have to be fully healed to be worthy of good things.", author: "NeuroThrive" },
+  { text: "Setbacks are not failures. They are part of every healing story ever told.", author: "NeuroThrive" },
+  { text: "Sometimes moving forward means staying still and letting yourself rest.", author: "NeuroThrive" },
+  { text: "Your effort counts even when the results aren't visible yet.", author: "NeuroThrive" },
+  { text: "The work you're doing on yourself quietly is some of the most important work there is.", author: "NeuroThrive" },
+  { text: "Celebrate the tiny wins. They are the foundation of big ones.", author: "NeuroThrive" },
+  { text: "You are further along than you were. Even if it doesn't feel like it.", author: "NeuroThrive" },
+  { text: "Growth is happening in you, even when you can't see it yet.", author: "NeuroThrive" },
+  { text: "You are not starting over. You are starting from experience.", author: "NeuroThrive" },
+
+  // ── Nourishment & Body ───────────────────────────────────────────────────
+  { text: "The body you're in deserves nourishment — exactly as it is, right now.", author: "NeuroThrive" },
   { text: "Nourishing yourself is an act of radical self-love.", author: "NeuroThrive" },
-  { text: "You deserve gentleness — especially from yourself.", author: "NeuroThrive" },
   { text: "Your feelings are valid. Your hunger is valid. You are valid.", author: "NeuroThrive" },
+  { text: "Your body works incredibly hard for you every single day.", author: "NeuroThrive" },
+  { text: "Eating well is not about perfection. It is about showing up for yourself.", author: "NeuroThrive" },
+  { text: "Food is medicine, and you deserve to be well.", author: "NeuroThrive" },
+  { text: "Every meal is a chance to support the brain that works so hard for you.", author: "NeuroThrive" },
+  { text: "Your body is not your enemy. It is doing its best with what it's been through.", author: "NeuroThrive" },
+  { text: "You are allowed to enjoy food. Pleasure and nourishment are not opposites.", author: "NeuroThrive" },
+  { text: "Your hunger cues are valid, even when they feel confusing.", author: "NeuroThrive" },
+  { text: "Taking care of your body is one of the kindest things you can do for your mind.", author: "NeuroThrive" },
+  { text: "You deserve hot meals, good water, and time to eat without guilt.", author: "NeuroThrive" },
+  { text: "Your brain needs fuel. Feeding it is not indulgence. It is maintenance.", author: "NeuroThrive" },
+  { text: "There is no 'earning' your food. You deserve to eat simply because you are alive.", author: "NeuroThrive" },
+  { text: "Nourishment is not a reward. It is a right.", author: "NeuroThrive" },
+  { text: "Be as gentle with your body as you would be with someone you love.", author: "NeuroThrive" },
+  { text: "What you eat today is a love letter to your future self.", author: "NeuroThrive" },
+  { text: "Your body has carried you through everything. It deserves your gratitude and care.", author: "NeuroThrive" },
+  { text: "One bite, one sip, one meal at a time. That's all it takes.", author: "NeuroThrive" },
+  { text: "Imperfect eating is infinitely better than not eating at all.", author: "NeuroThrive" },
+
+  // ── Rest & Gentleness ────────────────────────────────────────────────────
+  { text: "Rest is productive. Eating is productive. Existing is productive.", author: "NeuroThrive" },
+  { text: "You deserve gentleness — especially from yourself.", author: "NeuroThrive" },
+  { text: "It is okay to do less today. Today had enough in it already.", author: "NeuroThrive" },
+  { text: "Slowing down is not giving up. It is giving yourself what you need.", author: "NeuroThrive" },
+  { text: "You are not lazy. You are a person with a nervous system that needs more support.", author: "NeuroThrive" },
+  { text: "Rest is not something you earn. It is something you need.", author: "NeuroThrive" },
+  { text: "Doing nothing is sometimes the most therapeutic thing you can do.", author: "NeuroThrive" },
+  { text: "Your pace is valid. There is no race to healing.", author: "NeuroThrive" },
+  { text: "Gentle days are allowed. Quiet days are allowed. All days are allowed.", author: "NeuroThrive" },
+  { text: "Sleep is medicine. Stillness is medicine. Quiet is medicine.", author: "NeuroThrive" },
+  { text: "You do not owe anyone a performance of wellness.", author: "NeuroThrive" },
+  { text: "Not every day needs to be a good day. Some days just need to be gotten through.", author: "NeuroThrive" },
+  { text: "Asking for help is not weakness. It is wisdom.", author: "NeuroThrive" },
+  { text: "You are allowed to have needs. Everyone does.", author: "NeuroThrive" },
+  { text: "Softness is strength. Kindness toward yourself takes more courage than hardness.", author: "NeuroThrive" },
+
+  // ── Mental Health Specific ───────────────────────────────────────────────
+  { text: "Your anxiety is lying to you about the future. You have handled every day so far.", author: "NeuroThrive" },
+  { text: "Depression lies. The voice that says you are not enough is not the truth.", author: "NeuroThrive" },
+  { text: "Your ADHD brain is not defective. It evolved for a different kind of world.", author: "NeuroThrive" },
+  { text: "The highs and lows do not define you. The person between them does.", author: "NeuroThrive" },
+  { text: "Trauma changes people. It does not ruin them.", author: "NeuroThrive" },
+  { text: "Your intrusive thoughts are not your intentions. They are symptoms, not character.", author: "NeuroThrive" },
+  { text: "You are not your worst episode. You are the person who got through it.", author: "NeuroThrive" },
+  { text: "Mental illness is not a moral failing. It is a medical reality.", author: "NeuroThrive" },
+  { text: "The bravest thing you can do is seek help and keep going.", author: "NeuroThrive" },
+  { text: "You are not dramatic. You are not too sensitive. You are wired differently.", author: "NeuroThrive" },
+  { text: "Managing a mental health condition is a full-time job most people can't see.", author: "NeuroThrive" },
+  { text: "You don't have to explain your struggles to deserve support.", author: "NeuroThrive" },
+  { text: "The fact that you keep trying in spite of everything is astonishing.", author: "NeuroThrive" },
+  { text: "Your brain works differently. That is not a flaw in you. It is a feature of you.", author: "NeuroThrive" },
+  { text: "You are not defined by what your brain does to you in your hardest moments.", author: "NeuroThrive" },
+
+  // ── Hope & Future ────────────────────────────────────────────────────────
+  { text: "There are good days ahead. You haven't met them yet.", author: "NeuroThrive" },
+  { text: "Something is shifting, even when you can't feel it.", author: "NeuroThrive" },
+  { text: "The best chapters of your life may not have been written yet.", author: "NeuroThrive" },
+  { text: "Hope doesn't require certainty. It only requires possibility.", author: "NeuroThrive" },
+  { text: "You have surprised yourself before. You will again.", author: "NeuroThrive" },
+  { text: "The version of you that is thriving exists. You are moving toward them.", author: "NeuroThrive" },
+  { text: "Tomorrow is genuinely different from today. Hold on for it.", author: "NeuroThrive" },
+  { text: "Your future self will be grateful you didn't give up today.", author: "NeuroThrive" },
+  { text: "Things change. Seasons change. You are allowed to change too.", author: "NeuroThrive" },
+  { text: "The sun has risen every single day of your life so far. That won't stop now.", author: "NeuroThrive" },
+  { text: "You don't have to see the whole staircase. Just the next step.", author: "NeuroThrive" },
+  { text: "Small actions today are seeds for a life that feels better tomorrow.", author: "NeuroThrive" },
+  { text: "Your capacity to feel deeply is also your capacity to feel joy deeply.", author: "NeuroThrive" },
+  { text: "Something good is still possible for you. Believe that.", author: "NeuroThrive" },
+  { text: "You are not stuck forever. You are just here for now.", author: "NeuroThrive" },
+
+  // ── Strength & Resilience ────────────────────────────────────────────────
+  { text: "You are stronger than the hardest thing you have ever faced. Proof: you faced it.", author: "NeuroThrive" },
+  { text: "Resilience is not about not breaking. It's about breaking and continuing anyway.", author: "NeuroThrive" },
+  { text: "You have gotten through every hard day before this one. You have a perfect record.", author: "NeuroThrive" },
+  { text: "The battles you fight invisibly make you one of the strongest people in any room.", author: "NeuroThrive" },
+  { text: "Courage is not the absence of fear. It is eating well when everything in you says don't bother.", author: "NeuroThrive" },
+  { text: "You have rebuilt yourself before. You know how.", author: "NeuroThrive" },
+  { text: "Every hard thing you have survived has taught you something about your own power.", author: "NeuroThrive" },
+  { text: "You are harder to break than you think.", author: "NeuroThrive" },
+  { text: "Getting out of bed on the hardest days is heroic. Even when it doesn't feel like it.", author: "NeuroThrive" },
+  { text: "You have the kind of strength that doesn't announce itself. The quiet, daily kind.", author: "NeuroThrive" },
+  { text: "Enduring is a form of winning. You are enduring.", author: "NeuroThrive" },
+  { text: "The fact that you are still here is evidence of extraordinary resilience.", author: "NeuroThrive" },
+
+  // ── Connection & Community ───────────────────────────────────────────────
+  { text: "You are not alone in this, even when it feels that way.", author: "NeuroThrive" },
+  { text: "Millions of people are fighting the same invisible battles right now. You have company.", author: "NeuroThrive" },
+  { text: "Your vulnerability is not a burden to the people who truly love you.", author: "NeuroThrive" },
+  { text: "Letting someone in is an act of courage and connection.", author: "NeuroThrive" },
+  { text: "The right people will not leave because of your diagnosis.", author: "NeuroThrive" },
+  { text: "You deserve relationships where your whole self is welcome.", author: "NeuroThrive" },
+  { text: "Sharing your struggle is not weakness. It is an invitation to real connection.", author: "NeuroThrive" },
+  { text: "You matter to more people than your anxious mind will admit.", author: "NeuroThrive" },
+
+  // ── Daily Grounding ──────────────────────────────────────────────────────
+  { text: "Just for today: one meal, one glass of water, one kind thought about yourself.", author: "NeuroThrive" },
+  { text: "Today's only job is today. That is enough.", author: "NeuroThrive" },
+  { text: "You don't have to fix everything today. Existing is enough for today.", author: "NeuroThrive" },
+  { text: "Breathe. You are here. That matters more than you know.", author: "NeuroThrive" },
+  { text: "This moment, right now, is manageable. Just this moment.", author: "NeuroThrive" },
+  { text: "You woke up today. That is where every good thing starts.", author: "NeuroThrive" },
+  { text: "The present moment is the only one that needs your attention right now.", author: "NeuroThrive" },
+  { text: "Let today be simple. Just do the next small thing.", author: "NeuroThrive" },
+  { text: "Ground yourself: five things you can see, four you can hear, three you can touch.", author: "NeuroThrive" },
+  { text: "You made it to another day. That is a genuine achievement.", author: "NeuroThrive" },
+  { text: "Right now you are safe. Right now you are breathing. Right now is enough.", author: "NeuroThrive" },
+  { text: "You don't need a perfect day. You need a real one. This is it.", author: "NeuroThrive" },
+
+  // ── Mindset ──────────────────────────────────────────────────────────────
+  { text: "What if today is the day things start to shift?", author: "NeuroThrive" },
+  { text: "You are not behind. You are on your own timeline.", author: "NeuroThrive" },
+  { text: "Comparison is a thief. No one else has your exact path.", author: "NeuroThrive" },
+  { text: "The voice that says you can't is not the truth. It is a symptom.", author: "NeuroThrive" },
+  { text: "You have permission to let go of what isn't serving you.", author: "NeuroThrive" },
+  { text: "You can hold both — the hard truth and the hope. Both are real.", author: "NeuroThrive" },
+  { text: "Grace is not something you earn. It is something you give yourself.", author: "NeuroThrive" },
+  { text: "You are not weak for needing support. Plants need water. People need care.", author: "NeuroThrive" },
+  { text: "The way you talk to yourself becomes the foundation of how you feel.", author: "NeuroThrive" },
+  { text: "Treat yourself with the kindness you would offer your closest friend.", author: "NeuroThrive" },
+  { text: "You are allowed to change your mind, your goals, your plan. You are allowed to evolve.", author: "NeuroThrive" },
+  { text: "Not everything needs to be figured out today.", author: "NeuroThrive" },
+  { text: "Uncertainty is uncomfortable, but it also means nothing bad is certain either.", author: "NeuroThrive" },
+  { text: "You are doing better than you're giving yourself credit for.", author: "NeuroThrive" },
+  { text: "Give yourself the benefit of the doubt. You are trying.", author: "NeuroThrive" },
+
+  // ── Gratitude ────────────────────────────────────────────────────────────
+  { text: "Your brain has gotten you through every single day of your life. Thank it.", author: "NeuroThrive" },
+  { text: "There is something in your life right now that is quietly good. Find it.", author: "NeuroThrive" },
+  { text: "Your body has never stopped trying to keep you alive. That is love.", author: "NeuroThrive" },
+  { text: "Small joys are still joys. Notice them today.", author: "NeuroThrive" },
+  { text: "Something ordinary today — a meal, a breeze, a song — is worth savouring.", author: "NeuroThrive" },
+  { text: "Gratitude doesn't require that everything is fine. It just requires that something is.", author: "NeuroThrive" },
+
+  // ── Evening Affirmations ─────────────────────────────────────────────────
+  { text: "You made it through today. Whatever it looked like — that counts.", author: "NeuroThrive" },
+  { text: "Rest now. Your nervous system has worked hard enough today.", author: "NeuroThrive" },
+  { text: "Tomorrow is a clean page. Tonight, just rest.", author: "NeuroThrive" },
+  { text: "Whatever didn't get done today can wait. You cannot.", author: "NeuroThrive" },
+  { text: "Let today be over. You gave what you could. That is enough.", author: "NeuroThrive" },
+  { text: "Sleep is healing. Let your brain do its quiet repair work tonight.", author: "NeuroThrive" },
+  { text: "You don't have to carry today into tomorrow. Set it down.", author: "NeuroThrive" },
+
+  // ── Morning Affirmations ─────────────────────────────────────────────────
+  { text: "Good morning. You get another chance today. Use it gently.", author: "NeuroThrive" },
+  { text: "The day ahead is full of moments that haven't been decided yet.", author: "NeuroThrive" },
+  { text: "Morning is the brain's reset button. Press it slowly.", author: "NeuroThrive" },
+  { text: "Start with water. Start with breath. Start with one kind thought. Then breakfast.", author: "NeuroThrive" },
+  { text: "Today does not have to be perfect to be good.", author: "NeuroThrive" },
+  { text: "You have everything you need to get through today. You've proven that before.", author: "NeuroThrive" },
+  { text: "This morning is new. Whatever yesterday held, today is separate.", author: "NeuroThrive" },
+
+  // ── Science-Backed Wellness ──────────────────────────────────────────────
+  { text: "Your gut produces 90% of your serotonin. Every meal is a mood decision.", author: "NeuroThrive" },
+  { text: "Omega-3s, leafy greens, and sleep are the most evidence-backed mood boosters on earth.", author: "NeuroThrive" },
+  { text: "The science is clear: what you eat shapes how you think and feel. You are choosing wisely.", author: "NeuroThrive" },
+  { text: "Hydration is brain maintenance. A 2% drop in water levels impairs cognition. Drink up.", author: "NeuroThrive" },
+  { text: "Every colourful vegetable on your plate is antioxidants reaching your brain.", author: "NeuroThrive" },
+  { text: "Movement, sleep, and nourishment are the three most powerful mood medicines available.", author: "NeuroThrive" },
+  { text: "Your microbiome communicates directly with your brain. Feed it well and it returns the favour.", author: "NeuroThrive" },
+  { text: "Research shows consistent mealtimes reduce cortisol. Structure is medicine.", author: "NeuroThrive" },
+  { text: "Magnesium, omega-3s, and B vitamins are not just supplements. They are brain infrastructure.", author: "NeuroThrive" },
+  { text: "Every anti-inflammatory food you eat is a quiet act of protection for your nervous system.", author: "NeuroThrive" },
 ];
+
 
 const MOOD_EMOJIS = [
   { emoji: "😞", label: "Rough", val: 1 },
@@ -1800,6 +1998,8 @@ export default function NeuroThrive() {
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
+  const [affirmNotifEnabled, setAffirmNotifEnabled] = useState(false);
+  const [affirmNotifTime, setAffirmNotifTime] = useState("09:00");
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -2125,6 +2325,21 @@ export default function NeuroThrive() {
         }
       }, ms);
     });
+    // ── Daily affirmation notification ──────────────────────────────────
+    if (affirmNotifEnabled) {
+      const [h, m] = affirmNotifTime.split(":").map(Number);
+      const now = new Date();
+      const target = new Date();
+      target.setHours(h, m, 0, 0);
+      if (target <= now) target.setDate(target.getDate() + 1);
+      const ms = target - now;
+      setTimeout(() => {
+        if (notifPermission === "granted" && affirmNotifEnabled) {
+          const affirmation = AFFIRMATIONS[Math.floor(Math.random() * AFFIRMATIONS.length)];
+          new Notification("💙 NeuroThrive — Daily Affirmation", { body: affirmation.text });
+        }
+      }, ms);
+    }
   };
 
   const saveReminders = () => {
@@ -2711,6 +2926,28 @@ export default function NeuroThrive() {
                 </div>
               ))}
             </div>
+            {/* ── Daily Affirmation Notification ── */}
+            <div style={{ ...S.card, marginBottom:"20px", padding:"20px" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:"14px", marginBottom: affirmNotifEnabled ? "16px" : "0" }}>
+                <span style={{ fontSize:"24px" }}>💙</span>
+                <div style={{ flex:1 }}>
+                  <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"500", marginBottom:"3px" }}>Daily Affirmation</div>
+                  <div style={{ color:"#8890b8", fontSize:"12px" }}>Receive a random affirmation every day</div>
+                </div>
+                <div onClick={() => setAffirmNotifEnabled(p => !p)} style={{ width:"44px", height:"24px", borderRadius:"12px", background:affirmNotifEnabled?"#5570f0":"rgba(110,120,200,0.2)", cursor:"pointer", position:"relative", transition:"background 0.2s", flexShrink:0 }}>
+                  <div style={{ position:"absolute", top:"3px", left:affirmNotifEnabled?"22px":"3px", width:"18px", height:"18px", borderRadius:"50%", background:"#fff", transition:"left 0.2s", boxShadow:"0 1px 4px rgba(0,0,0,0.2)" }} />
+                </div>
+              </div>
+              {affirmNotifEnabled && (
+                <div style={{ display:"flex", alignItems:"center", gap:"12px", paddingTop:"14px", borderTop:"1px solid rgba(107,143,255,0.12)" }}>
+                  <span style={{ color:"#8890b8", fontSize:"13px", whiteSpace:"nowrap" }}>Deliver at</span>
+                  <input type="time" value={affirmNotifTime} onChange={e => setAffirmNotifTime(e.target.value)}
+                    style={{ padding:"8px 12px", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.25)", background:"rgba(107,143,255,0.07)", color:"#eef0ff", fontSize:"14px", fontFamily:"'Outfit',sans-serif", outline:"none" }} />
+                  <span style={{ color:"#7b9fff", fontSize:"12px" }}>daily</span>
+                </div>
+              )}
+            </div>
+
             {(() => {
               const REMINDER_TIPS = {
                 adhd: { emoji:"⚡", label:"ADHD", tip:"Time blindness is real. Many people with ADHD don't feel hunger cues until they're well past the point of low blood sugar — which worsens focus and mood. Gentle meal reminders act as an external clock for your brain." },
