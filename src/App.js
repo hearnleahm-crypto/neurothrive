@@ -2057,7 +2057,10 @@ export default function NeuroThrive() {
           if (data.logs) setLogs(data.logs);
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
           if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
-          if (data.step && data.step > 0) setStep(data.step);
+          if (data.step && data.step > 0) {
+            // If user is not premium, cap them at step 2
+            setStep(data.step);
+          }
           if (data.reminders_enabled) setRemindersEnabled(data.reminders_enabled);
           if (data.reminder_times) setReminderTimes(data.reminder_times);
           if (data.reminder_active) setReminderActive(data.reminder_active);
@@ -2087,7 +2090,13 @@ export default function NeuroThrive() {
     checkSub();
   }, [user]);
 
-  // ── Handle return from Stripe checkout ────────────────────────────────────
+  // ── Show paywall for existing users not yet premium ───────────────────────
+  useEffect(() => {
+    if (!dataLoaded) return;
+    if (step >= 3 && !isPremium) {
+      setShowPaywall(true);
+    }
+  }, [dataLoaded, isPremium, step]);
   useEffect(() => {
     if (!user) return;
     const params = new URLSearchParams(window.location.search);
