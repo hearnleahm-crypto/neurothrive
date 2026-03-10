@@ -2187,7 +2187,7 @@ export default function NeuroThrive() {
         body: JSON.stringify({ priceId, userId: user.id, userEmail: user.email }),
       });
       const { url, error } = await res.json();
-      if (url) { const a = document.createElement("a"); a.href = url; a.click(); }
+      if (url) window.location.replace(url);
       else console.error("Stripe error:", error);
     } catch(e) {
       console.error("Checkout error:", e);
