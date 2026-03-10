@@ -1976,6 +1976,7 @@ export default function NeuroThrive() {
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // "terms" | "privacy" | null
   const [isPremium, setIsPremium] = useState(false);
+  const [subChecked, setSubChecked] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(null); // "monthly" | "annual" | null
   const [subscriptionPlan, setSubscriptionPlan] = useState(null);
@@ -2058,7 +2059,7 @@ export default function NeuroThrive() {
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
           if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
           if (data.step && data.step > 0) {
-            // If user is not premium, cap them at step 2
+            // Cap at step 2 for non-premium — paywall useEffect will handle showing overlay
             setStep(data.step);
           }
           if (data.reminders_enabled) setRemindersEnabled(data.reminders_enabled);
@@ -2086,20 +2087,21 @@ export default function NeuroThrive() {
           setSubscriptionPlan(data.plan);
         }
       } catch(e) {}
+      setSubChecked(true);
     };
     checkSub();
   }, [user]);
 
   // ── Show paywall for existing users not yet premium ───────────────────────
   useEffect(() => {
-    if (!dataLoaded) return;
+    if (!dataLoaded || !subChecked) return;
     if (step >= 3 && !isPremium) {
       setShowPaywall(true);
     }
-  }, [dataLoaded, isPremium, step]);
+  }, [dataLoaded, subChecked, isPremium, step]);
 
-  // Derived: always block step 3+ for non-premium users
-  const paywallActive = dataLoaded && step >= 3 && !isPremium;
+  // Derived: always block step 3+ for non-premium users (after sub is checked)
+  const paywallActive = dataLoaded && subChecked && step >= 3 && !isPremium;
   useEffect(() => {
     if (!user) return;
     const params = new URLSearchParams(window.location.search);
@@ -2194,8 +2196,10 @@ export default function NeuroThrive() {
   };
 
   const handleStepForward = (nextStep) => {
-    if (nextStep >= 3 && !isPremium) {
-      setShowPaywall(true);
+    if (nextStep >= 3 && (!isPremium || !subChecked)) {
+      if (subChecked) setShowPaywall(true);
+      // If not yet checked, show paywall to be safe
+      else setShowPaywall(true);
     } else {
       setStep(nextStep);
     }
@@ -2589,7 +2593,7 @@ export default function NeuroThrive() {
         </div>
         <div style={S.navTabs}>
           {step > 0 && STEPS.slice(1).map((s, i) => (
-            <button key={s} style={S.navTab(step===i+1)} onClick={() => setStep(i+1)}>{s}</button>
+            <button key={s} style={S.navTab(step===i+1)} onClick={() => handleStepForward(i+1)}>{s}</button>
           ))}
         </div>
         <button onClick={handleLogout} style={{ marginLeft:"8px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#8890b8", fontSize:"11px", fontWeight:"600", cursor:"pointer", letterSpacing:"0.5px", flexShrink:0 }}>Sign Out</button>
