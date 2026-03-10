@@ -2675,8 +2675,26 @@ export default function NeuroThrive() {
           </div>
         )}
 
+        {/* PAYWALL GATE: show if step >= 3 and not premium */}
+        {step >= 3 && !isPremium && (
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Outfit',sans-serif" }}>
+            <div style={{ fontSize:"52px", marginBottom:"16px" }}>🧠</div>
+            <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
+            <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalised plan is ready — subscribe to unlock your 30-day menu, journal, affirmations, supplements, and reminders.</p>
+            <div style={{ display:"flex", flexDirection:"column", gap:"14px", width:"100%", maxWidth:"380px" }}>
+              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#6b8fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Outfit',sans-serif" }}>
+                {checkoutLoading === "annual" ? "Loading..." : "Get Annual — $59.99/yr (save 50%)"}
+              </button>
+              <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#c8d0ff", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Outfit',sans-serif" }}>
+                {checkoutLoading === "monthly" ? "Loading..." : "Monthly — $9.99/mo"}
+              </button>
+            </div>
+            <button onClick={() => setStep(2)} style={{ marginTop:"24px", color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Outfit',sans-serif" }}>← Go back</button>
+          </div>
+        )}
+
         {/* STEP 3: 30-DAY MENU */}
-        {step === 3 && menu30 && (
+        {step === 3 && menu30 && isPremium && (
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"6px", flexWrap:"wrap", gap:"10px" }}>
               <div>
@@ -2849,7 +2867,7 @@ export default function NeuroThrive() {
         )}
 
         {/* STEP 4: JOURNAL */}
-        {step === 4 && (
+        {step === 4 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
@@ -2902,7 +2920,7 @@ export default function NeuroThrive() {
         )}
 
         {/* STEP 5: AFFIRMATIONS */}
-        {step === 5 && (
+        {step === 5 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Words for You</h2>
             <p style={S.sectionSub}>On the hard days and the hopeful ones — these are for you.</p>
@@ -2930,7 +2948,7 @@ export default function NeuroThrive() {
         )}
 
         {/* STEP 6: SUPPLEMENTS */}
-        {step === 6 && (
+        {step === 6 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Supplements</h2>
             <p style={S.sectionSub}>Evidence-based supplements matched to your conditions. Always consult your doctor before starting anything new.</p>
@@ -3030,7 +3048,7 @@ export default function NeuroThrive() {
         )}
 
         {/* STEP 7: REMINDERS */}
-        {step === 7 && (
+        {step === 7 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Meal Reminders</h2>
             <p style={S.sectionSub}>Let NeuroThrive gently remind you when it's time to eat. Especially helpful when focus mode kicks in and hunger goes unnoticed.</p>
