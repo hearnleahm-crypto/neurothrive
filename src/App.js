@@ -2711,10 +2711,36 @@ export default function NeuroThrive() {
                 </div>
               ))}
             </div>
-            <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"14px", padding:"14px 18px", marginBottom:"24px" }}>
-              <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"600", marginBottom:"6px" }}>🧠 ADHD Tip</div>
-              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:0 }}>Time blindness is real. Many people with ADHD don't feel hunger cues until they're well past the point of low blood sugar — which worsens focus and mood. Gentle meal reminders are a simple, effective accommodation.</p>
-            </div>
+            {(() => {
+              const REMINDER_TIPS = {
+                adhd: { emoji:"⚡", label:"ADHD", tip:"Time blindness is real. Many people with ADHD don't feel hunger cues until they're well past the point of low blood sugar — which worsens focus and mood. Gentle meal reminders act as an external clock for your brain." },
+                anxiety: { emoji:"🌊", label:"Anxiety", tip:"Skipping meals spikes cortisol and drops blood sugar — two of the most powerful anxiety triggers. Consistent meal timing keeps your nervous system regulated and reduces the physical fuel for anxious thoughts." },
+                depression: { emoji:"🌤", label:"Depression", tip:"Depression often blunts hunger signals entirely. Reminders help ensure you're nourishing your brain even on the days when nothing sounds appealing. Consistent eating supports serotonin production throughout the day." },
+                ptsd: { emoji:"🛡", label:"PTSD", tip:"A dysregulated nervous system can suppress hunger and appetite. Regular meals help stabilise cortisol rhythms, supporting the calm, predictable routine that trauma recovery depends on." },
+                bipolar: { emoji:"🔋", label:"Bipolar Disorder", tip:"Blood sugar stability is especially important for mood cycling. Irregular eating can trigger energy crashes that resemble or amplify mood episodes. Consistent meal timing is one of the most underrated mood-stabilising tools." },
+                ocd: { emoji:"🔵", label:"OCD", tip:"Meal anxiety and food-related rituals are common in OCD. Gentle, non-judgmental reminders support a structured, predictable eating routine that can gradually reduce meal-time anxiety without adding pressure." },
+                schizophrenia: { emoji:"🌙", label:"Schizophrenia", tip:"Antipsychotic medications can alter hunger and fullness signals. Regular meal reminders help ensure consistent nutrition that supports medication effectiveness and reduces metabolic side effects." },
+                autism: { emoji:"💫", label:"Autism", tip:"Sensory sensitivities and hyperfocus can make mealtimes easy to forget or avoid. Predictable meal reminders support the consistent routine that the autistic nervous system thrives on." },
+                eating_disorder: { emoji:"💙", label:"Eating Disorder Recovery", tip:"Reminders in recovery aren't about restriction — they're about structure and self-compassion. Consistent eating times help re-regulate hunger hormones like ghrelin and leptin that restriction disrupts." },
+                default: { emoji:"🧠", label:"Brain Health", tip:"Your brain consumes 20% of your body's energy. Consistent meal timing ensures a steady supply of glucose and nutrients to support mood, focus, and emotional regulation throughout the day." },
+              };
+              const condKeys = selectedConditions.length > 0
+                ? selectedConditions.map(id => SUPPLEMENT_CONDITION_MAP[id] || "default")
+                : ["default"];
+              const uniqueKeys = [...new Set(condKeys)];
+              const tips = uniqueKeys.map(k => REMINDER_TIPS[k] || REMINDER_TIPS.default);
+              return (
+                <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"14px", padding:"16px 18px", marginBottom:"24px" }}>
+                  {tips.map((t, i) => (
+                    <div key={i} style={{ marginBottom: i < tips.length - 1 ? "14px" : 0 }}>
+                      <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"600", marginBottom:"6px" }}>{t.emoji} {t.label} Tip</div>
+                      <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:0 }}>{t.tip}</p>
+                      {i < tips.length - 1 && <div style={{ height:"1px", background:"rgba(107,143,255,0.12)", margin:"14px 0 0" }} />}
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px" }}>
               <button style={S.btnOutline} onClick={() => setStep(6)}>← Supplements</button>
               <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
