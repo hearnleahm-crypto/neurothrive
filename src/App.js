@@ -1600,6 +1600,15 @@ export default function NeuroThrive() {
     if (daysSinceStart >= 30 && !showCycleComplete) setShowCycleComplete(true);
   }, [cycleStartDate, menu30]);
 
+  useEffect(() => {
+    const interval = setInterval(() => setAffirmIdx(i => (i+1) % AFFIRMATIONS.length), 8000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if ("Notification" in window) setNotifPermission(Notification.permission);
+  }, []);
+
   // ── Show auth screen if not logged in ──────────────────────────────────────
   if (authLoading) return (
     <div style={{ ...SA.overlay }}>
@@ -1691,7 +1700,7 @@ export default function NeuroThrive() {
     </div>
   );
 
-  // ── Build explanation — instant, local, always specific ─────────────────
+  // ── Main app render ────────────────────────────────────────────────────────
   const openExplain = (meal, mealType) => {
     const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
     const condLabels = condIds.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean);
@@ -1736,11 +1745,6 @@ export default function NeuroThrive() {
     setStep(3);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => setAffirmIdx(i => (i+1) % AFFIRMATIONS.length), 8000);
-    return () => clearInterval(interval);
-  }, []);
-
   const toggleItem = (list, setList, id) => {
     setList(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
@@ -1755,10 +1759,6 @@ export default function NeuroThrive() {
     setSelectedDayIdx(0);
     setStep(3);
   };
-
-  useEffect(() => {
-    if ("Notification" in window) setNotifPermission(Notification.permission);
-  }, []);
 
   const requestNotifPermission = async () => {
     if (!("Notification" in window)) return;
