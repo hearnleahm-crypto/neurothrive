@@ -1975,6 +1975,10 @@ export default function NeuroThrive() {
   const [step, setStep] = useState(0);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // "terms" | "privacy" | null
+  const [isPremium, setIsPremium] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(null); // "monthly" | "annual" | null
+  const [subscriptionPlan, setSubscriptionPlan] = useState(null);
   const [selectedConditions, setSelectedConditions] = useState([]);
   const [selectedDiet, setSelectedDiet] = useState([]);
   const [menu30, setMenu30] = useState(null);
@@ -2064,6 +2068,51 @@ export default function NeuroThrive() {
     load();
   }, [user]);
 
+  // ── Check subscription status ──────────────────────────────────────────────
+  useEffect(() => {
+    if (!user) return;
+    const checkSub = async () => {
+      try {
+        const { data } = await supabase
+          .from("user_subscriptions")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+        if (data && data.status === "active") {
+          setIsPremium(true);
+          setSubscriptionPlan(data.plan);
+        }
+      } catch(e) {}
+    };
+    checkSub();
+  }, [user]);
+
+  // ── Handle return from Stripe checkout ────────────────────────────────────
+  useEffect(() => {
+    if (!user) return;
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+    if (!sessionId) return;
+    // Clear the URL params
+    window.history.replaceState({}, document.title, window.location.pathname);
+    const verify = async () => {
+      try {
+        const res = await fetch("/.netlify/functions/verify-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId, userId: user.id }),
+        });
+        const result = await res.json();
+        if (result.success) {
+          setIsPremium(true);
+          setSubscriptionPlan(result.plan);
+          setShowPaywall(false);
+        }
+      } catch(e) {}
+    };
+    verify();
+  }, [user]);
+
   // ── Save user data to Supabase whenever state changes ─────────────────────
   useEffect(() => {
     if (!dataLoaded || !user) return;
@@ -2112,7 +2161,33 @@ export default function NeuroThrive() {
     setAuthWorking(false);
   };
 
-  const handleLogout = async () => {
+  const startCheckout = async (planType) => {
+    setCheckoutLoading(planType);
+    try {
+      const priceId = planType === "monthly"
+        ? "price_1T9XQL0aUr06PLRHLEpeRTKp"
+        : "price_1T9XTY0aUr06PLRHoRipqJc6";
+      const res = await fetch("/.netlify/functions/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ priceId, userId: user.id, userEmail: user.email }),
+      });
+      const { url, error } = await res.json();
+      if (url) window.location.href = url;
+      else console.error("Stripe error:", error);
+    } catch(e) {
+      console.error("Checkout error:", e);
+    }
+    setCheckoutLoading(null);
+  };
+
+  const handleStepForward = (nextStep) => {
+    if (nextStep >= 3 && !isPremium) {
+      setShowPaywall(true);
+    } else {
+      setStep(nextStep);
+    }
+  };
     await supabase.auth.signOut();
     setUser(null); setStep(0); setMenu30(null);
     setSelectedConditions([]); setSelectedDiet([]);
@@ -2334,7 +2409,7 @@ export default function NeuroThrive() {
     setSelectedWeek(0);
     setSelectedDayIdx(0);
     setShowCycleComplete(false);
-    setStep(3);
+    handleStepForward(3);
   };
 
   const toggleItem = (list, setList, id) => {
@@ -2349,7 +2424,7 @@ export default function NeuroThrive() {
     setCycleStartDate(new Date().toISOString());
     setSelectedWeek(0);
     setSelectedDayIdx(0);
-    setStep(3);
+    handleStepForward(3);
   };
 
   const requestNotifPermission = async () => {
@@ -3136,7 +3211,65 @@ export default function NeuroThrive() {
         </div>
       </footer>
 
-      {/* ── Legal Pages Overlay ── */}
+      {/* ── Paywall Overlay ── */}
+      {showPaywall && (
+        <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(12px)" }}>
+          <div style={{ maxWidth:"520px", width:"100%", fontFamily:"'Outfit',sans-serif" }}>
+
+            {/* Header */}
+            <div style={{ textAlign:"center", marginBottom:"32px" }}>
+              <div style={{ fontSize:"48px", marginBottom:"12px" }}>🧠</div>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 8px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
+              <p style={{ color:"#8890b8", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalised plan is ready — unlock it to begin your journey.</p>
+            </div>
+
+            {/* Features list */}
+            <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"16px", padding:"20px 24px", marginBottom:"24px" }}>
+              <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"14px" }}>Everything included</div>
+              {[
+                "🍽️  30-day personalised mental health meal plan",
+                "💊  Evidence-based supplement guidance for your conditions",
+                "📓  Daily mood & energy journal",
+                "✨  182 curated affirmations",
+                "🔔  Meal reminders & daily affirmation notifications",
+                "🔄  Unlimited plan regeneration & cycle tracking",
+                "🌿  New content added regularly",
+              ].map((f, i) => (
+                <div key={i} style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.7, padding:"5px 0", borderBottom: i < 6 ? "1px solid rgba(107,143,255,0.08)" : "none" }}>{f}</div>
+              ))}
+            </div>
+
+            {/* Pricing cards */}
+            <div style={{ display:"flex", gap:"14px", marginBottom:"20px", flexWrap:"wrap" }}>
+              {/* Annual — highlighted */}
+              <div style={{ flex:1, minWidth:"200px", background:"linear-gradient(135deg, rgba(85,112,240,0.2), rgba(107,143,255,0.1))", border:"1.5px solid #7b9fff", borderRadius:"18px", padding:"22px 20px", position:"relative", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("annual")}>
+                <div style={{ position:"absolute", top:"-12px", left:"50%", transform:"translateX(-50%)", background:"linear-gradient(135deg,#5570f0,#7b9fff)", borderRadius:"20px", padding:"4px 14px", fontSize:"11px", fontWeight:"700", color:"#fff", letterSpacing:"1px", whiteSpace:"nowrap" }}>BEST VALUE — SAVE 50%</div>
+                <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px", marginTop:"8px" }}>$59.99</div>
+                <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per year</div>
+                <div style={{ color:"#8890b8", fontSize:"12px" }}>Just $5/month</div>
+                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Outfit',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
+                  {checkoutLoading === "annual" ? "Redirecting..." : "Start Annual Plan →"}
+                </button>
+              </div>
+
+              {/* Monthly */}
+              <div style={{ flex:1, minWidth:"200px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.2)", borderRadius:"18px", padding:"22px 20px", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("monthly")}>
+                <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px" }}>$9.99</div>
+                <div style={{ color:"#8890b8", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per month</div>
+                <div style={{ color:"#8890b8", fontSize:"12px" }}>Cancel anytime</div>
+                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"rgba(107,143,255,0.15)", color:"#7b9fff", border:"1px solid rgba(107,143,255,0.3)", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Outfit',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
+                  {checkoutLoading === "monthly" ? "Redirecting..." : "Start Monthly Plan"}
+                </button>
+              </div>
+            </div>
+
+            <div style={{ textAlign:"center" }}>
+              <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:"0 0 12px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
+              <button onClick={() => setShowPaywall(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Outfit',sans-serif" }}>← Go back</button>
+            </div>
+          </div>
+        </div>
+      )}
       {legalPage && (
         <div onClick={() => setLegalPage(null)} style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.92)", zIndex:200, display:"flex", alignItems:"flex-start", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(8px)" }}>
           <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"24px", padding:"36px 32px", maxWidth:"640px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 32px 80px rgba(0,0,0,0.5)", marginTop:"24px" }}>
