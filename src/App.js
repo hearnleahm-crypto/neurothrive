@@ -2756,6 +2756,17 @@ export default function NeuroThrive() {
           </div>
         </div>
       )}
+
+      {/* ── Copyright Footer ── */}
+      <footer style={{ textAlign:"center", padding:"32px 24px 28px", borderTop:"1px solid rgba(107,143,255,0.08)", marginTop:"24px" }}>
+        <div style={{ fontSize:"13px", color:"#8890b8", fontFamily:"'Outfit',sans-serif", letterSpacing:"0.3px" }}>
+          © {new Date().getFullYear()} NeuroThrive. All rights reserved.
+        </div>
+        <div style={{ fontSize:"11px", color:"rgba(136,144,184,0.5)", marginTop:"6px", letterSpacing:"0.5px" }}>
+          Proprietary content. Unauthorized reproduction or distribution is prohibited.
+        </div>
+      </footer>
+
     </div>
   );
 }
