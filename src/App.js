@@ -2197,6 +2197,8 @@ export default function NeuroThrive() {
       setStep(nextStep);
     }
   };
+
+  const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null); setStep(0); setMenu30(null);
     setSelectedConditions([]); setSelectedDiet([]);
