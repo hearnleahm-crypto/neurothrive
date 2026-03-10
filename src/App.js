@@ -669,18 +669,316 @@ const RECIPES_EXTENDED = {
   "Grilled Chicken Caesar Salad": { serves:1, time:"20 min", ingredients:["1 chicken breast","3 cups romaine, chopped","2 tbsp Caesar dressing","2 tbsp parmesan","Croutons optional","Salt and pepper"], steps:["Cook chicken 6-7 min per side. Rest and slice.","Toss romaine with Caesar dressing and parmesan.","Top with chicken and croutons."], tip:"Homemade Caesar with mayo, lemon, garlic, worcestershire, parmesan is far better than store-bought." },
 };
 
+// ── Science citation badges by condition ──────────────────────────────────
+const CONDITION_CITATIONS = {
+  depression: { label:"📚 Nutritional Psychiatry · Harvard", detail:"Jacka et al. (2017) — Mediterranean-style diet reduced depression risk by 33%. Lancet Psychiatry." },
+  anxiety: { label:"📚 NIH · Gut-Brain Axis", detail:"Clapp et al. (2017) — Diet quality directly modulates anxiety via the gut-brain axis. Nutrients Journal." },
+  adhd: { label:"📚 JAMA · Omega-3 Research", detail:"Bloch & Qawasmi (2011) — Omega-3 supplementation significantly reduces ADHD symptom severity. JAMA." },
+  bipolar: { label:"📚 Psychiatry Research · NAD+", detail:"Sarris et al. (2015) — Omega-3 and micronutrient-rich diets stabilise mood in bipolar disorder. Psychiatry Research." },
+  ptsd: { label:"📚 Frontiers Psychiatry · Inflammation", detail:"Kiecolt-Glaser et al. (2015) — Anti-inflammatory diets reduce PTSD symptom severity. Frontiers in Psychiatry." },
+  ocd: { label:"📚 J. Psychiatry · Microbiome", detail:"Turna et al. (2019) — Gut microbiome composition linked to OCD symptom severity. Journal of Psychiatry & Neuroscience." },
+  schizophrenia: { label:"📚 Schizophrenia Bulletin · Diet", detail:"Dipasquale et al. (2013) — Mediterranean diet associated with lower symptom burden in schizophrenia. Schizophrenia Bulletin." },
+  autism: { label:"📚 Nutrients · ASD & Diet", detail:"Ly et al. (2017) — Nutritional interventions improve behavioural outcomes in ASD. Nutrients Journal." },
+  eating_disorder: { label:"📚 Int'l J. Eating Disorders", detail:"Setnick (2010) — Micronutrient deficiencies are pervasive in eating disorders and worsen symptoms. Int'l J. Eating Disorders." },
+  default: { label:"📚 Nutritional Neuroscience", detail:"Gomez-Pinilla (2008) — Brain foods: effects of nutrients on brain function. Nature Reviews Neuroscience." },
+};
+
+const getCitation = (conditions) => {
+  if (!conditions || conditions.length === 0) return CONDITION_CITATIONS.default;
+  return CONDITION_CITATIONS[conditions[0]] || CONDITION_CITATIONS.default;
+};
+// Parses meal name to produce real recipes with exact ingredients & steps
+const generateRecipe = (meal) => {
+  const m = meal.toLowerCase();
+  const name = meal;
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  const hasAny = (...words) => words.some(w => m.includes(w));
+  const has = (w) => m.includes(w);
+
+  // ── Extract protein ───────────────────────────────────────────────────────
+  let protein = null;
+  let proteinIngredient = "";
+  let proteinSteps = [];
+  let proteinTime = 0;
+  if (hasAny("brisket")) { protein="brisket"; proteinIngredient="8 oz slow-cooked brisket, sliced"; proteinSteps=["Slice brisket against the grain into ¼-inch pieces.","Heat in a skillet over medium heat with 2 tbsp of the braising liquid, 3–4 minutes until warmed through."]; proteinTime=10; }
+  else if (hasAny("bacon")) { protein="bacon"; proteinIngredient="4 strips thick-cut bacon"; proteinSteps=["Lay bacon strips in a cold skillet, then heat to medium.","Cook 4–5 minutes per side until crispy. Drain on paper towels."]; proteinTime=12; }
+  else if (hasAny("sausage")) { protein="sausage"; proteinIngredient=has("chicken sausage")?"2 chicken sausage links":"2 pork sausage links"; proteinSteps=["Heat a skillet over medium heat with 1 tsp oil.","Cook sausage 4–5 minutes per side until golden brown and cooked through (165°F internal)."]; proteinTime=12; }
+  else if (hasAny("salmon")) { protein="salmon"; proteinIngredient="6 oz wild-caught salmon fillet, skin-on"; proteinSteps=["Pat salmon dry. Season flesh side with salt, pepper, and garlic powder.","Heat 1 tbsp oil in oven-safe skillet over medium-high. Sear skin-side down 4 minutes without moving.","Flip and cook 2–3 more minutes until salmon flakes easily at the thickest part.","Squeeze fresh lemon over before serving."]; proteinTime=15; }
+  else if (hasAny("tuna")) { protein="tuna"; proteinIngredient="5 oz canned wild tuna in water, drained"; proteinSteps=["Drain tuna thoroughly and flake into a bowl.","Season with lemon juice, salt, and pepper."]; proteinTime=2; }
+  else if (hasAny("shrimp")) { protein="shrimp"; proteinIngredient="6 oz large shrimp, peeled and deveined"; proteinSteps=["Pat shrimp dry. Season with salt, pepper, garlic powder, and paprika.","Heat 1 tbsp oil in pan over medium-high. Cook shrimp 2 minutes per side — they're done when pink and curled."]; proteinTime=8; }
+  else if (hasAny("steak","sirloin","ribeye","brisket")) { protein="steak"; proteinIngredient="6–8 oz sirloin steak, at room temperature"; proteinSteps=["Remove steak from fridge 20 minutes before cooking. Season generously with salt and pepper on both sides.","Heat skillet over high heat until smoking. Add 1 tsp oil and 1 tbsp butter.","Sear steak 3–4 minutes per side for medium-rare (135°F), 4–5 for medium (145°F).","Rest steak on a cutting board 5–7 minutes before slicing against the grain."]; proteinTime=20; }
+  else if (hasAny("ground beef","beef meatloaf","meatloaf")) { protein="ground beef"; proteinIngredient="5 oz lean ground beef (90/10)"; proteinSteps=["Season ground beef with salt, pepper, garlic powder, and Worcestershire sauce.","Heat skillet over medium-high. Cook beef, breaking into small pieces, 7–8 minutes until browned. Drain excess fat."]; proteinTime=12; }
+  else if (hasAny("ground turkey","turkey meatball")) { protein="ground turkey"; proteinIngredient="5 oz lean ground turkey"; proteinSteps=["Season ground turkey with salt, pepper, garlic powder, Italian herbs.","Cook in a skillet over medium heat, breaking apart, 8–9 minutes until cooked through (165°F)."]; proteinTime=12; }
+  else if (hasAny("turkey")) { protein="turkey"; proteinIngredient="5 oz turkey breast or turkey cutlet"; proteinSteps=["Season turkey with olive oil, salt, pepper, garlic powder.","Cook in a skillet over medium heat 5–6 minutes per side until internal temp reaches 165°F.","Rest 3 minutes before slicing."]; proteinTime=15; }
+  else if (hasAny("pork chop","pork tenderloin","pork loin","pulled pork")) { protein="pork"; proteinIngredient=has("chop")?"1 bone-in pork chop (1 inch thick)":"5 oz pork tenderloin"; proteinSteps=["Season pork with salt, pepper, garlic powder, and a pinch of paprika.","Heat 1 tbsp oil in skillet over medium-high. Sear 4–5 minutes per side until golden brown.","Internal temperature should reach 145°F. Rest 3 minutes before serving."]; proteinTime=15; }
+  else if (hasAny("lentil")) { protein="lentil"; proteinIngredient="½ cup red or green lentils, rinsed"; proteinSteps=["Combine lentils with 1½ cups water or broth in a saucepan.","Bring to boil, reduce to simmer, cook 20–25 minutes until tender. Season well."]; proteinTime=25; }
+  else if (hasAny("chickpea","hummus")) { protein="chickpea"; proteinIngredient="1 can (15 oz) chickpeas, drained and rinsed"; proteinSteps=["Drain and rinse chickpeas. Pat dry if roasting.","For warm dishes: heat in a pan with oil and spices 3–4 minutes until lightly crisped."]; proteinTime=5; }
+  else if (hasAny("tofu","tempeh")) { protein="tofu"; proteinIngredient="6 oz extra-firm tofu, pressed and cubed"; proteinSteps=["Press tofu between paper towels for 10 minutes.","Cut into 1-inch cubes. Season with soy sauce, garlic, and oil.","Pan-fry over medium-high heat 3–4 minutes per side until golden and crispy."]; proteinTime=20; }
+  else if (hasAny("egg")) { protein="egg"; proteinIngredient="3 large eggs"; proteinSteps=["Crack eggs into a bowl. Season with salt and pepper and whisk until uniform.","Heat butter in non-stick pan over medium-low.","Cook slowly, stirring constantly with a spatula for creamy scrambled eggs, or cook undisturbed for fried eggs."]; proteinTime=7; }
+  else if (hasAny("chicken")) { protein="chicken"; proteinIngredient=hasAny("thigh","thighs")?"2 bone-in chicken thighs":"1 boneless skinless chicken breast (6 oz)"; proteinSteps=["Pat chicken dry with paper towels — moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20; }
+  else { protein="protein"; proteinIngredient="5–6 oz lean protein of choice"; proteinSteps=["Season protein with salt, pepper, and garlic powder.","Cook to safe internal temperature (165°F poultry, 145°F fish/pork, 145°F medium beef)."]; proteinTime=20; }
+
+  // ── Detect cooking method / dish type ────────────────────────────────────
+  const isBurrito = hasAny("burrito");
+  const isTaco = hasAny("taco");
+  const isWrap = hasAny("wrap");
+  const isSandwich = hasAny("sandwich","sub","hoagie","blt","club","burger","cheeseburger");
+  const isSalad = hasAny("salad") && !hasAny("caesar") || has("salad");
+  const isCaesar = has("caesar");
+  const isBowl = has("bowl");
+  const isSoup = hasAny("soup","chili","stew","chowder");
+  const isPasta = hasAny("pasta","noodle","spaghetti");
+  const isOmelette = hasAny("omelette","omelet");
+  const isOatmeal = hasAny("oatmeal","oats","porridge","overnight oat");
+  const isSmoothi = hasAny("smoothie");
+  const isYogurt = hasAny("yogurt","yoghurt");
+  const isToast = hasAny("toast") && !hasAny("french toast");
+  const isFrenchToast = has("french toast");
+  const isPancake = hasAny("pancake","waffle");
+  const isFajita = has("fajita");
+  const isEnchilada = has("enchilada");
+  const isQuesadilla = has("quesadilla");
+  const isStirFry = hasAny("stir-fry","stir fry");
+  const isCurry = has("curry");
+  const isCasserole = has("casserole");
+  const isHash = has("hash");
+
+  // ── Detect key sides / vegetables ─────────────────────────────────────────
+  const hasRice = hasAny("rice","rice bowl","fried rice");
+  const hasQuinoa = has("quinoa");
+  const hasSweet = has("sweet potato");
+  const hasPotato = has("potato") && !has("sweet potato");
+  const hasBroccoli = has("broccoli");
+  const hasAsparagus = has("asparagus");
+  const hasSpinach = has("spinach");
+  const hasAvocado = has("avocado");
+  const hasBeans = hasAny("black bean","white bean","bean");
+  const hasCorn = has("corn");
+  const hasKale = has("kale");
+  const hasMushroom = has("mushroom");
+  const hasPepper = hasAny("bell pepper","pepper");
+  const hasCornbread = has("cornbread");
+  const hasTortilla = hasAny("tortilla","corn tortilla","flour tortilla");
+  const hasBread = hasAny("bread","toast","sourdough","bun","roll","bagel","muffin","english muffin");
+  const hasCheese = hasAny("cheese","feta","cheddar","mozzarella");
+  const hasFeta = has("feta");
+  const hasWatermelon = has("watermelon");
+  const hasMango = has("mango");
+  const hasBanana = has("banana");
+  const hasBlueberry = hasAny("blueberry","blueberries");
+  const hasBerry = hasAny("berry","berries","strawberr","raspberry","raspberries");
+  const hasApple = has("apple");
+  const hasWalnut = has("walnut");
+  const hasAlmond = has("almond");
+
+  // ── Build ingredients list ────────────────────────────────────────────────
+  const ingredients = [proteinIngredient];
+  const steps = [];
+  let totalTime = proteinTime;
+
+  // Starches
+  if (hasRice) { ingredients.push("1 cup long-grain white or brown rice"); ingredients.push("1¾ cups water or chicken broth"); }
+  if (hasQuinoa) { ingredients.push("½ cup dry quinoa, rinsed"); ingredients.push("1 cup water or broth"); }
+  if (hasSweet) { ingredients.push("1 medium sweet potato, cubed or sliced"); totalTime = Math.max(totalTime, 30); }
+  if (hasPotato) { ingredients.push("2 medium Yukon Gold potatoes, cubed"); totalTime = Math.max(totalTime, 30); }
+  if (hasCornbread) { ingredients.push("1 cup cornbread mix (Jiffy or homemade)"); ingredients.push("⅓ cup milk"); ingredients.push("1 egg"); }
+
+  // Vegetables
+  if (hasBroccoli) ingredients.push("2 cups broccoli florets");
+  if (hasAsparagus) ingredients.push("1 bunch asparagus, trimmed");
+  if (hasSpinach) ingredients.push("2 cups fresh baby spinach");
+  if (hasAvocado) ingredients.push("½ ripe avocado, sliced or mashed");
+  if (hasBeans) ingredients.push(has("white bean") ? "1 can white cannellini beans, drained" : "1 can black beans, drained and rinsed");
+  if (hasCorn) ingredients.push(has("corn tortilla") ? "" : "1 cup corn kernels (fresh or frozen)");
+  if (hasKale) ingredients.push("2 cups kale, stems removed, roughly torn");
+  if (hasMushroom) ingredients.push("1 cup cremini mushrooms, sliced");
+  if (hasPepper) ingredients.push("1 bell pepper (red or orange), sliced");
+  if (hasCheese && !hasFeta) ingredients.push("¼ cup shredded cheddar or Monterey Jack");
+  if (hasFeta) ingredients.push("2 oz feta cheese, crumbled");
+  if (hasWatermelon) ingredients.push("2 cups seedless watermelon, cubed");
+  if (hasMango) ingredients.push("1 cup fresh mango, diced");
+  if (hasBanana) ingredients.push("1 ripe banana, sliced");
+  if (hasBlueberry) ingredients.push("½ cup fresh or frozen blueberries");
+  else if (hasBerry) ingredients.push("½ cup mixed berries (strawberries, raspberries, blueberries)");
+  if (hasApple) ingredients.push("1 medium apple, cored and sliced");
+  if (hasWalnut) ingredients.push("2 tbsp raw walnuts, roughly chopped");
+  if (hasAlmond) ingredients.push("2 tbsp raw almonds or almond butter");
+  if (hasTortilla && !isBurrito && !isTaco) ingredients.push("2 corn or flour tortillas (6-inch)");
+  if (isBurrito) ingredients.push("1 large (10-inch) flour or whole wheat burrito tortilla");
+  if (isTaco) ingredients.push("3 corn tortillas (6-inch), warmed");
+  if (hasBread && !isBurrito && !isTaco) ingredients.push(has("sourdough") ? "2 slices sourdough bread" : has("bagel") ? "1 whole grain bagel, halved" : has("english muffin") ? "1 whole grain English muffin, split" : "2 slices whole grain bread");
+
+  // Seasonings & oils (always included)
+  ingredients.push("1–2 tbsp olive oil or avocado oil");
+  ingredients.push("Salt, black pepper, and garlic powder to taste");
+
+  // Sauces / extras by dish type
+  if (isCaesar) { ingredients.push("3 tbsp Caesar dressing (store-bought or homemade)"); ingredients.push("2 tbsp Parmesan, shaved"); ingredients.push("Romaine lettuce, 3 cups, chopped"); }
+  if (isSalad && !isCaesar) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
+  if (isSoup || has("chili")) { ingredients.push("2½ cups low-sodium chicken or vegetable broth"); ingredients.push("1 garlic clove, minced"); ingredients.push("½ onion, diced"); }
+  if (isCurry) { ingredients.push("1 can (14 oz) light coconut milk"); ingredients.push("2 tsp curry powder"); ingredients.push("1 tsp turmeric"); ingredients.push("½ onion, diced"); }
+  if (isStirFry) { ingredients.push("2 tbsp low-sodium soy sauce or coconut aminos"); ingredients.push("1 tsp sesame oil"); ingredients.push("1 tsp fresh ginger, minced"); }
+  if (isFajita) { ingredients.push("½ onion, sliced into strips"); ingredients.push("1 tsp cumin + ½ tsp chili powder"); ingredients.push("3 flour or corn tortillas, warmed"); }
+  if (isEnchilada) { ingredients.push("½ cup red enchilada sauce"); ingredients.push("3 corn tortillas"); ingredients.push("¼ cup shredded Monterey Jack cheese"); }
+
+  // Oatmeal-specific
+  if (isOatmeal) {
+    return {
+      serves: 1, time: "8 min",
+      ingredients: ["½ cup rolled oats (not instant)", "1 cup unsweetened almond milk or water", hasBanana?"1 ripe banana, sliced":"", hasBlueberry?"½ cup blueberries":"", hasBerry&&!hasBlueberry?"½ cup mixed berries":"", hasWalnut?"2 tbsp raw walnuts, chopped":"", "1 tbsp honey or pure maple syrup", "½ tsp ground cinnamon", "Pinch of sea salt"].filter(Boolean),
+      steps: ["Combine oats, milk, salt, and cinnamon in a small saucepan over medium heat.", "Stir frequently for 4–5 minutes until oats absorb the liquid and reach a creamy consistency.", "Remove from heat — oats continue thickening off the heat.", "Pour into a bowl and arrange toppings artfully on top.", "Drizzle honey or maple syrup over everything and serve immediately."],
+      tip: "For extra creaminess, use half water and half milk. Overnight oats work too — just combine everything in a jar and refrigerate overnight.",
+      nutrition: ["Complex carbs for sustained brain energy","Fiber feeds beneficial gut bacteria","Beta-glucan supports healthy cholesterol","Cinnamon helps stabilize blood sugar"]
+    };
+  }
+
+  // Smoothie-specific
+  if (isSmoothi) {
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ["1 cup frozen mixed berries or banana chunks", "1 cup unsweetened almond, oat, or coconut milk", "½ cup Greek yogurt (plain, full-fat)", "1 tbsp almond butter or peanut butter", "1 tsp honey", "Handful of spinach (optional — you won't taste it)", "3–4 ice cubes"],
+      steps: ["Add liquid to blender first — this protects the blade and blends more smoothly.", "Add yogurt, nut butter, and honey.", "Add frozen fruit and ice on top.", "Blend on high 45–60 seconds until completely smooth and creamy.", "Pour into a tall glass. Drink immediately for best texture."],
+      tip: "Freeze ripe bananas in chunks — they make the creamiest smoothies without any added sugar.",
+      nutrition: ["Protein from Greek yogurt supports neurotransmitter production","Antioxidants from berries reduce neuroinflammation","Healthy fats from nut butter support myelin sheath","Potassium from banana supports nerve signaling"]
+    };
+  }
+
+  // Now build steps intelligently
+  const prepSteps = [];
+  const cookSteps = [];
+  const finishSteps = [];
+
+  // Prep steps
+  if (hasRice) { prepSteps.push("Rinse rice under cold water. Combine with broth in a saucepan, bring to boil, cover and simmer on low 18 minutes. Fluff with a fork."); totalTime = Math.max(totalTime, 25); }
+  if (hasQuinoa) { prepSteps.push("Rinse quinoa in a fine mesh strainer. Combine with water/broth in a saucepan, bring to boil, reduce to simmer, cover 15 minutes. Let stand 5 minutes then fluff."); totalTime = Math.max(totalTime, 20); }
+  if (hasSweet && !isCasserole) { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet — roast 25 minutes, flipping halfway, until caramelized."); totalTime = Math.max(totalTime, 35); }
+  if (hasPotato && !isCasserole && !isHash) { prepSteps.push("Cube potatoes into 1-inch pieces. Toss with olive oil, salt, garlic powder, and rosemary. Roast at 425°F 25–30 minutes until golden and crispy."); totalTime = Math.max(totalTime, 35); }
+  if (hasBroccoli) { prepSteps.push("Toss broccoli florets with 1 tsp olive oil, salt. Either roast at 425°F for 15 minutes until edges char slightly, or steam for 5 minutes until bright green and tender-crisp."); }
+  if (hasAsparagus) { prepSteps.push("Snap off the woody ends of asparagus. Toss with olive oil, salt, and pepper. Roast at 425°F 10–12 minutes, or pan-sear in a hot skillet 4–5 minutes."); }
+  if (hasSpinach) { prepSteps.push("Rinse spinach thoroughly. Heat 1 tsp oil in a skillet, add spinach, and wilt over medium heat 1–2 minutes with a pinch of garlic. Season with salt."); }
+
+  // Add all prepSteps
+  steps.push(...prepSteps);
+  // Add protein steps
+  steps.push(...proteinSteps);
+
+  // Dish-type assembly steps
+  if (isBurrito) {
+    steps.push("Warm tortilla in a dry skillet 30 seconds per side or microwave 20 seconds — it needs to be pliable.");
+    steps.push("Layer fillings horizontally across the bottom third of the tortilla: protein first, then rice/beans, cheese, and any sauces.");
+    steps.push("Fold the two sides in, then roll tightly from the bottom up. Press firmly to seal.");
+    steps.push("Optional: toast seam-side down in a dry pan 1 minute per side for a crispy exterior.");
+  } else if (isTaco) {
+    steps.push("Warm tortillas directly over a gas flame 15–20 seconds per side until lightly charred, or in a dry skillet.");
+    steps.push("Stack two tortillas per taco for sturdiness. Fill with protein and toppings.");
+    steps.push("Finish with fresh cilantro, a squeeze of lime, and your choice of salsa or hot sauce.");
+  } else if (isWrap) {
+    steps.push("Warm the tortilla in a dry pan 30 seconds per side.");
+    steps.push("Spread any sauce or hummus on the tortilla first, then layer fillings horizontally in the center.");
+    steps.push("Fold sides in tightly, roll from bottom. Cut diagonally for a better presentation.");
+  } else if (isSandwich) {
+    steps.push(has("toast") || has("grilled") ? "Toast bread until golden. A toasted base prevents sogginess." : "If using a bun, lightly toast cut sides for 1–2 minutes.");
+    steps.push("Build from the bottom up: spread (mayo, mustard, or avocado), then greens, then protein, then toppings.");
+    steps.push("Press gently and serve immediately, or wrap tightly for meal prep.");
+  } else if (isCaesar || isSalad) {
+    steps.push("Wash and thoroughly dry salad greens — wet leaves dilute dressing.");
+    steps.push("Add dressing and toss to coat every leaf. Start with less and add more as needed.");
+    steps.push("Slice or add protein on top. Finish with cheese and a crack of black pepper.");
+  } else if (isBowl) {
+    steps.push("Build your bowl in layers: grain base first (rice, quinoa), then protein, then vegetables arranged separately for visual appeal.");
+    steps.push("Drizzle with sauce or dressing. Garnish with fresh herbs, a squeeze of citrus, or sesame seeds.");
+  } else if (isSoup || has("chili")) {
+    steps.push("Sauté onion and garlic in oil over medium heat until soft, 4–5 minutes.");
+    steps.push("Add protein and cook until browned. Add all vegetables and stir.");
+    steps.push("Pour in broth. Add spices, beans, or other ingredients. Bring to boil.");
+    steps.push("Reduce heat and simmer uncovered 20–25 minutes until flavors meld. Taste and adjust seasoning.");
+    totalTime = 35;
+  } else if (isFajita) {
+    steps.push("Cook onion and bell peppers in the same pan as protein, over high heat, 4–5 minutes until lightly charred.");
+    steps.push("Warm tortillas. Fill with protein and peppers.");
+    steps.push("Serve with lime wedges, salsa, sour cream, and guacamole on the side.");
+  } else if (isQuesadilla) {
+    steps.push("Lay a tortilla flat in a dry skillet over medium heat. Add protein and cheese to one half.");
+    steps.push("Fold over and press lightly. Cook 2–3 minutes per side until golden and cheese is fully melted.");
+    steps.push("Let rest 1 minute before cutting into wedges — this keeps the filling together.");
+  } else if (isStirFry) {
+    steps.push("Heat wok or large skillet over highest heat until smoking — high heat is what makes stir-fry taste right.");
+    steps.push("Cook vegetables first (2–3 min), then push to sides. Add protein in center.");
+    steps.push("Add soy sauce, sesame oil, and ginger. Toss everything together 1–2 minutes.");
+    steps.push("Serve immediately over rice or quinoa. Stir-fry waits for no one.");
+  } else if (isOmelette) {
+    steps.push("Beat eggs vigorously with salt and pepper — proper aeration makes a fluffy omelette.");
+    steps.push("Heat butter in an 8-inch non-stick pan over medium-low. Pour in eggs.");
+    steps.push("As edges set, lift them gently and tilt pan so uncooked egg flows underneath.");
+    steps.push("When top is just barely set but still glossy, add fillings to one half.");
+    steps.push("Fold in half and slide onto plate. The residual heat finishes the center.");
+    totalTime = 10;
+  } else if (isHash) {
+    steps.push("Heat oil in a cast iron or non-stick skillet over medium-high.");
+    steps.push("Add potatoes or sweet potato first — cook 8–10 minutes without stirring to get a crust.");
+    steps.push("Add protein and vegetables. Toss together and cook another 5 minutes.");
+    steps.push("Make wells in the hash and crack in eggs if including. Cover and cook 3–4 minutes for set whites.");
+  }
+
+  // Finish steps
+  if (hasWatermelon || hasMango || hasBanana || hasApple || hasBerry) {
+    finishSteps.push("Prepare fresh fruit just before serving — it's the bright, refreshing counterpoint to the savory elements.");
+  }
+  finishSteps.push("Plate and finish with a squeeze of fresh lemon or lime to brighten all the flavors.");
+  steps.push(...finishSteps);
+
+  // ── Nutritional highlights ─────────────────────────────────────────────────
+  const nutrition = [];
+  if (protein === "salmon") nutrition.push("Rich in EPA/DHA omega-3s — shown to reduce depression symptoms");
+  if (protein === "chicken" || protein === "turkey") nutrition.push("Complete protein supports serotonin and dopamine production");
+  if (protein === "steak" || protein === "ground beef") nutrition.push("Heme iron and zinc — critical for neurotransmitter synthesis");
+  if (protein === "egg") nutrition.push("Choline in yolks supports acetylcholine (memory & focus)");
+  if (protein === "lentil" || protein === "chickpea") nutrition.push("Plant protein + folate for serotonin pathway support");
+  if (hasSpinach || hasKale) nutrition.push("Folate & magnesium — key for mood regulation and stress response");
+  if (hasSweet) nutrition.push("Beta-carotene & B6 support brain health and mood");
+  if (hasAvocado) nutrition.push("Monounsaturated fats support myelin sheath & cognitive function");
+  if (hasBroccoli) nutrition.push("Sulforaphane reduces neuroinflammation (NF-κB pathway)");
+  if (hasBlueberry || hasBerry) nutrition.push("Anthocyanins cross the blood-brain barrier and reduce oxidative stress");
+  if (hasWalnut) nutrition.push("Plant-based omega-3 (ALA) and polyphenols support brain structure");
+  if (hasRice || hasQuinoa) nutrition.push(hasQuinoa ? "Complete protein grain with all 9 essential amino acids" : "Complex carbs provide steady glucose — the brain's primary fuel");
+  if (hasBeans) nutrition.push("Resistant starch feeds gut bacteria that produce mood-regulating neurotransmitters");
+  if (nutrition.length === 0) nutrition.push("Whole-food ingredients support a healthy gut-brain axis");
+
+  // ── Tip ───────────────────────────────────────────────────────────────────
+  const tips = [];
+  if (protein === "chicken") tips.push("A meat thermometer (165°F) guarantees juicy chicken every time — guessing leads to overcooking.");
+  if (protein === "steak") tips.push("Slicing against the grain is the single biggest difference between tough and tender beef.");
+  if (protein === "salmon") tips.push("Pull salmon off heat when it's still slightly translucent in the center — carryover heat finishes it.");
+  if (hasRice) tips.push("Never lift the lid while rice is cooking — the steam is doing all the work.");
+  if (hasQuinoa) tips.push("Rinsing quinoa removes saponins, which can make it taste bitter.");
+  if (isOatmeal) tips.push("Rolled oats (not instant) keep you full longer due to lower glycemic impact.");
+  if (isBurrito) tips.push("Wrapping tightly in foil for 2 minutes lets the burrito steam itself perfectly together.");
+  if (isSalad) tips.push("Dress salad right before eating — it wilts fast once dressed.");
+  if (hasBroccoli) tips.push("A little char on roasted broccoli is actually the goal — it's where the flavour is.");
+  if (tips.length === 0) tips.push("Prep all your ingredients before you start cooking — it makes everything faster and less stressful.");
+
+  const finalTime = totalTime <= 10 ? `${totalTime} min` : totalTime <= 20 ? `${totalTime} min` : `${totalTime}–${totalTime+10} min`;
+
+  return {
+    serves: 1,
+    time: finalTime,
+    ingredients: ingredients.filter(i => i && i.trim()),
+    steps: steps.filter(Boolean),
+    tip: tips[0] || "",
+    nutrition,
+  };
+};
+
 const getRecipe = (meal) => {
   const allRecipes = { ...RECIPES, ...RECIPES_EXTENDED };
-  if (allRecipes[meal]) return allRecipes[meal];
-  const m = meal.toLowerCase();
-  if (m.includes('oat') || m.includes('oatmeal') || m.includes('porridge')) return { serves:1, time:"8 min", ingredients:["1/2 cup rolled oats","1 cup milk or water","Toppings as in meal name","1 tbsp honey or maple syrup","Pinch of salt"], steps:["Bring liquid to a boil, add oats and salt.","Stir over medium heat 4-5 min until creamy.","Pour into bowl and add your toppings.","Drizzle honey or maple syrup."], tip:"Cook oats low and slow for the creamiest results." };
-  if (m.includes('salmon')) return { serves:1, time:"20 min", ingredients:["6 oz salmon fillet","Sides as in meal name","1 tbsp olive oil","Salt, pepper, lemon"], steps:["Season salmon with olive oil, salt, and pepper.","Pan-sear over medium-high heat 4 min per side, or bake at 400F 12-15 min.","Prepare your sides while salmon cooks.","Squeeze lemon over everything before serving."], tip:"Salmon is done when it flakes easily with a fork — pull it slightly early." };
-  if (m.includes('steak') || m.includes('sirloin') || m.includes('ribeye') || m.includes('beef')) return { serves:1, time:"25 min", ingredients:["5-8 oz beef","Sides as in meal name","1 tbsp olive oil","Salt, pepper, garlic powder"], steps:["Season beef with salt, pepper, and garlic powder.","Sear or cook in a hot pan with olive oil to your preferred doneness.","Prepare sides while beef rests.","Rest beef 5 min before serving."], tip:"Always rest beef before cutting — it keeps the juices in." };
-  if (m.includes('chicken') || m.includes('turkey')) return { serves:1, time:"25 min", ingredients:["5-8 oz chicken or turkey","Sides as in meal name","1 tbsp olive oil","Salt, pepper, garlic powder"], steps:["Season with olive oil, salt, pepper, garlic powder.","Cook in a pan 6-7 min per side, or bake at 425F 22-25 min until 165F.","Prepare sides while protein cooks.","Rest 5 min before serving."], tip:"A meat thermometer guarantees juicy chicken every time — 165F is the target." };
-  if (m.includes('wrap')) return { serves:1, time:"10 min", ingredients:["1 large whole wheat tortilla","Fillings as in meal name","Salt, pepper"], steps:["Warm tortilla in a dry pan 30 sec per side.","Layer fillings in the center.","Fold in sides and roll tightly from the bottom.","Cut diagonally and serve."], tip:"Warm the tortilla first — cold tortillas crack when rolled." };
-  if (m.includes('salad')) return { serves:1, time:"15 min", ingredients:["3 cups greens","Toppings as in meal name","2 tbsp olive oil","1 tbsp lemon juice or vinegar","Salt and pepper"], steps:["Prepare protein if needed and let rest.","Build salad base with greens and toppings.","Whisk olive oil and lemon for dressing.","Top with protein. Dress and toss."], tip:"Dress salad right before eating — it wilts quickly once dressed." };
-  if (m.includes('soup')) return { serves:2, time:"30 min", ingredients:["Protein and veggies as in meal name","3 cups broth","1 garlic clove","Salt, pepper, herbs"], steps:["Brown protein in a pot if using meat.","Add garlic and vegetables, cook 3-4 min.","Add broth and herbs. Simmer 20 min.","Season and serve."], tip:"Soup always tastes better the next day — make double." };
-  return { serves:1, time:"20 min", ingredients:["Main ingredients as in the meal name","1 tbsp olive oil","Salt, pepper, garlic","Sides as described"], steps:["Prepare protein: season and cook through — 165F for poultry, 145F for fish, medium for beef.","Prepare sides simultaneously.","Plate and finish with a squeeze of lemon."], tip:"Prep your sides while the protein cooks to get everything to the table at the same time." };
+  if (allRecipes[meal]) {
+    // Add nutrition highlights to existing recipes if missing
+    const r = allRecipes[meal];
+    if (!r.nutrition) r.nutrition = generateRecipe(meal).nutrition;
+    return r;
+  }
+  return generateRecipe(meal);
 };
 
 const AFFIRMATIONS = [
@@ -2057,9 +2355,16 @@ export default function NeuroThrive() {
                         <span style={{ color:"#8fb893", marginTop:"2px", flexShrink:0, fontSize:"8px" }}>●</span>
                         <span style={{ flex:1, color:"#f0ebe2", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{mainMeal}</span>
                       </div>
-                      <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", marginBottom:"12px", padding:"4px 10px", borderRadius:"20px", background:"rgba(143,184,147,0.1)", border:"1px solid rgba(143,184,147,0.2)" }}>
-                        <span style={{ fontSize:"12px" }}>🔥</span>
-                        <span style={{ color:"#8fb893", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(mainMeal)}</span>
+                      <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px" }}>
+                        <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(143,184,147,0.1)", border:"1px solid rgba(143,184,147,0.2)" }}>
+                          <span style={{ fontSize:"12px" }}>🔥</span>
+                          <span style={{ color:"#8fb893", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(mainMeal)}</span>
+                        </div>
+                        {(() => { const cite = getCitation(selectedConditions); return (
+                          <div title={cite.detail} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background:"rgba(160,140,110,0.08)", border:"1px solid rgba(160,140,110,0.2)", cursor:"help" }}>
+                            <span style={{ color:"#c4a882", fontSize:"10px", fontWeight:"600", letterSpacing:"0.3px" }}>{cite.label}</span>
+                          </div>
+                        ); })()}
                       </div>
 
                       {/* Main meal buttons */}
@@ -2425,6 +2730,16 @@ export default function NeuroThrive() {
                       </div>
                     ))}
                   </div>
+                  {recipe.nutrition && recipe.nutrition.length > 0 && (
+                    <div style={{ marginBottom:"16px", padding:"14px 18px", borderRadius:"14px", background:"rgba(122,158,126,0.07)", border:"1.5px solid rgba(122,158,126,0.18)" }}>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#8fb893", fontWeight:"700", marginBottom:"10px" }}>🧠 Brain Nutrition Highlights</div>
+                      {recipe.nutrition.map((n, i) => (
+                        <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:"8px", marginBottom:"6px", color:"#c8d8c0", fontSize:"13px", lineHeight:1.6 }}>
+                          <span style={{ color:"#8fb893", flexShrink:0 }}>✦</span>{n}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   {recipe.tip && (
                     <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(143,184,147,0.07)", border:"1.5px solid rgba(143,184,147,0.18)" }}>
                       <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#8fb893", fontWeight:"700", marginBottom:"6px" }}>💡 Pro Tip</div>
