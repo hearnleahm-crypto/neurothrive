@@ -1591,6 +1591,15 @@ export default function NeuroThrive() {
     divider: { textAlign:"center", color:"#9c8e7e", fontSize:"12px", margin:"16px 0" },
   };
 
+  // ── Cycle complete check ───────────────────────────────────────────────────
+  useEffect(() => {
+    if (!cycleStartDate || !menu30) return;
+    const start = new Date(cycleStartDate);
+    const now = new Date();
+    const daysSinceStart = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+    if (daysSinceStart >= 30 && !showCycleComplete) setShowCycleComplete(true);
+  }, [cycleStartDate, menu30]);
+
   // ── Show auth screen if not logged in ──────────────────────────────────────
   if (authLoading) return (
     <div style={{ ...SA.overlay }}>
@@ -1622,6 +1631,8 @@ export default function NeuroThrive() {
       </div>
     </div>
   );
+
+  if (!user) return (
     <div style={SA.overlay}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600;700&display=swap');`}</style>
       <div style={SA.card}>
@@ -1679,14 +1690,6 @@ export default function NeuroThrive() {
       </div>
     </div>
   );
-
-  useEffect(() => {
-    if (!cycleStartDate || !menu30) return;
-    const start = new Date(cycleStartDate);
-    const now = new Date();
-    const daysSinceStart = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-    if (daysSinceStart >= 30 && !showCycleComplete) setShowCycleComplete(true);
-  }, [cycleStartDate, menu30]);
 
   // ── Build explanation — instant, local, always specific ─────────────────
   const openExplain = (meal, mealType) => {
