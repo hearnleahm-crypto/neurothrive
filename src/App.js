@@ -1470,12 +1470,11 @@ export default function NeuroThrive() {
   const [authWorking, setAuthWorking] = useState(false);
   const [authSuccess, setAuthSuccess] = useState("");
   const [reminderSaved, setReminderSaved] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
 
   // Cache for AI explanations — persists in session without re-renders
   const explanationCache = useRef({});
-
-  const [newPassword, setNewPassword] = useState("");
-  const [isResettingPassword, setIsResettingPassword] = useState(false);
 
   // ── Auth listener — runs on mount ──────────────────────────────────────────
   useEffect(() => {
