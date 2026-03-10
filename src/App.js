@@ -2097,6 +2097,9 @@ export default function NeuroThrive() {
       setShowPaywall(true);
     }
   }, [dataLoaded, isPremium, step]);
+
+  // Derived: always block step 3+ for non-premium users
+  const paywallActive = dataLoaded && step >= 3 && !isPremium;
   useEffect(() => {
     if (!user) return;
     const params = new URLSearchParams(window.location.search);
@@ -3223,7 +3226,7 @@ export default function NeuroThrive() {
       </footer>
 
       {/* ── Paywall Overlay ── */}
-      {showPaywall && (
+      {(showPaywall || paywallActive) && (
         <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(12px)" }}>
           <div style={{ maxWidth:"520px", width:"100%", fontFamily:"'Outfit',sans-serif" }}>
 
@@ -3276,7 +3279,7 @@ export default function NeuroThrive() {
 
             <div style={{ textAlign:"center" }}>
               <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:"0 0 12px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
-              <button onClick={() => setShowPaywall(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Outfit',sans-serif" }}>← Go back</button>
+              <button onClick={() => { setShowPaywall(false); setStep(2); }} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Outfit',sans-serif" }}>← Go back</button>
             </div>
           </div>
         </div>
