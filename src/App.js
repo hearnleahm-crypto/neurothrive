@@ -2360,11 +2360,6 @@ export default function NeuroThrive() {
                           <span style={{ fontSize:"12px" }}>🔥</span>
                           <span style={{ color:"#8fb893", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(mainMeal)}</span>
                         </div>
-                        {(() => { const cite = getCitation(selectedConditions); return (
-                          <div title={cite.detail} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background:"rgba(160,140,110,0.08)", border:"1px solid rgba(160,140,110,0.2)", cursor:"help" }}>
-                            <span style={{ color:"#c4a882", fontSize:"10px", fontWeight:"600", letterSpacing:"0.3px" }}>{cite.label}</span>
-                          </div>
-                        ); })()}
                       </div>
 
                       {/* Main meal buttons */}
