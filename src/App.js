@@ -1474,6 +1474,9 @@ export default function NeuroThrive() {
   // Cache for AI explanations — persists in session without re-renders
   const explanationCache = useRef({});
 
+  const [newPassword, setNewPassword] = useState("");
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+
   // ── Auth listener — runs on mount ──────────────────────────────────────────
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -1482,6 +1485,10 @@ export default function NeuroThrive() {
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      // Detect password recovery flow
+      if (_event === "PASSWORD_RECOVERY") {
+        setIsResettingPassword(true);
+      }
     });
     return () => subscription.unsubscribe();
   }, []);
@@ -1592,7 +1599,30 @@ export default function NeuroThrive() {
     </div>
   );
 
-  if (!user) return (
+  // ── Password reset completion screen ───────────────────────────────────────
+  if (isResettingPassword) return (
+    <div style={SA.overlay}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600;700&display=swap');`}</style>
+      <div style={SA.card}>
+        <div style={SA.logo}>
+          <div style={SA.logoText}>🌿 NeuroThrive</div>
+          <div style={SA.logoSub}>Set new password</div>
+        </div>
+        <p style={{ color:"#9c8e7e", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Choose a new password for your account.</p>
+        <label style={SA.label}>New Password</label>
+        <input style={SA.input} type="password" placeholder="Min 6 characters" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+        {authError && <div style={SA.error}>{authError}</div>}
+        {authSuccess && <div style={SA.success}>{authSuccess}</div>}
+        <button style={SA.btn} disabled={authWorking} onClick={async () => {
+          setAuthWorking(true); setAuthError("");
+          const { error } = await supabase.auth.updateUser({ password: newPassword });
+          if (error) setAuthError(error.message);
+          else { setAuthSuccess("Password updated! Taking you in..."); setTimeout(() => setIsResettingPassword(false), 1500); }
+          setAuthWorking(false);
+        }}>{authWorking ? "Updating..." : "Set New Password"}</button>
+      </div>
+    </div>
+  );
     <div style={SA.overlay}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600;700&display=swap');`}</style>
       <div style={SA.card}>
