@@ -2175,24 +2175,24 @@ export default function NeuroThrive() {
     setAuthWorking(false);
   };
 
-  const startCheckout = async (planType) => {
+  const startCheckout = (planType) => {
     setCheckoutLoading(planType);
-    try {
-      const priceId = planType === "monthly"
-        ? "price_1T9XQL0aUr06PLRHLEpeRTKp"
-        : "price_1T9XTY0aUr06PLRHoRipqJc6";
-      const res = await fetch("/.netlify/functions/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId, userId: user.id, userEmail: user.email }),
-      });
-      const { url, error } = await res.json();
-      if (url) window.location.replace(url);
-      else console.error("Stripe error:", error);
-    } catch(e) {
-      console.error("Checkout error:", e);
-    }
-    setCheckoutLoading(null);
+    const priceId = planType === "monthly"
+      ? "price_1T9XQL0aUr06PLRHLEpeRTKp"
+      : "price_1T9XTY0aUr06PLRHoRipqJc6";
+    // Open window immediately (before any async) so Safari doesn't block it
+    const win = window.open("", "_self");
+    fetch("/.netlify/functions/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ priceId, userId: user.id, userEmail: user.email }),
+    })
+    .then(res => res.json())
+    .then(({ url, error }) => {
+      if (url) { win.location.href = url; }
+      else { console.error("Stripe error:", error); setCheckoutLoading(null); }
+    })
+    .catch(e => { console.error("Checkout error:", e); setCheckoutLoading(null); });
   };
 
   const handleStepForward = (nextStep) => {
