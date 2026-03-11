@@ -2880,8 +2880,16 @@ export default function NeuroThrive() {
           <span>NeuroThrive</span>
         </div>
         <div style={S.navTabs}>
-          {step > 0 && STEPS.slice(1, 9).map((s, i) => (
-            <button key={s} style={S.navTab(step===i+1)} onClick={() => handleStepForward(i+1)}>{s}</button>
+          {step > 0 && [
+            { label:"Gender",       s:1 },
+            { label:"Conditions",   s:2 },
+            { label:"Diet",         s:3 },
+            { label:"Menu",         s:4 },
+            { label:"Affirmations", s:5 },
+            { label:"Supplements",  s:6 },
+            { label:"Reminders",    s:7 },
+          ].map(({ label, s }) => (
+            <button key={label} style={S.navTab(step===s)} onClick={() => handleStepForward(s)}>{label}</button>
           ))}
           {isPremium && step > 0 && (
             <>
@@ -2895,9 +2903,9 @@ export default function NeuroThrive() {
       </nav>
 
       <div style={S.main}>
-        {step > 0 && step < 10 && (
+        {step > 0 && step < 9 && (
           <div style={{ display:"flex", justifyContent:"center", gap:"6px", marginBottom:"36px" }}>
-            {STEPS.slice(1).map((s,i) => <div key={s} style={S.dot(step===i+1, step>i+1)} />)}
+            {[1,2,3,4,5,6,7].map(s => <div key={s} style={S.dot(step===s, step>s)} />)}
           </div>
         )}
 
@@ -3563,7 +3571,7 @@ export default function NeuroThrive() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(8)}>← Reminders</button>
+              <button style={S.btnOutline} onClick={() => setStep(7)}>← Reminders</button>
               <button style={S.btn} onClick={() => setStep(10)}>Daily Routine →</button>
             </div>
           </div>
