@@ -25,6 +25,7 @@ const MENTAL_CONDITIONS = [
   { id: "bfrb", label: "Body-Focused Repetitive", emoji: "🌿" },
   { id: "ppd", label: "Paranoid PD", emoji: "👁️" },
   { id: "spd", label: "Schizoid PD", emoji: "🏔️" },
+  // ── No diagnosis — brain optimisation ──
   { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬" },
 ];
 
@@ -985,259 +986,251 @@ const getRecipe = (meal) => {
 };
 
 
+// ── Daily Routine Data ────────────────────────────────────────────────────
 const DAILY_ROUTINES = {
-  adhd: { label:"ADHD",
-    morning:[
-      { time:"5 min",  title:"Body Wake-Up",         desc:"Splash cold water on your face and do 10 jumping jacks. ADHD brains need physical activation before cognitive tasks — movement spikes norepinephrine faster than any alarm." },
-      { time:"5 min",  title:"Today's One Thing",    desc:"Write down the single most important task for today. Just one. The ADHD brain overloads on lists — anchor your day to one non-negotiable priority." },
+  adhd: {
+    label:"ADHD", morning:[
+      { time:"5 min",  title:"Body Wake-Up",        desc:"Splash cold water on your face and do 10 jumping jacks. ADHD brains need physical activation before cognitive tasks — movement spikes norepinephrine faster than any alarm." },
+      { time:"5 min",  title:"Today's One Thing",   desc:"Write down the single most important task for today. Just one. The ADHD brain overloads on lists — anchor your day to one non-negotiable priority." },
       { time:"10 min", title:"Protein-First Breakfast", desc:"Eat your NeuroThrive breakfast before checking your phone. Protein stabilises dopamine before the day's stimuli hijack your attention." },
-      { time:"3 min",  title:"Timer-Start Ritual",   desc:"Set a visible timer for your first task. Externalising time is one of the most evidence-backed ADHD tools — your brain cannot intuit time passing." },
-      { time:"2 min",  title:"Body Double Setup",    desc:"Tell someone what you're working on. ADHD focus dramatically increases when another presence — even virtual — is nearby." },
-    ],
-    evening:[
-      { time:"5 min",  title:"Brain Dump",           desc:"Write everything in your head onto paper. Externalise the mental noise so your brain isn't trying to hold it all overnight." },
-      { time:"3 min",  title:"Tomorrow's Anchor",    desc:"Write the one thing you need to do first tomorrow somewhere visible. Pre-deciding removes morning friction." },
-      { time:"10 min", title:"Wind-Down Screen Cut", desc:"Put your phone in another room 30 minutes before sleep. ADHD brains are more sensitive to blue light's dopamine stimulation." },
-      { time:"5 min",  title:"What Worked",          desc:"Name one thing you did well today. ADHD brains are hardwired to notice failures — actively seeking wins retrains the self-narrative." },
-    ],
-  },
-  anxiety: { label:"Anxiety",
-    morning:[
-      { time:"5 min",  title:"Grounding First",      desc:"Before checking your phone: name 5 things you see, 4 you hear, 3 you can touch. Anxiety wakes up faster than you do — grounding anchors you in the present." },
-      { time:"5 min",  title:"Slow Morning Breath",  desc:"4 counts in, 4 hold, 6 counts out. Repeat 5 times. The extended exhale activates the parasympathetic nervous system, lowering cortisol within minutes." },
-      { time:"10 min", title:"No-News Breakfast",    desc:"Eat your NeuroThrive breakfast without news or social media. Anxiety brains are threat-scanning by default — inputs matter enormously in the first 30 minutes." },
-      { time:"5 min",  title:"Today's Worry Slot",   desc:"Write your worries down and close the notebook. Schedule your official worry time for later. This is one of the most evidence-backed CBT techniques for reducing all-day rumination." },
-      { time:"3 min",  title:"Calm Intention",       desc:"Set one calm, achievable intention. Not a goal. A quality of presence you want to bring to the day." },
-    ],
-    evening:[
-      { time:"5 min",  title:"Worry Time",           desc:"This is the worry slot you set this morning. Write your worries for 5 minutes, then close the notebook. Contained worry prevents it expanding into the whole evening." },
-      { time:"10 min", title:"Magnesium & Warm Drink", desc:"Take your magnesium supplement with chamomile tea. Magnesium activates GABA receptors — the brain's calm switch." },
-      { time:"5 min",  title:"Body Scan",            desc:"Lying down, slowly notice each body part without trying to change anything. Anxiety lives in the body — this teaches you to observe physical sensations without them becoming thoughts." },
-      { time:"3 min",  title:"What Was Safe Today",  desc:"Name three things that were fine today. Anxiety brains overweight threats — noticing safety rewires threat-detection over time." },
+      { time:"3 min",  title:"Timer-Start Ritual",  desc:"Set a visible timer for your first task. Externalising time is one of the most evidence-backed ADHD tools — your brain cannot intuit time passing." },
+      { time:"2 min",  title:"Body Double Setup",   desc:"Tell someone what you're working on. ADHD focus dramatically increases when another presence — even virtual — is nearby." },
+    ], evening:[
+      { time:"5 min",  title:"Brain Dump",          desc:"Write everything in your head onto paper. Externalise the mental noise so your brain isn't trying to 'hold' it all overnight." },
+      { time:"3 min",  title:"Tomorrow's Anchor",   desc:"Write the one thing you need to do first tomorrow and put it somewhere visible. Pre-deciding removes morning friction." },
+      { time:"10 min", title:"Wind-Down Screen Cut",desc:"Put your phone in another room 30 minutes before sleep. ADHD brains are more sensitive to blue light's dopamine stimulation." },
+      { time:"5 min",  title:"What Worked",         desc:"Name one thing you did well today. ADHD brains are hardwired to notice failures — actively seeking wins retrains the self-narrative." },
     ],
   },
-  depression: { label:"Depression",
-    morning:[
-      { time:"2 min",  title:"Feet on the Floor",    desc:"The goal is not to feel good. The goal is feet on the floor. That's the entire morning goal. Everything else comes after that." },
-      { time:"5 min",  title:"Light Exposure",       desc:"Open a window or step outside for 5 minutes. Morning light resets the cortisol awakening response — the brain's wake-up signal that depression suppresses." },
+  anxiety: {
+    label:"Anxiety", morning:[
+      { time:"5 min",  title:"Grounding First",     desc:"Before checking your phone: name 5 things you see, 4 you hear, 3 you can touch. Anxiety wakes up faster than you do — grounding anchors you in the present." },
+      { time:"5 min",  title:"Slow Morning Breath", desc:"4 counts in, 4 hold, 6 counts out. Repeat 5 times. The extended exhale activates the parasympathetic nervous system, lowering cortisol within minutes." },
+      { time:"10 min", title:"No-News Breakfast",   desc:"Eat your NeuroThrive breakfast without news or social media. Anxiety brains are threat-scanning by default — inputs matter enormously in the first 30 minutes." },
+      { time:"5 min",  title:"Today's Worry Slot",  desc:"Write your worries down and close the notebook. Schedule your 'official' worry time for later (say, 4pm). This is one of the most evidence-backed CBT techniques for reducing all-day rumination." },
+      { time:"3 min",  title:"Calm Intention",      desc:"Set one calm, achievable intention: 'Today I will do one thing at a time.' Not a goal. A quality of presence." },
+    ], evening:[
+      { time:"5 min",  title:"Scheduled Worry Time",desc:"This is the worry slot you set this morning. Write your worries for 5 minutes, then close the notebook. Contained worry prevents it expanding into the whole evening." },
+      { time:"10 min", title:"Magnesium & Warm Drink",desc:"Take your magnesium supplement with chamomile tea. Magnesium activates GABA receptors — the brain's calm switch. Chamomile's apigenin does the same." },
+      { time:"5 min",  title:"Body Scan",           desc:"Lying down, slowly notice each body part without trying to change anything. Anxiety lives in the body — this practice teaches you to observe physical sensations without them becoming thoughts." },
+      { time:"3 min",  title:"What Was Safe Today", desc:"Name three things that were fine today. Not great — just fine. Anxiety brains overweight threats; noticing safety rewires threat-detection over time." },
+    ],
+  },
+  depression: {
+    label:"Depression", morning:[
+      { time:"2 min",  title:"Feet on the Floor",   desc:"The goal is not to feel good. The goal is feet on the floor. That's the entire morning goal. Everything else comes after that." },
+      { time:"5 min",  title:"Light Exposure",      desc:"Open a window or step outside for 5 minutes. Morning light resets the cortisol awakening response — the brain's natural 'wake up' signal that depression suppresses." },
       { time:"10 min", title:"Breakfast — Non-Negotiable", desc:"Eat your NeuroThrive breakfast even if you're not hungry. Skipping meals makes both energy and mood worse. Tryptophan at breakfast starts serotonin synthesis for the day." },
-      { time:"5 min",  title:"One Micro-Commitment", desc:"Text one person or do one 5-minute task. Depression thrives in isolation and inaction. The smallest action breaks the loop." },
-      { time:"2 min",  title:"Self-Compassion",      desc:"Say: 'I am doing the best I can today.' Depression's inner critic is relentless — consciously pushing back matters neurologically." },
-    ],
-    evening:[
-      { time:"5 min",  title:"Three Things You Did", desc:"Not three things you're grateful for. Three things you did today. Getting out of bed counts. Eating counts. Showing up here counts." },
-      { time:"10 min", title:"Gentle Movement",      desc:"10 minutes of slow walking or gentle stretching. Even gentle movement increases BDNF — the brain's growth factor." },
-      { time:"5 min",  title:"Tomorrow's First Step",desc:"Name one thing you'll do first tomorrow. Reduces decision fatigue and creates a tiny sense of forward momentum before sleep." },
-      { time:"3 min",  title:"Sleep Anchor",         desc:"Same bedtime every night. Depression disrupts the circadian rhythm — consistent sleep timing is one of the most powerful and underused mood interventions." },
+      { time:"5 min",  title:"One Micro-Commitment",desc:"Text one person or do one 5-minute task. Depression thrives in isolation and inaction. The smallest action breaks the loop." },
+      { time:"2 min",  title:"Compassionate Self-Talk", desc:"Say out loud or write: 'I am doing the best I can today.' Depression's inner critic is relentless — consciously pushing back matters neurologically." },
+    ], evening:[
+      { time:"5 min",  title:"Three Things You Did",desc:"Not three things you're grateful for. Three things you did today. Getting out of bed counts. Eating counts. Showing up here counts." },
+      { time:"10 min", title:"Gentle Movement",     desc:"10 minutes of slow walking or gentle stretching. Exercise is the most evidenced natural antidepressant — even 10 minutes of gentle movement increases BDNF." },
+      { time:"5 min",  title:"Tomorrow's First Step",desc:"Name one thing — just one — you'll do first tomorrow. Reduces decision fatigue and creates a tiny sense of forward momentum." },
+      { time:"3 min",  title:"Sleep Anchor",        desc:"Same bedtime every night. Depression disrupts the circadian rhythm, which worsens mood. Consistent sleep timing is one of the most powerful and underused mood interventions." },
     ],
   },
-  bipolar: { label:"Bipolar Disorder",
-    morning:[
-      { time:"3 min",  title:"Mood Calibration",     desc:"Rate your mood 1–10 before anything else. Mood tracking is the single most important self-management tool in bipolar — it catches warning signs before they become episodes." },
-      { time:"5 min",  title:"Routine Anchor",       desc:"Same wake time every day, including weekends. Circadian rhythm disruption is a primary bipolar trigger — consistency here has more evidence than almost any lifestyle intervention." },
+  bipolar: {
+    label:"Bipolar Disorder", morning:[
+      { time:"3 min",  title:"Mood Calibration",    desc:"Rate your mood 1–10 before anything else. Mood tracking is the single most important self-management tool in bipolar — it catches early warning signs before they become episodes." },
+      { time:"5 min",  title:"Routine Anchor",      desc:"Same wake time every day, including weekends. Circadian rhythm disruption is a primary bipolar trigger — consistency here has more evidence than almost any lifestyle intervention." },
       { time:"10 min", title:"Stabilising Breakfast",desc:"Eat your NeuroThrive breakfast. Blood sugar instability is a mood cycling trigger. Never skip breakfast — it sets glucose stability for the whole day." },
-      { time:"5 min",  title:"Stimulation Check",    desc:"Is today overstimulating (hypomania risk) or understimulating (depression risk)? Adjust one commitment if needed. Proactive pacing is the core skill." },
-      { time:"2 min",  title:"Anchor Intention",     desc:"Set one grounded, stable intention. Not an ambitious goal. 'Today I will stay at a 6.' Stability is the win." },
-    ],
-    evening:[
-      { time:"5 min",  title:"End-of-Day Mood Log",  desc:"Record mood rating, energy level, sleep quality, and any warning signs. This data, tracked consistently, becomes your personal early warning system." },
-      { time:"10 min", title:"Sleep Ritual",         desc:"Same bedtime, same routine. Sleep deprivation is the most consistent manic trigger known. One night of poor sleep can begin an upswing. Protect this above everything." },
+      { time:"5 min",  title:"Stimulation Check",   desc:"Is today's plan overstimulating (hypomania risk) or understimulating (depression risk)? Adjust one commitment if needed. Proactive pacing is core bipolar management." },
+      { time:"2 min",  title:"Anchor Intention",    desc:"Set one grounded, calm intention. Not an ambitious goal. A steady one. 'Today I will stay at a 6.' Stability is the win." },
+    ], evening:[
+      { time:"5 min",  title:"End-of-Day Mood Log", desc:"Record today's mood rating, energy level, sleep quality, and any warning signs. This data, tracked consistently, becomes your personal early warning system." },
+      { time:"10 min", title:"Sleep Ritual — Non-Negotiable", desc:"Same bedtime, same routine. Sleep deprivation is the most consistent manic trigger known. One night of poor sleep can begin an upswing." },
       { time:"5 min",  title:"Stimulation Wind-Down",desc:"Dim lights, no screens, no intense conversations after 9pm. The hypomanic brain is hyper-responsive to stimuli — controlling your environment is prophylactic mood medicine." },
-      { time:"3 min",  title:"Tomorrow Check",       desc:"Look at tomorrow's calendar. Remove anything that feels exciting-but-too-much. Impulse commitments made during stable periods often look different in hindsight." },
+      { time:"3 min",  title:"Tomorrow Moderation Check", desc:"Look at tomorrow's calendar. Remove anything that feels exciting-but-too-much. Impulse commitments made during stable periods often look different in hindsight." },
     ],
   },
-  ptsd: { label:"PTSD",
-    morning:[
-      { time:"5 min",  title:"Safe Environment Check", desc:"Open your eyes slowly. Notice: I am in my room. It is safe. PTSD keeps the nervous system primed for danger — a conscious safety acknowledgment shifts the brain to present-moment mode." },
-      { time:"5 min",  title:"Grounding Practice",   desc:"Hold something cold or textured for 30 seconds. Physical grounding interrupts hyperarousal and signals to the nervous system that the present is not the past." },
-      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast before outside stimuli. Chronic PTSD elevates cortisol — skipping breakfast spikes it further." },
-      { time:"5 min",  title:"Today's Capacity",     desc:"Honestly assess your window of tolerance today. What is manageable? Proactively communicating your capacity prevents re-traumatisation from overwhelm." },
-      { time:"3 min",  title:"Resource Reminder",    desc:"Name three people, places, or things that feel safe. Consciously activating your safety network activates the vagal system and lowers threat response." },
-    ],
-    evening:[
-      { time:"5 min",  title:"Containment Practice", desc:"Imagine placing today's difficult moments in a container and closing it. This schedules processing to therapy time rather than avoiding it." },
-      { time:"10 min", title:"Body Safety Scan",     desc:"Slowly scan your body, noticing tension without trying to change anything. PTSD stores trauma in the body — noticing without reacting builds tolerance capacity." },
-      { time:"5 min",  title:"Tomorrow's Safe Plan", desc:"Identify any potential triggers in tomorrow's schedule. Make one small adjustment if possible. Proactive planning reduces the element of surprise that activates trauma responses." },
-      { time:"3 min",  title:"Small Brave Thing",    desc:"Name one thing you did today that took courage — however small. Noticing acts of courage rebuilds the self-image that trauma contracts." },
-    ],
-  },
-  ocd: { label:"OCD",
-    morning:[
-      { time:"5 min",  title:"Delay Practice",       desc:"When the first compulsion urge arrives — delay it by 5 minutes. This builds the neural pathway separating urge from action, which is the core skill ERP therapy develops." },
-      { time:"5 min",  title:"Uncertainty Acceptance",desc:"Say out loud: 'I don't know for certain that everything is okay. That's okay.' Practising tolerance of uncertainty literally retrains the OCD circuit." },
-      { time:"10 min", title:"Structured Breakfast", desc:"Eat your NeuroThrive breakfast at the same time each day without rituals. Predictable structure gives the OCD brain containment without feeding the compulsion cycle." },
-      { time:"3 min",  title:"Today's ERP Goal",     desc:"Name one small exposure you'll practise today — something your OCD avoids. This, repeated daily, changes OCD more than any other intervention." },
-      { time:"2 min",  title:"Thought Labelling",    desc:"When an intrusive thought arrives: 'That's an OCD thought. I don't have to act on it.' Defusion from intrusive thoughts is a core ACT technique." },
-    ],
-    evening:[
-      { time:"5 min",  title:"ERP Reflection",       desc:"Did you approach your exposure today? Write it down. The evidence that anxiety goes down when you don't compulse is what your brain needs to accumulate." },
-      { time:"5 min",  title:"Intrusive Thought Log",desc:"Write any strong intrusive thoughts today — without acting on them. Externalising reduces their felt urgency." },
-      { time:"3 min",  title:"Compassion Practice",  desc:"OCD is not your fault. It is a neurological condition, not a character flaw. The shame OCD generates is one of its most damaging components." },
-      { time:"5 min",  title:"Tomorrow's Intention", desc:"Name one compulsion you will not act on tomorrow. Pre-commitment reduces decision load when anxiety is high." },
+  ptsd: {
+    label:"PTSD", morning:[
+      { time:"5 min",  title:"Safe Environment Check", desc:"Open your eyes slowly. Notice: I am in my room. It is safe. PTSD keeps the nervous system primed for danger — a conscious safety acknowledgment shifts the brain from threat mode to present-moment mode." },
+      { time:"5 min",  title:"Grounding Practice",  desc:"Hold something cold or textured for 30 seconds. Physical grounding interrupts hyperarousal and signals to the nervous system that the present is not the past." },
+      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast before outside stimuli. Chronic PTSD elevates cortisol — skipping breakfast spikes it further. Consistent eating helps regulate the stress hormone rhythm." },
+      { time:"5 min",  title:"Today's Capacity",    desc:"Honestly assess your window of tolerance today. What is manageable? Proactively communicating your capacity prevents re-traumatisation from overwhelm." },
+      { time:"3 min",  title:"Resource Reminder",   desc:"Name three people, places, or things that feel safe to you. Consciously activating your safety network activates the vagal system and lowers threat response." },
+    ], evening:[
+      { time:"5 min",  title:"Containment Practice",desc:"Imagine placing today's difficult moments in a container and closing it. This grounds and schedules processing to therapy time rather than avoiding it." },
+      { time:"10 min", title:"Body Safety Scan",    desc:"Slowly scan your body, noticing areas of tension without trying to change them. PTSD stores trauma in the body — noticing without reacting builds the tolerance capacity therapy depends on." },
+      { time:"5 min",  title:"Tomorrow's Safe Plan",desc:"Identify any potential triggers in tomorrow's schedule. Make one small adjustment if possible. Proactive planning reduces the element of surprise that activates trauma responses." },
+      { time:"3 min",  title:"Today's Small Brave Thing", desc:"Name one thing you did today that took courage — however small. Noticing acts of courage, however tiny, rebuilds the self-image that trauma contracts." },
     ],
   },
-  bpd: { label:"Borderline PD",
-    morning:[
-      { time:"5 min",  title:"Baseline Emotion Check",desc:"Name the emotion you woke up with. Just name it — don't judge it. Emotion identification reduces emotional intensity by engaging the prefrontal cortex — the first skill in DBT." },
-      { time:"5 min",  title:"PLEASE Skill Check",   desc:"PhysicaL illness, Eating, Avoid substances, Sleep, Exercise. BPD emotional vulnerability skyrockets when any of these is off — this check is your early warning system." },
+  ocd: {
+    label:"OCD", morning:[
+      { time:"5 min",  title:"Delay Practice",      desc:"When the first compulsion or checking urge arrives — delay it by 5 minutes. This builds the neural pathway that separates urge from action, which is the core skill ERP therapy develops." },
+      { time:"5 min",  title:"Uncertainty Acceptance", desc:"Say out loud: 'I don't know for certain that everything is okay. That's okay.' OCD demands certainty — practising tolerance of uncertainty literally retrains the OCD circuit." },
+      { time:"10 min", title:"Structured Breakfast", desc:"Eat your NeuroThrive breakfast at the same time each day without rituals. A predictable, non-ritualistic routine gives the OCD brain structure without feeding the compulsion cycle." },
+      { time:"3 min",  title:"Today's ERP Goal",    desc:"Name one small exposure you'll practise today — something your OCD avoids. This, repeated daily, changes OCD more than any other intervention." },
+      { time:"2 min",  title:"Thought Labelling",   desc:"When an intrusive thought arrives: 'That's an OCD thought. I don't have to act on it.' Defusion from intrusive thoughts is a core ACT technique for OCD." },
+    ], evening:[
+      { time:"5 min",  title:"ERP Reflection",      desc:"Did you approach your exposure today? Write it down. The evidence that anxiety goes down when you don't compulse is what your brain needs to see accumulated over time." },
+      { time:"5 min",  title:"Intrusive Thought Log",desc:"Write any particularly strong intrusive thoughts today — without acting on them. Externalising them reduces their felt urgency." },
+      { time:"3 min",  title:"Compassion Practice", desc:"OCD is not your fault. It is a neurological condition, not a character flaw. The shame OCD generates is one of its most damaging components." },
+      { time:"5 min",  title:"Tomorrow's Intention",desc:"Name one intrusive thought or compulsion you will not act on tomorrow. Pre-commitment reduces decision load when anxiety is high." },
+    ],
+  },
+  bpd: {
+    label:"Borderline PD", morning:[
+      { time:"5 min",  title:"Baseline Emotion Check", desc:"Name the emotion you woke up with. Just name it — don't judge it. Emotion identification reduces emotional intensity by engaging the prefrontal cortex — the first skill in DBT." },
+      { time:"5 min",  title:"PLEASE Skill Check",  desc:"PhysicaL illness, Eating, Avoid substances, Sleep, Exercise. BPD emotional vulnerability skyrockets when any of these is off — this check is your early warning system." },
       { time:"10 min", title:"Regulating Breakfast", desc:"Eat your NeuroThrive breakfast. Blood sugar is one of the most direct drivers of emotional reactivity — stable glucose reduces the amplitude of emotional swings." },
-      { time:"3 min",  title:"Opposite Action",      desc:"Name one emotion you're likely to feel today and its opposite action. If shame, reach out instead of withdrawing. Pre-deciding reduces impulsive responses." },
-      { time:"2 min",  title:"Wise Mind Check",      desc:"Ask: 'What would Wise Mind do today?' Not Emotion Mind. Not Reasonable Mind. The place between them — the orienting question for your whole day." },
-    ],
-    evening:[
-      { time:"5 min",  title:"Emotion Thermometer",  desc:"Rate the intensity of your emotional experience today 1–10. Tracking externalises emotions and, over weeks, reveals patterns that therapy can work with." },
-      { time:"5 min",  title:"Effectiveness Review", desc:"Was your behaviour today effective — did it move you toward your values? Not was it justified. Effective. This DBT question builds self-regulation over reactivity." },
-      { time:"3 min",  title:"Repair Plan",          desc:"If any relationship damage happened today, name one small repair action for tomorrow. Proactive repair prevents accumulation of disconnection." },
-      { time:"5 min",  title:"Self-Soothe",          desc:"Use one sense to soothe: a warm shower, a candle, a favourite song at low volume. Sensory self-soothing is a direct DBT distress tolerance skill." },
-    ],
-  },
-  autism: { label:"Autism Spectrum",
-    morning:[
-      { time:"5 min",  title:"Predictable Start",    desc:"Same routine every morning in the same order. Predictability reduces the cognitive and sensory load of mornings — preserving executive function for the day's actual demands." },
-      { time:"5 min",  title:"Sensory Check",        desc:"Before leaving: clothing comfortable? Lighting okay? Sound manageable? Proactively addressing sensory needs prevents the cumulative dysregulation that builds invisibly throughout the day." },
-      { time:"10 min", title:"Sensory-Safe Breakfast",desc:"Eat your NeuroThrive breakfast — familiar textures, predictable flavours. The gut-brain axis is particularly relevant in autism: digestive comfort directly affects sensory tolerance." },
-      { time:"5 min",  title:"Today's Social Demands",desc:"Look at today's schedule for social interactions. Masking is exhausting — knowing in advance allows you to conserve energy and plan recovery time." },
-      { time:"3 min",  title:"Special Interest Anchor",desc:"Briefly engage with your special interest for 3 minutes. Starting the day with something that brings genuine pleasure activates dopamine in a grounding, stabilising way." },
-    ],
-    evening:[
-      { time:"10 min", title:"Decompression Time",   desc:"Stimming, silence, or a favourite repetitive activity with no demands. Autistic nervous systems carry a higher load of sensory and social processing — decompression is neurological maintenance." },
-      { time:"5 min",  title:"Energy Accounting",    desc:"What cost energy today? What restored it? Tracking this builds the self-knowledge that allows you to pace your life in a way that prevents burnout." },
-      { time:"5 min",  title:"Sensory Wind-Down",    desc:"Dim lights, reduce sounds, change into comfortable clothing. Sensory inputs significantly affect sleep onset — the transition to low stimulation should be gradual." },
-      { time:"3 min",  title:"Tomorrow Preview",     desc:"Look at tomorrow briefly. Any surprises or changes? Knowing tonight reduces the shock-processing load in the morning, when regulation is already more effortful." },
+      { time:"3 min",  title:"Today's Opposite Action", desc:"Name one emotion you're likely to feel today and its opposite action. If shame, reach out instead of withdrawing. Pre-deciding reduces impulsive responses." },
+      { time:"2 min",  title:"Wise Mind Check",     desc:"Ask: 'What would Wise Mind do today?' Not Emotion Mind. Not Reasonable Mind. The place between them. The orienting question for your whole day." },
+    ], evening:[
+      { time:"5 min",  title:"Emotion Thermometer", desc:"Rate the intensity of your emotional experience today 1–10. Tracking externalises emotions and, over weeks, reveals patterns that therapy can work with." },
+      { time:"5 min",  title:"Effectiveness Review",desc:"Was your behaviour today effective — did it move you toward your values? Not was it justified. Effective. This DBT question builds self-regulation over reactivity." },
+      { time:"3 min",  title:"Repair Plan",         desc:"If any relationship damage happened today, name one small repair action for tomorrow. Proactive repair prevents accumulation of disconnection." },
+      { time:"5 min",  title:"Self-Soothe",         desc:"Use one sense to soothe: a warm shower, a candle, a favourite song at low volume. Sensory self-soothing is a direct DBT distress tolerance skill." },
     ],
   },
-  neuro_core: { label:"Neuro Core Plan",
-    morning:[
-      { time:"5 min",  title:"Hydration First",      desc:"Drink a full glass of water before anything else. The brain loses water overnight — even mild dehydration reduces cognitive performance and mood within hours." },
-      { time:"10 min", title:"Brain-Boosting Breakfast",desc:"Eat your NeuroThrive breakfast without screens. The prefrontal cortex runs on glucose — the quality of your first meal sets its performance ceiling for the morning." },
-      { time:"5 min",  title:"Morning Sunlight",     desc:"Step outside or look out a bright window for 5 minutes. Morning light sets your circadian clock and triggers the cortisol awakening response — your natural performance enhancer." },
-      { time:"5 min",  title:"Movement Activation",  desc:"10 jumping jacks or a short walk. Even 5 minutes of exercise increases BDNF — the brain's growth factor — and improves focus and learning for hours afterward." },
-      { time:"3 min",  title:"Focus Intention",      desc:"Write one specific outcome you want from today. This activates the reticular activating system, which filters information to support your stated goal." },
-    ],
-    evening:[
-      { time:"5 min",  title:"Cognitive Wind-Down",  desc:"Stop complex mental work 60 minutes before bed. The prefrontal cortex takes time to shift to resting mode — working until sleep reduces sleep quality and memory consolidation." },
-      { time:"5 min",  title:"What You Learned Today",desc:"Name one thing you learned or noticed today. Memory consolidation during sleep is strengthened when you consciously review experiences beforehand." },
-      { time:"10 min", title:"Sleep Preparation",    desc:"Dim all lights 30–60 minutes before bed. Blue light suppresses melatonin for up to 3 hours. Sleep is when the brain clears neurotoxic waste — protecting it is the most underrated brain optimisation strategy." },
-      { time:"3 min",  title:"Tomorrow's Brain Fuel",desc:"Think briefly about what you'll eat tomorrow. Pre-deciding your first meal removes morning decision fatigue before the day has even started." },
+  autism: {
+    label:"Autism Spectrum", morning:[
+      { time:"5 min",  title:"Predictable Start",   desc:"Same routine every morning in the same order. Predictability reduces the cognitive and sensory load of mornings — preserving executive function for the day's actual demands." },
+      { time:"5 min",  title:"Sensory Check",       desc:"Before leaving: clothing comfortable? Lighting okay? Sound manageable? Proactively addressing sensory needs prevents the cumulative dysregulation that builds invisibly throughout the day." },
+      { time:"10 min", title:"Sensory-Safe Breakfast", desc:"Eat your NeuroThrive breakfast — familiar textures, predictable flavours. The gut-brain axis is particularly relevant in autism: digestive comfort directly affects sensory tolerance." },
+      { time:"5 min",  title:"Today's Social Demands", desc:"Look at today's schedule for social interactions. Mentally prepare. Masking is exhausting — knowing in advance allows you to conserve energy and plan recovery time." },
+      { time:"3 min",  title:"Special Interest Anchor", desc:"Briefly engage with your special interest for 3 minutes. Starting the day with something that brings genuine pleasure activates dopamine in a grounding, stabilising way." },
+    ], evening:[
+      { time:"10 min", title:"Decompression Time",  desc:"Stimming, silence, or a favourite repetitive activity with no demands. Autistic nervous systems carry a higher load of sensory and social processing — decompression is neurological maintenance." },
+      { time:"5 min",  title:"Energy Accounting",   desc:"What cost energy today? What restored it? Tracking this builds self-knowledge that allows you to pace your life in a way that prevents burnout." },
+      { time:"5 min",  title:"Sensory Wind-Down",   desc:"Dim lights, reduce sounds, change into comfortable clothing. Sensory inputs significantly affect sleep onset for autistic individuals — the transition to low stimulation should be gradual." },
+      { time:"3 min",  title:"Tomorrow Preview",    desc:"Look at tomorrow briefly. Any surprises or changes? Knowing tonight reduces the shock-processing load in the morning, when regulation is already more effortful." },
     ],
   },
-  default: { label:"General Wellness",
-    morning:[
-      { time:"5 min",  title:"Hydration",            desc:"Drink a full glass of water first. Your brain loses fluid overnight — hydration is the simplest cognitive performance boost available." },
-      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast. The brain consumes 20% of your body's energy — consistent morning nutrition sets neurotransmitter production for the day." },
-      { time:"5 min",  title:"Today's Intention",    desc:"Set one clear intention for the day — a quality of presence you want to bring. This activates the prefrontal cortex's goal-setting systems." },
-      { time:"5 min",  title:"Morning Movement",     desc:"Even 5 minutes of movement increases BDNF and improves focus, mood, and learning for hours afterward." },
+  neuro_core: {
+    label:"Neuro Core Plan", morning:[
+      { time:"5 min",  title:"Hydration First",     desc:"Drink a full glass of water before anything else. The brain loses water overnight — even mild dehydration reduces cognitive performance, mood, and reaction time within hours." },
+      { time:"10 min", title:"Brain-Boosting Breakfast", desc:"Eat your NeuroThrive breakfast without screens. The prefrontal cortex runs on glucose — the quality of your first meal sets its performance ceiling for the morning." },
+      { time:"5 min",  title:"Morning Sunlight",    desc:"Step outside or look out a bright window for 5 minutes. Morning light sets your circadian clock, triggers the cortisol awakening response, and begins melatonin suppression that keeps you alert." },
+      { time:"5 min",  title:"Movement Activation", desc:"10 jumping jacks or a short walk. Even 5 minutes of exercise increases BDNF — the brain's growth factor — by measurable amounts. Movement improves focus and learning for hours afterward." },
+      { time:"3 min",  title:"Today's Focus Intention", desc:"Write one specific outcome you want from today. This activates the reticular activating system, which filters information to support your stated goal." },
+    ], evening:[
+      { time:"5 min",  title:"Cognitive Wind-Down", desc:"Stop complex mental work 60 minutes before bed. The prefrontal cortex takes time to shift to resting mode — working until sleep reduces sleep quality and memory consolidation." },
+      { time:"5 min",  title:"What You Learned Today", desc:"Name one thing you learned or noticed today. Memory consolidation during sleep is strengthened when you consciously review experiences before sleeping." },
+      { time:"10 min", title:"Sleep Preparation",   desc:"Dim all lights 30–60 minutes before bed. Blue light suppresses melatonin for up to 3 hours. Sleep is when the brain clears neurotoxic waste — protecting it is the most underrated brain optimisation strategy." },
+      { time:"3 min",  title:"Tomorrow's Brain Fuel", desc:"Think briefly about what you'll eat tomorrow. Pre-deciding your first meal removes morning decision fatigue that reduces willpower before the day has started." },
     ],
-    evening:[
-      { time:"5 min",  title:"Reflection",           desc:"Name one thing that went well today and one thing you learned. This builds self-awareness and supports memory consolidation during sleep." },
-      { time:"5 min",  title:"Tomorrow Preview",     desc:"Look briefly at tomorrow. Knowing what's coming reduces morning cognitive load and helps you wake with a sense of direction." },
-      { time:"5 min",  title:"Sleep Ritual",         desc:"Dim lights and reduce stimulation 30 minutes before bed. Sleep quality is the single most impactful factor in next-day mood, focus, and emotional regulation." },
+  },
+  default: {
+    label:"General Wellness", morning:[
+      { time:"5 min",  title:"Hydration",           desc:"Drink a full glass of water first. Your brain loses fluid overnight — hydration is the simplest cognitive performance boost available." },
+      { time:"10 min", title:"Nourishing Breakfast",desc:"Eat your NeuroThrive breakfast. The brain consumes 20% of your body's energy — consistent morning nutrition sets neurotransmitter production for the day." },
+      { time:"5 min",  title:"Today's Intention",   desc:"Set one clear intention for the day — a quality of presence you want to bring. This activates the prefrontal cortex's goal-setting systems." },
+      { time:"5 min",  title:"Morning Movement",    desc:"Even 5 minutes of movement increases BDNF and improves focus, mood, and learning for hours afterward." },
+    ], evening:[
+      { time:"5 min",  title:"Reflection",          desc:"Name one thing that went well today and one thing you learned. This builds self-awareness and supports memory consolidation during sleep." },
+      { time:"5 min",  title:"Tomorrow Preview",    desc:"Look briefly at tomorrow. Knowing what's coming reduces morning cognitive load and helps you wake with a sense of direction." },
+      { time:"5 min",  title:"Sleep Ritual",        desc:"Dim lights and reduce stimulation 30 minutes before bed. Sleep quality is the single most impactful factor in next-day mood, focus, and emotional regulation." },
     ],
   },
 };
 
+// ── Brain Toolkit Data ────────────────────────────────────────────────────
 const BRAIN_TOOLKIT_STATES = [
-  { id:"cant_start", emoji:"😶‍🌫️", label:"I can't start anything" },
-  { id:"spiraling",  emoji:"🌀",   label:"My thoughts are spiraling" },
-  { id:"burned_out", emoji:"🔥",   label:"I'm burned out" },
-  { id:"frustrated", emoji:"😤",   label:"I'm frustrated and overwhelmed" },
-  { id:"avoiding",   emoji:"⏰",   label:"I've been avoiding something" },
+  { id:"cant_start",  emoji:"😶‍🌫️", label:"I can't start anything" },
+  { id:"spiraling",   emoji:"🌀",   label:"My thoughts are spiraling" },
+  { id:"burned_out",  emoji:"🔥",   label:"I'm burned out" },
+  { id:"frustrated",  emoji:"😤",   label:"I'm frustrated and overwhelmed" },
+  { id:"avoiding",    emoji:"⏰",   label:"I've been avoiding something" },
 ];
 
 const BRAIN_TOOLKIT = {
   adhd: {
     cant_start:[
-      { s:1, t:"Body first, brain second", d:"Do 10 slow squats or shake your hands for 30 seconds. ADHD brains need physical activation before cognitive tasks — dopamine rises within 2 minutes of movement." },
-      { s:2, t:"2-minute rule",            d:"Commit to only 2 minutes. Set a visible timer. The brain's resistance to starting drops dramatically when the commitment feels tiny. Most of the time, you'll keep going." },
-      { s:3, t:"Remove one barrier",       d:"What's the smallest obstacle between you and starting? Close a tab, clear the desk. Reducing friction often unlocks starting entirely." },
-      { s:4, t:"Announce it",              d:"Tell someone — out loud or by text — what you're about to do. Body doubling and social commitment are among the most reliably effective ADHD focus tools." },
-      { s:5, t:"Reward layer",             d:"Put on preferred background — music or a familiar show at low volume. ADHD brains start better with a sensory reward layer. This is regulation, not distraction." },
+      { s:1, t:"Body first, brain second", d:"Do 10 slow squats or shake your hands for 30 seconds. ADHD brains need physical activation before cognitive tasks — dopamine rises within 2 minutes of movement, and that's what starting requires." },
+      { s:2, t:"2-minute rule",            d:"Tell yourself you'll only do 2 minutes. Set a visible timer. The brain's resistance to starting drops dramatically when the commitment feels tiny. Most of the time, you'll keep going." },
+      { s:3, t:"Remove one barrier",       d:"What's the smallest obstacle between you and starting? Close a tab, clear the desk. Reducing friction by 20% often unlocks starting entirely." },
+      { s:4, t:"Announce it",              d:"Tell someone — out loud, by text — what you're about to do. Body doubling and social commitment are among the most reliably effective ADHD focus tools available." },
+      { s:5, t:"Reward layer",             d:"Put on preferred background — music, a familiar show at low volume. ADHD brains start better with a sensory reward layer running. This is not distraction — it's regulation." },
     ],
     spiraling:[
       { s:1, t:"Name the spiral",          d:"Say out loud: 'My brain is spiraling right now.' Naming activates the prefrontal cortex and partially interrupts the automatic spiral." },
-      { s:2, t:"Dump it on paper",         d:"Set a 3-minute timer and write everything in your head without stopping. Externalising reduces working memory overflow immediately." },
-      { s:3, t:"Fact vs story",            d:"Circle one item. Is this a fact, or a story about a fact? ADHD brains catastrophise rapidly — the facts are usually much smaller than the story." },
-      { s:4, t:"One action, right now",    d:"What's the smallest thing you can do in the next 5 minutes? Action is the fastest way out of an ADHD spiral — not thinking, doing." },
+      { s:2, t:"Dump it on paper",         d:"Set a 3-minute timer and write everything in your head without stopping. ADHD working memory overflows — externalising reduces cognitive load immediately." },
+      { s:3, t:"Fact vs story",            d:"Circle one item from your dump. Is this a fact, or a story about a fact? ADHD brains catastrophise rapidly — the facts are usually much smaller than the story." },
+      { s:4, t:"One action, right now",    d:"What's the one smallest thing you can do in the next 5 minutes? Action is the fastest way out of an ADHD spiral — not thinking, doing." },
     ],
     burned_out:[
-      { s:1, t:"Stop pushing through",    d:"ADHD burnout is neurochemical, not motivational. Pushing harder depletes dopamine faster. Give yourself permission to stop — not forever, for now." },
+      { s:1, t:"Stop pushing through",     d:"ADHD burnout is neurochemical, not motivational. Pushing harder depletes dopamine faster. Give yourself permission to stop — not forever, for now." },
       { s:2, t:"Dopamine reset",           d:"Do something you genuinely enjoy for 15–20 minutes with zero productivity goal. This is neurological refuelling, not procrastination." },
       { s:3, t:"Protein snack",            d:"Eat a small protein-rich snack. Burnout drops blood sugar and dopamine simultaneously — protein stabilises both." },
-      { s:4, t:"Reduce tomorrow's load",   d:"Look at tomorrow and remove or defer one commitment. ADHD burnout is often caused by overcommitment during hyperfocus states." },
+      { s:4, t:"Reduce tomorrow's load",   d:"Look at tomorrow and remove or defer one commitment. ADHD burnout is often caused by overcommitment in hyperfocus states — recovery is structural." },
     ],
     frustrated:[
-      { s:1, t:"Name it",                  d:"'I am frustrated.' Labelling reduces amygdala activation within seconds — it is the fastest emotional regulation technique available." },
-      { s:2, t:"Physical discharge",       d:"Push against a wall as hard as you can for 10 seconds, then release. ADHD frustration is often somatic — physical outlet works better than reasoning." },
+      { s:1, t:"Name it to tame it",       d:"'I am frustrated.' Labelling an emotion reduces amygdala activation within seconds — it is the fastest emotional regulation technique available." },
+      { s:2, t:"Physical discharge",       d:"Push against a wall as hard as you can for 10 seconds, then release. ADHD frustration is often somatic — physical outlet is more effective than reasoning through it." },
       { s:3, t:"Find the unmet need",      d:"Under frustration is usually a blocked goal. Ask: what did I need that I didn't get? Understanding the need is the first step to addressing it." },
       { s:4, t:"Reduce input",             d:"Leave the room, remove noise, close tabs. ADHD frustration amplifies with sensory input — a quieter environment reduces intensity within minutes." },
     ],
     avoiding:[
-      { s:1, t:"Acknowledge it",           d:"Say out loud: 'I am avoiding [thing].' Not self-critical — observational. Naming the pattern engages prefrontal awareness and reduces its unconscious pull." },
+      { s:1, t:"Acknowledge the avoidance",d:"Say out loud: 'I am avoiding [thing].' Not self-critical — observational. Naming the pattern engages prefrontal awareness and reduces its unconscious pull." },
       { s:2, t:"Find the activation cost", d:"What specifically feels hard about starting? Too complex? Boring? Unclear? ADHD avoidance is almost always about the start, not the task itself." },
       { s:3, t:"Shrink it radically",      d:"Reduce the task to something laughably small: open the document. Write one sentence. The goal is breaking the avoidance state, which resets dopamine." },
-      { s:4, t:"5-4-3-2-1 launch",         d:"Count down from 5 to 1 and physically move when you hit 1. This bypasses the deliberation loop that feeds avoidance." },
+      { s:4, t:"5-4-3-2-1 launch",         d:"Count down from 5 to 1 and physically move when you hit 1. This bypasses the deliberation that feeds avoidance." },
     ],
   },
   anxiety: {
     cant_start:[
-      { s:1, t:"Reduce the stakes",        d:"What is the worst realistic thing that happens if this isn't perfect? Anxiety inflates stakes — deliberately deflating them is accurate thinking, not avoidance." },
-      { s:2, t:"Physiological sigh",       d:"Two quick nasal inhales, one long mouth exhale. Stanford research identifies this as the fastest breath technique to reduce physiological anxiety." },
-      { s:3, t:"Start with the known",     d:"Begin with the part of the task you're most comfortable with. Anxiety creates blocks around uncertainty — certainty builds momentum into the unknown." },
+      { s:1, t:"Reduce the stakes",        d:"What is the worst realistic thing that happens if this doesn't get done perfectly? Anxiety inflates stakes — deliberately deflating them is accurate thinking, not avoidance." },
+      { s:2, t:"Physiological sigh",       d:"Two quick nasal inhales, one long mouth exhale. Stanford research identifies this as the fastest single breath technique to reduce physiological anxiety." },
+      { s:3, t:"Start with the known",     d:"Begin with the part of the task you're most comfortable with. Anxiety creates starting blocks around uncertainty — certainty builds momentum into the unknown." },
       { s:4, t:"5-minute commitment",      d:"Commit only to 5 minutes. Anxiety projects completion overwhelm — a tiny time commitment makes starting feel manageable." },
     ],
     spiraling:[
-      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long exhale. Repeat 3 times. This rapidly activates the parasympathetic system." },
-      { s:2, t:"5-4-3-2-1 grounding",      d:"Name 5 things you see, 4 you hear, 3 you can touch, 2 you smell, 1 you taste. The spiral lives in the future — grounding brings you to the present." },
-      { s:3, t:"Challenge the prediction", d:"What specifically are you predicting will go wrong? Write it down. How likely is this actually? Anxiety systematically overestimates threat." },
-      { s:4, t:"Control inventory",        d:"List things you can control and things you can't. Anxiety spirals in the uncontrollable — this inventory shifts focus to the actionable." },
+      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long exhale. Repeat 3 times. This rapidly lowers CO2 and activates the parasympathetic system." },
+      { s:2, t:"5-4-3-2-1 grounding",      d:"Name 5 things you see, 4 you hear, 3 you can touch, 2 you smell, 1 you taste. Grounding forces sensory present-moment engagement — the spiral lives in the future." },
+      { s:3, t:"Challenge the prediction", d:"What specifically are you predicting will go wrong? Write it down. How likely is this actually? Anxiety systematically overestimates threat probability." },
+      { s:4, t:"Control inventory",        d:"List things you can control and things you can't. Anxiety spirals in the uncontrollable — the inventory shifts focus to the actionable." },
     ],
     burned_out:[
-      { s:1, t:"Permission to stop",       d:"Anxiety burnout comes from sustained hypervigilance. Give yourself explicit permission to stop — rest is a legitimate biological need." },
-      { s:2, t:"Magnesium moment",         d:"Take your magnesium supplement with water. Anxiety literally consumes magnesium during the stress response — repletion calms the nervous system." },
+      { s:1, t:"Permission to stop",       d:"Anxiety burnout comes from sustained hypervigilance. Give yourself explicit permission to stop for a defined period — rest is a legitimate biological need." },
+      { s:2, t:"Magnesium moment",         d:"Take your magnesium supplement with water. Anxiety literally consumes magnesium during the stress response — repletion has measurable effects on nervous system calm." },
       { s:3, t:"Very slow walk",           d:"Walk slower than feels natural. Slow movement activates the parasympathetic system and reduces cortisol. The pace is the point." },
-      { s:4, t:"Lower tomorrow's bar",     d:"Remove one obligation from tomorrow if possible. Anxiety burnout often precedes escalation — reducing load today prevents a worse state tomorrow." },
+      { s:4, t:"Lower tomorrow's bar",     d:"Remove one obligation from tomorrow if possible. Anxiety burnout often precedes anxiety escalation — reducing load prevents a worse state tomorrow." },
     ],
     frustrated:[
-      { s:1, t:"Box breathing",            d:"4 counts in, 4 hold, 4 out, 4 hold. Repeat 4 times. Box breathing is one of the most effective tools for bringing down the sympathetic system." },
-      { s:2, t:"Feeling vs situation",     d:"The frustration is real. The situation is separate. What is the feeling, and what is the fact? Anxious frustration often merges them — separating them reduces intensity." },
-      { s:3, t:"Express it safely",        d:"Write your frustration without editing it. Not to send — to release. Unexpressed frustration feeds the anxiety cycle; expression breaks it." },
+      { s:1, t:"Box breathing",            d:"4 counts in, 4 hold, 4 out, 4 hold. Repeat 4 times. Frustration activates the sympathetic system — box breathing is one of the most effective tools to bring it down." },
+      { s:2, t:"Feeling vs situation",     d:"The frustration is real. The situation is separate. What is the feeling, and what is the fact? Anxious frustration often merges them — separating reduces intensity." },
+      { s:3, t:"Express it safely",        d:"Write your frustration without editing it. Not to send — to release. Unexpressed frustration in anxious people feeds the anxiety cycle; expression breaks it." },
     ],
     avoiding:[
       { s:1, t:"Name the fear underneath", d:"Anxiety avoidance is always fear-based. What specifically are you afraid will happen? Name it precisely. Vague fear is more powerful than specific fear." },
       { s:2, t:"Exposure ladder",          d:"Break the avoided task into 5 steps from easiest to hardest. Start with the easiest. Graduated exposure is the mechanism of every evidence-based anxiety treatment." },
-      { s:3, t:"Time-limit the exposure",  d:"Commit to touching the avoided thing for only 5 minutes. This reduces the anticipated overwhelm that anxiety creates." },
-      { s:4, t:"Notice anxiety goes down", d:"After 5 minutes, check: is anxiety higher or lower? Anxiety almost always goes down when you don't avoid — your brain needs this evidence." },
+      { s:3, t:"Time-limit the exposure",  d:"Commit to touching the avoided thing for 5 minutes only. This reduces the anticipated overwhelm that anxiety creates around avoided tasks." },
+      { s:4, t:"Notice anxiety goes down", d:"After 5 minutes, check: is anxiety higher or lower? Anxiety almost always goes down when you don't avoid — your brain needs this evidence to update its prediction." },
     ],
   },
   neuro_core: {
     cant_start:[
-      { s:1, t:"Implementation intention", d:"Write: 'When I [sit at my desk], I will [open the document].' Research shows these if-then plans increase follow-through by 200–300% over general goal-setting." },
+      { s:1, t:"Implementation intention", d:"Write: 'When I [sit at my desk], I will [open the document].' Research shows these if-then plans increase follow-through by 200–300% compared to general goal-setting." },
       { s:2, t:"Remove friction",          d:"What is the single smallest physical obstacle between you and starting? Removing it disproportionately reduces starting resistance." },
       { s:3, t:"5-4-3-2-1 launch",         d:"Count down from 5 to 1 and physically start. The countdown interrupts the deliberation loop and converts intention to action without requiring motivation." },
       { s:4, t:"Two-minute rule",          d:"Commit to just 2 minutes. The start is always harder than the continuation — this rule exploits that asymmetry." },
     ],
     spiraling:[
-      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long mouth exhale. The fastest known technique to shift from sympathetic to parasympathetic activation." },
+      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long mouth exhale. This is the fastest known breathing technique to shift from sympathetic to parasympathetic activation." },
       { s:2, t:"Write the spiral",         d:"Spend 3 minutes writing everything your mind is circling. Externalising reduces working memory load and interrupts the recirculation pattern." },
-      { s:3, t:"Evidence audit",           d:"Take the most prominent worry. What is the evidence for and against this outcome? Structured evidence review reduces catastrophising." },
+      { s:3, t:"Evidence audit",           d:"Take the most prominent worry. What is the evidence for and against this outcome? Structured evidence review reduces catastrophising by engaging deliberate reasoning." },
       { s:4, t:"Next action only",         d:"What is the one next physical action in the thing you're spiraling about? The spiral is about the abstract whole — the next concrete step is always manageable." },
     ],
     burned_out:[
       { s:1, t:"Ultradian rhythm rest",    d:"The brain runs in 90-minute focus cycles followed by 20-minute recovery periods. If you're burned out, you overrode several recovery windows. Rest now is investment." },
-      { s:2, t:"Non-sleep deep rest",      d:"Set a 20-minute timer and lie down without sleeping — no stimuli. NSDR restores dopamine levels faster than distracted rest." },
+      { s:2, t:"Non-sleep deep rest",      d:"Set a 20-minute timer and lie down without sleeping — no stimuli. NSDR has been shown to restore dopamine levels faster than distracted rest." },
       { s:3, t:"Nutrient reset",           d:"Eat something with protein and healthy fat. Cognitive burnout is partly metabolic — the brain has depleted glucose and neurotransmitter precursors." },
-      { s:4, t:"Protect tomorrow",         d:"Add one 20-minute recovery block to tomorrow's schedule now. Preventing the next burnout is more valuable than recovering from this one." },
+      { s:4, t:"Tomorrow's protection",    d:"Add one 20-minute recovery block to tomorrow's schedule now. Preventing the next burnout is more valuable than recovering from this one." },
     ],
     frustrated:[
-      { s:1, t:"Label precisely",          d:"Not just 'frustrated' — frustrated by a person, a situation, yourself, or circumstances? Precise labelling reduces intensity and identifies the actual source." },
+      { s:1, t:"Label precisely",          d:"Not just 'frustrated' — frustrated by a person, situation, yourself, or circumstances? Precise labelling reduces intensity and identifies the actual source." },
       { s:2, t:"Physical discharge",       d:"10 slow squats or pressing palms together hard for 10 seconds. Frustration is adrenaline — physical movement metabolises it faster than thinking." },
       { s:3, t:"Control vs uncontrollable",d:"Write what's in your control and what isn't. Frustration is most persistent when aimed at uncontrollable things — this inventory redirects energy to the actionable." },
     ],
     avoiding:[
       { s:1, t:"Temptation bundling",      d:"Pair the avoided task with something you enjoy: a podcast, a good coffee. Research shows enjoyable pairings increase follow-through even on highly aversive tasks." },
-      { s:2, t:"Find the real obstacle",   d:"Is it unclear? Boring? Anxiety-provoking? Too large? Avoidance always has a specific cause — identifying it makes the solution obvious." },
-      { s:3, t:"Pre-commit publicly",      d:"Tell someone you'll do this specific thing by a specific time today. Social commitment is one of the strongest behavioural change mechanisms." },
-      { s:4, t:"Minimum viable action",    d:"Define the smallest action that counts as 'doing' the thing. Often we avoid because we've set the bar impossibly high — resetting it breaks the avoidance." },
+      { s:2, t:"Identify the real obstacle",d:"Is it unclear? Boring? Anxiety-provoking? Too large? Avoidance always has a specific cause — identifying it makes the solution obvious." },
+      { s:3, t:"Pre-commit publicly",      d:"Tell someone you'll do this specific thing by a specific time today. Social commitment is one of the strongest behavioural change mechanisms in psychology research." },
+      { s:4, t:"Minimum viable action",    d:"Define the smallest action that counts as 'doing' the thing. Often we avoid because we've unconsciously set the bar impossibly high — resetting it breaks the avoidance." },
     ],
   },
   default: {
@@ -1253,7 +1246,7 @@ const BRAIN_TOOLKIT = {
     ],
     burned_out:[
       { s:1, t:"Permission to stop",       d:"Burning through burnout makes it worse. Give yourself permission to stop for a defined period." },
-      { s:2, t:"Rest without stimulation", d:"20 minutes lying down, no screens. Deep rest restores cognitive resources faster than distracted rest." },
+      { s:2, t:"Rest without stimulation", d:"20 minutes lying down, no screens. Deep rest restores cognitive and neurological resources faster than distracted rest." },
       { s:3, t:"Nourish",                  d:"Eat something from your NeuroThrive plan. Burnout has a metabolic component — quality nutrition helps." },
     ],
     frustrated:[
@@ -2269,7 +2262,7 @@ export default function NeuroThrive() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(null); // "monthly" | "annual" | null
   const [subscriptionPlan, setSubscriptionPlan] = useState(null);
-  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null); // "male" | "female" | "prefer_not"
   const [selectedConditions, setSelectedConditions] = useState([]);
   const [selectedDiet, setSelectedDiet] = useState([]);
   const [menu30, setMenu30] = useState(null);
@@ -2299,6 +2292,7 @@ export default function NeuroThrive() {
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
   const [affirmNotifEnabled, setAffirmNotifEnabled] = useState(false);
   const [affirmNotifTime, setAffirmNotifTime] = useState("09:00");
+  const [progressRange, setProgressRange] = useState(14);
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -2850,7 +2844,7 @@ export default function NeuroThrive() {
     warningBanner: { background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"12px", padding:"12px 18px", color:"#9db5ff", fontSize:"13px", fontWeight:"500", marginBottom:"18px" },
   };
 
-  const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","Affirmations","Supplements","Reminders","Toolkit","Routine"];
+  const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","Affirmations","Supplements","Reminders","Toolkit","Routine","Progress"];
 
   const mealActionBtn = (onClick, color, text) => ({
     style: { flex:1, padding:"9px 10px", borderRadius:"10px", border:`1.5px solid ${color}33`, background:`${color}11`, color, fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s", whiteSpace:"nowrap" },
@@ -2893,6 +2887,7 @@ export default function NeuroThrive() {
             <>
               <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>🧠 Toolkit</button>
               <button style={S.navTab(step===10)} onClick={() => setStep(10)}>☀️ Routine</button>
+              <button style={S.navTab(step===11)} onClick={() => setStep(11)}>📊 Progress</button>
             </>
           )}
         </div>
@@ -2923,18 +2918,30 @@ export default function NeuroThrive() {
             <p style={S.sectionSub}>This helps us personalise your plan — hormones and biology shape how nutrition affects your brain and mood.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", marginBottom:"32px" }}>
               {[
-                { id:"male",       emoji:"🧑", label:"Male",              desc:"Protein metabolism, testosterone support, iron & zinc optimisation" },
-                { id:"female",     emoji:"👩", label:"Female",            desc:"Hormonal cycle support, iron & folate, mood-food connection" },
-                { id:"prefer_not", emoji:"🤍", label:"Prefer Not to Say", desc:"General brain nutrition — all recommendations apply universally" },
+                { id:"male",       emoji:"🧑", label:"Male",               desc:"Protein metabolism, testosterone support, iron & zinc optimisation" },
+                { id:"female",     emoji:"👩", label:"Female",             desc:"Hormonal cycle support, iron & folate, mood-food connection" },
+                { id:"prefer_not", emoji:"🤍", label:"Prefer Not to Say",  desc:"General brain nutrition — all recommendations apply universally" },
               ].map(g => (
-                <div key={g.id} onClick={() => setSelectedGender(g.id)}
-                  style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border: selectedGender === g.id ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.18)", background: selectedGender === g.id ? "rgba(80,112,240,0.12)" : "rgba(240,244,255,0.04)", transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px" }}>
+                <div
+                  key={g.id}
+                  onClick={() => setSelectedGender(g.id)}
+                  style={{
+                    padding:"20px 22px", borderRadius:"18px", cursor:"pointer",
+                    border: selectedGender === g.id ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.18)",
+                    background: selectedGender === g.id ? "rgba(80,112,240,0.12)" : "rgba(240,244,255,0.04)",
+                    transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px",
+                  }}
+                >
                   <span style={{ fontSize:"32px" }}>{g.emoji}</span>
                   <div style={{ flex:1 }}>
                     <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"600", marginBottom:"4px" }}>{g.label}</div>
                     <div style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.5 }}>{g.desc}</div>
                   </div>
-                  {selectedGender === g.id && (<div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5570f0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><span style={{ color:"#fff", fontSize:"13px", fontWeight:"800" }}>✓</span></div>)}
+                  {selectedGender === g.id && (
+                    <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5570f0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                      <span style={{ color:"#fff", fontSize:"13px", fontWeight:"800" }}>✓</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -2957,14 +2964,31 @@ export default function NeuroThrive() {
                 </div>
               ))}
             </div>
-            <div onClick={() => setSelectedConditions(prev => prev.includes("neuro_core") ? prev.filter(x=>x!=="neuro_core") : ["neuro_core"])}
-              style={{ marginBottom:"20px", padding:"18px 22px", borderRadius:"18px", cursor:"pointer", border: selectedConditions.includes("neuro_core") ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.25)", background: selectedConditions.includes("neuro_core") ? "rgba(80,112,240,0.13)" : "linear-gradient(135deg,rgba(85,112,240,0.07),rgba(107,143,255,0.03))", transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px" }}>
+            {/* ── Neuro Core Plan card ── */}
+            <div
+              onClick={() => setSelectedConditions(prev => prev.includes("neuro_core") ? prev.filter(x=>x!=="neuro_core") : ["neuro_core"])}
+              style={{
+                marginBottom:"20px", padding:"18px 22px", borderRadius:"18px", cursor:"pointer",
+                border: selectedConditions.includes("neuro_core") ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.25)",
+                background: selectedConditions.includes("neuro_core") ? "rgba(80,112,240,0.13)" : "linear-gradient(135deg,rgba(85,112,240,0.07),rgba(107,143,255,0.03))",
+                transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px",
+              }}
+            >
               <span style={{ fontSize:"30px" }}>🧬</span>
               <div style={{ flex:1 }}>
-                <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700", marginBottom:"4px" }}>Neuro Core Plan{" "}<span style={{ fontSize:"11px", fontWeight:"600", padding:"3px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.18)", color:"#7b9fff", marginLeft:"6px" }}>No Diagnosis Required</span></div>
-                <div style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6 }}>I don't have a diagnosis — I want to optimise my brain health, focus & mood through nutrition.</div>
+                <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700", marginBottom:"4px" }}>
+                  Neuro Core Plan{" "}
+                  <span style={{ fontSize:"11px", fontWeight:"600", padding:"3px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.18)", color:"#7b9fff", marginLeft:"6px" }}>No Diagnosis Required</span>
+                </div>
+                <div style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6 }}>
+                  I don't have a diagnosis — I want to optimise my brain health, focus & mood through nutrition.
+                </div>
               </div>
-              {selectedConditions.includes("neuro_core") && (<div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5570f0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><span style={{ color:"#fff", fontSize:"13px", fontWeight:"800" }}>✓</span></div>)}
+              {selectedConditions.includes("neuro_core") && (
+                <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5570f0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                  <span style={{ color:"#fff", fontSize:"13px", fontWeight:"800" }}>✓</span>
+                </div>
+              )}
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "Select at least one, or continue"}</span>
@@ -3199,13 +3223,13 @@ export default function NeuroThrive() {
 
             <div style={{ display:"flex", gap:"12px", justifyContent:"flex-end" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Adjust Filters</button>
-              <button style={S.btnAccent} onClick={() => setStep(5)}>Log Today's Mood →</button>
+              <button style={S.btnAccent} onClick={() => setStep(4)}>Log Today's Mood →</button>
             </div>
           </div>
         )}
 
-        {/* STEP 5: JOURNAL */}
-        {step === 5 && isPremium && (
+        {/* STEP 4: JOURNAL */}
+        {step === 4 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
@@ -3252,13 +3276,18 @@ export default function NeuroThrive() {
               </>
             )}
             <div style={{ display:"flex", justifyContent:"flex-end", marginTop:"18px" }}>
-              <button style={S.btn} onClick={() => setStep(6)}>Affirmations →</button>
+              <button style={S.btn} onClick={() => setStep(5)}>Affirmations →</button>
             </div>
+            {logs.length > 0 && (
+              <div style={{ textAlign:"center", marginTop:"12px" }}>
+                <button style={{ ...S.btnOutline, fontSize:"13px", padding:"10px 22px" }} onClick={() => setStep(11)}>📊 View Progress Dashboard →</button>
+              </div>
+            )}
           </div>
         )}
 
-        {/* STEP 6: AFFIRMATIONS */}
-        {step === 6 && isPremium && (
+        {/* STEP 5: AFFIRMATIONS */}
+        {step === 5 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Words for You</h2>
             <p style={S.sectionSub}>On the hard days and the hopeful ones — these are for you.</p>
@@ -3280,13 +3309,13 @@ export default function NeuroThrive() {
               ))}
             </div>
             <div style={{ textAlign:"center", marginTop:"36px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(4)}>← Back to Menu</button>
+              <button style={S.btnOutline} onClick={() => setStep(3)}>← Back to Menu</button>
             </div>
           </div>
         )}
 
-        {/* STEP 7: SUPPLEMENTS */}
-        {step === 7 && isPremium && (
+        {/* STEP 6: SUPPLEMENTS */}
+        {step === 6 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Supplements</h2>
             <p style={S.sectionSub}>Evidence-based supplements matched to your conditions. Always consult your doctor before starting anything new.</p>
@@ -3379,14 +3408,14 @@ export default function NeuroThrive() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:"24px", flexWrap:"wrap", gap:"12px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(6)}>← Affirmations</button>
-              <button style={S.btnAccent} onClick={() => setStep(8)}>Set Meal Reminders →</button>
+              <button style={S.btnOutline} onClick={() => setStep(5)}>← Affirmations</button>
+              <button style={S.btnAccent} onClick={() => setStep(7)}>Set Meal Reminders →</button>
             </div>
           </div>
         )}
 
-        {/* STEP 8: REMINDERS */}
-        {step === 8 && isPremium && (
+        {/* STEP 7: REMINDERS */}
+        {step === 7 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Meal Reminders</h2>
             <p style={S.sectionSub}>Let NeuroThrive gently remind you when it's time to eat. Especially helpful when focus mode kicks in and hunger goes unnoticed.</p>
@@ -3479,7 +3508,7 @@ export default function NeuroThrive() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(7)}>← Supplements</button>
+              <button style={S.btnOutline} onClick={() => setStep(6)}>← Supplements</button>
               <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
                 {reminderSaved && <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500" }}>✓ Reminders saved!</span>}
                 <button style={S.btnAccent} onClick={saveReminders}>Save Reminders ✓</button>
@@ -3584,6 +3613,237 @@ export default function NeuroThrive() {
             </div>
           </div>
         )}
+
+      {/* ── STEP 11: PROGRESS DASHBOARD ─────────────────────────────────────── */}
+        {step === 11 && isPremium && (() => {
+          // Ordered oldest→newest for charting (logs are stored newest-first)
+          const allLogs = [...logs].reverse();
+          const rangedLogs = allLogs.slice(-progressRange);
+          const total = logs.length;
+
+          // Averages
+          const avgMood   = total > 0 ? (logs.reduce((s, l) => s + l.mood, 0) / total).toFixed(1) : "—";
+          const avgEnergy = total > 0 ? (logs.reduce((s, l) => s + l.energy, 0) / total).toFixed(1) : "—";
+
+          // Streak: consecutive days (newest-first, assume 1 entry/day)
+          let streak = 0;
+          for (let i = 0; i < logs.length; i++) { if (logs[i]) streak++; else break; }
+
+          // SVG line chart helper
+          const W = 600, H = 120, PAD = { t:12, r:12, b:28, l:28 };
+          const chartW = W - PAD.l - PAD.r;
+          const chartH = H - PAD.t - PAD.b;
+          const toX = (i, n) => PAD.l + (n <= 1 ? chartW / 2 : (i / (n - 1)) * chartW);
+          const toY = (v) => PAD.t + chartH - ((v - 1) / 4) * chartH;
+
+          const makePath = (data, key) => {
+            if (data.length === 0) return "";
+            return data.map((d, i) => `${i === 0 ? "M" : "L"} ${toX(i, data.length).toFixed(1)} ${toY(d[key]).toFixed(1)}`).join(" ");
+          };
+          const makeArea = (data, key) => {
+            if (data.length === 0) return "";
+            const pts = data.map((d, i) => `${toX(i, data.length).toFixed(1)},${toY(d[key]).toFixed(1)}`).join(" L ");
+            const base = toY(1).toFixed(1);
+            const x0 = toX(0, data.length).toFixed(1);
+            const xn = toX(data.length - 1, data.length).toFixed(1);
+            return `M ${x0},${base} L ${pts} L ${xn},${base} Z`;
+          };
+
+          // Day-of-week analysis
+          const DOW_NAMES = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+          const dowMood = Array(7).fill(null).map(() => []);
+          logs.forEach(l => {
+            if (!l.date) return;
+            const d = new Date(l.date + ", " + new Date().getFullYear());
+            if (!isNaN(d.getDay())) dowMood[d.getDay()].push(l.mood);
+          });
+          const dowAvg = dowMood.map(arr => arr.length > 0 ? arr.reduce((a, b) => a + b, 0) / arr.length : null);
+          const bestDow = dowAvg.reduce((best, v, i) => (v !== null && (best === null || v > dowAvg[best])) ? i : best, null);
+
+          // Mood label helper
+          const moodLabel = (v) => {
+            if (!v || v === "—") return "—";
+            const f = parseFloat(v);
+            if (f >= 4.5) return "Great 😊";
+            if (f >= 3.5) return "Good 🙂";
+            if (f >= 2.5) return "Okay 😐";
+            if (f >= 1.5) return "Low 😕";
+            return "Rough 😞";
+          };
+          const energyLabel = (v) => {
+            if (!v || v === "—") return "—";
+            const f = parseFloat(v);
+            if (f >= 4.5) return "Vibrant 🚀";
+            if (f >= 3.5) return "Energized ⚡";
+            if (f >= 2.5) return "Okay 🔋";
+            if (f >= 1.5) return "Tired 😴";
+            return "Drained 🪫";
+          };
+
+          return (
+            <div>
+              <h2 style={S.sectionTitle}>📊 Your Progress</h2>
+              <p style={S.sectionSub}>Patterns in your mood and energy tell a story. Here's yours so far.</p>
+
+              {total === 0 ? (
+                <div style={{ ...S.card, textAlign:"center", padding:"48px 32px" }}>
+                  <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
+                  <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
+                  <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal tab — after a few days, your progress charts will appear here.</div>
+                  <button style={S.btnAccent} onClick={() => setStep(4)}>Open Journal →</button>
+                </div>
+              ) : (
+                <>
+                  {/* ── Stat cards ── */}
+                  <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))", gap:"12px", marginBottom:"28px" }}>
+                    {[
+                      { label:"Entries", value: total, sub: "logged", icon:"📓" },
+                      { label:"Avg Mood", value: avgMood, sub: moodLabel(avgMood), icon:"😊" },
+                      { label:"Avg Energy", value: avgEnergy, sub: energyLabel(avgEnergy), icon:"⚡" },
+                      { label:"Day Streak", value: streak, sub: streak === 1 ? "day logged" : "days logged", icon:"🔥" },
+                    ].map((card, i) => (
+                      <div key={i} style={{ background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"18px", padding:"18px 16px", textAlign:"center" }}>
+                        <div style={{ fontSize:"24px", marginBottom:"6px" }}>{card.icon}</div>
+                        <div style={{ fontSize:"26px", fontWeight:"800", color:"#eef0ff", letterSpacing:"-0.5px", lineHeight:1.1, marginBottom:"4px" }}>{card.value}</div>
+                        <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#5570f0", fontWeight:"700", marginBottom:"2px" }}>{card.label}</div>
+                        <div style={{ fontSize:"11px", color:"#8890b8" }}>{card.sub}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* ── Range selector ── */}
+                  <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
+                    <div style={{ fontSize:"13px", color:"#8890b8", fontWeight:"600", alignSelf:"center", marginRight:"4px" }}>Show:</div>
+                    {[7, 14, 30].map(r => (
+                      <button key={r} onClick={() => setProgressRange(r)} style={{ padding:"7px 18px", borderRadius:"20px", border:progressRange===r?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:progressRange===r?"rgba(80,112,240,0.18)":"rgba(240,244,255,0.04)", color:progressRange===r?"#9db5ff":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>
+                        {r}d
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* ── Line charts ── */}
+                  {rangedLogs.length >= 2 ? (
+                    <div style={{ ...S.card, marginBottom:"20px", padding:"20px 16px" }}>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Mood & Energy — Last {Math.min(progressRange, rangedLogs.length)} Entries</div>
+
+                      <svg viewBox={`0 0 ${W} ${H}`} style={{ width:"100%", height:"auto", display:"block", marginBottom:"8px" }}>
+                        {/* Grid lines */}
+                        {[1,2,3,4,5].map(v => (
+                          <g key={v}>
+                            <line x1={PAD.l} y1={toY(v)} x2={W - PAD.r} y2={toY(v)} stroke="rgba(110,120,200,0.1)" strokeWidth="1" />
+                            <text x={PAD.l - 6} y={toY(v) + 4} textAnchor="end" fontSize="8" fill="#8890b8">{v}</text>
+                          </g>
+                        ))}
+                        {/* X labels — show first, middle, last */}
+                        {rangedLogs.length > 0 && [0, Math.floor((rangedLogs.length-1)/2), rangedLogs.length-1].filter((v,i,a) => a.indexOf(v)===i).map(i => (
+                          <text key={i} x={toX(i, rangedLogs.length)} y={H - 4} textAnchor="middle" fontSize="8" fill="#8890b8">
+                            {rangedLogs[i]?.date?.replace(/\w+,\s/, "") || ""}
+                          </text>
+                        ))}
+                        {/* Mood area fill */}
+                        <path d={makeArea(rangedLogs, "mood")} fill="rgba(107,143,255,0.08)" />
+                        {/* Energy area fill */}
+                        <path d={makeArea(rangedLogs, "energy")} fill="rgba(232,200,122,0.07)" />
+                        {/* Mood line */}
+                        <path d={makePath(rangedLogs, "mood")} fill="none" stroke="#7b9fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        {/* Energy line */}
+                        <path d={makePath(rangedLogs, "energy")} fill="none" stroke="#e8c87a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="5 3" />
+                        {/* Mood dots */}
+                        {rangedLogs.map((d, i) => (
+                          <circle key={i} cx={toX(i, rangedLogs.length)} cy={toY(d.mood)} r="3.5" fill="#7b9fff" />
+                        ))}
+                        {/* Energy dots */}
+                        {rangedLogs.map((d, i) => (
+                          <circle key={i} cx={toX(i, rangedLogs.length)} cy={toY(d.energy)} r="3" fill="#e8c87a" />
+                        ))}
+                      </svg>
+
+                      {/* Legend */}
+                      <div style={{ display:"flex", gap:"20px", justifyContent:"center" }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:"6px" }}>
+                          <div style={{ width:"20px", height:"2px", background:"#7b9fff", borderRadius:"2px" }} />
+                          <span style={{ fontSize:"11px", color:"#8890b8" }}>Mood</span>
+                        </div>
+                        <div style={{ display:"flex", alignItems:"center", gap:"6px" }}>
+                          <div style={{ width:"20px", height:"2px", background:"#e8c87a", borderRadius:"2px", backgroundImage:"repeating-linear-gradient(90deg,#e8c87a 0,#e8c87a 5px,transparent 5px,transparent 8px)" }} />
+                          <span style={{ fontSize:"11px", color:"#8890b8" }}>Energy</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ ...S.card, textAlign:"center", padding:"28px", marginBottom:"20px", color:"#8890b8", fontSize:"13px" }}>
+                      Log at least 2 entries to see your chart.
+                    </div>
+                  )}
+
+                  {/* ── Day-of-week pattern ── */}
+                  {logs.length >= 7 && (
+                    <div style={{ ...S.card, marginBottom:"20px" }}>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Day of Week Pattern</div>
+                      <div style={{ display:"flex", gap:"8px", alignItems:"flex-end", height:"64px" }}>
+                        {DOW_NAMES.map((name, i) => {
+                          const val = dowAvg[i];
+                          const pct = val !== null ? ((val - 1) / 4) * 100 : 0;
+                          const isActive = val !== null;
+                          const isBest = i === bestDow;
+                          return (
+                            <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:"4px", height:"100%", justifyContent:"flex-end" }}>
+                              <div style={{ fontSize:"9px", color: isBest ? "#e8c87a" : "#7b9fff", fontWeight:"700", opacity: isActive ? 1 : 0 }}>{val !== null ? val.toFixed(1) : ""}</div>
+                              <div style={{ width:"100%", maxWidth:"32px", height:`${Math.max(isActive ? pct : 0, 8)}%`, borderRadius:"6px 6px 3px 3px", background: isBest ? "linear-gradient(180deg,#e8c87a,#d4a832)" : isActive ? "linear-gradient(180deg,#7b9fff,#5570f0)" : "rgba(110,120,200,0.12)", transition:"all 0.3s", minHeight: isActive ? "8px" : "4px" }} />
+                              <div style={{ fontSize:"9px", color: isBest ? "#e8c87a" : "#8890b8", fontWeight: isBest ? "700" : "400" }}>{name}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      {bestDow !== null && (
+                        <div style={{ marginTop:"14px", padding:"10px 14px", borderRadius:"12px", background:"rgba(232,200,122,0.08)", border:"1px solid rgba(232,200,122,0.2)" }}>
+                          <span style={{ fontSize:"12px", color:"#e8c87a" }}>✨ Your best day tends to be <strong>{DOW_NAMES[bestDow]}</strong> — avg mood {dowAvg[bestDow]?.toFixed(1)}/5</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* ── Recent log list ── */}
+                  <div style={{ ...S.card }}>
+                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Recent Entries</div>
+                    {logs.slice(0, 10).map((log, i) => {
+                      const moodDot = ["#e06060","#e09060","#e0d060","#80c870","#60b870"][log.mood - 1] || "#8890b8";
+                      const energyDot = ["#6080e0","#8890b8","#e8c87a","#80d0c0","#60d0a0"][log.energy - 1] || "#8890b8";
+                      const moodEmoji = MOOD_EMOJIS.find(m => m.val === log.mood)?.emoji || "";
+                      const energyEmoji = ENERGY_EMOJIS.find(e => e.val === log.energy)?.emoji || "";
+                      return (
+                        <div key={i} style={{ padding:"14px 0", borderBottom: i < Math.min(9, logs.length-1) ? "1px solid rgba(110,120,200,0.1)" : "none" }}>
+                          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: log.note ? "6px" : "0" }}>
+                            <span style={{ color:"#9db5ff", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
+                            <div style={{ display:"flex", gap:"10px" }}>
+                              <span style={{ display:"flex", alignItems:"center", gap:"4px", fontSize:"12px", color:"#c8ccf0" }}>
+                                <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:moodDot, display:"inline-block" }} />
+                                {moodEmoji} {log.mood}/5
+                              </span>
+                              <span style={{ display:"flex", alignItems:"center", gap:"4px", fontSize:"12px", color:"#c8ccf0" }}>
+                                <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:energyDot, display:"inline-block" }} />
+                                {energyEmoji} {log.energy}/5
+                              </span>
+                            </div>
+                          </div>
+                          {log.note && <p style={{ margin:0, fontSize:"12px", color:"#8890b8", lineHeight:1.6, fontStyle:"italic" }}>"{log.note}"</p>}
+                        </div>
+                      );
+                    })}
+                    {logs.length > 10 && (
+                      <div style={{ textAlign:"center", paddingTop:"14px", color:"#8890b8", fontSize:"12px" }}>+ {logs.length - 10} more entries in your Journal</div>
+                    )}
+                  </div>
+                </>
+              )}
+
+              <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+                <button style={S.btnOutline} onClick={() => setStep(4)}>← Journal</button>
+                <button style={S.btn} onClick={() => setStep(3)}>View Meal Plan →</button>
+              </div>
+            </div>
+          );
+        })()}
 
       {/* ── MEAL EXPLANATION + RECIPE MODAL ────────────────────────────────── */}
       {explainModal && (
