@@ -2885,7 +2885,7 @@ export default function NeuroThrive() {
             { label:"Conditions",   s:2 },
             { label:"Diet",         s:3 },
             { label:"Menu",         s:4 },
-            { label:"Journal",      s:4 },
+            { label:"Journal",      s:8 },
             { label:"Affirmations", s:5 },
             { label:"Supplements",  s:6 },
             { label:"Reminders",    s:7 },
@@ -3232,13 +3232,13 @@ export default function NeuroThrive() {
 
             <div style={{ display:"flex", gap:"12px", justifyContent:"flex-end" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Adjust Filters</button>
-              <button style={S.btnAccent} onClick={() => setStep(4)}>Log Today's Mood →</button>
+              <button style={S.btnAccent} onClick={() => setStep(8)}>Log Today's Mood →</button>
             </div>
           </div>
         )}
 
         {/* STEP 4: JOURNAL */}
-        {step === 4 && isPremium && (
+        {step === 8 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
@@ -3284,7 +3284,8 @@ export default function NeuroThrive() {
                 ))}
               </>
             )}
-            <div style={{ display:"flex", justifyContent:"flex-end", marginTop:"18px" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", marginTop:"18px" }}>
+              <button style={S.btnOutline} onClick={() => setStep(4)}>← Menu</button>
               <button style={S.btn} onClick={() => setStep(5)}>Affirmations →</button>
             </div>
             {logs.length > 0 && (
@@ -3618,7 +3619,7 @@ export default function NeuroThrive() {
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
               <button style={S.btnOutline} onClick={() => setStep(9)}>← Brain Toolkit</button>
-              <button style={S.btn} onClick={() => setStep(4)}>Back to Menu →</button>
+              <button style={S.btn} onClick={() => setStep(3)}>Back to Menu →</button>
             </div>
           </div>
         )}
@@ -3699,7 +3700,7 @@ export default function NeuroThrive() {
                   <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
                   <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
                   <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal tab — after a few days, your progress charts will appear here.</div>
-                  <button style={S.btnAccent} onClick={() => setStep(4)}>Open Journal →</button>
+                  <button style={S.btnAccent} onClick={() => setStep(8)}>Open Journal →</button>
                 </div>
               ) : (
                 <>
@@ -3847,7 +3848,7 @@ export default function NeuroThrive() {
               )}
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-                <button style={S.btnOutline} onClick={() => setStep(4)}>← Journal</button>
+                <button style={S.btnOutline} onClick={() => setStep(8)}>← Journal</button>
                 <button style={S.btn} onClick={() => setStep(3)}>View Meal Plan →</button>
               </div>
             </div>
