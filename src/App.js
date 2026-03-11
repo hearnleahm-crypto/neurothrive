@@ -2885,6 +2885,7 @@ export default function NeuroThrive() {
             { label:"Conditions",   s:2 },
             { label:"Diet",         s:3 },
             { label:"Menu",         s:4 },
+            { label:"Journal",      s:4 },
             { label:"Affirmations", s:5 },
             { label:"Supplements",  s:6 },
             { label:"Reminders",    s:7 },
