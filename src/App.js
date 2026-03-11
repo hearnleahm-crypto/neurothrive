@@ -2927,9 +2927,8 @@ export default function NeuroThrive() {
             <p style={S.sectionSub}>This helps us personalise your plan — hormones and biology shape how nutrition affects your brain and mood.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", marginBottom:"32px" }}>
               {[
-                { id:"male",       emoji:"🧑", label:"Male",               desc:"Protein metabolism, testosterone support, iron & zinc optimisation" },
-                { id:"female",     emoji:"👩", label:"Female",             desc:"Hormonal cycle support, iron & folate, mood-food connection" },
-                { id:"prefer_not", emoji:"🤍", label:"Prefer Not to Say",  desc:"General brain nutrition — all recommendations apply universally" },
+                { id:"male",   label:"Male",   desc:"Protein metabolism, testosterone support, iron & zinc optimisation" },
+                { id:"female", label:"Female", desc:"Hormonal cycle support, iron & folate, mood-food connection" },
               ].map(g => (
                 <div
                   key={g.id}
@@ -2941,7 +2940,7 @@ export default function NeuroThrive() {
                     transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px",
                   }}
                 >
-                  <span style={{ fontSize:"32px" }}>{g.emoji}</span>
+                  <span style={{ fontSize:"20px" }}></span>
                   <div style={{ flex:1 }}>
                     <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"600", marginBottom:"4px" }}>{g.label}</div>
                     <div style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.5 }}>{g.desc}</div>
