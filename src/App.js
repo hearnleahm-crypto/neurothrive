@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
+import { EXERCISE_ROUTINES } from "./exerciseData";
 
 const supabase = createClient(
   "https://gobmsfzpryeaqxkfbnfa.supabase.co",
@@ -2156,6 +2157,7 @@ export default function NeuroThrive() {
   const [toolkitState, setToolkitState] = useState(null);
   const [toolkitCategory, setToolkitCategory] = useState(null);
   const [routineTab, setRoutineTab] = useState("morning");
+  const [dailyChecks, setDailyChecks] = useState({});
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
@@ -2221,6 +2223,7 @@ export default function NeuroThrive() {
           if (data.reminders_enabled) setRemindersEnabled(data.reminders_enabled);
           if (data.reminder_times) setReminderTimes(data.reminder_times);
           if (data.reminder_active) setReminderActive(data.reminder_active);
+          if (data.daily_checks) setDailyChecks(data.daily_checks);
         }
       } catch(e) {}
       setDataLoaded(true);
@@ -2301,12 +2304,13 @@ export default function NeuroThrive() {
           reminders_enabled: remindersEnabled,
           reminder_times: reminderTimes,
           reminder_active: reminderActive,
+          daily_checks: dailyChecks,
           updated_at: new Date().toISOString(),
         });
       } catch(e) {}
     };
     save();
-  }, [selectedConditions, selectedDiet, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dataLoaded, user]);
+  }, [selectedConditions, selectedDiet, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, dataLoaded, user]);
 
   // ── Auth functions ──────────────────────────────────────────────────────────
   const handleSignUp = async () => {
@@ -2673,6 +2677,103 @@ export default function NeuroThrive() {
     setLogSaved(true); setTimeout(() => setLogSaved(false), 3000);
   };
 
+  // ── Daily checks helpers ──────────────────────────────────────────────────
+  const todayKey = new Date().toISOString().slice(0, 10);
+
+  const getTodayChecks = () => dailyChecks[todayKey] || {
+    meals: { breakfast: false, lunch: false, dinner: false, snacks: false },
+    routine: { morning: [], evening: [] },
+    exercise: false
+  };
+
+  const updateTodayChecks = (updater) => {
+    setDailyChecks(prev => ({
+      ...prev,
+      [todayKey]: updater(prev[todayKey] || {
+        meals: { breakfast: false, lunch: false, dinner: false, snacks: false },
+        routine: { morning: [], evening: [] },
+        exercise: false
+      })
+    }));
+  };
+
+  // ── Daily score calculator ───────────────────────────────────────────────
+  const getDailyScore = (dateKey) => {
+    const checks = dailyChecks[dateKey || todayKey];
+    if (!checks) return { earned: 0, total: 10, pct: 0 };
+
+    let earned = 0;
+    // Meals: /4
+    const meals = checks.meals || {};
+    if (meals.breakfast) earned++;
+    if (meals.lunch) earned++;
+    if (meals.dinner) earned++;
+    if (meals.snacks) earned++;
+
+    // Routine steps
+    const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
+      : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+    const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const morningCount = routine.morning.length;
+    const eveningCount = routine.evening.length;
+    const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
+    const eveningChecked = (checks.routine?.evening || []).filter(Boolean).length;
+    earned += morningChecked;
+    earned += eveningChecked;
+
+    // Exercise: /1
+    if (checks.exercise) earned++;
+
+    // Journal: /1
+    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dateKey || todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+    if (hasJournal) earned++;
+
+    const total = 4 + morningCount + eveningCount + 1 + 1;
+    return { earned, total, pct: total > 0 ? Math.round((earned / total) * 100) : 0 };
+  };
+
+  const getCompletionStreak = () => {
+    let streak = 0;
+    const today = new Date();
+    for (let i = 1; i <= 365; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      const score = getDailyScore(key);
+      if (dailyChecks[key] && score.pct > 50) streak++;
+      else break;
+    }
+    // Include today if active
+    const todayScore = getDailyScore(todayKey);
+    if (dailyChecks[todayKey] && todayScore.pct > 50) streak++;
+    return streak;
+  };
+
+  // ── Progress banner component (inline) ──────────────────────────────────
+  const ProgressBanner = () => {
+    const score = getDailyScore(todayKey);
+    const streak = getCompletionStreak();
+    const r = 20, circ = 2 * Math.PI * r;
+    const offset = circ - (score.pct / 100) * circ;
+    return (
+      <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "14px 18px", marginBottom: "18px", display: "flex", alignItems: "center", gap: "16px" }}>
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r={r} fill="none" stroke="rgba(80,200,120,0.15)" strokeWidth="4" />
+          <circle cx="24" cy="24" r={r} fill="none" stroke="#50c878" strokeWidth="4" strokeLinecap="round"
+            strokeDasharray={circ} strokeDashoffset={offset}
+            transform="rotate(-90 24 24)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
+          <text x="24" y="26" textAnchor="middle" fontSize="11" fontWeight="800" fill="#50c878">{score.pct}%</text>
+        </svg>
+        <div style={{ flex: 1 }}>
+          <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700" }}>Today's Progress</div>
+          <div style={{ color: "#8890b8", fontSize: "12px", marginTop: "2px" }}>
+            {score.earned}/{score.total} completed {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak} day streak 🔥</span>}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const nextAffirm = () => { setAnimating(true); setTimeout(() => { setAffirmIdx(i => (i+1)%AFFIRMATIONS.length); setAnimating(false); }, 300); };
   const prevAffirm = () => { setAnimating(true); setTimeout(() => { setAffirmIdx(i => (i-1+AFFIRMATIONS.length)%AFFIRMATIONS.length); setAnimating(false); }, 300); };
 
@@ -3002,6 +3103,8 @@ export default function NeuroThrive() {
                   </div>
                 </div>
 
+                <ProgressBanner />
+
                 {[
                   { key:"breakfast", label:"🌅 Breakfast" },
                   { key:"lunch",     label:"☀️ Lunch" },
@@ -3010,9 +3113,15 @@ export default function NeuroThrive() {
                 ].map(({ key, label }) => {
                   const mainMeal = currentDay[key];
                   const alt = altMeal[mainMeal];
+                  const mealChecked = getTodayChecks().meals[key];
                   return (
                     <div key={key} style={S.card}>
-                      <div style={S.mealLabel}>{label}</div>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
+                        <div style={S.mealLabel}>{label}</div>
+                        <button onClick={() => updateTodayChecks(prev => ({ ...prev, meals: { ...prev.meals, [key]: !prev.meals[key] } }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0 }}>
+                          {mealChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                        </button>
+                      </div>
 
                       {/* Main meal */}
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
@@ -3110,6 +3219,7 @@ export default function NeuroThrive() {
           <div>
             <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
+            <ProgressBanner />
             {logSaved && <div style={S.successBanner}>✓ Today's log saved! Every entry matters.</div>}
             <div style={S.card}>
               <div style={S.mealLabel}>How's your mood today?</div>
@@ -3525,36 +3635,94 @@ export default function NeuroThrive() {
           <div>
             <h2 style={S.sectionTitle}>☀️ Daily Routine</h2>
             <p style={S.sectionSub}>Morning and evening routines tailored to your conditions — the two highest-leverage points in your day.</p>
+            <ProgressBanner />
             <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
               <button onClick={() => setRoutineTab("morning")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="morning"?"2px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:routineTab==="morning"?"#5570f0":"rgba(240,244,255,0.04)", color:routineTab==="morning"?"#fff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌅 Morning</button>
               <button onClick={() => setRoutineTab("evening")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="evening"?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.2)", background:routineTab==="evening"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:routineTab==="evening"?"#9db5ff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌙 Evening</button>
+              <button onClick={() => setRoutineTab("exercise")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="exercise"?"2px solid #50c878":"1px solid rgba(110,120,200,0.2)", background:routineTab==="exercise"?"rgba(80,200,120,0.15)":"rgba(240,244,255,0.04)", color:routineTab==="exercise"?"#50c878":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>💪 Exercise</button>
             </div>
             {(() => {
               const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
                 : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+
+              // ── Exercise tab ──
+              if (routineTab === "exercise") {
+                const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
+                const allSteps = [exRoutine.warmup, ...exRoutine.exercises, exRoutine.cooldown];
+                const totalTime = allSteps.reduce((acc, s) => acc + (parseInt(s.time) || 0), 0);
+                const exerciseDone = getTodayChecks().exercise;
+                return (
+                  <div>
+                    <div style={{ ...S.card, padding:"16px 20px", marginBottom:"20px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)" }}>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"10px" }}>🧬 Why This Works for {exRoutine.label}</div>
+                      <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.8 }}>{exRoutine.neuroNote}</div>
+                    </div>
+                    <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                      <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalised for <strong style={{color:"#50c878"}}>{exRoutine.label}</strong></span>
+                      <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
+                    </div>
+                    {allSteps.map((s, i) => {
+                      const isWarmup = i === 0;
+                      const isCooldown = i === allSteps.length - 1;
+                      const stepLabel = isWarmup ? "Warm-Up" : isCooldown ? "Cool-Down" : `Exercise ${i}`;
+                      return (
+                        <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px" }}>
+                          <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
+                            <div style={{ textAlign:"center", flexShrink:0 }}>
+                              <div style={{ width:"36px", height:"36px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#3aa060)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
+                              <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>{s.time}</div>
+                            </div>
+                            <div>
+                              <div style={{ color:"#50c878", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"4px" }}>{stepLabel}</div>
+                              <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
+                              <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"100%", padding:"16px", borderRadius:"50px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "rgba(80,200,120,0.05)", color: exerciseDone ? "#50c878" : "#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s", marginBottom:"20px" }}>
+                      {exerciseDone ? "✓ Exercise Complete!" : "Mark Exercise Done"}
+                    </button>
+                  </div>
+                );
+              }
+
+              // ── Morning / Evening tabs ──
               const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
               const steps = routineTab === "morning" ? routine.morning : routine.evening;
               const totalTime = steps.reduce((acc, s) => acc + (parseInt(s.time) || 0), 0);
+              const todayRoutineChecks = getTodayChecks().routine[routineTab] || [];
               return (
                 <div>
                   <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
                     <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalised for <strong style={{color:"#7b9fff"}}>{routine.label}</strong></span>
                     <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
                   </div>
-                  {steps.map((s, i) => (
+                  {steps.map((s, i) => {
+                    const isChecked = !!todayRoutineChecks[i];
+                    return (
                     <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px" }}>
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
                         <div style={{ textAlign:"center", flexShrink:0 }}>
                           <div style={{ width:"36px", height:"36px", borderRadius:"50%", background: routineTab==="morning" ? "linear-gradient(135deg,#f0a830,#e87020)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
                           <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>{s.time}</div>
                         </div>
-                        <div>
+                        <div style={{ flex:1 }}>
                           <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
                           <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
                         </div>
+                        <button onClick={() => updateTodayChecks(prev => {
+                          const arr = [...(prev.routine?.[routineTab] || [])];
+                          arr[i] = !arr[i];
+                          return { ...prev, routine: { ...prev.routine, [routineTab]: arr } };
+                        })} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                          {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                        </button>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               );
             })()}
@@ -3753,6 +3921,84 @@ export default function NeuroThrive() {
                       )}
                     </div>
                   )}
+
+                  {/* ── Daily Completion Stats ── */}
+                  {(() => {
+                    const today = new Date();
+                    const daysToShow = Math.min(progressRange, 30);
+                    const completionData = [];
+                    let totalMeals = 0, totalMealDays = 0;
+                    let totalRoutineEarned = 0, totalRoutineTotal = 0;
+                    let exerciseDays = 0;
+                    for (let i = daysToShow - 1; i >= 0; i--) {
+                      const d = new Date(today); d.setDate(d.getDate() - i);
+                      const key = d.toISOString().slice(0, 10);
+                      const score = getDailyScore(key);
+                      completionData.push({ key, pct: dailyChecks[key] ? score.pct : 0, earned: score.earned, total: score.total });
+                      if (dailyChecks[key]) {
+                        const c = dailyChecks[key];
+                        const m = c.meals || {};
+                        const mealCount = [m.breakfast, m.lunch, m.dinner, m.snacks].filter(Boolean).length;
+                        totalMeals += mealCount; totalMealDays++;
+                        const mr = (c.routine?.morning || []).filter(Boolean).length;
+                        const er = (c.routine?.evening || []).filter(Boolean).length;
+                        const condK = selectedConditions.includes("neuro_core") ? "neuro_core" : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+                        const rt = DAILY_ROUTINES[condK] || DAILY_ROUTINES.default;
+                        totalRoutineEarned += mr + er;
+                        totalRoutineTotal += rt.morning.length + rt.evening.length;
+                        if (c.exercise) exerciseDays++;
+                      }
+                    }
+                    const avgMealsPerDay = totalMealDays > 0 ? (totalMeals / totalMealDays).toFixed(1) : "0";
+                    const avgRoutinePct = totalRoutineTotal > 0 ? Math.round((totalRoutineEarned / totalRoutineTotal) * 100) : 0;
+                    const cW = 600, cH = 100, cPAD = { t: 8, r: 12, b: 24, l: 28 };
+                    const cChartW = cW - cPAD.l - cPAD.r;
+                    const cChartH = cH - cPAD.t - cPAD.b;
+                    const barW = Math.max(4, (cChartW / daysToShow) - 2);
+
+                    return (
+                      <>
+                        <div style={{ ...S.card, marginBottom:"20px" }}>
+                          <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"16px" }}>Daily Completion — Last {daysToShow} Days</div>
+                          <svg viewBox={`0 0 ${cW} ${cH}`} style={{ width:"100%", height:"auto", display:"block", marginBottom:"8px" }}>
+                            {[0, 25, 50, 75, 100].map(v => (
+                              <g key={v}>
+                                <line x1={cPAD.l} y1={cPAD.t + cChartH - (v / 100) * cChartH} x2={cW - cPAD.r} y2={cPAD.t + cChartH - (v / 100) * cChartH} stroke="rgba(110,120,200,0.08)" strokeWidth="1" />
+                                {v % 50 === 0 && <text x={cPAD.l - 6} y={cPAD.t + cChartH - (v / 100) * cChartH + 3} textAnchor="end" fontSize="7" fill="#8890b8">{v}%</text>}
+                              </g>
+                            ))}
+                            {completionData.map((d, i) => {
+                              const x = cPAD.l + (i / daysToShow) * cChartW + 1;
+                              const h = (d.pct / 100) * cChartH;
+                              return (
+                                <g key={i}>
+                                  <rect x={x} y={cPAD.t + cChartH - h} width={barW} height={Math.max(h, 1)} rx="2" fill={d.pct > 50 ? "#50c878" : d.pct > 0 ? "rgba(80,200,120,0.4)" : "rgba(110,120,200,0.12)"} />
+                                  {(i === 0 || i === daysToShow - 1 || i === Math.floor(daysToShow / 2)) && (
+                                    <text x={x + barW / 2} y={cH - 4} textAnchor="middle" fontSize="7" fill="#8890b8">{d.key.slice(5)}</text>
+                                  )}
+                                </g>
+                              );
+                            })}
+                          </svg>
+                        </div>
+                        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))", gap:"12px", marginBottom:"20px" }}>
+                          {[
+                            { label:"Avg Meals/Day", value: avgMealsPerDay, sub: "of 4", icon:"🍽️" },
+                            { label:"Routine Done", value: `${avgRoutinePct}%`, sub: "avg completion", icon:"☀️" },
+                            { label:"Exercise", value: exerciseDays, sub: `of ${daysToShow} days`, icon:"💪" },
+                            { label:"Streak", value: getCompletionStreak(), sub: "day streak", icon:"🔥" },
+                          ].map((card, i) => (
+                            <div key={i} style={{ background:"rgba(80,200,120,0.05)", border:"1px solid rgba(80,200,120,0.15)", borderRadius:"18px", padding:"18px 16px", textAlign:"center" }}>
+                              <div style={{ fontSize:"24px", marginBottom:"6px" }}>{card.icon}</div>
+                              <div style={{ fontSize:"26px", fontWeight:"800", color:"#eef0ff", letterSpacing:"-0.5px", lineHeight:1.1, marginBottom:"4px" }}>{card.value}</div>
+                              <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#50c878", fontWeight:"700", marginBottom:"2px" }}>{card.label}</div>
+                              <div style={{ fontSize:"11px", color:"#8890b8" }}>{card.sub}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    );
+                  })()}
 
                   {/* ── Recent log list ── */}
                   <div style={{ ...S.card }}>
