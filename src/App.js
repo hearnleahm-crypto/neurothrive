@@ -2683,7 +2683,8 @@ export default function NeuroThrive() {
   const getTodayChecks = () => dailyChecks[todayKey] || {
     meals: { breakfast: false, lunch: false, dinner: false, snacks: false },
     routine: { morning: [], evening: [] },
-    exercise: false
+    exercise: false,
+    exerciseOptions: {}
   };
 
   const updateTodayChecks = (updater) => {
@@ -2692,7 +2693,8 @@ export default function NeuroThrive() {
       [todayKey]: updater(prev[todayKey] || {
         meals: { breakfast: false, lunch: false, dinner: false, snacks: false },
         routine: { morning: [], evening: [] },
-        exercise: false
+        exercise: false,
+        exerciseOptions: {}
       })
     }));
   };
@@ -3648,42 +3650,45 @@ export default function NeuroThrive() {
               // ── Exercise tab ──
               if (routineTab === "exercise") {
                 const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
-                const allSteps = [exRoutine.warmup, ...exRoutine.exercises, exRoutine.cooldown];
-                const totalTime = allSteps.reduce((acc, s) => acc + (parseInt(s.time) || 0), 0);
-                const exerciseDone = getTodayChecks().exercise;
+                const exerciseChecks = getTodayChecks().exerciseOptions || {};
+                const anyChecked = Object.values(exerciseChecks).some(Boolean);
                 return (
                   <div>
-                    <div style={{ ...S.card, padding:"16px 20px", marginBottom:"20px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"10px" }}>🧬 Why This Works for {exRoutine.label}</div>
-                      <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.8 }}>{exRoutine.neuroNote}</div>
-                    </div>
                     <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
                       <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalised for <strong style={{color:"#50c878"}}>{exRoutine.label}</strong></span>
-                      <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
+                      <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>{Object.values(exerciseChecks).filter(Boolean).length}/{exRoutine.options.length} done</span>
                     </div>
-                    {allSteps.map((s, i) => {
-                      const isWarmup = i === 0;
-                      const isCooldown = i === allSteps.length - 1;
-                      const stepLabel = isWarmup ? "Warm-Up" : isCooldown ? "Cool-Down" : `Exercise ${i}`;
+                    <div style={{ ...S.card, padding:"16px 20px", marginBottom:"20px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)" }}>
+                      <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Choose any of the following</div>
+                      <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6 }}>Check off whichever exercises you do today. Every one counts toward your daily score.</div>
+                    </div>
+                    {exRoutine.options.map((opt, i) => {
+                      const isChecked = !!exerciseChecks[i];
                       return (
-                        <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px" }}>
+                        <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px", border: isChecked ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(107,143,255,0.12)", background: isChecked ? "rgba(80,200,120,0.06)" : "rgba(107,143,255,0.04)" }}>
                           <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
-                            <div style={{ textAlign:"center", flexShrink:0 }}>
-                              <div style={{ width:"36px", height:"36px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#3aa060)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
-                              <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>{s.time}</div>
+                            <div style={{ fontSize:"28px", flexShrink:0, marginTop:"2px" }}>{opt.emoji}</div>
+                            <div style={{ flex:1 }}>
+                              <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{opt.title}</div>
+                              <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.8 }}>{opt.desc}</div>
                             </div>
-                            <div>
-                              <div style={{ color:"#50c878", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"4px" }}>{stepLabel}</div>
-                              <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
-                              <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
-                            </div>
+                            <button onClick={() => updateTodayChecks(prev => {
+                              const opts = { ...(prev.exerciseOptions || {}) };
+                              opts[i] = !opts[i];
+                              const hasAny = Object.values(opts).some(Boolean);
+                              return { ...prev, exerciseOptions: opts, exercise: hasAny };
+                            })} style={{ width:"32px", height:"32px", borderRadius:"10px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                              {isChecked && <span style={{ color:"#50c878", fontSize:"18px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            </button>
                           </div>
                         </div>
                       );
                     })}
-                    <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"100%", padding:"16px", borderRadius:"50px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "rgba(80,200,120,0.05)", color: exerciseDone ? "#50c878" : "#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s", marginBottom:"20px" }}>
-                      {exerciseDone ? "✓ Exercise Complete!" : "Mark Exercise Done"}
-                    </button>
+                    {anyChecked && (
+                      <div style={{ textAlign:"center", padding:"16px", borderRadius:"16px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"20px" }}>
+                        <span style={{ color:"#50c878", fontSize:"15px", fontWeight:"700" }}>💪 Nice work! {Object.values(exerciseChecks).filter(Boolean).length} exercise{Object.values(exerciseChecks).filter(Boolean).length !== 1 ? "s" : ""} logged today</span>
+                      </div>
+                    )}
                   </div>
                 );
               }
