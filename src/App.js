@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
 
 const supabase = createClient(
   "https://gobmsfzpryeaqxkfbnfa.supabase.co",
@@ -1128,139 +1129,6 @@ const DAILY_ROUTINES = {
   },
 };
 
-// ── Brain Toolkit Data ────────────────────────────────────────────────────
-const BRAIN_TOOLKIT_STATES = [
-  { id:"cant_start",  emoji:"😶‍🌫️", label:"I can't start anything" },
-  { id:"spiraling",   emoji:"🌀",   label:"My thoughts are spiraling" },
-  { id:"burned_out",  emoji:"🔥",   label:"I'm burned out" },
-  { id:"frustrated",  emoji:"😤",   label:"I'm frustrated and overwhelmed" },
-  { id:"avoiding",    emoji:"⏰",   label:"I've been avoiding something" },
-];
-
-const BRAIN_TOOLKIT = {
-  adhd: {
-    cant_start:[
-      { s:1, t:"Body first, brain second", d:"Do 10 slow squats or shake your hands for 30 seconds. ADHD brains need physical activation before cognitive tasks — dopamine rises within 2 minutes of movement, and that's what starting requires." },
-      { s:2, t:"2-minute rule",            d:"Tell yourself you'll only do 2 minutes. Set a visible timer. The brain's resistance to starting drops dramatically when the commitment feels tiny. Most of the time, you'll keep going." },
-      { s:3, t:"Remove one barrier",       d:"What's the smallest obstacle between you and starting? Close a tab, clear the desk. Reducing friction by 20% often unlocks starting entirely." },
-      { s:4, t:"Announce it",              d:"Tell someone — out loud, by text — what you're about to do. Body doubling and social commitment are among the most reliably effective ADHD focus tools available." },
-      { s:5, t:"Reward layer",             d:"Put on preferred background — music, a familiar show at low volume. ADHD brains start better with a sensory reward layer running. This is not distraction — it's regulation." },
-    ],
-    spiraling:[
-      { s:1, t:"Name the spiral",          d:"Say out loud: 'My brain is spiraling right now.' Naming activates the prefrontal cortex and partially interrupts the automatic spiral." },
-      { s:2, t:"Dump it on paper",         d:"Set a 3-minute timer and write everything in your head without stopping. ADHD working memory overflows — externalising reduces cognitive load immediately." },
-      { s:3, t:"Fact vs story",            d:"Circle one item from your dump. Is this a fact, or a story about a fact? ADHD brains catastrophise rapidly — the facts are usually much smaller than the story." },
-      { s:4, t:"One action, right now",    d:"What's the one smallest thing you can do in the next 5 minutes? Action is the fastest way out of an ADHD spiral — not thinking, doing." },
-    ],
-    burned_out:[
-      { s:1, t:"Stop pushing through",     d:"ADHD burnout is neurochemical, not motivational. Pushing harder depletes dopamine faster. Give yourself permission to stop — not forever, for now." },
-      { s:2, t:"Dopamine reset",           d:"Do something you genuinely enjoy for 15–20 minutes with zero productivity goal. This is neurological refuelling, not procrastination." },
-      { s:3, t:"Protein snack",            d:"Eat a small protein-rich snack. Burnout drops blood sugar and dopamine simultaneously — protein stabilises both." },
-      { s:4, t:"Reduce tomorrow's load",   d:"Look at tomorrow and remove or defer one commitment. ADHD burnout is often caused by overcommitment in hyperfocus states — recovery is structural." },
-    ],
-    frustrated:[
-      { s:1, t:"Name it to tame it",       d:"'I am frustrated.' Labelling an emotion reduces amygdala activation within seconds — it is the fastest emotional regulation technique available." },
-      { s:2, t:"Physical discharge",       d:"Push against a wall as hard as you can for 10 seconds, then release. ADHD frustration is often somatic — physical outlet is more effective than reasoning through it." },
-      { s:3, t:"Find the unmet need",      d:"Under frustration is usually a blocked goal. Ask: what did I need that I didn't get? Understanding the need is the first step to addressing it." },
-      { s:4, t:"Reduce input",             d:"Leave the room, remove noise, close tabs. ADHD frustration amplifies with sensory input — a quieter environment reduces intensity within minutes." },
-    ],
-    avoiding:[
-      { s:1, t:"Acknowledge the avoidance",d:"Say out loud: 'I am avoiding [thing].' Not self-critical — observational. Naming the pattern engages prefrontal awareness and reduces its unconscious pull." },
-      { s:2, t:"Find the activation cost", d:"What specifically feels hard about starting? Too complex? Boring? Unclear? ADHD avoidance is almost always about the start, not the task itself." },
-      { s:3, t:"Shrink it radically",      d:"Reduce the task to something laughably small: open the document. Write one sentence. The goal is breaking the avoidance state, which resets dopamine." },
-      { s:4, t:"5-4-3-2-1 launch",         d:"Count down from 5 to 1 and physically move when you hit 1. This bypasses the deliberation that feeds avoidance." },
-    ],
-  },
-  anxiety: {
-    cant_start:[
-      { s:1, t:"Reduce the stakes",        d:"What is the worst realistic thing that happens if this doesn't get done perfectly? Anxiety inflates stakes — deliberately deflating them is accurate thinking, not avoidance." },
-      { s:2, t:"Physiological sigh",       d:"Two quick nasal inhales, one long mouth exhale. Stanford research identifies this as the fastest single breath technique to reduce physiological anxiety." },
-      { s:3, t:"Start with the known",     d:"Begin with the part of the task you're most comfortable with. Anxiety creates starting blocks around uncertainty — certainty builds momentum into the unknown." },
-      { s:4, t:"5-minute commitment",      d:"Commit only to 5 minutes. Anxiety projects completion overwhelm — a tiny time commitment makes starting feel manageable." },
-    ],
-    spiraling:[
-      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long exhale. Repeat 3 times. This rapidly lowers CO2 and activates the parasympathetic system." },
-      { s:2, t:"5-4-3-2-1 grounding",      d:"Name 5 things you see, 4 you hear, 3 you can touch, 2 you smell, 1 you taste. Grounding forces sensory present-moment engagement — the spiral lives in the future." },
-      { s:3, t:"Challenge the prediction", d:"What specifically are you predicting will go wrong? Write it down. How likely is this actually? Anxiety systematically overestimates threat probability." },
-      { s:4, t:"Control inventory",        d:"List things you can control and things you can't. Anxiety spirals in the uncontrollable — the inventory shifts focus to the actionable." },
-    ],
-    burned_out:[
-      { s:1, t:"Permission to stop",       d:"Anxiety burnout comes from sustained hypervigilance. Give yourself explicit permission to stop for a defined period — rest is a legitimate biological need." },
-      { s:2, t:"Magnesium moment",         d:"Take your magnesium supplement with water. Anxiety literally consumes magnesium during the stress response — repletion has measurable effects on nervous system calm." },
-      { s:3, t:"Very slow walk",           d:"Walk slower than feels natural. Slow movement activates the parasympathetic system and reduces cortisol. The pace is the point." },
-      { s:4, t:"Lower tomorrow's bar",     d:"Remove one obligation from tomorrow if possible. Anxiety burnout often precedes anxiety escalation — reducing load prevents a worse state tomorrow." },
-    ],
-    frustrated:[
-      { s:1, t:"Box breathing",            d:"4 counts in, 4 hold, 4 out, 4 hold. Repeat 4 times. Frustration activates the sympathetic system — box breathing is one of the most effective tools to bring it down." },
-      { s:2, t:"Feeling vs situation",     d:"The frustration is real. The situation is separate. What is the feeling, and what is the fact? Anxious frustration often merges them — separating reduces intensity." },
-      { s:3, t:"Express it safely",        d:"Write your frustration without editing it. Not to send — to release. Unexpressed frustration in anxious people feeds the anxiety cycle; expression breaks it." },
-    ],
-    avoiding:[
-      { s:1, t:"Name the fear underneath", d:"Anxiety avoidance is always fear-based. What specifically are you afraid will happen? Name it precisely. Vague fear is more powerful than specific fear." },
-      { s:2, t:"Exposure ladder",          d:"Break the avoided task into 5 steps from easiest to hardest. Start with the easiest. Graduated exposure is the mechanism of every evidence-based anxiety treatment." },
-      { s:3, t:"Time-limit the exposure",  d:"Commit to touching the avoided thing for 5 minutes only. This reduces the anticipated overwhelm that anxiety creates around avoided tasks." },
-      { s:4, t:"Notice anxiety goes down", d:"After 5 minutes, check: is anxiety higher or lower? Anxiety almost always goes down when you don't avoid — your brain needs this evidence to update its prediction." },
-    ],
-  },
-  neuro_core: {
-    cant_start:[
-      { s:1, t:"Implementation intention", d:"Write: 'When I [sit at my desk], I will [open the document].' Research shows these if-then plans increase follow-through by 200–300% compared to general goal-setting." },
-      { s:2, t:"Remove friction",          d:"What is the single smallest physical obstacle between you and starting? Removing it disproportionately reduces starting resistance." },
-      { s:3, t:"5-4-3-2-1 launch",         d:"Count down from 5 to 1 and physically start. The countdown interrupts the deliberation loop and converts intention to action without requiring motivation." },
-      { s:4, t:"Two-minute rule",          d:"Commit to just 2 minutes. The start is always harder than the continuation — this rule exploits that asymmetry." },
-    ],
-    spiraling:[
-      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long mouth exhale. This is the fastest known breathing technique to shift from sympathetic to parasympathetic activation." },
-      { s:2, t:"Write the spiral",         d:"Spend 3 minutes writing everything your mind is circling. Externalising reduces working memory load and interrupts the recirculation pattern." },
-      { s:3, t:"Evidence audit",           d:"Take the most prominent worry. What is the evidence for and against this outcome? Structured evidence review reduces catastrophising by engaging deliberate reasoning." },
-      { s:4, t:"Next action only",         d:"What is the one next physical action in the thing you're spiraling about? The spiral is about the abstract whole — the next concrete step is always manageable." },
-    ],
-    burned_out:[
-      { s:1, t:"Ultradian rhythm rest",    d:"The brain runs in 90-minute focus cycles followed by 20-minute recovery periods. If you're burned out, you overrode several recovery windows. Rest now is investment." },
-      { s:2, t:"Non-sleep deep rest",      d:"Set a 20-minute timer and lie down without sleeping — no stimuli. NSDR has been shown to restore dopamine levels faster than distracted rest." },
-      { s:3, t:"Nutrient reset",           d:"Eat something with protein and healthy fat. Cognitive burnout is partly metabolic — the brain has depleted glucose and neurotransmitter precursors." },
-      { s:4, t:"Tomorrow's protection",    d:"Add one 20-minute recovery block to tomorrow's schedule now. Preventing the next burnout is more valuable than recovering from this one." },
-    ],
-    frustrated:[
-      { s:1, t:"Label precisely",          d:"Not just 'frustrated' — frustrated by a person, situation, yourself, or circumstances? Precise labelling reduces intensity and identifies the actual source." },
-      { s:2, t:"Physical discharge",       d:"10 slow squats or pressing palms together hard for 10 seconds. Frustration is adrenaline — physical movement metabolises it faster than thinking." },
-      { s:3, t:"Control vs uncontrollable",d:"Write what's in your control and what isn't. Frustration is most persistent when aimed at uncontrollable things — this inventory redirects energy to the actionable." },
-    ],
-    avoiding:[
-      { s:1, t:"Temptation bundling",      d:"Pair the avoided task with something you enjoy: a podcast, a good coffee. Research shows enjoyable pairings increase follow-through even on highly aversive tasks." },
-      { s:2, t:"Identify the real obstacle",d:"Is it unclear? Boring? Anxiety-provoking? Too large? Avoidance always has a specific cause — identifying it makes the solution obvious." },
-      { s:3, t:"Pre-commit publicly",      d:"Tell someone you'll do this specific thing by a specific time today. Social commitment is one of the strongest behavioural change mechanisms in psychology research." },
-      { s:4, t:"Minimum viable action",    d:"Define the smallest action that counts as 'doing' the thing. Often we avoid because we've unconsciously set the bar impossibly high — resetting it breaks the avoidance." },
-    ],
-  },
-  default: {
-    cant_start:[
-      { s:1, t:"Two-minute commitment",    d:"Commit to only 2 minutes. The biggest obstacle is starting — a tiny time commitment removes the perceived cost of beginning." },
-      { s:2, t:"Remove one barrier",       d:"What is the single smallest obstacle between you and starting? Remove it." },
-      { s:3, t:"Announce it",              d:"Tell someone what you're about to do. Social commitment dramatically increases follow-through." },
-    ],
-    spiraling:[
-      { s:1, t:"Physiological sigh",       d:"Two quick nasal inhales, one long exhale. Repeat 3 times. The fastest known technique to reduce acute anxiety physiologically." },
-      { s:2, t:"Write it down",            d:"Spend 3 minutes writing everything in your head. Externalising thoughts reduces their felt intensity." },
-      { s:3, t:"Next action",              d:"What is the single next physical step you can take? The spiral lives in the abstract — a concrete next action grounds you in the real." },
-    ],
-    burned_out:[
-      { s:1, t:"Permission to stop",       d:"Burning through burnout makes it worse. Give yourself permission to stop for a defined period." },
-      { s:2, t:"Rest without stimulation", d:"20 minutes lying down, no screens. Deep rest restores cognitive and neurological resources faster than distracted rest." },
-      { s:3, t:"Nourish",                  d:"Eat something from your NeuroThrive plan. Burnout has a metabolic component — quality nutrition helps." },
-    ],
-    frustrated:[
-      { s:1, t:"Name it",                  d:"'I am frustrated.' Labelling reduces emotional intensity by engaging the prefrontal cortex." },
-      { s:2, t:"Physical release",         d:"Move your body briefly. Frustration is adrenaline — movement metabolises it." },
-      { s:3, t:"What can I control?",      d:"Write one thing you can actually do about this situation. Frustration eases when you identify agency." },
-    ],
-    avoiding:[
-      { s:1, t:"Name what you're avoiding",d:"Say it out loud. Naming the avoidance consciously reduces its unconscious pull." },
-      { s:2, t:"Minimum viable start",     d:"Define the smallest action that counts as starting. Begin only that." },
-      { s:3, t:"Pre-commit",               d:"Tell someone you will do this specific thing today. Public commitment is one of the strongest behavioural change mechanisms." },
-    ],
-  },
-};
 
 const AFFIRMATIONS = [
   // ── Identity & Worth ──────────────────────────────────────────────────────
@@ -2286,6 +2154,7 @@ export default function NeuroThrive() {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [remindersEnabled, setRemindersEnabled] = useState(false);
   const [toolkitState, setToolkitState] = useState(null);
+  const [toolkitCategory, setToolkitCategory] = useState(null);
   const [routineTab, setRoutineTab] = useState("morning");
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
@@ -3529,27 +3398,91 @@ export default function NeuroThrive() {
 
 
         {/* STEP 9: BRAIN TOOLKIT */}
-        {step === 9 && isPremium && (
+        {step === 9 && isPremium && (() => {
+          // Union of all selected conditions' available states
+          const allCondStates = new Set();
+          const condKeys = selectedConditions.length > 0 ? selectedConditions : ["default"];
+          condKeys.forEach(c => {
+            const tk = BRAIN_TOOLKIT[c];
+            if (tk) Object.keys(tk).forEach(st => allCondStates.add(st));
+          });
+          if (allCondStates.size === 0) {
+            Object.keys(BRAIN_TOOLKIT.default).forEach(st => allCondStates.add(st));
+          }
+          // Resolve which condition key to use for a given state
+          const resolveCondKey = (stId) => {
+            if (selectedConditions.includes("neuro_core")) return "neuro_core";
+            const found = selectedConditions.find(c => BRAIN_TOOLKIT[c]?.[stId]);
+            if (found) return found;
+            const any = selectedConditions.find(c => BRAIN_TOOLKIT[c]);
+            if (any) return any;
+            return "default";
+          };
+          return (
           <div>
             <h2 style={S.sectionTitle}>🧠 Brain Toolkit</h2>
             <p style={S.sectionSub}>How are you feeling right now? Pick your current state for immediate, personalised coping tools.</p>
-            {!toolkitState ? (
-              <div style={{ display:"flex", flexDirection:"column", gap:"12px", marginBottom:"32px" }}>
-                {BRAIN_TOOLKIT_STATES.map(state => (
-                  <div key={state.id} onClick={() => setToolkitState(state.id)}
-                    style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px" }}>
-                    <span style={{ fontSize:"30px" }}>{state.emoji}</span>
-                    <span style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"500" }}>{state.label}</span>
-                    <span style={{ marginLeft:"auto", color:"#7b9fff", fontSize:"18px" }}>→</span>
-                  </div>
-                ))}
+
+            {/* Level 1: Category Grid */}
+            {!toolkitCategory && !toolkitState && (
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px", marginBottom:"32px" }}>
+                {TOOLKIT_CATEGORIES.map(cat => {
+                  const relevant = cat.states.filter(st => allCondStates.has(st));
+                  if (relevant.length === 0) return null;
+                  return (
+                    <div key={cat.id} onClick={() => setToolkitCategory(cat.id)}
+                      style={{ padding:"22px 18px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", textAlign:"center" }}>
+                      <div style={{ fontSize:"32px", marginBottom:"8px" }}>{cat.emoji}</div>
+                      <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600", marginBottom:"6px" }}>{cat.label}</div>
+                      <div style={{ color:"#7b9fff", fontSize:"12px" }}>{relevant.length} tool{relevant.length !== 1 ? "s" : ""}</div>
+                    </div>
+                  );
+                })}
               </div>
-            ) : (() => {
-              const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
-                : (selectedConditions[0] && BRAIN_TOOLKIT[selectedConditions[0]]) ? selectedConditions[0] : "default";
+            )}
+
+            {/* Level 2: State List (filtered by category) */}
+            {toolkitCategory && !toolkitState && (() => {
+              const cat = TOOLKIT_CATEGORIES.find(c => c.id === toolkitCategory);
+              const isCrisis = cat?.id === "crisis";
+              const relevantStates = BRAIN_TOOLKIT_STATES.filter(
+                st => cat.states.includes(st.id) && allCondStates.has(st.id)
+              );
+              return (
+                <div>
+                  <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"20px" }}>
+                    <button onClick={() => setToolkitCategory(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <span style={{ fontSize:"22px" }}>{cat.emoji}</span>
+                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{cat.label}</h3>
+                  </div>
+                  {isCrisis && (
+                    <div style={{ padding:"16px 20px", borderRadius:"14px", border:"1px solid rgba(220,80,80,0.3)", background:"rgba(220,80,80,0.08)", marginBottom:"20px" }}>
+                      <p style={{ color:"#ff9090", fontSize:"14px", lineHeight:1.7, margin:0 }}>
+                        <strong>⚠️ Safety first:</strong> If you're in immediate danger, call <strong>988</strong> (Suicide &amp; Crisis Lifeline) or text <strong>HOME</strong> to <strong>741741</strong>.
+                      </p>
+                    </div>
+                  )}
+                  <div style={{ display:"flex", flexDirection:"column", gap:"12px", marginBottom:"32px" }}>
+                    {relevantStates.map(state => (
+                      <div key={state.id} onClick={() => setToolkitState(state.id)}
+                        style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px" }}>
+                        <span style={{ fontSize:"30px" }}>{state.emoji}</span>
+                        <span style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"500" }}>{state.label}</span>
+                        <span style={{ marginLeft:"auto", color:"#7b9fff", fontSize:"18px" }}>→</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Level 3: Coping Steps */}
+            {toolkitState && (() => {
+              const condKey = resolveCondKey(toolkitState);
               const toolkit = BRAIN_TOOLKIT[condKey] || BRAIN_TOOLKIT.default;
               const steps = toolkit[toolkitState] || BRAIN_TOOLKIT.default[toolkitState] || [];
               const stateInfo = BRAIN_TOOLKIT_STATES.find(s => s.id === toolkitState);
+              const isCrisisState = TOOLKIT_CATEGORIES.find(c => c.id === "crisis")?.states.includes(toolkitState);
               return (
                 <div>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"24px" }}>
@@ -3557,6 +3490,13 @@ export default function NeuroThrive() {
                     <span style={{ fontSize:"22px" }}>{stateInfo?.emoji}</span>
                     <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{stateInfo?.label}</h3>
                   </div>
+                  {isCrisisState && (
+                    <div style={{ padding:"16px 20px", borderRadius:"14px", border:"1px solid rgba(220,80,80,0.3)", background:"rgba(220,80,80,0.08)", marginBottom:"20px" }}>
+                      <p style={{ color:"#ff9090", fontSize:"14px", lineHeight:1.7, margin:0 }}>
+                        <strong>⚠️ Safety first:</strong> If you're in immediate danger, call <strong>988</strong> (Suicide &amp; Crisis Lifeline) or text <strong>HOME</strong> to <strong>741741</strong>.
+                      </p>
+                    </div>
+                  )}
                   {steps.map((s, i) => (
                     <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px" }}>
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
@@ -3571,12 +3511,14 @@ export default function NeuroThrive() {
                 </div>
               );
             })()}
+
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(7)}>← Reminders</button>
-              <button style={S.btn} onClick={() => setStep(10)}>Daily Routine →</button>
+              <button style={S.btnOutline} onClick={() => { setToolkitState(null); setToolkitCategory(null); setStep(7); }}>← Reminders</button>
+              <button style={S.btn} onClick={() => { setToolkitState(null); setToolkitCategory(null); setStep(10); }}>Daily Routine →</button>
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {/* STEP 10: DAILY ROUTINE */}
         {step === 10 && isPremium && (
