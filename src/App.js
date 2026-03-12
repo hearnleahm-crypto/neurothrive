@@ -2784,36 +2784,36 @@ export default function NeuroThrive() {
   const globalDayIdx = selectedWeek*7+selectedDayIdx;
 
   const S = {
-    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 20% 0%, rgba(85,112,240,0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(107,143,255,0.08) 0%, transparent 50%), linear-gradient(180deg,#080c18 0%,#0a0f1e 50%,#080c18 100%)", fontFamily:"'Outfit',system-ui,sans-serif", color:"#eef0ff" },
-    nav: { background:"rgba(8,12,24,0.85)", borderBottom:"1px solid rgba(107,143,255,0.12)", padding:"0 24px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(20px)", WebkitBackdropFilter:"blur(20px)", height:"60px", boxShadow:"0 1px 40px rgba(0,0,0,0.4)" },
-    logo: { fontSize:"17px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.2px", display:"flex", alignItems:"center", gap:"8px" },
-    navTabs: { display:"flex", gap:"2px", flexWrap:"wrap" },
-    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"12px", fontWeight:a?"600":"400", background:a?"rgba(107,143,255,0.15)":"transparent", color:a?"#9db5ff":"#8890b8", transition:"all 0.2s", letterSpacing:"0.1px" }),
-    main: { maxWidth:"780px", margin:"0 auto", padding:"48px 24px" },
-    hero: { textAlign:"center", padding:"72px 20px 56px" },
-    heroEyebrow: { display:"inline-block", fontSize:"11px", fontWeight:"600", letterSpacing:"3px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.12)", padding:"6px 16px", borderRadius:"20px", marginBottom:"28px" },
-    heroTitle: { fontSize:"60px", fontWeight:"800", color:"#eef0ff", lineHeight:1.05, marginBottom:"20px", letterSpacing:"-2px" },
-    heroAccent: { color:"#7b9fff" },
-    heroSub: { fontSize:"17px", color:"#7a90f0", maxWidth:"460px", margin:"0 auto 44px", lineHeight:1.7, fontWeight:"400" },
-    btn: { background:"rgba(110,120,200,0.15)", color:"#9db5ff", border:"1px solid rgba(110,120,200,0.3)", padding:"13px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", letterSpacing:"0.2px", cursor:"pointer", transition:"all 0.2s" },
-    btnOutline: { background:"transparent", color:"#9db5ff", border:"1px solid rgba(110,120,200,0.35)", padding:"12px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"500", cursor:"pointer", transition:"all 0.2s" },
-    btnAccent: { background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"14px 34px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" },
-    btnSm: { background:"transparent", border:"1px solid rgba(110,120,200,0.2)", borderRadius:"8px", color:"#8890b8", padding:"6px 12px", cursor:"pointer", fontSize:"12px", fontWeight:"500" },
-    sectionTitle: { fontSize:"28px", color:"#eef0ff", marginBottom:"6px", fontWeight:"700", letterSpacing:"-0.5px" },
-    sectionSub: { fontSize:"14px", color:"#8890b8", marginBottom:"28px", lineHeight:1.6 },
+    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#060a14 0%,#080e1c 50%,#060a14 100%)", fontFamily:"'Inter','Outfit',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em" },
+    nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.08)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
+    logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
+    navTabs: { display:"flex", gap:"1px", flexWrap:"wrap" },
+    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", letterSpacing:"0.01em" }),
+    main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px" },
+    hero: { textAlign:"center", padding:"80px 20px 60px" },
+    heroEyebrow: { display:"inline-block", fontSize:"10px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.12)", padding:"7px 18px", borderRadius:"24px", marginBottom:"32px" },
+    heroTitle: { fontSize:"56px", fontWeight:"800", color:"#f0f2ff", lineHeight:1.04, marginBottom:"22px", letterSpacing:"-2.5px" },
+    heroAccent: { background:"linear-gradient(135deg,#7b9fff,#5570f0)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
+    heroSub: { fontSize:"16px", color:"#6b7ba8", maxWidth:"440px", margin:"0 auto 48px", lineHeight:1.75, fontWeight:"400", letterSpacing:"0.01em" },
+    btn: { background:"rgba(107,143,255,0.08)", color:"#a0b8ff", border:"1px solid rgba(107,143,255,0.2)", padding:"13px 28px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"600", letterSpacing:"0.01em", cursor:"pointer", backdropFilter:"blur(8px)" },
+    btnOutline: { background:"rgba(255,255,255,0.02)", color:"#8898c8", border:"1px solid rgba(107,143,255,0.18)", padding:"12px 24px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"500", cursor:"pointer", backdropFilter:"blur(8px)" },
+    btnAccent: { background:"linear-gradient(135deg,#5570f0 0%,#3d58e0 100%)", color:"#fff", border:"none", padding:"14px 34px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"600", cursor:"pointer", boxShadow:"0 4px 20px rgba(85,112,240,0.35), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15)", letterSpacing:"0.01em" },
+    btnSm: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"8px", color:"#7888b8", padding:"6px 13px", cursor:"pointer", fontSize:"12px", fontWeight:"500" },
+    sectionTitle: { fontSize:"26px", color:"#f0f2ff", marginBottom:"6px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
+    sectionSub: { fontSize:"14px", color:"#6b7ba8", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
     grid: { display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(148px,1fr))", gap:"10px", marginBottom:"32px" },
-    chip: (sel) => ({ padding:"12px 14px", borderRadius:"14px", border:sel?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.18)", background:sel?"rgba(80,112,240,0.15)":"rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"13px", fontWeight:sel?"600":"400", color:sel?"#9db5ff":"#8890b8", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.15s" }),
-    card: { background:"rgba(107,143,255,0.04)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"20px", padding:"20px", marginBottom:"14px", backdropFilter:"blur(8px)", boxShadow:"0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.04)" },
-    mealLabel: { fontSize:"10px", textTransform:"uppercase", letterSpacing:"2.5px", color:"#5570f0", marginBottom:"10px", fontWeight:"700" },
-    tag: { display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(80,112,240,0.15)", color:"#9db5ff", fontSize:"12px", fontWeight:"500", marginRight:"6px", marginBottom:"6px" },
-    divider: { height:"1px", background:"rgba(110,120,200,0.12)", margin:"22px 0" },
+    chip: (sel) => ({ padding:"12px 14px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", fontSize:"13px", fontWeight:sel?"600":"400", color:sel?"#a0b8ff":"#7888b8", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)" }),
+    card: { background:"rgba(255,255,255,0.025)", border:"1px solid rgba(107,143,255,0.08)", borderRadius:"18px", padding:"20px", marginBottom:"14px", backdropFilter:"blur(12px)", boxShadow:"0 2px 16px rgba(0,0,0,0.15), 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04)" },
+    mealLabel: { fontSize:"10px", textTransform:"uppercase", letterSpacing:"2.5px", color:"#5e78d0", marginBottom:"10px", fontWeight:"700" },
+    tag: { display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(80,112,240,0.1)", border:"1px solid rgba(80,112,240,0.15)", color:"#a0b8ff", fontSize:"11.5px", fontWeight:"500", marginRight:"6px", marginBottom:"6px" },
+    divider: { height:"1px", background:"linear-gradient(90deg, transparent, rgba(107,143,255,0.12), transparent)", margin:"24px 0" },
     moodRow: { display:"flex", gap:"10px", flexWrap:"wrap", marginBottom:"20px" },
-    moodBtn: (sel) => ({ flex:1, minWidth:"55px", padding:"12px 6px", borderRadius:"14px", border:sel?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.18)", background:sel?"rgba(80,112,240,0.15)":"rgba(240,244,255,0.04)", cursor:"pointer", textAlign:"center", transition:"all 0.15s", color:sel?"#9db5ff":"#8890b8", fontWeight:sel?"600":"400" }),
-    textarea: { width:"100%", background:"rgba(240,244,255,0.05)", border:"1px solid rgba(110,120,200,0.18)", borderRadius:"12px", color:"#eef0ff", fontFamily:"'Outfit',system-ui,sans-serif", fontSize:"14px", padding:"14px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px" },
-    affirmCard: { textAlign:"center", padding:"56px 36px", background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"24px", marginBottom:"20px", position:"relative", overflow:"hidden" },
-    successBanner: { background:"rgba(80,180,120,0.12)", border:"1px solid rgba(80,180,120,0.25)", borderRadius:"12px", padding:"12px 18px", color:"#7aaeff", fontSize:"13px", fontWeight:"600", textAlign:"center", marginBottom:"16px" },
-    dot: (a,d) => ({ width:"6px", height:"6px", borderRadius:"50%", background:a?"#5570f0":d?"rgba(80,112,240,0.4)":"rgba(110,120,200,0.2)", transition:"all 0.3s" }),
-    warningBanner: { background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"12px", padding:"12px 18px", color:"#9db5ff", fontSize:"13px", fontWeight:"500", marginBottom:"18px" },
+    moodBtn: (sel) => ({ flex:1, minWidth:"55px", padding:"12px 6px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", color:sel?"#a0b8ff":"#7888b8", fontWeight:sel?"600":"400" }),
+    textarea: { width:"100%", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.1)", borderRadius:"14px", color:"#e8ecff", fontFamily:"'Inter','Outfit',system-ui,sans-serif", fontSize:"14px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
+    affirmCard: { textAlign:"center", padding:"56px 36px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"24px", marginBottom:"20px", position:"relative", overflow:"hidden", boxShadow:"0 4px 32px rgba(0,0,0,0.15)" },
+    successBanner: { background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.18)", borderRadius:"14px", padding:"14px 20px", color:"#70d890", fontSize:"13px", fontWeight:"600", textAlign:"center", marginBottom:"16px", backdropFilter:"blur(8px)" },
+    dot: (a,d) => ({ width:"6px", height:"6px", borderRadius:"50%", background:a?"#5570f0":d?"rgba(80,112,240,0.4)":"rgba(107,143,255,0.15)", transition:"all 0.3s" }),
+    warningBanner: { background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"14px", padding:"14px 20px", color:"#a0b8ff", fontSize:"13px", fontWeight:"500", marginBottom:"18px" },
   };
 
   const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","Affirmations","Supplements","Reminders","Toolkit","Routine","Progress"];
@@ -2826,24 +2826,28 @@ export default function NeuroThrive() {
   return (
     <div style={S.app}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; }
-        body { margin: 0; background: #080c18; }
+        body { margin: 0; background: #060a14; }
         * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
         @keyframes pulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
         @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-        @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(107,143,255,0.15); } 50% { box-shadow: 0 0 40px rgba(107,143,255,0.3); } }
-        button:hover { opacity: 0.88; transform: translateY(-1px); transition: all 0.15s ease; }
-        button:active { transform: translateY(0); }
+        @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(107,143,255,0.1); } 50% { box-shadow: 0 0 40px rgba(107,143,255,0.25); } }
+        @keyframes subtleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        button { transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94); }
+        button:hover { opacity: 0.92; transform: translateY(-1px); }
+        button:active { transform: translateY(0) scale(0.98); }
         details > summary { user-select: none; }
         details > summary::-webkit-details-marker { display: none; }
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(107,143,255,0.25); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(107,143,255,0.45); }
-        ::selection { background: rgba(107,143,255,0.3); color: #eef0ff; }
+        ::-webkit-scrollbar-thumb { background: rgba(107,143,255,0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(107,143,255,0.4); }
+        ::selection { background: rgba(107,143,255,0.25); color: #fff; }
+        input:focus, textarea:focus { border-color: rgba(107,143,255,0.4) !important; box-shadow: 0 0 0 3px rgba(107,143,255,0.08); outline: none; }
       `}</style>
 
       <nav style={S.nav}>
