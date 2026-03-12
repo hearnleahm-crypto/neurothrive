@@ -3299,7 +3299,7 @@ export default function NeuroThrive() {
               ))}
             </div>
             <div style={{ textAlign:"center", marginTop:"36px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(3)}>← Back to Menu</button>
+              <button style={S.btnOutline} onClick={() => setStep(4)}>← Back to Menu</button>
             </div>
           </div>
         )}
@@ -3733,7 +3733,7 @@ export default function NeuroThrive() {
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
               <button style={S.btnOutline} onClick={() => setStep(9)}>← Brain Toolkit</button>
-              <button style={S.btn} onClick={() => setStep(3)}>Back to Menu →</button>
+              <button style={S.btn} onClick={() => setStep(4)}>Back to Menu →</button>
             </div>
           </div>
         )}
