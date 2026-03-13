@@ -4476,21 +4476,21 @@ export default function NeuroThrive() {
         </div>
         <div className="nav-tabs-scroll" style={S.navTabs}>
           {step > 0 && [
-            { label:"👤 Gender",       s:1 },
-            { label:"🩺 Conditions",   s:2 },
-            { label:"🥗 Diet",         s:3 },
-            { label:"🍽️ Menu",         s:4 },
-            { label:"📓 Journal",      s:8 },
+            { label:"Gender",       s:1 },
+            { label:"Conditions",   s:2 },
+            { label:"Diet",         s:3 },
+            { label:"Menu",         s:4 },
+            { label:"Journal",      s:8 },
           ].map(({ label, s }) => (
             <button key={label} style={S.navTab(step===s)} onClick={() => handleStepForward(s)}>{label}</button>
           ))}
           {isPremium && step > 0 && (
             <>
-              <button style={S.navTab(step===10)} onClick={() => setStep(10)}>☀️ Routine</button>
-              <button style={S.navTab(step===6)}  onClick={() => setStep(6)}>🌿 Supplements</button>
-              <button style={S.navTab(step===7)}  onClick={() => setStep(7)}>🔔 Reminders</button>
-              <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>🧠 Toolkit</button>
-              <button style={S.navTab(step===11)} onClick={() => setStep(11)}>📊 Progress</button>
+              <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>
+              <button style={S.navTab(step===6)}  onClick={() => setStep(6)}>Supplements</button>
+              <button style={S.navTab(step===7)}  onClick={() => setStep(7)}>Reminders</button>
+              <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>Toolkit</button>
+              <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>
             </>
           )}
         </div>
