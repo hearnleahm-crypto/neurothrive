@@ -2554,6 +2554,7 @@ function buildMealExplanation(meal, conditionIds) {
 
 export default function NeuroThrive() {
   const [step, setStep] = useState(0);
+  const [resumeStep, setResumeStep] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // "terms" | "privacy" | null
   const [isPremium, setIsPremium] = useState(false);
@@ -2648,9 +2649,11 @@ export default function NeuroThrive() {
           if (data.logs) setLogs(data.logs);
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
           if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
-          if (data.step && data.step > 0) {
-            // Cap at step 2 for non-premium — paywall useEffect will handle showing overlay
-            setStep(data.step);
+          // Always start at step 0 (Welcome) on fresh load — user goes through
+          // disclaimer → welcome → gender before reaching their saved position.
+          // Save the step so we can resume after onboarding.
+          if (data.step && data.step > 1) {
+            setResumeStep(data.step);
           }
           if (data.reminders_enabled) setRemindersEnabled(data.reminders_enabled);
           if (data.reminder_times) setReminderTimes(data.reminder_times);
@@ -3380,7 +3383,7 @@ export default function NeuroThrive() {
             </div>
             <div style={{ display:"flex", justifyContent:"space-between" }}>
               <button style={S.btnOutline} onClick={() => setStep(0)}>← Back</button>
-              <button style={selectedGender ? S.btn : {...S.btn, opacity:0.5}} onClick={() => { if(selectedGender) setStep(2); }}>Continue →</button>
+              <button style={selectedGender ? S.btn : {...S.btn, opacity:0.5}} onClick={() => { if(selectedGender) { setStep(resumeStep && resumeStep > 2 ? resumeStep : 2); setResumeStep(null); } }}>Continue →</button>
             </div>
           </div>
         )}
