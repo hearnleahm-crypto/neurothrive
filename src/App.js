@@ -3089,14 +3089,15 @@ export default function NeuroThrive() {
     ? Math.min(30, Math.floor((new Date() - new Date(cycleStartDate)) / (1000 * 60 * 60 * 24)) + 1)
     : 1;
 
-  const getAltMeal = (currentMeal, mealType) => {
+  const getAltMeal = (currentMeal, mealType, mealKey) => {
     const label = mealType.toLowerCase();
     const typeKey = label.includes("breakfast") ? "breakfast" : label.includes("lunch") ? "lunch" : label.includes("dinner") ? "dinner" : "snacks";
     const condition = selectedConditions[0] || "default";
     const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition).map(m => m.name).filter(n => n !== currentMeal);
     if (pool.length === 0) return;
     const pick = pool[Math.floor(Math.random() * pool.length)];
-    setAltMeal(prev => ({ ...prev, [currentMeal]: pick }));
+    const altKey = `${globalDayIdx}_${mealKey}`;
+    setAltMeal(prev => ({ ...prev, [altKey]: pick }));
   };
 
   const saveLog = () => {
@@ -3113,23 +3114,35 @@ export default function NeuroThrive() {
   // ── Daily checks helpers ──────────────────────────────────────────────────
   const todayKey = new Date().toISOString().slice(0, 10);
 
-  const getTodayChecks = () => dailyChecks[todayKey] || {
-    meals: { breakfast: false, lunch: false, dinner: false, snacks: false },
+  const defaultChecks = () => ({
+    meals: { breakfast: false, lunch: false, dinner: false, snacks: false, snacks2: false },
+    foodLog: {},
     routine: { morning: [], evening: [] },
     exercise: false,
     exerciseOptions: {}
-  };
+  });
+
+  const getTodayChecks = () => dailyChecks[todayKey] || defaultChecks();
 
   const updateTodayChecks = (updater) => {
     setDailyChecks(prev => ({
       ...prev,
-      [todayKey]: updater(prev[todayKey] || {
-        meals: { breakfast: false, lunch: false, dinner: false, snacks: false },
-        routine: { morning: [], evening: [] },
-        exercise: false,
-        exerciseOptions: {}
-      })
+      [todayKey]: updater(prev[todayKey] || defaultChecks())
     }));
+  };
+
+  const toggleMealCheck = (mealKey, mealName) => {
+    updateTodayChecks(prev => {
+      const wasChecked = prev.meals[mealKey];
+      const newMeals = { ...prev.meals, [mealKey]: !wasChecked };
+      const newLog = { ...prev.foodLog };
+      if (!wasChecked) {
+        newLog[mealKey] = mealName;
+      } else {
+        delete newLog[mealKey];
+      }
+      return { ...prev, meals: newMeals, foodLog: newLog };
+    });
   };
 
   // ── Daily score calculator ───────────────────────────────────────────────
@@ -3574,21 +3587,25 @@ export default function NeuroThrive() {
                   ...(currentDay.snacks2 ? [{ key:"snacks2", label:"🍊 Snack 2" }] : []),
                 ].map(({ key, label }) => {
                   const mainMeal = currentDay[key];
-                  const alt = altMeal[mainMeal];
-                  const mealChecked = getTodayChecks().meals[key];
+                  const altKey = `${globalDayIdx}_${key}`;
+                  const alt = altMeal[altKey];
+                  const todayChecks = getTodayChecks();
+                  const mealChecked = todayChecks.meals[key];
+                  const loggedMeal = todayChecks.foodLog?.[key];
+                  const ateAlt = mealChecked && loggedMeal && loggedMeal !== mainMeal;
                   return (
                     <div key={key} style={S.card}>
                       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
                         <div style={S.mealLabel}>{label}</div>
-                        <button onClick={() => updateTodayChecks(prev => ({ ...prev, meals: { ...prev.meals, [key]: !prev.meals[key] } }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0 }}>
-                          {mealChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
-                        </button>
+                        {mealChecked && <span style={{ color:"#50c878", fontSize:"10px", fontWeight:"600" }}>Logged: {loggedMeal ? (loggedMeal.length > 30 ? loggedMeal.slice(0,30) + "..." : loggedMeal) : mainMeal}</span>}
                       </div>
 
                       {/* Main meal */}
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
-                        <span style={{ color:"#7b9fff", marginTop:"2px", flexShrink:0, fontSize:"8px" }}>●</span>
-                        <span style={{ flex:1, color:"#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{mainMeal}</span>
+                        <button onClick={() => toggleMealCheck(key, mainMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: (mealChecked && !ateAlt) ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: (mealChecked && !ateAlt) ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px" }}>
+                          {(mealChecked && !ateAlt) && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                        </button>
+                        <span style={{ flex:1, color: (mealChecked && !ateAlt) ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: (mealChecked && !ateAlt) ? "line-through" : "none", opacity: (mealChecked && !ateAlt) ? 0.7 : 1 }}>{mainMeal}</span>
                       </div>
                       <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px" }}>
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -3609,15 +3626,22 @@ export default function NeuroThrive() {
                         >🍳 Recipe</button>
                         <button
                           style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(110,120,200,0.25)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
-                          onClick={() => getAltMeal(mainMeal, label)}
+                          onClick={() => getAltMeal(mainMeal, label, key)}
                         >✨ Swap</button>
                       </div>
 
-                      {/* Alternative meal (if swapped) */}
+                      {/* Alternative meal (only shown after swap) */}
                       {alt && (
                         <div style={{ marginTop:"4px", padding:"12px 14px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
-                          <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Alternative</div>
-                          <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, marginBottom:"8px" }}>{alt}</div>
+                          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"6px" }}>
+                            <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase" }}>Alternative</div>
+                          </div>
+                          <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
+                            <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px" }}>
+                              {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            </button>
+                            <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
+                          </div>
                           <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", marginBottom:"10px", padding:"3px 9px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
                             <span style={{ fontSize:"11px" }}>🔥</span>
                             <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
@@ -4465,6 +4489,39 @@ export default function NeuroThrive() {
                     );
                   })()}
 
+                  {/* ── Food Log ── */}
+                  {(() => {
+                    const today = new Date();
+                    const foodLogDays = [];
+                    for (let i = 0; i < 14; i++) {
+                      const d = new Date(today); d.setDate(d.getDate() - i);
+                      const key = d.toISOString().slice(0, 10);
+                      const dc = dailyChecks[key];
+                      if (dc?.foodLog && Object.keys(dc.foodLog).length > 0) {
+                        foodLogDays.push({ date: key, label: d.toLocaleDateString("en-US", { weekday:"short", month:"short", day:"numeric" }), log: dc.foodLog });
+                      }
+                    }
+                    return foodLogDays.length > 0 ? (
+                      <div style={{ ...S.card, marginBottom:"20px" }}>
+                        <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"16px" }}>Food Log</div>
+                        {foodLogDays.map((day, di) => (
+                          <div key={day.date} style={{ padding:"12px 0", borderBottom: di < foodLogDays.length - 1 ? "1px solid rgba(110,120,200,0.1)" : "none" }}>
+                            <div style={{ color:"#9db5ff", fontSize:"13px", fontWeight:"700", marginBottom:"8px" }}>{day.label}</div>
+                            <div style={{ display:"flex", flexDirection:"column", gap:"4px" }}>
+                              {Object.entries(day.log).map(([mealKey, mealName]) => (
+                                <div key={mealKey} style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                                  <span style={{ color:"#50c878", fontSize:"12px" }}>✓</span>
+                                  <span style={{ color:"#e8c87a", fontSize:"10px", fontWeight:"700", textTransform:"uppercase", letterSpacing:"1px", minWidth:"60px" }}>{mealKey === "snacks2" ? "Snack 2" : mealKey}</span>
+                                  <span style={{ color:"#c8ccf0", fontSize:"12px" }}>{mealName}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null;
+                  })()}
+
                   {/* ── Recent log list ── */}
                   <div style={{ ...S.card }}>
                     <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Recent Entries</div>
@@ -4501,7 +4558,7 @@ export default function NeuroThrive() {
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
                 <button style={S.btnOutline} onClick={() => setStep(8)}>← Journal</button>
-                <button style={S.btn} onClick={() => setStep(3)}>View Meal Plan →</button>
+                <button style={S.btn} onClick={() => setStep(4)}>View Meal Plan →</button>
               </div>
             </div>
           );
