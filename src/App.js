@@ -4494,6 +4494,9 @@ export default function NeuroThrive() {
       </nav>
 
       <div style={S.main}>
+        {/* Safety redirect: if returning user is stuck on step 0, go to Today */}
+        {step === 0 && menu30 && (() => { setTimeout(() => setStep(12), 0); return null; })()}
+
         {step > 0 && step < 9 && (
           <div style={{ display:"flex", justifyContent:"center", gap:"6px", marginBottom:"36px" }}>
             {[1,2,3,4,5,6,7].map(s => <div key={s} style={S.dot(step===s, step>s)} />)}
