@@ -3323,6 +3323,21 @@ export default function NeuroThrive() {
 
   const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","Affirmations","Supplements","Reminders","Toolkit","Routine","Progress"];
 
+  // Date helper: get the real calendar date for a plan day (0-indexed)
+  const getPlanDate = (dayIdx) => {
+    if (!cycleStartDate) return null;
+    const d = new Date(cycleStartDate);
+    d.setDate(d.getDate() + dayIdx);
+    return d;
+  };
+  const formatPlanDate = (dayIdx, style) => {
+    const d = getPlanDate(dayIdx);
+    if (!d) return "";
+    if (style === "short") return d.toLocaleDateString("en-US", { month:"short", day:"numeric" });
+    if (style === "weekday") return d.toLocaleDateString("en-US", { weekday:"short" });
+    return d.toLocaleDateString("en-US", { weekday:"short", month:"short", day:"numeric" });
+  };
+
   const mealActionBtn = (onClick, color, text) => ({
     style: { flex:1, padding:"9px 10px", borderRadius:"10px", border:`1.5px solid ${color}33`, background:`${color}11`, color, fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s", whiteSpace:"nowrap" },
     onClick,
@@ -3580,7 +3595,7 @@ export default function NeuroThrive() {
             {cycleStartDate && (
               <div style={{ ...S.card, marginBottom:"14px", padding:"14px 18px" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                  <span style={{ fontSize:"12px", color:"#8890b8", fontWeight:"500" }}>Cycle {planCycle} Progress</span>
+                  <span style={{ fontSize:"12px", color:"#8890b8", fontWeight:"500" }}>Started {new Date(cycleStartDate).toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" })}</span>
                   <span style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"600" }}>Day {daysElapsed} of 30</span>
                 </div>
                 <div style={{ height:"6px", background:"rgba(110,120,200,0.15)", borderRadius:"10px", overflow:"hidden" }}>
@@ -3615,18 +3630,21 @@ export default function NeuroThrive() {
 
             {/* Day tabs */}
             <div style={{ display:"flex", gap:"6px", marginBottom:"20px" }}>
-              {weekDays.map((d,i) => (
-                <button key={d.day} onClick={() => setSelectedDayIdx(i)} style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:selectedDayIdx===i?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.14)", background:selectedDayIdx===i?"rgba(107,143,255,0.12)":"rgba(240,244,255,0.04)", color:selectedDayIdx===i?"#9db5ff":"#8890b8", fontSize:"11px", fontWeight:selectedDayIdx===i?"700":"500", cursor:"pointer", transition:"all 0.15s", textAlign:"center" }}>
-                  <div>{DAY_NAMES[i]}</div>
-                  <div style={{ fontSize:"10px", marginTop:"2px", opacity:0.7 }}>Day {d.day}</div>
-                </button>
-              ))}
+              {weekDays.map((d,i) => {
+                const dayGlobalIdx = selectedWeek * 7 + i;
+                return (
+                  <button key={d.day} onClick={() => setSelectedDayIdx(i)} style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:selectedDayIdx===i?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.14)", background:selectedDayIdx===i?"rgba(107,143,255,0.12)":"rgba(240,244,255,0.04)", color:selectedDayIdx===i?"#9db5ff":"#8890b8", fontSize:"11px", fontWeight:selectedDayIdx===i?"700":"500", cursor:"pointer", transition:"all 0.15s", textAlign:"center" }}>
+                    <div>{formatPlanDate(dayGlobalIdx, "weekday") || DAY_NAMES[i]}</div>
+                    <div style={{ fontSize:"9px", marginTop:"2px", opacity:0.7 }}>{formatPlanDate(dayGlobalIdx, "short") || `Day ${d.day}`}</div>
+                  </button>
+                );
+              })}
             </div>
 
             {currentDay && (
               <>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
-                  <div style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px" }}>Day {currentDay.day} <span style={{ color:"#8890b8", fontWeight:"400" }}>— {DAY_NAMES[selectedDayIdx]}</span></div>
+                  <div style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px" }}>Day {currentDay.day} <span style={{ color:"#8890b8", fontWeight:"400" }}>— {formatPlanDate(globalDayIdx) || DAY_NAMES[selectedDayIdx]}</span></div>
                   <div style={{ display:"flex", gap:"8px" }}>
                     <button style={S.btnSm} onClick={() => { const prev=globalDayIdx-1; if(prev>=0){setSelectedWeek(Math.floor(prev/7));setSelectedDayIdx(prev%7);} }}>← Prev</button>
                     <button style={S.btnSm} onClick={() => { const next=globalDayIdx+1; if(next<30){setSelectedWeek(Math.floor(next/7));setSelectedDayIdx(next%7);} }}>Next →</button>
@@ -3732,7 +3750,7 @@ export default function NeuroThrive() {
               <div style={{ marginTop:"12px", display:"grid", gap:"8px" }}>
                 {weekDays.map((day,i) => (
                   <div key={day.day} onClick={() => setSelectedDayIdx(i)} style={{ padding:"14px 16px", borderRadius:"14px", background:selectedDayIdx===i?"rgba(80,112,240,0.1)":"rgba(240,244,255,0.04)", border:selectedDayIdx===i?"1px solid rgba(107,143,255,0.35)":"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day} — {DAY_NAMES[i]}</div>
+                    <div style={{ color:"#7b9fff", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day} — {formatPlanDate(selectedWeek * 7 + i) || DAY_NAMES[i]}</div>
                     <div style={{ color:"#7a90f0", fontSize:"12px", lineHeight:1.8 }}>🌅 {day.breakfast}<br/>☀️ {day.lunch}<br/>🌙 {day.dinner}<br/>🍎 {day.snacks}{day.snacks2 && <><br/>🍊 {day.snacks2}</>}</div>
                   </div>
                 ))}
@@ -3746,7 +3764,7 @@ export default function NeuroThrive() {
               <div style={{ marginTop:"12px", display:"grid", gap:"6px" }}>
                 {menu30.map((day,i) => (
                   <div key={day.day} onClick={() => { setSelectedWeek(Math.floor(i/7)); setSelectedDayIdx(i%7); }} style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", marginBottom:"3px" }}>Day {day.day}</div>
+                    <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", marginBottom:"3px" }}>Day {day.day} {formatPlanDate(i, "short") && <span style={{ color:"#8890b8", fontWeight:"500" }}>— {formatPlanDate(i, "short")}</span>}</div>
                     <div style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6 }}>🌅 {day.breakfast} · ☀️ {day.lunch} · 🌙 {day.dinner}</div>
                   </div>
                 ))}
