@@ -3798,7 +3798,7 @@ export default function NeuroThrive() {
     if (!saveReady.current) { saveReady.current = true; return; }
     const timer = setTimeout(async () => {
       try {
-        await supabase.from("user_data").upsert({
+        const { error } = await supabase.from("user_data").upsert({
           id: user.id,
           selected_gender: selectedGender,
           cycle_sync_enabled: cycleSyncEnabled,
@@ -3819,6 +3819,7 @@ export default function NeuroThrive() {
           onboarding_done: onboardingDone,
           updated_at: new Date().toISOString(),
         });
+        if (error) console.error("Save error:", error.message, error.details);
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
@@ -4391,7 +4392,7 @@ export default function NeuroThrive() {
     nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.08)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
     logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
     navTabs: { display:"flex", gap:"1px", overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none", flexShrink:1, minWidth:0 },
-    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
+    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
     main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px" },
     hero: { textAlign:"center", padding:"80px 20px 60px" },
     heroEyebrow: { display:"inline-block", fontSize:"10px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.12)", padding:"7px 18px", borderRadius:"24px", marginBottom:"32px" },
