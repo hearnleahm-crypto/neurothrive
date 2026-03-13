@@ -3836,7 +3836,7 @@ export default function NeuroThrive() {
     { emoji: "🍽️", title: "Your 30-Day Menu", desc: "Browse daily meals tailored to your condition. Tap any meal to see its full recipe, or tap \"Why this meal?\" to learn the neuroscience behind each ingredient." },
     { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel — powerful data for your wellness journey." },
     { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research. Find both on the Reminders tab." },
-    { emoji: "💊", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition — with dosages, timing, and the science behind each one." },
+    { emoji: "🌿", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition — with dosages, timing, and the science behind each one." },
     { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category — grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
     { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus 10 exercise modalities with neuroscience explanations for your specific condition." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
@@ -4487,7 +4487,7 @@ export default function NeuroThrive() {
           {isPremium && step > 0 && (
             <>
               <button style={S.navTab(step===10)} onClick={() => setStep(10)}>☀️ Routine</button>
-              <button style={S.navTab(step===6)}  onClick={() => setStep(6)}>💊 Supplements</button>
+              <button style={S.navTab(step===6)}  onClick={() => setStep(6)}>🌿 Supplements</button>
               <button style={S.navTab(step===7)}  onClick={() => setStep(7)}>🔔 Reminders</button>
               <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>🧠 Toolkit</button>
               <button style={S.navTab(step===11)} onClick={() => setStep(11)}>📊 Progress</button>
@@ -5990,7 +5990,7 @@ export default function NeuroThrive() {
               <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"14px" }}>Everything included</div>
               {[
                 "🍽️  30-day personalized mental health meal plan",
-                "💊  Evidence-based supplement guidance for your conditions",
+                "🌿  Evidence-based supplement guidance for your conditions",
                 "📓  Daily mood & energy journal",
                 "✨  182 curated affirmations",
                 "🔔  Meal reminders & daily affirmation notifications",
