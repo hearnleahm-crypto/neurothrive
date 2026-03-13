@@ -3750,12 +3750,11 @@ export default function NeuroThrive() {
           .select("*")
           .eq("user_id", user.id)
           .single();
-        console.log("SUB DATA:", data);
         if (data && data.status === "active") {
           setIsPremium(true);
           setSubscriptionPlan(data.plan);
         }
-      } catch(e) { console.log("SUB ERROR:", e); }
+      } catch(e) {}
       setSubChecked(true);
     };
     checkSub();
