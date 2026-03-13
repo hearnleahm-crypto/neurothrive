@@ -2809,6 +2809,19 @@ export default function NeuroThrive() {
     setLogs([]); setDataLoaded(false);
   };
 
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const handleDeleteAccount = async () => {
+    if (!user) return;
+    try {
+      await supabase.from("user_data").delete().eq("id", user.id);
+      await supabase.auth.signOut();
+      setUser(null); setStep(0); setMenu30(null);
+      setSelectedConditions([]); setSelectedDiet([]);
+      setLogs([]); setDailyChecks({}); setDataLoaded(false);
+      setDeleteConfirm(false);
+    } catch(e) {}
+  };
+
   // ── Auth screen styles ─────────────────────────────────────────────────────
   const SA = {
     overlay: { minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.1) 0%, transparent 55%), linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Plus Jakarta Sans',sans-serif" },
@@ -4656,11 +4669,24 @@ export default function NeuroThrive() {
         <div style={{ fontSize:"11px", color:"rgba(136,144,184,0.5)", marginTop:"6px", letterSpacing:"0.5px" }}>
           Proprietary content. Unauthorized reproduction or distribution is prohibited.
         </div>
-        <div style={{ display:"flex", justifyContent:"center", gap:"20px", marginTop:"12px" }}>
+        <div style={{ display:"flex", justifyContent:"center", gap:"20px", marginTop:"12px", flexWrap:"wrap" }}>
           <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Terms of Service</button>
           <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Privacy Policy</button>
           <button onClick={() => setDisclaimerAccepted(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Health Disclaimer</button>
         </div>
+        {user && (
+          <div style={{ marginTop:"16px" }}>
+            {!deleteConfirm ? (
+              <button onClick={() => setDeleteConfirm(true)} style={{ color:"#e06060", background:"none", border:"none", fontSize:"11px", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", opacity:0.7 }}>Delete Account</button>
+            ) : (
+              <div style={{ display:"inline-flex", alignItems:"center", gap:"10px", padding:"10px 16px", borderRadius:"12px", background:"rgba(224,96,96,0.08)", border:"1px solid rgba(224,96,96,0.25)" }}>
+                <span style={{ color:"#e06060", fontSize:"12px" }}>Permanently delete all your data?</span>
+                <button onClick={handleDeleteAccount} style={{ color:"#fff", background:"#e06060", border:"none", fontSize:"11px", fontWeight:"700", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Yes, Delete</button>
+                <button onClick={() => setDeleteConfirm(false)} style={{ color:"#8890b8", background:"none", border:"1px solid rgba(110,120,200,0.25)", fontSize:"11px", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Cancel</button>
+              </div>
+            )}
+          </div>
+        )}
       </footer>
 
       {/* ── Paywall Overlay ── */}
@@ -4716,7 +4742,8 @@ export default function NeuroThrive() {
             </div>
 
             <div style={{ textAlign:"center" }}>
-              <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:"0 0 12px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
+              <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:"0 0 8px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
+              <p style={{ color:"rgba(136,144,184,0.6)", fontSize:"10px", lineHeight:1.6, margin:"0 0 12px 0" }}>Subscriptions auto-renew at the end of each billing period at the current price unless cancelled at least 24 hours before the period ends. By subscribing you agree to our <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Terms</button> and <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Privacy Policy</button>.</p>
               <button onClick={() => { setShowPaywall(false); setStep(2); }} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>← Go back</button>
             </div>
           </div>
@@ -4730,22 +4757,23 @@ export default function NeuroThrive() {
             {legalPage === "terms" && (
               <div>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", marginBottom:"6px" }}>Terms of Service</h2>
-                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Last updated: {new Date().getFullYear()}</p>
+                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
                 {[
-                  { title:"1. Acceptance of Terms", body:"By accessing or using NeuroThrive, you agree to be bound by these Terms of Service. If you do not agree, please do not use the app." },
-                  { title:"2. Not Medical Advice", body:"NeuroThrive provides general wellness and nutritional information for educational purposes only. Nothing in this app constitutes medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare professional before making any health decisions." },
-                  { title:"3. Supplement Information", body:"Supplement information is provided for educational reference only. We do not recommend specific dosing. Individual needs, health conditions, and medications vary greatly. Always consult your doctor or pharmacist before starting any supplement." },
-                  { title:"4. User Responsibility", body:"You are solely responsible for any decisions you make based on information provided in NeuroThrive. Use of this app does not create a healthcare provider-patient relationship." },
-                  { title:"5. Subscription & Billing", body:"NeuroThrive is a paid subscription service. Subscriptions are billed in advance. You may cancel at any time. Refunds are handled in accordance with our refund policy. We reserve the right to change pricing with notice." },
-                  { title:"6. Account Security", body:"You are responsible for maintaining the confidentiality of your account. Notify us immediately of any unauthorized use of your account." },
-                  { title:"7. Intellectual Property", body:"All content in NeuroThrive — including meal plans, supplement information, affirmations, design, and code — is the exclusive property of NeuroThrive and protected by copyright law. Unauthorized reproduction or distribution is prohibited." },
-                  { title:"8. Limitation of Liability", body:"NeuroThrive is not liable for any direct, indirect, incidental, or consequential damages arising from your use of the app. The app is provided 'as is' without warranties of any kind." },
-                  { title:"9. Changes to Terms", body:"We may update these Terms at any time. Continued use of the app after changes constitutes acceptance of the new Terms." },
-                  { title:"10. Contact", body:"For questions about these Terms, please contact us through the app." },
+                  { title:"1. Acceptance of Terms", body:"By accessing or using NeuroThrive (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App." },
+                  { title:"2. Not Medical Advice", body:"NeuroThrive provides general wellness and nutritional information for educational purposes only. The App is not a medical device and does not diagnose, treat, cure, or prevent any disease or medical condition.\n\nNothing in this App constitutes medical advice, diagnosis, or treatment. The meal plans, supplement information, affirmations, and routines are for informational and educational purposes only.\n\nAlways seek the advice of a qualified healthcare professional — including your physician, psychiatrist, or registered dietitian — before making any changes to your diet, starting supplements, or modifying any existing treatment plan. This is especially important if you are taking medication or under the care of a mental health professional.\n\nUse of this App does not create a healthcare provider-patient relationship." },
+                  { title:"3. Supplement Information", body:"Supplement information presented in the App is provided for educational reference only and is based on published nutritional neuroscience research. We do not recommend specific dosing. Individual needs, health conditions, and potential medication interactions vary greatly. Always consult your doctor or pharmacist before starting, stopping, or changing any supplement regimen." },
+                  { title:"4. User Responsibility", body:"You are solely responsible for any decisions you make based on information provided in NeuroThrive. You acknowledge that:\n\n• The App provides general information, not personalised medical advice.\n• You should verify any information with a qualified healthcare professional.\n• You use the App at your own risk.\n• You are responsible for maintaining the confidentiality of your account credentials." },
+                  { title:"5. Subscriptions & Auto-Renewal", body:"NeuroThrive Premium is a paid subscription service.\n\n• Monthly Plan: $9.99 USD per month, billed monthly.\n• Annual Plan: $59.99 USD per year, billed annually.\n\nSubscriptions automatically renew at the end of each billing period at the then-current price unless cancelled at least 24 hours before the end of the current period. You will be charged for renewal within 24 hours prior to the end of the current period.\n\nYou may cancel your subscription at any time. Cancellation takes effect at the end of your current billing period — you will retain access until then. No partial refunds are provided for unused portions of a billing period.\n\nWe reserve the right to change subscription pricing with at least 30 days' notice. Price changes will not affect your current billing period.\n\nTo manage or cancel your subscription, visit your account settings or contact support@neurothrive.app." },
+                  { title:"6. Account Deletion", body:"You may delete your account and all associated data at any time using the \"Delete Account\" option in the App footer. Account deletion is immediate and permanent — all personal data, journal entries, meal plans, and progress data will be irreversibly removed from our servers. Active subscriptions should be cancelled separately before account deletion." },
+                  { title:"7. Intellectual Property", body:"All content in NeuroThrive — including but not limited to meal plans, recipes, supplement information, affirmations, routines, exercise descriptions, design elements, and software code — is the exclusive property of NeuroThrive and is protected by copyright law. Unauthorized reproduction, distribution, modification, or commercial use is strictly prohibited." },
+                  { title:"8. Limitation of Liability", body:"TO THE MAXIMUM EXTENT PERMITTED BY LAW, NeuroThrive and its owners, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the App.\n\nThe App is provided \"AS IS\" and \"AS AVAILABLE\" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement." },
+                  { title:"9. Governing Law", body:"These Terms shall be governed by and construed in accordance with the laws of the United States. Any disputes arising from these Terms or the App shall be resolved in the courts of competent jurisdiction." },
+                  { title:"10. Changes to Terms", body:"We may update these Terms from time to time. We will notify you of material changes by posting updated Terms in the App. Your continued use of the App after changes are posted constitutes acceptance of the revised Terms." },
+                  { title:"11. Contact", body:"For questions about these Terms, please contact us at:\n\nEmail: support@neurothrive.app" },
                 ].map((s, i) => (
                   <div key={i} style={{ marginBottom:"20px" }}>
                     <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700", marginBottom:"6px" }}>{s.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0 }}>{s.body}</p>
+                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
                   </div>
                 ))}
               </div>
@@ -4754,22 +4782,24 @@ export default function NeuroThrive() {
             {legalPage === "privacy" && (
               <div>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", marginBottom:"6px" }}>Privacy Policy</h2>
-                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Last updated: {new Date().getFullYear()}</p>
+                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
                 {[
-                  { title:"1. Information We Collect", body:"We collect information you provide directly — including your email address, selected health conditions, dietary preferences, mood and energy journal entries, and meal logs. We do not collect sensitive medical records." },
-                  { title:"2. How We Use Your Information", body:"Your data is used solely to personalise your NeuroThrive experience. We use your selected conditions to recommend relevant meal plans and supplements. We do not sell your personal data to third parties." },
-                  { title:"3. Health Information", body:"The health conditions you select are stored securely and used only to personalise your experience. This information is never shared with advertisers, insurers, or other third parties." },
-                  { title:"4. Data Storage & Security", body:"Your data is stored securely using Supabase, an enterprise-grade database provider with encryption at rest and in transit. We implement industry-standard security practices." },
-                  { title:"5. Payment Information", body:"Payments are processed by Stripe, a PCI-compliant payment processor. NeuroThrive never stores your full credit card details." },
-                  { title:"6. Cookies & Analytics", body:"We may use minimal analytics to understand how users interact with the app. We do not use advertising cookies or third-party tracking pixels." },
-                  { title:"7. Your Rights", body:"You may request access to, correction of, or deletion of your personal data at any time. To delete your account and all associated data, contact us through the app." },
-                  { title:"8. Children's Privacy", body:"NeuroThrive is intended for users 18 and older. We do not knowingly collect data from minors." },
-                  { title:"9. Changes to This Policy", body:"We may update this Privacy Policy from time to time. We will notify you of significant changes via email or in-app notification." },
-                  { title:"10. Contact", body:"If you have questions about your privacy or this policy, please contact us through the app." },
+                  { title:"1. Introduction", body:"NeuroThrive (\"we,\" \"our,\" or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and related services (collectively, the \"App\"). By using the App, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use the App." },
+                  { title:"2. Information We Collect", body:"We collect the following categories of information:\n\n• Account Information: Email address and encrypted password (required for account creation and authentication).\n• Profile Information: Gender selection, selected mental health conditions, dietary preferences, and calorie target. You choose what to provide.\n• Usage Data: Mood and energy journal entries, daily meal check-ins, food log history, routine and exercise completion data, and app navigation state.\n• Meal Plan Data: Your generated 30-day meal plan, plan cycle number, and cycle start date.\n• Reminder Preferences: Your chosen reminder times and notification settings.\n• Payment Information: Subscription plan type and status. Full payment details (credit card numbers) are processed and stored exclusively by our payment processor and are never stored on our servers.\n\nWe do NOT collect: location data, device sensor data, contacts, photos, browsing history, advertising identifiers, or any data from Apple HealthKit or similar health frameworks." },
+                  { title:"3. How We Use Your Information", body:"We use your information solely for the following purposes:\n\n• To personalise your experience: Your selected conditions and dietary preferences determine your meal plan, supplement guidance, exercise recommendations, and daily routines.\n• To save your progress: Journal entries, daily check-ins, and food logs are stored so you can track your wellness journey over time.\n• To manage your account: Email is used for authentication, password recovery, and important account communications.\n• To process payments: Subscription status determines access to premium features.\n• To improve the App: We may analyse aggregated, de-identified usage patterns to improve the App. Individual health data is never used for this purpose.\n\nWe do NOT use your data for advertising, marketing to third parties, data mining, or any purpose unrelated to providing and improving the App." },
+                  { title:"4. Health Information", body:"NeuroThrive collects health-related information (selected mental health conditions, mood/energy ratings) that you voluntarily provide. This information is:\n\n• Used exclusively to personalise your in-app experience (meal plans, routines, supplements, affirmations).\n• Stored securely with encryption at rest and in transit.\n• Never shared with advertisers, data brokers, insurers, employers, or any third party for marketing or profiling purposes.\n• Never stored in iCloud or Apple HealthKit.\n• Not used to diagnose, treat, cure, or prevent any medical condition.\n\nYou may delete all health information at any time by deleting your account (see Section 8)." },
+                  { title:"5. Third-Party Services", body:"We use the following third-party services to operate the App:\n\n• Supabase (Database & Authentication): Stores your account data and app content securely. Supabase provides enterprise-grade encryption at rest (AES-256) and in transit (TLS 1.2+). Supabase's privacy policy: https://supabase.com/privacy\n• Stripe (Payment Processing): Processes subscription payments. Stripe is PCI DSS Level 1 certified. NeuroThrive never receives or stores your full credit card number. Stripe's privacy policy: https://stripe.com/privacy\n• Netlify (Hosting & Serverless Functions): Hosts the App and processes server-side requests. Netlify's privacy policy: https://www.netlify.com/privacy\n• Google Fonts (Typography): Loads font files for display. No personal data is transmitted to Google through this service.\n\nWe do not share your personal data with any other third parties. We do not use any advertising SDKs, analytics trackers, or third-party AI services that process your personal data." },
+                  { title:"6. Data Retention", body:"We retain your personal data for as long as your account is active. Specifically:\n\n• Account and profile data: Retained until you delete your account.\n• Journal entries, food logs, and check-in data: Retained until you delete your account.\n• Payment records: Retained as required by applicable tax and financial regulations (typically 7 years for transaction records).\n\nWhen you delete your account, all personal data stored in our database (profile, conditions, diet, journal entries, meal plans, daily checks, food logs) is permanently deleted. This action is irreversible." },
+                  { title:"7. Data Security", body:"We implement industry-standard security measures to protect your data:\n\n• All data is encrypted at rest using AES-256 encryption.\n• All data in transit is protected by TLS 1.2 or higher.\n• Passwords are hashed and never stored in plain text.\n• Database access requires authenticated API keys.\n• We do not store payment card data on our servers.\n\nWhile we strive to protect your information, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security." },
+                  { title:"8. Your Rights & Account Deletion", body:"You have the following rights regarding your personal data:\n\n• Access: You can view all your data within the App at any time.\n• Correction: You can update your profile, conditions, and dietary preferences at any time.\n• Deletion: You can permanently delete your account and all associated data using the \"Delete Account\" button in the App footer. Account deletion is immediate and irreversible.\n• Data Portability: Contact us at support@neurothrive.app to request a copy of your data.\n• Withdraw Consent: You may stop using the App at any time. Deleting the App from your device does not delete your account — use the in-app deletion feature.\n\nFor users in the European Economic Area (EEA), you also have the right to lodge a complaint with your local data protection authority. For California residents, you have additional rights under the CCPA including the right to know, delete, and opt-out of the sale of personal information. We do not sell personal information." },
+                  { title:"9. Children's Privacy", body:"NeuroThrive is intended for users aged 18 and older. We do not knowingly collect personal information from children under 18. If we learn that we have collected data from a child under 18, we will delete it promptly. If you believe a child has provided us with personal data, please contact us at support@neurothrive.app." },
+                  { title:"10. International Data Transfers", body:"Your data may be transferred to and processed in the United States, where our service providers operate. By using the App, you consent to the transfer of your data to the United States. We ensure that all third-party processors provide adequate data protection measures." },
+                  { title:"11. Changes to This Policy", body:"We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy in the App and updating the \"Effective Date\" above. Your continued use of the App after changes are posted constitutes acceptance of the revised policy. We encourage you to review this policy periodically." },
+                  { title:"12. Contact Us", body:"If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at:\n\nEmail: support@neurothrive.app\n\nWe will respond to your inquiry within 30 days." },
                 ].map((s, i) => (
                   <div key={i} style={{ marginBottom:"20px" }}>
                     <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700", marginBottom:"6px" }}>{s.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0 }}>{s.body}</p>
+                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
                   </div>
                 ))}
               </div>
