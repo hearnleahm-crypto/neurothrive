@@ -3707,7 +3707,6 @@ export default function NeuroThrive() {
           .select("*")
           .eq("id", user.id)
           .single();
-        console.log("LOAD DATA:", data ? { step: data.step, gender: data.selected_gender, hasMenu: !!data.menu30, conditions: data.selected_conditions } : "NO DATA");
         if (data) {
           if (data.selected_gender) setSelectedGender(data.selected_gender);
           if (data.cycle_sync_enabled) setCycleSyncEnabled(data.cycle_sync_enabled);
@@ -3797,18 +3796,13 @@ export default function NeuroThrive() {
 
   // ── Save user data to Supabase whenever state changes ─────────────────────
   const saveReady = useRef(false);
-  // Wait 1 second after data loads before allowing saves (prevents load-triggered overwrites)
   useEffect(() => {
-    if (!dataLoaded) return;
-    const t = setTimeout(() => { saveReady.current = true; }, 1000);
-    return () => clearTimeout(t);
-  }, [dataLoaded]);
-
-  useEffect(() => {
-    if (!dataLoaded || !user || !saveReady.current) return;
+    if (!dataLoaded || !user) return;
+    // Skip the first save after load to prevent overwriting with initial empty state
+    if (!saveReady.current) { saveReady.current = true; return; }
     const timer = setTimeout(async () => {
       try {
-        const payload = {
+        const { error } = await supabase.from("user_data").upsert({
           id: user.id,
           selected_gender: selectedGender,
           cycle_sync_enabled: cycleSyncEnabled,
@@ -3828,14 +3822,12 @@ export default function NeuroThrive() {
           daily_checks: dailyChecks,
           onboarding_done: onboardingDone,
           updated_at: new Date().toISOString(),
-        };
-        const { error } = await supabase.from("user_data").upsert(payload);
-        if (error) console.error("SAVE ERROR:", error.message, error.details);
-        else console.log("SAVE OK:", { step: payload.step, conditions: payload.selected_conditions });
-      } catch(e) { console.error("SAVE FAILED:", e); }
+        });
+        if (error) console.error("Save error:", error.message, error.details);
+      } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, dataLoaded, user]);
+  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, dataLoaded, user]);
 
   // ── Feature tour trigger ────────────────────────────────────────────────────
   useEffect(() => {
@@ -4061,14 +4053,50 @@ export default function NeuroThrive() {
     </div>
   );
 
-  // Disclaimer moved to after welcome page (step 0)
+  // ── Mandatory disclaimer screen (shows after welcome page, skipped for returning users) ──
+  if (!disclaimerAccepted && step > 0) return (
+    <div style={{ minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.1) 0%, transparent 55%), linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&display=swap');`}</style>
+      <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"480px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.5)" }}>
+        <div style={{ textAlign:"center", marginBottom:"28px" }}>
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"300", color:"#eef0ff", letterSpacing:"2px", marginBottom:"6px" }}>🧠 NeuroThrive</div>
+          <div style={{ fontSize:"11px", color:"#7b9fff", letterSpacing:"3px", textTransform:"uppercase" }}>Before You Begin</div>
+        </div>
 
-  // ── Wait for data before rendering (prevents flash of welcome screen) ─────
-  if (user && !dataLoaded) return (
-    <div style={{ minHeight:"100vh", background:"linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
-      <div style={{ textAlign:"center" }}>
-        <div style={{ fontSize:"28px", marginBottom:"12px" }}>🧠</div>
-        <div style={{ color:"#7b9fff", fontSize:"13px", letterSpacing:"2px" }}>Loading...</div>
+        <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"16px", padding:"20px", marginBottom:"20px" }}>
+          <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"12px" }}>⚕️ Health & Wellness Disclaimer</div>
+          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
+            NeuroThrive provides <strong style={{color:"#eef0ff"}}>general wellness information</strong> for educational purposes only. The content in this app — including meal suggestions, supplement information, and affirmations — is <strong style={{color:"#eef0ff"}}>not medical advice</strong> and is not intended to diagnose, treat, cure, or prevent any health condition.
+          </p>
+          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
+            Always consult a <strong style={{color:"#eef0ff"}}>qualified healthcare provider</strong> before making changes to your diet, starting supplements, or modifying any existing treatment plan — especially if you are currently taking medication or under the care of a mental health professional.
+          </p>
+          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:0 }}>
+            Supplement information is provided for <strong style={{color:"#eef0ff"}}>educational reference only</strong>. Dosing, safety, and interactions vary by individual. NeuroThrive does not recommend specific dosing and is not responsible for decisions made based on information in this app.
+          </p>
+        </div>
+
+        <div style={{ background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.2)", borderRadius:"12px", padding:"14px 16px", marginBottom:"24px" }}>
+          <p style={{ color:"#e8c87a", fontSize:"12px", lineHeight:1.75, margin:0 }}>
+            🚨 <strong>If you are experiencing a mental health crisis</strong>, please contact a crisis line or emergency services immediately. In the US: <strong>988 Suicide & Crisis Lifeline — call or text 988</strong>.
+          </p>
+        </div>
+
+        <div style={{ display:"flex", gap:"8px", alignItems:"flex-start", marginBottom:"24px", padding:"14px 16px", borderRadius:"12px", background:"rgba(240,244,255,0.03)", border:"1px solid rgba(110,120,200,0.15)" }}>
+          <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:0 }}>
+            By continuing you confirm you have read and understood this disclaimer and agree to our{" "}
+            <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Terms of Service</button>
+            {" "}and{" "}
+            <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Privacy Policy</button>.
+          </p>
+        </div>
+
+        <button onClick={() => setDisclaimerAccepted(true)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
+          I Understand — Continue to NeuroThrive
+        </button>
+        <p style={{ textAlign:"center", color:"#8890b8", fontSize:"11px", marginTop:"16px", lineHeight:1.6 }}>
+          © {new Date().getFullYear()} NeuroThrive. All rights reserved.
+        </p>
       </div>
     </div>
   );
@@ -4462,14 +4490,14 @@ export default function NeuroThrive() {
           {step > 3 && (
             <>
               <button style={S.navTab(step===4)} onClick={() => setStep(4)}>Menu</button>
-              <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>
-              <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>
-              <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>
-              <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>
+              {isPremium && <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>}
+              {isPremium && <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>}
+              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>}
+              {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
             </>
           )}
         </div>
-        {step > 3 && (
+        {isPremium && step > 0 && (
           <div style={{ position:"relative", flexShrink:0 }}>
             <button style={S.navTab([6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
@@ -4494,63 +4522,19 @@ export default function NeuroThrive() {
       </nav>
 
       <div style={S.main}>
-        {/* Safety redirect: if returning user is stuck on step 0, go to Today */}
-        {step === 0 && menu30 && (() => { setTimeout(() => setStep(12), 0); return null; })()}
-
         {step > 0 && step < 9 && (
           <div style={{ display:"flex", justifyContent:"center", gap:"6px", marginBottom:"36px" }}>
             {[1,2,3,4,5,6,7].map(s => <div key={s} style={S.dot(step===s, step>s)} />)}
           </div>
         )}
 
-        {/* WELCOME — only for new users (no menu yet) */}
-        {step === 0 && !disclaimerAccepted && !menu30 && (
+        {/* WELCOME */}
+        {step === 0 && (
           <div style={S.hero}>
             <div style={S.heroEyebrow}>Brain · Food · Wellbeing</div>
             <h1 style={S.heroTitle}>Eat for your<br/><span style={S.heroAccent}>mind.</span></h1>
             <p style={S.heroSub}>A personalized 30-day nutrition plan built around your mental health — with daily mood tracking and science-backed meal explanations.</p>
-            <button style={S.btnAccent} onClick={() => setDisclaimerAccepted(true)}>Get Started →</button>
-          </div>
-        )}
-
-        {/* DISCLAIMER — shown after welcome, before onboarding (new users only) */}
-        {step === 0 && disclaimerAccepted && !menu30 && (
-          <div style={{ maxWidth:"480px", margin:"0 auto" }}>
-            <div style={{ textAlign:"center", marginBottom:"28px" }}>
-              <div style={{ fontSize:"11px", color:"#7b9fff", letterSpacing:"3px", textTransform:"uppercase" }}>Before You Begin</div>
-            </div>
-
-            <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"16px", padding:"20px", marginBottom:"20px" }}>
-              <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"12px" }}>Health & Wellness Disclaimer</div>
-              <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
-                NeuroThrive provides <strong style={{color:"#eef0ff"}}>general wellness information</strong> for educational purposes only. The content in this app — including meal suggestions, supplement information, and affirmations — is <strong style={{color:"#eef0ff"}}>not medical advice</strong> and is not intended to diagnose, treat, cure, or prevent any health condition.
-              </p>
-              <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
-                Always consult a <strong style={{color:"#eef0ff"}}>qualified healthcare provider</strong> before making changes to your diet, starting supplements, or modifying any existing treatment plan — especially if you are currently taking medication or under the care of a mental health professional.
-              </p>
-              <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:0 }}>
-                Supplement information is provided for <strong style={{color:"#eef0ff"}}>educational reference only</strong>. Dosing, safety, and interactions vary by individual. NeuroThrive does not recommend specific dosing and is not responsible for decisions made based on information in this app.
-              </p>
-            </div>
-
-            <div style={{ background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.2)", borderRadius:"12px", padding:"14px 16px", marginBottom:"24px" }}>
-              <p style={{ color:"#e8c87a", fontSize:"12px", lineHeight:1.75, margin:0 }}>
-                If you are experiencing a mental health crisis, please contact a crisis line or emergency services immediately. In the US: <strong>988 Suicide & Crisis Lifeline — call or text 988</strong>.
-              </p>
-            </div>
-
-            <div style={{ display:"flex", gap:"8px", alignItems:"flex-start", marginBottom:"24px", padding:"14px 16px", borderRadius:"12px", background:"rgba(240,244,255,0.03)", border:"1px solid rgba(110,120,200,0.15)" }}>
-              <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:0 }}>
-                By continuing you confirm you have read and understood this disclaimer and agree to our{" "}
-                <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Terms of Service</button>
-                {" "}and{" "}
-                <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Privacy Policy</button>.
-              </p>
-            </div>
-
-            <button onClick={() => setStep(1)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
-              I Understand — Let's Go
-            </button>
+            <button style={S.btnAccent} onClick={() => setStep(1)}>Get Started →</button>
           </div>
         )}
 
