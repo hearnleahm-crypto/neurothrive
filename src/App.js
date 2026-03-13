@@ -4490,28 +4490,27 @@ export default function NeuroThrive() {
             <>
               <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>
               <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>
-              <div style={{ position:"relative" }}>
-                <button style={S.navTab([6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
-                {showMoreMenu && (
-                  <>
-                  <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
-                  <div style={{ position:"absolute", top:"100%", right:0, marginTop:"6px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
-                    {[
-                      { label:"🌿 Supplements", s:6 },
-                      { label:"🔔 Reminders",   s:7 },
-                      { label:"🧠 Toolkit",     s:9 },
-                    ].map(({ label, s }) => (
-                      <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
-                    ))}
-                  </div>
-                  </>
-                )}
-              </div>
+              <button style={S.navTab([6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             </>
           )}
         </div>
         <button onClick={handleLogout} style={{ marginLeft:"8px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#8890b8", fontSize:"11px", fontWeight:"600", cursor:"pointer", letterSpacing:"0.5px", flexShrink:0 }}>Sign Out</button>
       </nav>
+      {/* More dropdown - rendered outside nav to avoid overflow clipping */}
+      {showMoreMenu && (
+        <>
+          <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
+          <div style={{ position:"fixed", top:"56px", right:"80px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
+            {[
+              { label:"🌿 Supplements", s:6 },
+              { label:"🔔 Reminders",   s:7 },
+              { label:"🧠 Toolkit",     s:9 },
+            ].map(({ label, s }) => (
+              <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
+            ))}
+          </div>
+        </>
+      )}
 
       <div style={S.main}>
         {step > 0 && step < 9 && (
