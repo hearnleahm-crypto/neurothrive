@@ -3659,6 +3659,7 @@ export default function NeuroThrive() {
   const [affirmNotifEnabled, setAffirmNotifEnabled] = useState(false);
   const [affirmNotifTime, setAffirmNotifTime] = useState("09:00");
   const [progressRange, setProgressRange] = useState(14);
+  const [expandedTodayRoutine, setExpandedTodayRoutine] = useState({});
   const [showTour, setShowTour] = useState(false);
   const [tourStep, setTourStep] = useState(0);
   const [onboardingDone, setOnboardingDone] = useState(false);
@@ -3720,7 +3721,7 @@ export default function NeuroThrive() {
           if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
           // If user has completed setup (has menu + gender), resume directly
           if (data.step && data.step >= 4 && data.menu30 && data.selected_gender) {
-            setStep(data.step);
+            setStep(12);
           } else if (data.step && data.step > 1) {
             setResumeStep(data.step);
           }
@@ -4486,6 +4487,7 @@ export default function NeuroThrive() {
           ))}
           {step > 3 && (
             <>
+              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>}
               <button style={S.navTab(step===4)} onClick={() => setStep(4)}>Menu</button>
               {isPremium && <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>}
               {isPremium && <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>}
@@ -5867,6 +5869,192 @@ export default function NeuroThrive() {
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
                 <button style={S.btnOutline} onClick={() => setStep(8)}>← Journal</button>
                 <button style={S.btn} onClick={() => setStep(4)}>View Meal Plan →</button>
+              </div>
+            </div>
+          );
+        })()}
+
+      {/* STEP 12: TODAY */}
+        {step === 12 && isPremium && (() => {
+          const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
+            : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+          const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+          const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
+          const todayChecks = getTodayChecks();
+          const exerciseChecks = todayChecks.exerciseOptions || {};
+          const morningChecks = todayChecks.routine?.morning || [];
+          const eveningChecks = todayChecks.routine?.evening || [];
+          const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+          const sectionDivider = { height:"1px", background:"rgba(110,120,200,0.1)", margin:"28px 0" };
+
+          return (
+            <div>
+              <h2 style={S.sectionTitle}>Today</h2>
+              <p style={S.sectionSub}>Your daily checklist — meals, routines, exercise, and journaling in one place.</p>
+
+              {/* Section A: Progress Banner */}
+              <ProgressBanner />
+
+              {/* Section B: Today's Meals */}
+              <div style={sectionDivider} />
+              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Today's Meals</div>
+              {currentDay && [
+                { key:"breakfast", label:"Breakfast", emoji:"🌅" },
+                { key:"lunch",     label:"Lunch",     emoji:"☀️" },
+                { key:"dinner",    label:"Dinner",    emoji:"🌙" },
+                { key:"snacks",    label:"Snack",     emoji:"🍎" },
+                ...(currentDay.snacks2 ? [{ key:"snacks2", label:"Snack 2", emoji:"🍊" }] : []),
+              ].map(({ key, label, emoji }) => {
+                const meal = currentDay[key];
+                if (!meal) return null;
+                const mealChecked = todayChecks.meals[key];
+                const bs = getBrainScore(meal);
+                return (
+                  <div key={key} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <button onClick={() => toggleMealCheck(key, meal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      </button>
+                      <div style={{ flex:1, minWidth:0 }}>
+                        <div style={{ fontSize:"10px", color:"#8890b8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
+                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis" }}>{meal}</div>
+                      </div>
+                    </div>
+                    <div style={{ display:"flex", alignItems:"center", gap:"6px", marginTop:"8px", marginLeft:"34px" }}>
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                        <span style={{ fontSize:"10px" }}>🔥</span>
+                        <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(meal)}</span>
+                      </div>
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 8px", borderRadius:"16px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
+                        <span style={{ fontSize:"10px" }}>🧠</span>
+                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
+                      </div>
+                      <button onClick={() => openRecipe(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                      <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
+                    </div>
+                  </div>
+                );
+              })}
+              {!currentDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
+
+              {/* Section C: Morning Routine */}
+              <div style={sectionDivider} />
+              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Morning Routine</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
+              {routine.morning.map((s, i) => {
+                const isChecked = !!morningChecks[i];
+                const isExpanded = !!expandedTodayRoutine[`m${i}`];
+                return (
+                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <button onClick={() => updateTodayChecks(prev => {
+                        const arr = [...(prev.routine?.morning || [])];
+                        arr[i] = !arr[i];
+                        return { ...prev, routine: { ...prev.routine, morning: arr } };
+                      })} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      </button>
+                      <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                      <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{s.time}</div>
+                      </div>
+                    </div>
+                    {isExpanded && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                  </div>
+                );
+              })}
+
+              {/* Section D: Exercise */}
+              <div style={sectionDivider} />
+              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Exercise</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{Object.values(exerciseChecks).filter(Boolean).length}/{exRoutine.options.length} done — check off whichever you do today</div>
+              {exRoutine.options.map((opt, i) => {
+                const isChecked = !!exerciseChecks[i];
+                return (
+                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <button onClick={() => updateTodayChecks(prev => {
+                        const opts = { ...(prev.exerciseOptions || {}) };
+                        opts[i] = !opts[i];
+                        const hasAny = Object.values(opts).some(Boolean);
+                        return { ...prev, exerciseOptions: opts, exercise: hasAny };
+                      })} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      </button>
+                      <span style={{ fontSize:"20px", flexShrink:0 }}>{opt.emoji}</span>
+                      <div style={{ flex:1 }}>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{opt.title}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Section E: Journal */}
+              <div style={sectionDivider} />
+              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>How are you feeling?</div>
+              {hasJournal ? (
+                <div style={{ ...S.card, padding:"16px 18px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.2)" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                    <span style={{ color:"#50c878", fontSize:"18px", fontWeight:"800" }}>✓</span>
+                    <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Journal logged today</span>
+                  </div>
+                  {logs[0] && logs[0].note && <p style={{ color:"#a0a8e8", fontSize:"12px", margin:"8px 0 0 26px", lineHeight:1.5 }}>{logs[0].note.length > 100 ? logs[0].note.slice(0,100) + "..." : logs[0].note}</p>}
+                </div>
+              ) : (
+                <div style={S.card}>
+                  <div style={{ marginBottom:"10px" }}>
+                    <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
+                    <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
+                      {MOOD_EMOJIS.map(mood => (
+                        <button key={mood.val} onClick={() => setTodayMood(mood.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayMood===mood.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayMood===mood.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{mood.emoji}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ marginBottom:"10px" }}>
+                    <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
+                    <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
+                      {ENERGY_EMOJIS.map(energy => (
+                        <button key={energy.val} onClick={() => setTodayEnergy(energy.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayEnergy===energy.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayEnergy===energy.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{energy.emoji}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <textarea style={{ ...S.textarea, minHeight:"60px" }} placeholder="Notes (optional)..." value={todayNote} onChange={e => setTodayNote(e.target.value)} />
+                  <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"10px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5570f0,#4060e0)" : "rgba(110,120,200,0.15)", color: (todayMood && todayEnergy) ? "#fff" : "#8890b8", fontSize:"12px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
+                </div>
+              )}
+
+              {/* Section F: Evening Routine */}
+              <div style={sectionDivider} />
+              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Evening Routine</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{eveningChecks.filter(Boolean).length}/{routine.evening.length} done</div>
+              {routine.evening.map((s, i) => {
+                const isChecked = !!eveningChecks[i];
+                const isExpanded = !!expandedTodayRoutine[`e${i}`];
+                return (
+                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <button onClick={() => updateTodayChecks(prev => {
+                        const arr = [...(prev.routine?.evening || [])];
+                        arr[i] = !arr[i];
+                        return { ...prev, routine: { ...prev.routine, evening: arr } };
+                      })} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      </button>
+                      <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                      <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`e${i}`]: !p[`e${i}`] }))}>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{s.time}</div>
+                      </div>
+                    </div>
+                    {isExpanded && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                  </div>
+                );
+              })}
+
+              <div style={{ textAlign:"center", marginTop:"28px" }}>
+                <button style={S.btn} onClick={() => setStep(4)}>View Full Menu →</button>
               </div>
             </div>
           );
