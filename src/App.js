@@ -2722,9 +2722,12 @@ export default function NeuroThrive() {
   }, [user]);
 
   // ── Save user data to Supabase whenever state changes ─────────────────────
+  const saveReady = useRef(false);
   useEffect(() => {
     if (!dataLoaded || !user) return;
-    const save = async () => {
+    // Skip the first save after load to prevent overwriting with initial empty state
+    if (!saveReady.current) { saveReady.current = true; return; }
+    const timer = setTimeout(async () => {
       try {
         await supabase.from("user_data").upsert({
           id: user.id,
@@ -2743,9 +2746,9 @@ export default function NeuroThrive() {
           daily_checks: dailyChecks,
           updated_at: new Date().toISOString(),
         });
-      } catch(e) {}
-    };
-    save();
+      } catch(e) { console.error("Save failed:", e); }
+    }, 500);
+    return () => clearTimeout(timer);
   }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, dataLoaded, user]);
 
   // ── Auth functions ──────────────────────────────────────────────────────────
@@ -3217,25 +3220,62 @@ export default function NeuroThrive() {
   };
 
   // ── Progress banner component (inline) ──────────────────────────────────
-  const ProgressBanner = () => {
+  const ProgressBanner = ({ context }) => {
     const score = getDailyScore(todayKey);
     const streak = getCompletionStreak();
+    const checks = getTodayChecks();
     const r = 20, circ = 2 * Math.PI * r;
     const offset = circ - (score.pct / 100) * circ;
+
+    const meals = checks.meals || {};
+    const mealsDone = [meals.breakfast, meals.lunch, meals.dinner, meals.snacks, meals.snacks2].filter(Boolean).length;
+    const hasSnacks2 = calorieTarget === "2000";
+    const mealsTotal = hasSnacks2 ? 5 : 4;
+
+    const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
+      : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+    const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const morningDone = (checks.routine?.morning || []).filter(Boolean).length;
+    const eveningDone = (checks.routine?.evening || []).filter(Boolean).length;
+
+    const exerciseDone = checks.exercise;
+    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+
+    // Build checklist items relevant to context
+    const items = [];
+    if (!context || context === "menu") items.push({ label: "Meals", done: mealsDone, total: mealsTotal, emoji: "🍽️" });
+    if (!context || context === "routine") {
+      items.push({ label: "Morning", done: morningDone, total: routine.morning.length, emoji: "☀️" });
+      items.push({ label: "Evening", done: eveningDone, total: routine.evening.length, emoji: "🌙" });
+      items.push({ label: "Exercise", done: exerciseDone ? 1 : 0, total: 1, emoji: "💪" });
+    }
+    if (!context || context === "journal") items.push({ label: "Journal", done: hasJournal ? 1 : 0, total: 1, emoji: "📓" });
+
     return (
-      <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "14px 18px", marginBottom: "18px", display: "flex", alignItems: "center", gap: "16px" }}>
-        <svg width="48" height="48" viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r={r} fill="none" stroke="rgba(80,200,120,0.15)" strokeWidth="4" />
-          <circle cx="24" cy="24" r={r} fill="none" stroke="#50c878" strokeWidth="4" strokeLinecap="round"
-            strokeDasharray={circ} strokeDashoffset={offset}
-            transform="rotate(-90 24 24)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
-          <text x="24" y="26" textAnchor="middle" fontSize="11" fontWeight="800" fill="#50c878">{score.pct}%</text>
-        </svg>
-        <div style={{ flex: 1 }}>
-          <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700" }}>Today's Progress</div>
-          <div style={{ color: "#8890b8", fontSize: "12px", marginTop: "2px" }}>
-            {score.earned}/{score.total} completed {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak} day streak 🔥</span>}
+      <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "16px 18px", marginBottom: "18px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "12px" }}>
+          <svg width="48" height="48" viewBox="0 0 48 48" style={{ flexShrink: 0 }}>
+            <circle cx="24" cy="24" r={r} fill="none" stroke="rgba(80,200,120,0.15)" strokeWidth="4" />
+            <circle cx="24" cy="24" r={r} fill="none" stroke="#50c878" strokeWidth="4" strokeLinecap="round"
+              strokeDasharray={circ} strokeDashoffset={offset}
+              transform="rotate(-90 24 24)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
+            <text x="24" y="26" textAnchor="middle" fontSize="11" fontWeight="800" fill="#50c878">{score.pct}%</text>
+          </svg>
+          <div style={{ flex: 1 }}>
+            <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700" }}>Today's Progress</div>
+            <div style={{ color: "#8890b8", fontSize: "12px", marginTop: "2px" }}>
+              {score.earned} of {score.total} tasks done {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak} day streak 🔥</span>}
+            </div>
           </div>
+        </div>
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          {items.map((item, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: "4px", padding: "4px 10px", borderRadius: "20px", background: item.done >= item.total ? "rgba(80,200,120,0.12)" : "rgba(110,120,200,0.08)", border: item.done >= item.total ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(110,120,200,0.15)" }}>
+              <span style={{ fontSize: "11px" }}>{item.emoji}</span>
+              <span style={{ fontSize: "10px", fontWeight: "700", color: item.done >= item.total ? "#50c878" : "#8890b8" }}>{item.label}</span>
+              <span style={{ fontSize: "10px", fontWeight: "600", color: item.done >= item.total ? "#50c878" : "#7b9fff" }}>{item.done}/{item.total}</span>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -3593,7 +3633,11 @@ export default function NeuroThrive() {
                   </div>
                 </div>
 
-                <ProgressBanner />
+                <ProgressBanner context="menu" />
+
+                <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
+                  Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> next to each meal when you eat it. This logs what you ate and tracks your daily progress.
+                </div>
 
                 {[
                   { key:"breakfast", label:"🌅 Breakfast" },
@@ -3721,7 +3765,7 @@ export default function NeuroThrive() {
           <div>
             <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
-            <ProgressBanner />
+            <ProgressBanner context="journal" />
             {logSaved && <div style={S.successBanner}>✓ Today's log saved! Every entry matters.</div>}
             <div style={S.card}>
               <div style={S.mealLabel}>How's your mood today?</div>
@@ -4137,7 +4181,7 @@ export default function NeuroThrive() {
           <div>
             <h2 style={S.sectionTitle}>☀️ Daily Routine</h2>
             <p style={S.sectionSub}>Morning and evening routines tailored to your conditions — the two highest-leverage points in your day.</p>
-            <ProgressBanner />
+            <ProgressBanner context="routine" />
             <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
               <button onClick={() => setRoutineTab("morning")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="morning"?"2px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:routineTab==="morning"?"#5570f0":"rgba(240,244,255,0.04)", color:routineTab==="morning"?"#fff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌅 Morning</button>
               <button onClick={() => setRoutineTab("evening")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="evening"?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.2)", background:routineTab==="evening"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:routineTab==="evening"?"#9db5ff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌙 Evening</button>
