@@ -4462,14 +4462,14 @@ export default function NeuroThrive() {
           {step > 3 && (
             <>
               <button style={S.navTab(step===4)} onClick={() => setStep(4)}>Menu</button>
-              {isPremium && <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>}
-              {isPremium && <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>}
-              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>}
-              {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
+              <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>
+              <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>
+              <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>
+              <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>
             </>
           )}
         </div>
-        {isPremium && step > 0 && (
+        {step > 3 && (
           <div style={{ position:"relative", flexShrink:0 }}>
             <button style={S.navTab([6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
