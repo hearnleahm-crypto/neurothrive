@@ -5471,7 +5471,7 @@ export default function NeuroThrive() {
                   luteal: [
                     { day: [17,18,19,20], emoji: "🏋️", type: "Moderate Strength", why: "Progesterone is rising, increasing your core body temperature and metabolic rate. You burn more calories at rest but fatigue faster — moderate lifting with longer rest periods matches your shifting physiology." },
                     { day: [21,22,23,24], emoji: "🧘", type: "Yoga / Steady Cardio", why: "Progesterone peaks, raising body temperature and reducing heat tolerance. Serotonin drops as progesterone metabolites compete for the same receptors — gentle movement boosts serotonin without overheating." },
-                    { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now — gentle movement prevents cortisol spikes while magnesium-demanding exercise could worsen cramps." },
+                    { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now — gentle movement prevents cortisol spikes while intense exercise depletes magnesium — the same mineral your body needs most right now to ease cramps and calm your nervous system." },
                   ],
                 };
                 const getCycleSuggestion = (phase) => {
