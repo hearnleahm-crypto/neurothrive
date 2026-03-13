@@ -152,14 +152,14 @@ const ALL_MEALS = {
     { name: "Bacon, Egg & Cheese on Whole Grain Toast", tags: ["pork","meat","egg","gluten","dairy"], conditions: ["adhd","depression","default"] },
     { name: "Scrambled Eggs with Crispy Bacon & Roasted Sweet Potato", tags: ["pork","meat","egg"], conditions: ["adhd","bipolar","default"] },
     { name: "Pork Sausage & Egg Skillet with Sautéed Peppers & Onions", tags: ["pork","meat","egg","onion","nightshade"], conditions: ["adhd","depression","default"] },
-    { name: "Brisket Hash with Roasted Potatoes & Fried Egg", tags: ["pork","meat","egg"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket Hash with Roasted Potatoes & Fried Egg", tags: ["meat","egg"], conditions: ["adhd","depression","default"] },
     { name: "Bacon & Avocado Breakfast Bowl with Brown Rice", tags: ["pork","meat","rice"], conditions: ["adhd","anxiety","default"] },
     { name: "Cornbread with Scrambled Eggs & Turkey Sausage", tags: ["corn","gluten","egg","meat"], conditions: ["depression","default"] },
     { name: "Corn Tortilla Breakfast Tacos with Eggs, Bacon & Salsa", tags: ["corn","pork","meat","egg"], conditions: ["adhd","depression","default"] },
     { name: "Sourdough Toast with Bacon, Tomato & Avocado", tags: ["gluten","pork","meat"], conditions: ["adhd","depression","default"] },
     { name: "Whole Grain Waffles with Turkey Sausage & Maple Syrup", tags: ["gluten","egg","dairy","meat"], conditions: ["depression","bipolar","default"] },
     { name: "Bagel with Egg, Bacon & Cheddar", tags: ["gluten","pork","meat","egg","dairy"], conditions: ["adhd","depression","default"] },
-    { name: "Pulled Brisket & Egg Bowl with Roasted Corn & Avocado", tags: ["pork","meat","egg","corn"], conditions: ["adhd","default"] },
+    { name: "Pulled Brisket & Egg Bowl with Roasted Corn & Avocado", tags: ["meat","egg","corn"], conditions: ["adhd","default"] },
     { name: "Sausage & Sweet Potato Breakfast Skillet", tags: ["pork","meat"], conditions: ["adhd","bipolar","default"] },
     { name: "Bacon & Spinach Omelette with Whole Grain Toast", tags: ["pork","meat","egg","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Flour Tortilla Wrap with Scrambled Eggs, Sausage & Peppers", tags: ["gluten","pork","meat","egg"], conditions: ["adhd","depression","default"] },
@@ -274,9 +274,9 @@ const ALL_MEALS = {
     { name: "Turkey & Cheese Roll-Up with Apple Slices", tags: ["meat","dairy"], conditions: ["autism","default"] },
     { name: "Plain Pasta with Mild Tomato Sauce & Chicken", tags: ["meat","gluten"], conditions: ["autism","default"] },
     // ── Hearty lunches — sandwiches, wraps, tortillas, brisket, bacon, corn ──
-    { name: "Smoked Brisket Sandwich on Whole Grain Bread with Coleslaw", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
-    { name: "Brisket Tacos on Corn Tortillas with Pickled Onion & Cilantro", tags: ["pork","meat","corn","onion"], conditions: ["adhd","depression","default"] },
-    { name: "Brisket & Roasted Corn Bowl with Avocado & Brown Rice", tags: ["pork","meat","corn","rice"], conditions: ["adhd","bipolar","default"] },
+    { name: "Smoked Brisket Sandwich on Whole Grain Bread with Coleslaw", tags: ["meat","gluten"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket Tacos on Corn Tortillas with Pickled Onion & Cilantro", tags: ["meat","corn","onion"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket & Roasted Corn Bowl with Avocado & Brown Rice", tags: ["meat","corn","rice"], conditions: ["adhd","bipolar","default"] },
     { name: "BLT on Sourdough with Avocado & Tomato", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Bacon & Egg Salad Sandwich on Whole Grain Bread", tags: ["pork","meat","egg","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Bacon Cheeseburger on Whole Grain Bun with Side Salad", tags: ["pork","meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
@@ -286,7 +286,7 @@ const ALL_MEALS = {
     { name: "Steak & Cheese Sub on Whole Grain Hoagie Roll", tags: ["meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
     { name: "Turkey, Bacon & Avocado Club on Sourdough", tags: ["meat","pork","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Grilled Chicken Corn Tortilla Tacos with Mango Salsa", tags: ["meat","corn"], conditions: ["adhd","anxiety","default"] },
-    { name: "Pulled Brisket & Sweet Potato Bowl", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Pulled Brisket & Sweet Potato Bowl", tags: ["meat"], conditions: ["adhd","depression","bipolar","default"] },
     { name: "Roast Beef Sandwich on Whole Grain Bread with Horseradish", tags: ["meat","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Chicken Burrito on a Flour Tortilla with Brown Rice & Black Beans", tags: ["meat","gluten","legume","rice"], conditions: ["adhd","anxiety","default"] },
     { name: "Beef Quesadilla on Flour Tortilla with Guacamole", tags: ["meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
@@ -406,10 +406,10 @@ const ALL_MEALS = {
     { name: "Grilled Salmon with Brown Rice & Steamed Broccoli", tags: ["fish","rice"], conditions: ["ocd","bipolar","neuro_core","hpd","bfrb","aspd","default"] },
     { name: "Lemon Butter Salmon with Rice & Snap Peas", tags: ["fish","dairy"], conditions: ["bpd","default"] },
     // ── Hearty dinners — brisket, bacon, sausage, corn, tortillas, bread ──
-    { name: "Slow-Smoked Beef Brisket with Roasted Sweet Potato & Broccoli", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
-    { name: "Brisket & Black Bean Bowl with Brown Rice & Roasted Corn", tags: ["pork","meat","corn","rice","legume"], conditions: ["adhd","depression","default"] },
-    { name: "Brisket Tacos on Corn Tortillas with Avocado & Pickled Red Onion", tags: ["pork","meat","corn","onion"], conditions: ["adhd","depression","default"] },
-    { name: "Beef Brisket Chili with Cornbread", tags: ["pork","meat","corn","gluten"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Slow-Smoked Beef Brisket with Roasted Sweet Potato & Broccoli", tags: ["meat"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Brisket & Black Bean Bowl with Brown Rice & Roasted Corn", tags: ["meat","corn","rice","legume"], conditions: ["adhd","depression","default"] },
+    { name: "Brisket Tacos on Corn Tortillas with Avocado & Pickled Red Onion", tags: ["meat","corn","onion"], conditions: ["adhd","depression","default"] },
+    { name: "Beef Brisket Chili with Cornbread", tags: ["meat","corn","gluten"], conditions: ["adhd","depression","bipolar","default"] },
     { name: "Bacon-Wrapped Chicken Thighs with Roasted Asparagus & Sweet Potato", tags: ["pork","meat"], conditions: ["adhd","depression","default"] },
     { name: "Bacon & Beef Burger on Whole Grain Bun with Sweet Potato Fries", tags: ["pork","meat","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Pork Sausage & White Bean Stew with Crusty Bread", tags: ["pork","meat","gluten"], conditions: ["depression","bipolar","default"] },
@@ -603,8 +603,8 @@ const DIET_EXCLUSIONS = {
   low_sodium: ["high_sodium"],
   pork_free: ["pork"],
   rice_free: ["rice"],
-  halal: ["pork"],
-  kosher: ["pork"],
+  halal: ["pork","shellfish"],
+  kosher: ["pork","shellfish"],
   paleo: ["gluten","dairy","legume","high_sugar","soy","corn"],
   mediterranean: ["high_sugar","high_sodium"],
   pescatarian: ["meat"],
@@ -625,9 +625,12 @@ const DIET_EXCLUSIONS = {
 const filterMeals = (meals, selectedDiet, condition) => {
   const excludedTags = new Set();
   selectedDiet.forEach(d => { (DIET_EXCLUSIONS[d] || []).forEach(t => excludedTags.add(t)); });
+  const isKosher = selectedDiet.includes("kosher");
   const conditionId = condition || "default";
   return meals.filter(m => {
     if (m.tags.some(t => excludedTags.has(t))) return false;
+    // Kosher: no mixing meat and dairy in the same meal
+    if (isKosher && m.tags.includes("meat") && m.tags.includes("dairy")) return false;
     return m.conditions.includes(conditionId) || m.conditions.includes("default");
   });
 };
@@ -4705,6 +4708,15 @@ export default function NeuroThrive() {
                 </div>
               );
             })()}
+            {(selectedDiet.includes("halal") || selectedDiet.includes("kosher")) && (
+              <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"20px" }}>
+                <div style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.7 }}>
+                  {selectedDiet.includes("kosher") && <span>✡️ <strong>Kosher:</strong> Pork, shellfish, and meat-dairy combinations are excluded. </span>}
+                  {selectedDiet.includes("halal") && <span>☪️ <strong>Halal:</strong> Pork and shellfish are excluded. </span>}
+                  <span style={{ color:"#8890b8" }}>Note: Meals use standard grocery ingredients. Please source certified {selectedDiet.includes("halal") && selectedDiet.includes("kosher") ? "halal/kosher" : selectedDiet.includes("halal") ? "halal" : "kosher"} products according to your observance level.</span>
+                </div>
+              </div>
+            )}
 
             <div style={S.divider} />
 
