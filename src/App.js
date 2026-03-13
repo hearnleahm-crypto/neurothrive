@@ -31,9 +31,21 @@ const MENTAL_CONDITIONS = [
   { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬" },
 ];
 
-const DIETARY = [
+// Diet types — these define what you DO eat (inclusion-based)
+const DIET_TYPES = [
   { id: "vegan", label: "Vegan", emoji: "🌱" },
   { id: "vegetarian", label: "Vegetarian", emoji: "🥦" },
+  { id: "keto", label: "Keto", emoji: "🥑" },
+  { id: "paleo", label: "Paleo", emoji: "🥩" },
+  { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
+  { id: "halal", label: "Halal", emoji: "☪️" },
+  { id: "kosher", label: "Kosher", emoji: "✡️" },
+  { id: "low_sugar", label: "Low Sugar", emoji: "🍬" },
+  { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
+];
+
+// Allergen restrictions — these define what you DON'T eat (exclusion-based)
+const DIETARY_RESTRICTIONS = [
   { id: "gluten_free", label: "Gluten-Free", emoji: "🌾" },
   { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
   { id: "nut_free", label: "Nut-Free", emoji: "🥜" },
@@ -41,22 +53,20 @@ const DIETARY = [
   { id: "soy_free", label: "Soy-Free", emoji: "🫘" },
   { id: "egg_free", label: "Egg-Free", emoji: "🥚" },
   { id: "corn_free", label: "Corn-Free", emoji: "🌽" },
-  { id: "low_sugar", label: "Low Sugar", emoji: "🍬" },
-  { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
-  { id: "keto", label: "Keto", emoji: "🥑" },
   { id: "pork_free", label: "Pork-Free", emoji: "🚫" },
   { id: "rice_free", label: "Rice-Free", emoji: "🌾" },
-  { id: "halal", label: "Halal", emoji: "☪️" },
-  { id: "kosher", label: "Kosher", emoji: "✡️" },
+  { id: "fish_free", label: "Fish-Free", emoji: "🐟" },
   { id: "onion_free", label: "Onion/Garlic-Free", emoji: "🧅" },
   { id: "mushroom_free", label: "Mushroom-Free", emoji: "🍄" },
   { id: "nightshade_free", label: "Nightshade-Free", emoji: "🍅" },
   { id: "coconut_free", label: "Coconut-Free", emoji: "🥥" },
   { id: "seed_free", label: "Seed-Free", emoji: "🌻" },
   { id: "legume_free", label: "Legume-Free", emoji: "🫛" },
-  { id: "fish_free", label: "Fish-Free", emoji: "🐟" },
   { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
 ];
+
+// Combined for backward compatibility
+const DIETARY = [...DIET_TYPES, ...DIETARY_RESTRICTIONS];
 
 const ALL_MEALS = {
   breakfast: [
@@ -553,6 +563,8 @@ const DIET_EXCLUSIONS = {
   rice_free: ["rice"],
   halal: ["pork"],
   kosher: ["pork"],
+  paleo: ["gluten","dairy","legume","high_sugar","soy","corn"],
+  mediterranean: ["high_sugar","high_sodium"],
   onion_free: ["onion"],
   mushroom_free: ["mushroom"],
   nightshade_free: ["nightshade"],
@@ -4192,19 +4204,41 @@ export default function NeuroThrive() {
         {step === 3 && (
           <div>
             <h2 style={S.sectionTitle}>Dietary needs & restrictions</h2>
-            <p style={S.sectionSub}>Select everything that applies — your menu will be filtered to exclude anything that doesn't work for you.</p>
+            <p style={S.sectionSub}>Select everything that applies — your menu will be personalised to match your lifestyle and avoid anything that doesn't work for you.</p>
+
+            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
+            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
             <div style={S.grid}>
-              {DIETARY.filter((d,i,a) => a.findIndex(x=>x.id===d.id)===i).map(d => (
+              {DIET_TYPES.map(d => (
                 <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
                   <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
                 </div>
               ))}
             </div>
-            {selectedDiet.length > 0 && (
-              <div style={{ ...S.warningBanner, marginBottom:"20px" }}>
-                ✓ Active filters: {selectedDiet.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")} — meals containing these ingredients will be excluded.
-              </div>
-            )}
+
+            <div style={{ height:"24px" }} />
+
+            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
+            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
+            <div style={S.grid}>
+              {DIETARY_RESTRICTIONS.map(d => (
+                <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
+                  <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {selectedDiet.length > 0 && (() => {
+              const dietTypeIds = new Set(DIET_TYPES.map(d => d.id));
+              const selectedTypes = selectedDiet.filter(d => dietTypeIds.has(d));
+              const selectedRestrictions = selectedDiet.filter(d => !dietTypeIds.has(d));
+              return (
+                <div style={{ ...S.warningBanner, marginBottom:"20px", marginTop:"20px" }}>
+                  {selectedTypes.length > 0 && <div style={{ marginBottom: selectedRestrictions.length > 0 ? "6px" : 0 }}>✓ Diet: {selectedTypes.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")} — your menu will follow {selectedTypes.length === 1 ? "this style" : "these styles"}.</div>}
+                  {selectedRestrictions.length > 0 && <div>✓ Excluded: {selectedRestrictions.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")} — meals with these ingredients will be removed.</div>}
+                </div>
+              );
+            })()}
 
             <div style={S.divider} />
 
