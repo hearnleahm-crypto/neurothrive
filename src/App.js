@@ -9,6 +9,7 @@ const supabase = createClient(
 );
 
 const MENTAL_CONDITIONS = [
+  { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬" },
   { id: "adhd", label: "ADHD", emoji: "⚡" },
   { id: "anxiety", label: "Anxiety", emoji: "🌊" },
   { id: "depression", label: "Depression", emoji: "🌧️" },
@@ -27,8 +28,6 @@ const MENTAL_CONDITIONS = [
   { id: "bfrb", label: "Body-Focused Repetitive", emoji: "🌿" },
   { id: "ppd", label: "Paranoid PD", emoji: "🏡" },
   { id: "spd", label: "Schizoid PD", emoji: "🏔️" },
-  // ── No diagnosis — brain optimisation ──
-  { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬" },
 ];
 
 // Diet types — these define what you DO eat (inclusion-based)
@@ -978,6 +977,232 @@ const getBrainScore = (mealName) => {
   // Clamp to 1-5 scale
   const score = Math.min(5, Math.max(1, Math.round(total > 0 ? Math.min(total + 1, 5) : 1)));
   return { score, nutrients: nutrients.slice(0, 3) }; // top 3 nutrients
+};
+
+// ── Gender-Specific Nutrition Notes ─────────────────────────────────────────
+const GENDER_BENEFITS = {
+  female: {
+    salmon:      { short: "Omega-3s ease PMS & support mood during hormonal shifts", detail: "EPA & DHA in salmon modulate prostaglandins that drive menstrual cramps, while supporting serotonin synthesis — especially important during the luteal phase when estrogen and progesterone fluctuate." },
+    sardine:     { short: "Omega-3s + calcium for bone density & cycle support", detail: "Sardines are one of the few foods rich in both omega-3s and bioavailable calcium — critical for women at higher osteoporosis risk. The vitamin D content also aids calcium absorption and mood regulation." },
+    mackerel:    { short: "Omega-3s support hormonal balance & brain health", detail: "Mackerel's high DHA content supports neuronal membrane fluidity, which can decline during menopause. Its selenium also supports thyroid function — a common concern for women." },
+    spinach:     { short: "Iron & folate — essential for menstruation & fertility", detail: "Women lose iron monthly through menstruation. Spinach provides non-heme iron plus folate, which is critical for DNA synthesis and especially important for women of childbearing age to prevent neural tube defects." },
+    kale:        { short: "Calcium & vitamin K for bone strength", detail: "Women face 4x higher osteoporosis risk than men. Kale provides highly bioavailable calcium plus vitamin K, which directs calcium into bones rather than arteries." },
+    lentil:      { short: "Iron & folate for energy & reproductive health", detail: "Lentils provide 6mg iron per cup — over a third of women's daily needs. Their folate supports healthy cell division and is essential during pregnancy. The fiber also helps regulate estrogen levels." },
+    egg:         { short: "Choline supports brain health & fetal development", detail: "Only 10% of women meet choline requirements. Choline is essential for brain cell membranes and neurotransmitter synthesis, and during pregnancy it shapes the baby's brain architecture." },
+    quinoa:      { short: "Magnesium eases cramps & supports sleep", detail: "Magnesium needs increase during the luteal phase. Quinoa's high magnesium content helps relax uterine muscles, reduce PMS symptoms, and support the deeper sleep that hormonal shifts can disrupt." },
+    "sweet potato": { short: "Vitamin A supports hormonal balance", detail: "Beta-carotene in sweet potatoes converts to vitamin A, which is essential for progesterone production. Adequate progesterone supports regular cycles, mood stability, and luteal phase health." },
+    turmeric:    { short: "Anti-inflammatory — eases period pain & bloating", detail: "Curcumin inhibits COX-2 enzymes (the same target as ibuprofen), reducing prostaglandin-driven cramps. It also reduces the systemic inflammation that can worsen PMS, endometriosis, and PCOS symptoms." },
+    yogurt:      { short: "Probiotics & calcium for gut-hormone balance", detail: "The gut microbiome contains the estrobolome — bacteria that metabolize estrogen. Probiotic-rich yogurt supports this system while providing calcium that women need 1.5x more of than men after menopause." },
+    kefir:       { short: "Probiotics support estrogen metabolism & mood", detail: "Kefir contains 30+ probiotic strains that support the estrobolome — the gut bacteria that regulate circulating estrogen levels. Balanced estrogen metabolism reduces PMS, bloating, and mood swings." },
+    kimchi:      { short: "Fermented probiotics support hormonal detox", detail: "Kimchi's lactobacillus bacteria support the liver's estrogen detoxification pathways. This helps prevent estrogen dominance — a driver of PMS, heavy periods, and mood imbalances." },
+    sauerkraut:  { short: "Gut health supports hormone clearance", detail: "Sauerkraut's probiotics enhance beta-glucuronidase regulation, ensuring used estrogen is properly eliminated rather than reabsorbed. This supports cycle regularity and reduces hormonal symptoms." },
+    tempeh:      { short: "Phytoestrogens for gentle hormonal support", detail: "Tempeh's isoflavones are phytoestrogens that can modulate estrogen receptors — providing gentle support during low-estrogen phases (menstruation, perimenopause) without overstimulating during high-estrogen phases." },
+    miso:        { short: "Fermented soy supports menopause transition", detail: "Miso's isoflavones and probiotics work synergistically — the fermentation increases isoflavone bioavailability. Studies show regular miso intake reduces hot flash frequency and supports bone density in perimenopausal women." },
+    blueberr:    { short: "Anthocyanins protect against cognitive decline", detail: "Women face higher Alzheimer's risk than men, partly due to estrogen decline. Blueberry anthocyanins cross the blood-brain barrier and protect neurons, while their antioxidants combat the oxidative stress that increases post-menopause." },
+    walnut:      { short: "Omega-3s & magnesium for PMS relief", detail: "Walnuts provide ALA omega-3s plus magnesium — both shown to reduce PMS severity. Their melatonin content also supports the sleep disruptions common during the luteal phase." },
+    avocado:     { short: "Healthy fats support hormone production", detail: "Hormones are built from cholesterol and fatty acids. Avocado's monounsaturated fats provide the raw materials for estrogen, progesterone, and cortisol synthesis, while potassium helps reduce water retention." },
+    almond:      { short: "Vitamin E eases PMS & supports skin health", detail: "Vitamin E has been shown to reduce PMS symptoms by 70% in clinical trials. Almonds are one of the richest sources, and also provide the magnesium and healthy fats that support hormonal skin health." },
+    "dark chocolate": { short: "Magnesium & iron for cycle support", detail: "Dark chocolate provides magnesium (cramp relief), iron (replenishing menstrual losses), and phenylethylamine (mood boost). The flavanols also improve blood flow, countering the circulation changes during menstruation." },
+    "pumpkin seed": { short: "Zinc & magnesium for cycle regularity", detail: "Pumpkin seeds are a seed-cycling staple — their zinc supports progesterone production in the luteal phase, while magnesium helps metabolize estrogen. Together they promote cycle regularity and reduce PMS." },
+    chickpea:    { short: "Iron & B6 for energy & mood during cycles", detail: "Chickpeas provide iron to offset menstrual losses, plus vitamin B6 which helps synthesize serotonin and dopamine — neurotransmitters that dip during the premenstrual phase, contributing to mood changes." },
+    broccoli:    { short: "DIM compound supports estrogen balance", detail: "Broccoli contains DIM (diindolylmethane), which helps the liver metabolize estrogen through favorable pathways. This supports hormonal balance and may reduce risk of estrogen-dominant conditions." },
+    "brown rice": { short: "B vitamins & fiber for hormonal balance", detail: "Brown rice provides B vitamins needed for liver detoxification of hormones, plus fiber that binds to used estrogen in the gut for elimination — preventing reabsorption and estrogen dominance." },
+    ginger:      { short: "Eases nausea & menstrual pain naturally", detail: "Ginger is as effective as ibuprofen for menstrual pain in clinical trials. It inhibits prostaglandin synthesis and also eases the nausea that some women experience during menstruation or early pregnancy." },
+    "lion's mane": { short: "NGF support protects against hormonal brain fog", detail: "Lion's mane stimulates nerve growth factor (NGF) production, which can counteract the cognitive fog that many women experience during hormonal transitions — from PMS to perimenopause." },
+    chicken:     { short: "Lean protein stabilizes blood sugar & mood", detail: "Stable blood sugar is essential for hormonal balance — insulin spikes increase androgen production and disrupt estrogen/progesterone ratios. Chicken's B6 also supports serotonin synthesis, which dips during the premenstrual phase." },
+    turkey:      { short: "Tryptophan supports serotonin & sleep quality", detail: "Turkey is rich in tryptophan — the precursor to serotonin and melatonin. Women produce less serotonin than men, making dietary tryptophan especially important for mood stability and the sleep disruptions common during hormonal shifts." },
+    beef:        { short: "Iron & B12 replenish menstrual losses", detail: "Women lose 1-2mg of iron per period. Beef provides the most bioavailable heme iron plus B12 — both critical for energy, cognitive function, and preventing the anemia that affects 1 in 5 women of reproductive age." },
+    steak:       { short: "Heme iron & zinc for energy & immune health", detail: "Steak provides highly absorbable heme iron to offset menstrual losses, plus zinc that supports immune function and progesterone production in the luteal phase." },
+    banana:      { short: "B6 & magnesium ease PMS symptoms", detail: "Bananas provide vitamin B6 (shown to reduce PMS severity by 70% in studies) and magnesium that relaxes smooth muscle — easing cramps, bloating, and the mood changes driven by progesterone withdrawal." },
+    berry:       { short: "Antioxidants protect against hormonal oxidative stress", detail: "Hormonal fluctuations increase oxidative stress. Berries' anthocyanins and vitamin C neutralize free radicals while supporting collagen synthesis — important as estrogen decline during perimenopause reduces natural collagen production." },
+    rice:        { short: "Steady energy supports hormonal balance", detail: "Complex carbohydrates are essential for serotonin production via tryptophan transport across the blood-brain barrier. Women in the luteal phase have increased carb cravings because the brain needs more serotonin precursors." },
+    oat:         { short: "Beta-glucan fiber supports estrogen metabolism", detail: "Oats' soluble fiber binds to excess estrogen in the gut, preventing reabsorption. This supports healthy estrogen levels and reduces symptoms of estrogen dominance like bloating, heavy periods, and mood swings." },
+    tomato:      { short: "Lycopene & vitamin C support skin & collagen", detail: "Tomatoes provide lycopene (a powerful antioxidant) and vitamin C — essential for collagen synthesis that declines with estrogen loss. Their folate also supports reproductive health and mood regulation." },
+    peanut:      { short: "Protein & healthy fats for sustained energy", detail: "Peanuts provide niacin (B3) which supports energy metabolism that fluctuates with the menstrual cycle. Their monounsaturated fats provide building blocks for hormone production." },
+    tofu:        { short: "Phytoestrogens provide gentle hormonal support", detail: "Tofu's isoflavones can modulate estrogen receptors — offering mild support during low-estrogen phases like menstruation and perimenopause, without overstimulating during high-estrogen phases. Also provides calcium for bone health." },
+  },
+  male: {
+    salmon:      { short: "Omega-3s support testosterone & reduce inflammation", detail: "DHA in salmon maintains Leydig cell membrane fluidity — these cells produce testosterone. Omega-3s also reduce chronic inflammation that suppresses the HPG axis (hypothalamic-pituitary-gonadal), your testosterone production pathway." },
+    sardine:     { short: "Omega-3s & zinc fuel testosterone synthesis", detail: "Sardines provide omega-3s, zinc, and vitamin D — three nutrients directly involved in testosterone production. Zinc inhibits aromatase, the enzyme that converts testosterone to estrogen." },
+    mackerel:    { short: "High DHA supports brain & cardiovascular health", detail: "Men face higher cardiovascular risk. Mackerel's exceptionally high DHA content reduces triglycerides and arterial inflammation, while supporting the brain health needed for sustained cognitive performance." },
+    egg:         { short: "Cholesterol & choline fuel testosterone + brain", detail: "Testosterone is synthesized from cholesterol — eggs provide the building blocks. Their choline supports acetylcholine, the neurotransmitter behind focus, memory, and muscle contraction." },
+    spinach:     { short: "Magnesium & nitrates boost T and blood flow", detail: "Spinach's magnesium increases free testosterone by reducing SHBG (sex hormone-binding globulin). Its nitrates convert to nitric oxide, improving blood flow, exercise performance, and cardiovascular function." },
+    lentil:      { short: "Zinc & protein for muscle recovery & T support", detail: "Lentils provide zinc (essential for testosterone synthesis and sperm health) plus plant protein and fiber. Their low glycemic impact helps maintain insulin sensitivity — insulin resistance tanks testosterone." },
+    quinoa:      { short: "Complete protein with magnesium for T support", detail: "Quinoa provides all essential amino acids for muscle synthesis, plus magnesium that binds to SHBG — freeing up more bioavailable testosterone. Its saponins may also have mild anabolic properties." },
+    "sweet potato": { short: "Complex carbs support testosterone production", detail: "Adequate carbohydrate intake is essential for testosterone — low-carb diets increase cortisol, which directly suppresses T. Sweet potatoes provide sustained energy without the insulin spikes that impair hormonal signaling." },
+    turmeric:    { short: "Reduces inflammation that suppresses testosterone", detail: "Chronic inflammation is the #1 lifestyle testosterone killer in men. Curcumin reduces IL-6 and TNF-alpha — inflammatory cytokines that directly inhibit Leydig cell testosterone production." },
+    broccoli:    { short: "DIM helps metabolize excess estrogen", detail: "Broccoli's DIM (diindolylmethane) supports the liver's conversion of estrogen to less active metabolites. This is critical for men — excess estrogen (from body fat, plastics, alcohol) suppresses testosterone and promotes gynecomastia." },
+    walnut:      { short: "Arginine boosts nitric oxide & circulation", detail: "Walnuts are rich in L-arginine, the precursor to nitric oxide — which dilates blood vessels. This supports cardiovascular health, exercise performance, and the circulation that men's sexual health depends on." },
+    avocado:     { short: "Healthy fats are building blocks for testosterone", detail: "Testosterone is a steroid hormone built from cholesterol. Avocado's monounsaturated fats support healthy cholesterol levels for T production, while potassium helps lower blood pressure — a leading men's health concern." },
+    "pumpkin seed": { short: "Zinc supports prostate health & T levels", detail: "The prostate contains the highest zinc concentration of any organ. Pumpkin seeds' zinc supports prostate health, testosterone production, and sperm quality — while magnesium further boosts free T levels." },
+    almond:      { short: "Vitamin E protects sperm & supports circulation", detail: "Vitamin E is a powerful antioxidant that protects sperm from oxidative damage — a leading cause of male infertility. Almonds also provide arginine for nitric oxide production and heart health." },
+    "dark chocolate": { short: "Flavanols improve blood flow & mood", detail: "Dark chocolate's flavanols boost nitric oxide production by 30%+, improving circulation throughout the body. The theobromine provides clean energy, while phenylethylamine enhances mood and motivation." },
+    yogurt:      { short: "Probiotics support testosterone & gut health", detail: "MIT research showed probiotic-fed males had larger testes and higher testosterone. A healthy gut microbiome improves nutrient absorption — especially zinc and magnesium that are critical for T production." },
+    kefir:       { short: "Probiotics enhance nutrient absorption for T", detail: "Kefir's diverse probiotic strains improve gut permeability and nutrient absorption. Better zinc, magnesium, and vitamin D uptake directly supports the testosterone production pathway." },
+    kimchi:      { short: "Gut health supports testosterone metabolism", detail: "A healthy gut microbiome regulates the enzymes that metabolize testosterone. Kimchi's probiotics also reduce systemic inflammation — one of the most common causes of low T in men." },
+    tempeh:      { short: "Complete plant protein for muscle & recovery", detail: "Fermented soy in tempeh has negligible estrogenic effect in men (confirmed by meta-analyses). It provides complete protein, probiotics, and isoflavones that actually support cardiovascular health." },
+    blueberr:    { short: "Anthocyanins protect cardiovascular & brain health", detail: "Men face cardiovascular disease a decade earlier than women. Blueberry anthocyanins improve endothelial function, reduce arterial stiffness, and protect against the cognitive decline that affects men's brain health." },
+    chickpea:    { short: "Zinc & B6 support testosterone synthesis", detail: "Chickpeas provide zinc for testosterone production and B6 for neurotransmitter synthesis. Their fiber supports the gut health that underlies proper hormone metabolism." },
+    "brown rice": { short: "Sustained energy without insulin spikes", detail: "Brown rice provides steady glucose for training and recovery without the insulin spikes that increase cortisol and suppress testosterone. Its manganese also supports bone health and metabolism." },
+    ginger:      { short: "Clinically shown to boost testosterone 17%", detail: "A systematic review found ginger supplementation increased testosterone by 17.7% in men. It works by enhancing LH production, reducing oxidative stress in the testes, and increasing cholesterol delivery to Leydig cells." },
+    "lion's mane": { short: "NGF support for focus, memory & nerve health", detail: "Lion's mane stimulates nerve growth factor production — supporting cognitive performance, focus, and the nerve health that declines with age. It also reduces neuroinflammation linked to brain fog and poor concentration." },
+    miso:        { short: "Fermented soy supports gut & heart health", detail: "Miso's probiotic content supports the gut-testosterone axis, while its isoflavones (in fermented form) support cardiovascular health — the #1 cause of death in men. Fermentation eliminates any estrogenic concern." },
+    sauerkraut:  { short: "Probiotics support T production pathway", detail: "Sauerkraut's lactobacillus bacteria support the gut health that underlies proper hormone metabolism. A healthy gut ensures optimal absorption of zinc, magnesium, and vitamin D — all critical for testosterone." },
+    chicken:     { short: "Lean protein fuels muscle synthesis & T support", detail: "Chicken provides complete protein with all essential amino acids for muscle protein synthesis. Adequate protein intake maintains lean mass, which is metabolically active tissue that supports healthy testosterone levels." },
+    turkey:      { short: "Tryptophan supports recovery & growth hormone", detail: "Turkey's tryptophan converts to serotonin and then melatonin — essential for the deep sleep during which 70% of daily growth hormone is released. GH supports muscle recovery, fat metabolism, and overall vitality." },
+    beef:        { short: "Creatine, zinc & B12 for strength & T levels", detail: "Beef is nature's richest source of creatine (boosts strength 5-10%), plus zinc for testosterone and B12 for red blood cell production. Its saturated fat in moderate amounts is actually needed for steroid hormone synthesis." },
+    steak:       { short: "High-quality protein with zinc & creatine for T", detail: "Steak provides the cholesterol building blocks for testosterone, zinc to inhibit aromatase, creatine for strength, and complete amino acids for muscle recovery. Red meat 2-3x per week supports optimal male hormonal health." },
+    banana:      { short: "Potassium & B6 support energy & T production", detail: "Bananas provide potassium for muscle contraction and heart health, plus B6 — a coenzyme in testosterone synthesis. Their bromelain enzyme may also support testosterone levels and reduce inflammation after training." },
+    berry:       { short: "Antioxidants protect cardiovascular & brain health", detail: "Men face cardiovascular disease a decade earlier than women. Berry anthocyanins improve endothelial function, reduce arterial stiffness, and protect against oxidative damage to sperm — a leading cause of male infertility." },
+    rice:        { short: "Clean carbs fuel training & support T levels", detail: "Adequate carbohydrate intake is essential for testosterone — low-carb diets elevate cortisol, which directly suppresses T. Rice provides clean, easily digestible energy for training without gut irritation." },
+    oat:         { short: "Beta-glucan supports heart health & sustained energy", detail: "Oats' beta-glucan fiber reduces LDL cholesterol — critical since heart disease is the #1 killer of men. Their slow-release energy stabilizes blood sugar, preventing the cortisol spikes that suppress testosterone production." },
+    tomato:      { short: "Lycopene supports prostate & heart health", detail: "Tomatoes are the richest source of lycopene — shown to reduce prostate cancer risk by 20%+ in large studies. Lycopene also reduces LDL oxidation, protecting against the cardiovascular disease that disproportionately affects men." },
+    peanut:      { short: "Arginine & protein for muscle & circulation", detail: "Peanuts provide L-arginine (nitric oxide precursor for circulation), complete protein for muscle recovery, and niacin for energy metabolism. Their resveratrol also supports cardiovascular health." },
+    tofu:        { short: "Plant protein with no estrogenic effect in men", detail: "Meta-analyses confirm soy does not affect testosterone or estrogen in men at normal dietary intake. Tofu provides complete protein, isoflavones that support heart health, and calcium for bone density." },
+  },
+};
+
+const getCyclePhase = (lastPeriod, length, targetDate) => {
+  if (!lastPeriod) return null;
+  const start = new Date(lastPeriod);
+  const today = targetDate ? new Date(targetDate) : new Date();
+  const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  const dayInCycle = ((diffDays % length) + length) % length + 1;
+  if (dayInCycle <= 5) return { phase: "menstrual", day: dayInCycle, label: "Menstrual Phase", emoji: "🌑", desc: "Days 1-5 — Focus on iron-rich, warming, anti-inflammatory foods" };
+  if (dayInCycle <= Math.floor(length * 0.46)) return { phase: "follicular", day: dayInCycle, label: "Follicular Phase", emoji: "🌒", desc: "Rising estrogen — Light, fresh foods & fermented foods support energy" };
+  if (dayInCycle <= Math.floor(length * 0.57)) return { phase: "ovulatory", day: dayInCycle, label: "Ovulatory Phase", emoji: "🌕", desc: "Peak estrogen — Antioxidants & fiber help with estrogen clearance" };
+  return { phase: "luteal", day: dayInCycle, label: "Luteal Phase", emoji: "🌘", desc: "Rising progesterone — Magnesium, B6 & complex carbs ease PMS" };
+};
+
+const CYCLE_BENEFITS = {
+  menstrual: {
+    salmon:      "Omega-3s reduce prostaglandins that cause cramps — like natural ibuprofen",
+    sardine:     "Iron + omega-3s replenish what you're losing & ease inflammation",
+    spinach:     "Iron & folate replenish menstrual losses — pair with vitamin C for absorption",
+    kale:        "Iron & vitamin K support blood health during your period",
+    lentil:      "Plant-based iron + warming comfort — perfect for menstrual fatigue",
+    egg:         "Easy-to-digest protein + choline support energy without taxing digestion",
+    beef:        "Heme iron is most absorbable — critical during your heaviest days",
+    steak:       "Richest source of heme iron — directly replenishes menstrual losses",
+    turmeric:    "Curcumin inhibits COX-2 enzymes — easing cramps as effectively as ibuprofen",
+    ginger:      "Clinically proven to reduce period pain — as effective as meds in studies",
+    "dark chocolate": "Magnesium relaxes uterine muscles + iron replenishes losses",
+    quinoa:      "Iron + magnesium — the two minerals you need most during menstruation",
+    "sweet potato": "Warming, comforting complex carbs stabilize mood during hormone withdrawal",
+    chicken:     "Gentle protein supports energy without heavy digestion during your period",
+    turkey:      "Tryptophan boosts serotonin — countering the mood dip from hormone withdrawal",
+    banana:      "B6 + magnesium ease cramps and the mood changes of days 1-5",
+    rice:        "Gentle carbs support serotonin when estrogen & progesterone are at their lowest",
+    oat:         "Warming, iron-rich comfort food — soluble fiber also eases bloating",
+    berry:       "Vitamin C boosts iron absorption — pair with iron-rich foods this phase",
+    avocado:     "Anti-inflammatory fats ease period pain + potassium reduces bloating",
+    yogurt:      "Probiotics ease the digestive changes common during menstruation",
+    kimchi:      "Probiotics support the gut disruption that often accompanies your period",
+    _fallback:   "Nourishing, warming foods help your body recover during menstruation",
+  },
+  follicular: {
+    salmon:      "Omega-3s support the rising estrogen that's boosting your energy & mood",
+    sardine:     "Light protein + omega-3s match your naturally increasing energy this phase",
+    spinach:     "Folate supports the cell growth happening as your body rebuilds",
+    kale:        "Light greens match the fresh, energetic vibe of your follicular phase",
+    lentil:      "Plant protein fuels your naturally higher energy & motivation right now",
+    egg:         "Choline supports the cognitive boost you get from rising estrogen",
+    turmeric:    "Anti-inflammatory support as your body rebuilds the uterine lining",
+    chicken:     "Lean protein fuels the natural energy surge of rising estrogen",
+    turkey:      "Light protein supports the increased physical energy of this phase",
+    tempeh:      "Fermented soy supports gut health — your microbiome shifts with estrogen",
+    kimchi:      "Probiotics support the gut microbiome changes that follow menstruation",
+    kefir:       "Probiotic diversity supports estrogen metabolism as levels rise",
+    quinoa:      "Complete protein + B vitamins fuel the energy surge of this phase",
+    avocado:     "Healthy fats provide building blocks as estrogen production ramps up",
+    berry:       "Antioxidants support the cell regeneration happening this phase",
+    banana:      "Quick energy matches your naturally higher metabolism right now",
+    rice:        "Clean energy to fuel the workouts your body is primed for this phase",
+    oat:         "Sustained energy for the higher activity level your body craves now",
+    "sweet potato": "Complex carbs fuel the natural energy peak of your follicular phase",
+    beef:        "Protein & iron support the rebuilding happening after menstruation",
+    _fallback:   "Your body is rebuilding — light, nutrient-dense foods fuel this phase",
+  },
+  ovulatory: {
+    salmon:      "Omega-3s support brain function at its peak — estrogen is highest now",
+    spinach:     "Fiber helps clear the estrogen surplus your body produces at ovulation",
+    kale:        "Cruciferous compounds support estrogen detox during your hormonal peak",
+    broccoli:    "DIM in broccoli helps metabolize the estrogen surge at ovulation",
+    lentil:      "Fiber binds to excess estrogen for elimination — important at your peak",
+    egg:         "Choline supports the peak cognitive function you have during ovulation",
+    quinoa:      "Fiber + magnesium support estrogen clearance and energy balance",
+    turmeric:    "Anti-inflammatory support during your highest-energy phase",
+    chicken:     "Lean protein sustains the peak energy & social drive of ovulation",
+    turkey:      "Light protein matches the naturally lighter appetite of this phase",
+    avocado:     "Fiber + healthy fats support estrogen metabolism at its peak",
+    berry:       "Antioxidants protect cells during peak metabolic activity",
+    kimchi:      "Probiotics support the estrobolome — critical for clearing peak estrogen",
+    tempeh:      "Fiber + probiotics help metabolize the estrogen surge",
+    yogurt:      "Probiotics support estrogen clearance through the gut",
+    banana:      "Quick fuel for the naturally higher energy & exercise performance now",
+    rice:        "Light energy — your body is efficient and doesn't need heavy carbs now",
+    _fallback:   "Focus on fiber & antioxidants to support estrogen clearance at ovulation",
+  },
+  luteal: {
+    salmon:      "Omega-3s ease the inflammation that drives PMS as progesterone rises",
+    sardine:     "Omega-3s + calcium calm the nervous system as PMS symptoms emerge",
+    spinach:     "Magnesium eases the cramps & mood changes of the luteal phase",
+    egg:         "Choline supports mood as serotonin dips in the premenstrual window",
+    quinoa:      "Magnesium + complex carbs — exactly what your brain craves before your period",
+    "sweet potato": "Complex carbs boost serotonin — your brain needs more before your period",
+    turmeric:    "Anti-inflammatory curcumin eases the PMS inflammation building now",
+    "dark chocolate": "Magnesium + mood-boosting compounds — nature's PMS remedy",
+    banana:      "B6 + magnesium directly reduce PMS severity — clinically proven",
+    walnut:      "Omega-3s + magnesium ease the anxiety & sleep issues of late luteal",
+    avocado:     "Healthy fats + potassium reduce the bloating & water retention of PMS",
+    chicken:     "Protein stabilizes the blood sugar swings that worsen PMS mood changes",
+    turkey:      "Tryptophan boosts serotonin — which drops 25% in the premenstrual phase",
+    beef:        "Iron & B12 support energy as progesterone's sedating effect increases",
+    rice:        "Complex carbs help tryptophan cross the blood-brain barrier for serotonin",
+    oat:         "Warming comfort + magnesium ease the anxiety of the premenstrual window",
+    yogurt:      "Calcium reduces PMS symptoms by 50% in studies — yogurt delivers it gently",
+    kefir:       "Probiotics + calcium — eases the digestive & mood shifts of late luteal",
+    kimchi:      "Gut health support as progesterone slows digestion in the luteal phase",
+    ginger:      "Eases the nausea & bloating that build toward the end of your cycle",
+    lentil:      "Magnesium + iron prep your body for the upcoming menstrual phase",
+    berry:       "Antioxidants combat the increased oxidative stress of the premenstrual phase",
+    almond:      "Vitamin E reduces PMS by 70% in studies — snack on these before your period",
+    "pumpkin seed": "Zinc + magnesium — the seed-cycling staple for luteal phase support",
+    _fallback:   "Complex carbs & magnesium-rich foods ease PMS as your period approaches",
+  },
+};
+
+// cycleSync, lastPeriod, cycleLen are passed from component state
+const getGenderNote = (mealName, gender, cycleSync, lastPeriod, cycleLen, targetDate) => {
+  if (!gender || !mealName) return null;
+  // Women who skipped cycle sync — no hormone notes
+  if (gender === "female" && !cycleSync) return null;
+  // Women with cycle sync — phase-specific notes
+  if (gender === "female" && cycleSync) {
+    const phase = getCyclePhase(lastPeriod, cycleLen, targetDate);
+    if (!phase) return null;
+    const phaseNotes = CYCLE_BENEFITS[phase.phase];
+    if (!phaseNotes) return null;
+    const m = mealName.toLowerCase();
+    const sorted = Object.entries(phaseNotes).filter(([k]) => k !== "_fallback").sort((a,b) => b[0].length - a[0].length);
+    let note = null;
+    for (const [keyword, text] of sorted) {
+      if (m.includes(keyword)) { note = text; break; }
+    }
+    if (!note) note = phaseNotes._fallback;
+    return { short: note, detail: null, phase };
+  }
+  // Male — standard notes
+  if (gender === "male") {
+    const benefits = GENDER_BENEFITS.male;
+    const m = mealName.toLowerCase();
+    const sorted = Object.entries(benefits).sort((a,b) => b[0].length - a[0].length);
+    for (const [keyword, info] of sorted) {
+      if (m.includes(keyword)) return { ...info, phase: null };
+    }
+    return { short: "Balanced nutrition supports testosterone & recovery", detail: "Consistent protein and micronutrient intake maintains the anabolic environment your body needs for testosterone production. Balanced meals also stabilize cortisol — the hormone that directly suppresses T when elevated.", phase: null };
+  }
+  return null;
 };
 
 const generateRecipe = (meal) => {
@@ -3396,6 +3621,9 @@ export default function NeuroThrive() {
   const [checkoutLoading, setCheckoutLoading] = useState(null); // "monthly" | "annual" | null
   const [subscriptionPlan, setSubscriptionPlan] = useState(null);
   const [selectedGender, setSelectedGender] = useState(null); // "male" | "female" | "prefer_not"
+  const [cycleSyncEnabled, setCycleSyncEnabled] = useState(false);
+  const [lastPeriodDate, setLastPeriodDate] = useState("");
+  const [cycleLength, setCycleLength] = useState(28);
   const [selectedConditions, setSelectedConditions] = useState([]);
   const [selectedDiet, setSelectedDiet] = useState([]);
   const [calorieTarget, setCalorieTarget] = useState("1500");
@@ -3414,6 +3642,7 @@ export default function NeuroThrive() {
   const [explainLoading, setExplainLoading] = useState(false);
   const [modalTab, setModalTab] = useState("why");
   const [altMeal, setAltMeal] = useState({});
+  const [expandedGenderNote, setExpandedGenderNote] = useState(null);
   const [planCycle, setPlanCycle] = useState(1);
   const [cycleStartDate, setCycleStartDate] = useState(null);
   const [showCycleComplete, setShowCycleComplete] = useState(false);
@@ -3478,6 +3707,9 @@ export default function NeuroThrive() {
           .single();
         if (data) {
           if (data.selected_gender) setSelectedGender(data.selected_gender);
+          if (data.cycle_sync_enabled) setCycleSyncEnabled(data.cycle_sync_enabled);
+          if (data.last_period_date) setLastPeriodDate(data.last_period_date);
+          if (data.cycle_length) setCycleLength(data.cycle_length);
           if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
           if (data.selected_diet) setSelectedDiet(data.selected_diet);
           if (data.calorie_target) setCalorieTarget(data.calorie_target);
@@ -3569,6 +3801,9 @@ export default function NeuroThrive() {
         await supabase.from("user_data").upsert({
           id: user.id,
           selected_gender: selectedGender,
+          cycle_sync_enabled: cycleSyncEnabled,
+          last_period_date: lastPeriodDate,
+          cycle_length: cycleLength,
           selected_conditions: selectedConditions,
           selected_diet: selectedDiet,
           calorie_target: calorieTarget,
@@ -3587,7 +3822,7 @@ export default function NeuroThrive() {
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, dataLoaded, user]);
+  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, dataLoaded, user]);
 
   // ── Feature tour trigger ────────────────────────────────────────────────────
   useEffect(() => {
@@ -3597,11 +3832,11 @@ export default function NeuroThrive() {
   }, [step, isPremium, dataLoaded, onboardingDone, menu30]);
 
   const TOUR_SLIDES = [
-    { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Your personalised 30-day plan is ready. Here's a quick tour of everything you can do." },
+    { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Your personalized 30-day plan is ready. Here's a quick tour of everything you can do." },
     { emoji: "🍽️", title: "Your 30-Day Menu", desc: "Browse daily meals tailored to your condition. Tap any meal to see its full recipe, or tap \"Why this meal?\" to learn the neuroscience behind each ingredient." },
     { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel — powerful data for your wellness journey." },
-    { emoji: "✨", title: "Daily Affirmations", desc: "Condition-specific affirmations grounded in neuroplasticity research. Regular positive self-talk literally rewires neural pathways over time." },
-    { emoji: "💊", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalised to your condition — with dosages, timing, and the science behind each one." },
+    { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research. Find both on the Reminders tab." },
+    { emoji: "💊", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition — with dosages, timing, and the science behind each one." },
     { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category — grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
     { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus 10 exercise modalities with neuroscience explanations for your specific condition." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
@@ -3862,23 +4097,23 @@ export default function NeuroThrive() {
   );
 
   // ── Main app render ────────────────────────────────────────────────────────
-  const openExplain = (meal, mealType) => {
+  const openExplain = (meal, mealType, dayIdx) => {
     const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
     const condLabels = condIds.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean);
     const conditionLabel = condLabels.length > 0 ? condLabels.join(" & ") : "general wellness";
     const text = buildMealExplanation(meal, condIds);
-    setExplainModal({ meal, mealType, conditionLabel });
+    setExplainModal({ meal, mealType, conditionLabel, dayIdx });
     setModalTab("why");
     setExplainText(text);
     setExplainLoading(false);
   };
 
   // ── Open modal on Recipe tab ──────────────────────────────────────────────
-  const openRecipe = (meal, mealType) => {
+  const openRecipe = (meal, mealType, dayIdx) => {
     const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
     const condLabels = condIds.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean);
     const conditionLabel = condLabels.length > 0 ? condLabels.join(" & ") : "general wellness";
-    setExplainModal({ meal, mealType, conditionLabel });
+    setExplainModal({ meal, mealType, conditionLabel, dayIdx });
     setModalTab("recipe");
     setExplainText("");
     setExplainLoading(false);
@@ -4155,8 +4390,8 @@ export default function NeuroThrive() {
     app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#060a14 0%,#080e1c 50%,#060a14 100%)", fontFamily:"'Plus Jakarta Sans',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em" },
     nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.08)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
     logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
-    navTabs: { display:"flex", gap:"1px", flexWrap:"wrap" },
-    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", letterSpacing:"0.01em" }),
+    navTabs: { display:"flex", gap:"1px", overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none", flexShrink:1, minWidth:0 },
+    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
     main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px" },
     hero: { textAlign:"center", padding:"80px 20px 60px" },
     heroEyebrow: { display:"inline-block", fontSize:"10px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.12)", padding:"7px 18px", borderRadius:"24px", marginBottom:"32px" },
@@ -4169,7 +4404,7 @@ export default function NeuroThrive() {
     btnSm: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"8px", color:"#7888b8", padding:"6px 13px", cursor:"pointer", fontSize:"12px", fontWeight:"500" },
     sectionTitle: { fontSize:"26px", color:"#f0f2ff", marginBottom:"6px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
     sectionSub: { fontSize:"14px", color:"#6b7ba8", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
-    grid: { display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(148px,1fr))", gap:"10px", marginBottom:"32px" },
+    grid: { display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px", marginBottom:"32px" },
     chip: (sel) => ({ padding:"12px 14px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", fontSize:"13px", fontWeight:sel?"600":"400", color:sel?"#a0b8ff":"#7888b8", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)" }),
     card: { background:"rgba(255,255,255,0.025)", border:"1px solid rgba(107,143,255,0.08)", borderRadius:"18px", padding:"20px", marginBottom:"14px", backdropFilter:"blur(12px)", boxShadow:"0 2px 16px rgba(0,0,0,0.15), 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04)" },
     mealLabel: { fontSize:"10px", textTransform:"uppercase", letterSpacing:"2.5px", color:"#5e78d0", marginBottom:"10px", fontWeight:"700" },
@@ -4184,7 +4419,7 @@ export default function NeuroThrive() {
     warningBanner: { background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"14px", padding:"14px 20px", color:"#a0b8ff", fontSize:"13px", fontWeight:"500", marginBottom:"18px" },
   };
 
-  const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","Affirmations","Supplements","Reminders","Toolkit","Routine","Progress"];
+  const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","(unused)","Supplements","Reminders","Toolkit","Routine","Progress"];
 
   // Date helper: get the real calendar date for a plan day (0-indexed)
   const getPlanDate = (dayIdx) => {
@@ -4225,6 +4460,7 @@ export default function NeuroThrive() {
         button:active { transform: translateY(0) scale(0.98); }
         details > summary { user-select: none; }
         details > summary::-webkit-details-marker { display: none; }
+        .nav-tabs-scroll::-webkit-scrollbar { display: none; }
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(107,143,255,0.2); border-radius: 4px; }
@@ -4238,23 +4474,22 @@ export default function NeuroThrive() {
           <span style={{ fontSize:"20px" }}>🧠</span>
           <span>NeuroThrive</span>
         </div>
-        <div style={S.navTabs}>
+        <div className="nav-tabs-scroll" style={S.navTabs}>
           {step > 0 && [
             { label:"Gender",       s:1 },
             { label:"Conditions",   s:2 },
             { label:"Diet",         s:3 },
             { label:"Menu",         s:4 },
             { label:"Journal",      s:8 },
-            { label:"Affirmations", s:5 },
-            { label:"Supplements",  s:6 },
-            { label:"Reminders",    s:7 },
           ].map(({ label, s }) => (
             <button key={label} style={S.navTab(step===s)} onClick={() => handleStepForward(s)}>{label}</button>
           ))}
           {isPremium && step > 0 && (
             <>
-              <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>🧠 Toolkit</button>
               <button style={S.navTab(step===10)} onClick={() => setStep(10)}>☀️ Routine</button>
+              <button style={S.navTab(step===6)}  onClick={() => setStep(6)}>💊 Supplements</button>
+              <button style={S.navTab(step===7)}  onClick={() => setStep(7)}>🔔 Reminders</button>
+              <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>🧠 Toolkit</button>
               <button style={S.navTab(step===11)} onClick={() => setStep(11)}>📊 Progress</button>
             </>
           )}
@@ -4283,7 +4518,7 @@ export default function NeuroThrive() {
         {step === 1 && (
           <div>
             <h2 style={S.sectionTitle}>Tell us about yourself</h2>
-            <p style={S.sectionSub}>This helps us personalise your plan — hormones and biology shape how nutrition affects your brain and mood.</p>
+            <p style={S.sectionSub}>This helps us personalize your plan — hormones and biology shape how nutrition affects your brain and mood.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", marginBottom:"32px" }}>
               {[
                 { id:"male",   label:"Male",   desc:"Protein metabolism, testosterone support, iron & zinc optimisation" },
@@ -4312,6 +4547,67 @@ export default function NeuroThrive() {
                 </div>
               ))}
             </div>
+            {/* Cycle Sync — only for female */}
+            {selectedGender === "female" && (
+              <div style={{ marginBottom:"28px", padding:"20px", borderRadius:"18px", background:"rgba(168,120,210,0.06)", border:"1px solid rgba(168,120,210,0.15)" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"8px" }}>
+                  <span style={{ fontSize:"20px" }}>🌙</span>
+                  <div>
+                    <div style={{ color:"#e8d0ff", fontSize:"15px", fontWeight:"700" }}>Cycle Sync Nutrition</div>
+                    <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.5, marginTop:"2px" }}>Get nutrition tips tailored to your current menstrual phase</div>
+                  </div>
+                </div>
+                <div style={{ display:"flex", gap:"10px", marginTop:"14px" }}>
+                  <button
+                    onClick={() => setCycleSyncEnabled(true)}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled ? "1.5px solid rgba(168,120,210,0.5)" : "1px solid rgba(168,120,210,0.2)", background: cycleSyncEnabled ? "rgba(168,120,210,0.15)" : "rgba(168,120,210,0.04)", color: cycleSyncEnabled ? "#c8a0e8" : "#8890b8", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                  >🌕 Sync my cycle</button>
+                  <button
+                    onClick={() => { setCycleSyncEnabled(false); setLastPeriodDate(""); }}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: !cycleSyncEnabled ? "1.5px solid rgba(110,120,200,0.3)" : "1px solid rgba(110,120,200,0.15)", background: !cycleSyncEnabled ? "rgba(110,120,200,0.1)" : "rgba(110,120,200,0.03)", color: !cycleSyncEnabled ? "#a0b8ff" : "#6b7394", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                  >Skip for now</button>
+                </div>
+                {cycleSyncEnabled && (
+                  <div style={{ marginTop:"18px", display:"flex", flexDirection:"column", gap:"14px" }}>
+                    <div>
+                      <label style={{ display:"block", color:"#a0b8ff", fontSize:"12px", fontWeight:"600", marginBottom:"6px", letterSpacing:"0.5px" }}>First day of your last period</label>
+                      <input
+                        type="date"
+                        value={lastPeriodDate}
+                        onChange={e => setLastPeriodDate(e.target.value)}
+                        style={{ width:"100%", padding:"11px 14px", borderRadius:"12px", border:"1px solid rgba(168,120,210,0.25)", background:"rgba(6,10,20,0.6)", color:"#e8ecff", fontSize:"14px", fontFamily:"inherit", outline:"none", boxSizing:"border-box" }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display:"block", color:"#a0b8ff", fontSize:"12px", fontWeight:"600", marginBottom:"6px", letterSpacing:"0.5px" }}>Average cycle length: {cycleLength} days</label>
+                      <input
+                        type="range"
+                        min="21" max="35" value={cycleLength}
+                        onChange={e => setCycleLength(Number(e.target.value))}
+                        style={{ width:"100%", accentColor:"#a880d0" }}
+                      />
+                      <div style={{ display:"flex", justifyContent:"space-between", color:"#6b7394", fontSize:"10px", marginTop:"2px" }}>
+                        <span>21 days</span><span>28 avg</span><span>35 days</span>
+                      </div>
+                    </div>
+                    {lastPeriodDate && (() => {
+                      const phase = getCyclePhase(lastPeriodDate, cycleLength);
+                      if (!phase) return null;
+                      return (
+                        <div style={{ padding:"12px 16px", borderRadius:"12px", background:"rgba(168,120,210,0.1)", border:"1px solid rgba(168,120,210,0.2)" }}>
+                          <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
+                            <span style={{ fontSize:"16px" }}>{phase.emoji}</span>
+                            <span style={{ color:"#c8a0e8", fontSize:"14px", fontWeight:"700" }}>{phase.label}</span>
+                            <span style={{ color:"#8890b8", fontSize:"11px" }}>· Day {phase.day}</span>
+                          </div>
+                          <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6 }}>{phase.desc}</div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
+              </div>
+            )}
             <div style={{ display:"flex", justifyContent:"space-between" }}>
               <button style={S.btnOutline} onClick={() => setStep(0)}>← Back</button>
               <button style={selectedGender ? S.btn : {...S.btn, opacity:0.5}} onClick={() => { if(selectedGender) { setStep(resumeStep && resumeStep > 2 ? resumeStep : 2); setResumeStep(null); } }}>Continue →</button>
@@ -4325,37 +4621,15 @@ export default function NeuroThrive() {
             <h2 style={S.sectionTitle}>What do you live with?</h2>
             <p style={S.sectionSub}>Select all that apply. You are not defined by these labels — they simply help us personalize your plan.</p>
             <div style={S.grid}>
-              {MENTAL_CONDITIONS.filter(c => c.id !== "neuro_core").map(c => (
+              {MENTAL_CONDITIONS.map(c => (
                 <div key={c.id} style={S.chip(selectedConditions.includes(c.id))} onClick={() => toggleItem(selectedConditions, setSelectedConditions, c.id)}>
-                  <span style={{ fontSize:"17px" }}>{c.emoji}</span><span>{c.label}</span>
+                  <span style={{ fontSize:"17px" }}>{c.emoji}</span>
+                  <span style={{ display:"flex", flexDirection:"column" }}>
+                    <span style={c.id === "neuro_core" ? { fontSize:"11px" } : {}}>{c.label}</span>
+                    {c.id === "neuro_core" && <span style={{ fontSize:"8px", fontWeight:"600", color:"#7b9fff", marginTop:"1px" }}>No Diagnosis Required</span>}
+                  </span>
                 </div>
               ))}
-            </div>
-            {/* ── Neuro Core Plan card ── */}
-            <div
-              onClick={() => setSelectedConditions(prev => prev.includes("neuro_core") ? prev.filter(x=>x!=="neuro_core") : ["neuro_core"])}
-              style={{
-                marginBottom:"20px", padding:"18px 22px", borderRadius:"18px", cursor:"pointer",
-                border: selectedConditions.includes("neuro_core") ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.25)",
-                background: selectedConditions.includes("neuro_core") ? "rgba(80,112,240,0.13)" : "linear-gradient(135deg,rgba(85,112,240,0.07),rgba(107,143,255,0.03))",
-                transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px",
-              }}
-            >
-              <span style={{ fontSize:"30px" }}>🧬</span>
-              <div style={{ flex:1 }}>
-                <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700", marginBottom:"4px" }}>
-                  Neuro Core Plan{" "}
-                  <span style={{ fontSize:"11px", fontWeight:"600", padding:"3px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.18)", color:"#7b9fff", marginLeft:"6px" }}>No Diagnosis Required</span>
-                </div>
-                <div style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6 }}>
-                  I don't have a diagnosis — I want to optimise my brain health, focus & mood through nutrition.
-                </div>
-              </div>
-              {selectedConditions.includes("neuro_core") && (
-                <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5570f0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
-                  <span style={{ color:"#fff", fontSize:"13px", fontWeight:"800" }}>✓</span>
-                </div>
-              )}
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "Select at least one, or continue"}</span>
@@ -4368,7 +4642,7 @@ export default function NeuroThrive() {
         {step === 3 && (
           <div>
             <h2 style={S.sectionTitle}>Dietary needs & restrictions</h2>
-            <p style={S.sectionSub}>Select everything that applies — your menu will be personalised to match your lifestyle and avoid anything that doesn't work for you.</p>
+            <p style={S.sectionSub}>Select everything that applies — your menu will be personalized to match your lifestyle and avoid anything that doesn't work for you.</p>
 
             <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
             <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
@@ -4450,7 +4724,7 @@ export default function NeuroThrive() {
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
             <div style={{ fontSize:"52px", marginBottom:"16px" }}>🧠</div>
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
-            <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalised plan is ready — subscribe to unlock your 30-day menu, journal, affirmations, supplements, and reminders.</p>
+            <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready — subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", width:"100%", maxWidth:"380px" }}>
               <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#6b8fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
                 {checkoutLoading === "annual" ? "Loading..." : "Get Annual — $59.99/yr (save 50%)"}
@@ -4618,15 +4892,23 @@ export default function NeuroThrive() {
                         );})()}
                       </div>
 
+                      {/* Gender-specific phase/note pill */}
+                      {(() => { const gn = getGenderNote(mainMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
+                        <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginBottom:"12px" }}>
+                          <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
+                          <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
+                        </div>
+                      );})()}
+
                       {/* Main meal buttons */}
                       <div style={{ display:"flex", gap:"7px", flexWrap:"wrap", marginBottom: alt ? "12px" : "0" }}>
                         <button
                           style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
-                          onClick={() => openExplain(mainMeal, label)}
+                          onClick={() => openExplain(mainMeal, label, globalDayIdx)}
                         >🧠 Why this?</button>
                         <button
                           style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
-                          onClick={() => openRecipe(mainMeal, label)}
+                          onClick={() => openRecipe(mainMeal, label, globalDayIdx)}
                         >🍳 Recipe</button>
                         <button
                           style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(110,120,200,0.25)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
@@ -4661,11 +4943,11 @@ export default function NeuroThrive() {
                           <div style={{ display:"flex", gap:"7px", flexWrap:"wrap" }}>
                             <button
                               style={{ flex:1, padding:"8px 10px", borderRadius:"9px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}
-                              onClick={() => openExplain(alt, label)}
+                              onClick={() => openExplain(alt, label, globalDayIdx)}
                             >🧠 Why this?</button>
                             <button
                               style={{ flex:1, padding:"8px 10px", borderRadius:"9px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}
-                              onClick={() => openRecipe(alt, label)}
+                              onClick={() => openRecipe(alt, label, globalDayIdx)}
                             >🍳 Recipe</button>
                           </div>
                         </div>
@@ -4762,7 +5044,7 @@ export default function NeuroThrive() {
             )}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"18px" }}>
               <button style={S.btnOutline} onClick={() => setStep(4)}>← Menu</button>
-              <button style={S.btn} onClick={() => setStep(5)}>Affirmations →</button>
+              <button style={S.btn} onClick={() => setStep(10)}>Routine →</button>
             </div>
             {logs.length > 0 && (
               <div style={{ textAlign:"center", marginTop:"12px" }}>
@@ -4772,33 +5054,8 @@ export default function NeuroThrive() {
           </div>
         )}
 
-        {/* STEP 5: AFFIRMATIONS */}
-        {step === 5 && isPremium && (
-          <div>
-            <h2 style={S.sectionTitle}>Words for You</h2>
-            <p style={S.sectionSub}>On the hard days and the hopeful ones — these are for you.</p>
-            <div style={S.affirmCard}>
-              <div style={{ position:"absolute", top:"24px", left:"28px", fontSize:"72px", lineHeight:1, color:"rgba(107,143,255,0.2)", fontFamily:"'Cormorant Garamond',serif" }}>"</div>
-              <p style={{ fontSize:"22px", lineHeight:1.55, color:"#eef0ff", fontStyle:"italic", marginBottom:"20px", opacity:animating?0:1, transition:"opacity 0.3s", position:"relative", zIndex:1, fontWeight:"300" }}>{AFFIRMATIONS[affirmIdx].text}</p>
-              <div style={{ fontSize:"12px", color:"#7b9fff", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700" }}>— {AFFIRMATIONS[affirmIdx].author}</div>
-            </div>
-            <div style={{ display:"flex", justifyContent:"center", gap:"12px", marginBottom:"32px" }}>
-              <button style={S.btnOutline} onClick={prevAffirm}>← Prev</button>
-              <button style={S.btnAccent} onClick={nextAffirm}>Next →</button>
-            </div>
-            <div style={S.divider} />
-            <div style={{ display:"grid", gap:"10px" }}>
-              {AFFIRMATIONS.map((a,i) => (
-                <div key={i} onClick={() => setAffirmIdx(i)} style={{ padding:"16px 20px", borderRadius:"16px", cursor:"pointer", border:affirmIdx===i?"1.5px solid #7b9fff":"1px solid rgba(110,120,200,0.14)", background:affirmIdx===i?"rgba(80,112,240,0.1)":"rgba(240,244,255,0.04)", transition:"all 0.15s" }}>
-                  <p style={{ margin:0, fontSize:"14px", color:"#c8ccf0", fontStyle:"italic", lineHeight:1.6 }}>"{a.text}"</p>
-                </div>
-              ))}
-            </div>
-            <div style={{ textAlign:"center", marginTop:"36px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(4)}>← Back to Menu</button>
-            </div>
-          </div>
-        )}
+        {/* STEP 5: Redirect to Reminders (affirmations merged) */}
+        {step === 5 && isPremium && (() => { setStep(7); return null; })()}
 
         {/* STEP 6: SUPPLEMENTS */}
         {step === 6 && isPremium && (
@@ -4844,7 +5101,7 @@ export default function NeuroThrive() {
                 <div>
                   {condLabels.length > 0 && (
                     <div style={{ ...S.card, marginBottom:"20px", padding:"12px 18px" }}>
-                      <span style={{ fontSize:"11px", color:"#8890b8", textTransform:"uppercase", letterSpacing:"2px" }}>Personalised for: </span>
+                      <span style={{ fontSize:"11px", color:"#8890b8", textTransform:"uppercase", letterSpacing:"2px" }}>Personalized for: </span>
                       <span style={{ color:"#7b9fff", fontWeight:"600", fontSize:"13px" }}>{condLabels.join(" · ")}</span>
                     </div>
                   )}
@@ -4894,17 +5151,36 @@ export default function NeuroThrive() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:"24px", flexWrap:"wrap", gap:"12px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(5)}>← Affirmations</button>
+              <button style={S.btnOutline} onClick={() => setStep(10)}>← Routine</button>
               <button style={S.btnAccent} onClick={() => setStep(7)}>Set Meal Reminders →</button>
             </div>
           </div>
         )}
 
-        {/* STEP 7: REMINDERS */}
+        {/* STEP 7: REMINDERS & AFFIRMATIONS */}
         {step === 7 && isPremium && (
           <div>
-            <h2 style={S.sectionTitle}>Meal Reminders</h2>
-            <p style={S.sectionSub}>Let NeuroThrive gently remind you when it's time to eat. Especially helpful when focus mode kicks in and hunger goes unnoticed.</p>
+            <h2 style={S.sectionTitle}>Reminders & Affirmations</h2>
+            <p style={S.sectionSub}>Daily motivation and gentle nudges to keep you nourished — body and mind.</p>
+
+            {/* ── Daily Affirmation ── */}
+            <div style={{ marginBottom:"28px" }}>
+              <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"14px" }}>Daily Affirmation</h3>
+              <div style={S.affirmCard}>
+                <div style={{ position:"absolute", top:"24px", left:"28px", fontSize:"72px", lineHeight:1, color:"rgba(107,143,255,0.2)", fontFamily:"'Cormorant Garamond',serif" }}>"</div>
+                <p style={{ fontSize:"22px", lineHeight:1.55, color:"#eef0ff", fontStyle:"italic", marginBottom:"20px", opacity:animating?0:1, transition:"opacity 0.3s", position:"relative", zIndex:1, fontWeight:"300" }}>{AFFIRMATIONS[affirmIdx].text}</p>
+                <div style={{ fontSize:"12px", color:"#7b9fff", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700" }}>— {AFFIRMATIONS[affirmIdx].author}</div>
+              </div>
+              <div style={{ display:"flex", justifyContent:"center", gap:"12px", marginBottom:"16px" }}>
+                <button style={S.btnOutline} onClick={prevAffirm}>← Prev</button>
+                <button style={S.btnAccent} onClick={nextAffirm}>Next →</button>
+              </div>
+            </div>
+
+            <div style={S.divider} />
+
+            {/* ── Meal Reminders ── */}
+            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"14px", marginTop:"24px" }}>Meal Reminders</h3>
             <div style={{ ...S.card, marginBottom:"24px", textAlign:"center", padding:"28px 24px" }}>
               <div style={{ fontSize:"40px", marginBottom:"12px" }}>🔔</div>
               {notifPermission === "granted" ? (
@@ -5029,7 +5305,7 @@ export default function NeuroThrive() {
           return (
           <div>
             <h2 style={S.sectionTitle}>🧠 Brain Toolkit</h2>
-            <p style={S.sectionSub}>How are you feeling right now? Pick your current state for immediate, personalised coping tools.</p>
+            <p style={S.sectionSub}>How are you feeling right now? Pick your current state for immediate, personalized coping tools.</p>
 
             {/* Level 1: Category Grid */}
             {!toolkitCategory && !toolkitState && (
@@ -5151,7 +5427,7 @@ export default function NeuroThrive() {
                 return (
                   <div>
                     <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                      <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalised for <strong style={{color:"#50c878"}}>{exRoutine.label}</strong></span>
+                      <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#50c878"}}>{exRoutine.label}</strong></span>
                       <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>{Object.values(exerciseChecks).filter(Boolean).length}/{exRoutine.options.length} done</span>
                     </div>
                     <div style={{ ...S.card, padding:"16px 20px", marginBottom:"20px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)" }}>
@@ -5197,7 +5473,7 @@ export default function NeuroThrive() {
               return (
                 <div>
                   <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalised for <strong style={{color:"#7b9fff"}}>{routine.label}</strong></span>
+                    <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#7b9fff"}}>{routine.label}</strong></span>
                     <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
                   </div>
                   {steps.map((s, i) => {
@@ -5595,7 +5871,19 @@ export default function NeuroThrive() {
 
             {/* WHY TAB */}
             {modalTab === "why" && (
-              <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.9, whiteSpace:"pre-wrap" }}>{explainText}</div>
+              <div>
+                {(() => { const gn = getGenderNote(explainModal.meal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, explainModal.dayIdx != null ? getPlanDate(explainModal.dayIdx) : undefined); if (!gn) return null; return (
+                  <div style={{ marginBottom:"16px", padding:"12px 16px", borderRadius:"14px", background: gn.phase ? "rgba(168,120,210,0.08)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.2)" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
+                      <span style={{ fontSize:"14px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
+                      <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"13px", fontWeight:"700" }}>{gn.phase ? `${gn.phase.label} · Day ${gn.phase.day}` : "Men's Health"}</span>
+                    </div>
+                    <div style={{ color: gn.phase ? "#d4b8f0" : "#80c0e8", fontSize:"13px", lineHeight:1.6 }}>{gn.short}</div>
+                    {gn.detail && <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6, marginTop:"6px" }}>{gn.detail}</div>}
+                  </div>
+                );})()}
+                <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.9, whiteSpace:"pre-wrap" }}>{explainText}</div>
+              </div>
             )}
 
             {/* RECIPE TAB */}
@@ -5694,14 +5982,14 @@ export default function NeuroThrive() {
             <div style={{ textAlign:"center", marginBottom:"32px" }}>
               <div style={{ fontSize:"48px", marginBottom:"12px" }}>🧠</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 8px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
-              <p style={{ color:"#8890b8", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalised plan is ready — unlock it to begin your journey.</p>
+              <p style={{ color:"#8890b8", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalized plan is ready — unlock it to begin your journey.</p>
             </div>
 
             {/* Features list */}
             <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"16px", padding:"20px 24px", marginBottom:"24px" }}>
               <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"14px" }}>Everything included</div>
               {[
-                "🍽️  30-day personalised mental health meal plan",
+                "🍽️  30-day personalized mental health meal plan",
                 "💊  Evidence-based supplement guidance for your conditions",
                 "📓  Daily mood & energy journal",
                 "✨  182 curated affirmations",
@@ -5758,7 +6046,7 @@ export default function NeuroThrive() {
                   { title:"1. Acceptance of Terms", body:"By accessing or using NeuroThrive (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App." },
                   { title:"2. Not Medical Advice", body:"NeuroThrive provides general wellness and nutritional information for educational purposes only. The App is not a medical device and does not diagnose, treat, cure, or prevent any disease or medical condition.\n\nNothing in this App constitutes medical advice, diagnosis, or treatment. The meal plans, supplement information, affirmations, and routines are for informational and educational purposes only.\n\nAlways seek the advice of a qualified healthcare professional — including your physician, psychiatrist, or registered dietitian — before making any changes to your diet, starting supplements, or modifying any existing treatment plan. This is especially important if you are taking medication or under the care of a mental health professional.\n\nUse of this App does not create a healthcare provider-patient relationship." },
                   { title:"3. Supplement Information", body:"Supplement information presented in the App is provided for educational reference only and is based on published nutritional neuroscience research. We do not recommend specific dosing. Individual needs, health conditions, and potential medication interactions vary greatly. Always consult your doctor or pharmacist before starting, stopping, or changing any supplement regimen." },
-                  { title:"4. User Responsibility", body:"You are solely responsible for any decisions you make based on information provided in NeuroThrive. You acknowledge that:\n\n• The App provides general information, not personalised medical advice.\n• You should verify any information with a qualified healthcare professional.\n• You use the App at your own risk.\n• You are responsible for maintaining the confidentiality of your account credentials." },
+                  { title:"4. User Responsibility", body:"You are solely responsible for any decisions you make based on information provided in NeuroThrive. You acknowledge that:\n\n• The App provides general information, not personalized medical advice.\n• You should verify any information with a qualified healthcare professional.\n• You use the App at your own risk.\n• You are responsible for maintaining the confidentiality of your account credentials." },
                   { title:"5. Subscriptions & Auto-Renewal", body:"NeuroThrive Premium is a paid subscription service.\n\n• Monthly Plan: $9.99 USD per month, billed monthly.\n• Annual Plan: $59.99 USD per year, billed annually.\n\nSubscriptions automatically renew at the end of each billing period at the then-current price unless cancelled at least 24 hours before the end of the current period. You will be charged for renewal within 24 hours prior to the end of the current period.\n\nYou may cancel your subscription at any time. Cancellation takes effect at the end of your current billing period — you will retain access until then. No partial refunds are provided for unused portions of a billing period.\n\nWe reserve the right to change subscription pricing with at least 30 days' notice. Price changes will not affect your current billing period.\n\nTo manage or cancel your subscription, visit your account settings or contact support@neurothrive.app." },
                   { title:"6. Account Deletion", body:"You may delete your account and all associated data at any time using the \"Delete Account\" option in the App footer. Account deletion is immediate and permanent — all personal data, journal entries, meal plans, and progress data will be irreversibly removed from our servers. Active subscriptions should be cancelled separately before account deletion." },
                   { title:"7. Intellectual Property", body:"All content in NeuroThrive — including but not limited to meal plans, recipes, supplement information, affirmations, routines, exercise descriptions, design elements, and software code — is the exclusive property of NeuroThrive and is protected by copyright law. Unauthorized reproduction, distribution, modification, or commercial use is strictly prohibited." },
@@ -5782,8 +6070,8 @@ export default function NeuroThrive() {
                 {[
                   { title:"1. Introduction", body:"NeuroThrive (\"we,\" \"our,\" or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and related services (collectively, the \"App\"). By using the App, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use the App." },
                   { title:"2. Information We Collect", body:"We collect the following categories of information:\n\n• Account Information: Email address and encrypted password (required for account creation and authentication).\n• Profile Information: Gender selection, selected mental health conditions, dietary preferences, and calorie target. You choose what to provide.\n• Usage Data: Mood and energy journal entries, daily meal check-ins, food log history, routine and exercise completion data, and app navigation state.\n• Meal Plan Data: Your generated 30-day meal plan, plan cycle number, and cycle start date.\n• Reminder Preferences: Your chosen reminder times and notification settings.\n• Payment Information: Subscription plan type and status. Full payment details (credit card numbers) are processed and stored exclusively by our payment processor and are never stored on our servers.\n\nWe do NOT collect: location data, device sensor data, contacts, photos, browsing history, advertising identifiers, or any data from Apple HealthKit or similar health frameworks." },
-                  { title:"3. How We Use Your Information", body:"We use your information solely for the following purposes:\n\n• To personalise your experience: Your selected conditions and dietary preferences determine your meal plan, supplement guidance, exercise recommendations, and daily routines.\n• To save your progress: Journal entries, daily check-ins, and food logs are stored so you can track your wellness journey over time.\n• To manage your account: Email is used for authentication, password recovery, and important account communications.\n• To process payments: Subscription status determines access to premium features.\n• To improve the App: We may analyse aggregated, de-identified usage patterns to improve the App. Individual health data is never used for this purpose.\n\nWe do NOT use your data for advertising, marketing to third parties, data mining, or any purpose unrelated to providing and improving the App." },
-                  { title:"4. Health Information", body:"NeuroThrive collects health-related information (selected mental health conditions, mood/energy ratings) that you voluntarily provide. This information is:\n\n• Used exclusively to personalise your in-app experience (meal plans, routines, supplements, affirmations).\n• Stored securely with encryption at rest and in transit.\n• Never shared with advertisers, data brokers, insurers, employers, or any third party for marketing or profiling purposes.\n• Never stored in iCloud or Apple HealthKit.\n• Not used to diagnose, treat, cure, or prevent any medical condition.\n\nYou may delete all health information at any time by deleting your account (see Section 8)." },
+                  { title:"3. How We Use Your Information", body:"We use your information solely for the following purposes:\n\n• To personalize your experience: Your selected conditions and dietary preferences determine your meal plan, supplement guidance, exercise recommendations, and daily routines.\n• To save your progress: Journal entries, daily check-ins, and food logs are stored so you can track your wellness journey over time.\n• To manage your account: Email is used for authentication, password recovery, and important account communications.\n• To process payments: Subscription status determines access to premium features.\n• To improve the App: We may analyse aggregated, de-identified usage patterns to improve the App. Individual health data is never used for this purpose.\n\nWe do NOT use your data for advertising, marketing to third parties, data mining, or any purpose unrelated to providing and improving the App." },
+                  { title:"4. Health Information", body:"NeuroThrive collects health-related information (selected mental health conditions, mood/energy ratings) that you voluntarily provide. This information is:\n\n• Used exclusively to personalize your in-app experience (meal plans, routines, supplements, affirmations).\n• Stored securely with encryption at rest and in transit.\n• Never shared with advertisers, data brokers, insurers, employers, or any third party for marketing or profiling purposes.\n• Never stored in iCloud or Apple HealthKit.\n• Not used to diagnose, treat, cure, or prevent any medical condition.\n\nYou may delete all health information at any time by deleting your account (see Section 8)." },
                   { title:"5. Third-Party Services", body:"We use the following third-party services to operate the App:\n\n• Supabase (Database & Authentication): Stores your account data and app content securely. Supabase provides enterprise-grade encryption at rest (AES-256) and in transit (TLS 1.2+). Supabase's privacy policy: https://supabase.com/privacy\n• Stripe (Payment Processing): Processes subscription payments. Stripe is PCI DSS Level 1 certified. NeuroThrive never receives or stores your full credit card number. Stripe's privacy policy: https://stripe.com/privacy\n• Netlify (Hosting & Serverless Functions): Hosts the App and processes server-side requests. Netlify's privacy policy: https://www.netlify.com/privacy\n• Google Fonts (Typography): Loads font files for display. No personal data is transmitted to Google through this service.\n\nWe do not share your personal data with any other third parties. We do not use any advertising SDKs, analytics trackers, or third-party AI services that process your personal data." },
                   { title:"6. Data Retention", body:"We retain your personal data for as long as your account is active. Specifically:\n\n• Account and profile data: Retained until you delete your account.\n• Journal entries, food logs, and check-in data: Retained until you delete your account.\n• Payment records: Retained as required by applicable tax and financial regulations (typically 7 years for transaction records).\n\nWhen you delete your account, all personal data stored in our database (profile, conditions, diet, journal entries, meal plans, daily checks, food logs) is permanently deleted. This action is irreversible." },
                   { title:"7. Data Security", body:"We implement industry-standard security measures to protect your data:\n\n• All data is encrypted at rest using AES-256 encryption.\n• All data in transit is protected by TLS 1.2 or higher.\n• Passwords are hashed and never stored in plain text.\n• Database access requires authenticated API keys.\n• We do not store payment card data on our servers.\n\nWhile we strive to protect your information, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security." },
