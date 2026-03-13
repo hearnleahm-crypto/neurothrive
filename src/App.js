@@ -4456,8 +4456,8 @@ export default function NeuroThrive() {
         @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(107,143,255,0.1); } 50% { box-shadow: 0 0 40px rgba(107,143,255,0.25); } }
         @keyframes subtleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
         button { transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94); }
-        button:hover { opacity: 0.92; transform: translateY(-1px); }
-        button:active { transform: translateY(0) scale(0.98); }
+        button:hover { opacity: 0.88; }
+        button:active { opacity: 0.95; }
         details > summary { user-select: none; }
         details > summary::-webkit-details-marker { display: none; }
         .nav-tabs-scroll::-webkit-scrollbar { display: none; }
