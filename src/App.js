@@ -5452,12 +5452,62 @@ export default function NeuroThrive() {
                 const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
                 const exerciseChecks = getTodayChecks().exerciseOptions || {};
                 const anyChecked = Object.values(exerciseChecks).some(Boolean);
+                const cyclePhase = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null;
+                const CYCLE_EXERCISE = {
+                  menstrual: [
+                    { day: [1,2], emoji: "🚶", type: "Gentle Walk", why: "Your body is shedding its uterine lining and prostaglandins are highest. Light movement increases blood flow to ease cramps without taxing your already-low iron and energy reserves." },
+                    { day: [3,4], emoji: "🧘", type: "Restorative Yoga", why: "Estrogen and progesterone are at their lowest point. Gentle stretching stimulates the parasympathetic nervous system, reducing the cortisol spike that low hormones leave unchecked." },
+                    { day: [5], emoji: "🤸", type: "Light Pilates", why: "Bleeding is tapering and estrogen is beginning to rise. Your energy is returning — Pilates rebuilds core engagement gently as your body transitions into the follicular phase." },
+                  ],
+                  follicular: [
+                    { day: [6,7,8], emoji: "🏃", type: "Moderate Cardio", why: "Rising estrogen increases pain tolerance, reaction time, and muscle recovery speed. Your body can handle more intensity now — cardio capitalizes on estrogen's performance-enhancing effects." },
+                    { day: [9,10,11], emoji: "🏋️", type: "Strength Training", why: "Estrogen peaks enhance muscle protein synthesis and tendon stiffness, making this your strongest phase for lifting. You'll recover faster and build more lean muscle per session than any other time in your cycle." },
+                    { day: [12,13], emoji: "🔥", type: "HIIT / High Intensity", why: "Estrogen is approaching its peak, maximizing your VO2 max, anaerobic threshold, and neuromuscular coordination. Your body is primed for its highest output — take advantage before ovulation." },
+                  ],
+                  ovulatory: [
+                    { day: [14,15], emoji: "🔥", type: "HIIT / Power Training", why: "Estrogen peaks alongside a surge in luteinizing hormone — your testosterone also briefly spikes. This is your absolute performance peak: fastest reaction time, highest pain tolerance, strongest power output." },
+                    { day: [16], emoji: "💃", type: "Dance / Group Fitness", why: "The oxytocin and estrogen peak makes you more social and coordinated. Group exercise leverages this neurochemistry — you'll feel more motivated by others and more graceful in complex movements." },
+                  ],
+                  luteal: [
+                    { day: [17,18,19,20], emoji: "🏋️", type: "Moderate Strength", why: "Progesterone is rising, increasing your core body temperature and metabolic rate. You burn more calories at rest but fatigue faster — moderate lifting with longer rest periods matches your shifting physiology." },
+                    { day: [21,22,23,24], emoji: "🧘", type: "Yoga / Steady Cardio", why: "Progesterone peaks, raising body temperature and reducing heat tolerance. Serotonin drops as progesterone metabolites compete for the same receptors — gentle movement boosts serotonin without overheating." },
+                    { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now — gentle movement prevents cortisol spikes while magnesium-demanding exercise could worsen cramps." },
+                  ],
+                };
+                const getCycleSuggestion = (phase) => {
+                  if (!phase) return null;
+                  const options = CYCLE_EXERCISE[phase.phase];
+                  if (!options) return null;
+                  for (const opt of options) {
+                    if (opt.day.includes(phase.day)) return opt;
+                  }
+                  return options[options.length - 1];
+                };
+                const cycleSuggestion = getCycleSuggestion(cyclePhase);
                 return (
                   <div>
                     <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
                       <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#50c878"}}>{exRoutine.label}</strong></span>
                       <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>{Object.values(exerciseChecks).filter(Boolean).length}/{exRoutine.options.length} done</span>
                     </div>
+                    {cycleSuggestion && cyclePhase && (
+                      <div style={{ ...S.card, padding:"20px 22px", marginBottom:"20px", background:"rgba(168,120,210,0.06)", border:"1px solid rgba(168,120,210,0.2)" }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"12px" }}>
+                          <span style={{ fontSize:"20px" }}>{cyclePhase.emoji}</span>
+                          <div>
+                            <div style={{ color:"#e8d0ff", fontSize:"14px", fontWeight:"700" }}>{cyclePhase.label} — Day {cyclePhase.day}</div>
+                            <div style={{ color:"#a088c8", fontSize:"11px", marginTop:"2px" }}>Cycle-synced exercise suggestion</div>
+                          </div>
+                        </div>
+                        <div style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.12)", marginBottom:"12px" }}>
+                          <span style={{ fontSize:"28px" }}>{cycleSuggestion.emoji}</span>
+                          <div>
+                            <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700" }}>Today: {cycleSuggestion.type}</div>
+                          </div>
+                        </div>
+                        <div style={{ color:"#b0a0d0", fontSize:"12.5px", lineHeight:1.8 }}>{cycleSuggestion.why}</div>
+                      </div>
+                    )}
                     <div style={{ ...S.card, padding:"16px 20px", marginBottom:"20px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)" }}>
                       <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Choose any of the following</div>
                       <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6 }}>Check off whichever exercises you do today. Every one counts toward your daily score.</div>
