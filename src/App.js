@@ -3718,10 +3718,10 @@ export default function NeuroThrive() {
           if (data.logs) setLogs(data.logs);
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
           if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
-          // Always start at step 0 (Welcome) on fresh load — user goes through
-          // disclaimer → welcome → gender before reaching their saved position.
-          // Save the step so we can resume after onboarding.
-          if (data.step && data.step > 1) {
+          // If user has completed setup (has menu + gender), resume directly
+          if (data.step && data.step >= 4 && data.menu30 && data.selected_gender) {
+            setStep(data.step);
+          } else if (data.step && data.step > 1) {
             setResumeStep(data.step);
           }
           if (data.reminders_enabled) setRemindersEnabled(data.reminders_enabled);
