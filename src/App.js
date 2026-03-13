@@ -80,9 +80,9 @@ const ALL_MEALS = {
     { name: "Steak & Veggie Hash with Fresh Peach & Raspberry Side", tags: ["meat"], conditions: ["adhd","default"] },
     { name: "Chicken Sausage with Sliced Plum & Honeydew Melon", tags: ["meat"], conditions: ["adhd","default"] },
     { name: "Turkey Sauté with Strawberry, Banana & Sunflower Seeds", tags: ["meat","seed"], conditions: ["adhd","default"] },
-    { name: "Banana Oatmeal with Honey & Cinnamon", tags: ["gluten"], conditions: ["anxiety","default"] },
+    { name: "Banana Oatmeal with Honey & Cinnamon", tags: ["gluten"], conditions: ["anxiety","eating","phobia","hpd","default"] },
     { name: "Avocado & Egg Toast on Sourdough", tags: ["egg","gluten"], conditions: ["anxiety","default"] },
-    { name: "Blueberry Greek Yogurt Parfait", tags: ["dairy"], conditions: ["anxiety","default"] },
+    { name: "Blueberry Greek Yogurt Parfait", tags: ["dairy"], conditions: ["anxiety","phobia","neuro_core","bfrb","default"] },
     { name: "Warm Oatmeal with Sliced Banana & Walnuts", tags: ["gluten","nuts"], conditions: ["anxiety","default"] },
     { name: "Smoothie Bowl with Spinach, Banana & Granola", tags: ["gluten"], conditions: ["anxiety","depression","default"] },
     { name: "Whole Grain Pancakes with Sliced Strawberries & Honey", tags: ["egg","gluten","dairy"], conditions: ["anxiety","default"] },
@@ -93,25 +93,25 @@ const ALL_MEALS = {
     { name: "Grilled Chicken & Spinach Breakfast Wrap", tags: ["gluten","meat"], conditions: ["anxiety","default"] },
     { name: "Spinach & Mushroom Omelette with Toast", tags: ["egg","gluten","mushroom"], conditions: ["depression","default"] },
     { name: "Whole Grain Pancakes with Fresh Berries", tags: ["egg","gluten","dairy"], conditions: ["depression","default"] },
-    { name: "Greek Yogurt Bowl with Granola & Banana", tags: ["dairy","gluten"], conditions: ["depression","anxiety","default"] },
+    { name: "Greek Yogurt Bowl with Granola & Banana", tags: ["dairy","gluten"], conditions: ["depression","anxiety","eating","hpd","default"] },
     { name: "Oatmeal with Sliced Banana & Chia Seeds", tags: ["gluten","seed"], conditions: ["depression","bipolar","default"] },
     { name: "Veggie Omelette with Whole Grain Toast & OJ", tags: ["egg","gluten"], conditions: ["depression","schizophrenia","default"] },
-    { name: "Turkey & Veggie Breakfast Skillet", tags: ["meat"], conditions: ["depression","default"] },
+    { name: "Turkey & Veggie Breakfast Skillet", tags: ["meat"], conditions: ["depression","npd","aspd","spd","default"] },
     { name: "Chicken Sausage with Roasted Peppers & Zucchini", tags: ["meat"], conditions: ["depression","default"] },
-    { name: "Lentil & Veggie Breakfast Bowl", tags: ["legume"], conditions: ["depression","anxiety","default"] },
+    { name: "Lentil & Veggie Breakfast Bowl", tags: ["legume"], conditions: ["depression","anxiety","aspd","bfrb","spd","default"] },
     { name: "Oatmeal with Flaxseed, Berries & Honey", tags: ["gluten","seed"], conditions: ["bipolar","default"] },
     { name: "Scrambled Eggs & Whole Grain Toast with Sliced Banana", tags: ["egg","gluten"], conditions: ["bipolar","default"] },
     { name: "Smoothie Bowl with Spinach, Mango & Granola", tags: ["gluten"], conditions: ["bipolar","default"] },
     { name: "Whole Grain Toast with Avocado & Poached Egg", tags: ["egg","gluten"], conditions: ["bipolar","default"] },
     { name: "Banana Oat Pancakes with Maple Syrup & Blueberries", tags: ["egg","gluten","dairy"], conditions: ["bipolar","bpd","default"] },
-    { name: "Overnight Oats with Chia, Banana & Almond Milk", tags: ["gluten","nuts","seed"], conditions: ["bipolar","default"] },
+    { name: "Overnight Oats with Chia, Banana & Almond Milk", tags: ["gluten","nuts","seed"], conditions: ["bipolar","hpd","ppd","bfrb","default"] },
     { name: "Quinoa Porridge with Berries & Honey", tags: [], conditions: ["bipolar","default"] },
     { name: "Turkey Sausage with Roasted Sweet Potato Hash", tags: ["meat"], conditions: ["bipolar","default"] },
     { name: "Chia Seed Pudding with Mango & Coconut", tags: ["seed","coconut"], conditions: ["bipolar","anxiety","default"] },
-    { name: "Oatmeal with Walnuts & Blueberries", tags: ["gluten","nuts"], conditions: ["schizophrenia","default"] },
+    { name: "Oatmeal with Walnuts & Blueberries", tags: ["gluten","nuts"], conditions: ["schizophrenia","neuro_core","npd","bfrb","default"] },
     { name: "Whole Grain Cereal with Milk & Sliced Banana", tags: ["gluten","dairy"], conditions: ["schizophrenia","default"] },
     { name: "Greek Yogurt Parfait with Granola & Berries", tags: ["dairy","gluten"], conditions: ["schizophrenia","ptsd","default"] },
-    { name: "Warm Oatmeal with Banana & Honey", tags: ["gluten"], conditions: ["ptsd","did","default"] },
+    { name: "Warm Oatmeal with Banana & Honey", tags: ["gluten"], conditions: ["ptsd","did","ppd","eating","phobia","default"] },
     { name: "Smoothie with Spinach, Banana & Almond Milk", tags: ["nuts"], conditions: ["ptsd","default"] },
     { name: "Whole Grain Toast with Peanut Butter & Sliced Banana", tags: ["gluten","nuts"], conditions: ["ptsd","ocd","default"] },
     { name: "Oatmeal with Cinnamon, Apple & Walnuts", tags: ["gluten","nuts"], conditions: ["ptsd","ocd","default"] },
@@ -154,20 +154,20 @@ const ALL_MEALS = {
     { name: "Avocado Toast on Sourdough with Everything Bagel Seasoning", tags: ["gluten"], conditions: ["anxiety","depression","default"] },
     { name: "Whole Grain English Muffin with Peanut Butter & Honey", tags: ["gluten","nuts"], conditions: ["anxiety","ocd","default"] },
     // ── Expanded: Rice, Sweet Potato, Oats, Blueberry, Pomegranate, Salmon ──
-    { name: "Brown Rice Porridge with Cinnamon & Sliced Banana", tags: ["rice"], conditions: ["anxiety","did","bipolar","autism","default"] },
+    { name: "Brown Rice Porridge with Cinnamon & Sliced Banana", tags: ["rice"], conditions: ["anxiety","did","bipolar","autism","hpd","phobia","bfrb","default"] },
     { name: "Sweet Potato & Oat Breakfast Bowl with Pecans", tags: ["gluten","nuts"], conditions: ["adhd","schizophrenia","ptsd","default"] },
     { name: "Blueberry Oat Muffins (Homemade)", tags: ["gluten","egg"], conditions: ["depression","ptsd","schizophrenia","default"] },
     { name: "Pomegranate & Greek Yogurt Bowl with Granola", tags: ["dairy","gluten"], conditions: ["ptsd","depression","schizophrenia","default"] },
-    { name: "Smoked Salmon on Whole Grain Toast with Cream Cheese", tags: ["fish","gluten","dairy"], conditions: ["depression","anxiety","ocd","schizophrenia","default"] },
-    { name: "Salmon & Avocado Rice Bowl", tags: ["fish","rice"], conditions: ["depression","ptsd","bipolar","ocd","default"] },
-    { name: "Steel-Cut Oats with Blueberries & Walnuts", tags: ["gluten","nuts"], conditions: ["depression","schizophrenia","ocd","default"] },
-    { name: "Sweet Potato Hash with Scrambled Eggs & Avocado", tags: ["egg"], conditions: ["adhd","ptsd","did","autism","default"] },
+    { name: "Smoked Salmon on Whole Grain Toast with Cream Cheese", tags: ["fish","gluten","dairy"], conditions: ["depression","anxiety","ocd","schizophrenia","npd","neuro_core","ppd","default"] },
+    { name: "Salmon & Avocado Rice Bowl", tags: ["fish","rice"], conditions: ["depression","ptsd","bipolar","ocd","npd","hpd","aspd","spd","neuro_core","default"] },
+    { name: "Steel-Cut Oats with Blueberries & Walnuts", tags: ["gluten","nuts"], conditions: ["depression","schizophrenia","ocd","neuro_core","bfrb","default"] },
+    { name: "Sweet Potato Hash with Scrambled Eggs & Avocado", tags: ["egg"], conditions: ["adhd","ptsd","did","autism","hpd","spd","ppd","default"] },
     { name: "Oatmeal with Pomegranate Seeds & Pistachios", tags: ["gluten","nuts","seed"], conditions: ["ptsd","depression","schizophrenia","default"] },
     { name: "Brown Rice Breakfast Bowl with Egg & Sautéed Greens", tags: ["rice","egg"], conditions: ["anxiety","bipolar","did","default"] },
     { name: "Blueberry Banana Smoothie with Oat Milk", tags: ["gluten"], conditions: ["depression","ptsd","anxiety","default"] },
     { name: "Sweet Potato Pancakes with Maple Syrup", tags: ["egg","gluten"], conditions: ["adhd","schizophrenia","autism","did","default"] },
     { name: "Overnight Oats with Blueberries & Almond Butter", tags: ["gluten","nuts"], conditions: ["depression","ocd","bpd","default"] },
-    { name: "Salmon Omelette with Fresh Dill & Whole Grain Toast", tags: ["fish","egg","gluten"], conditions: ["depression","anxiety","schizophrenia","default"] },
+    { name: "Salmon Omelette with Fresh Dill & Whole Grain Toast", tags: ["fish","egg","gluten"], conditions: ["depression","anxiety","schizophrenia","npd","aspd","spd","neuro_core","default"] },
     { name: "Quinoa & Blueberry Breakfast Bowl with Honey", tags: [], conditions: ["bipolar","depression","ptsd","default"] },
     { name: "Baked Oatmeal with Apples & Cinnamon", tags: ["gluten","egg"], conditions: ["ocd","ptsd","did","bpd","default"] },
     { name: "Brown Rice Congee with Soft-Boiled Egg & Ginger", tags: ["rice","egg"], conditions: ["anxiety","autism","did","default"] },
@@ -177,6 +177,17 @@ const ALL_MEALS = {
     { name: "Salmon & Cream Cheese Bagel with Capers", tags: ["fish","gluten","dairy"], conditions: ["depression","anxiety","bipolar","default"] },
     { name: "Warm Millet Porridge with Sliced Banana & Honey", tags: [], conditions: ["anxiety","ocd","autism","did","default"] },
     { name: "Savory Oatmeal with Poached Egg & Avocado", tags: ["gluten","egg"], conditions: ["depression","bipolar","bpd","ocd","default"] },
+    // ── Condition-specific: NPD, HPD, ASPD, Eating, Phobia, BFRB, PPD, SPD, Neuro Core ──
+    { name: "Egg & Avocado Toast with Smoked Salmon & Microgreens", tags: ["fish","egg","gluten"], conditions: ["neuro_core","npd","default"] },
+    { name: "Scrambled Eggs with Broccoli, Garlic & Whole Grain Toast", tags: ["egg","gluten","onion"], conditions: ["bfrb","neuro_core","default"] },
+    { name: "Green Tea Smoothie with Banana, Spinach & Almond Butter", tags: ["nuts"], conditions: ["phobia","hpd","neuro_core","default"] },
+    { name: "Steak & Egg Scramble with Avocado & Whole Grain Toast", tags: ["meat","egg","gluten"], conditions: ["spd","neuro_core","default"] },
+    { name: "Warm Oatmeal with Pumpkin Seeds, Banana & Honey", tags: ["gluten","seed"], conditions: ["ppd","npd","aspd","default"] },
+    { name: "Scrambled Eggs with Toast & Fresh Fruit Salad", tags: ["egg","gluten"], conditions: ["eating","did","default"] },
+    { name: "Banana & Almond Smoothie with Egg & Honey", tags: ["nuts","egg"], conditions: ["spd","default"] },
+    { name: "Turkey & Egg Breakfast Wrap with Spinach", tags: ["meat","egg","gluten"], conditions: ["bfrb","aspd","default"] },
+    { name: "Yogurt & Berry Smoothie with Chia Seeds", tags: ["dairy","seed"], conditions: ["phobia","hpd","default"] },
+    { name: "Grapefruit & Greek Yogurt Bowl with Walnuts", tags: ["dairy","nuts","citrus"], conditions: ["bfrb","default"] },
   ],
   lunch: [
     { name: "Grilled Chicken Breast with Watermelon & Feta Salad", tags: ["dairy","meat"], conditions: ["adhd","default"] },
@@ -233,7 +244,7 @@ const ALL_MEALS = {
     { name: "Turkey Soup with Whole Grain Roll", tags: ["meat","gluten"], conditions: ["ocd","default"] },
     { name: "Turkey & Avocado Wrap with Side Salad", tags: ["meat","gluten"], conditions: ["ocd","default"] },
     { name: "Grilled Chicken Strips with Mac & Cheese", tags: ["meat","gluten","dairy"], conditions: ["autism","default"] },
-    { name: "Plain Turkey Sandwich on Whole Grain Bread", tags: ["meat","gluten"], conditions: ["autism","default"] },
+    { name: "Plain Turkey Sandwich on Whole Grain Bread", tags: ["meat","gluten"], conditions: ["autism","eating","default"] },
     { name: "Buttered Pasta with Mild Chicken", tags: ["meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Chicken Nuggets with Plain Rice & Corn", tags: ["meat","corn","gluten"], conditions: ["autism","default"] },
     { name: "Grilled Cheese Sandwich with Plain Chicken Soup", tags: ["meat","gluten","dairy"], conditions: ["autism","default"] },
@@ -258,28 +269,41 @@ const ALL_MEALS = {
     { name: "Beef Quesadilla on Flour Tortilla with Guacamole", tags: ["meat","gluten","dairy"], conditions: ["adhd","depression","default"] },
     { name: "Corn Chowder with Whole Grain Bread Roll", tags: ["corn","gluten","dairy"], conditions: ["anxiety","depression","default"] },
     // ── Expanded: Rice, Sweet Potato, Salmon, Lentil, Blueberry, Pomegranate ──
-    { name: "Salmon & Brown Rice Bowl with Avocado & Cucumber", tags: ["fish","rice"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","default"] },
-    { name: "Sweet Potato & Black Bean Burrito Bowl", tags: ["legume"], conditions: ["anxiety","depression","adhd","bpd","default"] },
+    { name: "Salmon & Brown Rice Bowl with Avocado & Cucumber", tags: ["fish","rice"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","npd","hpd","aspd","phobia","bfrb","ppd","spd","neuro_core","default"] },
+    { name: "Sweet Potato & Black Bean Burrito Bowl", tags: ["legume"], conditions: ["anxiety","depression","adhd","bpd","hpd","ppd","default"] },
     { name: "Lentil & Sweet Potato Soup with Whole Grain Bread", tags: ["legume","gluten"], conditions: ["depression","anxiety","ptsd","ocd","default"] },
-    { name: "Brown Rice & Grilled Chicken Bowl with Steamed Broccoli", tags: ["meat","rice"], conditions: ["schizophrenia","bipolar","ocd","ptsd","default"] },
-    { name: "Salmon Salad with Blueberries, Walnuts & Spinach", tags: ["fish","nuts"], conditions: ["depression","ptsd","schizophrenia","default"] },
+    { name: "Brown Rice & Grilled Chicken Bowl with Steamed Broccoli", tags: ["meat","rice"], conditions: ["schizophrenia","bipolar","ocd","ptsd","hpd","bfrb","phobia","default"] },
+    { name: "Salmon Salad with Blueberries, Walnuts & Spinach", tags: ["fish","nuts"], conditions: ["depression","ptsd","schizophrenia","neuro_core","npd","ppd","bfrb","default"] },
     { name: "Quinoa & Roasted Sweet Potato Salad with Cranberries", tags: [], conditions: ["depression","anxiety","bipolar","default"] },
     { name: "Turkey & Brown Rice Stuffed Peppers", tags: ["meat","rice","nightshade"], conditions: ["adhd","bipolar","schizophrenia","default"] },
-    { name: "Lentil & Brown Rice Bowl with Roasted Vegetables", tags: ["legume","rice"], conditions: ["depression","anxiety","ocd","default"] },
-    { name: "Salmon Wrap with Avocado & Mixed Greens", tags: ["fish","gluten"], conditions: ["depression","anxiety","bpd","default"] },
-    { name: "Sweet Potato & Chickpea Curry Bowl", tags: ["legume"], conditions: ["anxiety","depression","ptsd","default"] },
+    { name: "Lentil & Brown Rice Bowl with Roasted Vegetables", tags: ["legume","rice"], conditions: ["depression","anxiety","ocd","aspd","bfrb","spd","default"] },
+    { name: "Salmon Wrap with Avocado & Mixed Greens", tags: ["fish","gluten"], conditions: ["depression","anxiety","bpd","npd","phobia","ppd","spd","default"] },
+    { name: "Sweet Potato & Chickpea Curry Bowl", tags: ["legume"], conditions: ["anxiety","depression","ptsd","hpd","phobia","ppd","spd","default"] },
     { name: "Pomegranate & Chicken Grain Bowl with Quinoa", tags: ["meat"], conditions: ["ptsd","depression","schizophrenia","default"] },
-    { name: "Brown Rice Sushi Bowl with Salmon & Edamame", tags: ["fish","rice","soy","legume"], conditions: ["depression","anxiety","bipolar","default"] },
+    { name: "Brown Rice Sushi Bowl with Salmon & Edamame", tags: ["fish","rice","soy","legume"], conditions: ["depression","anxiety","bipolar","neuro_core","hpd","default"] },
     { name: "Chicken & Sweet Potato Bowl with Brown Rice", tags: ["meat","rice"], conditions: ["adhd","schizophrenia","did","default"] },
     { name: "Mediterranean Lentil Salad with Feta & Lemon", tags: ["legume","dairy","citrus"], conditions: ["anxiety","depression","bipolar","default"] },
     { name: "Grilled Salmon Sandwich on Whole Grain Bread", tags: ["fish","gluten"], conditions: ["depression","ocd","ptsd","default"] },
     { name: "Sweet Potato & Turkey Chili", tags: ["meat"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
     { name: "Brown Rice Bowl with Roasted Veggies & Tahini Drizzle", tags: ["rice","seed"], conditions: ["anxiety","ocd","bpd","default"] },
-    { name: "Salmon & Quinoa Power Bowl with Pomegranate", tags: ["fish"], conditions: ["depression","ptsd","schizophrenia","default"] },
-    { name: "Lentil Soup with Spinach & Brown Rice", tags: ["legume","rice"], conditions: ["depression","anxiety","ocd","ptsd","default"] },
+    { name: "Salmon & Quinoa Power Bowl with Pomegranate", tags: ["fish"], conditions: ["depression","ptsd","schizophrenia","neuro_core","npd","aspd","default"] },
+    { name: "Lentil Soup with Spinach & Brown Rice", tags: ["legume","rice"], conditions: ["depression","anxiety","ocd","ptsd","aspd","spd","bfrb","default"] },
     { name: "Chicken & Lentil Brown Rice Bowl", tags: ["meat","legume","rice"], conditions: ["bipolar","schizophrenia","ocd","default"] },
-    { name: "Roasted Sweet Potato & Kale Salad with Pomegranate Seeds", tags: ["seed"], conditions: ["ptsd","depression","schizophrenia","default"] },
+    { name: "Roasted Sweet Potato & Kale Salad with Pomegranate Seeds", tags: ["seed"], conditions: ["ptsd","depression","schizophrenia","ppd","spd","bfrb","default"] },
     { name: "Tuna & Brown Rice Bowl with Avocado", tags: ["fish","rice"], conditions: ["depression","anxiety","ocd","default"] },
+    // ── Condition-specific: NPD, HPD, ASPD, Eating, Phobia, BFRB, PPD, SPD, Neuro Core ──
+    { name: "Grilled Chicken & Chickpea Bowl with Tahini Dressing", tags: ["meat","legume","seed"], conditions: ["npd","aspd","default"] },
+    { name: "Sardine & Avocado Toast with Mixed Greens Salad", tags: ["fish","gluten"], conditions: ["aspd","neuro_core","default"] },
+    { name: "Chicken & Rice Soup with Crusty Bread", tags: ["meat","gluten","rice"], conditions: ["eating","did","ppd","default"] },
+    { name: "Turkey & Black Bean Bowl with Sweet Potato & Yogurt", tags: ["meat","legume","dairy"], conditions: ["ppd","hpd","default"] },
+    { name: "Grilled Chicken & Brussels Sprout Bowl with Brown Rice", tags: ["meat","rice"], conditions: ["bfrb","default"] },
+    { name: "Grilled Chicken & Lentil Bowl with Spinach & Tahini", tags: ["meat","legume","seed"], conditions: ["spd","neuro_core","default"] },
+    { name: "Turkey Burger with Sweet Potato Fries & Side Salad", tags: ["meat","gluten"], conditions: ["spd","eating","default"] },
+    { name: "Chicken & Spinach Stir-Fry with Quinoa", tags: ["meat"], conditions: ["phobia","npd","default"] },
+    { name: "Grilled Salmon Salad with Avocado, Spinach & Pumpkin Seeds", tags: ["fish","seed"], conditions: ["phobia","ppd","neuro_core","default"] },
+    { name: "Kimchi Rice Bowl with Grilled Chicken & Steamed Veggies", tags: ["meat","rice"], conditions: ["hpd","neuro_core","ppd","default"] },
+    { name: "Mac & Cheese with Steamed Broccoli & Grilled Chicken", tags: ["meat","gluten","dairy"], conditions: ["eating","autism","default"] },
+    { name: "Turkey & Cheese Wrap with Fruit Cup", tags: ["meat","gluten","dairy"], conditions: ["eating","did","default"] },
   ],
   dinner: [
     { name: "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side", tags: ["meat"], conditions: ["adhd","default"] },
@@ -324,7 +348,7 @@ const ALL_MEALS = {
     { name: "Baked Chicken Thighs with Roasted Sweet Potato & Broccoli", tags: ["meat"], conditions: ["ptsd","default"] },
     { name: "Lean Beef Tacos with Avocado & Pico de Gallo", tags: ["meat"], conditions: ["ptsd","default"] },
     { name: "Oven-Roasted Chicken with Root Vegetables & Quinoa", tags: ["meat"], conditions: ["ptsd","default"] },
-    { name: "Baked Chicken with Mashed Potatoes & Green Beans", tags: ["meat"], conditions: ["did","default"] },
+    { name: "Baked Chicken with Mashed Potatoes & Green Beans", tags: ["meat"], conditions: ["did","eating","default"] },
     { name: "Ground Beef Pasta with Marinara Sauce", tags: ["meat","gluten"], conditions: ["did","default"] },
     { name: "Grilled Steak with Mashed Potatoes & Green Beans", tags: ["meat"], conditions: ["did","default"] },
     { name: "Ground Turkey Taco Bowl with Brown Rice & Beans", tags: ["meat","rice","legume"], conditions: ["did","default"] },
@@ -343,11 +367,11 @@ const ALL_MEALS = {
     { name: "Ground Beef & Noodle Casserole", tags: ["meat","gluten"], conditions: ["autism","default"] },
     { name: "Mild Chicken Stir-Fry with Plain Noodles", tags: ["meat","gluten"], conditions: ["autism","default"] },
     { name: "Baked Chicken Breast with Corn & Mashed Potatoes", tags: ["meat","corn","dairy"], conditions: ["autism","default"] },
-    { name: "Grilled Salmon with Asparagus & Quinoa", tags: ["fish"], conditions: ["anxiety","default"] },
-    { name: "Baked Salmon with Mashed Sweet Potato & Green Beans", tags: ["fish"], conditions: ["depression","default"] },
-    { name: "Pan-Seared Salmon with Quinoa & Roasted Asparagus", tags: ["fish"], conditions: ["depression","ptsd","ocd","default"] },
-    { name: "Baked Salmon with Sweet Potato & Green Beans", tags: ["fish"], conditions: ["anxiety","default"] },
-    { name: "Grilled Salmon with Brown Rice & Steamed Broccoli", tags: ["fish","rice"], conditions: ["ocd","bipolar","default"] },
+    { name: "Grilled Salmon with Asparagus & Quinoa", tags: ["fish"], conditions: ["anxiety","neuro_core","npd","phobia","ppd","spd","default"] },
+    { name: "Baked Salmon with Mashed Sweet Potato & Green Beans", tags: ["fish"], conditions: ["depression","ppd","hpd","phobia","npd","spd","default"] },
+    { name: "Pan-Seared Salmon with Quinoa & Roasted Asparagus", tags: ["fish"], conditions: ["depression","ptsd","ocd","neuro_core","npd","hpd","aspd","phobia","bfrb","ppd","spd","default"] },
+    { name: "Baked Salmon with Sweet Potato & Green Beans", tags: ["fish"], conditions: ["anxiety","phobia","hpd","ppd","spd","default"] },
+    { name: "Grilled Salmon with Brown Rice & Steamed Broccoli", tags: ["fish","rice"], conditions: ["ocd","bipolar","neuro_core","hpd","bfrb","aspd","default"] },
     { name: "Lemon Butter Salmon with Rice & Snap Peas", tags: ["fish","dairy"], conditions: ["bpd","default"] },
     // ── Hearty dinners — brisket, bacon, sausage, corn, tortillas, bread ──
     { name: "Slow-Smoked Beef Brisket with Roasted Sweet Potato & Broccoli", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
@@ -371,30 +395,43 @@ const ALL_MEALS = {
     { name: "Bacon, Potato & Broccoli Casserole", tags: ["pork","meat","dairy"], conditions: ["adhd","depression","default"] },
     { name: "Pork Chops with Roasted Apples, Sweet Potato & Rosemary", tags: ["pork","meat"], conditions: ["adhd","depression","bipolar","default"] },
     // ── Expanded: Rice, Sweet Potato, Salmon, Lentil, Blueberry, Pomegranate ──
-    { name: "Baked Salmon with Brown Rice & Roasted Asparagus", tags: ["fish","rice"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","schizophrenia","default"] },
-    { name: "Sweet Potato & Lentil Curry with Brown Rice", tags: ["legume","rice"], conditions: ["anxiety","depression","ptsd","ocd","default"] },
-    { name: "Grilled Salmon with Pomegranate Glaze & Quinoa", tags: ["fish"], conditions: ["ptsd","depression","schizophrenia","default"] },
+    { name: "Baked Salmon with Brown Rice & Roasted Asparagus", tags: ["fish","rice"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","schizophrenia","neuro_core","npd","hpd","aspd","phobia","bfrb","ppd","spd","default"] },
+    { name: "Sweet Potato & Lentil Curry with Brown Rice", tags: ["legume","rice"], conditions: ["anxiety","depression","ptsd","ocd","aspd","bfrb","spd","hpd","default"] },
+    { name: "Grilled Salmon with Pomegranate Glaze & Quinoa", tags: ["fish"], conditions: ["ptsd","depression","schizophrenia","neuro_core","ppd","npd","default"] },
     { name: "Chicken & Brown Rice Stir-Fry with Mixed Veggies", tags: ["meat","rice"], conditions: ["adhd","bipolar","schizophrenia","ocd","default"] },
     { name: "Baked Sweet Potato Stuffed with Black Beans & Avocado", tags: ["legume"], conditions: ["anxiety","depression","bpd","ptsd","default"] },
-    { name: "Salmon & Sweet Potato Sheet Pan Dinner", tags: ["fish"], conditions: ["depression","ptsd","adhd","schizophrenia","default"] },
+    { name: "Salmon & Sweet Potato Sheet Pan Dinner", tags: ["fish"], conditions: ["depression","ptsd","adhd","schizophrenia","neuro_core","npd","hpd","ppd","default"] },
     { name: "Lentil Bolognese over Brown Rice Pasta", tags: ["legume","gluten"], conditions: ["depression","anxiety","ocd","bipolar","default"] },
     { name: "Turkey Meatballs with Brown Rice & Steamed Broccoli", tags: ["meat","rice"], conditions: ["adhd","bipolar","schizophrenia","did","default"] },
-    { name: "Baked Salmon with Blueberry Salsa & Wild Rice", tags: ["fish"], conditions: ["depression","ptsd","schizophrenia","default"] },
-    { name: "Roasted Chicken Thighs with Sweet Potato Mash & Kale", tags: ["meat"], conditions: ["adhd","depression","schizophrenia","ptsd","default"] },
+    { name: "Baked Salmon with Blueberry Salsa & Wild Rice", tags: ["fish"], conditions: ["depression","ptsd","schizophrenia","neuro_core","bfrb","default"] },
+    { name: "Roasted Chicken Thighs with Sweet Potato Mash & Kale", tags: ["meat"], conditions: ["adhd","depression","schizophrenia","ptsd","npd","aspd","spd","ppd","default"] },
     { name: "Brown Rice & Veggie Bowl with Grilled Tofu", tags: ["rice","soy"], conditions: ["anxiety","depression","ocd","default"] },
     { name: "Pomegranate-Glazed Chicken with Roasted Sweet Potato", tags: ["meat"], conditions: ["ptsd","depression","schizophrenia","adhd","default"] },
-    { name: "Lentil & Vegetable Stew with Crusty Bread", tags: ["legume","gluten"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","default"] },
-    { name: "Baked Salmon with Garlic Mashed Sweet Potato", tags: ["fish"], conditions: ["depression","anxiety","ptsd","bpd","default"] },
+    { name: "Lentil & Vegetable Stew with Crusty Bread", tags: ["legume","gluten"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","aspd","bfrb","spd","default"] },
+    { name: "Baked Salmon with Garlic Mashed Sweet Potato", tags: ["fish"], conditions: ["depression","anxiety","ptsd","bpd","neuro_core","ppd","phobia","default"] },
     { name: "Ground Turkey & Sweet Potato Skillet with Brown Rice", tags: ["meat","rice"], conditions: ["adhd","bipolar","schizophrenia","default"] },
     { name: "Chicken & Quinoa Bowl with Pomegranate & Spinach", tags: ["meat"], conditions: ["ptsd","depression","schizophrenia","default"] },
     { name: "Brown Rice Bowl with Grilled Chicken & Roasted Veggies", tags: ["meat","rice"], conditions: ["bipolar","ocd","did","bpd","default"] },
-    { name: "Salmon Teriyaki with Brown Rice & Steamed Edamame", tags: ["fish","rice","soy","legume"], conditions: ["depression","anxiety","bipolar","default"] },
+    { name: "Salmon Teriyaki with Brown Rice & Steamed Edamame", tags: ["fish","rice","soy","legume"], conditions: ["depression","anxiety","bipolar","neuro_core","npd","spd","default"] },
     { name: "Stuffed Sweet Potatoes with Ground Turkey & Cheese", tags: ["meat","dairy"], conditions: ["adhd","depression","did","default"] },
     { name: "Lentil & Brown Rice Stuffed Bell Peppers", tags: ["legume","rice","nightshade"], conditions: ["depression","anxiety","ocd","bipolar","default"] },
-    { name: "Pan-Seared Salmon with Quinoa & Roasted Broccoli", tags: ["fish"], conditions: ["depression","ptsd","ocd","schizophrenia","bpd","default"] },
+    { name: "Pan-Seared Salmon with Quinoa & Roasted Broccoli", tags: ["fish"], conditions: ["depression","ptsd","ocd","schizophrenia","bpd","neuro_core","aspd","npd","default"] },
     { name: "Chicken & Sweet Potato Coconut Curry", tags: ["meat","coconut"], conditions: ["adhd","depression","ptsd","default"] },
     { name: "Brown Rice Fried Rice with Scrambled Egg & Veggies", tags: ["rice","egg"], conditions: ["bipolar","did","autism","ocd","default"] },
     { name: "Baked Chicken Breast with Sweet Potato Wedges & Spinach", tags: ["meat"], conditions: ["schizophrenia","ptsd","ocd","bpd","default"] },
+    // ── Condition-specific: NPD, HPD, ASPD, Eating, Phobia, BFRB, PPD, SPD, Neuro Core ──
+    { name: "Baked Mackerel with Quinoa & Roasted Brussels Sprouts", tags: ["fish"], conditions: ["aspd","neuro_core","default"] },
+    { name: "Chicken & Vegetable Bone Broth Soup with Brown Rice", tags: ["meat","rice"], conditions: ["ppd","eating","default"] },
+    { name: "Garlic Chicken Stir-Fry with Broccoli & Brown Rice", tags: ["meat","rice","onion"], conditions: ["bfrb","default"] },
+    { name: "Baked Chicken Thighs with Roasted Brussels Sprouts & Sweet Potato", tags: ["meat"], conditions: ["bfrb","hpd","default"] },
+    { name: "Miso Soup with Tofu, Seaweed & Steamed Rice", tags: ["soy","rice"], conditions: ["ppd","neuro_core","default"] },
+    { name: "Pasta with Marinara Sauce, Grilled Chicken & Garlic Bread", tags: ["meat","gluten","onion"], conditions: ["eating","did","default"] },
+    { name: "Baked Chicken with Mashed Potatoes & Buttered Green Beans", tags: ["meat","dairy"], conditions: ["eating","did","ppd","default"] },
+    { name: "Beef Stir-Fry with Broccoli, Bell Pepper & Quinoa", tags: ["meat","nightshade"], conditions: ["spd","neuro_core","default"] },
+    { name: "Chicken & Chickpea Curry with Turmeric Rice & Spinach", tags: ["meat","legume","rice"], conditions: ["neuro_core","spd","default"] },
+    { name: "Grilled Salmon with Turmeric Quinoa & Sautéed Kale", tags: ["fish"], conditions: ["neuro_core","default"] },
+    { name: "Turkey Meatballs with Zucchini Noodles & Spinach", tags: ["meat"], conditions: ["npd","hpd","aspd","default"] },
+    { name: "Walnut-Crusted Salmon with Roasted Asparagus", tags: ["fish","nuts"], conditions: ["neuro_core","npd","default"] },
   ],
   snacks: [
     { name: "Apple Slices + Sliced Deli Turkey Roll-Ups", tags: ["meat"], conditions: ["adhd","default"] },
@@ -415,7 +452,7 @@ const ALL_MEALS = {
     { name: "Banana with Almond Butter", tags: ["nuts"], conditions: ["adhd","anxiety","default"] },
     { name: "Celery & Hummus", tags: ["legume","seed"], conditions: ["anxiety","default"] },
     { name: "Handful of Cashews & Dried Cranberries", tags: ["nuts"], conditions: ["anxiety","default"] },
-    { name: "Greek Yogurt with Honey & Berries", tags: ["dairy"], conditions: ["anxiety","depression","default"] },
+    { name: "Greek Yogurt with Honey & Berries", tags: ["dairy"], conditions: ["anxiety","depression","eating","phobia","hpd","ppd","default"] },
     { name: "Chamomile Tea & Whole Grain Crackers", tags: ["gluten"], conditions: ["anxiety","default"] },
     { name: "Kiwi Slices + a Handful of Almonds", tags: ["nuts"], conditions: ["anxiety","default"] },
     { name: "Cucumber Slices & Hummus", tags: ["legume","seed"], conditions: ["anxiety","default"] },
@@ -425,20 +462,20 @@ const ALL_MEALS = {
     { name: "Peanut Butter on Whole Grain Crackers", tags: ["gluten","nuts"], conditions: ["depression","default"] },
     { name: "Mango & Mixed Berries", tags: [], conditions: ["depression","default"] },
     { name: "Banana with Walnut Butter", tags: ["nuts"], conditions: ["depression","default"] },
-    { name: "Trail Mix with Dark Chocolate Chips", tags: ["nuts"], conditions: ["depression","adhd","default"] },
+    { name: "Trail Mix with Dark Chocolate Chips", tags: ["nuts"], conditions: ["depression","adhd","neuro_core","npd","default"] },
     { name: "Apple Slices & Almond Butter", tags: ["nuts"], conditions: ["depression","ptsd","default"] },
-    { name: "Dates & Pumpkin Seeds", tags: ["seed"], conditions: ["depression","default"] },
+    { name: "Dates & Pumpkin Seeds", tags: ["seed"], conditions: ["depression","npd","ppd","aspd","bfrb","default"] },
     { name: "Sliced Pear & Sunflower Seed Butter", tags: ["seed"], conditions: ["depression","anxiety","default"] },
     { name: "Roasted Chickpeas", tags: ["legume"], conditions: ["depression","anxiety","default"] },
     { name: "Apple & Peanut Butter", tags: ["nuts"], conditions: ["bipolar","default"] },
     { name: "Hummus with Carrot & Cucumber Sticks", tags: ["legume","seed"], conditions: ["bipolar","anxiety","default"] },
     { name: "Banana with a Handful of Walnuts", tags: ["nuts"], conditions: ["bipolar","default"] },
-    { name: "Greek Yogurt with Mixed Berries", tags: ["dairy"], conditions: ["bipolar","default"] },
+    { name: "Greek Yogurt with Mixed Berries", tags: ["dairy"], conditions: ["bipolar","hpd","phobia","ppd","default"] },
     { name: "Apple Slices & Cheese", tags: ["dairy"], conditions: ["bipolar","default"] },
     { name: "Edamame with Sea Salt", tags: ["soy","legume"], conditions: ["bipolar","default"] },
     { name: "Baby Carrots & Guacamole", tags: [], conditions: ["bipolar","anxiety","default"] },
-    { name: "Walnuts & Apple Slices", tags: ["nuts"], conditions: ["schizophrenia","default"] },
-    { name: "Yogurt with Honey & Granola", tags: ["dairy","gluten"], conditions: ["schizophrenia","default"] },
+    { name: "Walnuts & Apple Slices", tags: ["nuts"], conditions: ["schizophrenia","neuro_core","npd","ppd","default"] },
+    { name: "Yogurt with Honey & Granola", tags: ["dairy","gluten"], conditions: ["schizophrenia","hpd","phobia","ppd","default"] },
     { name: "Whole Grain Crackers with Cheese", tags: ["gluten","dairy"], conditions: ["schizophrenia","ocd","default"] },
     { name: "Banana & Peanut Butter", tags: ["nuts"], conditions: ["schizophrenia","did","bpd","ocd","default"] },
     { name: "Mixed Nuts & Dried Fruit", tags: ["nuts"], conditions: ["schizophrenia","bpd","default"] },
@@ -452,7 +489,7 @@ const ALL_MEALS = {
     { name: "Cheese & Crackers", tags: ["dairy","gluten"], conditions: ["did","default"] },
     { name: "Banana & a Glass of Milk", tags: ["dairy"], conditions: ["did","autism","default"] },
     { name: "Apple Slices & Peanut Butter", tags: ["nuts"], conditions: ["did","autism","ocd","default"] },
-    { name: "Greek Yogurt with Honey", tags: ["dairy"], conditions: ["did","bpd","ocd","default"] },
+    { name: "Greek Yogurt with Honey", tags: ["dairy"], conditions: ["did","bpd","ocd","eating","phobia","hpd","default"] },
     { name: "Celery & Peanut Butter", tags: ["nuts"], conditions: ["did","bipolar","default"] },
     { name: "Sliced Banana", tags: [], conditions: ["autism","default"] },
     { name: "Plain Crackers with Peanut Butter", tags: ["gluten","nuts"], conditions: ["autism","default"] },
@@ -467,22 +504,35 @@ const ALL_MEALS = {
     { name: "Bacon & Cheese Roll-Up", tags: ["pork","meat","dairy"], conditions: ["adhd","default"] },
     { name: "Cornbread Muffin & Hard-Boiled Egg", tags: ["corn","gluten","egg"], conditions: ["depression","default"] },
     // ── Expanded: Blueberry, Pomegranate, Oat, Sweet Potato, Salmon ──
-    { name: "Blueberries & Dark Chocolate Chips", tags: [], conditions: ["depression","ptsd","schizophrenia","default"] },
+    { name: "Blueberries & Dark Chocolate Chips", tags: [], conditions: ["depression","ptsd","schizophrenia","neuro_core","bfrb","ppd","default"] },
     { name: "Pomegranate Seeds & Pistachios", tags: ["nuts","seed"], conditions: ["ptsd","depression","schizophrenia","default"] },
-    { name: "Oat Energy Balls with Peanut Butter & Honey", tags: ["gluten","nuts"], conditions: ["depression","ocd","bpd","adhd","default"] },
-    { name: "Baked Sweet Potato Chips with Sea Salt", tags: [], conditions: ["adhd","schizophrenia","ptsd","autism","default"] },
-    { name: "Smoked Salmon & Cream Cheese on Rice Cakes", tags: ["fish","dairy","rice"], conditions: ["depression","anxiety","ocd","default"] },
-    { name: "Blueberry & Walnut Trail Mix", tags: ["nuts"], conditions: ["depression","ptsd","schizophrenia","default"] },
+    { name: "Oat Energy Balls with Peanut Butter & Honey", tags: ["gluten","nuts"], conditions: ["depression","ocd","bpd","adhd","hpd","bfrb","phobia","default"] },
+    { name: "Baked Sweet Potato Chips with Sea Salt", tags: [], conditions: ["adhd","schizophrenia","ptsd","autism","hpd","spd","eating","default"] },
+    { name: "Smoked Salmon & Cream Cheese on Rice Cakes", tags: ["fish","dairy","rice"], conditions: ["depression","anxiety","ocd","neuro_core","npd","ppd","spd","default"] },
+    { name: "Blueberry & Walnut Trail Mix", tags: ["nuts"], conditions: ["depression","ptsd","schizophrenia","neuro_core","bfrb","npd","default"] },
     { name: "Pomegranate & Greek Yogurt Cup", tags: ["dairy"], conditions: ["ptsd","depression","schizophrenia","default"] },
     { name: "Oat & Banana Mini Muffins", tags: ["gluten","egg"], conditions: ["ocd","bpd","did","autism","default"] },
-    { name: "Sweet Potato & Cinnamon Bites", tags: [], conditions: ["adhd","schizophrenia","ptsd","did","autism","default"] },
+    { name: "Sweet Potato & Cinnamon Bites", tags: [], conditions: ["adhd","schizophrenia","ptsd","did","autism","eating","ppd","hpd","default"] },
     { name: "Blueberry Smoothie with Banana", tags: [], conditions: ["depression","ptsd","anxiety","schizophrenia","default"] },
     { name: "Rice Cakes with Almond Butter & Blueberries", tags: ["rice","nuts"], conditions: ["depression","anxiety","ocd","default"] },
     { name: "Pomegranate & Coconut Yogurt Cup", tags: ["coconut"], conditions: ["ptsd","depression","default"] },
     { name: "Oatmeal Cookie Energy Bites", tags: ["gluten","nuts"], conditions: ["ocd","bpd","depression","default"] },
     { name: "Frozen Blueberries & Walnuts", tags: ["nuts"], conditions: ["depression","schizophrenia","ptsd","default"] },
     { name: "Sweet Potato Hummus with Veggie Sticks", tags: ["legume","seed"], conditions: ["anxiety","ptsd","bipolar","default"] },
-    { name: "Salmon Jerky & Apple Slices", tags: ["fish"], conditions: ["depression","anxiety","ptsd","ocd","default"] },
+    { name: "Salmon Jerky & Apple Slices", tags: ["fish"], conditions: ["depression","anxiety","ptsd","ocd","neuro_core","aspd","spd","default"] },
+    // ── Condition-specific: NPD, HPD, ASPD, Eating, Phobia, BFRB, PPD, SPD, Neuro Core ──
+    { name: "Pumpkin Seed & Banana Trail Mix", tags: ["seed"], conditions: ["npd","ppd","aspd","default"] },
+    { name: "Dark Chocolate & Almonds with Dried Apricots", tags: ["nuts"], conditions: ["spd","neuro_core","default"] },
+    { name: "Cantaloupe & Cottage Cheese with Honey", tags: ["dairy"], conditions: ["bfrb","eating","default"] },
+    { name: "Dark Chocolate, Blueberries & Walnuts", tags: ["nuts"], conditions: ["neuro_core","bfrb","default"] },
+    { name: "Almonds & Dark Chocolate with a Banana", tags: ["nuts"], conditions: ["ppd","phobia","default"] },
+    { name: "Greek Yogurt with Blueberries & Pumpkin Seeds", tags: ["dairy","seed"], conditions: ["ppd","neuro_core","bfrb","default"] },
+    { name: "Banana with Peanut Butter & a Glass of Milk", tags: ["dairy","nuts"], conditions: ["eating","did","default"] },
+    { name: "Yogurt Parfait with Granola & Strawberries", tags: ["dairy","gluten"], conditions: ["eating","phobia","default"] },
+    { name: "Hard-Boiled Eggs with Everything Seasoning & Fruit", tags: ["egg"], conditions: ["spd","neuro_core","default"] },
+    { name: "Pumpkin Seeds & Cashew Mix with Dried Apricots", tags: ["nuts","seed"], conditions: ["aspd","ppd","default"] },
+    { name: "Dark Chocolate Squares with Almonds", tags: ["nuts"], conditions: ["phobia","neuro_core","ppd","default"] },
+    { name: "Grapefruit & Walnut Snack Bowl", tags: ["nuts","citrus"], conditions: ["bfrb","default"] },
   ],
 };
 
@@ -543,7 +593,15 @@ const DAY1_MEALS = {
   did:         { breakfast: "Egg & Cheese Breakfast Burrito", lunch: "Classic Grilled Chicken Sandwich with Sweet Potato Fries", dinner: "Baked Chicken with Mashed Potatoes & Green Beans", snacks: "Banana & a Glass of Milk" },
   bpd:         { breakfast: "Eggs Any Style with Whole Grain Toast & Fruit", lunch: "Grilled Chicken Salad with Lemon Vinaigrette", dinner: "Grilled Steak with Roasted Sweet Potato & Broccoli", snacks: "Greek Yogurt with Honey" },
   ocd:         { breakfast: "Whole Grain Toast with Peanut Butter & Banana", lunch: "Grilled Chicken & Veggie Wrap", dinner: "Oven-Roasted Chicken with Vegetables & Quinoa", snacks: "Apple Slices & Peanut Butter" },
-  neuro_core:  { breakfast: "Banana Oatmeal with Honey & Cinnamon", lunch: "Grilled Chicken & Spinach Salad", dinner: "Grilled Salmon with Asparagus & Quinoa", snacks: "Blueberries & Walnuts" },
+  npd:         { breakfast: "Warm Oatmeal with Pumpkin Seeds, Banana & Honey", lunch: "Grilled Chicken & Chickpea Bowl with Tahini Dressing", dinner: "Walnut-Crusted Salmon with Roasted Asparagus", snacks: "Pumpkin Seed & Banana Trail Mix" },
+  hpd:         { breakfast: "Green Tea Smoothie with Banana, Spinach & Almond Butter", lunch: "Turkey & Black Bean Bowl with Sweet Potato & Yogurt", dinner: "Baked Chicken Thighs with Roasted Brussels Sprouts & Sweet Potato", snacks: "Greek Yogurt with Mixed Berries" },
+  aspd:        { breakfast: "Turkey & Egg Breakfast Wrap with Spinach", lunch: "Sardine & Avocado Toast with Mixed Greens Salad", dinner: "Baked Mackerel with Quinoa & Roasted Brussels Sprouts", snacks: "Pumpkin Seeds & Cashew Mix with Dried Apricots" },
+  eating:      { breakfast: "Scrambled Eggs with Toast & Fresh Fruit Salad", lunch: "Chicken & Rice Soup with Crusty Bread", dinner: "Baked Chicken with Mashed Potatoes & Buttered Green Beans", snacks: "Banana with Peanut Butter & a Glass of Milk" },
+  phobia:      { breakfast: "Yogurt & Berry Smoothie with Chia Seeds", lunch: "Grilled Salmon Salad with Avocado, Spinach & Pumpkin Seeds", dinner: "Baked Salmon with Brown Rice & Roasted Asparagus", snacks: "Almonds & Dark Chocolate with a Banana" },
+  bfrb:        { breakfast: "Scrambled Eggs with Broccoli, Garlic & Whole Grain Toast", lunch: "Grilled Chicken & Brussels Sprout Bowl with Brown Rice", dinner: "Garlic Chicken Stir-Fry with Broccoli & Brown Rice", snacks: "Dark Chocolate, Blueberries & Walnuts" },
+  ppd:         { breakfast: "Warm Oatmeal with Pumpkin Seeds, Banana & Honey", lunch: "Kimchi Rice Bowl with Grilled Chicken & Steamed Veggies", dinner: "Chicken & Vegetable Bone Broth Soup with Brown Rice", snacks: "Greek Yogurt with Blueberries & Pumpkin Seeds" },
+  spd:         { breakfast: "Steak & Egg Scramble with Avocado & Whole Grain Toast", lunch: "Grilled Chicken & Lentil Bowl with Spinach & Tahini", dinner: "Beef Stir-Fry with Broccoli, Bell Pepper & Quinoa", snacks: "Dark Chocolate & Almonds with Dried Apricots" },
+  neuro_core:  { breakfast: "Egg & Avocado Toast with Smoked Salmon & Microgreens", lunch: "Grilled Chicken & Spinach Salad", dinner: "Grilled Salmon with Asparagus & Quinoa", snacks: "Dark Chocolate, Blueberries & Walnuts" },
   default:     { breakfast: "Banana Oatmeal with Honey & Cinnamon", lunch: "Grilled Chicken & Spinach Salad", dinner: "Baked Chicken Breast with Roasted Veggies", snacks: "Greek Yogurt with Honey & Berries" },
 };
 
@@ -841,27 +899,31 @@ const generateRecipe = (meal) => {
   else if (hasAny("steak","sirloin","ribeye","brisket")) { protein="steak"; proteinIngredient="6–8 oz sirloin steak, at room temperature"; proteinSteps=["Remove steak from fridge 20 minutes before cooking. Season generously with salt and pepper on both sides.","Heat skillet over high heat until smoking. Add 1 tsp oil and 1 tbsp butter.","Sear steak 3–4 minutes per side for medium-rare (135°F), 4–5 for medium (145°F).","Rest steak on a cutting board 5–7 minutes before slicing against the grain."]; proteinTime=20; }
   else if (hasAny("ground beef","beef meatloaf","meatloaf")) { protein="ground beef"; proteinIngredient="5 oz lean ground beef (90/10)"; proteinSteps=["Season ground beef with salt, pepper, garlic powder, and Worcestershire sauce.","Heat skillet over medium-high. Cook beef, breaking into small pieces, 7–8 minutes until browned. Drain excess fat."]; proteinTime=12; }
   else if (hasAny("ground turkey","turkey meatball")) { protein="ground turkey"; proteinIngredient="5 oz lean ground turkey"; proteinSteps=["Season ground turkey with salt, pepper, garlic powder, Italian herbs.","Cook in a skillet over medium heat, breaking apart, 8–9 minutes until cooked through (165°F)."]; proteinTime=12; }
+  else if (has("turkey burger")) { protein="turkey burger"; proteinIngredient="5 oz lean ground turkey"; proteinSteps=["Mix ground turkey with salt, pepper, garlic powder, and a dash of Worcestershire sauce.","Form into a patty about ¾ inch thick. Press a slight indent in the center to prevent puffing.","Cook in an oiled skillet over medium-high heat, 5–6 minutes per side until internal temp reaches 165°F.","Rest 2 minutes before serving on a bun or alongside your sides."]; proteinTime=15; }
   else if (hasAny("turkey")) { protein="turkey"; proteinIngredient="5 oz turkey breast or turkey cutlet"; proteinSteps=["Season turkey with olive oil, salt, pepper, garlic powder.","Cook in a skillet over medium heat 5–6 minutes per side until internal temp reaches 165°F.","Rest 3 minutes before slicing."]; proteinTime=15; }
   else if (hasAny("pork chop","pork tenderloin","pork loin","pulled pork")) { protein="pork"; proteinIngredient=has("chop")?"1 bone-in pork chop (1 inch thick)":"5 oz pork tenderloin"; proteinSteps=["Season pork with salt, pepper, garlic powder, and a pinch of paprika.","Heat 1 tbsp oil in skillet over medium-high. Sear 4–5 minutes per side until golden brown.","Internal temperature should reach 145°F. Rest 3 minutes before serving."]; proteinTime=15; }
   else if (hasAny("lentil")) { protein="lentil"; proteinIngredient="½ cup red or green lentils, rinsed"; proteinSteps=["Combine lentils with 1½ cups water or broth in a saucepan.","Bring to boil, reduce to simmer, cook 20–25 minutes until tender. Season well."]; proteinTime=25; }
   else if (hasAny("chickpea","hummus")) { protein="chickpea"; proteinIngredient="1 can (15 oz) chickpeas, drained and rinsed"; proteinSteps=["Drain and rinse chickpeas. Pat dry if roasting.","For warm dishes: heat in a pan with oil and spices 3–4 minutes until lightly crisped."]; proteinTime=5; }
+  else if (has("sardine")) { protein="sardine"; proteinIngredient="1 can (4 oz) sardines, drained"; proteinSteps=["Drain sardines and gently pat dry.","If serving warm, heat 1 tsp olive oil in a skillet and sear sardines 1–2 minutes per side until lightly crisped."]; proteinTime=5; }
+  else if (has("mackerel")) { protein="mackerel"; proteinIngredient="1 mackerel fillet (5–6 oz)"; proteinSteps=["Pat mackerel fillet dry. Season with salt, pepper, and lemon zest.","Heat 1 tbsp oil in a skillet over medium-high. Cook skin-side down 4 minutes until crispy.","Flip and cook 2–3 more minutes until flesh is opaque and flakes easily."]; proteinTime=10; }
+  else if (has("lean beef") || (has("beef") && !hasAny("ground beef","meatloaf","steak","sirloin","ribeye"))) { protein="beef"; proteinIngredient="5 oz lean beef (flank steak or sirloin), thinly sliced"; proteinSteps=["Slice beef thinly against the grain. Season with salt, pepper, and garlic powder.","Heat 1 tbsp oil in a wok or skillet over high heat.","Sear beef in batches 1–2 minutes per side until browned. Don't overcrowd the pan."]; proteinTime=10; }
   else if (hasAny("tofu","tempeh")) { protein="tofu"; proteinIngredient="6 oz extra-firm tofu, pressed and cubed"; proteinSteps=["Press tofu between paper towels for 10 minutes.","Cut into 1-inch cubes. Season with soy sauce, garlic, and oil.","Pan-fry over medium-high heat 3–4 minutes per side until golden and crispy."]; proteinTime=20; }
   else if (hasAny("egg")) { protein="egg"; proteinIngredient="3 large eggs"; proteinSteps=["Crack eggs into a bowl. Season with salt and pepper and whisk until uniform.","Heat butter in non-stick pan over medium-low.","Cook slowly, stirring constantly with a spatula for creamy scrambled eggs, or cook undisturbed for fried eggs."]; proteinTime=7; }
   else if (hasAny("chicken")) { protein="chicken"; proteinIngredient=hasAny("thigh","thighs")?"2 bone-in chicken thighs":"1 boneless skinless chicken breast (6 oz)"; proteinSteps=["Pat chicken dry with paper towels — moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20; }
   else { protein="protein"; proteinIngredient="5–6 oz lean protein of choice"; proteinSteps=["Season protein with salt, pepper, and garlic powder.","Cook to safe internal temperature (165°F poultry, 145°F fish/pork, 145°F medium beef)."]; proteinTime=20; }
 
   // ── Detect cooking method / dish type ────────────────────────────────────
-  const isBurrito = hasAny("burrito");
+  const isBurrito = has("burrito") && !has("burrito bowl");
   const isTaco = hasAny("taco");
   const isWrap = hasAny("wrap");
   const isSandwich = hasAny("sandwich","sub","hoagie","blt","club","burger","cheeseburger");
-  const isSalad = hasAny("salad") && !hasAny("caesar") || has("salad");
+  const isSalad = has("salad") && !has("caesar") && !has("fruit salad");
   const isCaesar = has("caesar");
   const isBowl = has("bowl");
   const isSoup = hasAny("soup","chili","stew","chowder");
   const isPasta = hasAny("pasta","noodle","spaghetti");
   const isOmelette = hasAny("omelette","omelet");
-  const isOatmeal = hasAny("oatmeal","oats","porridge","overnight oat");
+  const isOatmeal = hasAny("oatmeal","oats","overnight oat") || (has("porridge") && !has("rice") && !has("quinoa") && !has("millet"));
   const isSmoothi = hasAny("smoothie");
   const isYogurt = hasAny("yogurt","yoghurt");
   const isToast = hasAny("toast") && !hasAny("french toast");
@@ -939,6 +1001,7 @@ const generateRecipe = (meal) => {
   if (hasBlueberry) ingredients.push("½ cup fresh or frozen blueberries");
   else if (hasBerry) ingredients.push("½ cup mixed berries (strawberries, raspberries, blueberries)");
   if (hasPomegranate) ingredients.push("¼ cup pomegranate arils (seeds)");
+  if (hasKimchi) ingredients.push("½ cup fermented kimchi");
   if (hasApple) ingredients.push("1 medium apple, cored and sliced");
   if (hasWalnut) ingredients.push("2 tbsp raw walnuts, roughly chopped");
   if (hasAlmond) ingredients.push("2 tbsp raw almonds or almond butter");
@@ -954,8 +1017,9 @@ const generateRecipe = (meal) => {
   // Sauces / extras by dish type
   if (isCaesar) { ingredients.push("3 tbsp Caesar dressing (store-bought or homemade)"); ingredients.push("2 tbsp Parmesan, shaved"); ingredients.push("Romaine lettuce, 3 cups, chopped"); }
   if (isSalad && !isCaesar) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
-  if (isSoup || has("chili")) { ingredients.push("2½ cups low-sodium chicken or vegetable broth"); ingredients.push("1 garlic clove, minced"); ingredients.push("½ onion, diced"); }
+  if (isSoup || has("chili")) { ingredients.push(has("bone broth") ? "2½ cups bone broth" : "2½ cups low-sodium chicken or vegetable broth"); ingredients.push("1 garlic clove, minced"); ingredients.push("½ onion, diced"); }
   if (isCurry) { ingredients.push("1 can (14 oz) light coconut milk"); ingredients.push("2 tsp curry powder"); ingredients.push("1 tsp turmeric"); ingredients.push("½ onion, diced"); }
+  if (isPasta && !isBolognese) { ingredients.push("6 oz pasta (penne, spaghetti, or shape of choice)"); if (has("marinara") || has("tomato sauce")) { ingredients.push("1 cup marinara or crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); } if (has("garlic bread")) { ingredients.push("2 slices bread or baguette"); ingredients.push("1 tbsp butter"); ingredients.push("1 clove garlic, minced"); } }
   if (isStirFry) { ingredients.push("2 tbsp low-sodium soy sauce or coconut aminos"); ingredients.push("1 tsp sesame oil"); ingredients.push("1 tsp fresh ginger, minced"); }
   if (isFajita) { ingredients.push("½ onion, sliced into strips"); ingredients.push("1 tsp cumin + ½ tsp chili powder"); ingredients.push("3 flour or corn tortillas, warmed"); }
   if (isEnchilada) { ingredients.push("½ cup red enchilada sauce"); ingredients.push("3 corn tortillas"); ingredients.push("¼ cup shredded Monterey Jack cheese"); }
@@ -991,6 +1055,22 @@ const generateRecipe = (meal) => {
       steps: ["Rinse rice until water runs clear. Combine rice and broth in a pot.","Bring to a boil, then reduce heat to low. Partially cover and simmer 35–40 minutes, stirring occasionally, until rice breaks down into a thick porridge.","While congee simmers, prepare soft-boiled egg: boil water, gently lower egg in, cook exactly 6.5 minutes, then ice bath.","Season congee with ginger, sesame oil, soy sauce, salt, and white pepper.","Ladle into a bowl. Top with peeled soft-boiled egg (halved) and sliced scallions."],
       tip: "The longer you cook congee, the creamier it gets. Leftover rice works too — just use less water and cook 20 min.",
       nutrition: ["Easily digestible carbs are gentle on the gut-brain axis","Ginger is anti-inflammatory and supports digestion","Bone broth adds collagen and amino acids for brain repair","Slow-release energy keeps blood sugar stable"]
+    };
+  }
+
+  // Brown rice porridge (non-congee)
+  if (has("rice") && has("porridge") && !has("congee")) {
+    const ing = ["½ cup short-grain brown rice", "3 cups water or milk of choice", "½ tsp cinnamon"];
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (has("honey")) ing.push("1 tbsp honey");
+    else ing.push("1 tbsp maple syrup or honey");
+    ing.push("Pinch of salt");
+    return {
+      serves: 1, time: "35 min",
+      ingredients: ing,
+      steps: ["Rinse rice under cold water until water runs clear.","Combine rice and liquid in a saucepan. Bring to a boil.","Reduce heat to low, partially cover, and simmer 25–30 minutes, stirring occasionally, until rice is very soft and porridge-like.","Stir in cinnamon and a pinch of salt. Adjust thickness with more liquid if needed.","Transfer to a bowl, top with banana and drizzle with honey or maple syrup."],
+      tip: "Brown rice porridge has a nuttier, heartier flavor than oatmeal — the whole grain provides more sustained energy.",
+      nutrition: ["Complex carbs for sustained brain energy","Fiber supports gut-brain axis health","Magnesium supports relaxation and sleep","B vitamins support neurotransmitter synthesis"]
     };
   }
 
@@ -1084,9 +1164,30 @@ const generateRecipe = (meal) => {
 
   // Smoothie-specific
   if (isSmoothi) {
+    const sIng = [];
+    if (has("green tea") || has("matcha")) sIng.push("1 tsp matcha or green tea powder");
+    if (hasBanana) sIng.push("1 ripe banana, frozen");
+    else sIng.push("1 cup frozen mixed berries or banana chunks");
+    if (hasSpinach) sIng.push("1 cup fresh spinach");
+    if (hasBerry && !hasBanana) {} // already added above
+    else if (hasBerry) sIng.push("½ cup frozen mixed berries");
+    if (hasBlueberry && !hasBerry) sIng.push("½ cup frozen blueberries");
+    if (hasMango) sIng.push("½ cup frozen mango chunks");
+    sIng.push("1 cup unsweetened almond, oat, or coconut milk");
+    if (has("yogurt")) sIng.push("½ cup Greek yogurt (plain, full-fat)");
+    else sIng.push("½ cup Greek yogurt (plain, full-fat)");
+    if (has("almond butter")) sIng.push("1 tbsp almond butter");
+    else if (has("peanut butter")) sIng.push("1 tbsp peanut butter");
+    else sIng.push("1 tbsp almond butter or peanut butter");
+    if (has("chia")) sIng.push("1 tbsp chia seeds");
+    if (has("flax")) sIng.push("1 tbsp ground flaxseed");
+    if (has("honey")) sIng.push("1 tsp honey");
+    else sIng.push("1 tsp honey");
+    if (has("egg")) sIng.push("1 raw pasteurized egg (optional protein boost)");
+    sIng.push("3–4 ice cubes");
     return {
       serves: 1, time: "5 min",
-      ingredients: ["1 cup frozen mixed berries or banana chunks", "1 cup unsweetened almond, oat, or coconut milk", "½ cup Greek yogurt (plain, full-fat)", "1 tbsp almond butter or peanut butter", "1 tsp honey", "Handful of spinach (optional — you won't taste it)", "3–4 ice cubes"],
+      ingredients: sIng,
       steps: ["Add liquid to blender first — this protects the blade and blends more smoothly.", "Add yogurt, nut butter, and honey.", "Add frozen fruit and ice on top.", "Blend on high 45–60 seconds until completely smooth and creamy.", "Pour into a tall glass. Drink immediately for best texture."],
       tip: "Freeze ripe bananas in chunks — they make the creamiest smoothies without any added sugar.",
       nutrition: ["Protein from Greek yogurt supports neurotransmitter production","Antioxidants from berries reduce neuroinflammation","Healthy fats from nut butter support myelin sheath","Potassium from banana supports nerve signaling"]
@@ -1106,6 +1207,7 @@ const generateRecipe = (meal) => {
     else if (hasBerry) ing.push("½ cup mixed fresh berries (strawberries, raspberries, blueberries)");
     if (hasMango) ing.push("½ cup fresh mango, diced");
     if (hasPomegranate) ing.push("¼ cup pomegranate arils");
+    if (has("grapefruit")) ing.push("½ grapefruit, segmented");
     if (has("honey")) ing.push("1 tbsp honey");
     if (hasWalnut) ing.push("2 tbsp walnuts, roughly chopped");
     if (hasAlmond) ing.push("2 tbsp sliced almonds");
@@ -1257,7 +1359,7 @@ const generateRecipe = (meal) => {
   }
 
   // Cheese + crackers / cheese + fruit
-  if (hasCheese && !isSandwich && !isOmelette && !isBurrito && !isTaco && !isQuesadilla && !isEnchilada && !isStuffed && !isCasserole && !isBowl && !isSoup && !isPasta && !isStirFry && !isCurry && !isSheetPan && !hasAny("chicken","turkey","beef","salmon","steak","pork")) {
+  if (hasCheese && !has("cottage cheese") && !has("mac & cheese") && !has("grilled cheese") && !isSandwich && !isOmelette && !isBurrito && !isTaco && !isQuesadilla && !isEnchilada && !isStuffed && !isCasserole && !isBowl && !isSoup && !isPasta && !isStirFry && !isCurry && !isSheetPan && !hasAny("chicken","turkey","beef","salmon","steak","pork")) {
     const items = [];
     if (has("cracker")) items.push("8–10 whole grain crackers");
     if (hasApple) items.push("1 medium apple, cored and sliced");
@@ -1269,6 +1371,50 @@ const generateRecipe = (meal) => {
       steps: ["Slice or cube cheese into bite-sized pieces.","Arrange cheese alongside crackers or sliced fruit on a plate.","Serve at room temperature — cheese has more flavor when not ice-cold."],
       tip: "Pull cheese from the fridge 10 minutes before eating — cold mutes the flavor.",
       nutrition: ["Calcium from cheese supports neural signaling","Protein provides sustained energy","Tryptophan in cheese supports serotonin production","Whole grain crackers add fiber for gut health"]
+    };
+  }
+
+  // Cottage cheese combos (cantaloupe, berries, etc.)
+  if (has("cottage cheese")) {
+    const ing = ["1 cup cottage cheese (full-fat or 2%)"];
+    if (has("cantaloupe")) ing.push("1 cup cantaloupe, cubed or balled");
+    if (has("peach")) ing.push("1 ripe peach, sliced");
+    if (hasBerry) ing.push("½ cup mixed fresh berries");
+    if (hasBlueberry) ing.push("½ cup fresh blueberries");
+    if (has("pineapple")) ing.push("½ cup fresh pineapple chunks");
+    if (has("honey")) ing.push("1 tsp honey");
+    if (has("cinnamon")) ing.push("Pinch of cinnamon");
+    if (ing.length <= 2) ing.push("½ cup fresh seasonal fruit");
+    return {
+      serves: 1, time: "3 min",
+      ingredients: ing,
+      steps: ["Spoon cottage cheese into a bowl.","Prepare fruit — wash, slice, or cube as needed.","Arrange fruit on top of cottage cheese. Drizzle with honey if using."],
+      tip: "Full-fat cottage cheese has a creamier texture and keeps you fuller longer.",
+      nutrition: ["Casein protein provides slow, sustained amino acid release","Calcium supports neural signaling","Tryptophan supports serotonin production","Fresh fruit adds antioxidants and quick brain fuel"]
+    };
+  }
+
+  // Simple grab-and-go snacks (dark chocolate + nuts, frozen fruit + nuts, seed mixes)
+  const isSimpleSnack = hasAny("dark chocolate & almond","dark chocolate chips","dark chocolate squares","frozen blueberr","frozen berr","pumpkin seeds & cashew","dark chocolate & dried","grapefruit & walnut","almonds & dark chocolate");
+  if (isSimpleSnack && !hasAny("chicken","turkey","beef","salmon","steak","pork","egg","rice","pasta")) {
+    const ing = [];
+    if (has("dark chocolate")) ing.push("1 oz dark chocolate (70%+ cacao), broken into pieces or chips");
+    if (hasAlmond || has("almonds")) ing.push("¼ cup raw almonds");
+    if (hasWalnut || has("walnuts")) ing.push("¼ cup raw walnuts");
+    if (has("cashew")) ing.push("¼ cup raw cashews");
+    if (has("pumpkin seed")) ing.push("2 tbsp pumpkin seeds");
+    if (hasBlueberry || has("blueberr")) ing.push("½ cup frozen blueberries");
+    else if (hasBerry || has("frozen berr")) ing.push("½ cup frozen mixed berries");
+    if (has("dried apricot")) ing.push("4–5 dried apricots");
+    if (hasBanana) ing.push("1 ripe banana");
+    if (has("grapefruit")) ing.push("1 grapefruit, segmented");
+    if (ing.length === 0) ing.push("1 oz dark chocolate (70%+ cacao)","¼ cup mixed nuts");
+    return {
+      serves: 1, time: "2 min",
+      ingredients: ing,
+      steps: ["Portion all ingredients into a small bowl or plate.","No cooking needed — enjoy as a simple, nutrient-dense snack.","For frozen fruit, let sit 2–3 minutes to soften slightly, or enjoy frozen for an ice-cream-like texture."],
+      tip: "Dark chocolate above 70% cacao has the highest flavanol content — the compound that boosts blood flow to the brain.",
+      nutrition: ["Flavanols in dark chocolate increase cerebral blood flow","Omega-3s from nuts support brain cell membranes","Antioxidants from berries reduce neuroinflammation","Magnesium from nuts and chocolate supports stress response"]
     };
   }
 
@@ -1323,13 +1469,15 @@ const generateRecipe = (meal) => {
   }
 
   // Mixed nuts / handful of nuts
-  if (hasAny("handful of almond","handful of cashew","handful of walnut","mixed nuts","walnuts & apple","orange slices & almond","kiwi slices")) {
+  if (hasAny("handful of almond","handful of cashew","handful of walnut","mixed nuts","walnuts & apple","orange slices & almond","kiwi slices","cashew mix","pumpkin seeds &","seeds & cashew")) {
     const ing = [];
     if (hasWalnut) ing.push("¼ cup raw walnuts");
     if (hasAlmond) ing.push("¼ cup raw almonds");
     if (has("cashew")) ing.push("¼ cup raw cashews");
+    if (has("pumpkin seed")) ing.push("2 tbsp pumpkin seeds");
     if (has("cranberr")) ing.push("2 tbsp dried cranberries");
     if (has("dried fruit")) ing.push("2 tbsp mixed dried fruit");
+    if (has("dried apricot")) ing.push("4–5 dried apricots");
     if (hasApple) ing.push("1 medium apple, cored and sliced");
     if (has("orange")) ing.push("1 large orange, peeled and sliced");
     if (has("kiwi")) ing.push("2 kiwis, peeled and sliced");
@@ -1359,7 +1507,7 @@ const generateRecipe = (meal) => {
   }
 
   // Banana & milk / simple milk combo
-  if (has("glass of milk") || (hasBanana && !hasAny("oat","pancake","waffle","toast","smoothie","yogurt","chicken","turkey","egg","steak","salmon","sausage","bacon","hash","burrito","wrap","sandwich") && m.split("&").length <= 2 && !isBowl)) {
+  if (has("glass of milk") || (hasBanana && !hasAny("oat","pancake","waffle","toast","smoothie","yogurt","chicken","turkey","egg","steak","salmon","sausage","bacon","hash","burrito","wrap","sandwich","almond","chocolate","dark chocolate","walnut","cashew","pistachio","pumpkin") && m.split("&").length <= 2 && !isBowl)) {
     const ing = [];
     if (hasBanana) ing.push("1 ripe banana");
     if (has("milk")) ing.push("1 cup cold milk (whole, 2%, or plant-based)");
@@ -1537,6 +1685,63 @@ const generateRecipe = (meal) => {
     };
   }
 
+  // Mac & Cheese
+  if (has("mac & cheese") || has("mac and cheese")) {
+    const ing = ["8 oz elbow macaroni or shell pasta","2 cups shredded cheddar cheese","2 tbsp butter","2 tbsp all-purpose flour","2 cups whole milk","½ tsp mustard powder","Salt and pepper to taste"];
+    if (has("broccoli")) ing.push("1 cup broccoli florets, steamed");
+    if (has("chicken")) ing.push("1 grilled chicken breast (6 oz), sliced");
+    return {
+      serves: 2, time: "25 min",
+      ingredients: ing,
+      steps: ["Cook pasta according to package directions until al dente. Drain and set aside.","In the same pot, melt butter over medium heat. Whisk in flour and cook 1 minute to form a roux.","Gradually whisk in milk, stirring constantly until smooth and thickened, about 3–4 minutes.","Remove from heat and stir in shredded cheese, mustard powder, salt, and pepper until smooth.","Add drained pasta back to the pot and stir to coat evenly with cheese sauce.","Serve in bowls with steamed broccoli and grilled chicken on the side if using."],
+      tip: "A splash of pasta cooking water in the cheese sauce makes it silkier — the starch acts as an emulsifier.",
+      nutrition: ["Calcium from cheese supports neural signaling","Tryptophan from dairy supports serotonin production","Complex carbs from pasta provide sustained brain energy","Protein from cheese supports neurotransmitter production"]
+    };
+  }
+
+  // Miso Soup
+  if (has("miso")) {
+    const ing = ["2 cups water","2 tbsp white or yellow miso paste","4 oz silken or soft tofu, cubed","2 tbsp dried wakame seaweed","2 scallions, thinly sliced"];
+    if (hasRice) ing.push("1 cup cooked brown or white rice");
+    return {
+      serves: 1, time: "10 min",
+      ingredients: ing,
+      steps: ["Bring water to a gentle simmer (not a full boil — boiling destroys miso's beneficial probiotics).","Add dried wakame and let it rehydrate for 2 minutes.","Add tofu cubes and warm through for 1–2 minutes.","Remove pot from heat. Dissolve miso paste in a ladleful of warm broth, then stir back into the pot.","Ladle into a bowl and top with sliced scallions. Serve with rice on the side if using."],
+      tip: "Never boil miso — the live cultures (probiotics) that benefit your gut-brain axis are killed by high heat.",
+      nutrition: ["Probiotics from fermented miso support the gut-brain axis","Seaweed provides iodine for thyroid and brain function","Tofu provides gentle plant protein","Isoflavones from soy have neuroprotective properties"]
+    };
+  }
+
+  // Tomato Soup + Grilled Cheese
+  if (has("tomato soup")) {
+    const ing = ["1 can (28 oz) crushed tomatoes","1 cup vegetable or chicken broth","2 tbsp butter","1 small onion, diced","2 cloves garlic, minced","½ tsp dried basil","Salt and pepper to taste"];
+    if (has("grilled cheese")) ing.push("4 slices whole grain bread","2 oz cheddar or gruyère cheese, sliced","1 tbsp butter for grilling");
+    return {
+      serves: 2, time: "25 min",
+      ingredients: ing,
+      steps: ["Melt butter in a saucepan over medium heat. Sauté onion 4–5 minutes until soft. Add garlic, cook 1 minute.","Add crushed tomatoes, broth, and basil. Bring to a simmer and cook 15 minutes.","Blend with an immersion blender until smooth (or leave chunky). Season with salt and pepper.",has("grilled cheese") ? "While soup simmers, butter bread slices. Layer cheese between two slices. Grill in a skillet over medium heat 3–4 minutes per side until golden and cheese melts." : "Ladle into bowls and serve hot.","Serve soup in bowls alongside grilled cheese sandwiches. Dip and enjoy."],
+      tip: "A pinch of sugar cuts the acidity of canned tomatoes and makes the soup taste more homemade.",
+      nutrition: ["Lycopene from tomatoes is a powerful antioxidant for brain health","Vitamin C supports neurotransmitter synthesis","Calcium from cheese supports neural signaling","Comfort food promotes positive emotional associations with nourishment"]
+    };
+  }
+
+  // Oat & Banana Mini Muffins
+  if (has("muffin") && hasAny("oat","banana")) {
+    const ing = ["1½ cups rolled oats","2 ripe bananas, mashed","1 egg","¼ cup honey or maple syrup","1 tsp baking powder","½ tsp cinnamon","¼ tsp salt","2 tbsp melted coconut oil or butter"];
+    if (has("chocolate") || has("chip")) ing.push("¼ cup mini dark chocolate chips");
+    if (hasBlueberry) ing.push("½ cup blueberries");
+    return {
+      serves: 12, time: "25 min",
+      ingredients: ing,
+      steps: ["Preheat oven to 350°F. Grease a mini muffin tin or line with paper cups.","Blend oats in a blender or food processor until they form a coarse flour.","In a bowl, mash bananas. Mix in egg, honey, melted oil, cinnamon, baking powder, and salt.","Stir oat flour into wet ingredients until just combined. Fold in chocolate chips or blueberries if using.","Fill muffin cups about ¾ full. Bake 15–18 minutes until golden and a toothpick comes out clean.","Cool in pan 5 minutes before transferring to a wire rack."],
+      tip: "These freeze beautifully — make a batch on Sunday and thaw 2–3 each morning for an easy breakfast.",
+      nutrition: ["Complex carbs from oats provide sustained brain energy","Potassium from banana supports nerve signaling","Egg adds choline for memory support","Naturally sweetened with fruit and minimal added sugar"]
+    };
+  }
+
+  // Kimchi detection for ingredient builder
+  const hasKimchi = has("kimchi");
+
   // Now build steps intelligently
   const prepSteps = [];
   const cookSteps = [];
@@ -1595,6 +1800,15 @@ const generateRecipe = (meal) => {
     steps.push("Lay a tortilla flat in a dry skillet over medium heat. Add protein and cheese to one half.");
     steps.push("Fold over and press lightly. Cook 2–3 minutes per side until golden and cheese is fully melted.");
     steps.push("Let rest 1 minute before cutting into wedges — this keeps the filling together.");
+  } else if (isPasta) {
+    steps.push("Cook pasta in salted boiling water according to package directions until al dente. Reserve ½ cup pasta water before draining.");
+    if (has("marinara") || has("tomato sauce")) {
+      steps.push("While pasta cooks, heat 1 tbsp olive oil in a pan. Add garlic and cook 30 seconds. Add crushed tomatoes or marinara sauce and simmer 10 minutes.");
+    }
+    steps.push("Add cooked protein to the sauce and stir to combine.");
+    steps.push("Toss drained pasta with sauce, adding pasta water as needed for silkiness. Serve immediately.");
+    if (has("garlic bread")) steps.push("For garlic bread: spread butter mixed with minced garlic on bread halves, broil 2–3 minutes until golden.");
+    totalTime = 25;
   } else if (isStirFry) {
     steps.push("Heat wok or large skillet over highest heat until smoking — high heat is what makes stir-fry taste right.");
     steps.push("Cook vegetables first (2–3 min), then push to sides. Add protein in center.");
@@ -1847,6 +2061,146 @@ const DAILY_ROUTINES = {
       { time:"5 min",  title:"What You Learned Today", desc:"Name one thing you learned or noticed today. Memory consolidation during sleep is strengthened when you consciously review experiences before sleeping." },
       { time:"10 min", title:"Sleep Preparation",   desc:"Dim all lights 30–60 minutes before bed. Blue light suppresses melatonin for up to 3 hours. Sleep is when the brain clears neurotoxic waste — protecting it is the most underrated brain optimisation strategy." },
       { time:"3 min",  title:"Tomorrow's Brain Fuel", desc:"Think briefly about what you'll eat tomorrow. Pre-deciding your first meal removes morning decision fatigue that reduces willpower before the day has started." },
+    ],
+  },
+  schizophrenia: {
+    label:"Schizophrenia", morning:[
+      { time:"5 min",  title:"Reality Anchor",      desc:"Look around and name 5 things you can see, their colours, and where they are. This grounding technique strengthens the prefrontal cortex's reality-testing circuits, which are your strongest tool against perceptual distortions." },
+      { time:"3 min",  title:"Medication Check",    desc:"Take your medication at the same time every day. Antipsychotics work best at steady blood levels — consistency is as important as the medication itself." },
+      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast. Antipsychotic medications can affect metabolism — nutrient-dense meals support brain function and counteract metabolic side effects." },
+      { time:"5 min",  title:"Routine Structure",   desc:"Review today's plan. Write down 3 things to do, in order. Structure reduces cognitive load and provides external scaffolding when executive function is challenged." },
+      { time:"2 min",  title:"Support Check-In",    desc:"Text or call one trusted person. Social connection activates oxytocin pathways that buffer stress and reduce symptom severity." },
+    ], evening:[
+      { time:"5 min",  title:"Day Review",          desc:"Write down what you did today — even small things count. Tracking real accomplishments counters the negative symptoms that minimize your own agency." },
+      { time:"5 min",  title:"Sensory Wind-Down",   desc:"Reduce noise and bright lights. Sensory overload is a common trigger — creating a calm environment supports the brain's ability to shift into rest mode." },
+      { time:"5 min",  title:"Sleep Hygiene",       desc:"Same bedtime every night. Sleep disruption worsens positive and negative symptoms. Melatonin and circadian consistency are protective." },
+      { time:"3 min",  title:"Tomorrow's Structure", desc:"Write down tomorrow's first 3 steps. Pre-planning reduces morning confusion and builds a reliable scaffold for each day." },
+    ],
+  },
+  did: {
+    label:"DID", morning:[
+      { time:"5 min",  title:"Gentle Orientation",  desc:"Before getting up, notice your body in bed. Name where you are, today's date, and your name. Dissociative mornings can feel disorienting — this anchors you to the present without forcing it." },
+      { time:"5 min",  title:"Internal Check-In",   desc:"Take a moment to notice how you feel inside. Is there tension, emotion, or a sense of someone else being close to the front? Acknowledging internal states builds co-consciousness over time." },
+      { time:"10 min", title:"Comforting Breakfast", desc:"Eat your NeuroThrive breakfast slowly. Food is grounding — the sensory experience of eating anchors you in your body and the present moment." },
+      { time:"3 min",  title:"Today's Plan",        desc:"Write today's priorities in a shared journal or note that all parts can see. Shared communication reduces inter-part conflict and builds internal cooperation." },
+      { time:"2 min",  title:"Safety Affirmation",  desc:"Say or write: 'We are safe. It is [today's date]. The body is [age].' Orienting to present safety is the foundation of DID recovery." },
+    ], evening:[
+      { time:"5 min",  title:"Parts Check-In",      desc:"Take a moment to notice who was present today. What did each part experience? Acknowledging all parts reduces internal conflict and builds the cooperative foundation of healing." },
+      { time:"5 min",  title:"Grounding Ritual",    desc:"Hold something with texture — a blanket, a smooth stone, a warm mug. Sensory grounding prevents nighttime dissociation and helps the body feel safe before sleep." },
+      { time:"5 min",  title:"Journal for the System", desc:"Write a brief note to any parts who might come forward tonight. Even a line of reassurance — 'We are safe at home' — reduces nighttime distress." },
+      { time:"3 min",  title:"Safe Sleep Setup",    desc:"Consistent bedtime, same bed position, same blanket. Predictability signals safety to the nervous system and reduces the nighttime switching that disrupts rest." },
+    ],
+  },
+  npd: {
+    label:"Narcissistic PD", morning:[
+      { time:"5 min",  title:"Honest Self-Check",   desc:"Before the day starts, notice how you actually feel — not how you want to appear. Vulnerability is not weakness. The prefrontal cortex grows stronger when you practice authentic self-awareness." },
+      { time:"5 min",  title:"Empathy Intention",   desc:"Set one intention to genuinely listen to someone today without redirecting to yourself. The anterior cingulate cortex — the empathy circuit — strengthens with deliberate practice." },
+      { time:"10 min", title:"Balanced Breakfast",   desc:"Eat your NeuroThrive breakfast. Omega-3s and tryptophan support the serotonin system that modulates emotional regulation and reduces interpersonal reactivity." },
+      { time:"3 min",  title:"Realistic Goal",      desc:"Set one achievable goal — not a grandiose one. Practicing realistic self-appraisal builds the prefrontal circuits that ground identity in reality rather than fantasy." },
+      { time:"2 min",  title:"Gratitude for Others", desc:"Name one specific thing someone else did well recently. Acknowledging others' value activates the temporoparietal junction — the brain region for perspective-taking." },
+    ], evening:[
+      { time:"5 min",  title:"Honest Reflection",   desc:"What went well today AND where could you have been kinder? Both matter. Growth happens in the space between self-compassion and honest accountability." },
+      { time:"5 min",  title:"Connection Review",    desc:"Think about one interaction today. How did the other person feel? Not how you looked — how they felt. This builds the neural pathways of empathy." },
+      { time:"5 min",  title:"Vulnerability Practice", desc:"Write one thing you're genuinely struggling with. Not performing — actually feeling. The brain's reward system recalibrates when authenticity replaces performance." },
+      { time:"3 min",  title:"Calm Sleep Prep",     desc:"Avoid replaying social interactions or planning tomorrow's image. Let the day be done. Rest without performance." },
+    ],
+  },
+  hpd: {
+    label:"Histrionic PD", morning:[
+      { time:"5 min",  title:"Quiet Self-Check",    desc:"Before reaching for your phone, sit with silence. Notice your feelings without acting on them. The impulse to seek stimulation immediately is the pattern to gently interrupt." },
+      { time:"5 min",  title:"Stable Intention",    desc:"Set one calm intention — not a dramatic one. 'Today I will be steady' rather than 'Today will be amazing.' Stability is the underrated superpower." },
+      { time:"10 min", title:"Grounding Breakfast",  desc:"Eat your NeuroThrive breakfast slowly, without multitasking. Complex carbs and omega-3s stabilise serotonin — the neurotransmitter of emotional equilibrium." },
+      { time:"3 min",  title:"Attention Awareness",  desc:"Notice: who do you want attention from today, and why? Awareness of the pattern is the first step to choosing differently. The prefrontal cortex strengthens each time you observe rather than react." },
+      { time:"2 min",  title:"Inner Validation",    desc:"Tell yourself one thing you value about yourself — not your appearance or others' reactions. Internal validation builds the self-worth that external attention cannot sustain." },
+    ], evening:[
+      { time:"5 min",  title:"Emotional Review",    desc:"What emotions did you feel today? Name them specifically — not just 'good' or 'bad.' Emotional granularity strengthens the prefrontal cortex's ability to regulate rather than amplify." },
+      { time:"5 min",  title:"Relationship Check",  desc:"Did you listen fully to someone today without steering the conversation? Notice without judgment. Each moment of genuine listening strengthens empathy circuits." },
+      { time:"5 min",  title:"Self-Soothing Ritual", desc:"Find comfort without external stimulation — a warm drink, a book, gentle music. Learning to self-soothe internally reduces dependence on others for emotional regulation." },
+      { time:"3 min",  title:"Quiet Sleep",         desc:"No dramatic planning or social media before bed. Let the evening be uneventful. Calm evenings build the neural tolerance for low stimulation." },
+    ],
+  },
+  aspd: {
+    label:"Antisocial PD", morning:[
+      { time:"5 min",  title:"Consequence Preview",  desc:"Before the day starts, think about one decision ahead. What are the second-order consequences? The prefrontal cortex — responsible for long-term planning — strengthens with deliberate consequence-mapping." },
+      { time:"5 min",  title:"Patience Practice",    desc:"Sit still for 5 minutes. No phone, no stimulation. Boredom tolerance is a trainable skill and it directly strengthens impulse control circuits in the ventromedial prefrontal cortex." },
+      { time:"10 min", title:"Omega-3 Rich Breakfast", desc:"Eat your NeuroThrive breakfast. EPA omega-3s increase serotonin release and have been shown in clinical trials to reduce aggression and impulsivity." },
+      { time:"3 min",  title:"Pro-Social Intention",  desc:"Set one intention to do something genuinely helpful for someone else. Not strategic — genuinely helpful. The brain's reward system can be retrained to find value in prosocial behaviour." },
+      { time:"2 min",  title:"Stress Recognition",   desc:"Notice your current stress level 1–10. Anger and impulsive action often mask unacknowledged stress. Recognising it early is the window for a different choice." },
+    ], evening:[
+      { time:"5 min",  title:"Actions & Impact",    desc:"Review your day. Did any action affect someone negatively? Not to blame yourself — to practice seeing the ripple effects of choices. This builds the neural circuits of consequential thinking." },
+      { time:"5 min",  title:"Boredom Without Action", desc:"Sit with the evening without seeking stimulation. Boredom is uncomfortable but not dangerous. Building tolerance for low arousal reduces the need for risk-seeking." },
+      { time:"5 min",  title:"Physical Release",    desc:"Channel any restless energy into push-ups, a walk, or stretching. Physical exertion metabolises cortisol and adrenaline that would otherwise seek impulsive outlets." },
+      { time:"3 min",  title:"Tomorrow's Better Choice", desc:"Name one situation tomorrow where you could make a better choice than you usually would. Pre-deciding activates the dorsolateral prefrontal cortex." },
+    ],
+  },
+  eating: {
+    label:"Eating Disorder Recovery", morning:[
+      { time:"5 min",  title:"Body Kindness",       desc:"Place your hand on your chest and say: 'This body is keeping me alive.' Before food, before mirrors, before the day — your body deserves acknowledgment for showing up." },
+      { time:"3 min",  title:"Today's Nourishment Intention", desc:"Set an intention to nourish, not to restrict. 'Today I will eat meals that help my brain and body heal.' Recovery is an active, daily choice." },
+      { time:"10 min", title:"Gentle Breakfast",     desc:"Eat your NeuroThrive breakfast at the table, without screens. Zinc in balanced meals restores taste perception and appetite signaling that restriction has dampened." },
+      { time:"5 min",  title:"Challenge One Rule",   desc:"Notice one food rule your eating disorder has created. You don't have to break it today — just notice it's there. Awareness is the first crack in the wall." },
+      { time:"2 min",  title:"Self-Compassion",     desc:"Write one kind thing to yourself. Recovery is not linear. Bad days are part of healing, not evidence of failure." },
+    ], evening:[
+      { time:"5 min",  title:"Nourishment Reflection", desc:"Did you eat all three meals today? If yes — that's a victory worth acknowledging. If not — tomorrow is another chance. No shame, only information." },
+      { time:"5 min",  title:"Body Gratitude",      desc:"Name three things your body did today — walked, breathed, thought, laughed. Your body is not the enemy. It's the vehicle of your entire life." },
+      { time:"5 min",  title:"Feelings Behind Food", desc:"Were there moments today where emotions felt connected to food urges? Write them down. Separating feelings from food behaviours is a core recovery skill." },
+      { time:"3 min",  title:"Calm Closure",        desc:"The day is done. Whatever happened with food today is done. Tomorrow is a new day of practice. Rest without judgment." },
+    ],
+  },
+  phobia: {
+    label:"Phobias", morning:[
+      { time:"5 min",  title:"Safety Grounding",    desc:"Name 5 things around you that are safe and familiar. The amygdala fires before the thinking brain catches up — grounding gives the prefrontal cortex time to override the false alarm." },
+      { time:"5 min",  title:"Calm Breathing",      desc:"4 counts in, 4 hold, 6 counts out. Repeat 5 times. The extended exhale activates the vagus nerve, which directly calms the sympathetic fight-or-flight response that phobias hijack." },
+      { time:"10 min", title:"GABA-Supporting Breakfast", desc:"Eat your NeuroThrive breakfast. Fermented foods and complex carbs support GABA production — your brain's natural anxiety brake. Building GABA reserves makes fear responses less intense." },
+      { time:"3 min",  title:"Courage Micro-Step",  desc:"Think of one tiny step toward your fear — even just imagining it briefly. Gradual exposure, even mentally, reduces amygdala reactivity over time. This is how fear extinction works." },
+      { time:"2 min",  title:"Today's Calm Anchor", desc:"Choose one calming strategy for today — a breath technique, a grounding word, or a safe mental image. Having a tool ready prevents the freeze response." },
+    ], evening:[
+      { time:"5 min",  title:"Brave Moments",       desc:"Name one moment today where you felt anxious but managed it — even partially. Noticing your own coping builds self-efficacy, which is the strongest predictor of phobia improvement." },
+      { time:"5 min",  title:"Magnesium & Calm Drink", desc:"Take magnesium with chamomile or warm milk. Magnesium blocks NMDA receptors that consolidate fear memories — taking it in the evening supports overnight fear extinction." },
+      { time:"5 min",  title:"Vagal Tone Practice",  desc:"Hum, gargle, or splash cold water on your face. These simple actions stimulate the vagus nerve, building the parasympathetic tone that counteracts phobic arousal." },
+      { time:"3 min",  title:"Safe Sleep",           desc:"Remind yourself: nighttime is safe. Phobia-related anxiety often peaks at night when the thinking brain quiets and the emotional brain gets louder. A verbal safety cue helps." },
+    ],
+  },
+  bfrb: {
+    label:"Body-Focused Repetitive", morning:[
+      { time:"5 min",  title:"Body Awareness Check", desc:"Scan your body. Where are your hands? What are they doing? BFRBs often happen on autopilot — bringing conscious awareness to your hands and body is the first line of interruption." },
+      { time:"5 min",  title:"Barrier Strategy",    desc:"Put on gloves, bandages, or fidget tools before your peak urge time. Physical barriers buy time for the prefrontal cortex to engage before the motor habit loop completes." },
+      { time:"10 min", title:"Cysteine-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Eggs, broccoli, and cruciferous vegetables provide cysteine — the precursor to NAC, which modulates the glutamate system driving repetitive behaviours." },
+      { time:"3 min",  title:"Trigger Awareness",   desc:"Name your top 3 BFRB triggers (boredom, stress, screens?). Knowing your triggers isn't about avoidance — it's about having a competing response ready." },
+      { time:"2 min",  title:"Self-Compassion",     desc:"BFRBs are neurological, not moral failures. You are not 'doing this to yourself' — your basal ganglia's habit loops are misfiring. Be kind to yourself in the process of retraining." },
+    ], evening:[
+      { time:"5 min",  title:"BFRB Tracking",       desc:"Note today's BFRB episodes — time, trigger, duration. Not to judge — to spot patterns. Data replaces shame, and patterns reveal the specific glutamate surges you can learn to redirect." },
+      { time:"5 min",  title:"Competing Response",   desc:"Practice your chosen competing response for 2 minutes — squeezing a ball, pressing palms together, or rubbing a texture. Habit reversal training rewires the motor cortex." },
+      { time:"5 min",  title:"Antioxidant Support",  desc:"Have a small serving of blueberries or dark chocolate. Antioxidants support the glutathione system that NAC feeds into — protecting the neurons you're retraining." },
+      { time:"3 min",  title:"Hands-Free Sleep Prep", desc:"Apply lotion to your hands and wear soft gloves if needed. Nighttime is peak BFRB time because the prefrontal cortex disengages. Physical barriers protect progress." },
+    ],
+  },
+  ppd: {
+    label:"Paranoid PD", morning:[
+      { time:"5 min",  title:"Safety Assessment",   desc:"Look around your space. Name 5 things that confirm you are safe. The locus coeruleus — your brain's alarm centre — is overactive in paranoid states. Conscious safety evidence helps recalibrate it." },
+      { time:"5 min",  title:"Benign Interpretation Practice", desc:"Think of one interaction from yesterday that felt threatening. Now generate one alternative, innocent explanation. This isn't naive — it's exercising the prefrontal cortex's ability to consider multiple perspectives." },
+      { time:"10 min", title:"Magnesium-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Magnesium blocks NMDA receptor overactivation in the amygdala, which directly reduces the hypervigilance that makes normal situations feel threatening." },
+      { time:"3 min",  title:"Trust Micro-Step",    desc:"Identify one small trust action for today — sharing a minor opinion, asking for help with something small. Trust is rebuilt in tiny increments that don't overwhelm the nervous system." },
+      { time:"2 min",  title:"Body Relaxation",     desc:"Unclench your jaw, drop your shoulders, soften your hands. Hypervigilance lives in muscle tension — releasing it sends safety signals up through the vagus nerve to the brain." },
+    ], evening:[
+      { time:"5 min",  title:"Threat Reality Check", desc:"Were any of today's fears confirmed? Usually the answer is no. Tracking the ratio of feared outcomes vs. actual outcomes slowly recalibrates the brain's threat calculator." },
+      { time:"5 min",  title:"Calming Ritual",      desc:"Warm drink, dim lights, calming music. The parasympathetic nervous system needs consistent signals of safety to counterbalance a hyperactive threat system." },
+      { time:"5 min",  title:"Omega-3 Support",     desc:"If you haven't had fish today, consider an omega-3 supplement with your evening meal. DHA maintains the anterior cingulate cortex, which helps you accurately read others' intentions." },
+      { time:"3 min",  title:"Secure Sleep",        desc:"Check locks once — and only once. The compulsion to re-check is the amygdala seeking reassurance. One check is responsible; repeated checks feed the anxiety loop." },
+    ],
+  },
+  spd: {
+    label:"Schizoid PD", morning:[
+      { time:"5 min",  title:"Energy Check",        desc:"Rate your energy and motivation 1–10. The dopaminergic pathways that drive motivation can be undertoned in SPD. Tracking helps you notice patterns and plan accordingly." },
+      { time:"5 min",  title:"One Social Intention", desc:"Set one small social interaction for today — even a brief exchange with a cashier or a text. The brain's social reward circuits atrophy with disuse but can be rebuilt gradually." },
+      { time:"10 min", title:"Tyrosine-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Eggs, chicken, and cheese provide tyrosine — the precursor to dopamine, the neurotransmitter of motivation and reward that SPD tends to underutilize." },
+      { time:"5 min",  title:"Movement for Dopamine", desc:"Do 5 minutes of brisk movement — walking, jumping jacks, dancing. Physical activity directly increases dopamine release in the nucleus accumbens, the brain's motivation centre." },
+      { time:"2 min",  title:"One Thing to Look Forward To", desc:"Name one thing today that could be mildly enjoyable. Not exciting — just slightly pleasant. This primes the brain's anticipation circuitry, which is atrophied in anhedonia." },
+    ], evening:[
+      { time:"5 min",  title:"Social Reflection",   desc:"Did you have any social interactions today? How did they feel? Not good or bad — just notice. Building awareness of social experience is the foundation for gradually expanding your comfort zone." },
+      { time:"5 min",  title:"Pleasure Tracking",   desc:"Name one thing today that felt even slightly good. A meal, a song, sunlight, a comfortable chair. Anhedonia makes good things invisible — deliberately noticing them trains the brain to register pleasure again." },
+      { time:"5 min",  title:"Creative Expression",  desc:"Spend a few minutes on something creative — drawing, writing, music, building something. Creative expression activates the mesocortical dopamine pathway without requiring social interaction." },
+      { time:"3 min",  title:"Tomorrow's Anchor",   desc:"Name one specific thing to do first tomorrow. Inertia is SPD's biggest obstacle — having a concrete first step dramatically reduces the activation energy needed to begin." },
     ],
   },
   default: {
@@ -2899,6 +3253,9 @@ export default function NeuroThrive() {
   const [affirmNotifEnabled, setAffirmNotifEnabled] = useState(false);
   const [affirmNotifTime, setAffirmNotifTime] = useState("09:00");
   const [progressRange, setProgressRange] = useState(14);
+  const [showTour, setShowTour] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
+  const [onboardingDone, setOnboardingDone] = useState(false);
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -2962,6 +3319,7 @@ export default function NeuroThrive() {
           if (data.reminder_times) setReminderTimes(data.reminder_times);
           if (data.reminder_active) setReminderActive(data.reminder_active);
           if (data.daily_checks) setDailyChecks(data.daily_checks);
+          if (data.onboarding_done) setOnboardingDone(true);
         }
       } catch(e) {}
       setDataLoaded(true);
@@ -3047,12 +3405,38 @@ export default function NeuroThrive() {
           reminder_times: reminderTimes,
           reminder_active: reminderActive,
           daily_checks: dailyChecks,
+          onboarding_done: onboardingDone,
           updated_at: new Date().toISOString(),
         });
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, dataLoaded, user]);
+  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, dataLoaded, user]);
+
+  // ── Feature tour trigger ────────────────────────────────────────────────────
+  useEffect(() => {
+    if (step === 4 && isPremium && dataLoaded && !onboardingDone && menu30) {
+      setShowTour(true);
+    }
+  }, [step, isPremium, dataLoaded, onboardingDone, menu30]);
+
+  const TOUR_SLIDES = [
+    { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Your personalised 30-day plan is ready. Here's a quick tour of everything you can do." },
+    { emoji: "🍽️", title: "Your 30-Day Menu", desc: "Browse daily meals tailored to your condition. Tap any meal to see its full recipe, or tap \"Why this meal?\" to learn the neuroscience behind each ingredient." },
+    { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel — powerful data for your wellness journey." },
+    { emoji: "✨", title: "Daily Affirmations", desc: "Condition-specific affirmations grounded in neuroplasticity research. Regular positive self-talk literally rewires neural pathways over time." },
+    { emoji: "💊", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalised to your condition — with dosages, timing, and the science behind each one." },
+    { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category — grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
+    { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus 10 exercise modalities with neuroscience explanations for your specific condition." },
+    { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
+    { emoji: "🚀", title: "You're all set!", desc: "Start with today's meals and check in with your journal tonight. Small, consistent steps create lasting change. Let's go!" },
+  ];
+
+  const finishTour = () => {
+    setShowTour(false);
+    setTourStep(0);
+    setOnboardingDone(true);
+  };
 
   // ── Auth functions ──────────────────────────────────────────────────────────
   const handleSignUp = async () => {
@@ -3878,6 +4262,36 @@ export default function NeuroThrive() {
               </button>
             </div>
             <button onClick={() => setStep(3)} style={{ marginTop:"24px", color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>← Go back</button>
+          </div>
+        )}
+
+        {/* FEATURE TOUR OVERLAY */}
+        {showTour && (
+          <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:"20px", backdropFilter:"blur(6px)" }}>
+            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.5)", animation:"fadeUp 0.3s ease" }}>
+              <div style={{ fontSize:"56px", marginBottom:"16px" }}>{TOUR_SLIDES[tourStep].emoji}</div>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px", letterSpacing:"0.5px" }}>{TOUR_SLIDES[tourStep].title}</h2>
+              <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7, marginBottom:"28px", maxWidth:"360px", marginLeft:"auto", marginRight:"auto" }}>{TOUR_SLIDES[tourStep].desc}</p>
+              {/* Dots */}
+              <div style={{ display:"flex", justifyContent:"center", gap:"6px", marginBottom:"24px" }}>
+                {TOUR_SLIDES.map((_, i) => (
+                  <div key={i} style={{ width: i === tourStep ? "20px" : "6px", height:"6px", borderRadius:"3px", background: i === tourStep ? "#5570f0" : "rgba(107,143,255,0.2)", transition:"all 0.3s", cursor:"pointer" }} onClick={() => setTourStep(i)} />
+                ))}
+              </div>
+              <div style={{ display:"flex", gap:"12px", justifyContent:"center" }}>
+                {tourStep > 0 && (
+                  <button onClick={() => setTourStep(t => t - 1)} style={{ background:"transparent", color:"#8890b8", border:"1px solid rgba(110,120,200,0.3)", padding:"12px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"500", cursor:"pointer" }}>← Back</button>
+                )}
+                {tourStep < TOUR_SLIDES.length - 1 ? (
+                  <button onClick={() => setTourStep(t => t + 1)} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Next →</button>
+                ) : (
+                  <button onClick={finishTour} style={{ background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Let's Go! 🚀</button>
+                )}
+              </div>
+              {tourStep < TOUR_SLIDES.length - 1 && (
+                <button onClick={finishTour} style={{ marginTop:"16px", background:"none", border:"none", color:"#6b7394", fontSize:"12px", cursor:"pointer", textDecoration:"underline" }}>Skip tour</button>
+              )}
+            </div>
           </div>
         )}
 
