@@ -5437,7 +5437,7 @@ export default function NeuroThrive() {
                     {exRoutine.options.map((opt, i) => {
                       const isChecked = !!exerciseChecks[i];
                       return (
-                        <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px", border: isChecked ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(107,143,255,0.12)", background: isChecked ? "rgba(80,200,120,0.06)" : "rgba(107,143,255,0.04)" }}>
+                        <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: isChecked ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(107,143,255,0.12)", background: isChecked ? "rgba(80,200,120,0.06)" : "rgba(107,143,255,0.04)" }}>
                           <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
                             <div style={{ fontSize:"28px", flexShrink:0, marginTop:"2px" }}>{opt.emoji}</div>
                             <div style={{ flex:1 }}>
@@ -5479,7 +5479,7 @@ export default function NeuroThrive() {
                   {steps.map((s, i) => {
                     const isChecked = !!todayRoutineChecks[i];
                     return (
-                    <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px" }}>
+                    <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px" }}>
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
                         <div style={{ textAlign:"center", flexShrink:0 }}>
                           <div style={{ width:"36px", height:"36px", borderRadius:"50%", background: routineTab==="morning" ? "linear-gradient(135deg,#f0a830,#e87020)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
