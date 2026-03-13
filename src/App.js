@@ -861,7 +861,7 @@ const generateRecipe = (meal) => {
   const isSoup = hasAny("soup","chili","stew","chowder");
   const isPasta = hasAny("pasta","noodle","spaghetti");
   const isOmelette = hasAny("omelette","omelet");
-  const isOatmeal = hasAny("oatmeal","oats","porridge","overnight oat","congee","millet");
+  const isOatmeal = hasAny("oatmeal","oats","porridge","overnight oat");
   const isSmoothi = hasAny("smoothie");
   const isYogurt = hasAny("yogurt","yoghurt");
   const isToast = hasAny("toast") && !hasAny("french toast");
@@ -874,9 +874,14 @@ const generateRecipe = (meal) => {
   const isCurry = has("curry");
   const isCasserole = has("casserole");
   const isHash = has("hash");
+  const isTeriyaki = has("teriyaki");
+  const isGlazed = hasAny("glaze","glazed");
+  const isSheetPan = hasAny("sheet pan");
+  const isStuffed = has("stuffed");
+  const isBolognese = has("bolognese");
 
   // ── Detect key sides / vegetables ─────────────────────────────────────────
-  const hasRice = hasAny("rice","rice bowl","fried rice");
+  const hasRice = hasAny("rice","rice bowl","fried rice") && !has("rice pasta");
   const hasQuinoa = has("quinoa");
   const hasSweet = has("sweet potato");
   const hasPotato = has("potato") && !has("sweet potato");
@@ -900,6 +905,7 @@ const generateRecipe = (meal) => {
   const hasBlueberry = hasAny("blueberry","blueberries");
   const hasBerry = hasAny("berry","berries","strawberr","raspberry","raspberries");
   const hasApple = has("apple");
+  const hasPomegranate = has("pomegranate");
   const hasWalnut = has("walnut");
   const hasAlmond = has("almond");
 
@@ -911,7 +917,7 @@ const generateRecipe = (meal) => {
   // Starches
   if (hasRice) { ingredients.push("1 cup long-grain white or brown rice"); ingredients.push("1¾ cups water or chicken broth"); }
   if (hasQuinoa) { ingredients.push("½ cup dry quinoa, rinsed"); ingredients.push("1 cup water or broth"); }
-  if (hasSweet) { ingredients.push("1 medium sweet potato, cubed or sliced"); totalTime = Math.max(totalTime, 30); }
+  if (hasSweet) { ingredients.push(isStuffed ? "2 medium sweet potatoes, whole" : "1 medium sweet potato, cubed or sliced"); totalTime = Math.max(totalTime, isStuffed ? 50 : 30); }
   if (hasPotato) { ingredients.push("2 medium Yukon Gold potatoes, cubed"); totalTime = Math.max(totalTime, 30); }
   if (hasCornbread) { ingredients.push("1 cup cornbread mix (Jiffy or homemade)"); ingredients.push("⅓ cup milk"); ingredients.push("1 egg"); }
 
@@ -932,6 +938,7 @@ const generateRecipe = (meal) => {
   if (hasBanana) ingredients.push("1 ripe banana, sliced");
   if (hasBlueberry) ingredients.push("½ cup fresh or frozen blueberries");
   else if (hasBerry) ingredients.push("½ cup mixed berries (strawberries, raspberries, blueberries)");
+  if (hasPomegranate) ingredients.push("¼ cup pomegranate arils (seeds)");
   if (hasApple) ingredients.push("1 medium apple, cored and sliced");
   if (hasWalnut) ingredients.push("2 tbsp raw walnuts, roughly chopped");
   if (hasAlmond) ingredients.push("2 tbsp raw almonds or almond butter");
@@ -952,12 +959,100 @@ const generateRecipe = (meal) => {
   if (isStirFry) { ingredients.push("2 tbsp low-sodium soy sauce or coconut aminos"); ingredients.push("1 tsp sesame oil"); ingredients.push("1 tsp fresh ginger, minced"); }
   if (isFajita) { ingredients.push("½ onion, sliced into strips"); ingredients.push("1 tsp cumin + ½ tsp chili powder"); ingredients.push("3 flour or corn tortillas, warmed"); }
   if (isEnchilada) { ingredients.push("½ cup red enchilada sauce"); ingredients.push("3 corn tortillas"); ingredients.push("¼ cup shredded Monterey Jack cheese"); }
+  if (isTeriyaki) { ingredients.push("3 tbsp soy sauce or tamari"); ingredients.push("1 tbsp mirin or rice vinegar"); ingredients.push("1 tbsp honey"); ingredients.push("1 tsp cornstarch + 1 tbsp water (slurry)"); ingredients.push("1 tsp fresh ginger, grated"); }
+  if (isGlazed && hasPomegranate) { ingredients.push("½ cup pomegranate juice"); ingredients.push("2 tbsp honey"); ingredients.push("1 tbsp balsamic vinegar"); }
+  if (isBolognese) { ingredients.push("1 can (14 oz) crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); ingredients.push("½ onion, finely diced"); ingredients.push("1 tbsp tomato paste"); ingredients.push("1 tsp dried Italian herbs"); ingredients.push("8 oz brown rice pasta or whole grain pasta"); }
 
-  // Oatmeal-specific
+  // Quinoa porridge
+  if (has("quinoa") && hasAny("porridge","bowl") && !isSalad && !isBowl) {
+    const ing = ["½ cup quinoa, rinsed", "1 cup milk of choice or water"];
+    if (hasBerry) ing.push("½ cup mixed berries");
+    if (hasBlueberry) ing.push("½ cup blueberries");
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (hasPomegranate) ing.push("¼ cup pomegranate arils");
+    ing.push("1 tbsp honey or maple syrup","Pinch of cinnamon and salt");
+    return {
+      serves: 1, time: "20 min",
+      ingredients: ing,
+      steps: ["Rinse quinoa under cold water in a fine mesh strainer for 30 seconds to remove bitter saponins.","Combine quinoa and milk in a saucepan. Bring to a boil, then reduce to low.","Cover and simmer 15 minutes until quinoa is fluffy and liquid is absorbed.","Stir in cinnamon and a pinch of salt. Transfer to a bowl.","Top with fruit and drizzle with honey. Serve warm."],
+      tip: "Quinoa porridge is a complete protein — all 9 essential amino acids — unlike oatmeal.",
+      nutrition: ["Complete plant protein with all essential amino acids","Magnesium supports GABA production for calm","Iron supports oxygen delivery to the brain","Fiber stabilizes blood sugar for steady energy"]
+    };
+  }
+
+  // Brown rice congee
+  if (has("congee")) {
+    const ing = ["½ cup jasmine or short-grain brown rice", "4 cups water or chicken broth", "1 tsp fresh ginger, grated"];
+    if (has("egg")) ing.push("1 egg (soft-boiled: 6.5 min)");
+    ing.push("1 tsp sesame oil","1 tbsp soy sauce or tamari","2 scallions, thinly sliced","Salt and white pepper to taste");
+    return {
+      serves: 1, time: "45 min",
+      ingredients: ing,
+      steps: ["Rinse rice until water runs clear. Combine rice and broth in a pot.","Bring to a boil, then reduce heat to low. Partially cover and simmer 35–40 minutes, stirring occasionally, until rice breaks down into a thick porridge.","While congee simmers, prepare soft-boiled egg: boil water, gently lower egg in, cook exactly 6.5 minutes, then ice bath.","Season congee with ginger, sesame oil, soy sauce, salt, and white pepper.","Ladle into a bowl. Top with peeled soft-boiled egg (halved) and sliced scallions."],
+      tip: "The longer you cook congee, the creamier it gets. Leftover rice works too — just use less water and cook 20 min.",
+      nutrition: ["Easily digestible carbs are gentle on the gut-brain axis","Ginger is anti-inflammatory and supports digestion","Bone broth adds collagen and amino acids for brain repair","Slow-release energy keeps blood sugar stable"]
+    };
+  }
+
+  // Millet porridge
+  if (has("millet")) {
+    const ing = ["½ cup millet, rinsed", "1½ cups milk of choice or water"];
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    ing.push("1 tbsp honey","½ tsp cinnamon","Pinch of salt");
+    return {
+      serves: 1, time: "25 min",
+      ingredients: ing,
+      steps: ["Toast millet in a dry saucepan over medium heat for 2–3 minutes until fragrant and slightly golden.","Add milk and a pinch of salt. Bring to a boil.","Reduce heat to low, cover, and simmer 18–20 minutes until millet is soft and creamy.","Stir in cinnamon. Transfer to a bowl.","Top with sliced banana and drizzle with honey."],
+      tip: "Millet is naturally gluten-free and alkaline — one of the most digestible grains available.",
+      nutrition: ["Magnesium supports relaxation and sleep quality","B vitamins support neurotransmitter synthesis","Naturally gluten-free for sensitive digestive systems","Tryptophan supports serotonin production"]
+    };
+  }
+
+  // Baked oatmeal
+  if (has("baked") && hasAny("oatmeal","oat")) {
+    const ing = ["2 cups rolled oats", "1 cup milk of choice", "1 egg", "2 tbsp maple syrup or honey"];
+    if (hasApple) ing.push("1 medium apple, diced");
+    if (hasBlueberry) ing.push("½ cup blueberries");
+    if (hasBanana) ing.push("1 ripe banana, mashed");
+    ing.push("1 tsp cinnamon","1 tsp baking powder","½ tsp vanilla extract","Pinch of salt");
+    return {
+      serves: 4, time: "35 min",
+      ingredients: ing,
+      steps: ["Preheat oven to 375°F. Grease an 8×8 baking dish.","In a large bowl, mix oats, baking powder, cinnamon, and salt.","In another bowl, whisk milk, egg, maple syrup, and vanilla.","Pour wet into dry and stir until combined. Fold in fruit.","Pour into baking dish. Bake 25–30 minutes until golden and set in the center.","Let cool 5 minutes before cutting into squares. Serve warm."],
+      tip: "Baked oatmeal keeps in the fridge for 5 days — reheat a square each morning for easy breakfasts.",
+      nutrition: ["Complex carbs for sustained brain energy","Fiber feeds beneficial gut bacteria","Eggs add choline for memory support","Cinnamon helps stabilize blood sugar"]
+    };
+  }
+
+  // Savory oatmeal
+  if (has("savory") && hasAny("oatmeal","oat")) {
+    const ing = ["½ cup rolled oats", "1 cup water or vegetable broth", "1 tbsp olive oil"];
+    if (has("egg") || has("poached")) ing.push("1 large egg");
+    if (hasAvocado) ing.push("½ ripe avocado, sliced");
+    ing.push("Salt, black pepper, and garlic powder to taste","Optional: hot sauce, nutritional yeast, or everything bagel seasoning");
+    return {
+      serves: 1, time: "10 min",
+      ingredients: ing,
+      steps: ["Cook oats with broth (not milk) in a saucepan over medium heat, 4–5 minutes until creamy. Season with salt, pepper, and garlic powder.","While oats cook, bring a small pot of water to a gentle simmer. Add a splash of vinegar.","Crack egg into a small cup, then gently slide into simmering water. Cook 3–4 minutes for a runny yolk.","Transfer savory oats to a bowl. Top with sliced avocado and poached egg.","Season with hot sauce or everything bagel seasoning. The runny yolk becomes the sauce."],
+      tip: "Savory oats are an underrated brain breakfast — the broth adds umami and the egg adds choline.",
+      nutrition: ["Complex carbs from oats provide sustained brain energy","Choline from egg yolk supports memory","Healthy fats from avocado support myelin","Broth-based cooking adds minerals without added sugar"]
+    };
+  }
+
+  // Oatmeal-specific (standard sweet oatmeal)
   if (isOatmeal) {
+    const oatIng = ["½ cup rolled oats (not instant)", "1 cup unsweetened almond milk or water"];
+    if (hasBanana) oatIng.push("1 ripe banana, sliced");
+    if (hasBlueberry) oatIng.push("½ cup blueberries");
+    else if (hasBerry) oatIng.push("½ cup mixed berries");
+    if (hasPomegranate) oatIng.push("¼ cup pomegranate arils");
+    if (hasWalnut) oatIng.push("2 tbsp raw walnuts, chopped");
+    else if (has("pistachio")) oatIng.push("2 tbsp shelled pistachios");
+    if (has("flax")) oatIng.push("1 tbsp ground flaxseed");
+    oatIng.push("1 tbsp honey or pure maple syrup","½ tsp ground cinnamon","Pinch of sea salt");
     return {
       serves: 1, time: "8 min",
-      ingredients: ["½ cup rolled oats (not instant)", "1 cup unsweetened almond milk or water", hasBanana?"1 ripe banana, sliced":"", hasBlueberry?"½ cup blueberries":"", hasBerry&&!hasBlueberry?"½ cup mixed berries":"", hasWalnut?"2 tbsp raw walnuts, chopped":"", "1 tbsp honey or pure maple syrup", "½ tsp ground cinnamon", "Pinch of sea salt"].filter(Boolean),
+      ingredients: oatIng,
       steps: ["Combine oats, milk, salt, and cinnamon in a small saucepan over medium heat.", "Stir frequently for 4–5 minutes until oats absorb the liquid and reach a creamy consistency.", "Remove from heat — oats continue thickening off the heat.", "Pour into a bowl and arrange toppings artfully on top.", "Drizzle honey or maple syrup over everything and serve immediately."],
       tip: "For extra creaminess, use half water and half milk. Overnight oats work too — just combine everything in a jar and refrigerate overnight.",
       nutrition: ["Complex carbs for sustained brain energy","Fiber feeds beneficial gut bacteria","Beta-glucan supports healthy cholesterol","Cinnamon helps stabilize blood sugar"]
@@ -970,6 +1065,7 @@ const generateRecipe = (meal) => {
     if (hasSpinach) ing.push("1 cup fresh spinach");
     if (hasBanana) ing.push("1 ripe banana");
     if (hasMango) ing.push("½ cup frozen mango chunks");
+    if (hasPomegranate) ing.push("¼ cup pomegranate arils");
     ing.push("1 tbsp chia seeds or hemp seeds");
     ing.push("1 tsp honey");
     return {
@@ -1009,9 +1105,11 @@ const generateRecipe = (meal) => {
     if (hasBlueberry) ing.push("½ cup fresh blueberries");
     else if (hasBerry) ing.push("½ cup mixed fresh berries (strawberries, raspberries, blueberries)");
     if (hasMango) ing.push("½ cup fresh mango, diced");
+    if (hasPomegranate) ing.push("¼ cup pomegranate arils");
     if (has("honey")) ing.push("1 tbsp honey");
     if (hasWalnut) ing.push("2 tbsp walnuts, roughly chopped");
     if (hasAlmond) ing.push("2 tbsp sliced almonds");
+    if (has("pistachio")) ing.push("2 tbsp shelled pistachios");
     if (has("chia")) ing.push("1 tsp chia seeds");
     if (ing.length <= 2) { ing.push("½ cup fresh berries or sliced fruit"); ing.push("1 tbsp honey"); }
     return {
@@ -1159,7 +1257,7 @@ const generateRecipe = (meal) => {
   }
 
   // Cheese + crackers / cheese + fruit
-  if (hasCheese && !isSandwich && !isOmelette && !isBurrito && !isTaco && !isQuesadilla && !isEnchilada) {
+  if (hasCheese && !isSandwich && !isOmelette && !isBurrito && !isTaco && !isQuesadilla && !isEnchilada && !isStuffed && !isCasserole && !isBowl && !isSoup && !isPasta && !isStirFry && !isCurry && !isSheetPan && !hasAny("chicken","turkey","beef","salmon","steak","pork")) {
     const items = [];
     if (has("cracker")) items.push("8–10 whole grain crackers");
     if (hasApple) items.push("1 medium apple, cored and sliced");
@@ -1202,8 +1300,8 @@ const generateRecipe = (meal) => {
     };
   }
 
-  // Edamame
-  if (has("edamame")) {
+  // Edamame (snack-only — skip if it's part of a larger meal)
+  if (has("edamame") && !hasAny("salmon","chicken","beef","turkey","rice","teriyaki","stir")) {
     return {
       serves: 1, time: "5 min",
       ingredients: ["1 cup frozen edamame in pods","½ tsp sea salt","Optional: squeeze of lime, chili flakes"],
@@ -1246,7 +1344,7 @@ const generateRecipe = (meal) => {
   }
 
   // Tea snacks
-  if (has("chamomile") || has("tea")) {
+  if (has("chamomile") || (has("tea") && !has("stea") && !has("steak"))) {
     const ing = ["1 chamomile tea bag","1 cup hot water"];
     if (has("honey")) ing.push("1 tsp honey");
     if (has("cracker")) ing.push("8–10 whole grain crackers");
@@ -1447,7 +1545,7 @@ const generateRecipe = (meal) => {
   // Prep steps
   if (hasRice) { prepSteps.push("Rinse rice under cold water. Combine with broth in a saucepan, bring to boil, cover and simmer on low 18 minutes. Fluff with a fork."); totalTime = Math.max(totalTime, 25); }
   if (hasQuinoa) { prepSteps.push("Rinse quinoa in a fine mesh strainer. Combine with water/broth in a saucepan, bring to boil, reduce to simmer, cover 15 minutes. Let stand 5 minutes then fluff."); totalTime = Math.max(totalTime, 20); }
-  if (hasSweet && !isCasserole) { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet — roast 25 minutes, flipping halfway, until caramelized."); totalTime = Math.max(totalTime, 35); }
+  if (hasSweet && !isCasserole && !isStuffed) { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet — roast 25 minutes, flipping halfway, until caramelized."); totalTime = Math.max(totalTime, 35); }
   if (hasPotato && !isCasserole && !isHash) { prepSteps.push("Cube potatoes into 1-inch pieces. Toss with olive oil, salt, garlic powder, and rosemary. Roast at 425°F 25–30 minutes until golden and crispy."); totalTime = Math.max(totalTime, 35); }
   if (hasBroccoli) { prepSteps.push("Toss broccoli florets with 1 tsp olive oil, salt. Either roast at 425°F for 15 minutes until edges char slightly, or steam for 5 minutes until bright green and tender-crisp."); }
   if (hasAsparagus) { prepSteps.push("Snap off the woody ends of asparagus. Toss with olive oil, salt, and pepper. Roast at 425°F 10–12 minutes, or pan-sear in a hot skillet 4–5 minutes."); }
@@ -1514,6 +1612,51 @@ const generateRecipe = (meal) => {
     steps.push("Add potatoes or sweet potato first — cook 8–10 minutes without stirring to get a crust.");
     steps.push("Add protein and vegetables. Toss together and cook another 5 minutes.");
     steps.push("Make wells in the hash and crack in eggs if including. Cover and cook 3–4 minutes for set whites.");
+  } else if (isSheetPan) {
+    steps.push("Preheat oven to 425°F. Line a large sheet pan with parchment paper.");
+    steps.push("Arrange protein and vegetables on the sheet pan — keep them in separate zones so each cooks evenly.");
+    steps.push("Drizzle everything with olive oil, salt, pepper, and garlic powder.");
+    steps.push("Roast 20–25 minutes, checking at 15 min. Protein should be cooked through and veggies caramelized at the edges.");
+    steps.push("Serve directly from the pan with rice or quinoa on the side.");
+    totalTime = 35;
+  } else if (isStuffed) {
+    if (hasPepper || has("bell pepper")) {
+      steps.push("Cut bell peppers in half lengthwise and remove seeds. Place cut-side up in a baking dish.");
+      steps.push("Mix cooked protein with rice, beans, and seasonings to create the filling.");
+      steps.push("Stuff each pepper half generously, mounding the filling.");
+      steps.push("Top with cheese if using. Cover with foil and bake at 375°F for 25 minutes. Remove foil and bake 10 more minutes.");
+    } else if (hasSweet) {
+      steps.push("Bake whole sweet potatoes at 400°F for 45–50 minutes until fork-tender.");
+      steps.push("While potatoes bake, cook your protein filling with seasonings.");
+      steps.push("Cut baked sweet potatoes lengthwise and push sides open. Fluff the interior with a fork.");
+      steps.push("Spoon filling generously into each sweet potato. Top with cheese, avocado, or sour cream.");
+    }
+    totalTime = 50;
+  } else if (isBolognese) {
+    steps.push("Heat olive oil in a large saucepan. Sauté onion and garlic until soft, 3–4 minutes.");
+    steps.push("Add protein (lentils or ground meat) and cook until browned.");
+    steps.push("Stir in crushed tomatoes, tomato paste, and Italian herbs. Simmer 20 minutes on low.");
+    steps.push("Meanwhile, cook pasta according to package directions. Drain, reserving ½ cup pasta water.");
+    steps.push("Toss pasta with bolognese sauce, adding pasta water as needed for silkiness. Serve immediately.");
+    totalTime = 35;
+  } else if (isTeriyaki) {
+    steps.push("In a small saucepan, combine soy sauce, mirin, honey, and ginger. Bring to a simmer.");
+    steps.push("Add cornstarch slurry and stir until sauce thickens, about 1–2 minutes. Set aside.");
+    steps.push("Cook protein in a hot skillet until done, then pour teriyaki sauce over and toss to coat.");
+    steps.push("Serve over rice with steamed vegetables on the side. Garnish with sesame seeds and scallions.");
+    totalTime = 25;
+  } else if (isGlazed) {
+    if (hasPomegranate) {
+      steps.push("In a small saucepan, simmer pomegranate juice, honey, and balsamic vinegar over medium heat 8–10 minutes until reduced to a thick, syrupy glaze.");
+      steps.push("Cook protein as directed. During the last 2 minutes, brush generously with pomegranate glaze.");
+      steps.push("Let glaze caramelize slightly — it should be shiny and sticky.");
+      steps.push("Plate protein over your starch, drizzle remaining glaze on top, and scatter fresh pomegranate arils.");
+    } else {
+      steps.push("Prepare glaze by simmering sauce ingredients until thickened.");
+      steps.push("Brush protein with glaze during the last 2–3 minutes of cooking.");
+      steps.push("Plate and drizzle remaining glaze over everything.");
+    }
+    totalTime = 30;
   }
 
   // Finish steps
@@ -1533,6 +1676,7 @@ const generateRecipe = (meal) => {
   if (hasSpinach || hasKale) nutrition.push("Folate & magnesium — key for mood regulation and stress response");
   if (hasSweet) nutrition.push("Beta-carotene & B6 support brain health and mood");
   if (hasAvocado) nutrition.push("Monounsaturated fats support myelin sheath & cognitive function");
+  if (hasPomegranate) nutrition.push("Punicalagins in pomegranate reduce neuroinflammation & support memory");
   if (hasBroccoli) nutrition.push("Sulforaphane reduces neuroinflammation (NF-κB pathway)");
   if (hasBlueberry || hasBerry) nutrition.push("Anthocyanins cross the blood-brain barrier and reduce oxidative stress");
   if (hasWalnut) nutrition.push("Plant-based omega-3 (ALA) and polyphenols support brain structure");
