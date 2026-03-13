@@ -4476,11 +4476,11 @@ export default function NeuroThrive() {
         </div>
         <div className="nav-tabs-scroll" style={S.navTabs}>
           {step > 0 && [
-            { label:"Gender",       s:1 },
-            { label:"Conditions",   s:2 },
-            { label:"Diet",         s:3 },
-            { label:"Menu",         s:4 },
-            { label:"Journal",      s:8 },
+            { label:"👤 Gender",       s:1 },
+            { label:"🩺 Conditions",   s:2 },
+            { label:"🥗 Diet",         s:3 },
+            { label:"🍽️ Menu",         s:4 },
+            { label:"📓 Journal",      s:8 },
           ].map(({ label, s }) => (
             <button key={label} style={S.navTab(step===s)} onClick={() => handleStepForward(s)}>{label}</button>
           ))}
