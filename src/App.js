@@ -4500,8 +4500,8 @@ export default function NeuroThrive() {
           </div>
         )}
 
-        {/* WELCOME */}
-        {step === 0 && !disclaimerAccepted && (
+        {/* WELCOME — only for new users (no menu yet) */}
+        {step === 0 && !disclaimerAccepted && !menu30 && (
           <div style={S.hero}>
             <div style={S.heroEyebrow}>Brain · Food · Wellbeing</div>
             <h1 style={S.heroTitle}>Eat for your<br/><span style={S.heroAccent}>mind.</span></h1>
@@ -4510,8 +4510,8 @@ export default function NeuroThrive() {
           </div>
         )}
 
-        {/* DISCLAIMER — shown after welcome, before onboarding */}
-        {step === 0 && disclaimerAccepted && (
+        {/* DISCLAIMER — shown after welcome, before onboarding (new users only) */}
+        {step === 0 && disclaimerAccepted && !menu30 && (
           <div style={{ maxWidth:"480px", margin:"0 auto" }}>
             <div style={{ textAlign:"center", marginBottom:"28px" }}>
               <div style={{ fontSize:"11px", color:"#7b9fff", letterSpacing:"3px", textTransform:"uppercase" }}>Before You Begin</div>
