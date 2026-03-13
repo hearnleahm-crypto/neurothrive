@@ -4487,10 +4487,10 @@ export default function NeuroThrive() {
           ))}
           {step > 3 && (
             <>
-              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>}
               <button style={S.navTab(step===4)} onClick={() => setStep(4)}>Menu</button>
               {isPremium && <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>}
               {isPremium && <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>}
+              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>}
               {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
             </>
           )}
