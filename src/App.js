@@ -859,6 +859,28 @@ const generateRecipe = (meal) => {
     };
   }
 
+  // Smoothie bowl (must come before generic smoothie check)
+  if (has("smoothie bowl")) {
+    const ing = ["1 cup frozen fruit (banana, mango, or berries)","½ cup milk of choice","¼ cup granola"];
+    if (hasSpinach) ing.push("1 cup fresh spinach");
+    if (hasBanana) ing.push("1 ripe banana");
+    if (hasMango) ing.push("½ cup frozen mango chunks");
+    ing.push("1 tbsp chia seeds or hemp seeds");
+    ing.push("1 tsp honey");
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ing,
+      steps: [
+        "Blend frozen fruit with just enough milk to create a thick, spoonable consistency — less liquid than a drinkable smoothie.",
+        "Pour into a bowl.",
+        "Arrange toppings in rows: granola, fresh fruit, seeds.",
+        "Eat immediately with a spoon — smoothie bowls melt fast.",
+      ],
+      tip: "Use frozen fruit straight from the freezer — it's what gives smoothie bowls their thick, ice-cream-like texture.",
+      nutrition: ["Antioxidants from berries reduce neuroinflammation","Fiber from fruit and seeds supports gut health","Natural sugars provide quick brain fuel","Spinach adds folate without changing the taste"]
+    };
+  }
+
   // Smoothie-specific
   if (isSmoothi) {
     return {
@@ -867,6 +889,394 @@ const generateRecipe = (meal) => {
       steps: ["Add liquid to blender first — this protects the blade and blends more smoothly.", "Add yogurt, nut butter, and honey.", "Add frozen fruit and ice on top.", "Blend on high 45–60 seconds until completely smooth and creamy.", "Pour into a tall glass. Drink immediately for best texture."],
       tip: "Freeze ripe bananas in chunks — they make the creamiest smoothies without any added sugar.",
       nutrition: ["Protein from Greek yogurt supports neurotransmitter production","Antioxidants from berries reduce neuroinflammation","Healthy fats from nut butter support myelin sheath","Potassium from banana supports nerve signaling"]
+    };
+  }
+
+  // Yogurt / parfait
+  if (isYogurt || has("parfait")) {
+    const ing = [];
+    if (has("greek")) ing.push("1 cup Greek yogurt (plain, full-fat)");
+    else if (has("coconut")) ing.push("1 cup coconut yogurt");
+    else if (has("vanilla")) ing.push("1 cup vanilla yogurt");
+    else ing.push("1 cup plain yogurt");
+    if (has("granola")) ing.push("¼ cup granola");
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (hasBlueberry) ing.push("½ cup fresh blueberries");
+    else if (hasBerry) ing.push("½ cup mixed fresh berries (strawberries, raspberries, blueberries)");
+    if (hasMango) ing.push("½ cup fresh mango, diced");
+    if (has("honey")) ing.push("1 tbsp honey");
+    if (hasWalnut) ing.push("2 tbsp walnuts, roughly chopped");
+    if (hasAlmond) ing.push("2 tbsp sliced almonds");
+    if (has("chia")) ing.push("1 tsp chia seeds");
+    if (ing.length <= 2) { ing.push("½ cup fresh berries or sliced fruit"); ing.push("1 tbsp honey"); }
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ing,
+      steps: [
+        has("parfait") ? "In a glass or bowl, spoon a layer of yogurt on the bottom." : "Spoon yogurt into a bowl.",
+        has("parfait") ? "Add a layer of fruit, then granola. Repeat layers until glass is full." : "Arrange fruit and toppings on top of the yogurt.",
+        has("honey") ? "Drizzle honey over the top." : "Add a drizzle of honey if desired.",
+        "Serve immediately — granola stays crunchiest when added just before eating.",
+      ].filter(Boolean),
+      tip: "Greek yogurt has 2x the protein of regular yogurt — it keeps you full much longer.",
+      nutrition: ["Probiotics from yogurt support the gut-brain axis and serotonin production","Protein supports neurotransmitter synthesis","Live cultures improve gut microbiome diversity","Calcium supports neural signaling"]
+    };
+  }
+
+  // Chia pudding
+  if (has("chia") && has("pudding")) {
+    const ing = ["3 tbsp chia seeds"];
+    if (has("almond milk")) ing.push("1 cup unsweetened almond milk");
+    else if (has("coconut")) ing.push("1 cup coconut milk");
+    else ing.push("1 cup milk of choice");
+    if (hasMango) ing.push("½ cup fresh mango, diced");
+    if (hasBerry) ing.push("½ cup mixed berries");
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (has("coconut") && !has("coconut milk")) ing.push("1 tbsp unsweetened shredded coconut");
+    ing.push("1 tsp honey or maple syrup");
+    ing.push("½ tsp vanilla extract");
+    return {
+      serves: 1, time: "5 min prep + overnight",
+      ingredients: ing,
+      steps: [
+        "Combine chia seeds, milk, sweetener, and vanilla in a jar or bowl.",
+        "Stir well, making sure chia seeds are fully mixed in — they clump if you skip this.",
+        "Cover and refrigerate at least 4 hours or overnight until thick and pudding-like.",
+        "Stir once more before serving. Top with fresh fruit and any desired toppings.",
+      ],
+      tip: "Shake or stir the jar after 10 minutes in the fridge — this prevents clumping.",
+      nutrition: ["Chia seeds are rich in omega-3 ALA, supporting brain cell membranes","High fiber feeds beneficial gut bacteria","Complete protein with all essential amino acids","Magnesium supports stress response and sleep quality"]
+    };
+  }
+
+  // Cereal with milk
+  if (has("cereal")) {
+    const ing = ["1 cup whole grain cereal","1 cup cold milk (whole, 2%, or plant-based)"];
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (hasBerry) ing.push("½ cup fresh berries");
+    return {
+      serves: 1, time: "3 min",
+      ingredients: ing,
+      steps: ["Pour cereal into a bowl.","Add cold milk.","Top with sliced fruit if desired.","Eat promptly — cereal is best when still crunchy."],
+      tip: "Choose cereals with whole grains first on the ingredient list and less than 8g sugar per serving.",
+      nutrition: ["Whole grains provide steady glucose for sustained brain energy","Milk adds protein and calcium for neural function","Fortified cereals often contain B vitamins critical for mood regulation","Fiber supports gut bacteria that produce neurotransmitters"]
+    };
+  }
+
+  // Pancakes / waffles
+  if (isPancake) {
+    const isWaffle = has("waffle");
+    const ing = [isWaffle ? "1 cup waffle mix or from-scratch batter" : "1 cup pancake mix or from-scratch batter","1 egg","¾ cup milk","1 tbsp melted butter"];
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (hasBerry) ing.push("½ cup fresh berries");
+    if (hasBlueberry) ing.push("½ cup fresh blueberries");
+    if (has("maple") || has("syrup")) ing.push("2 tbsp pure maple syrup");
+    if (has("honey")) ing.push("1 tbsp honey");
+    if (has("strawberr")) ing.push("½ cup fresh strawberries, sliced");
+    if (ing.length <= 5) ing.push("2 tbsp pure maple syrup");
+    return {
+      serves: 1, time: isWaffle ? "15 min" : "15 min",
+      ingredients: ing,
+      steps: isWaffle ? [
+        "Preheat waffle iron. Mix batter ingredients until just combined — small lumps are fine.",
+        "Lightly grease the waffle iron. Pour batter to fill ¾ of the surface.",
+        "Cook until steam stops and waffle is golden, about 3–4 minutes.",
+        "Top with fresh fruit and maple syrup. Serve immediately.",
+      ] : [
+        "Mix batter ingredients until just combined — overmixing makes pancakes tough.",
+        "Heat a non-stick pan or griddle over medium heat. Add a small pat of butter.",
+        "Pour ¼ cup batter per pancake. Cook until bubbles form on the surface and edges look set, about 2–3 minutes.",
+        "Flip and cook 1–2 more minutes until golden brown.",
+        "Stack pancakes, top with fresh fruit and maple syrup.",
+      ],
+      tip: "Let the batter rest 5 minutes before cooking — the flour hydrates and makes fluffier pancakes.",
+      nutrition: ["Complex carbs provide sustained glucose for brain energy","Eggs add choline for memory and focus","Berries add antioxidants that cross the blood-brain barrier","Whole grain versions add fiber for gut-brain axis support"]
+    };
+  }
+
+  // French toast
+  if (isFrenchToast) {
+    return {
+      serves: 1, time: "15 min",
+      ingredients: ["2 thick slices bread (brioche or whole grain)","2 eggs","¼ cup milk","½ tsp cinnamon","½ tsp vanilla extract","1 tbsp butter","2 tbsp pure maple syrup", hasBanana?"1 banana, sliced":"", hasBerry?"½ cup mixed berries":""].filter(Boolean),
+      steps: [
+        "Whisk eggs, milk, cinnamon, and vanilla in a shallow bowl.",
+        "Dip each bread slice into the mixture, letting it soak 15–20 seconds per side.",
+        "Melt butter in a non-stick pan over medium heat.",
+        "Cook each slice 2–3 minutes per side until golden brown.",
+        "Top with maple syrup and fresh fruit.",
+      ],
+      tip: "Day-old bread works best — it's drier and soaks up the custard without falling apart.",
+      nutrition: ["Eggs provide choline for acetylcholine production","Cinnamon helps stabilize blood sugar","Whole grain bread adds fiber for gut microbiome","Protein from eggs keeps you full longer"]
+    };
+  }
+
+  // ── Simple snacks (no cooking required) ──────────────────────────────────
+
+  // Trail mix
+  if (has("trail mix")) {
+    return {
+      serves: 1, time: "2 min",
+      ingredients: ["¼ cup raw almonds or cashews","¼ cup walnuts or pecans","2 tbsp pumpkin seeds","2 tbsp dried cranberries or raisins", has("dark chocolate")?"2 tbsp dark chocolate chips":"", has("mango")?"2 tbsp dried mango pieces":""].filter(Boolean),
+      steps: ["Combine all ingredients in a small bowl or bag.","Toss to mix evenly.","Portion into a container — trail mix is calorie-dense, so a measured serving keeps you on track."],
+      tip: "Make a big batch on Sunday and portion into bags for the week — it's the easiest grab-and-go snack.",
+      nutrition: ["Omega-3s from walnuts support brain cell membranes","Magnesium from nuts supports stress response","Zinc from pumpkin seeds aids neurotransmitter function","Antioxidants from dark chocolate improve blood flow to the brain"]
+    };
+  }
+
+  // Fruit + nut butter (apple/banana/celery/pear + peanut/almond/walnut/sunflower butter)
+  if ((has("peanut butter") || has("almond butter") || has("walnut butter") || has("sunflower seed butter")) && !isSandwich && !isToast && !isOatmeal) {
+    const fruit = hasApple ? "1 medium apple, cored and sliced" : hasBanana ? "1 ripe banana" : has("celery") ? "4 celery stalks, cut into sticks" : has("pear") ? "1 ripe pear, cored and sliced" : has("cracker") ? "8–10 whole grain crackers" : "1 medium apple, cored and sliced";
+    const butter = has("almond") ? "2 tbsp almond butter" : has("walnut") ? "2 tbsp walnut butter" : has("sunflower") ? "2 tbsp sunflower seed butter" : "2 tbsp peanut butter";
+    return {
+      serves: 1, time: "3 min",
+      ingredients: [fruit, butter],
+      steps: [
+        has("celery") ? "Wash and cut celery into sticks." : has("cracker") ? "Arrange crackers on a plate." : "Wash and slice the fruit.",
+        "Spread or dollop nut butter on each piece, or serve in a small bowl for dipping.",
+        "Eat immediately — sliced fruit oxidizes (browns) over time.",
+      ],
+      tip: has("apple") ? "Tart apples like Granny Smith pair best with peanut butter — the sweet-sour contrast is perfect." : "This is one of the simplest, most brain-healthy snacks — protein + healthy fats + natural sugars.",
+      nutrition: ["Healthy fats from nut butter support myelin sheath integrity","Protein sustains energy between meals","Natural fruit sugars provide quick fuel for the brain","Fiber slows absorption for steady blood sugar"]
+    };
+  }
+
+  // Hummus + veggies
+  if (has("hummus")) {
+    const veg = has("carrot") ? "1 cup baby carrots" : has("cucumber") ? "1 cucumber, sliced into rounds" : has("celery") ? "4 celery stalks, sliced" : "1 cup mixed raw vegetables (carrots, cucumber, bell pepper)";
+    return {
+      serves: 1, time: "3 min",
+      ingredients: [veg, "¼ cup hummus"],
+      steps: ["Wash and prepare vegetables — slice into sticks or rounds for easy dipping.","Spoon hummus into a small bowl.","Arrange vegetables around the hummus and serve."],
+      tip: "Hummus keeps well for 5–7 days in the fridge — make or buy extra for easy snacking all week.",
+      nutrition: ["Chickpea protein supports steady amino acid availability","Fiber from vegetables feeds gut bacteria","Tahini in hummus provides B vitamins for nerve function","Raw vegetables retain maximum vitamin C and folate"]
+    };
+  }
+
+  // Cheese + crackers / cheese + fruit
+  if (hasCheese && !isSandwich && !isOmelette && !isBurrito && !isTaco && !isQuesadilla && !isEnchilada) {
+    const items = [];
+    if (has("cracker")) items.push("8–10 whole grain crackers");
+    if (hasApple) items.push("1 medium apple, cored and sliced");
+    items.push(has("cheddar") ? "2 oz cheddar cheese, cubed or sliced" : has("feta") ? "2 oz feta cheese, crumbled" : "2 oz cheese of choice, cubed or sliced");
+    if (items.length < 2) items.push("8–10 whole grain crackers");
+    return {
+      serves: 1, time: "3 min",
+      ingredients: items,
+      steps: ["Slice or cube cheese into bite-sized pieces.","Arrange cheese alongside crackers or sliced fruit on a plate.","Serve at room temperature — cheese has more flavor when not ice-cold."],
+      tip: "Pull cheese from the fridge 10 minutes before eating — cold mutes the flavor.",
+      nutrition: ["Calcium from cheese supports neural signaling","Protein provides sustained energy","Tryptophan in cheese supports serotonin production","Whole grain crackers add fiber for gut health"]
+    };
+  }
+
+  // Simple fruit (no protein, no cooking)
+  const isFruitOnly = hasAny("sliced banana","sliced strawberr","peeled orange","mango slices","mango & mixed","mixed berries","mixed berry bowl","fruit bowl","fruit cup","frozen berries","dates & pumpkin","dark chocolate & strawberr","watermelon chunks");
+  if (isFruitOnly && !hasAny("jerky","turkey","chicken","beef","egg","hard-boiled","deli","sausage")) {
+    const ing = [];
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (hasBerry) ing.push("½ cup mixed fresh berries");
+    if (has("strawberr")) ing.push("1 cup fresh strawberries, hulled and sliced");
+    if (hasMango) ing.push("1 cup fresh mango, diced");
+    if (has("orange")) ing.push("1 large orange, peeled and separated into segments");
+    if (has("dates")) ing.push("4–5 Medjool dates");
+    if (has("pumpkin seed")) ing.push("2 tbsp pumpkin seeds");
+    if (has("sunflower")) ing.push("2 tbsp sunflower seeds");
+    if (has("dark chocolate")) ing.push("1 oz dark chocolate (70%+ cacao)");
+    if (hasWatermelon) ing.push("2 cups seedless watermelon, cubed");
+    if (has("cherr")) ing.push("1 cup fresh cherries");
+    if (has("papaya")) ing.push("1 cup fresh papaya, cubed");
+    if (hasWalnut) ing.push("small handful of walnuts");
+    if (hasAlmond) ing.push("small handful of almonds");
+    if (ing.length === 0) ing.push("1 cup fresh seasonal fruit of choice");
+    return {
+      serves: 1, time: "2 min",
+      ingredients: ing,
+      steps: ["Wash and prepare fruit — slice, peel, or hull as needed.","Arrange in a bowl or on a plate.","Eat fresh for maximum vitamin and antioxidant content."],
+      tip: "Ripe, in-season fruit is always the most nutritious and flavorful option.",
+      nutrition: ["Natural antioxidants reduce neuroinflammation","Vitamin C supports dopamine and norepinephrine synthesis","Fiber feeds beneficial gut bacteria","Natural sugars provide quick brain fuel without a crash"]
+    };
+  }
+
+  // Edamame
+  if (has("edamame")) {
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ["1 cup frozen edamame in pods","½ tsp sea salt","Optional: squeeze of lime, chili flakes"],
+      steps: ["Bring a pot of water to a boil. Add edamame.","Cook 3–4 minutes until tender.","Drain and toss with sea salt. Add lime or chili if desired.","Squeeze pods to pop out beans and eat."],
+      tip: "Microwave works too — 2–3 minutes in a covered bowl with a splash of water.",
+      nutrition: ["Complete plant protein with all essential amino acids","Rich in folate for serotonin pathway support","Isoflavones have neuroprotective properties","Fiber supports gut microbiome diversity"]
+    };
+  }
+
+  // Roasted chickpeas
+  if (has("roasted chickpea")) {
+    return {
+      serves: 1, time: "30 min",
+      ingredients: ["1 can (15 oz) chickpeas, drained and rinsed","1 tbsp olive oil","½ tsp salt","½ tsp garlic powder","½ tsp smoked paprika","¼ tsp cumin"],
+      steps: ["Preheat oven to 400°F. Drain chickpeas and pat very dry with paper towels — this is the key to crunchiness.","Toss with olive oil and spices.","Spread in a single layer on a baking sheet.","Roast 25–30 minutes, shaking pan halfway, until golden and crunchy.","Let cool 5 minutes — they crisp up more as they cool."],
+      tip: "The drier the chickpeas are before roasting, the crunchier they'll be.",
+      nutrition: ["Plant protein supports steady amino acid availability","Fiber feeds gut bacteria that produce serotonin precursors","Iron supports oxygen delivery to the brain","Folate supports the methylation cycle for mood regulation"]
+    };
+  }
+
+  // Mixed nuts / handful of nuts
+  if (hasAny("handful of almond","handful of cashew","handful of walnut","mixed nuts","walnuts & apple","orange slices & almond","kiwi slices")) {
+    const ing = [];
+    if (hasWalnut) ing.push("¼ cup raw walnuts");
+    if (hasAlmond) ing.push("¼ cup raw almonds");
+    if (has("cashew")) ing.push("¼ cup raw cashews");
+    if (has("cranberr")) ing.push("2 tbsp dried cranberries");
+    if (has("dried fruit")) ing.push("2 tbsp mixed dried fruit");
+    if (hasApple) ing.push("1 medium apple, cored and sliced");
+    if (has("orange")) ing.push("1 large orange, peeled and sliced");
+    if (has("kiwi")) ing.push("2 kiwis, peeled and sliced");
+    if (ing.length === 0) ing.push("¼ cup mixed raw nuts");
+    return {
+      serves: 1, time: "2 min",
+      ingredients: ing,
+      steps: ["Prepare any fresh fruit — wash, peel, and slice as needed.","Portion nuts into a small bowl.","Arrange together and enjoy as a simple, nutrient-dense snack."],
+      tip: "Raw nuts retain more omega-3s than roasted — heat degrades these delicate fats.",
+      nutrition: ["Omega-3 fatty acids from nuts support brain cell membranes","Vitamin E protects neurons from oxidative stress","Magnesium supports over 300 enzymatic reactions including neurotransmitter synthesis","Zinc supports memory and cognitive function"]
+    };
+  }
+
+  // Tea snacks
+  if (has("chamomile") || has("tea")) {
+    const ing = ["1 chamomile tea bag","1 cup hot water"];
+    if (has("honey")) ing.push("1 tsp honey");
+    if (has("cracker")) ing.push("8–10 whole grain crackers");
+    if (has("toast")) { ing.push("1 slice whole grain bread"); ing.push("1 tbsp butter or honey"); }
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ing,
+      steps: ["Bring water to a boil. Pour over tea bag in a mug.","Steep 5 minutes for full flavor and maximum calming compounds.","Add honey if desired. Prepare crackers or toast on the side.","Sip slowly — chamomile's apigenin takes about 30 minutes to produce a calming effect."],
+      tip: "Don't squeeze the tea bag — it releases bitter tannins. Just lift it out gently.",
+      nutrition: ["Apigenin in chamomile binds to GABA receptors, promoting calm","L-theanine (if green tea) promotes alpha brain waves","Warm liquids activate the parasympathetic nervous system","Whole grains provide steady glucose for brain function"]
+    };
+  }
+
+  // Banana & milk / simple milk combo
+  if (has("glass of milk") || (hasBanana && !hasAny("oat","pancake","waffle","toast","smoothie","yogurt","chicken","turkey","egg","steak","salmon","sausage","bacon","hash","burrito","wrap","sandwich") && m.split("&").length <= 2 && !isBowl)) {
+    const ing = [];
+    if (hasBanana) ing.push("1 ripe banana");
+    if (has("milk")) ing.push("1 cup cold milk (whole, 2%, or plant-based)");
+    if (has("walnut") || has("walnuts")) ing.push("small handful of walnuts");
+    if (ing.length === 0) { ing.push("1 ripe banana"); ing.push("1 cup milk"); }
+    return {
+      serves: 1, time: "2 min",
+      ingredients: ing,
+      steps: ["Peel and eat the banana as-is, or slice into a glass of milk.","Pour milk and enjoy alongside.","Simple, satisfying, and no prep needed."],
+      tip: "Bananas with brown spots are sweeter and easier to digest — the starches have converted to sugars.",
+      nutrition: ["Tryptophan from banana + calcium from milk supports serotonin production","Potassium supports nerve signaling","B6 in bananas is essential for neurotransmitter synthesis","Protein from milk sustains energy between meals"]
+    };
+  }
+
+  // Rice cakes
+  if (has("rice cake")) {
+    return {
+      serves: 1, time: "3 min",
+      ingredients: ["2 rice cakes", hasAvocado?"½ ripe avocado, mashed":"2 tbsp topping of choice","Pinch of salt and pepper"],
+      steps: ["Place rice cakes on a plate.", hasAvocado?"Mash avocado with a fork and spread on rice cakes. Season with salt and pepper.":"Add your topping of choice.","Eat immediately for best crunch."],
+      tip: "Rice cakes are a blank canvas — try them with nut butter, avocado, or cream cheese.",
+      nutrition: ["Light, easily digestible carbs for quick brain energy","Avocado adds monounsaturated fats for cognitive function","Low calorie base allows flexible, nutrient-dense toppings","Gluten-free option for sensitive digestive systems"]
+    };
+  }
+
+  // PB&J / peanut butter on crackers
+  if (has("jelly") || (has("peanut butter") && has("cracker"))) {
+    const isPBJ = has("jelly");
+    return {
+      serves: 1, time: "3 min",
+      ingredients: isPBJ ? ["2 slices whole grain bread","2 tbsp peanut butter","1 tbsp grape or strawberry jelly"] : ["8–10 whole grain crackers","2 tbsp peanut butter"],
+      steps: isPBJ ? ["Spread peanut butter on one slice of bread.","Spread jelly on the other slice.","Press together gently and cut diagonally."] : ["Arrange crackers on a plate.","Spread a small amount of peanut butter on each cracker.","Enjoy as a quick, protein-rich snack."],
+      tip: isPBJ ? "Natural peanut butter (just peanuts + salt) has more nutrients and no added sugar." : "Look for crackers with whole grains as the first ingredient for maximum fiber.",
+      nutrition: ["Healthy fats from peanut butter support myelin sheath integrity","Protein sustains energy between meals","Whole grains provide steady glucose for brain function","Magnesium from peanuts supports stress response"]
+    };
+  }
+
+  // Guacamole / chips & guac / carrots & guac
+  if (has("guacamole") || has("guac")) {
+    return {
+      serves: 1, time: "5 min",
+      ingredients: [has("chip") ? "1 oz corn tortilla chips" : "1 cup baby carrots","1 ripe avocado","Juice of ½ lime","Pinch of salt","Optional: diced onion, cilantro"],
+      steps: ["Halve avocado, remove pit, and scoop flesh into a bowl.","Mash with a fork to desired consistency — chunky or smooth.","Add lime juice, salt, and any optional ingredients. Mix well.",has("chip")?"Serve with tortilla chips.":"Serve with baby carrots for dipping."],
+      tip: "Press the avocado pit into leftover guacamole and cover tightly — it slows browning.",
+      nutrition: ["Monounsaturated fats from avocado support cognitive function","Potassium supports nerve signaling","Lutein in avocado supports brain processing speed","Fiber supports gut-brain axis health"]
+    };
+  }
+
+  // Corn tortilla chips & guacamole (already handled above)
+
+  // Beef jerky combos
+  if (has("jerky") && !isSandwich && !isBowl) {
+    const ing = ["2 oz beef jerky"];
+    if (has("egg") || has("hard-boiled")) ing.push("2 hard-boiled eggs, peeled");
+    if (has("cherr")) ing.push("½ cup fresh cherries");
+    if (has("papaya")) ing.push("½ cup papaya chunks");
+    return {
+      serves: 1, time: "2 min",
+      ingredients: ing,
+      steps: ing.length > 1 ? ["Prepare accompaniments — peel eggs, wash fruit.","Arrange jerky and sides on a plate or in a container.","A high-protein, no-cook snack that's perfect for on-the-go."] : ["Open package and enjoy — beef jerky is one of the most portable protein sources.","Pair with water, as jerky can be high in sodium."],
+      tip: "Look for jerky with simple ingredients — beef, salt, pepper. Avoid brands with added sugar.",
+      nutrition: ["High-quality protein supports neurotransmitter production","Iron supports oxygen delivery to the brain","Zinc supports memory and cognitive function","Portable and shelf-stable for consistent nutrition on busy days"]
+    };
+  }
+
+  // Hard-boiled egg + fruit combos
+  if (has("hard-boiled") || (has("egg") && hasAny("kiwi","strawberr","honeydew","melon"))) {
+    const ing = ["2 hard-boiled eggs, peeled"];
+    if (has("kiwi")) ing.push("2 kiwis, peeled and sliced");
+    if (has("strawberr")) ing.push("½ cup strawberries");
+    if (has("honeydew") || has("melon")) ing.push("1 cup honeydew melon, cubed");
+    ing.push("Pinch of salt and pepper");
+    return {
+      serves: 1, time: "15 min (including boiling)",
+      ingredients: ing,
+      steps: ["Place eggs in a saucepan, cover with cold water by 1 inch.","Bring to a rolling boil, then cover, remove from heat, and let sit 10–12 minutes.","Transfer to ice water for 2 minutes. Peel under running water.","Slice eggs and arrange with prepared fruit. Season with salt and pepper."],
+      tip: "Older eggs (7+ days) peel much more easily than fresh ones.",
+      nutrition: ["Choline in egg yolks supports acetylcholine for memory","Complete protein with all essential amino acids","Vitamin D supports mood regulation","Lutein and zeaxanthin support brain processing speed"]
+    };
+  }
+
+  // Fruit + deli meat / strips combos (simple no-cook protein + fruit snacks)
+  if (hasAny("deli turkey","turkey roll","chicken strip","turkey strip","turkey slice","chicken jerky") && !isSandwich && !isWrap && !isSalad && !isBowl) {
+    const fruitIng = [];
+    if (has("strawberr")) fruitIng.push("½ cup fresh strawberries");
+    if (has("honeydew")) fruitIng.push("1 cup honeydew melon, cubed");
+    if (hasMango) fruitIng.push("½ cup fresh mango, sliced");
+    if (hasApple) fruitIng.push("1 medium apple, sliced");
+    if (has("pineapple")) fruitIng.push("1 cup pineapple chunks");
+    if (has("grape")) fruitIng.push("½ cup grapes");
+    if (fruitIng.length === 0) fruitIng.push("½ cup fresh seasonal fruit");
+    const meat = has("chicken") ? "4–5 grilled chicken strips or chicken jerky" : "3–4 slices deli turkey";
+    return {
+      serves: 1, time: "3 min",
+      ingredients: [...fruitIng, meat, "Optional: mustard or hummus for dipping"],
+      steps: ["Wash and prepare fruit — slice, peel, or arrange as needed.","Roll or arrange deli meat on a plate alongside fruit.","Dip in mustard or hummus if desired. A simple, high-protein snack."],
+      tip: "Look for deli meat with no added nitrates — it's cleaner protein.",
+      nutrition: ["Lean protein supports dopamine and serotonin synthesis","Fresh fruit provides antioxidants and quick energy","Low-calorie, high-satiety combination","Vitamin C from fruit enhances iron absorption from meat"]
+    };
+  }
+
+  // Bacon & cheese roll-up
+  if (has("bacon") && has("roll-up")) {
+    return {
+      serves: 1, time: "10 min",
+      ingredients: ["4 strips bacon","2 oz cheese, sliced"],
+      steps: ["Cook bacon in a skillet over medium heat 4–5 minutes per side until crispy.","Drain on paper towels and let cool slightly.","Wrap each cheese slice around a bacon strip.","Enjoy warm — the residual heat from bacon softens the cheese perfectly."],
+      tip: "Start bacon in a cold pan — it renders fat more evenly and cooks more uniformly.",
+      nutrition: ["Protein supports neurotransmitter production","Healthy fats support satiety between meals","Calcium from cheese supports neural signaling","Zero carbs keeps blood sugar stable"]
+    };
+  }
+
+  // Cornbread muffin + egg
+  if (hasCornbread && has("egg")) {
+    return {
+      serves: 1, time: "20 min",
+      ingredients: ["1 cornbread muffin (store-bought or from mix)","2 hard-boiled eggs, peeled","1 tsp butter","Pinch of salt and pepper"],
+      steps: ["If baking: prepare cornbread muffin per package directions (about 15 min at 400°F).","Boil eggs: cover with cold water, bring to boil, remove from heat, cover 10 min. Ice bath.","Warm cornbread muffin with a pat of butter.","Peel and halve eggs. Season with salt and pepper. Serve alongside warm cornbread."],
+      tip: "Jiffy cornbread mix is cheap, fast, and makes excellent muffins in under 15 minutes.",
+      nutrition: ["Eggs provide choline for acetylcholine and memory","Cornbread provides complex carbs for sustained brain energy","Protein from eggs supports neurotransmitter synthesis","Iron from egg yolks supports oxygen delivery to the brain"]
     };
   }
 
