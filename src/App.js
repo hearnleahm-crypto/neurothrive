@@ -446,11 +446,12 @@ const LENTIL_KEYWORDS = ["lentil", "Lentil"];
 const GLUTEN_KEYWORDS = ["toast","bread","tortilla","wrap","sandwich","burrito","bagel","muffin","waffle","pancake","pasta","noodle","roll","hoagie","sub","quesadilla","bun","cornbread","cracker","cereal","granola","oatmeal","oats","porridge"];
 const isGlutenMeal = (name) => GLUTEN_KEYWORDS.some(k => name.toLowerCase().includes(k));
 
-const build30DayMenu = (condition, selectedDiet) => {
+const build30DayMenu = (condition, selectedDiet, calTarget) => {
   const breakfastPool = filterMeals(ALL_MEALS.breakfast, selectedDiet, condition);
   const lunchPool = filterMeals(ALL_MEALS.lunch, selectedDiet, condition);
   const dinnerPool = filterMeals(ALL_MEALS.dinner, selectedDiet, condition);
   const snackPool = filterMeals(ALL_MEALS.snacks, selectedDiet, condition);
+  const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
   const splitPool = (pool) => ({ early: pool.filter(m => !isLentil(m.name)), any: pool });
@@ -491,8 +492,17 @@ const build30DayMenu = (condition, selectedDiet) => {
     return pool[Math.floor(Math.random() * pool.length)].name;
   };
 
+  // Build a second snack pool (shuffled differently so snack2 != snack1)
+  const snacks2Pool = shuffle(snackPool);
+  const snacks2Early = pick(snackPool, 6);
+  const snacks2Late = pick(snackPool, 23);
+
   return Array.from({ length: 30 }, (_, i) => {
-    if (i === 0) return { day: 1, breakfast: d1b, lunch: d1l, dinner: d1d, snacks: d1s };
+    if (i === 0) {
+      const day1 = { day: 1, breakfast: d1b, lunch: d1l, dinner: d1d, snacks: d1s };
+      if (addSecondSnack) day1.snacks2 = snacks2Pool.length > 0 ? snacks2Pool[0 % snacks2Pool.length].name : d1s;
+      return day1;
+    }
 
     const b = i <= 6 ? breakfastsEarly[i-1] : breakfastsLate[i-7];
     const l = i <= 6 ? lunchesEarly[i-1] : lunchesLate[i-7];
@@ -521,7 +531,17 @@ const build30DayMenu = (condition, selectedDiet) => {
         }
       }
     }
-    return { day: i+1, breakfast: result.b, lunch: result.l, dinner: result.d, snacks: s };
+    const dayObj = { day: i+1, breakfast: result.b, lunch: result.l, dinner: result.d, snacks: s };
+    if (addSecondSnack) {
+      // Ensure second snack is different from first
+      let s2 = i <= 6 ? snacks2Early[i-1] : snacks2Late[i-7];
+      if (s2 === s && snackPool.length > 1) {
+        const alt = snackPool.find(m => m.name !== s);
+        if (alt) s2 = alt.name;
+      }
+      dayObj.snacks2 = s2;
+    }
+    return dayObj;
   });
 };
 
@@ -2134,6 +2154,7 @@ export default function NeuroThrive() {
   const [selectedGender, setSelectedGender] = useState(null); // "male" | "female" | "prefer_not"
   const [selectedConditions, setSelectedConditions] = useState([]);
   const [selectedDiet, setSelectedDiet] = useState([]);
+  const [calorieTarget, setCalorieTarget] = useState("1500");
   const [menu30, setMenu30] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(0);
   const [selectedDayIdx, setSelectedDayIdx] = useState(0);
@@ -2212,6 +2233,7 @@ export default function NeuroThrive() {
           if (data.selected_gender) setSelectedGender(data.selected_gender);
           if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
           if (data.selected_diet) setSelectedDiet(data.selected_diet);
+          if (data.calorie_target) setCalorieTarget(data.calorie_target);
           if (data.menu30) setMenu30(data.menu30);
           if (data.logs) setLogs(data.logs);
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
@@ -2296,6 +2318,7 @@ export default function NeuroThrive() {
           selected_gender: selectedGender,
           selected_conditions: selectedConditions,
           selected_diet: selectedDiet,
+          calorie_target: calorieTarget,
           menu30,
           logs,
           plan_cycle: planCycle,
@@ -2310,7 +2333,7 @@ export default function NeuroThrive() {
       } catch(e) {}
     };
     save();
-  }, [selectedConditions, selectedDiet, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, dataLoaded, user]);
+  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, dataLoaded, user]);
 
   // ── Auth functions ──────────────────────────────────────────────────────────
   const handleSignUp = async () => {
@@ -2581,7 +2604,7 @@ export default function NeuroThrive() {
 
   const startNewCycle = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget);
     setMenu30(days);
     setPlanCycle(c => c + 1);
     setCycleStartDate(new Date().toISOString());
@@ -2597,7 +2620,7 @@ export default function NeuroThrive() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
@@ -2705,12 +2728,13 @@ export default function NeuroThrive() {
     if (!checks) return { earned: 0, total: 10, pct: 0 };
 
     let earned = 0;
-    // Meals: /4
+    // Meals: /4 or /5 if snacks2 exists
     const meals = checks.meals || {};
     if (meals.breakfast) earned++;
     if (meals.lunch) earned++;
     if (meals.dinner) earned++;
     if (meals.snacks) earned++;
+    if (meals.snacks2) earned++;
 
     // Routine steps
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
@@ -2730,7 +2754,9 @@ export default function NeuroThrive() {
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dateKey || todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
     if (hasJournal) earned++;
 
-    const total = 4 + morningCount + eveningCount + 1 + 1;
+    const hasSnacks2 = calorieTarget === "2000";
+    const mealCount = hasSnacks2 ? 5 : 4;
+    const total = mealCount + morningCount + eveningCount + 1 + 1;
     return { earned, total, pct: total > 0 ? Math.round((earned / total) * 100) : 0 };
   };
 
@@ -2998,6 +3024,25 @@ export default function NeuroThrive() {
                 ✓ Active filters: {selectedDiet.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")} — meals containing these ingredients will be excluded.
               </div>
             )}
+
+            <div style={S.divider} />
+
+            <h2 style={{ ...S.sectionTitle, fontSize:"22px" }}>Daily calorie target</h2>
+            <p style={S.sectionSub}>Choose the range that fits your goals. Higher targets add a second snack and heartier portions.</p>
+            <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
+              {[
+                { id:"1200", label:"1,200–1,500", sub:"Lower calorie", desc:"Lighter meals, one snack" },
+                { id:"1500", label:"1,500–2,000", sub:"Moderate", desc:"Balanced meals, one snack" },
+                { id:"2000", label:"2,000–2,500", sub:"Higher calorie", desc:"Heartier meals, two snacks" },
+              ].map(opt => (
+                <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{ flex:1, padding:"18px 14px", borderRadius:"16px", border: calorieTarget===opt.id ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.1)", background: calorieTarget===opt.id ? "rgba(80,112,240,0.12)" : "rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s" }}>
+                  <div style={{ fontSize:"16px", fontWeight:"700", color: calorieTarget===opt.id ? "#a0b8ff" : "#7888b8", marginBottom:"4px" }}>{opt.label}</div>
+                  <div style={{ fontSize:"11px", fontWeight:"600", color: calorieTarget===opt.id ? "#5570f0" : "#6b7394", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"4px" }}>{opt.sub}</div>
+                  <div style={{ fontSize:"11px", color:"#6b7394" }}>{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
               <button style={S.btn} onClick={buildMenu}>Build My 30-Day Menu →</button>
@@ -3116,6 +3161,7 @@ export default function NeuroThrive() {
                   { key:"lunch",     label:"☀️ Lunch" },
                   { key:"dinner",    label:"🌙 Dinner" },
                   { key:"snacks",    label:"🍎 Snack" },
+                  ...(currentDay.snacks2 ? [{ key:"snacks2", label:"🍊 Snack 2" }] : []),
                 ].map(({ key, label }) => {
                   const mainMeal = currentDay[key];
                   const alt = altMeal[mainMeal];
@@ -3193,7 +3239,7 @@ export default function NeuroThrive() {
                 {weekDays.map((day,i) => (
                   <div key={day.day} onClick={() => setSelectedDayIdx(i)} style={{ padding:"14px 16px", borderRadius:"14px", background:selectedDayIdx===i?"rgba(80,112,240,0.1)":"rgba(240,244,255,0.04)", border:selectedDayIdx===i?"1px solid rgba(107,143,255,0.35)":"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
                     <div style={{ color:"#7b9fff", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day} — {DAY_NAMES[i]}</div>
-                    <div style={{ color:"#7a90f0", fontSize:"12px", lineHeight:1.8 }}>🌅 {day.breakfast}<br/>☀️ {day.lunch}<br/>🌙 {day.dinner}</div>
+                    <div style={{ color:"#7a90f0", fontSize:"12px", lineHeight:1.8 }}>🌅 {day.breakfast}<br/>☀️ {day.lunch}<br/>🌙 {day.dinner}<br/>🍎 {day.snacks}{day.snacks2 && <><br/>🍊 {day.snacks2}</>}</div>
                   </div>
                 ))}
               </div>
@@ -3947,7 +3993,7 @@ export default function NeuroThrive() {
                       if (dailyChecks[key]) {
                         const c = dailyChecks[key];
                         const m = c.meals || {};
-                        const mealCount = [m.breakfast, m.lunch, m.dinner, m.snacks].filter(Boolean).length;
+                        const mealCount = [m.breakfast, m.lunch, m.dinner, m.snacks, m.snacks2].filter(Boolean).length;
                         totalMeals += mealCount; totalMealDays++;
                         const mr = (c.routine?.morning || []).filter(Boolean).length;
                         const er = (c.routine?.evening || []).filter(Boolean).length;
