@@ -36,10 +36,8 @@ const DIET_TYPES = [
   { id: "vegan", label: "Vegan", emoji: "🌱" },
   { id: "vegetarian", label: "Vegetarian", emoji: "🥦" },
   { id: "pescatarian", label: "Pescatarian", emoji: "🐟" },
-  { id: "carnivore", label: "Carnivore", emoji: "🥩" },
   { id: "keto", label: "Keto", emoji: "🥑" },
   { id: "paleo", label: "Paleo", emoji: "🦴" },
-  { id: "whole30", label: "Whole30", emoji: "🔄" },
   { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
   { id: "anti_inflammatory", label: "Anti-Inflammatory", emoji: "🔥" },
   { id: "low_fodmap", label: "Low FODMAP", emoji: "🫃" },
@@ -69,6 +67,7 @@ const DIETARY_RESTRICTIONS = [
   { id: "legume_free", label: "Legume-Free", emoji: "🫛" },
   { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
   { id: "oat_free", label: "Oat-Free", emoji: "🥣" },
+  { id: "sardine_free", label: "Sardine-Free", emoji: "🐠" },
 ];
 
 // Combined for backward compatibility
@@ -204,6 +203,15 @@ const ALL_MEALS = {
     { name: "Turkey & Egg Breakfast Wrap with Spinach", tags: ["meat","egg","gluten"], conditions: ["bfrb","aspd","default"] },
     { name: "Yogurt & Berry Smoothie with Chia Seeds", tags: ["dairy","seed"], conditions: ["phobia","hpd","default"] },
     { name: "Grapefruit & Greek Yogurt Bowl with Walnuts", tags: ["dairy","nuts","citrus"], conditions: ["bfrb","default"] },
+    // ── Brain-boosting: Turmeric, Fermented, Lion's Mane, Sardine ──
+    { name: "Golden Turmeric Oatmeal with Banana & Walnuts", tags: ["gluten","oats","nuts"], conditions: ["depression","anxiety","ptsd","schizophrenia","ocd","bpd","neuro_core","default"] },
+    { name: "Turmeric Scrambled Eggs with Avocado Toast", tags: ["egg","gluten"], conditions: ["depression","anxiety","bipolar","neuro_core","default"] },
+    { name: "Kefir Smoothie Bowl with Berries & Granola", tags: ["dairy","gluten"], conditions: ["anxiety","depression","autism","ocd","neuro_core","default"] },
+    { name: "Tempeh Scramble with Turmeric, Spinach & Sweet Potato", tags: ["soy"], conditions: ["depression","anxiety","bipolar","neuro_core","vegan","default"] },
+    { name: "Sardines on Whole Grain Toast with Avocado & Lemon", tags: ["fish","sardine","gluten","citrus"], conditions: ["depression","anxiety","bipolar","schizophrenia","neuro_core","default"] },
+    { name: "Miso & Ginger Breakfast Broth with Soft-Boiled Egg", tags: ["soy","egg"], conditions: ["anxiety","ptsd","autism","did","neuro_core","default"] },
+    { name: "Sauerkraut & Egg Toast with Everything Seasoning", tags: ["egg","gluten"], conditions: ["anxiety","depression","ocd","neuro_core","default"] },
+    { name: "Lion's Mane Mushroom & Egg Scramble with Herbs", tags: ["egg","mushroom"], conditions: ["neuro_core","depression","anxiety","schizophrenia","default"] },
   ],
   lunch: [
     { name: "Grilled Chicken Breast with Watermelon & Feta Salad", tags: ["dairy","meat"], conditions: ["adhd","default"] },
@@ -320,6 +328,15 @@ const ALL_MEALS = {
     { name: "Kimchi Rice Bowl with Grilled Chicken & Steamed Veggies", tags: ["meat","rice"], conditions: ["hpd","neuro_core","ppd","default"] },
     { name: "Mac & Cheese with Steamed Broccoli & Grilled Chicken", tags: ["meat","gluten","dairy"], conditions: ["eating","autism","default"] },
     { name: "Turkey & Cheese Wrap with Fruit Cup", tags: ["meat","gluten","dairy"], conditions: ["eating","did","default"] },
+    // ── Brain-boosting: Turmeric, Fermented, Lion's Mane, Sardine ──
+    { name: "Turmeric Chicken & Brown Rice Bowl with Roasted Veggies", tags: ["meat","rice"], conditions: ["depression","anxiety","ptsd","bipolar","ocd","neuro_core","default"] },
+    { name: "Sardine & Avocado Salad with Lemon & Olive Oil", tags: ["fish","sardine","citrus"], conditions: ["depression","anxiety","bipolar","schizophrenia","neuro_core","default"] },
+    { name: "Sardine Toast with Tomato, Red Onion & Capers", tags: ["fish","sardine","gluten","onion"], conditions: ["depression","neuro_core","default"] },
+    { name: "Lion's Mane Mushroom Stir-Fry with Chicken & Brown Rice", tags: ["meat","mushroom","rice"], conditions: ["neuro_core","depression","schizophrenia","default"] },
+    { name: "Kimchi & Chicken Grain Bowl with Pickled Vegetables", tags: ["meat","rice"], conditions: ["anxiety","depression","ocd","neuro_core","default"] },
+    { name: "Miso Glazed Salmon with Steamed Rice & Bok Choy", tags: ["fish","soy","rice"], conditions: ["depression","anxiety","bipolar","neuro_core","default"] },
+    { name: "Tempeh Buddha Bowl with Turmeric Tahini Dressing", tags: ["soy","seed"], conditions: ["depression","anxiety","neuro_core","default"] },
+    { name: "Anti-Inflammatory Turmeric & Lentil Soup", tags: ["legume"], conditions: ["depression","anxiety","ptsd","ocd","bpd","neuro_core","default"] },
   ],
   dinner: [
     { name: "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side", tags: ["meat"], conditions: ["adhd","default"] },
@@ -448,6 +465,17 @@ const ALL_MEALS = {
     { name: "Grilled Salmon with Turmeric Quinoa & Sautéed Kale", tags: ["fish"], conditions: ["neuro_core","default"] },
     { name: "Turkey Meatballs with Zucchini Noodles & Spinach", tags: ["meat"], conditions: ["npd","hpd","aspd","default"] },
     { name: "Walnut-Crusted Salmon with Roasted Asparagus", tags: ["fish","nuts"], conditions: ["neuro_core","npd","default"] },
+    // ── Brain-boosting: Turmeric, Fermented, Lion's Mane, Sardine ──
+    { name: "Turmeric & Ginger Baked Salmon with Sweet Potato & Kale", tags: ["fish"], conditions: ["depression","anxiety","bipolar","ptsd","neuro_core","default"] },
+    { name: "Lion's Mane Mushroom Risotto with Parmesan & Thyme", tags: ["mushroom","dairy","rice"], conditions: ["neuro_core","depression","schizophrenia","default"] },
+    { name: "Sardine Pasta with Cherry Tomatoes, Capers & Lemon", tags: ["fish","sardine","gluten","nightshade","citrus"], conditions: ["depression","anxiety","neuro_core","default"] },
+    { name: "Turmeric Coconut Curry with Chicken & Brown Rice", tags: ["meat","coconut","rice"], conditions: ["depression","anxiety","ptsd","ocd","neuro_core","default"] },
+    { name: "Miso-Glazed Cod with Sautéed Bok Choy & Steamed Rice", tags: ["fish","soy","rice"], conditions: ["anxiety","depression","neuro_core","default"] },
+    { name: "Fermented Kimchi Stew with Tofu & Steamed Rice", tags: ["soy","rice"], conditions: ["anxiety","depression","ocd","neuro_core","default"] },
+    { name: "Pan-Seared Sardines with Roasted Vegetables & Quinoa", tags: ["fish","sardine"], conditions: ["depression","bipolar","schizophrenia","neuro_core","default"] },
+    { name: "Golden Turmeric Chicken Soup with Vegetables & Brown Rice", tags: ["meat","rice"], conditions: ["depression","anxiety","ptsd","did","ppd","neuro_core","default"] },
+    { name: "Tempeh & Vegetable Stir-Fry with Ginger-Turmeric Sauce", tags: ["soy"], conditions: ["depression","anxiety","neuro_core","default"] },
+    { name: "Lion's Mane & Chicken Sheet Pan with Roasted Sweet Potato", tags: ["meat","mushroom"], conditions: ["neuro_core","depression","anxiety","schizophrenia","default"] },
   ],
   snacks: [
     { name: "Apple Slices + Sliced Deli Turkey Roll-Ups", tags: ["meat"], conditions: ["adhd","default"] },
@@ -549,6 +577,15 @@ const ALL_MEALS = {
     { name: "Pumpkin Seeds & Cashew Mix with Dried Apricots", tags: ["nuts","seed"], conditions: ["aspd","ppd","default"] },
     { name: "Dark Chocolate Squares with Almonds", tags: ["nuts"], conditions: ["phobia","neuro_core","ppd","default"] },
     { name: "Grapefruit & Walnut Snack Bowl", tags: ["nuts","citrus"], conditions: ["bfrb","default"] },
+    // ── Brain-boosting: Turmeric, Fermented, Lion's Mane ──
+    { name: "Golden Turmeric Milk (Brain Latte)", tags: ["dairy"], conditions: ["depression","anxiety","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Kefir with Blueberries & Honey", tags: ["dairy"], conditions: ["anxiety","depression","ocd","autism","neuro_core","default"] },
+    { name: "Sauerkraut & Avocado on Rice Cakes", tags: ["rice"], conditions: ["anxiety","depression","ocd","neuro_core","default"] },
+    { name: "Sardines & Crackers with Lemon", tags: ["fish","sardine","gluten","citrus"], conditions: ["depression","anxiety","neuro_core","default"] },
+    { name: "Lion's Mane Mushroom Tea with Honey", tags: ["mushroom"], conditions: ["neuro_core","depression","schizophrenia","default"] },
+    { name: "Turmeric & Ginger Energy Balls", tags: ["nuts","oats","gluten"], conditions: ["depression","anxiety","neuro_core","default"] },
+    { name: "Kombucha & Mixed Nuts", tags: ["nuts"], conditions: ["anxiety","depression","ocd","neuro_core","default"] },
+    { name: "Miso Soup Cup with Seaweed", tags: ["soy"], conditions: ["anxiety","ptsd","autism","neuro_core","default"] },
   ],
 };
 
@@ -572,10 +609,9 @@ const DIET_EXCLUSIONS = {
   paleo: ["gluten","dairy","legume","high_sugar","soy","corn"],
   mediterranean: ["high_sugar","high_sodium"],
   pescatarian: ["meat"],
-  carnivore: ["gluten","legume","high_carb","high_sugar","soy","corn"],
-  whole30: ["gluten","dairy","legume","high_sugar","soy","corn"],
   anti_inflammatory: ["gluten","high_sugar","high_sodium"],
   low_fodmap: ["onion","legume","high_sugar"],
+  sardine_free: ["sardine"],
   onion_free: ["onion"],
   mushroom_free: ["mushroom"],
   nightshade_free: ["nightshade"],
@@ -901,6 +937,49 @@ const getCitation = (conditions) => {
   return CONDITION_CITATIONS[conditions[0]] || CONDITION_CITATIONS.default;
 };
 // Parses meal name to produce real recipes with exact ingredients & steps
+// ── Brain Health Score ──────────────────────────────────────────────────────
+// Scores meals 1-5 based on brain-boosting ingredient density
+const BRAIN_NUTRIENTS = {
+  // Omega-3 sources (highest brain impact)
+  salmon: { score: 2, nutrient: "Omega-3" }, sardine: { score: 2, nutrient: "Omega-3" }, mackerel: { score: 2, nutrient: "Omega-3" },
+  tuna: { score: 1.5, nutrient: "Omega-3" }, walnut: { score: 1.5, nutrient: "Omega-3" }, flax: { score: 1, nutrient: "Omega-3" },
+  chia: { score: 1, nutrient: "Omega-3" },
+  // Anti-inflammatory
+  turmeric: { score: 2, nutrient: "Curcumin" }, ginger: { score: 1, nutrient: "Gingerol" },
+  // Neurogenesis / BDNF
+  blueberr: { score: 1.5, nutrient: "Anthocyanins" }, pomegranate: { score: 1.5, nutrient: "Punicalagins" },
+  "dark chocolate": { score: 1, nutrient: "Flavanols" },
+  // Gut-brain axis (fermented)
+  kimchi: { score: 1.5, nutrient: "Probiotics" }, sauerkraut: { score: 1.5, nutrient: "Probiotics" }, miso: { score: 1.5, nutrient: "Probiotics" },
+  kefir: { score: 1.5, nutrient: "Probiotics" }, tempeh: { score: 1.5, nutrient: "Probiotics" }, kombucha: { score: 1, nutrient: "Probiotics" },
+  yogurt: { score: 0.5, nutrient: "Probiotics" },
+  // Choline / acetylcholine
+  egg: { score: 1, nutrient: "Choline" },
+  // Leafy greens (folate, magnesium)
+  spinach: { score: 1, nutrient: "Folate" }, kale: { score: 1, nutrient: "Folate" },
+  // Mushrooms (nerve growth factor)
+  "lion's mane": { score: 2, nutrient: "NGF Support" }, mushroom: { score: 0.5, nutrient: "Ergothioneine" },
+  // Other brain nutrients
+  avocado: { score: 0.5, nutrient: "Healthy Fats" }, "sweet potato": { score: 0.5, nutrient: "Vitamin A" },
+  lentil: { score: 0.5, nutrient: "Iron & Folate" }, quinoa: { score: 0.5, nutrient: "Magnesium" },
+  "pumpkin seed": { score: 0.5, nutrient: "Zinc" }, almond: { score: 0.5, nutrient: "Vitamin E" },
+};
+
+const getBrainScore = (mealName) => {
+  const m = mealName.toLowerCase();
+  let total = 0;
+  const nutrients = [];
+  for (const [keyword, info] of Object.entries(BRAIN_NUTRIENTS)) {
+    if (m.includes(keyword)) {
+      total += info.score;
+      if (!nutrients.includes(info.nutrient)) nutrients.push(info.nutrient);
+    }
+  }
+  // Clamp to 1-5 scale
+  const score = Math.min(5, Math.max(1, Math.round(total > 0 ? Math.min(total + 1, 5) : 1)));
+  return { score, nutrients: nutrients.slice(0, 3) }; // top 3 nutrients
+};
+
 const generateRecipe = (meal) => {
   const m = meal.toLowerCase();
   const name = meal;
@@ -993,6 +1072,7 @@ const generateRecipe = (meal) => {
   const hasApple = has("apple");
   const hasPomegranate = has("pomegranate");
   const hasKimchi = has("kimchi");
+  const hasTurmeric = has("turmeric");
   const hasWalnut = has("walnut");
   const hasAlmond = has("almond");
 
@@ -1027,6 +1107,8 @@ const generateRecipe = (meal) => {
   else if (hasBerry) ingredients.push("½ cup mixed berries (strawberries, raspberries, blueberries)");
   if (hasPomegranate) ingredients.push("¼ cup pomegranate arils (seeds)");
   if (hasKimchi) ingredients.push("½ cup fermented kimchi");
+  if (hasTurmeric) ingredients.push("1 tsp ground turmeric");
+  if (hasTurmeric) ingredients.push("Pinch of black pepper (boosts curcumin absorption)");
   if (hasApple) ingredients.push("1 medium apple, cored and sliced");
   if (hasWalnut) ingredients.push("2 tbsp raw walnuts, roughly chopped");
   if (hasAlmond) ingredients.push("2 tbsp raw almonds or almond butter");
@@ -1516,6 +1598,74 @@ const generateRecipe = (meal) => {
     };
   }
 
+  // Golden Turmeric Milk / Brain Latte
+  if (has("turmeric milk") || has("brain latte") || has("golden milk")) {
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ["1 cup milk of choice (oat, almond, or whole)","1 tsp ground turmeric","½ tsp ground cinnamon","¼ tsp ground ginger","Pinch of black pepper (increases curcumin absorption by 2000%)","1 tsp honey or maple syrup","½ tsp coconut oil or ghee"],
+      steps: ["Warm milk in a small saucepan over medium heat — do not boil.","Whisk in turmeric, cinnamon, ginger, black pepper, and coconut oil until smooth and golden.","Pour into a mug and stir in honey.","Sip slowly — curcumin takes about 45 minutes to reach peak blood levels."],
+      tip: "Black pepper contains piperine, which increases curcumin absorption by up to 2,000%. Never skip it.",
+      nutrition: ["Curcumin crosses the blood-brain barrier and reduces neuroinflammation","Increases BDNF (brain-derived neurotrophic factor)","Anti-amyloid properties may protect against cognitive decline","Cinnamon helps stabilize blood sugar for steady brain energy"]
+    };
+  }
+
+  // Lion's Mane Mushroom Tea
+  if (has("lion's mane") && has("tea")) {
+    return {
+      serves: 1, time: "5 min",
+      ingredients: ["1 tsp lion's mane mushroom powder","1 cup hot water (not boiling — 175°F is ideal)","1 tsp honey","Optional: splash of milk, dash of cinnamon"],
+      steps: ["Heat water to just below boiling (175°F).","Add lion's mane powder to a mug and pour hot water over it.","Stir well until powder is fully dissolved. Add honey and optional milk.","Sip slowly — lion's mane compounds take time to absorb."],
+      tip: "Lion's mane stimulates NGF (nerve growth factor) — a protein that promotes the growth and maintenance of neurons. Consistent daily use shows the best results.",
+      nutrition: ["Hericenones and erinacines stimulate nerve growth factor (NGF)","Supports hippocampal neurogenesis — growth of new brain cells","Reduces neuroinflammation through inhibition of NF-κB pathway","May improve mild cognitive impairment — shown in human clinical trials"]
+    };
+  }
+
+  // Kefir bowl/smoothie
+  if (has("kefir")) {
+    const ing = ["1 cup kefir (plain, full-fat)"];
+    if (hasBlueberry) ing.push("½ cup fresh blueberries");
+    else if (hasBerry) ing.push("½ cup mixed fresh berries");
+    if (has("granola")) ing.push("¼ cup granola");
+    if (has("honey")) ing.push("1 tsp honey");
+    return {
+      serves: 1, time: "3 min",
+      ingredients: ing,
+      steps: ["Pour kefir into a bowl.","Top with berries and granola if using.","Drizzle with honey and enjoy immediately."],
+      tip: "Kefir contains 30+ strains of beneficial bacteria — far more than yogurt. The gut-brain axis means these directly influence mood and cognition.",
+      nutrition: ["30+ probiotic strains support the gut-brain axis","Tryptophan supports serotonin production","Calcium and B12 support neural signaling","Fermentation pre-digests lactose, making it easier to absorb"]
+    };
+  }
+
+  // Kombucha snack
+  if (has("kombucha")) {
+    const ing = ["1 bottle (16 oz) kombucha (any flavor)"];
+    if (has("nuts") || hasWalnut || hasAlmond) ing.push("¼ cup mixed raw nuts");
+    return {
+      serves: 1, time: "1 min",
+      ingredients: ing,
+      steps: ["Pour kombucha into a glass over ice if desired.","Portion nuts into a small bowl.","Enjoy together — the probiotics and healthy fats make a brain-boosting combo."],
+      tip: "Choose kombucha with less than 5g sugar per serving. The fermentation should do the sweetening, not added sugar.",
+      nutrition: ["Probiotics from fermentation support the gut-brain axis","B vitamins from fermentation support neurotransmitter synthesis","Polyphenols from tea base reduce neuroinflammation","Organic acids support healthy gut pH for optimal nutrient absorption"]
+    };
+  }
+
+  // Sauerkraut toast/rice cakes
+  if (has("sauerkraut")) {
+    const ing = ["¼ cup sauerkraut (raw, unpasteurized)"];
+    if (has("egg")) ing.push("1–2 eggs");
+    if (has("toast")) ing.push("2 slices whole grain bread, toasted");
+    if (has("rice cake")) ing.push("2 rice cakes");
+    if (hasAvocado) ing.push("½ ripe avocado, mashed");
+    if (has("everything")) ing.push("Everything bagel seasoning");
+    return {
+      serves: 1, time: "8 min",
+      ingredients: ing,
+      steps: [has("egg") ? "Fry or scramble eggs to your preference." : "Prepare your base — toast bread or arrange rice cakes.",has("toast") ? "Toast bread until golden." : "","Spread avocado on the base if using.","Top with sauerkraut and egg. Sprinkle with seasoning."].filter(Boolean),
+      tip: "Raw, unpasteurized sauerkraut from the refrigerator section is what you want — shelf-stable sauerkraut has been heat-treated and contains no live probiotics.",
+      nutrition: ["Live probiotics support the gut-brain axis","Fermentation increases bioavailability of vitamins C and K","Lactobacillus strains produce GABA — the brain's calming neurotransmitter","Fiber from cabbage feeds beneficial gut bacteria"]
+    };
+  }
+
   // Tea snacks
   if (has("chamomile") || (has("tea") && !has("stea") && !has("steak"))) {
     const ing = ["1 chamomile tea bag","1 cup hot water"];
@@ -1915,6 +2065,8 @@ const generateRecipe = (meal) => {
   if (hasSweet) nutrition.push("Beta-carotene & B6 support brain health and mood");
   if (hasAvocado) nutrition.push("Monounsaturated fats support myelin sheath & cognitive function");
   if (hasPomegranate) nutrition.push("Punicalagins in pomegranate reduce neuroinflammation & support memory");
+  if (hasTurmeric) nutrition.push("Curcumin in turmeric crosses the blood-brain barrier and reduces neuroinflammation");
+  if (hasKimchi) nutrition.push("Probiotics from fermented kimchi support the gut-brain axis and serotonin production");
   if (hasBroccoli) nutrition.push("Sulforaphane reduces neuroinflammation (NF-κB pathway)");
   if (hasBlueberry || hasBerry) nutrition.push("Anthocyanins cross the blood-brain barrier and reduce oxidative stress");
   if (hasWalnut) nutrition.push("Plant-based omega-3 (ALA) and polyphenols support brain structure");
@@ -4453,6 +4605,17 @@ export default function NeuroThrive() {
                           <span style={{ fontSize:"12px" }}>🔥</span>
                           <span style={{ color:"#7b9fff", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(mainMeal)}</span>
                         </div>
+                        {(() => { const bs = getBrainScore(mainMeal); return (
+                          <>
+                            <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : bs.score >= 3 ? "rgba(107,143,255,0.08)" : "rgba(255,255,255,0.04)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
+                              <span style={{ fontSize:"12px" }}>🧠</span>
+                              <span style={{ color: bs.score >= 4 ? "#50c878" : bs.score >= 3 ? "#7b9fff" : "#6b7394", fontSize:"11px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
+                            </div>
+                            {bs.nutrients.length > 0 && bs.nutrients.map((n,i) => (
+                              <span key={i} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.1)", color:"#8890b8", fontSize:"10px", fontWeight:"600" }}>{n}</span>
+                            ))}
+                          </>
+                        );})()}
                       </div>
 
                       {/* Main meal buttons */}
@@ -4483,9 +4646,17 @@ export default function NeuroThrive() {
                             </button>
                             <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
                           </div>
-                          <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", marginBottom:"10px", padding:"3px 9px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
-                            <span style={{ fontSize:"11px" }}>🔥</span>
-                            <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
+                          <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"10px" }}>
+                            <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"3px 9px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                              <span style={{ fontSize:"11px" }}>🔥</span>
+                              <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
+                            </div>
+                            {(() => { const bs = getBrainScore(alt); return (
+                              <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 9px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
+                                <span style={{ fontSize:"11px" }}>🧠</span>
+                                <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
+                              </div>
+                            );})()}
                           </div>
                           <div style={{ display:"flex", gap:"7px", flexWrap:"wrap" }}>
                             <button
