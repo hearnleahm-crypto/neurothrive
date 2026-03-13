@@ -968,6 +968,7 @@ const generateRecipe = (meal) => {
   const hasBerry = hasAny("berry","berries","strawberr","raspberry","raspberries");
   const hasApple = has("apple");
   const hasPomegranate = has("pomegranate");
+  const hasKimchi = has("kimchi");
   const hasWalnut = has("walnut");
   const hasAlmond = has("almond");
 
@@ -1739,8 +1740,7 @@ const generateRecipe = (meal) => {
     };
   }
 
-  // Kimchi detection for ingredient builder
-  const hasKimchi = has("kimchi");
+  // (hasKimchi moved to detection section above)
 
   // Now build steps intelligently
   const prepSteps = [];
