@@ -3797,9 +3797,13 @@ export default function NeuroThrive() {
   // ── Save user data to Supabase whenever state changes ─────────────────────
   const saveReady = useRef(false);
   useEffect(() => {
-    if (!dataLoaded || !user) return;
-    // Skip the first save after load to prevent overwriting with initial empty state
-    if (!saveReady.current) { saveReady.current = true; return; }
+    if (!dataLoaded) return;
+    const t = setTimeout(() => { saveReady.current = true; }, 1500);
+    return () => clearTimeout(t);
+  }, [dataLoaded]);
+
+  useEffect(() => {
+    if (!dataLoaded || !user || !saveReady.current) return;
     const timer = setTimeout(async () => {
       try {
         const { error } = await supabase.from("user_data").upsert({
@@ -3827,7 +3831,7 @@ export default function NeuroThrive() {
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, dataLoaded, user]);
+  }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, dataLoaded, user]);
 
   // ── Feature tour trigger ────────────────────────────────────────────────────
   useEffect(() => {
@@ -4497,7 +4501,7 @@ export default function NeuroThrive() {
             </>
           )}
         </div>
-        {isPremium && step > 0 && (
+        {isPremium && step > 3 && (
           <div style={{ position:"relative", flexShrink:0 }}>
             <button style={S.navTab([6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
