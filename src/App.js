@@ -3643,6 +3643,7 @@ export default function NeuroThrive() {
   const [modalTab, setModalTab] = useState("why");
   const [altMeal, setAltMeal] = useState({});
   const [expandedGenderNote, setExpandedGenderNote] = useState(null);
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [planCycle, setPlanCycle] = useState(1);
   const [cycleStartDate, setCycleStartDate] = useState(null);
   const [showCycleComplete, setShowCycleComplete] = useState(false);
@@ -4476,22 +4477,39 @@ export default function NeuroThrive() {
           <span>NeuroThrive</span>
         </div>
         <div className="nav-tabs-scroll" style={S.navTabs}>
-          {step > 0 && [
+          {step > 0 && !isPremium && [
             { label:"Gender",       s:1 },
             { label:"Conditions",   s:2 },
             { label:"Diet",         s:3 },
             { label:"Menu",         s:4 },
-            { label:"Journal",      s:8 },
           ].map(({ label, s }) => (
             <button key={label} style={S.navTab(step===s)} onClick={() => handleStepForward(s)}>{label}</button>
           ))}
           {isPremium && step > 0 && (
             <>
+              <button style={S.navTab(step===4)} onClick={() => setStep(4)}>Menu</button>
               <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>
-              <button style={S.navTab(step===6)}  onClick={() => setStep(6)}>Supplements</button>
-              <button style={S.navTab(step===7)}  onClick={() => setStep(7)}>Reminders</button>
-              <button style={S.navTab(step===9)}  onClick={() => setStep(9)}>Toolkit</button>
+              <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>
               <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>
+              <div style={{ position:"relative" }}>
+                <button style={S.navTab([1,2,3,6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
+                {showMoreMenu && (
+                  <>
+                  <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
+                  <div style={{ position:"absolute", top:"100%", right:0, marginTop:"6px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
+                    {[
+                      { label:"🌿 Supplements", s:6 },
+                      { label:"🔔 Reminders",   s:7 },
+                      { label:"🧠 Toolkit",     s:9 },
+                      { label:"👤 Profile",     s:1 },
+                      { label:"🥗 Diet",        s:3 },
+                    ].map(({ label, s }) => (
+                      <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
+                    ))}
+                  </div>
+                  </>
+                )}
+              </div>
             </>
           )}
         </div>
