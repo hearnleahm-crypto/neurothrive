@@ -91,6 +91,24 @@ export const ROUTINE_QUESTIONS = {
       ]
     },
     {
+      id: "evening_exercise",
+      question: "Do you exercise in the evening?",
+      options: [
+        { id: "yes", label: "Yes", emoji: "💪" },
+        { id: "sometimes", label: "Sometimes", emoji: "🤷" },
+        { id: "no", label: "No", emoji: "🚫" },
+      ]
+    },
+    {
+      id: "evening_meditation",
+      question: "Interested in evening meditation or mindfulness?",
+      options: [
+        { id: "yes", label: "Yes", emoji: "🧘" },
+        { id: "want_to_start", label: "Want to start", emoji: "🌱" },
+        { id: "no", label: "Not interested", emoji: "🚫" },
+      ]
+    },
+    {
       id: "evening_screens",
       question: "Willing to limit screens before bed?",
       options: [
@@ -279,8 +297,17 @@ export function generateRoutine(prefs, conditions) {
         if (periodPrefs.sleep_goal === "stay_asleep" && step.tags && step.tags.includes("environment")) score += 3;
         if (periodPrefs.sleep_goal === "wake_rested" && step.tags && step.tags.includes("preparation")) score += 2;
 
-        // Meditation preference (evening) — deprioritize but don't exclude
-        if (step.requiresMeditation === true && prefs.morning && prefs.morning.meditation === "no") score -= 6;
+        // Evening exercise preference
+        if (step.tags && step.tags.includes("exercise") && periodPrefs.evening_exercise === "yes") score += 4;
+        if (step.tags && step.tags.includes("exercise") && periodPrefs.evening_exercise === "sometimes") score += 1;
+        if (step.tags && step.tags.includes("exercise") && periodPrefs.evening_exercise === "no") score -= 4;
+
+        // Evening meditation preference
+        if (step.tags && step.tags.includes("meditation") && periodPrefs.evening_meditation === "yes") score += 4;
+        if (step.tags && step.tags.includes("meditation") && periodPrefs.evening_meditation === "want_to_start") score += 2;
+        if (step.tags && step.tags.includes("meditation") && periodPrefs.evening_meditation === "no") score -= 4;
+        if (step.tags && step.tags.includes("mindfulness") && periodPrefs.evening_meditation === "yes") score += 2;
+        if (step.requiresMeditation === true && periodPrefs.evening_meditation === "no") score -= 6;
       }
 
       return { ...step, score };
