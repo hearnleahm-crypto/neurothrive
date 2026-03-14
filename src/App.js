@@ -3775,7 +3775,7 @@ export default function NeuroThrive() {
   // ── Show paywall for existing users not yet premium ───────────────────────
   useEffect(() => {
     if (!dataLoaded || !subChecked) return;
-    if (step >= 4 && !isPremium) {
+    if (step >= 4 && step !== 13 && !isPremium) {
       setShowPaywall(true);
     }
   }, [dataLoaded, subChecked, isPremium, step]);
@@ -5018,8 +5018,8 @@ export default function NeuroThrive() {
           </div>
         )}
 
-        {/* PAYWALL GATE: show if step >= 4 and not premium */}
-        {step >= 4 && !isPremium && (
+        {/* PAYWALL GATE: show if step >= 4 and not premium (skip step 13 — onboarding) */}
+        {step >= 4 && step !== 13 && !isPremium && (
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
             <div style={{ fontSize:"52px", marginBottom:"16px" }}>🧠</div>
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
