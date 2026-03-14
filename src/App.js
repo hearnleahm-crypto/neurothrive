@@ -4176,7 +4176,8 @@ export default function NeuroThrive() {
     setCycleStartDate(new Date().toISOString());
     setSelectedWeek(0);
     setSelectedDayIdx(0);
-    handleStepForward(4);
+    setRoutineQPage("morning");
+    setStep(13);
   };
 
   const requestNotifPermission = async () => {
@@ -4541,6 +4542,7 @@ export default function NeuroThrive() {
                   ))}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🧬 Your Brain</button>
+                  <button onClick={() => { setRoutineQPage("morning"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🔄 Rebuild Routine</button>
                 </div>
               </>
             )}
@@ -4685,7 +4687,7 @@ export default function NeuroThrive() {
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "Select at least one, or continue"}</span>
-              <button style={S.btn} onClick={() => { setRoutineQPage("morning"); setStep(13); }}>Continue →</button>
+              <button style={S.btn} onClick={() => setStep(3)}>Continue →</button>
             </div>
           </div>
         )}
@@ -4699,11 +4701,11 @@ export default function NeuroThrive() {
 
           return (
             <div>
-              <h2 style={S.sectionTitle}>{routineQPage === "morning" ? "☀️ Build Your Morning Routine" : "🌙 Build Your Evening Routine"}</h2>
+              <h2 style={S.sectionTitle}>{routineQPage === "morning" ? "☀️ Now Let's Build Your Morning Routine" : "🌙 Now Let's Build Your Evening Routine"}</h2>
               <p style={S.sectionSub}>
                 {routineQPage === "morning"
-                  ? "Tell us about your mornings so we can create a routine personalized to your brain."
-                  : "Tell us about your evenings so we can help you wind down the way your brain needs."
+                  ? "Your 30-day menu is ready. Now tell us about your mornings so we can create a routine personalized to your brain."
+                  : "Almost done — tell us about your evenings so we can help you wind down the way your brain needs."
                 }
               </p>
 
@@ -4736,7 +4738,7 @@ export default function NeuroThrive() {
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"8px" }}>
                 <button style={S.btnOutline} onClick={() => {
                   if (routineQPage === "evening") setRoutineQPage("morning");
-                  else setStep(2);
+                  else setStep(3);
                 }}>← Back</button>
                 {routineQPage === "morning" ? (
                   <button style={allAnswered ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
@@ -4747,7 +4749,11 @@ export default function NeuroThrive() {
                     if (!allAnswered) return;
                     const generated = generateRoutine(routinePrefs, selectedConditions);
                     setPersonalRoutine(generated);
-                    setStep(3);
+                    if (onboardingDone || (menu30 && isPremium)) {
+                      setStep(12);
+                    } else {
+                      handleStepForward(4);
+                    }
                   }}>Generate My Routine →</button>
                 )}
               </div>
@@ -4823,7 +4829,7 @@ export default function NeuroThrive() {
             </div>
 
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-              <button style={S.btnOutline} onClick={() => { setRoutineQPage("evening"); setStep(13); }}>← Back</button>
+              <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
               <button style={S.btn} onClick={buildMenu}>Build My 30-Day Menu →</button>
             </div>
           </div>
