@@ -3672,7 +3672,7 @@ export default function NeuroThrive() {
   const [moodInsight, setMoodInsight] = useState(null);
   const [routinePrefs, setRoutinePrefs] = useState(null);
   const [personalRoutine, setPersonalRoutine] = useState(null);
-  const [routineQPage, setRoutineQPage] = useState("morning"); // "morning" | "evening" | "preview"
+  const [routineQPage, setRoutineQPage] = useState("intro"); // "intro" | "morning" | "evening" | "preview"
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -4176,7 +4176,7 @@ export default function NeuroThrive() {
     setCycleStartDate(new Date().toISOString());
     setSelectedWeek(0);
     setSelectedDayIdx(0);
-    setRoutineQPage("morning");
+    setRoutineQPage("intro");
     setStep(13);
   };
 
@@ -4542,7 +4542,7 @@ export default function NeuroThrive() {
                   ))}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🧬 Your Brain</button>
-                  <button onClick={() => { setRoutineQPage("morning"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🔄 Rebuild Routine</button>
+                  <button onClick={() => { setRoutineQPage(personalRoutine ? "morning" : "intro"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🔄 Rebuild Routine</button>
                 </div>
               </>
             )}
@@ -4694,6 +4694,34 @@ export default function NeuroThrive() {
 
         {/* STEP 13: ROUTINE QUESTIONNAIRE */}
         {step === 13 && (() => {
+          // Intro screen — transition from menu
+          if (routineQPage === "intro") {
+            return (
+              <div style={{ textAlign:"center", paddingTop:"40px" }}>
+                <div style={{ fontSize:"56px", marginBottom:"20px" }}>✅</div>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", margin:"0 0 12px 0", letterSpacing:"0.5px" }}>Your 30-Day Menu Is Ready</h2>
+                <p style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, margin:"0 auto 32px auto", maxWidth:"340px" }}>
+                  Your personalized meal plan has been built based on your conditions and dietary needs.
+                </p>
+                <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:"0 auto 36px auto", maxWidth:"340px" }}>
+                  Now let's build a morning and evening routine designed specifically for your brain.
+                </p>
+                <button style={{ ...S.btn, width:"100%", padding:"16px", fontSize:"15px", marginBottom:"12px" }} onClick={() => setRoutineQPage("morning")}>
+                  Build My Routine →
+                </button>
+                <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px" }} onClick={() => {
+                  if (onboardingDone || (menu30 && isPremium)) {
+                    setStep(12);
+                  } else {
+                    handleStepForward(4);
+                  }
+                }}>
+                  Skip for Now
+                </button>
+              </div>
+            );
+          }
+
           // Preview mode — show generated routine
           if (routineQPage === "preview" && personalRoutine) {
             return (
