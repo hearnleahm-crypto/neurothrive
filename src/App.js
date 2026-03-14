@@ -4769,8 +4769,8 @@ export default function NeuroThrive() {
                   Build My Routine →
                 </button>
                 <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px" }} onClick={() => {
-                  if (onboardingDone || (menu30 && isPremium)) {
-                    setStep(12);
+                  if (menu30) {
+                    setStep(isPremium ? 12 : 4);
                   } else {
                     handleStepForward(4);
                   }
@@ -4859,8 +4859,8 @@ export default function NeuroThrive() {
                   <button style={S.btnOutline} onClick={() => setRoutineQPage("evening")}>← Edit Answers</button>
                   <button style={allKept ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
                     if (!allKept) return;
-                    if (onboardingDone || (menu30 && isPremium)) {
-                      setStep(12);
+                    if (menu30) {
+                      setStep(isPremium ? 12 : 4);
                     } else {
                       handleStepForward(4);
                     }
