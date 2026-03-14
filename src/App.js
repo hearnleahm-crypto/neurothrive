@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
 import { EXERCISE_ROUTINES } from "./exerciseData";
+import { DID_YOU_KNOW, ONBOARDING_INSIGHTS, MOOD_NUTRIENT_CONNECTIONS, BRAIN_ON_CONDITION } from "./insightData";
 
 const supabase = createClient(
   "https://gobmsfzpryeaqxkfbnfa.supabase.co",
@@ -3666,6 +3667,8 @@ export default function NeuroThrive() {
   const [showTour, setShowTour] = useState(false);
   const [tourStep, setTourStep] = useState(0);
   const [onboardingDone, setOnboardingDone] = useState(false);
+  const [showBrainExplainer, setShowBrainExplainer] = useState(false);
+  const [moodInsight, setMoodInsight] = useState(null);
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -4236,6 +4239,14 @@ export default function NeuroThrive() {
       mood: todayMood, energy: todayEnergy, note: todayNote,
     };
     setLogs(prev => [entry, ...prev]);
+    // Show mood-nutrient connection for low moods
+    const condKey = selectedConditions.includes("neuro_core") ? "neuro_core" : (selectedConditions[0] || "default");
+    const moodConns = MOOD_NUTRIENT_CONNECTIONS[condKey] || MOOD_NUTRIENT_CONNECTIONS.default;
+    if (todayMood <= 2 && moodConns && moodConns[todayMood]) {
+      setMoodInsight(moodConns[todayMood]);
+    } else {
+      setMoodInsight(null);
+    }
     setTodayMood(null); setTodayEnergy(null); setTodayNote("");
     setLogSaved(true); setTimeout(() => setLogSaved(false), 3000);
   };
@@ -4520,6 +4531,8 @@ export default function NeuroThrive() {
                   ].map(({ label, s }) => (
                     <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
                   ))}
+                  <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
+                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🧬 Your Brain</button>
                 </div>
               </>
             )}
@@ -5042,6 +5055,13 @@ export default function NeuroThrive() {
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
             <ProgressBanner context="journal" />
             {logSaved && <div style={S.successBanner}>✓ Today's log saved! Every entry matters.</div>}
+            {moodInsight && (
+              <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.18)", marginBottom:"16px" }}>
+                <div style={{ fontSize:"13px", fontWeight:"700", color:"#a0b8ff", marginBottom:"8px" }}>🧠 What Your Brain Needs Right Now</div>
+                <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:0 }}>{moodInsight}</p>
+                <button onClick={() => setMoodInsight(null)} style={{ marginTop:"10px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(107,143,255,0.2)", background:"transparent", color:"#7b9fff", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}>Dismiss</button>
+              </div>
+            )}
             <div style={S.card}>
               <div style={S.mealLabel}>How's your mood today?</div>
               <div style={S.moodRow}>
@@ -5964,6 +5984,37 @@ export default function NeuroThrive() {
               {/* Section A: Progress Banner */}
               <ProgressBanner />
 
+              {/* Did You Know? — daily rotating fact */}
+              {(() => {
+                const facts = DID_YOU_KNOW[condKey] || DID_YOU_KNOW.default;
+                if (!facts || facts.length === 0) return null;
+                const factIdx = (daysElapsed - 1) % facts.length;
+                const today = facts[factIdx];
+                return (
+                  <div style={{ padding:"18px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(160,120,255,0.06))", border:"1px solid rgba(107,143,255,0.15)", marginBottom:"16px" }}>
+                    <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
+                    <p style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.6, margin:"0 0 10px 0" }}>{today.fact}</p>
+                    <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{today.connection}</p>
+                  </div>
+                );
+              })()}
+
+              {/* Onboarding Insights — first 7 days only */}
+              {daysElapsed <= 7 && (() => {
+                const insights = ONBOARDING_INSIGHTS[condKey] || ONBOARDING_INSIGHTS.default;
+                if (!insights || insights.length === 0) return null;
+                const insight = insights[daysElapsed - 1];
+                if (!insight) return null;
+                return (
+                  <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
+                    <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Day {daysElapsed} Insight</div>
+                    <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
+                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 8px 0" }}>{insight.body}</p>
+                    <p style={{ color:"#50c878", fontSize:"12px", lineHeight:1.5, margin:0, fontStyle:"italic" }}>{insight.mealConnection}</p>
+                  </div>
+                );
+              })()}
+
               {/* Section B: Today's Meals */}
               <div style={sectionDivider} />
               <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Today's Meals</div>
@@ -6249,6 +6300,51 @@ export default function NeuroThrive() {
           </div>
         )}
       </footer>
+
+      {/* ── Brain Explainer Modal ── */}
+      {showBrainExplainer && (() => {
+        const condKey = selectedConditions.includes("neuro_core") ? "neuro_core" : (selectedConditions[0] || "default");
+        const brain = BRAIN_ON_CONDITION[condKey] || BRAIN_ON_CONDITION.default;
+        if (!brain) return null;
+        return (
+          <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, overflowY:"auto", padding:"24px", backdropFilter:"blur(12px)" }}>
+            <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"24px" }}>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", margin:0 }}>{brain.emoji} {brain.title}</h2>
+                <button onClick={() => setShowBrainExplainer(false)} style={{ background:"rgba(110,120,200,0.15)", border:"none", color:"#8890b8", fontSize:"18px", width:"36px", height:"36px", borderRadius:"50%", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
+              </div>
+              <p style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.8, marginBottom:"24px" }}>{brain.overview}</p>
+
+              <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"14px" }}>Neurotransmitter Profile</div>
+              {brain.neurotransmitters.map((nt, i) => (
+                <div key={i} style={{ padding:"16px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"10px" }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
+                    <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{nt.name}</span>
+                    <span style={{ padding:"3px 10px", borderRadius:"20px", fontSize:"10px", fontWeight:"700", background: nt.status === "Low" || nt.status === "Depleted" ? "rgba(224,96,96,0.12)" : nt.status === "Elevated" || nt.status === "High" ? "rgba(224,180,96,0.12)" : "rgba(107,143,255,0.12)", color: nt.status === "Low" || nt.status === "Depleted" ? "#e06060" : nt.status === "Elevated" || nt.status === "High" ? "#e0b460" : "#7b9fff" }}>{nt.status}</span>
+                  </div>
+                  <p style={{ color:"#a0a8e8", fontSize:"12px", lineHeight:1.6, margin:"0 0 4px 0" }}><strong style={{ color:"#c8ccf0" }}>Role:</strong> {nt.role}</p>
+                  <p style={{ color:"#a0a8e8", fontSize:"12px", lineHeight:1.6, margin:"0 0 4px 0" }}><strong style={{ color:"#c8ccf0" }}>Impact:</strong> {nt.impact}</p>
+                  <p style={{ color:"#50c878", fontSize:"12px", lineHeight:1.6, margin:0 }}><strong style={{ color:"#70d898" }}>Nutrition:</strong> {nt.nutrition}</p>
+                </div>
+              ))}
+
+              {brain.brainRegions && (
+                <>
+                  <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", margin:"24px 0 14px 0" }}>Brain Regions Affected</div>
+                  <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 24px 0" }}>{brain.brainRegions}</p>
+                </>
+              )}
+
+              <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(80,200,120,0.05)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"24px" }}>
+                <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"8px" }}>How Your Nutrition Helps</div>
+                <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:0 }}>{brain.howNutritionHelps}</p>
+              </div>
+
+              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"14px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Close</button>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ── Paywall Overlay ── */}
       {(showPaywall || paywallActive) && (
