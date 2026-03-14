@@ -4311,8 +4311,8 @@ export default function NeuroThrive() {
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
     const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
-    const morningCount = routine.morning.length;
-    const eveningCount = routine.evening.length;
+    const morningCount = (routine?.morning || []).length;
+    const eveningCount = (routine?.evening || []).length;
     const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
     const eveningChecked = (checks.routine?.evening || []).filter(Boolean).length;
     earned += morningChecked;
@@ -4355,12 +4355,14 @@ export default function NeuroThrive() {
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
     const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const morningSteps = routine?.morning || [];
+    const eveningSteps = routine?.evening || [];
     const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
     const eveningChecked = (checks.routine?.evening || []).filter(Boolean).length;
     const morningBP = morningChecked * 3;
-    const morningMaxBP = routine.morning.length * 3;
+    const morningMaxBP = morningSteps.length * 3;
     const eveningBP = eveningChecked * 3;
-    const eveningMaxBP = routine.evening.length * 3;
+    const eveningMaxBP = eveningSteps.length * 3;
 
     // Exercise: 10 BP
     const exerciseChecks = checks.exerciseOptions || {};
@@ -4769,11 +4771,7 @@ export default function NeuroThrive() {
                   Build My Routine →
                 </button>
                 <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px" }} onClick={() => {
-                  if (menu30) {
-                    setStep(isPremium ? 12 : 4);
-                  } else {
-                    handleStepForward(4);
-                  }
+                  setStep(menu30 ? 12 : 4);
                 }}>
                   Skip for Now
                 </button>
@@ -4859,11 +4857,7 @@ export default function NeuroThrive() {
                   <button style={S.btnOutline} onClick={() => setRoutineQPage("evening")}>← Edit Answers</button>
                   <button style={allKept ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
                     if (!allKept) return;
-                    if (menu30) {
-                      setStep(isPremium ? 12 : 4);
-                    } else {
-                      handleStepForward(4);
-                    }
+                    setStep(menu30 ? 12 : 4);
                   }}>{allKept ? "Lock In My Routine →" : `Keep or swap each step (${Object.keys(routineKept).length}/${personalRoutine.morning.length + personalRoutine.evening.length})`}</button>
                 </div>
               </div>
@@ -6216,6 +6210,12 @@ export default function NeuroThrive() {
         })()}
 
       {/* STEP 12: TODAY */}
+        {step === 12 && !isPremium && (
+          <div style={{ textAlign:"center", padding:"60px 20px", color:"#8890b8" }}>
+            <div style={{ fontSize:"32px", marginBottom:"12px" }}>🧠</div>
+            <div style={{ fontSize:"14px" }}>Loading your plan...</div>
+          </div>
+        )}
         {step === 12 && isPremium && (() => {
           const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
             : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
