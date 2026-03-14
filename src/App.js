@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
 import { EXERCISE_ROUTINES } from "./exerciseData";
 import { DID_YOU_KNOW, ONBOARDING_INSIGHTS, MOOD_NUTRIENT_CONNECTIONS, BRAIN_ON_CONDITION } from "./insightData";
-import { ROUTINE_QUESTIONS, generateRoutine } from "./routineData";
+import { ROUTINE_QUESTIONS, ROUTINE_STEP_LIBRARY, generateRoutine } from "./routineData";
 
 const supabase = createClient(
   "https://gobmsfzpryeaqxkfbnfa.supabase.co",
@@ -3673,6 +3673,7 @@ export default function NeuroThrive() {
   const [routinePrefs, setRoutinePrefs] = useState(null);
   const [personalRoutine, setPersonalRoutine] = useState(null);
   const [routineQPage, setRoutineQPage] = useState("intro"); // "intro" | "morning" | "evening" | "preview"
+  const [routineKept, setRoutineKept] = useState({}); // { "morning-0": true, "evening-2": true, ... }
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -4722,50 +4723,76 @@ export default function NeuroThrive() {
             );
           }
 
-          // Preview mode — show generated routine
+          // Preview mode — show generated routine with keep/swap
           if (routineQPage === "preview" && personalRoutine) {
+            const swapStep = (period, idx) => {
+              const current = personalRoutine[period];
+              const currentTitles = new Set(current.map(s => s.title));
+              const library = ROUTINE_STEP_LIBRARY[period];
+              // Find alternatives not already in the routine
+              const alternatives = library.filter(s => !currentTitles.has(s.title));
+              if (alternatives.length === 0) return;
+              // Pick a random alternative
+              const alt = alternatives[Math.floor(Math.random() * alternatives.length)];
+              const newSteps = [...current];
+              newSteps[idx] = { time: alt.time > 0 ? `${alt.time} min` : "Habit", title: alt.title, desc: alt.desc };
+              setPersonalRoutine(prev => ({ ...prev, [period]: newSteps }));
+              // Remove kept status since it's a new step
+              setRoutineKept(prev => { const n = { ...prev }; delete n[`${period}-${idx}`]; return n; });
+            };
+
+            const allMorningKept = personalRoutine.morning.every((_, i) => routineKept[`morning-${i}`]);
+            const allEveningKept = personalRoutine.evening.every((_, i) => routineKept[`evening-${i}`]);
+            const allKept = allMorningKept && allEveningKept;
+
+            const renderStep = (s, i, period, gradient) => {
+              const key = `${period}-${i}`;
+              const kept = !!routineKept[key];
+              return (
+                <div key={key} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px", border: kept ? "1.5px solid rgba(80,200,120,0.3)" : undefined }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                    <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:gradient, color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                    <div style={{ flex:1 }}>
+                      <div style={{ color: kept ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
+                      <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
+                    </div>
+                  </div>
+                  <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
+                  <div style={{ display:"flex", gap:"8px", marginTop:"10px", marginLeft:"34px" }}>
+                    {kept ? (
+                      <div style={{ color:"#50c878", fontSize:"12px", fontWeight:"700" }}>✓ Kept</div>
+                    ) : (
+                      <>
+                        <button onClick={() => setRoutineKept(prev => ({ ...prev, [key]: true }))} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(80,200,120,0.4)", background:"rgba(80,200,120,0.08)", color:"#50c878", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Keep</button>
+                        <button onClick={() => swapStep(period, i)} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(224,180,96,0.4)", background:"rgba(224,180,96,0.08)", color:"#e0b460", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Swap</button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              );
+            };
+
             return (
               <div>
                 <h2 style={S.sectionTitle}>✨ Your Personalized Routine</h2>
-                <p style={S.sectionSub}>Built specifically for your brain, your schedule, and your goals.</p>
+                <p style={S.sectionSub}>Review each step — keep the ones you like, swap the ones you don't.</p>
 
                 <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>☀️ Morning Routine</div>
-                {personalRoutine.morning.map((s, i) => (
-                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"8px" }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
-                      <div style={{ flex:1 }}>
-                        <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
-                      </div>
-                    </div>
-                    <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
-                  </div>
-                ))}
+                {personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)"))}
 
                 <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>🌙 Evening Routine</div>
-                {personalRoutine.evening.map((s, i) => (
-                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"8px" }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
-                      <div style={{ flex:1 }}>
-                        <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
-                      </div>
-                    </div>
-                    <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
-                  </div>
-                ))}
+                {personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5570f0,#4060e0)"))}
 
                 <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
                   <button style={S.btnOutline} onClick={() => setRoutineQPage("evening")}>← Edit Answers</button>
-                  <button style={S.btn} onClick={() => {
+                  <button style={allKept ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
+                    if (!allKept) return;
                     if (onboardingDone || (menu30 && isPremium)) {
                       setStep(12);
                     } else {
                       handleStepForward(4);
                     }
-                  }}>Let's Go →</button>
+                  }}>{allKept ? "Lock In My Routine →" : `Keep or swap each step (${Object.keys(routineKept).length}/${personalRoutine.morning.length + personalRoutine.evening.length})`}</button>
                 </div>
               </div>
             );
@@ -4826,6 +4853,7 @@ export default function NeuroThrive() {
                     if (!allAnswered) return;
                     const generated = generateRoutine(routinePrefs, selectedConditions);
                     setPersonalRoutine(generated);
+                    setRoutineKept({});
                     setRoutineQPage("preview");
                   }}>Generate My Routine →</button>
                 )}
