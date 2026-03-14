@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
 import { EXERCISE_ROUTINES } from "./exerciseData";
@@ -3615,7 +3615,23 @@ function buildMealExplanation(meal, conditionIds) {
   return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + closing;
 }
 
-export default function NeuroThrive() {
+class ErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) return (
+      <div style={{ padding:"40px", color:"#ff6b6b", fontFamily:"monospace", background:"#0a0e1a", minHeight:"100vh" }}>
+        <h2>Something went wrong</h2>
+        <pre style={{ whiteSpace:"pre-wrap", fontSize:"13px", color:"#e8c87a" }}>{this.state.error.toString()}</pre>
+        <pre style={{ whiteSpace:"pre-wrap", fontSize:"11px", color:"#8890b8", marginTop:"12px" }}>{this.state.error.stack}</pre>
+        <button onClick={() => this.setState({ error: null })} style={{ marginTop:"20px", padding:"10px 20px", background:"#5570f0", color:"#fff", border:"none", borderRadius:"8px", cursor:"pointer" }}>Try Again</button>
+      </div>
+    );
+    return this.props.children;
+  }
+}
+
+function NeuroThriveApp() {
   const [step, setStep] = useState(0);
   const [resumeStep, setResumeStep] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
@@ -6786,4 +6802,8 @@ export default function NeuroThrive() {
 
     </div>
   );
+}
+
+export default function NeuroThrive() {
+  return <ErrorBoundary><NeuroThriveApp /></ErrorBoundary>;
 }
