@@ -3672,7 +3672,7 @@ export default function NeuroThrive() {
   const [moodInsight, setMoodInsight] = useState(null);
   const [routinePrefs, setRoutinePrefs] = useState(null);
   const [personalRoutine, setPersonalRoutine] = useState(null);
-  const [routineQPage, setRoutineQPage] = useState("morning");
+  const [routineQPage, setRoutineQPage] = useState("morning"); // "morning" | "evening" | "preview"
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -4694,6 +4694,55 @@ export default function NeuroThrive() {
 
         {/* STEP 13: ROUTINE QUESTIONNAIRE */}
         {step === 13 && (() => {
+          // Preview mode — show generated routine
+          if (routineQPage === "preview" && personalRoutine) {
+            return (
+              <div>
+                <h2 style={S.sectionTitle}>✨ Your Personalized Routine</h2>
+                <p style={S.sectionSub}>Built specifically for your brain, your schedule, and your goals.</p>
+
+                <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>☀️ Morning Routine</div>
+                {personalRoutine.morning.map((s, i) => (
+                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"8px" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                      <div style={{ flex:1 }}>
+                        <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
+                      </div>
+                    </div>
+                    <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
+                  </div>
+                ))}
+
+                <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>🌙 Evening Routine</div>
+                {personalRoutine.evening.map((s, i) => (
+                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"8px" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                      <div style={{ flex:1 }}>
+                        <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
+                      </div>
+                    </div>
+                    <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
+                  </div>
+                ))}
+
+                <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+                  <button style={S.btnOutline} onClick={() => setRoutineQPage("evening")}>← Edit Answers</button>
+                  <button style={S.btn} onClick={() => {
+                    if (onboardingDone || (menu30 && isPremium)) {
+                      setStep(12);
+                    } else {
+                      handleStepForward(4);
+                    }
+                  }}>Let's Go →</button>
+                </div>
+              </div>
+            );
+          }
+
           const questions = ROUTINE_QUESTIONS[routineQPage] || [];
           const currentPrefs = routinePrefs || { morning: {}, evening: {} };
           const periodPrefs = currentPrefs[routineQPage] || {};
@@ -4749,11 +4798,7 @@ export default function NeuroThrive() {
                     if (!allAnswered) return;
                     const generated = generateRoutine(routinePrefs, selectedConditions);
                     setPersonalRoutine(generated);
-                    if (onboardingDone || (menu30 && isPremium)) {
-                      setStep(12);
-                    } else {
-                      handleStepForward(4);
-                    }
+                    setRoutineQPage("preview");
                   }}>Generate My Routine →</button>
                 )}
               </div>
