@@ -3,6 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
 import { EXERCISE_ROUTINES } from "./exerciseData";
 import { DID_YOU_KNOW, ONBOARDING_INSIGHTS, MOOD_NUTRIENT_CONNECTIONS, BRAIN_ON_CONDITION } from "./insightData";
+import { ROUTINE_QUESTIONS, generateRoutine } from "./routineData";
 
 const supabase = createClient(
   "https://gobmsfzpryeaqxkfbnfa.supabase.co",
@@ -3669,6 +3670,9 @@ export default function NeuroThrive() {
   const [onboardingDone, setOnboardingDone] = useState(false);
   const [showBrainExplainer, setShowBrainExplainer] = useState(false);
   const [moodInsight, setMoodInsight] = useState(null);
+  const [routinePrefs, setRoutinePrefs] = useState(null);
+  const [personalRoutine, setPersonalRoutine] = useState(null);
+  const [routineQPage, setRoutineQPage] = useState("morning");
 
   // ── Auth state ──────────────────────────────────────────────────────────────
   const [user, setUser] = useState(null);
@@ -3737,6 +3741,8 @@ export default function NeuroThrive() {
           if (data.reminder_times) setReminderTimes(data.reminder_times);
           if (data.reminder_active) setReminderActive(data.reminder_active);
           if (data.daily_checks) setDailyChecks(data.daily_checks);
+          if (data.routine_prefs) setRoutinePrefs(data.routine_prefs);
+          if (data.personal_routine) setPersonalRoutine(data.personal_routine);
           if (data.onboarding_done) setOnboardingDone(true);
         }
       } catch(e) {}
@@ -3830,6 +3836,8 @@ export default function NeuroThrive() {
           reminder_times: reminderTimes,
           reminder_active: reminderActive,
           daily_checks: dailyChecks,
+          routine_prefs: routinePrefs,
+          personal_routine: personalRoutine,
           onboarding_done: onboardingDone,
           updated_at: new Date().toISOString(),
         });
@@ -3837,7 +3845,7 @@ export default function NeuroThrive() {
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, dataLoaded, user]);
+  }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
 
   // ── Feature tour trigger ────────────────────────────────────────────────────
   useEffect(() => {
@@ -4302,7 +4310,7 @@ export default function NeuroThrive() {
     // Routine steps
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-    const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
     const morningCount = routine.morning.length;
     const eveningCount = routine.evening.length;
     const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
@@ -4355,7 +4363,7 @@ export default function NeuroThrive() {
 
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-    const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
     const morningDone = (checks.routine?.morning || []).filter(Boolean).length;
     const eveningDone = (checks.routine?.evening || []).filter(Boolean).length;
 
@@ -4677,10 +4685,75 @@ export default function NeuroThrive() {
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "Select at least one, or continue"}</span>
-              <button style={S.btn} onClick={() => setStep(3)}>Continue →</button>
+              <button style={S.btn} onClick={() => { setRoutineQPage("morning"); setStep(13); }}>Continue →</button>
             </div>
           </div>
         )}
+
+        {/* STEP 13: ROUTINE QUESTIONNAIRE */}
+        {step === 13 && (() => {
+          const questions = ROUTINE_QUESTIONS[routineQPage] || [];
+          const currentPrefs = routinePrefs || { morning: {}, evening: {} };
+          const periodPrefs = currentPrefs[routineQPage] || {};
+          const allAnswered = questions.every(q => periodPrefs[q.id]);
+
+          return (
+            <div>
+              <h2 style={S.sectionTitle}>{routineQPage === "morning" ? "☀️ Build Your Morning Routine" : "🌙 Build Your Evening Routine"}</h2>
+              <p style={S.sectionSub}>
+                {routineQPage === "morning"
+                  ? "Tell us about your mornings so we can create a routine personalized to your brain."
+                  : "Tell us about your evenings so we can help you wind down the way your brain needs."
+                }
+              </p>
+
+              {questions.map((q, qi) => (
+                <div key={q.id} style={{ marginBottom:"24px" }}>
+                  <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700", marginBottom:"12px" }}>{q.question}</div>
+                  <div style={S.grid}>
+                    {q.options.map(opt => (
+                      <div
+                        key={opt.id}
+                        style={S.chip(periodPrefs[q.id] === opt.id)}
+                        onClick={() => {
+                          setRoutinePrefs(prev => ({
+                            ...(prev || { morning: {}, evening: {} }),
+                            [routineQPage]: {
+                              ...((prev || {})[routineQPage] || {}),
+                              [q.id]: opt.id,
+                            }
+                          }));
+                        }}
+                      >
+                        <span style={{ fontSize:"17px" }}>{opt.emoji}</span>
+                        <span>{opt.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              <div style={{ display:"flex", justifyContent:"space-between", marginTop:"8px" }}>
+                <button style={S.btnOutline} onClick={() => {
+                  if (routineQPage === "evening") setRoutineQPage("morning");
+                  else setStep(2);
+                }}>← Back</button>
+                {routineQPage === "morning" ? (
+                  <button style={allAnswered ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
+                    if (allAnswered) setRoutineQPage("evening");
+                  }}>Evening Questions →</button>
+                ) : (
+                  <button style={allAnswered ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
+                    if (!allAnswered) return;
+                    const generated = generateRoutine(routinePrefs, selectedConditions);
+                    setPersonalRoutine(generated);
+                    setStep(3);
+                  }}>Generate My Routine →</button>
+                )}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* STEP 3: DIET */}
         {step === 3 && (
@@ -4750,7 +4823,7 @@ export default function NeuroThrive() {
             </div>
 
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-              <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
+              <button style={S.btnOutline} onClick={() => { setRoutineQPage("evening"); setStep(13); }}>← Back</button>
               <button style={S.btn} onClick={buildMenu}>Build My 30-Day Menu →</button>
             </div>
           </div>
@@ -5577,7 +5650,7 @@ export default function NeuroThrive() {
               }
 
               // ── Morning / Evening tabs ──
-              const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+              const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
               const steps = routineTab === "morning" ? routine.morning : routine.evening;
               const totalTime = steps.reduce((acc, s) => acc + (parseInt(s.time) || 0), 0);
               const todayRoutineChecks = getTodayChecks().routine[routineTab] || [];
@@ -5967,7 +6040,7 @@ export default function NeuroThrive() {
         {step === 12 && isPremium && (() => {
           const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
             : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-          const routine = DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+          const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
           const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
           const todayChecks = getTodayChecks();
           const exerciseChecks = todayChecks.exerciseOptions || {};
