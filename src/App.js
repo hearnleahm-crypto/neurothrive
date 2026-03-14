@@ -2821,7 +2821,7 @@ const AFFIRMATIONS = [
   { text: "You have everything you need to get through today. You've proven that before.", author: "NeuroThrive" },
   { text: "This morning is new. Whatever yesterday held, today is separate.", author: "NeuroThrive" },
 
-  // ── Science-Backed Wellness ──────────────────────────────────────────────
+  // ── Research-Informed Wellness ──────────────────────────────────────────
   { text: "Your gut produces 90% of your serotonin. Every meal is a mood decision.", author: "NeuroThrive" },
   { text: "Omega-3s, leafy greens, and sleep are the most evidence-backed mood boosters on earth.", author: "NeuroThrive" },
   { text: "The science is clear: what you eat shapes how you think and feel. You are choosing wisely.", author: "NeuroThrive" },
@@ -3845,12 +3845,12 @@ export default function NeuroThrive() {
 
   const TOUR_SLIDES = [
     { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Your personalized 30-day plan is ready. Here's a quick tour of everything you can do." },
-    { emoji: "🍽️", title: "Your 30-Day Menu", desc: "Browse daily meals tailored to your condition. Tap any meal to see its full recipe, or tap \"Why this meal?\" to learn the neuroscience behind each ingredient." },
+    { emoji: "🍽️", title: "Your 30-Day Menu", desc: "Browse daily meals tailored to your condition. Tap any meal to see its full recipe, or tap \"Why this meal?\" to learn why each ingredient was chosen for your plan." },
     { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel — powerful data for your wellness journey." },
     { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research. Find both on the Reminders tab." },
     { emoji: "🌿", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition — with dosages, timing, and the science behind each one." },
     { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category — grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
-    { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus 10 exercise modalities with neuroscience explanations for your specific condition." },
+    { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus 10 exercise modalities with research-informed explanations for your specific condition." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
     { emoji: "🚀", title: "You're all set!", desc: "Start with today's meals and check in with your journal tonight. Small, consistent steps create lasting change. Let's go!" },
   ];
@@ -4540,7 +4540,7 @@ export default function NeuroThrive() {
           <div style={S.hero}>
             <div style={S.heroEyebrow}>Brain · Food · Wellbeing</div>
             <h1 style={S.heroTitle}>Eat for your<br/><span style={S.heroAccent}>mind.</span></h1>
-            <p style={S.heroSub}>A personalized 30-day nutrition plan built around your mental health — with daily mood tracking and science-backed meal explanations.</p>
+            <p style={S.heroSub}>A personalized 30-day nutrition plan built around your mental health — with daily mood tracking and research-informed meal explanations.</p>
             <button style={S.btnAccent} onClick={() => setStep(1)}>Get Started →</button>
           </div>
         )}
