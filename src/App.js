@@ -6447,6 +6447,7 @@ function NeuroThriveApp() {
               {(() => {
                 const bp = getBrainPoints(todayKey);
                 const lvl = getBrainLevel(bp.pct);
+                const streak = getCompletionStreak();
                 const cats = [
                   { label: "Nutrition", bp: bp.categories.meals, max: bp.maxCats.meals, emoji: "🍽️", desc: "Brain-boosting meals eaten" },
                   { label: "Morning Routine", bp: bp.categories.morning, max: bp.maxCats.morning, emoji: "☀️", desc: "Morning steps completed" },
