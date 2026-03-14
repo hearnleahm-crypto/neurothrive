@@ -4695,7 +4695,7 @@ function NeuroThriveApp() {
                   >🌕 Sync my cycle</button>
                   <button
                     onClick={() => { setCycleSyncEnabled(false); setLastPeriodDate(""); }}
-                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: !cycleSyncEnabled ? "1.5px solid rgba(110,120,200,0.3)" : "1px solid rgba(110,120,200,0.15)", background: !cycleSyncEnabled ? "rgba(110,120,200,0.1)" : "rgba(110,120,200,0.03)", color: !cycleSyncEnabled ? "#a0b8ff" : "#6b7394", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: !cycleSyncEnabled ? "1.5px solid rgba(85,112,240,0.5)" : "1px solid rgba(110,120,200,0.15)", background: !cycleSyncEnabled ? "rgba(85,112,240,0.15)" : "rgba(110,120,200,0.03)", color: !cycleSyncEnabled ? "#a0b8ff" : "#6b7394", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
                   >Skip for now</button>
                 </div>
                 {cycleSyncEnabled && (
