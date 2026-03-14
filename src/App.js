@@ -3781,7 +3781,7 @@ export default function NeuroThrive() {
   }, [dataLoaded, subChecked, isPremium, step]);
 
   // Derived: always block step 3+ for non-premium users (after sub is checked)
-  const paywallActive = dataLoaded && subChecked && step >= 4 && !isPremium;
+  const paywallActive = dataLoaded && subChecked && step >= 4 && step !== 13 && !isPremium;
   useEffect(() => {
     if (!user) return;
     const params = new URLSearchParams(window.location.search);
