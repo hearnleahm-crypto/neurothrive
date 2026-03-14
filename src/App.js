@@ -4301,7 +4301,6 @@ export default function NeuroThrive() {
     if (!checks) return { earned: 0, total: 10, pct: 0 };
 
     let earned = 0;
-    // Meals: /4 or /5 if snacks2 exists
     const meals = checks.meals || {};
     if (meals.breakfast) earned++;
     if (meals.lunch) earned++;
@@ -4309,7 +4308,6 @@ export default function NeuroThrive() {
     if (meals.snacks) earned++;
     if (meals.snacks2) earned++;
 
-    // Routine steps
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
     const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
@@ -4320,10 +4318,8 @@ export default function NeuroThrive() {
     earned += morningChecked;
     earned += eveningChecked;
 
-    // Exercise: /1
     if (checks.exercise) earned++;
 
-    // Journal: /1
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dateKey || todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
     if (hasJournal) earned++;
 
@@ -4331,6 +4327,69 @@ export default function NeuroThrive() {
     const mealCount = hasSnacks2 ? 5 : 4;
     const total = mealCount + morningCount + eveningCount + 1 + 1;
     return { earned, total, pct: total > 0 ? Math.round((earned / total) * 100) : 0 };
+  };
+
+  // ── Brain Score System ──────────────────────────────────────────────────────
+  const getBrainPoints = (dateKey) => {
+    const dk = dateKey || todayKey;
+    const checks = dailyChecks[dk];
+    if (!checks) return { total: 0, max: 100, pct: 0, categories: { meals: 0, morning: 0, evening: 0, exercise: 0, journal: 0 }, maxCats: { meals: 0, morning: 0, evening: 0, exercise: 10, journal: 5 } };
+
+    // Meals: 5-15 BP each based on brain nutrient score
+    const meals = checks.meals || {};
+    const mealKeys = ["breakfast", "lunch", "dinner", "snacks", ...(calorieTarget === "2000" ? ["snacks2"] : [])];
+    let mealBP = 0;
+    let mealMaxBP = 0;
+    // Get today's menu day
+    const dayIdx = Math.max(0, daysElapsed - 1) % 30;
+    const todayMenu = menu30 ? menu30[dayIdx] : null;
+    mealKeys.forEach(key => {
+      const mealName = todayMenu ? todayMenu[key] : null;
+      const bs = mealName ? getBrainScore(mealName).score : 3;
+      const maxPts = Math.min(15, 5 + bs * 2); // 7-15 based on brain score
+      mealMaxBP += maxPts;
+      if (meals[key]) mealBP += maxPts;
+    });
+
+    // Morning routine: 3 BP per step
+    const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
+      : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+    const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
+    const eveningChecked = (checks.routine?.evening || []).filter(Boolean).length;
+    const morningBP = morningChecked * 3;
+    const morningMaxBP = routine.morning.length * 3;
+    const eveningBP = eveningChecked * 3;
+    const eveningMaxBP = routine.evening.length * 3;
+
+    // Exercise: 10 BP
+    const exerciseChecks = checks.exerciseOptions || {};
+    const exerciseDone = Object.values(exerciseChecks).some(Boolean) || checks.exercise;
+    const exerciseBP = exerciseDone ? 10 : 0;
+
+    // Journal: 5 BP + 2 bonus for positive mood
+    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+    const journalLog = logs.find(l => l.date && l.date.includes(new Date(dk).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+    let journalBP = hasJournal ? 5 : 0;
+    if (journalLog && journalLog.mood >= 3) journalBP += 2;
+    const journalMaxBP = 7;
+
+    const total = mealBP + morningBP + eveningBP + exerciseBP + journalBP;
+    const max = mealMaxBP + morningMaxBP + eveningMaxBP + 10 + journalMaxBP;
+    return {
+      total, max,
+      pct: max > 0 ? Math.round((total / max) * 100) : 0,
+      categories: { meals: mealBP, morning: morningBP, evening: eveningBP, exercise: exerciseBP, journal: journalBP },
+      maxCats: { meals: mealMaxBP, morning: morningMaxBP, evening: eveningMaxBP, exercise: 10, journal: journalMaxBP },
+    };
+  };
+
+  const getBrainLevel = (pct) => {
+    if (pct >= 90) return { label: "Thriving", emoji: "🧠✨", color: "#50c878" };
+    if (pct >= 70) return { label: "Strong", emoji: "🧠💪", color: "#7b9fff" };
+    if (pct >= 50) return { label: "Building", emoji: "🧠🔨", color: "#e8c87a" };
+    if (pct >= 25) return { label: "Warming Up", emoji: "🧠🌅", color: "#e0a050" };
+    return { label: "Just Starting", emoji: "🧠🌱", color: "#8890b8" };
   };
 
   const getCompletionStreak = () => {
@@ -4352,61 +4411,60 @@ export default function NeuroThrive() {
 
   // ── Progress banner component (inline) ──────────────────────────────────
   const ProgressBanner = ({ context }) => {
-    const score = getDailyScore(todayKey);
+    const bp = getBrainPoints(todayKey);
+    const level = getBrainLevel(bp.pct);
     const streak = getCompletionStreak();
-    const checks = getTodayChecks();
-    const r = 20, circ = 2 * Math.PI * r;
-    const offset = circ - (score.pct / 100) * circ;
+    const r = 22, circ = 2 * Math.PI * r;
+    const offset = circ - (bp.pct / 100) * circ;
 
-    const meals = checks.meals || {};
-    const mealsDone = [meals.breakfast, meals.lunch, meals.dinner, meals.snacks, meals.snacks2].filter(Boolean).length;
-    const hasSnacks2 = calorieTarget === "2000";
-    const mealsTotal = hasSnacks2 ? 5 : 4;
+    const catItems = [
+      { label: "Meals", bp: bp.categories.meals, max: bp.maxCats.meals, emoji: "🍽️" },
+      { label: "Morning", bp: bp.categories.morning, max: bp.maxCats.morning, emoji: "☀️" },
+      { label: "Evening", bp: bp.categories.evening, max: bp.maxCats.evening, emoji: "🌙" },
+      { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, emoji: "💪" },
+      { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, emoji: "📓" },
+    ];
 
-    const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
-      : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-    const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
-    const morningDone = (checks.routine?.morning || []).filter(Boolean).length;
-    const eveningDone = (checks.routine?.evening || []).filter(Boolean).length;
-
-    const exerciseDone = checks.exercise;
-    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
-
-    // Build checklist items relevant to context
-    const items = [];
-    if (!context || context === "menu") items.push({ label: "Meals", done: mealsDone, total: mealsTotal, emoji: "🍽️" });
-    if (!context || context === "routine") {
-      items.push({ label: "Morning", done: morningDone, total: routine.morning.length, emoji: "☀️" });
-      items.push({ label: "Evening", done: eveningDone, total: routine.evening.length, emoji: "🌙" });
-      items.push({ label: "Exercise", done: exerciseDone ? 1 : 0, total: 1, emoji: "💪" });
-    }
-    if (!context || context === "journal") items.push({ label: "Journal", done: hasJournal ? 1 : 0, total: 1, emoji: "📓" });
+    // Filter by context if provided
+    const items = context === "menu" ? catItems.filter(c => c.label === "Meals")
+      : context === "routine" ? catItems.filter(c => ["Morning","Evening","Exercise"].includes(c.label))
+      : context === "journal" ? catItems.filter(c => c.label === "Journal")
+      : catItems;
 
     return (
       <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "16px 18px", marginBottom: "18px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "12px" }}>
-          <svg width="48" height="48" viewBox="0 0 48 48" style={{ flexShrink: 0 }}>
-            <circle cx="24" cy="24" r={r} fill="none" stroke="rgba(80,200,120,0.15)" strokeWidth="4" />
-            <circle cx="24" cy="24" r={r} fill="none" stroke="#50c878" strokeWidth="4" strokeLinecap="round"
+          <svg width="52" height="52" viewBox="0 0 52 52" style={{ flexShrink: 0 }}>
+            <circle cx="26" cy="26" r={r} fill="none" stroke="rgba(80,200,120,0.12)" strokeWidth="4.5" />
+            <circle cx="26" cy="26" r={r} fill="none" stroke={level.color} strokeWidth="4.5" strokeLinecap="round"
               strokeDasharray={circ} strokeDashoffset={offset}
-              transform="rotate(-90 24 24)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
-            <text x="24" y="26" textAnchor="middle" fontSize="11" fontWeight="800" fill="#50c878">{score.pct}%</text>
+              transform="rotate(-90 26 26)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
+            <text x="26" y="28" textAnchor="middle" fontSize="12" fontWeight="800" fill={level.color}>{bp.pct}%</text>
           </svg>
           <div style={{ flex: 1 }}>
-            <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700" }}>Today's Progress</div>
-            <div style={{ color: "#8890b8", fontSize: "12px", marginTop: "2px" }}>
-              {score.earned} of {score.total} tasks done {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak} day streak 🔥</span>}
+            <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700" }}>Brain Score: {bp.total} BP</div>
+            <div style={{ color: level.color, fontSize: "12px", fontWeight: "600", marginTop: "2px" }}>{level.emoji} {level.label}</div>
+            <div style={{ color: "#8890b8", fontSize: "11px", marginTop: "2px" }}>
+              {bp.total} of {bp.max} brain points {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak} day streak 🔥</span>}
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-          {items.map((item, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: "4px", padding: "4px 10px", borderRadius: "20px", background: item.done >= item.total ? "rgba(80,200,120,0.12)" : "rgba(110,120,200,0.08)", border: item.done >= item.total ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(110,120,200,0.15)" }}>
-              <span style={{ fontSize: "11px" }}>{item.emoji}</span>
-              <span style={{ fontSize: "10px", fontWeight: "700", color: item.done >= item.total ? "#50c878" : "#8890b8" }}>{item.label}</span>
-              <span style={{ fontSize: "10px", fontWeight: "600", color: item.done >= item.total ? "#50c878" : "#7b9fff" }}>{item.done}/{item.total}</span>
-            </div>
-          ))}
+        {/* Category breakdown bars */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          {items.map((cat, i) => {
+            const pct = cat.max > 0 ? Math.round((cat.bp / cat.max) * 100) : 0;
+            const full = pct >= 100;
+            return (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ fontSize: "11px", width: "16px", textAlign: "center" }}>{cat.emoji}</span>
+                <span style={{ fontSize: "10px", fontWeight: "600", color: full ? "#50c878" : "#8890b8", width: "52px" }}>{cat.label}</span>
+                <div style={{ flex: 1, height: "6px", borderRadius: "3px", background: "rgba(110,120,200,0.12)", overflow: "hidden" }}>
+                  <div style={{ width: `${Math.min(100, pct)}%`, height: "100%", borderRadius: "3px", background: full ? "#50c878" : level.color, transition: "width 0.5s ease" }} />
+                </div>
+                <span style={{ fontSize: "10px", fontWeight: "700", color: full ? "#50c878" : "#7b9fff", width: "36px", textAlign: "right" }}>{cat.bp}/{cat.max}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -6367,6 +6425,70 @@ export default function NeuroThrive() {
                   </div>
                 );
               })}
+
+              {/* Section G: Daily Brain Scorecard */}
+              <div style={sectionDivider} />
+              {(() => {
+                const bp = getBrainPoints(todayKey);
+                const lvl = getBrainLevel(bp.pct);
+                const cats = [
+                  { label: "Nutrition", bp: bp.categories.meals, max: bp.maxCats.meals, emoji: "🍽️", desc: "Brain-boosting meals eaten" },
+                  { label: "Morning Routine", bp: bp.categories.morning, max: bp.maxCats.morning, emoji: "☀️", desc: "Morning steps completed" },
+                  { label: "Evening Routine", bp: bp.categories.evening, max: bp.maxCats.evening, emoji: "🌙", desc: "Evening steps completed" },
+                  { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, emoji: "💪", desc: "Movement for BDNF & dopamine" },
+                  { label: "Self-Awareness", bp: bp.categories.journal, max: bp.maxCats.journal, emoji: "📓", desc: "Journal & mood tracking" },
+                ];
+                const r2 = 38, circ2 = 2 * Math.PI * r2;
+                const off2 = circ2 - (bp.pct / 100) * circ2;
+
+                return (
+                  <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(107,143,255,0.06), rgba(80,200,120,0.04))", border:"1px solid rgba(107,143,255,0.15)" }}>
+                    <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"16px" }}>Daily Brain Scorecard</div>
+
+                    <div style={{ display:"flex", alignItems:"center", gap:"20px", marginBottom:"20px" }}>
+                      <svg width="90" height="90" viewBox="0 0 90 90" style={{ flexShrink:0 }}>
+                        <circle cx="45" cy="45" r={r2} fill="none" stroke="rgba(110,120,200,0.1)" strokeWidth="6" />
+                        <circle cx="45" cy="45" r={r2} fill="none" stroke={lvl.color} strokeWidth="6" strokeLinecap="round"
+                          strokeDasharray={circ2} strokeDashoffset={off2}
+                          transform="rotate(-90 45 45)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
+                        <text x="45" y="42" textAnchor="middle" fontSize="18" fontWeight="800" fill={lvl.color}>{bp.pct}%</text>
+                        <text x="45" y="56" textAnchor="middle" fontSize="9" fontWeight="600" fill="#8890b8">{bp.total} BP</text>
+                      </svg>
+                      <div>
+                        <div style={{ fontSize:"22px", fontWeight:"800", color:"#eef0ff", letterSpacing:"-0.5px" }}>{lvl.emoji}</div>
+                        <div style={{ fontSize:"16px", fontWeight:"700", color:lvl.color, marginTop:"4px" }}>{lvl.label}</div>
+                        <div style={{ fontSize:"11px", color:"#8890b8", marginTop:"4px" }}>{bp.total} of {bp.max} brain points earned</div>
+                        {streak > 0 && <div style={{ fontSize:"11px", color:"#e8c87a", marginTop:"2px" }}>{streak} day streak 🔥</div>}
+                      </div>
+                    </div>
+
+                    {cats.map((cat, i) => {
+                      const pct = cat.max > 0 ? Math.round((cat.bp / cat.max) * 100) : 0;
+                      const full = pct >= 100;
+                      return (
+                        <div key={i} style={{ marginBottom:"12px" }}>
+                          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"4px" }}>
+                            <span style={{ fontSize:"12px", fontWeight:"600", color: full ? "#50c878" : "#c8ccf0" }}>{cat.emoji} {cat.label}</span>
+                            <span style={{ fontSize:"11px", fontWeight:"700", color: full ? "#50c878" : "#7b9fff" }}>{cat.bp}/{cat.max} BP</span>
+                          </div>
+                          <div style={{ height:"8px", borderRadius:"4px", background:"rgba(110,120,200,0.1)", overflow:"hidden" }}>
+                            <div style={{ width:`${Math.min(100, pct)}%`, height:"100%", borderRadius:"4px", background: full ? "linear-gradient(90deg,#40b868,#50c878)" : `linear-gradient(90deg,${lvl.color}88,${lvl.color})`, transition:"width 0.5s ease" }} />
+                          </div>
+                          <div style={{ fontSize:"10px", color:"#8890b8", marginTop:"2px" }}>{cat.desc}</div>
+                        </div>
+                      );
+                    })}
+
+                    {bp.pct >= 70 && (
+                      <div style={{ marginTop:"16px", padding:"12px", borderRadius:"12px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
+                        <div style={{ fontSize:"13px", fontWeight:"700", color:"#50c878" }}>
+                          {bp.pct >= 90 ? "Your brain is thriving today. Every choice you made matters." : "Strong day for your brain. You're building real neural change."}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
 
               <div style={{ textAlign:"center", marginTop:"28px" }}>
                 <button style={S.btn} onClick={() => setStep(4)}>View Full Menu →</button>
