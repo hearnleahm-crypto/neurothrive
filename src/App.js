@@ -4729,21 +4729,34 @@ export default function NeuroThrive() {
               const current = personalRoutine[period];
               const currentTitles = new Set(current.map(s => s.title));
               const library = ROUTINE_STEP_LIBRARY[period];
-              // Find alternatives not already in the routine
               const alternatives = library.filter(s => !currentTitles.has(s.title));
               if (alternatives.length === 0) return;
-              // Pick a random alternative
               const alt = alternatives[Math.floor(Math.random() * alternatives.length)];
               const newSteps = [...current];
               newSteps[idx] = { time: alt.time > 0 ? `${alt.time} min` : "Habit", title: alt.title, desc: alt.desc };
               setPersonalRoutine(prev => ({ ...prev, [period]: newSteps }));
-              // Remove kept status since it's a new step
               setRoutineKept(prev => { const n = { ...prev }; delete n[`${period}-${idx}`]; return n; });
             };
 
-            const allMorningKept = personalRoutine.morning.every((_, i) => routineKept[`morning-${i}`]);
-            const allEveningKept = personalRoutine.evening.every((_, i) => routineKept[`evening-${i}`]);
-            const allKept = allMorningKept && allEveningKept;
+            const removeStep = (period, idx) => {
+              const newSteps = personalRoutine[period].filter((_, i) => i !== idx);
+              setPersonalRoutine(prev => ({ ...prev, [period]: newSteps }));
+              // Rebuild kept map with shifted indices
+              const newKept = {};
+              Object.keys(routineKept).forEach(key => {
+                const [p, iStr] = key.split("-");
+                const i = parseInt(iStr);
+                if (p !== period) { newKept[key] = routineKept[key]; return; }
+                if (i < idx) newKept[key] = routineKept[key];
+                else if (i > idx) newKept[`${p}-${i - 1}`] = routineKept[key];
+                // i === idx is removed
+              });
+              setRoutineKept(newKept);
+            };
+
+            const allMorningKept = personalRoutine.morning.length === 0 || personalRoutine.morning.every((_, i) => routineKept[`morning-${i}`]);
+            const allEveningKept = personalRoutine.evening.length === 0 || personalRoutine.evening.every((_, i) => routineKept[`evening-${i}`]);
+            const allKept = allMorningKept && allEveningKept && (personalRoutine.morning.length + personalRoutine.evening.length) > 0;
 
             const renderStep = (s, i, period, gradient) => {
               const key = `${period}-${i}`;
@@ -4765,6 +4778,7 @@ export default function NeuroThrive() {
                       <>
                         <button onClick={() => setRoutineKept(prev => ({ ...prev, [key]: true }))} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(80,200,120,0.4)", background:"rgba(80,200,120,0.08)", color:"#50c878", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Keep</button>
                         <button onClick={() => swapStep(period, i)} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(224,180,96,0.4)", background:"rgba(224,180,96,0.08)", color:"#e0b460", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Swap</button>
+                        <button onClick={() => removeStep(period, i)} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(224,96,96,0.3)", background:"rgba(224,96,96,0.06)", color:"#e06060", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Remove</button>
                       </>
                     )}
                   </div>

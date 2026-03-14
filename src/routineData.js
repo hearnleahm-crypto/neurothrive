@@ -150,6 +150,18 @@ export const ROUTINE_STEP_LIBRARY = {
     { id:"m_body_double", title:"Accountability Check-In", time:2, desc:"Tell someone — a friend, partner, or online community — what you're working on today. Focus increases dramatically when another presence is aware of your goals. This 'body double' effect is especially powerful for ADHD brains.", conditions:["adhd","depression","default"], struggles:["motivation","focus"], tags:["social","accountability"], order:10, priority:6 },
     { id:"m_window_tolerance", title:"Check Your Window", time:2, desc:"Rate your current state: hyper-aroused (tense, racing), hypo-aroused (numb, foggy), or within your window of tolerance. Simply naming your state activates the prefrontal cortex, giving you choice over your next action instead of running on autopilot.", conditions:["ptsd","bpd","did","bipolar"], struggles:["anxiety","getting_up"], tags:["awareness","regulation"], order:3, priority:8 },
     { id:"m_sensory_prep", title:"Sensory Environment Check", time:2, desc:"Adjust lighting, sounds, and textures to your comfort level before starting your day. Your sensory processing system shapes everything that follows — managing it proactively prevents the overwhelm that builds throughout the day.", conditions:["autism","adhd","ptsd"], struggles:["anxiety","energy"], tags:["sensory","environment"], order:2, priority:8 },
+
+    // ── Additional Meditation & Mindfulness ──
+    { id:"m_loving_kindness", title:"Loving-Kindness Meditation", time:5, desc:"Silently repeat phrases like 'May I be well, may I be happy, may I be at peace.' Then extend them to others. This practice activates the insula and anterior cingulate cortex — areas linked to empathy and emotional regulation — while boosting oxytocin.", conditions:["depression","bpd","ptsd","anxiety","default"], struggles:["motivation","anxiety","loneliness"], tags:["mindfulness","meditation"], order:5, priority:7 },
+    { id:"m_mindful_coffee", title:"Mindful Morning Drink", time:5, desc:"Make your coffee or tea without your phone. Notice the sounds, the warmth, the aroma. This single act of present-moment awareness activates the same prefrontal regions as formal meditation — without sitting still.", conditions:["all"], struggles:["anxiety","focus","energy"], tags:["mindfulness"], order:4, priority:7 },
+    { id:"m_box_breathing", title:"Box Breathing", time:4, desc:"Breathe in for 4 counts, hold 4, exhale 4, hold 4. Repeat 4 rounds. Used by Navy SEALs to regulate the nervous system under extreme stress. Balances your CO2/O2 ratio, calming the amygdala's threat response within minutes.", conditions:["anxiety","ptsd","ocd","bpd","adhd","default"], struggles:["anxiety","focus"], tags:["mindfulness","breathing"], order:3, priority:8 },
+    { id:"m_visualization", title:"Morning Visualization", time:5, desc:"Close your eyes and walk through your ideal day — see yourself completing tasks, handling challenges calmly, feeling energized. Visualization activates the same motor cortex pathways as actually performing the actions, priming your brain for success.", conditions:["depression","anxiety","adhd","default"], struggles:["motivation","anxiety","focus"], tags:["mindfulness","visualization"], order:5, priority:7 },
+
+    // ── Additional Exercise ──
+    { id:"m_hiit_micro", title:"4-Minute HIIT", time:4, desc:"20 seconds all-out effort, 10 seconds rest, repeat 8 times (Tabata protocol). Four minutes of HIIT increases dopamine by 200-300% and elevates norepinephrine for hours. This is the most time-efficient way to prime your brain chemistry.", conditions:["adhd","depression","neuro_core","default"], struggles:["energy","motivation","focus"], tags:["exercise","physical"], order:4, priority:8 },
+    { id:"m_dance", title:"3-Minute Dance Break", time:3, desc:"Put on your favorite song and move however your body wants. Dancing activates the cerebellum, basal ganglia, and reward system simultaneously — it's one of the few activities that engages nearly every brain region at once. Pure neurological activation.", conditions:["all"], struggles:["energy","motivation","getting_up"], tags:["exercise","physical","activation"], order:3, priority:7 },
+    { id:"m_resistance", title:"Morning Strength Circuit", time:10, desc:"Push-ups, squats, planks, and lunges — 3 rounds. Resistance training increases IGF-1 (insulin-like growth factor), which crosses the blood-brain barrier and promotes neurogenesis. Stronger muscles also improve insulin sensitivity, stabilizing brain glucose all day.", conditions:["depression","adhd","neuro_core","default"], struggles:["energy","motivation"], tags:["exercise","physical"], order:4, priority:7 },
+    { id:"m_run", title:"Morning Run or Jog", time:15, desc:"Lace up and run — even slowly. Running at conversational pace (Zone 2) is the single best exercise for brain health. It increases cerebral blood flow by 25%, triggers endocannabinoid release (the 'runner's high'), and promotes hippocampal neurogenesis.", conditions:["depression","anxiety","adhd","neuro_core","default"], struggles:["energy","motivation","anxiety"], tags:["exercise","physical"], order:4, priority:7 },
   ],
   evening: [
     // ── Processing & Release ──
@@ -182,6 +194,18 @@ export const ROUTINE_STEP_LIBRARY = {
     { id:"e_safe_space", title:"Safe Space Visualization", time:5, desc:"Close your eyes and visualize a place where you feel completely safe. Engage all 5 senses. Visualization activates the same brain regions as real experience — your amygdala cannot distinguish imagined safety from real safety, so it calms down either way.", conditions:["ptsd","bpd","anxiety","did","phobia"], struggles:["sleep","stress","racing_thoughts"], tags:["visualization","safety"], order:7, priority:8 },
     { id:"e_containment", title:"Emotional Containment", time:3, desc:"Visualize placing today's unresolved emotions into a container (a box, a safe, a jar). Tell yourself: 'These will be here tomorrow if I need them.' This technique from EMDR therapy gives your brain permission to stop processing and rest.", conditions:["ptsd","bpd","did","anxiety"], struggles:["racing_thoughts","stress"], tags:["processing","safety"], order:6, priority:8 },
     { id:"e_sensory_cocoon", title:"Sensory Comfort Setup", time:3, desc:"Optimize your sleep environment: cool temperature (65-68°F), weighted blanket if available, white noise or silence. Your sensory system needs predictable, comfortable input to downregulate. Sensory discomfort keeps the brain in scanning mode instead of sleep mode.", conditions:["autism","adhd","ptsd","anxiety"], struggles:["sleep","stress"], tags:["sensory","environment"], order:4, priority:8 },
+
+    // ── Additional Evening Meditation ──
+    { id:"e_yoga_nidra", title:"Yoga Nidra (Yogic Sleep)", time:10, desc:"Lie down and follow a guided body-awareness practice that hovers between waking and sleeping. Yoga Nidra reduces cortisol by 22% in a single session and activates the same delta brainwaves as deep sleep — while you're still conscious.", conditions:["anxiety","ptsd","depression","bpd","neuro_core","default"], struggles:["sleep","stress","racing_thoughts"], tags:["meditation","relaxation"], order:8, priority:7 },
+    { id:"e_loving_kindness", title:"Evening Loving-Kindness", time:5, desc:"Send compassion to yourself, then to loved ones, then to difficult people, then to all beings. This practice increases vagal tone and oxytocin while reducing the self-critical rumination that depression and BPD amplify at night.", conditions:["depression","bpd","ptsd","anxiety","default"], struggles:["loneliness","stress","racing_thoughts"], tags:["meditation","mindfulness"], order:7, priority:7 },
+    { id:"e_humming", title:"Vagus Nerve Humming", time:3, desc:"Hum at a low, steady pitch for 2-3 minutes. Humming vibrates the vagus nerve where it passes through the throat, directly activating the parasympathetic nervous system. Your heart rate drops within 30 seconds — measurable with any heart rate monitor.", conditions:["anxiety","ptsd","ocd","adhd","default"], struggles:["racing_thoughts","stress","sleep"], tags:["breathing","relaxation"], order:6, priority:7 },
+    { id:"e_gratitude_meditation", title:"Gratitude Body Scan", time:5, desc:"Starting from your feet, thank each part of your body for what it did today. 'Thank you, legs, for carrying me.' This combines body awareness with positive affect — activating both the insula and the reward system, a powerful combination for pre-sleep calm.", conditions:["all"], struggles:["stress","sleep","loneliness"], tags:["meditation","gratitude"], order:7, priority:7 },
+
+    // ── Evening Exercise & Movement ──
+    { id:"e_evening_walk", title:"Evening Walk", time:15, desc:"A gentle walk after dinner, ideally as the sun sets. Evening walks lower blood glucose by 30% (stabilizing overnight brain fuel), expose you to dimming light that triggers melatonin production, and give your brain transition time between day-mode and sleep-mode.", conditions:["all"], struggles:["stress","sleep","racing_thoughts"], tags:["exercise","physical"], order:3, priority:7 },
+    { id:"e_restorative_yoga", title:"Restorative Yoga", time:10, desc:"3-4 supported poses held for 2-3 minutes each — child's pose, legs up the wall, reclined butterfly. Restorative yoga activates the parasympathetic nervous system and reduces evening cortisol by 20%. The long holds give your fascia time to release stored tension.", conditions:["anxiety","ptsd","depression","bpd","neuro_core","default"], struggles:["stress","sleep"], tags:["exercise","physical","relaxation"], order:5, priority:7 },
+    { id:"e_foam_roll", title:"Foam Rolling & Release", time:7, desc:"Roll out major muscle groups — back, legs, shoulders. Myofascial release reduces cortisol, increases serotonin, and activates mechanoreceptors that signal safety to the brain. Your body stores stress physically — this is how you let it go.", conditions:["all"], struggles:["stress","sleep"], tags:["exercise","physical","relaxation"], order:5, priority:6 },
+    { id:"e_tai_chi", title:"Evening Tai Chi Flow", time:10, desc:"Slow, flowing movements coordinated with deep breathing. Tai Chi reduces cortisol, increases GABA (your brain's calming neurotransmitter), and improves sleep quality by 30% in clinical studies. The slow pace is the point — it teaches your nervous system to downshift.", conditions:["anxiety","ptsd","neuro_core","default"], struggles:["stress","sleep","racing_thoughts"], tags:["exercise","physical","mindfulness"], order:5, priority:7 },
   ],
 };
 
@@ -220,17 +244,19 @@ export function generateRoutine(prefs, conditions) {
 
       // Morning-specific filters
       if (period === "morning") {
-        // Exercise preference
-        if (step.requiresExercise === true && periodPrefs.morning_exercise === "no") return null;
-        if (step.requiresExercise === true && periodPrefs.morning_exercise === "sometimes") score -= 3;
-        if (step.requiresExercise === "sometimes" && periodPrefs.morning_exercise === "no") return null;
+        // Exercise preference — deprioritize but don't exclude
+        if (step.requiresExercise === true && periodPrefs.morning_exercise === "no") score -= 6;
+        if (step.requiresExercise === true && periodPrefs.morning_exercise === "sometimes") score -= 2;
+        if (step.requiresExercise === "sometimes" && periodPrefs.morning_exercise === "no") score -= 4;
         if (step.requiresExercise === true && periodPrefs.morning_exercise === "yes") score += 3;
+        if (step.tags && step.tags.includes("exercise") && periodPrefs.morning_exercise === "yes") score += 2;
 
-        // Meditation preference
-        if (step.requiresMeditation === true && periodPrefs.meditation === "no") return null;
-        if (step.requiresMeditation === "want_to_start" && periodPrefs.meditation === "no") return null;
+        // Meditation preference — deprioritize but don't exclude
+        if (step.requiresMeditation === true && periodPrefs.meditation === "no") score -= 6;
+        if (step.requiresMeditation === "want_to_start" && periodPrefs.meditation === "no") score -= 4;
         if (step.requiresMeditation === true && periodPrefs.meditation === "yes") score += 3;
         if (step.requiresMeditation === "want_to_start" && periodPrefs.meditation === "want_to_start") score += 2;
+        if (step.tags && step.tags.includes("mindfulness") && periodPrefs.meditation === "yes") score += 2;
 
         // Phone habit
         if (step.phoneRelated && periodPrefs.phone_first === "yes") score += 4;
@@ -253,8 +279,8 @@ export function generateRoutine(prefs, conditions) {
         if (periodPrefs.sleep_goal === "stay_asleep" && step.tags && step.tags.includes("environment")) score += 3;
         if (periodPrefs.sleep_goal === "wake_rested" && step.tags && step.tags.includes("preparation")) score += 2;
 
-        // Meditation preference (evening)
-        if (step.requiresMeditation === true && prefs.morning && prefs.morning.meditation === "no") return null;
+        // Meditation preference (evening) — deprioritize but don't exclude
+        if (step.requiresMeditation === true && prefs.morning && prefs.morning.meditation === "no") score -= 6;
       }
 
       return { ...step, score };
