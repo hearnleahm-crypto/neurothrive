@@ -5986,15 +5986,16 @@ export default function NeuroThrive() {
 
               {/* Did You Know? — daily rotating fact */}
               {(() => {
-                const facts = DID_YOU_KNOW[condKey] || DID_YOU_KNOW.default;
-                if (!facts || facts.length === 0) return null;
-                const factIdx = (daysElapsed - 1) % facts.length;
-                const today = facts[factIdx];
+                const facts = DID_YOU_KNOW[condKey] || DID_YOU_KNOW["default"] || [];
+                if (facts.length === 0) return null;
+                const factIdx = Math.max(0, (daysElapsed - 1)) % facts.length;
+                const todayFact = facts[factIdx];
+                if (!todayFact) return null;
                 return (
-                  <div style={{ padding:"18px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(160,120,255,0.06))", border:"1px solid rgba(107,143,255,0.15)", marginBottom:"16px" }}>
+                  <div style={{ padding:"18px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(160,120,255,0.08))", border:"1px solid rgba(107,143,255,0.2)", marginBottom:"16px", marginTop:"16px" }}>
                     <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
-                    <p style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.6, margin:"0 0 10px 0" }}>{today.fact}</p>
-                    <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{today.connection}</p>
+                    <p style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.6, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
+                    <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{todayFact.connection}</p>
                   </div>
                 );
               })()}
