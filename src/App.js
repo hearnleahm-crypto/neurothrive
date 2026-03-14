@@ -4820,6 +4820,9 @@ export default function NeuroThrive() {
               </div>
               <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
             </div>
+            <div style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(232,200,122,0.05)", border:"1px solid rgba(232,200,122,0.12)", marginBottom:"16px" }}>
+              <span style={{ color:"#c8b060", fontSize:"11px", lineHeight:1.6 }}>⚠️ Always verify ingredients if you have severe allergies. Dietary filters remove tagged items but cannot guarantee every ingredient in a recipe.</span>
+            </div>
 
             {cycleStartDate && (
               <div style={{ ...S.card, marginBottom:"14px", padding:"14px 18px" }}>
