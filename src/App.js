@@ -3864,23 +3864,23 @@ function NeuroThriveApp() {
     return () => clearTimeout(timer);
   }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
 
-  // ── Feature tour trigger ────────────────────────────────────────────────────
+  // ── Feature tour trigger (shows once at start of onboarding) ────────────────
   useEffect(() => {
-    if (step === 12 && isPremium && dataLoaded && !onboardingDone && menu30) {
+    if (step === 1 && dataLoaded && !onboardingDone) {
       setShowTour(true);
     }
-  }, [step, isPremium, dataLoaded, onboardingDone, menu30]);
+  }, [step, dataLoaded, onboardingDone]);
 
   const TOUR_SLIDES = [
-    { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Your personalized 30-day plan is ready. Here's a quick tour of everything you can do." },
-    { emoji: "🍽️", title: "Your 30-Day Menu", desc: "Browse daily meals tailored to your condition. Tap any meal to see its full recipe, or tap \"Why this meal?\" to learn why each ingredient was chosen for your plan." },
+    { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Before we build your plan, here's a quick look at everything NeuroThrive will create for you." },
+    { emoji: "🍽️", title: "30-Day Meal Plan", desc: "A personalized menu of brain-boosting meals tailored to your condition. Every recipe includes the science behind why it was chosen for you." },
+    { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus condition-specific exercise recommendations backed by neuroscience research." },
     { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel — powerful data for your wellness journey." },
-    { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research. Find both on the Reminders tab." },
     { emoji: "🌿", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition — with dosages, timing, and the science behind each one." },
     { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category — grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
-    { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus 10 exercise modalities with research-informed explanations for your specific condition." },
+    { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
-    { emoji: "🚀", title: "You're all set!", desc: "Start with today's meals and check in with your journal tonight. Small, consistent steps create lasting change. Let's go!" },
+    { emoji: "🚀", title: "Let's build your plan!", desc: "We'll ask a few quick questions about your conditions, diet, and routine — then generate everything personalized to your brain." },
   ];
 
   const finishTour = () => {
