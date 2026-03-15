@@ -6437,16 +6437,36 @@ function NeuroThriveApp() {
                       <button onClick={() => openRecipe(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
                     </div>
-                    {alt && (
+                    {alt && (() => {
+                      const ateAlt = mealChecked && todayChecks.foodLog?.[key] && todayChecks.foodLog[key] !== meal;
+                      const altBs = getBrainScore(alt);
+                      return (
                       <div style={{ marginTop:"8px", marginLeft:"34px", padding:"10px 12px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
-                        <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"4px" }}>Alternative</div>
-                        <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4 }}>{alt}</div>
-                        <div style={{ display:"flex", gap:"6px", marginTop:"6px" }}>
-                          <button onClick={() => openRecipe(alt, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
-                          <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Try Another</button>
+                        <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Alternative</div>
+                        <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
+                          <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px" }}>
+                            {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                          </button>
+                          <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
+                        </div>
+                        <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"8px" }}>
+                          <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                            <span style={{ fontSize:"10px" }}>🔥</span>
+                            <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
+                          </div>
+                          <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 8px", borderRadius:"16px", background: altBs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: altBs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
+                            <span style={{ fontSize:"10px" }}>🧠</span>
+                            <span style={{ color: altBs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(altBs.score)}</span>
+                          </div>
+                        </div>
+                        <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
+                          <button onClick={() => openExplain(alt, label, globalDayIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
+                          <button onClick={() => openRecipe(alt, label, globalDayIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🍳 Recipe</button>
+                          <button onClick={() => getAltMeal(meal, label, key)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>✨ Try Another</button>
                         </div>
                       </div>
-                    )}
+                      );
+                    })()}
                   </div>
                 );
               })}
