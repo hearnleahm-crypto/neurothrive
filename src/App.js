@@ -4939,86 +4939,50 @@ function NeuroThriveApp() {
             );
           }
 
-          // Preview mode — show generated routine with keep/swap
+          // Preview mode — show generated routine, tap X to remove
           if (routineQPage === "preview" && personalRoutine) {
-            const swapStep = (period, idx) => {
-              const current = personalRoutine[period];
-              const currentTitles = new Set(current.map(s => s.title));
-              const library = ROUTINE_STEP_LIBRARY[period];
-              const alternatives = library.filter(s => !currentTitles.has(s.title));
-              if (alternatives.length === 0) return;
-              const alt = alternatives[Math.floor(Math.random() * alternatives.length)];
-              const newSteps = [...current];
-              newSteps[idx] = { time: alt.time > 0 ? `${alt.time} min` : "Habit", title: alt.title, desc: alt.desc };
-              setPersonalRoutine(prev => ({ ...prev, [period]: newSteps }));
-              setRoutineKept(prev => { const n = { ...prev }; delete n[`${period}-${idx}`]; return n; });
-            };
-
             const removeStep = (period, idx) => {
               const newSteps = personalRoutine[period].filter((_, i) => i !== idx);
               setPersonalRoutine(prev => ({ ...prev, [period]: newSteps }));
-              // Rebuild kept map with shifted indices
-              const newKept = {};
-              Object.keys(routineKept).forEach(key => {
-                const [p, iStr] = key.split("-");
-                const i = parseInt(iStr);
-                if (p !== period) { newKept[key] = routineKept[key]; return; }
-                if (i < idx) newKept[key] = routineKept[key];
-                else if (i > idx) newKept[`${p}-${i - 1}`] = routineKept[key];
-                // i === idx is removed
-              });
-              setRoutineKept(newKept);
             };
 
-            const allMorningKept = personalRoutine.morning.length === 0 || personalRoutine.morning.every((_, i) => routineKept[`morning-${i}`]);
-            const allEveningKept = personalRoutine.evening.length === 0 || personalRoutine.evening.every((_, i) => routineKept[`evening-${i}`]);
-            const allKept = allMorningKept && allEveningKept && (personalRoutine.morning.length + personalRoutine.evening.length) > 0;
+            const hasSteps = (personalRoutine.morning.length + personalRoutine.evening.length) > 0;
 
-            const renderStep = (s, i, period, gradient) => {
-              const key = `${period}-${i}`;
-              const kept = !!routineKept[key];
-              return (
-                <div key={key} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px", border: kept ? "1.5px solid rgba(80,200,120,0.3)" : undefined }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                    <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:gradient, color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
-                    <div style={{ flex:1 }}>
-                      <div style={{ color: kept ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
-                      <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
-                    </div>
+            const renderStep = (s, i, period, gradient) => (
+              <div key={`${period}-${i}`} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                  <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:gradient, color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                  <div style={{ flex:1 }}>
+                    <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
+                    <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
                   </div>
-                  <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
-                  <div style={{ display:"flex", gap:"8px", marginTop:"10px", marginLeft:"34px" }}>
-                    {kept ? (
-                      <div style={{ color:"#50c878", fontSize:"12px", fontWeight:"700" }}>✓ Kept</div>
-                    ) : (
-                      <>
-                        <button onClick={() => setRoutineKept(prev => ({ ...prev, [key]: true }))} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(80,200,120,0.4)", background:"rgba(80,200,120,0.08)", color:"#50c878", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Keep</button>
-                        <button onClick={() => swapStep(period, i)} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(224,180,96,0.4)", background:"rgba(224,180,96,0.08)", color:"#e0b460", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Swap</button>
-                        <button onClick={() => removeStep(period, i)} style={{ padding:"6px 16px", borderRadius:"20px", border:"1.5px solid rgba(224,96,96,0.3)", background:"rgba(224,96,96,0.06)", color:"#e06060", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Remove</button>
-                      </>
-                    )}
-                  </div>
+                  <button onClick={() => removeStep(period, i)} style={{ width:"28px", height:"28px", borderRadius:"50%", border:"1px solid rgba(224,96,96,0.3)", background:"rgba(224,96,96,0.06)", color:"#e06060", fontSize:"14px", fontWeight:"700", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>✕</button>
                 </div>
-              );
-            };
+                <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
+              </div>
+            );
 
             return (
               <div>
-                <h2 style={S.sectionTitle}>✨ Your Personalized Routine</h2>
-                <p style={S.sectionSub}>Review each step below. Tap <strong style={{ color:"#50c878" }}>Keep</strong> to lock in a step, <strong style={{ color:"#e0b460" }}>Swap</strong> to find a different option, or <strong style={{ color:"#e06060" }}>Remove</strong> if you want fewer to-do's. You can always rebuild your routine later.</p>
+                <h2 style={S.sectionTitle}>Your Personalized Routine</h2>
+                <p style={S.sectionSub}>Here's your routine. Remove anything that doesn't fit — you can always rebuild later.</p>
 
                 <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>☀️ Morning Routine</div>
-                {personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)"))}
+                {personalRoutine.morning.length > 0 ? personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)")) : (
+                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No morning steps — that's okay!</div>
+                )}
 
                 <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>🌙 Evening Routine</div>
-                {personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5570f0,#4060e0)"))}
+                {personalRoutine.evening.length > 0 ? personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5570f0,#4060e0)")) : (
+                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No evening steps — that's okay!</div>
+                )}
 
                 <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
                   <button style={S.btnOutline} onClick={() => setRoutineQPage("evening")}>← Edit Answers</button>
-                  <button style={allKept ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
-                    if (!allKept) return;
+                  <button style={hasSteps ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
+                    if (!hasSteps) return;
                     setStep(menu30 ? 12 : 4);
-                  }}>{allKept ? "Lock In My Routine →" : `Keep or swap each step (${Object.keys(routineKept).length}/${personalRoutine.morning.length + personalRoutine.evening.length})`}</button>
+                  }}>Lock In My Routine →</button>
                 </div>
               </div>
             );

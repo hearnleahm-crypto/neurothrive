@@ -222,6 +222,7 @@ export const ROUTINE_STEP_LIBRARY = {
     { id:"e_gratitude_meditation", title:"Gratitude Body Scan", time:5, desc:"Starting from your feet, thank each part of your body for what it did today. 'Thank you, legs, for carrying me.' This combines body awareness with positive affect — activating both the insula and the reward system, a powerful combination for pre-sleep calm.", conditions:["all"], struggles:["stress","sleep","loneliness"], tags:["meditation","gratitude"], order:7, priority:7 },
 
     // ── Evening Exercise & Movement ──
+    { id:"e_workout", title:"Evening Workout", time:15, desc:"Follow your NeuroThrive exercise plan. Evening exercise lowers cortisol accumulated throughout the day and triggers endorphin release that carries into sleep. Research shows evening exercisers fall asleep faster and spend more time in deep sleep — when the brain consolidates memory and clears metabolic waste.", conditions:["all"], struggles:["stress","sleep","racing_thoughts"], tags:["exercise"], requiresExercise:true, order:3, priority:8 },
     { id:"e_evening_walk", title:"Evening Walk", time:15, desc:"A gentle walk after dinner, ideally as the sun sets. Evening walks lower blood glucose by 30% (stabilizing overnight brain fuel), expose you to dimming light that triggers melatonin production, and give your brain transition time between day-mode and sleep-mode.", conditions:["all"], struggles:["stress","sleep","racing_thoughts"], tags:["exercise","physical"], order:3, priority:7 },
     { id:"e_restorative_yoga", title:"Restorative Yoga", time:10, desc:"3-4 supported poses held for 2-3 minutes each — child's pose, legs up the wall, reclined butterfly. Restorative yoga activates the parasympathetic nervous system and reduces evening cortisol by 20%. The long holds give your fascia time to release stored tension.", conditions:["anxiety","ptsd","depression","bpd","neuro_core","default"], struggles:["stress","sleep"], tags:["exercise","physical","relaxation"], order:5, priority:7 },
     { id:"e_foam_roll", title:"Foam Rolling & Release", time:7, desc:"Roll out major muscle groups — back, legs, shoulders. Myofascial release reduces cortisol, increases serotonin, and activates mechanoreceptors that signal safety to the brain. Your body stores stress physically — this is how you let it go.", conditions:["all"], struggles:["stress","sleep"], tags:["exercise","physical","relaxation"], order:5, priority:6 },
@@ -300,6 +301,9 @@ export function generateRoutine(prefs, conditions) {
         if (periodPrefs.sleep_goal === "wake_rested" && step.tags && step.tags.includes("preparation")) score += 2;
 
         // Evening exercise preference
+        if (step.requiresExercise === true && periodPrefs.evening_exercise === "yes") score += 5;
+        if (step.requiresExercise === true && periodPrefs.evening_exercise === "no") score -= 6;
+        if (step.requiresExercise === true && periodPrefs.evening_exercise === "sometimes") score -= 2;
         if (step.tags && step.tags.includes("exercise") && periodPrefs.evening_exercise === "yes") score += 4;
         if (step.tags && step.tags.includes("exercise") && periodPrefs.evening_exercise === "sometimes") score += 1;
         if (step.tags && step.tags.includes("exercise") && periodPrefs.evening_exercise === "no") score -= 4;
