@@ -74,6 +74,14 @@ const DIETARY_RESTRICTIONS = [
 // Combined for backward compatibility
 const DIETARY = [...DIET_TYPES, ...DIETARY_RESTRICTIONS];
 
+const CUISINE_TYPES = [
+  { id: "american", label: "American & Comfort", emoji: "🍔" },
+  { id: "mexican_latin", label: "Mexican & Latin", emoji: "🌮" },
+  { id: "asian", label: "Asian", emoji: "🥢" },
+  { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
+  { id: "indian_curry", label: "Indian & Curry", emoji: "🍛" },
+];
+
 const ALL_MEALS = {
   breakfast: [
     { name: "Grilled Chicken Sausage with Sliced Mango & Strawberries", tags: ["meat"], conditions: ["adhd","default"] },
@@ -624,16 +632,31 @@ const DIET_EXCLUSIONS = {
   oat_free: ["oats"],
 };
 
-const filterMeals = (meals, selectedDiet, condition) => {
+const getCuisine = (name) => {
+  const n = name.toLowerCase();
+  if (/taco|burrito|enchilada|fajita|quesadilla|pico de gallo|salsa verde|chipotle|churro/.test(n)) return "mexican_latin";
+  if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|pad thai|bibimbap/.test(n)) return "asian";
+  if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
+  if (/mediterranean|tahini|falafel|hummus.*pita|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh/.test(n)) return "mediterranean";
+  if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie/.test(n)) return "american";
+  return "general";
+};
+
+const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
   const excludedTags = new Set();
   selectedDiet.forEach(d => { (DIET_EXCLUSIONS[d] || []).forEach(t => excludedTags.add(t)); });
   const isKosher = selectedDiet.includes("kosher");
   const conditionId = condition || "default";
   return meals.filter(m => {
     if (m.tags.some(t => excludedTags.has(t))) return false;
-    // Kosher: no mixing meat and dairy in the same meal
     if (isKosher && m.tags.includes("meat") && m.tags.includes("dairy")) return false;
-    return m.conditions.includes(conditionId) || m.conditions.includes("default");
+    if (!(m.conditions.includes(conditionId) || m.conditions.includes("default"))) return false;
+    // Cuisine filtering: keep "general" meals always, filter specific cuisines
+    if (selectedCuisines && selectedCuisines.length > 0) {
+      const cuisine = getCuisine(m.name);
+      if (cuisine !== "general" && !selectedCuisines.includes(cuisine)) return false;
+    }
+    return true;
   });
 };
 
@@ -673,11 +696,11 @@ const LENTIL_KEYWORDS = ["lentil", "Lentil"];
 const GLUTEN_KEYWORDS = ["toast","bread","tortilla","wrap","sandwich","burrito","bagel","muffin","waffle","pancake","pasta","noodle","roll","hoagie","sub","quesadilla","bun","cornbread","cracker","cereal","granola","oatmeal","oats","porridge"];
 const isGlutenMeal = (name) => GLUTEN_KEYWORDS.some(k => name.toLowerCase().includes(k));
 
-const build30DayMenu = (condition, selectedDiet, calTarget) => {
-  const breakfastPool = filterMeals(ALL_MEALS.breakfast, selectedDiet, condition);
-  const lunchPool = filterMeals(ALL_MEALS.lunch, selectedDiet, condition);
-  const dinnerPool = filterMeals(ALL_MEALS.dinner, selectedDiet, condition);
-  const snackPool = filterMeals(ALL_MEALS.snacks, selectedDiet, condition);
+const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines) => {
+  const breakfastPool = filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines);
+  const lunchPool = filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines);
+  const dinnerPool = filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines);
+  const snackPool = filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines);
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
@@ -3647,6 +3670,7 @@ function NeuroThriveApp() {
   const [cycleLength, setCycleLength] = useState(28);
   const [selectedConditions, setSelectedConditions] = useState([]);
   const [selectedDiet, setSelectedDiet] = useState([]);
+  const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [calorieTarget, setCalorieTarget] = useState("1500");
   const [menu30, setMenu30] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(0);
@@ -3741,6 +3765,7 @@ function NeuroThriveApp() {
           if (data.cycle_length) setCycleLength(data.cycle_length);
           if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
           if (data.selected_diet) setSelectedDiet(data.selected_diet);
+          if (data.selected_cuisines) setSelectedCuisines(data.selected_cuisines);
           if (data.calorie_target) setCalorieTarget(data.calorie_target);
           if (data.menu30) setMenu30(data.menu30);
           if (data.logs) setLogs(data.logs);
@@ -3843,6 +3868,7 @@ function NeuroThriveApp() {
           cycle_length: cycleLength,
           selected_conditions: selectedConditions,
           selected_diet: selectedDiet,
+          selected_cuisines: selectedCuisines,
           calorie_target: calorieTarget,
           menu30,
           logs,
@@ -3862,7 +3888,7 @@ function NeuroThriveApp() {
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
+  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
 
   // ── Feature tour trigger (shows once at start of onboarding) ────────────────
   useEffect(() => {
@@ -4171,7 +4197,7 @@ function NeuroThriveApp() {
 
   const startNewCycle = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines);
     setMenu30(days);
     setPlanCycle(c => c + 1);
     setCycleStartDate(new Date().toISOString());
@@ -4187,7 +4213,7 @@ function NeuroThriveApp() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
@@ -4251,7 +4277,7 @@ function NeuroThriveApp() {
     const label = mealType.toLowerCase();
     const typeKey = label.includes("breakfast") ? "breakfast" : label.includes("lunch") ? "lunch" : label.includes("dinner") ? "dinner" : "snacks";
     const condition = selectedConditions[0] || "default";
-    const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition).map(m => m.name).filter(n => n !== currentMeal);
+    const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition, selectedCuisines).map(m => m.name).filter(n => n !== currentMeal);
     if (pool.length === 0) return;
     const pick = pool[Math.floor(Math.random() * pool.length)];
     const altKey = `${globalDayIdx}_${mealKey}`;
@@ -4992,6 +5018,18 @@ function NeuroThriveApp() {
                 </div>
               </div>
             )}
+
+            <div style={S.divider} />
+
+            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Cuisine Preferences</h3>
+            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select the cuisines you enjoy. Universal meals like salads, bowls, and smoothies are always included. Leave blank to include all cuisines.</p>
+            <div style={S.grid}>
+              {CUISINE_TYPES.map(c => (
+                <div key={c.id} style={S.chip(selectedCuisines.includes(c.id))} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)}>
+                  <span style={{ fontSize:"17px" }}>{c.emoji}</span><span>{c.label}</span>
+                </div>
+              ))}
+            </div>
 
             <div style={S.divider} />
 
