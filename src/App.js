@@ -5222,8 +5222,8 @@ function NeuroThriveApp() {
 
         {/* FEATURE TOUR OVERLAY */}
         {showTour && (
-          <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:"20px", backdropFilter:"blur(6px)" }}>
-            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.5)", animation:"fadeUp 0.3s ease" }}>
+          <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px", backdropFilter:"blur(6px)", overflowY:"auto" }}>
+            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.5)", animation:"fadeUp 0.3s ease", position:"relative" }}>
               <div style={{ fontSize:"56px", marginBottom:"16px" }}>{TOUR_SLIDES[tourStep].emoji}</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px", letterSpacing:"0.5px" }}>{TOUR_SLIDES[tourStep].title}</h2>
               <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7, marginBottom:"28px", maxWidth:"360px", marginLeft:"auto", marginRight:"auto" }}>{TOUR_SLIDES[tourStep].desc}</p>
@@ -5243,9 +5243,7 @@ function NeuroThriveApp() {
                   <button onClick={finishTour} style={{ background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Let's Go! 🚀</button>
                 )}
               </div>
-              {tourStep < TOUR_SLIDES.length - 1 && (
-                <button onClick={finishTour} style={{ marginTop:"16px", background:"none", border:"none", color:"#6b7394", fontSize:"12px", cursor:"pointer", textDecoration:"underline" }}>Skip tour</button>
-              )}
+              <button onClick={finishTour} style={{ marginTop:"16px", background:"none", border:"none", color:"#6b7394", fontSize:"13px", cursor:"pointer", textDecoration:"underline", padding:"8px 16px" }}>Skip tour</button>
             </div>
           </div>
         )}
