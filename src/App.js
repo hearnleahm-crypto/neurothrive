@@ -3981,7 +3981,7 @@ function NeuroThriveApp() {
           logs,
           plan_cycle: planCycle,
           cycle_start_date: cycleStartDate,
-          step,
+          step: step > 3 ? step : null,
           reminders_enabled: remindersEnabled,
           reminder_times: reminderTimes,
           reminder_active: reminderActive,
@@ -4885,7 +4885,7 @@ function NeuroThriveApp() {
             )}
             <div style={{ display:"flex", justifyContent:"space-between" }}>
               <button style={S.btnOutline} onClick={() => setStep(0)}>← Back</button>
-              <button style={selectedGender ? S.btn : {...S.btn, opacity:0.5}} onClick={() => { if(selectedGender) { setStep(resumeStep && resumeStep > 2 ? resumeStep : 2); setResumeStep(null); } }}>Continue →</button>
+              <button style={selectedGender ? S.btn : {...S.btn, opacity:0.5}} onClick={() => { if(selectedGender) setStep(2); }}>Continue →</button>
             </div>
           </div>
         )}
