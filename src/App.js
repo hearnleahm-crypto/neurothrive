@@ -700,37 +700,53 @@ const isGlutenMeal = (name) => GLUTEN_KEYWORDS.some(k => name.toLowerCase().incl
 
 const getMealWeight = (name) => {
   const n = name.toLowerCase();
+  // Comfort-food hearty
   if (/steak|brisket|burger|meatloaf|casserole|mac & cheese|pot pie|enchilada|burrito(?!.*bowl)|lasagna|pulled|bbq|bacon.*cheese|fajita|chili|ribs|roast\b|stuffed/.test(n)) return "hearty";
   if (/double|large|loaded|hearty|thick/.test(n)) return "hearty";
+  // Healthy-substantial: protein + grain/starch bowls, sheet pans, skillet meals
+  if (/(?:salmon|chicken|turkey|tuna|beef|pork|fish|shrimp|tofu|tempeh).*(?:bowl|sheet pan|skillet|stir-fry|plate)/.test(n) && /(?:rice|quinoa|sweet potato|potato|grain|lentil|bean|chickpea)/.test(n)) return "substantial";
+  if (/(?:rice|quinoa|grain|lentil).*(?:bowl|plate)/.test(n) && /(?:salmon|chicken|turkey|tuna|beef|shrimp|tofu)/.test(n)) return "substantial";
+  if (/meatball|turkey.*rice|chicken.*rice|salmon.*rice|salmon.*quinoa|chicken.*quinoa|chicken.*sweet potato|salmon.*sweet potato|ground turkey|ground beef/.test(n)) return "substantial";
+  if (/curry.*rice|stir-fry.*rice|teriyaki.*rice|glazed.*salmon|baked salmon|grilled chicken.*(?:rice|quinoa|potato)/.test(n)) return "substantial";
+  if (/power bowl|grain bowl|buddha bowl|nourish bowl|protein bowl/.test(n)) return "substantial";
+  // Light meals
   if (/smoothie|parfait|yogurt(?!.*bowl)|fruit\b|berries|toast(?!.*avocado.*egg)|crackers|rice cake|miso soup|kombucha|hummus.*vegg|celery|cucumber|tea &/.test(n)) return "light";
   return "moderate";
 };
 
-// Bias pools toward heavier or lighter meals based on calorie target
+// Bias pools toward heavier or lighter meals based on calorie target + gender
 // Duplicates preferred meals so they appear more often after shuffle
-const biasPool = (pool, calTarget) => {
+const biasPool = (pool, calTarget, gender) => {
+  const light = pool.filter(m => getMealWeight(m.name) === "light");
+  const moderate = pool.filter(m => getMealWeight(m.name) === "moderate");
+  const substantial = pool.filter(m => getMealWeight(m.name) === "substantial");
+  const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
+  const isMale = gender === "male";
+
   if (calTarget === "1200") {
-    // Double light meals, remove most hearty
-    const light = pool.filter(m => getMealWeight(m.name) === "light");
-    const moderate = pool.filter(m => getMealWeight(m.name) === "moderate");
-    const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
-    return [...light, ...light, ...moderate, ...hearty.slice(0, Math.ceil(hearty.length / 3))];
+    // Low-cal: favor light + moderate, few hearty
+    return [...light, ...light, ...moderate, ...substantial.slice(0, Math.ceil(substantial.length / 2)), ...hearty.slice(0, Math.ceil(hearty.length / 4))];
   }
   if (calTarget === "2000") {
-    // Double hearty meals, remove most light
-    const light = pool.filter(m => getMealWeight(m.name) === "light");
-    const moderate = pool.filter(m => getMealWeight(m.name) === "moderate");
-    const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
-    return [...hearty, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 3))];
+    if (isMale) {
+      // Men on 2000: triple substantial, double hearty, cut most light
+      return [...substantial, ...substantial, ...substantial, ...hearty, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 4))];
+    }
+    // Women/other on 2000: double substantial + hearty
+    return [...substantial, ...substantial, ...hearty, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 3))];
   }
-  return pool; // 1500 = balanced, no bias
+  if (calTarget === "1500" && isMale) {
+    // Men on 1500: double substantial, keep hearty
+    return [...substantial, ...substantial, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 2))];
+  }
+  return pool; // 1500 default = balanced
 };
 
-const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines) => {
-  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget);
-  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget);
-  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget);
-  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget);
+const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, gender) => {
+  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, gender);
+  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, gender);
+  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, gender);
+  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, gender);
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
@@ -4227,7 +4243,7 @@ function NeuroThriveApp() {
 
   const startNewCycle = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedGender);
     setMenu30(days);
     setPlanCycle(c => c + 1);
     setCycleStartDate(new Date().toISOString());
@@ -4243,7 +4259,7 @@ function NeuroThriveApp() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedGender);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
