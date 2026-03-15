@@ -346,6 +346,7 @@ export function generateRoutine(prefs, conditions) {
       title: s.title,
       desc: s.desc,
       tags: s.tags || [],
+      isWorkout: s.requiresExercise === true,
     }));
   });
 

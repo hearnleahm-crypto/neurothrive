@@ -5917,7 +5917,7 @@ function NeuroThriveApp() {
                     };
                     const cycleSuggestion = getCycleSuggestion(cyclePhase);
 
-                    const isExerciseStep = (s) => (s.tags && s.tags.includes("exercise")) || /workout|exercise|HIIT|movement session|dance break|strength circuit|morning run/i.test(s.title);
+                    const isExerciseStep = (s) => !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
 
                     const renderExerciseGuide = () => (
                       <div style={{ marginTop:"12px" }}>
@@ -6475,7 +6475,7 @@ function NeuroThriveApp() {
               <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Morning Routine</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
               {routine.morning.map((s, i) => {
-                const isExStep = (s.tags && s.tags.includes("exercise")) || /workout|exercise|HIIT|movement session|dance break|strength circuit|morning run/i.test(s.title);
+                const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!morningChecks[i];
                 const isExpanded = !!expandedTodayRoutine[`m${i}`];
                 return (
@@ -6559,7 +6559,7 @@ function NeuroThriveApp() {
               <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Evening Routine</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{eveningChecks.filter(Boolean).length}/{routine.evening.length} done</div>
               {routine.evening.map((s, i) => {
-                const isExStep = (s.tags && s.tags.includes("exercise")) || /workout|exercise|HIIT|movement session|dance break|strength circuit/i.test(s.title);
+                const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!eveningChecks[i];
                 const isExpanded = !!expandedTodayRoutine[`e${i}`];
                 return (
