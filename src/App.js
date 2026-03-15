@@ -6408,8 +6408,10 @@ function NeuroThriveApp() {
                 { key:"snacks",    label:"Snack",     emoji:"🍎" },
                 ...(currentDay.snacks2 ? [{ key:"snacks2", label:"Snack 2", emoji:"🍊" }] : []),
               ].map(({ key, label, emoji }) => {
-                const meal = currentDay[key];
-                if (!meal) return null;
+                const origMeal = currentDay[key];
+                if (!origMeal) return null;
+                const todayAltKey = `${globalDayIdx}_${key}`;
+                const meal = altMeal[todayAltKey] || origMeal;
                 const mealChecked = todayChecks.meals[key];
                 const bs = getBrainScore(meal);
                 return (
