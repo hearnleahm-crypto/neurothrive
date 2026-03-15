@@ -80,6 +80,7 @@ const CUISINE_TYPES = [
   { id: "asian", label: "Asian", emoji: "🥢" },
   { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
   { id: "indian_curry", label: "Indian & Curry", emoji: "🍛" },
+  { id: "italian", label: "Italian", emoji: "🍝" },
 ];
 
 const ALL_MEALS = {
@@ -639,6 +640,7 @@ const getCuisine = (name) => {
   if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
   if (/mediterranean|tahini|falafel|hummus.*pita|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh/.test(n)) return "mediterranean";
   if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie/.test(n)) return "american";
+  if (/pasta|marinara|pesto|parmesan|risotto|bruschetta|caprese|bolognese|alfredo|lasagna|ravioli|primavera/.test(n)) return "italian";
   return "general";
 };
 
