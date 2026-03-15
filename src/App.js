@@ -3938,7 +3938,7 @@ function NeuroThriveApp() {
     if (!dataLoaded || !user || !saveReady.current) return;
     const timer = setTimeout(async () => {
       try {
-        const { error } = await supabase.from("user_data").upsert({
+        const saveData = {
           id: user.id,
           selected_gender: selectedGender,
           cycle_sync_enabled: cycleSyncEnabled,
@@ -3961,8 +3961,17 @@ function NeuroThriveApp() {
           personal_routine: personalRoutine,
           onboarding_done: onboardingDone,
           updated_at: new Date().toISOString(),
-        });
-        if (error) console.error("Save error:", error.message, error.details);
+        };
+        const { error } = await supabase.from("user_data").upsert(saveData);
+        if (error && error.message && error.message.includes("calorie_target")) {
+          // Column not in schema cache yet — save without it
+          const { calorie_target, ...rest } = saveData;
+          const { error: e2 } = await supabase.from("user_data").upsert(rest);
+          if (e2) console.error("Save error (retry):", e2.message, e2.details);
+          else console.log("Saved (without calorie_target)");
+        } else if (error) {
+          console.error("Save error:", error.message, error.details);
+        }
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
