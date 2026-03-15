@@ -703,12 +703,14 @@ const getMealWeight = (name) => {
   // Comfort-food hearty
   if (/steak|brisket|burger|meatloaf|casserole|mac & cheese|pot pie|enchilada|burrito(?!.*bowl)|lasagna|pulled|bbq|bacon.*cheese|fajita|chili|ribs|roast\b|stuffed/.test(n)) return "hearty";
   if (/double|large|loaded|hearty|thick/.test(n)) return "hearty";
-  // Healthy-substantial: protein + grain/starch bowls, sheet pans, skillet meals
-  if (/(?:salmon|chicken|turkey|tuna|beef|pork|fish|shrimp|tofu|tempeh).*(?:bowl|sheet pan|skillet|stir-fry|plate)/.test(n) && /(?:rice|quinoa|sweet potato|potato|grain|lentil|bean|chickpea)/.test(n)) return "substantial";
-  if (/(?:rice|quinoa|grain|lentil).*(?:bowl|plate)/.test(n) && /(?:salmon|chicken|turkey|tuna|beef|shrimp|tofu)/.test(n)) return "substantial";
-  if (/meatball|turkey.*rice|chicken.*rice|salmon.*rice|salmon.*quinoa|chicken.*quinoa|chicken.*sweet potato|salmon.*sweet potato|ground turkey|ground beef/.test(n)) return "substantial";
-  if (/curry.*rice|stir-fry.*rice|teriyaki.*rice|glazed.*salmon|baked salmon|grilled chicken.*(?:rice|quinoa|potato)/.test(n)) return "substantial";
+  // Healthy-substantial: any meal with protein + starch/grain
+  if (/(?:salmon|chicken|turkey|tuna|beef|pork|fish|shrimp|tofu|tempeh|cod|mackerel|sardine)/.test(n) && /(?:rice|quinoa|sweet potato|potato|grain|lentil|bean|chickpea)/.test(n)) return "substantial";
+  if (/(?:rice|quinoa|grain|lentil).*(?:bowl|plate)/.test(n)) return "substantial";
+  if (/(?:taco bowl|burrito bowl|skillet|sheet pan dinner)/.test(n)) return "substantial";
+  if (/meatball|ground turkey|ground beef|pork chop|pork tenderloin|chicken thigh/.test(n) && /(?:potato|rice|quinoa|sweet potato|vegetable|broccoli|asparagus|kale)/.test(n)) return "substantial";
   if (/power bowl|grain bowl|buddha bowl|nourish bowl|protein bowl/.test(n)) return "substantial";
+  if (/(?:sheet pan|skillet).*(?:dinner|meal)/.test(n)) return "substantial";
+  if (/curry.*(?:rice|bowl)|stir-fry|teriyaki|glazed.*salmon|baked salmon|baked chicken/.test(n) && /(?:rice|quinoa|potato|sweet potato)/.test(n)) return "substantial";
   // Light meals
   if (/smoothie|parfait|yogurt(?!.*bowl)|fruit\b|berries|toast(?!.*avocado.*egg)|crackers|rice cake|miso soup|kombucha|hummus.*vegg|celery|cucumber|tea &/.test(n)) return "light";
   return "moderate";
