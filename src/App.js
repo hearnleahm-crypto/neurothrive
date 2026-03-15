@@ -698,11 +698,39 @@ const LENTIL_KEYWORDS = ["lentil", "Lentil"];
 const GLUTEN_KEYWORDS = ["toast","bread","tortilla","wrap","sandwich","burrito","bagel","muffin","waffle","pancake","pasta","noodle","roll","hoagie","sub","quesadilla","bun","cornbread","cracker","cereal","granola","oatmeal","oats","porridge"];
 const isGlutenMeal = (name) => GLUTEN_KEYWORDS.some(k => name.toLowerCase().includes(k));
 
+const getMealWeight = (name) => {
+  const n = name.toLowerCase();
+  if (/steak|brisket|burger|meatloaf|casserole|mac & cheese|pot pie|enchilada|burrito(?!.*bowl)|lasagna|pulled|bbq|bacon.*cheese|fajita|chili|ribs|roast\b|stuffed/.test(n)) return "hearty";
+  if (/double|large|loaded|hearty|thick/.test(n)) return "hearty";
+  if (/smoothie|parfait|yogurt(?!.*bowl)|fruit\b|berries|toast(?!.*avocado.*egg)|crackers|rice cake|miso soup|kombucha|hummus.*vegg|celery|cucumber|tea &/.test(n)) return "light";
+  return "moderate";
+};
+
+// Bias pools toward heavier or lighter meals based on calorie target
+// Duplicates preferred meals so they appear more often after shuffle
+const biasPool = (pool, calTarget) => {
+  if (calTarget === "1200") {
+    // Double light meals, remove most hearty
+    const light = pool.filter(m => getMealWeight(m.name) === "light");
+    const moderate = pool.filter(m => getMealWeight(m.name) === "moderate");
+    const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
+    return [...light, ...light, ...moderate, ...hearty.slice(0, Math.ceil(hearty.length / 3))];
+  }
+  if (calTarget === "2000") {
+    // Double hearty meals, remove most light
+    const light = pool.filter(m => getMealWeight(m.name) === "light");
+    const moderate = pool.filter(m => getMealWeight(m.name) === "moderate");
+    const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
+    return [...hearty, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 3))];
+  }
+  return pool; // 1500 = balanced, no bias
+};
+
 const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines) => {
-  const breakfastPool = filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines);
-  const lunchPool = filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines);
-  const dinnerPool = filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines);
-  const snackPool = filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines);
+  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget);
+  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget);
+  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget);
+  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget);
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
