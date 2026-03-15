@@ -3667,7 +3667,7 @@ function NeuroThriveApp() {
   const [checkoutLoading, setCheckoutLoading] = useState(null); // "monthly" | "annual" | null
   const [subscriptionPlan, setSubscriptionPlan] = useState(null);
   const [selectedGender, setSelectedGender] = useState(null); // "male" | "female" | "prefer_not"
-  const [cycleSyncEnabled, setCycleSyncEnabled] = useState(false);
+  const [cycleSyncEnabled, setCycleSyncEnabled] = useState(null);
   const [lastPeriodDate, setLastPeriodDate] = useState("");
   const [cycleLength, setCycleLength] = useState(28);
   const [selectedConditions, setSelectedConditions] = useState([]);
@@ -3762,7 +3762,7 @@ function NeuroThriveApp() {
           .single();
         if (data) {
           if (data.selected_gender) setSelectedGender(data.selected_gender);
-          if (data.cycle_sync_enabled) setCycleSyncEnabled(data.cycle_sync_enabled);
+          if (data.cycle_sync_enabled != null) setCycleSyncEnabled(data.cycle_sync_enabled);
           if (data.last_period_date) setLastPeriodDate(data.last_period_date);
           if (data.cycle_length) setCycleLength(data.cycle_length);
           if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
@@ -4719,11 +4719,11 @@ function NeuroThriveApp() {
                 <div style={{ display:"flex", gap:"10px", marginTop:"14px" }}>
                   <button
                     onClick={() => setCycleSyncEnabled(true)}
-                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled ? "1.5px solid rgba(168,120,210,0.5)" : "1px solid rgba(168,120,210,0.2)", background: cycleSyncEnabled ? "rgba(168,120,210,0.15)" : "rgba(168,120,210,0.04)", color: cycleSyncEnabled ? "#c8a0e8" : "#8890b8", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled === true ? "1.5px solid rgba(168,120,210,0.5)" : "1px solid rgba(168,120,210,0.2)", background: cycleSyncEnabled === true ? "rgba(168,120,210,0.15)" : "rgba(168,120,210,0.04)", color: cycleSyncEnabled === true ? "#c8a0e8" : "#8890b8", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
                   >🌕 Sync my cycle</button>
                   <button
                     onClick={() => { setCycleSyncEnabled(false); setLastPeriodDate(""); }}
-                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: !cycleSyncEnabled ? "1.5px solid rgba(85,112,240,0.5)" : "1px solid rgba(110,120,200,0.15)", background: !cycleSyncEnabled ? "rgba(85,112,240,0.15)" : "rgba(110,120,200,0.03)", color: !cycleSyncEnabled ? "#a0b8ff" : "#6b7394", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled === false ? "1.5px solid rgba(85,112,240,0.5)" : "1px solid rgba(110,120,200,0.15)", background: cycleSyncEnabled === false ? "rgba(85,112,240,0.15)" : "rgba(110,120,200,0.03)", color: cycleSyncEnabled === false ? "#a0b8ff" : "#6b7394", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
                   >Skip for now</button>
                 </div>
                 {cycleSyncEnabled && (
