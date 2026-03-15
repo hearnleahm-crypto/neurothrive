@@ -341,6 +341,7 @@ export function generateRoutine(prefs, conditions) {
       time: s.time > 0 ? `${s.time} min` : "Habit",
       title: s.title,
       desc: s.desc,
+      tags: s.tags || [],
     }));
   });
 

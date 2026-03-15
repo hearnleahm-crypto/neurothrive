@@ -5920,35 +5920,10 @@ function NeuroThriveApp() {
                     <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#7b9fff"}}>{routine.label}</strong></span>
                     <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
                   </div>
-                  {steps.map((s, i) => {
-                    const isChecked = !!todayRoutineChecks[i];
-                    return (
-                    <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px" }}>
-                      <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
-                        <div style={{ textAlign:"center", flexShrink:0 }}>
-                          <div style={{ width:"36px", height:"36px", borderRadius:"50%", background: routineTab==="morning" ? "linear-gradient(135deg,#f0a830,#e87020)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
-                          <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>{s.time}</div>
-                        </div>
-                        <div style={{ flex:1 }}>
-                          <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
-                          <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
-                        </div>
-                        <button onClick={() => updateTodayChecks(prev => {
-                          const arr = [...(prev.routine?.[routineTab] || [])];
-                          arr[i] = !arr[i];
-                          return { ...prev, routine: { ...prev.routine, [routineTab]: arr } };
-                        })} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
-                          {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
-                        </button>
-                      </div>
-                    </div>
-                    );
-                  })}
-
-                  {/* ── Exercise Step (appended to routine) ── */}
                   {(() => {
                     const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
                     const exerciseDone = !!getTodayChecks().exercise;
+                    const hasExerciseStep = steps.some(s => (s.tags && s.tags.includes("exercise")) || /workout|exercise/i.test(s.title));
                     const cyclePhase = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null;
                     const CYCLE_EXERCISE = {
                       menstrual: [
@@ -5979,55 +5954,74 @@ function NeuroThriveApp() {
                       return options[options.length - 1];
                     };
                     const cycleSuggestion = getCycleSuggestion(cyclePhase);
-                    const stepNum = steps.length + 1;
 
-                    return (
-                      <div style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(80,200,120,0.18)", background: exerciseDone ? "rgba(80,200,120,0.06)" : "rgba(80,200,120,0.02)" }}>
-                        <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
-                          <div style={{ textAlign:"center", flexShrink:0 }}>
-                            <div style={{ width:"36px", height:"36px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{stepNum}</div>
-                            <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>15+ min</div>
-                          </div>
-                          <div style={{ flex:1 }}>
-                            <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"4px" }}>Exercise</div>
-                            <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.6 }}>
-                              {exerciseDone ? "You moved today — amazing!" : "Any movement counts. Tap the checkmark when you've exercised."}
+                    const isExerciseStep = (s) => (s.tags && s.tags.includes("exercise")) || /workout|exercise|HIIT|movement session|dance break|strength circuit|morning run/i.test(s.title);
+
+                    const renderExerciseGuide = () => (
+                      <div style={{ marginTop:"12px" }}>
+                        {cycleSuggestion && cyclePhase && (
+                          <div style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"10px" }}>
+                            <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                              <span style={{ fontSize:"18px" }}>{cycleSuggestion.emoji}</span>
+                              <div>
+                                <div style={{ color:"#e8d0ff", fontSize:"13px", fontWeight:"700" }}>{cyclePhase.label} — Today: {cycleSuggestion.type}</div>
+                                <div style={{ color:"#b0a0d0", fontSize:"11px", lineHeight:1.6, marginTop:"4px" }}>{cycleSuggestion.why}</div>
+                              </div>
                             </div>
-                            {cycleSuggestion && cyclePhase && (
-                              <div style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginTop:"8px" }}>
-                                <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-                                  <span style={{ fontSize:"18px" }}>{cycleSuggestion.emoji}</span>
-                                  <div>
-                                    <div style={{ color:"#e8d0ff", fontSize:"13px", fontWeight:"700" }}>{cyclePhase.label} — Today: {cycleSuggestion.type}</div>
-                                    <div style={{ color:"#b0a0d0", fontSize:"11px", lineHeight:1.6, marginTop:"4px" }}>{cycleSuggestion.why}</div>
-                                  </div>
+                          </div>
+                        )}
+                        <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"8px 14px", cursor:"pointer", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
+                          {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
+                        </button>
+                        {exerciseExpanded && (
+                          <div style={{ marginTop:"14px" }}>
+                            <div style={{ color:"#8890b8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"10px" }}>Personalized for {exRoutine.label} — pick any that inspire you</div>
+                            {exRoutine.options.map((opt, oi) => (
+                              <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"10px", padding:"10px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
+                                <span style={{ fontSize:"20px", flexShrink:0 }}>{opt.emoji}</span>
+                                <div>
+                                  <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"3px" }}>{opt.title}</div>
+                                  <div style={{ color:"#9098c8", fontSize:"12px", lineHeight:1.7 }}>{opt.desc}</div>
                                 </div>
                               </div>
-                            )}
-                            <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"8px 14px", cursor:"pointer", color:"#50c878", fontSize:"12px", fontWeight:"600", marginTop:"10px" }}>
-                              {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
-                            </button>
-                            {exerciseExpanded && (
-                              <div style={{ marginTop:"14px" }}>
-                                <div style={{ color:"#8890b8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"10px" }}>Personalized for {exRoutine.label} — pick any that inspire you</div>
-                                {exRoutine.options.map((opt, oi) => (
-                                  <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"10px", padding:"10px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
-                                    <span style={{ fontSize:"20px", flexShrink:0 }}>{opt.emoji}</span>
-                                    <div>
-                                      <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"3px" }}>{opt.title}</div>
-                                      <div style={{ color:"#9098c8", fontSize:"12px", lineHeight:1.7 }}>{opt.desc}</div>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
+                            ))}
                           </div>
-                          <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
-                            {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
-                          </button>
-                        </div>
+                        )}
                       </div>
                     );
+
+                    return steps.map((s, i) => {
+                      const isChecked = !!todayRoutineChecks[i];
+                      const isExStep = isExerciseStep(s);
+                      return (
+                      <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: isExStep && exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : undefined, background: isExStep && exerciseDone ? "rgba(80,200,120,0.06)" : undefined }}>
+                        <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
+                          <div style={{ textAlign:"center", flexShrink:0 }}>
+                            <div style={{ width:"36px", height:"36px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : routineTab==="morning" ? "linear-gradient(135deg,#f0a830,#e87020)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
+                            <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>{isExStep ? "15+ min" : s.time}</div>
+                          </div>
+                          <div style={{ flex:1 }}>
+                            <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
+                            <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
+                            {isExStep && renderExerciseGuide()}
+                          </div>
+                          {isExStep ? (
+                            <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                              {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            </button>
+                          ) : (
+                            <button onClick={() => updateTodayChecks(prev => {
+                              const arr = [...(prev.routine?.[routineTab] || [])];
+                              arr[i] = !arr[i];
+                              return { ...prev, routine: { ...prev.routine, [routineTab]: arr } };
+                            })} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                              {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      );
+                    });
                   })()}
                 </div>
               );
