@@ -6394,7 +6394,6 @@ function NeuroThriveApp() {
           const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
           const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
           const todayChecks = getTodayChecks();
-          const exerciseChecks = todayChecks.exerciseOptions || {};
           const morningChecks = todayChecks.routine?.morning || [];
           const eveningChecks = todayChecks.routine?.evening || [];
           const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
@@ -6546,28 +6545,41 @@ function NeuroThriveApp() {
               {/* Section D: Exercise */}
               <div style={sectionDivider} />
               <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Exercise</div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{Object.values(exerciseChecks).filter(Boolean).length}/{exRoutine.options.length} done — check off whichever you do today</div>
-              {exRoutine.options.map((opt, i) => {
-                const isChecked = !!exerciseChecks[i];
+              {(() => {
+                const exerciseDone = !!todayChecks.exercise;
                 return (
-                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <button onClick={() => updateTodayChecks(prev => {
-                        const opts = { ...(prev.exerciseOptions || {}) };
-                        opts[i] = !opts[i];
-                        const hasAny = Object.values(opts).some(Boolean);
-                        return { ...prev, exerciseOptions: opts, exercise: hasAny };
-                      })} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
-                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                  <div style={{ ...S.card, padding:"16px 18px", marginBottom:"8px", border: exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(80,200,120,0.18)", background: exerciseDone ? "rgba(80,200,120,0.06)" : "rgba(80,200,120,0.02)" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom: exerciseExpanded ? "14px" : 0 }}>
+                      <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                       </button>
-                      <span style={{ fontSize:"20px", flexShrink:0 }}>{opt.emoji}</span>
                       <div style={{ flex:1 }}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{opt.title}</div>
+                        <div style={{ color: exerciseDone ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"700" }}>
+                          {exerciseDone ? "You moved today!" : "Did you exercise today?"}
+                        </div>
+                        <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>Any movement counts — worth 10 Brain Points</div>
                       </div>
                     </div>
+                    <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"7px 14px", cursor:"pointer", color:"#50c878", fontSize:"11px", fontWeight:"600", marginLeft:"40px" }}>
+                      {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
+                    </button>
+                    {exerciseExpanded && (
+                      <div style={{ marginTop:"12px", marginLeft:"40px" }}>
+                        <div style={{ color:"#8890b8", fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px" }}>Personalized for {exRoutine.label}</div>
+                        {exRoutine.options.map((opt, oi) => (
+                          <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"8px", padding:"8px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
+                            <span style={{ fontSize:"18px", flexShrink:0 }}>{opt.emoji}</span>
+                            <div>
+                              <div style={{ color:"#eef0ff", fontSize:"12px", fontWeight:"700", marginBottom:"2px" }}>{opt.title}</div>
+                              <div style={{ color:"#9098c8", fontSize:"11px", lineHeight:1.6 }}>{opt.desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 );
-              })}
+              })()}
 
               {/* Section E: Journal */}
               <div style={sectionDivider} />
