@@ -3801,6 +3801,7 @@ function NeuroThriveApp() {
   const [toolkitState, setToolkitState] = useState(null);
   const [toolkitCategory, setToolkitCategory] = useState(null);
   const [routineTab, setRoutineTab] = useState("morning");
+  const [exerciseExpanded, setExerciseExpanded] = useState(false);
   const [dailyChecks, setDailyChecks] = useState({});
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
@@ -4525,8 +4526,7 @@ function NeuroThriveApp() {
     const eveningMaxBP = eveningSteps.length * 3;
 
     // Exercise: 10 BP
-    const exerciseChecks = checks.exerciseOptions || {};
-    const exerciseDone = Object.values(exerciseChecks).some(Boolean) || checks.exercise;
+    const exerciseDone = !!checks.exercise;
     const exerciseBP = exerciseDone ? 10 : 0;
 
     // Journal: 5 BP + 2 bonus for positive mood
@@ -5904,107 +5904,10 @@ function NeuroThriveApp() {
             <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
               <button onClick={() => setRoutineTab("morning")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="morning"?"2px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:routineTab==="morning"?"#5570f0":"rgba(240,244,255,0.04)", color:routineTab==="morning"?"#fff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌅 Morning</button>
               <button onClick={() => setRoutineTab("evening")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="evening"?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.2)", background:routineTab==="evening"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:routineTab==="evening"?"#9db5ff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌙 Evening</button>
-              <button onClick={() => setRoutineTab("exercise")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="exercise"?"2px solid #50c878":"1px solid rgba(110,120,200,0.2)", background:routineTab==="exercise"?"rgba(80,200,120,0.15)":"rgba(240,244,255,0.04)", color:routineTab==="exercise"?"#50c878":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>💪 Exercise</button>
             </div>
             {(() => {
               const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
                 : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-
-              // ── Exercise tab ──
-              if (routineTab === "exercise") {
-                const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
-                const exerciseChecks = getTodayChecks().exerciseOptions || {};
-                const anyChecked = Object.values(exerciseChecks).some(Boolean);
-                const cyclePhase = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null;
-                const CYCLE_EXERCISE = {
-                  menstrual: [
-                    { day: [1,2], emoji: "🚶", type: "Gentle Walk", why: "Your body is shedding its uterine lining and prostaglandins are highest. Light movement increases blood flow to ease cramps without taxing your already-low iron and energy reserves." },
-                    { day: [3,4], emoji: "🧘", type: "Restorative Yoga", why: "Estrogen and progesterone are at their lowest point. Gentle stretching stimulates the parasympathetic nervous system, reducing the cortisol spike that low hormones leave unchecked." },
-                    { day: [5], emoji: "🤸", type: "Light Pilates", why: "Bleeding is tapering and estrogen is beginning to rise. Your energy is returning — Pilates rebuilds core engagement gently as your body transitions into the follicular phase." },
-                  ],
-                  follicular: [
-                    { day: [6,7,8], emoji: "🏃", type: "Moderate Cardio", why: "Rising estrogen increases pain tolerance, reaction time, and muscle recovery speed. Your body can handle more intensity now — cardio capitalizes on estrogen's performance-enhancing effects." },
-                    { day: [9,10,11], emoji: "🏋️", type: "Strength Training", why: "Estrogen peaks enhance muscle protein synthesis and tendon stiffness, making this your strongest phase for lifting. You'll recover faster and build more lean muscle per session than any other time in your cycle." },
-                    { day: [12,13], emoji: "🔥", type: "HIIT / High Intensity", why: "Estrogen is approaching its peak, maximizing your VO2 max, anaerobic threshold, and neuromuscular coordination. Your body is primed for its highest output — take advantage before ovulation." },
-                  ],
-                  ovulatory: [
-                    { day: [14,15], emoji: "🔥", type: "HIIT / Power Training", why: "Estrogen peaks alongside a surge in luteinizing hormone — your testosterone also briefly spikes. This is your absolute performance peak: fastest reaction time, highest pain tolerance, strongest power output." },
-                    { day: [16], emoji: "💃", type: "Dance / Group Fitness", why: "The oxytocin and estrogen peak makes you more social and coordinated. Group exercise leverages this neurochemistry — you'll feel more motivated by others and more graceful in complex movements." },
-                  ],
-                  luteal: [
-                    { day: [17,18,19,20], emoji: "🏋️", type: "Moderate Strength", why: "Progesterone is rising, increasing your core body temperature and metabolic rate. You burn more calories at rest but fatigue faster — moderate lifting with longer rest periods matches your shifting physiology." },
-                    { day: [21,22,23,24], emoji: "🧘", type: "Yoga / Steady Cardio", why: "Progesterone peaks, raising body temperature and reducing heat tolerance. Serotonin drops as progesterone metabolites compete for the same receptors — gentle movement boosts serotonin without overheating." },
-                    { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now — gentle movement prevents cortisol spikes while intense exercise depletes magnesium — the same mineral your body needs most right now to ease cramps and calm your nervous system." },
-                  ],
-                };
-                const getCycleSuggestion = (phase) => {
-                  if (!phase) return null;
-                  const options = CYCLE_EXERCISE[phase.phase];
-                  if (!options) return null;
-                  for (const opt of options) {
-                    if (opt.day.includes(phase.day)) return opt;
-                  }
-                  return options[options.length - 1];
-                };
-                const cycleSuggestion = getCycleSuggestion(cyclePhase);
-                return (
-                  <div>
-                    <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                      <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#50c878"}}>{exRoutine.label}</strong></span>
-                      <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>{Object.values(exerciseChecks).filter(Boolean).length}/{exRoutine.options.length} done</span>
-                    </div>
-                    {cycleSuggestion && cyclePhase && (
-                      <div style={{ ...S.card, padding:"20px 22px", marginBottom:"20px", background:"rgba(168,120,210,0.06)", border:"1px solid rgba(168,120,210,0.2)" }}>
-                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"12px" }}>
-                          <span style={{ fontSize:"20px" }}>{cyclePhase.emoji}</span>
-                          <div>
-                            <div style={{ color:"#e8d0ff", fontSize:"14px", fontWeight:"700" }}>{cyclePhase.label} — Day {cyclePhase.day}</div>
-                            <div style={{ color:"#a088c8", fontSize:"11px", marginTop:"2px" }}>Cycle-synced exercise suggestion</div>
-                          </div>
-                        </div>
-                        <div style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.12)", marginBottom:"12px" }}>
-                          <span style={{ fontSize:"28px" }}>{cycleSuggestion.emoji}</span>
-                          <div>
-                            <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700" }}>Today: {cycleSuggestion.type}</div>
-                          </div>
-                        </div>
-                        <div style={{ color:"#b0a0d0", fontSize:"12.5px", lineHeight:1.8 }}>{cycleSuggestion.why}</div>
-                      </div>
-                    )}
-                    <div style={{ ...S.card, padding:"16px 20px", marginBottom:"20px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)" }}>
-                      <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Choose any of the following</div>
-                      <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6 }}>Check off whichever exercises you do today. Every one counts toward your daily score.</div>
-                    </div>
-                    {exRoutine.options.map((opt, i) => {
-                      const isChecked = !!exerciseChecks[i];
-                      return (
-                        <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: isChecked ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(107,143,255,0.12)", background: isChecked ? "rgba(80,200,120,0.06)" : "rgba(107,143,255,0.04)" }}>
-                          <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
-                            <div style={{ fontSize:"28px", flexShrink:0, marginTop:"2px" }}>{opt.emoji}</div>
-                            <div style={{ flex:1 }}>
-                              <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{opt.title}</div>
-                              <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.8 }}>{opt.desc}</div>
-                            </div>
-                            <button onClick={() => updateTodayChecks(prev => {
-                              const opts = { ...(prev.exerciseOptions || {}) };
-                              opts[i] = !opts[i];
-                              const hasAny = Object.values(opts).some(Boolean);
-                              return { ...prev, exerciseOptions: opts, exercise: hasAny };
-                            })} style={{ width:"32px", height:"32px", borderRadius:"10px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
-                              {isChecked && <span style={{ color:"#50c878", fontSize:"18px", fontWeight:"800", lineHeight:1 }}>✓</span>}
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })}
-                    {anyChecked && (
-                      <div style={{ textAlign:"center", padding:"16px", borderRadius:"16px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"20px" }}>
-                        <span style={{ color:"#50c878", fontSize:"15px", fontWeight:"700" }}>💪 Nice work! {Object.values(exerciseChecks).filter(Boolean).length} exercise{Object.values(exerciseChecks).filter(Boolean).length !== 1 ? "s" : ""} logged today</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              }
 
               // ── Morning / Evening tabs ──
               const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
@@ -6041,6 +5944,91 @@ function NeuroThriveApp() {
                     </div>
                     );
                   })}
+
+                  {/* ── Exercise Step (appended to routine) ── */}
+                  {(() => {
+                    const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
+                    const exerciseDone = !!getTodayChecks().exercise;
+                    const cyclePhase = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null;
+                    const CYCLE_EXERCISE = {
+                      menstrual: [
+                        { day: [1,2], emoji: "🚶", type: "Gentle Walk", why: "Your body is shedding its uterine lining and prostaglandins are highest. Light movement increases blood flow to ease cramps without taxing your already-low iron and energy reserves." },
+                        { day: [3,4], emoji: "🧘", type: "Restorative Yoga", why: "Estrogen and progesterone are at their lowest point. Gentle stretching stimulates the parasympathetic nervous system, reducing the cortisol spike that low hormones leave unchecked." },
+                        { day: [5], emoji: "🤸", type: "Light Pilates", why: "Bleeding is tapering and estrogen is beginning to rise. Your energy is returning — Pilates rebuilds core engagement gently as your body transitions into the follicular phase." },
+                      ],
+                      follicular: [
+                        { day: [6,7,8], emoji: "🏃", type: "Moderate Cardio", why: "Rising estrogen increases pain tolerance, reaction time, and muscle recovery speed. Your body can handle more intensity now — cardio capitalizes on estrogen's performance-enhancing effects." },
+                        { day: [9,10,11], emoji: "🏋️", type: "Strength Training", why: "Estrogen peaks enhance muscle protein synthesis and tendon stiffness, making this your strongest phase for lifting. You'll recover faster and build more lean muscle per session than any other time in your cycle." },
+                        { day: [12,13], emoji: "🔥", type: "HIIT / High Intensity", why: "Estrogen is approaching its peak, maximizing your VO2 max, anaerobic threshold, and neuromuscular coordination. Your body is primed for its highest output — take advantage before ovulation." },
+                      ],
+                      ovulatory: [
+                        { day: [14,15], emoji: "🔥", type: "HIIT / Power Training", why: "Estrogen peaks alongside a surge in luteinizing hormone — your testosterone also briefly spikes. This is your absolute performance peak: fastest reaction time, highest pain tolerance, strongest power output." },
+                        { day: [16], emoji: "💃", type: "Dance / Group Fitness", why: "The oxytocin and estrogen peak makes you more social and coordinated. Group exercise leverages this neurochemistry — you'll feel more motivated by others and more graceful in complex movements." },
+                      ],
+                      luteal: [
+                        { day: [17,18,19,20], emoji: "🏋️", type: "Moderate Strength", why: "Progesterone is rising, increasing your core body temperature and metabolic rate. You burn more calories at rest but fatigue faster — moderate lifting with longer rest periods matches your shifting physiology." },
+                        { day: [21,22,23,24], emoji: "🧘", type: "Yoga / Steady Cardio", why: "Progesterone peaks, raising body temperature and reducing heat tolerance. Serotonin drops as progesterone metabolites compete for the same receptors — gentle movement boosts serotonin without overheating." },
+                        { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now — gentle movement prevents cortisol spikes while intense exercise depletes magnesium — the same mineral your body needs most right now to ease cramps and calm your nervous system." },
+                      ],
+                    };
+                    const getCycleSuggestion = (phase) => {
+                      if (!phase) return null;
+                      const options = CYCLE_EXERCISE[phase.phase];
+                      if (!options) return null;
+                      for (const opt of options) { if (opt.day.includes(phase.day)) return opt; }
+                      return options[options.length - 1];
+                    };
+                    const cycleSuggestion = getCycleSuggestion(cyclePhase);
+                    const stepNum = steps.length + 1;
+
+                    return (
+                      <div style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(80,200,120,0.18)", background: exerciseDone ? "rgba(80,200,120,0.06)" : "rgba(80,200,120,0.02)" }}>
+                        <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
+                          <div style={{ textAlign:"center", flexShrink:0 }}>
+                            <div style={{ width:"36px", height:"36px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{stepNum}</div>
+                            <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>Move</div>
+                          </div>
+                          <div style={{ flex:1 }}>
+                            <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"4px" }}>Exercise</div>
+                            <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.6, marginBottom:"8px" }}>
+                              {exerciseDone ? "You moved today — amazing!" : "Any movement counts. Tap the checkmark when you've exercised."}
+                            </div>
+                            {cycleSuggestion && cyclePhase && (
+                              <div style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"10px" }}>
+                                <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                                  <span style={{ fontSize:"18px" }}>{cycleSuggestion.emoji}</span>
+                                  <div>
+                                    <div style={{ color:"#e8d0ff", fontSize:"13px", fontWeight:"700" }}>{cyclePhase.label} — Today: {cycleSuggestion.type}</div>
+                                    <div style={{ color:"#b0a0d0", fontSize:"11px", lineHeight:1.6, marginTop:"4px" }}>{cycleSuggestion.why}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"8px 14px", cursor:"pointer", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
+                              {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
+                            </button>
+                            {exerciseExpanded && (
+                              <div style={{ marginTop:"14px" }}>
+                                <div style={{ color:"#8890b8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"10px" }}>Personalized for {exRoutine.label} — pick any that inspire you</div>
+                                {exRoutine.options.map((opt, oi) => (
+                                  <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"10px", padding:"10px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
+                                    <span style={{ fontSize:"20px", flexShrink:0 }}>{opt.emoji}</span>
+                                    <div>
+                                      <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"3px" }}>{opt.title}</div>
+                                      <div style={{ color:"#9098c8", fontSize:"12px", lineHeight:1.7 }}>{opt.desc}</div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                            {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               );
             })()}
