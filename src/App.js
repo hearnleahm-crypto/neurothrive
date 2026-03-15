@@ -4861,7 +4861,7 @@ function NeuroThriveApp() {
             return (
               <div>
                 <h2 style={S.sectionTitle}>✨ Your Personalized Routine</h2>
-                <p style={S.sectionSub}>Review each step — keep the ones you like, swap the ones you don't.</p>
+                <p style={S.sectionSub}>Review each step below. Tap <strong style={{ color:"#50c878" }}>Keep</strong> to lock in a step, <strong style={{ color:"#e0b460" }}>Swap</strong> to find a different option, or <strong style={{ color:"#e06060" }}>Remove</strong> if you want fewer to-do's. You can always rebuild your routine later.</p>
 
                 <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>☀️ Morning Routine</div>
                 {personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)"))}
