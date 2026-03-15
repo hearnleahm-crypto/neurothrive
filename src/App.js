@@ -3760,8 +3760,7 @@ function NeuroThriveApp() {
           if (data.daily_checks) setDailyChecks(data.daily_checks);
           if (data.routine_prefs) setRoutinePrefs(data.routine_prefs);
           if (data.personal_routine) setPersonalRoutine(data.personal_routine);
-          // Reset onboarding_done so tour triggers from new location (after routine flow)
-          // if (data.onboarding_done) setOnboardingDone(true);
+          if (data.onboarding_done) setOnboardingDone(true);
         }
       } catch(e) {}
       setDataLoaded(true);
@@ -3865,12 +3864,12 @@ function NeuroThriveApp() {
     return () => clearTimeout(timer);
   }, [selectedGender, selectedConditions, selectedDiet, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
 
-  // ── Feature tour trigger (triggered from routine flow, not useEffect) ──────
-  const triggerTourIfNeeded = () => {
-    if (isPremium && !onboardingDone && menu30) {
+  // ── Feature tour trigger ────────────────────────────────────────────────────
+  useEffect(() => {
+    if (step === 12 && isPremium && dataLoaded && !onboardingDone && menu30) {
       setShowTour(true);
     }
-  };
+  }, [step, isPremium, dataLoaded, onboardingDone, menu30]);
 
   const TOUR_SLIDES = [
     { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Your personalized 30-day plan is ready. Here's a quick tour of everything you can do." },
@@ -4789,7 +4788,6 @@ function NeuroThriveApp() {
                 </button>
                 <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px" }} onClick={() => {
                   setStep(menu30 ? 12 : 4);
-                  triggerTourIfNeeded();
                 }}>
                   Skip for Now
                 </button>
@@ -4876,7 +4874,6 @@ function NeuroThriveApp() {
                   <button style={allKept ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
                     if (!allKept) return;
                     setStep(menu30 ? 12 : 4);
-                    triggerTourIfNeeded();
                   }}>{allKept ? "Lock In My Routine →" : `Keep or swap each step (${Object.keys(routineKept).length}/${personalRoutine.morning.length + personalRoutine.evening.length})`}</button>
                 </div>
               </div>
