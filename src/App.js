@@ -3739,7 +3739,7 @@ function NeuroThriveApp() {
           if (data.cycle_sync_enabled) setCycleSyncEnabled(data.cycle_sync_enabled);
           if (data.last_period_date) setLastPeriodDate(data.last_period_date);
           if (data.cycle_length) setCycleLength(data.cycle_length);
-          if (data.selected_conditions) setSelectedConditions(data.selected_conditions.filter(c => c !== "npd"));
+          if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
           if (data.selected_diet) setSelectedDiet(data.selected_diet);
           if (data.calorie_target) setCalorieTarget(data.calorie_target);
           if (data.menu30) setMenu30(data.menu30);
@@ -3760,7 +3760,8 @@ function NeuroThriveApp() {
           if (data.daily_checks) setDailyChecks(data.daily_checks);
           if (data.routine_prefs) setRoutinePrefs(data.routine_prefs);
           if (data.personal_routine) setPersonalRoutine(data.personal_routine);
-          if (data.onboarding_done) setOnboardingDone(true);
+          // Reset onboarding_done so tour triggers from new location (after routine flow)
+          // if (data.onboarding_done) setOnboardingDone(true);
         }
       } catch(e) {}
       setDataLoaded(true);
