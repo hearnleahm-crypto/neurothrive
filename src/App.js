@@ -3762,7 +3762,7 @@ function NeuroThriveApp() {
           .single();
         if (data) {
           if (data.selected_gender) setSelectedGender(data.selected_gender);
-          if (data.cycle_sync_enabled != null) setCycleSyncEnabled(data.cycle_sync_enabled);
+          if (data.cycle_sync_enabled === true) setCycleSyncEnabled(true);
           if (data.last_period_date) setLastPeriodDate(data.last_period_date);
           if (data.cycle_length) setCycleLength(data.cycle_length);
           if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
