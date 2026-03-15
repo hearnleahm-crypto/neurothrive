@@ -4740,7 +4740,7 @@ function NeuroThriveApp() {
               <button style={S.navTab(step===4)} onClick={() => setStep(4)}>30-Day Menu</button>
               {isPremium && <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>}
               {isPremium && <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>}
-              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today</button>}
+              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today's Checklist</button>}
               {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
             </>
           )}
@@ -6357,7 +6357,7 @@ function NeuroThriveApp() {
 
           return (
             <div>
-              <h2 style={S.sectionTitle}>Today</h2>
+              <h2 style={S.sectionTitle}>Today's Checklist</h2>
               <p style={S.sectionSub}>Your daily checklist — meals, routines, exercise, and journaling in one place.</p>
 
               {/* Section A: Progress Banner */}
