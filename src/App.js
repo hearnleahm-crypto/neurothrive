@@ -6434,7 +6434,7 @@ function NeuroThriveApp() {
                         <span style={{ fontSize:"10px" }}>🧠</span>
                         <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
                       </div>
-                      <button onClick={() => openExplain(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why?</button>
+                      <button onClick={() => openExplain(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
                       <button onClick={() => openRecipe(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
                     </div>
