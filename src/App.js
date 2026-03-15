@@ -740,6 +740,7 @@ const biasPool = (pool, calTarget, gender) => {
   const substantial = pool.filter(m => getMealWeight(m.name) === "substantial");
   const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
   const isMale = gender === "male";
+  console.log("[biasPool]", { calTarget, gender, isMale, light: light.length, moderate: moderate.length, substantial: substantial.length, hearty: hearty.length, poolTotal: pool.length });
 
   if (calTarget === "1200") {
     // Low-cal: favor light + moderate, few hearty
@@ -4290,7 +4291,9 @@ function NeuroThriveApp() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
+    console.log("[buildMenu] CALLED", { condition, selectedDiet, calorieTarget, selectedGender, cuisines: selectedCuisines });
     const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedGender);
+    console.log("[buildMenu] Day 1:", days[0], "Day 2:", days[1], "Day 3:", days[2]);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
