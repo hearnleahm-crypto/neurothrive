@@ -749,6 +749,7 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, ge
   const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, gender);
   const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, gender);
   const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, gender);
+  console.log("[build30DayMenu]", { condition, calTarget, gender, breakfast: breakfastPool.length, lunch: lunchPool.length, dinner: dinnerPool.length, snacks: snackPool.length });
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
