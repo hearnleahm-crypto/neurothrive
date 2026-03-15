@@ -222,6 +222,22 @@ const ALL_MEALS = {
     { name: "Miso & Ginger Breakfast Broth with Soft-Boiled Egg", tags: ["soy","egg"], conditions: ["anxiety","ptsd","autism","did","neuro_core","default"] },
     { name: "Sauerkraut & Egg Toast with Everything Seasoning", tags: ["egg","gluten"], conditions: ["anxiety","depression","ocd","neuro_core","default"] },
     { name: "Lion's Mane Mushroom & Egg Scramble with Herbs", tags: ["egg","mushroom"], conditions: ["neuro_core","depression","anxiety","schizophrenia","default"] },
+    // ── Protein-forward breakfasts (substantial meals for higher calorie targets) ──
+    { name: "Three-Egg Omelette with Turkey, Spinach & Sweet Potato Hash", tags: ["egg","meat"], conditions: ["adhd","depression","bipolar","ptsd","ocd","bpd","schizophrenia","default"] },
+    { name: "Scrambled Eggs with Ground Turkey & Roasted Sweet Potato", tags: ["egg","meat"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","default"] },
+    { name: "Chicken Sausage & Egg Scramble with Brown Rice & Avocado", tags: ["meat","egg","rice"], conditions: ["adhd","depression","bipolar","ocd","default"] },
+    { name: "Turkey & Egg Breakfast Bowl with Quinoa & Roasted Veggies", tags: ["meat","egg"], conditions: ["adhd","anxiety","bipolar","ptsd","ocd","bpd","default"] },
+    { name: "Egg & Chicken Sausage Skillet with Roasted Potatoes & Peppers", tags: ["meat","egg","nightshade"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Protein Breakfast Plate: Eggs, Turkey Sausage & Sweet Potato Wedges", tags: ["egg","meat"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","schizophrenia","did","default"] },
+    { name: "Ground Turkey & Egg Breakfast Skillet with Brown Rice", tags: ["meat","egg","rice"], conditions: ["adhd","bipolar","schizophrenia","default"] },
+    { name: "Egg & Salmon Breakfast Bowl with Brown Rice & Avocado", tags: ["egg","fish","rice"], conditions: ["depression","anxiety","ptsd","bipolar","ocd","neuro_core","default"] },
+    { name: "Baked Eggs with Turkey, Spinach & Roasted Sweet Potato", tags: ["egg","meat"], conditions: ["depression","ptsd","ocd","bpd","default"] },
+    { name: "Hearty Egg Scramble with Chicken, Brown Rice & Black Beans", tags: ["egg","meat","rice","legume"], conditions: ["adhd","depression","bipolar","default"] },
+    { name: "Grilled Chicken & Egg White Bowl with Sweet Potato & Greens", tags: ["meat","egg"], conditions: ["anxiety","ptsd","ocd","bpd","npd","aspd","default"] },
+    { name: "Turkey Sausage & Egg Plate with Roasted Potatoes & Spinach", tags: ["meat","egg"], conditions: ["adhd","depression","bipolar","ptsd","schizophrenia","did","default"] },
+    { name: "Salmon & Egg Scramble with Whole Grain Toast & Avocado", tags: ["fish","egg","gluten"], conditions: ["depression","anxiety","bipolar","neuro_core","default"] },
+    { name: "Chicken & Sweet Potato Breakfast Hash with Fried Eggs", tags: ["meat","egg"], conditions: ["adhd","depression","bipolar","ptsd","did","default"] },
+    { name: "Ground Beef & Egg Breakfast Bowl with Brown Rice & Salsa", tags: ["meat","egg","rice"], conditions: ["adhd","bipolar","schizophrenia","default"] },
   ],
   lunch: [
     { name: "Grilled Chicken Breast with Watermelon & Feta Salad", tags: ["dairy","meat"], conditions: ["adhd","default"] },
@@ -760,6 +776,18 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, ge
   const sSplit = splitPool(snackPool);
 
   const pick = (pool, count) => {
+    // For men on higher calories, prioritize substantial/hearty meals
+    const preferSubstantial = gender === "male" && (calTarget === "2000" || calTarget === "1500");
+    if (preferSubstantial) {
+      const subs = shuffle(pool.filter(m => getMealWeight(m.name) === "substantial" || getMealWeight(m.name) === "hearty"));
+      const rest = shuffle(pool.filter(m => getMealWeight(m.name) !== "substantial" && getMealWeight(m.name) !== "hearty"));
+      // Fill ~75% from substantial/hearty, rest from moderate/light for variety
+      const results = [];
+      const subCount = Math.ceil(count * 0.75);
+      for (let i = 0; i < subCount && i < count; i++) results.push(subs[i % subs.length].name);
+      for (let i = subCount; i < count; i++) results.push(rest[(i - subCount) % Math.max(rest.length, 1)].name);
+      return shuffle(results);
+    }
     const shuffled = shuffle(pool);
     const results = [];
     for (let i = 0; i < count; i++) results.push(shuffled[i % shuffled.length].name);
