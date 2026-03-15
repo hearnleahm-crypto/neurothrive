@@ -6408,10 +6408,10 @@ function NeuroThriveApp() {
                 { key:"snacks",    label:"Snack",     emoji:"🍎" },
                 ...(currentDay.snacks2 ? [{ key:"snacks2", label:"Snack 2", emoji:"🍊" }] : []),
               ].map(({ key, label, emoji }) => {
-                const origMeal = currentDay[key];
-                if (!origMeal) return null;
+                const meal = currentDay[key];
+                if (!meal) return null;
                 const todayAltKey = `${globalDayIdx}_${key}`;
-                const meal = altMeal[todayAltKey] || origMeal;
+                const alt = altMeal[todayAltKey];
                 const mealChecked = todayChecks.meals[key];
                 const bs = getBrainScore(meal);
                 return (
@@ -6437,6 +6437,16 @@ function NeuroThriveApp() {
                       <button onClick={() => openRecipe(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
                     </div>
+                    {alt && (
+                      <div style={{ marginTop:"8px", marginLeft:"34px", padding:"10px 12px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
+                        <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"4px" }}>Alternative</div>
+                        <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4 }}>{alt}</div>
+                        <div style={{ display:"flex", gap:"6px", marginTop:"6px" }}>
+                          <button onClick={() => openRecipe(alt, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                          <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Try Another</button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
