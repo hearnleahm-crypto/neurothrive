@@ -322,17 +322,46 @@ export function generateRoutine(prefs, conditions) {
     // Sort by score descending
     scored.sort((a, b) => b.score - a.score);
 
-    // Greedily pick steps within time budget
+    // Category helpers for diversity
+    const isPhysical = s => s.tags && (s.tags.some(t => ["physical","activation","gentle","exercise"].includes(t)) || s.requiresExercise);
+    const isMindful = s => s.tags && s.tags.some(t => ["mindfulness","meditation","breathing","grounding","body_awareness","visualization"].includes(t));
+    const isPlanning = s => s.tags && s.tags.some(t => ["planning","journaling","intention","reflection","positive","gratitude"].includes(t));
+
+    // Pick top step from each category first (guaranteed diversity)
     let timeUsed = 0;
     const selected = [];
+    const usedIds = new Set();
+
+    const pickTop = (filterFn) => {
+      for (const step of scored) {
+        if (usedIds.has(step.id) || step.time === 0) continue;
+        if (!filterFn(step)) continue;
+        if (timeUsed + step.time <= timeBudget) {
+          selected.push(step);
+          usedIds.add(step.id);
+          timeUsed += step.time;
+          return true;
+        }
+      }
+      return false;
+    };
+
+    // Guarantee one from each category (physical, mindful, planning/journaling)
+    pickTop(isPhysical);
+    pickTop(isMindful);
+    pickTop(isPlanning);
+
+    // Fill remaining time with highest-scored steps
     for (const step of scored) {
+      if (usedIds.has(step.id)) continue;
       if (step.time === 0) {
         // Zero-time steps (habits/reminders) always included if scored well
-        if (step.score >= 10) selected.push(step);
+        if (step.score >= 10) { selected.push(step); usedIds.add(step.id); }
         continue;
       }
       if (timeUsed + step.time <= timeBudget) {
         selected.push(step);
+        usedIds.add(step.id);
         timeUsed += step.time;
       }
     }
