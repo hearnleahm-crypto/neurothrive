@@ -740,7 +740,6 @@ const biasPool = (pool, calTarget, gender) => {
   const substantial = pool.filter(m => getMealWeight(m.name) === "substantial");
   const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
   const isMale = gender === "male";
-  console.log("[biasPool]", { calTarget, gender, isMale, light: light.length, moderate: moderate.length, substantial: substantial.length, hearty: hearty.length, poolTotal: pool.length });
 
   if (calTarget === "1200") {
     // Low-cal: favor light + moderate, few hearty
@@ -766,7 +765,6 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, ge
   const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, gender);
   const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, gender);
   const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, gender);
-  console.log("[build30DayMenu]", { condition, calTarget, gender, breakfast: breakfastPool.length, lunch: lunchPool.length, dinner: dinnerPool.length, snacks: snackPool.length });
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
@@ -777,18 +775,6 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, ge
   const sSplit = splitPool(snackPool);
 
   const pick = (pool, count) => {
-    // For men on higher calories, prioritize substantial/hearty meals
-    const preferSubstantial = gender === "male" && (calTarget === "2000" || calTarget === "1500");
-    if (preferSubstantial) {
-      const subs = shuffle(pool.filter(m => getMealWeight(m.name) === "substantial" || getMealWeight(m.name) === "hearty"));
-      const rest = shuffle(pool.filter(m => getMealWeight(m.name) !== "substantial" && getMealWeight(m.name) !== "hearty"));
-      // Fill ~75% from substantial/hearty, rest from moderate/light for variety
-      const results = [];
-      const subCount = Math.ceil(count * 0.75);
-      for (let i = 0; i < subCount && i < count; i++) results.push(subs[i % subs.length].name);
-      for (let i = subCount; i < count; i++) results.push(rest[(i - subCount) % Math.max(rest.length, 1)].name);
-      return shuffle(results);
-    }
     const shuffled = shuffle(pool);
     const results = [];
     for (let i = 0; i < count; i++) results.push(shuffled[i % shuffled.length].name);
@@ -3962,16 +3948,19 @@ function NeuroThriveApp() {
           onboarding_done: onboardingDone,
           updated_at: new Date().toISOString(),
         };
-        const { error } = await supabase.from("user_data").upsert(saveData);
-        if (error && error.message && error.message.includes("calorie_target")) {
-          // Column not in schema cache yet — save without it
-          const { calorie_target, ...rest } = saveData;
-          const { error: e2 } = await supabase.from("user_data").upsert(rest);
-          if (e2) console.error("Save error (retry):", e2.message, e2.details);
-          else console.log("Saved (without calorie_target)");
-        } else if (error) {
-          console.error("Save error:", error.message, error.details);
+        let { error } = await supabase.from("user_data").upsert(saveData);
+        // If a column is missing from schema cache, strip it and retry
+        let retryData = { ...saveData };
+        let retries = 0;
+        while (error && error.message && error.message.includes("Could not find") && retries < 5) {
+          const match = error.message.match(/the '(\w+)' column/);
+          if (match) { delete retryData[match[1]]; }
+          else break;
+          const res = await supabase.from("user_data").upsert(retryData);
+          error = res.error;
+          retries++;
         }
+        if (error) console.error("Save error:", error.message, error.details);
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
@@ -4300,9 +4289,7 @@ function NeuroThriveApp() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
-    console.log("[buildMenu] CALLED", { condition, selectedDiet, calorieTarget, selectedGender, cuisines: selectedCuisines });
     const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedGender);
-    console.log("[buildMenu] Day 1:", days[0], "Day 2:", days[1], "Day 3:", days[2]);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
