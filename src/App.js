@@ -83,6 +83,45 @@ const CUISINE_TYPES = [
   { id: "italian", label: "Italian", emoji: "🍝" },
 ];
 
+const FOOD_PREFS = [
+  { id: "avocado", label: "Avocado", emoji: "🥑" },
+  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐" },
+  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣" },
+  { id: "chicken_turkey", label: "Chicken & Turkey", emoji: "🍗" },
+  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟" },
+  { id: "red_meat", label: "Red Meat", emoji: "🥩" },
+  { id: "rice", label: "Rice", emoji: "🍚" },
+  { id: "sweet_potato", label: "Sweet Potatoes", emoji: "🍠" },
+  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜" },
+  { id: "lentils_beans", label: "Lentils & Beans", emoji: "🫘" },
+  { id: "eggs", label: "Eggs", emoji: "🥚" },
+  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀" },
+];
+
+const FOOD_PREF_PATTERNS = {
+  avocado: /avocado/i,
+  fruit_berries: /fruit|berries|blueberr|strawberr|mango|pineapple|peach|watermelon|pomegranate|apple(?!.*butter)|banana|kiwi|grape(?!fruit)|cherr|cranberr|raspberry|nectarine|plum|papaya|cantaloupe|honeydew/i,
+  smoothies_bowls: /smoothie|bowl|parfait/i,
+  chicken_turkey: /chicken|turkey/i,
+  salmon_fish: /salmon|tuna|fish|sardine|mackerel|cod\b/i,
+  red_meat: /steak|beef|sirloin|ribeye|brisket|burger/i,
+  rice: /rice(?!\s*cake)/i,
+  sweet_potato: /sweet potato/i,
+  nuts_seeds: /walnut|almond|pecan|pistachio|peanut|cashew|nut(?!rient)|seed|pumpkin seed|sunflower|flax|chia|hemp/i,
+  lentils_beans: /lentil|bean|chickpea/i,
+  eggs: /egg|omelette|scramble|frittata/i,
+  greek_yogurt: /yogurt|parfait|kefir/i,
+};
+
+const getFoodPrefScore = (name, prefs) => {
+  if (!prefs || prefs.length === 0) return 0;
+  let score = 0;
+  for (const p of prefs) {
+    if (FOOD_PREF_PATTERNS[p] && FOOD_PREF_PATTERNS[p].test(name)) score++;
+  }
+  return score;
+};
+
 const ALL_MEALS = {
   breakfast: [
     { name: "Grilled Chicken Sausage with Sliced Mango & Strawberries", tags: ["meat"], conditions: ["adhd","default"] },
@@ -732,39 +771,39 @@ const getMealWeight = (name) => {
   return "moderate";
 };
 
-// Bias pools toward heavier or lighter meals based on calorie target + gender
+// Bias pools based on calorie target + food preferences
 // Duplicates preferred meals so they appear more often after shuffle
-const biasPool = (pool, calTarget, gender) => {
-  const light = pool.filter(m => getMealWeight(m.name) === "light");
-  const moderate = pool.filter(m => getMealWeight(m.name) === "moderate");
-  const substantial = pool.filter(m => getMealWeight(m.name) === "substantial");
-  const hearty = pool.filter(m => getMealWeight(m.name) === "hearty");
-  const isMale = gender === "male";
+const biasPool = (pool, calTarget, foodPrefs) => {
+  // Food preference biasing: duplicate meals that match user's preferred ingredients
+  let biased = [];
+  if (foodPrefs && foodPrefs.length > 0) {
+    for (const m of pool) {
+      const score = getFoodPrefScore(m.name, foodPrefs);
+      if (score >= 2) { biased.push(m, m, m); }       // 2+ matches: triple
+      else if (score === 1) { biased.push(m, m); }     // 1 match: double
+      else { biased.push(m); }                          // no match: keep once
+    }
+  } else {
+    biased = [...pool];
+  }
 
+  // Calorie-based weight biasing
   if (calTarget === "1200") {
-    // Low-cal: favor light + moderate, few hearty
-    return [...light, ...light, ...moderate, ...substantial.slice(0, Math.ceil(substantial.length / 2)), ...hearty.slice(0, Math.ceil(hearty.length / 4))];
+    return biased.filter(m => getMealWeight(m.name) !== "hearty" || Math.random() > 0.7);
   }
   if (calTarget === "2000") {
-    if (isMale) {
-      // Men on 2000: triple substantial, double hearty, cut most light
-      return [...substantial, ...substantial, ...substantial, ...hearty, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 4))];
-    }
-    // Women/other on 2000: double substantial + hearty
-    return [...substantial, ...substantial, ...hearty, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 3))];
+    // Add extra substantial/hearty meals for high-cal
+    const extra = biased.filter(m => getMealWeight(m.name) === "substantial" || getMealWeight(m.name) === "hearty");
+    return [...biased, ...extra];
   }
-  if (calTarget === "1500" && isMale) {
-    // Men on 1500: double substantial, keep hearty
-    return [...substantial, ...substantial, ...hearty, ...moderate, ...light.slice(0, Math.ceil(light.length / 2))];
-  }
-  return pool; // 1500 default = balanced
+  return biased;
 };
 
-const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, gender) => {
-  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, gender);
-  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, gender);
-  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, gender);
-  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, gender);
+const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, foodPrefs) => {
+  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
+  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
+  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
+  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
@@ -3735,6 +3774,7 @@ function NeuroThriveApp() {
   const [selectedConditions, setSelectedConditions] = useState([]);
   const [selectedDiet, setSelectedDiet] = useState([]);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
+  const [selectedFoodPrefs, setSelectedFoodPrefs] = useState([]);
   const [calorieTarget, setCalorieTarget] = useState("1500");
   const [menu30, setMenu30] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(0);
@@ -3830,6 +3870,7 @@ function NeuroThriveApp() {
           if (data.selected_conditions) setSelectedConditions(data.selected_conditions);
           if (data.selected_diet) setSelectedDiet(data.selected_diet);
           if (data.selected_cuisines) setSelectedCuisines(data.selected_cuisines);
+          if (data.food_prefs) setSelectedFoodPrefs(data.food_prefs);
           if (data.calorie_target) setCalorieTarget(data.calorie_target);
           if (data.menu30) setMenu30(data.menu30);
           if (data.logs) setLogs(data.logs);
@@ -3933,6 +3974,7 @@ function NeuroThriveApp() {
           selected_conditions: selectedConditions,
           selected_diet: selectedDiet,
           selected_cuisines: selectedCuisines,
+          food_prefs: selectedFoodPrefs,
           calorie_target: calorieTarget,
           menu30,
           logs,
@@ -3964,7 +4006,7 @@ function NeuroThriveApp() {
       } catch(e) { console.error("Save failed:", e); }
     }, 500);
     return () => clearTimeout(timer);
-  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
+  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, selectedFoodPrefs, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
 
   // ── Feature tour trigger (shows once at start of onboarding) ────────────────
   useEffect(() => {
@@ -4273,7 +4315,7 @@ function NeuroThriveApp() {
 
   const startNewCycle = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedGender);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs);
     setMenu30(days);
     setPlanCycle(c => c + 1);
     setCycleStartDate(new Date().toISOString());
@@ -4289,7 +4331,7 @@ function NeuroThriveApp() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedGender);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
@@ -5103,6 +5145,18 @@ function NeuroThriveApp() {
               {CUISINE_TYPES.map(c => (
                 <div key={c.id} style={S.chip(selectedCuisines.includes(c.id))} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)}>
                   <span style={{ fontSize:"17px" }}>{c.emoji}</span><span>{c.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={S.divider} />
+
+            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
+            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
+            <div style={S.grid}>
+              {FOOD_PREFS.map(f => (
+                <div key={f.id} style={S.chip(selectedFoodPrefs.includes(f.id))} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)}>
+                  <span style={{ fontSize:"17px" }}>{f.emoji}</span><span>{f.label}</span>
                 </div>
               ))}
             </div>
