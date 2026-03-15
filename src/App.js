@@ -4738,8 +4738,6 @@ function NeuroThriveApp() {
           {step > 3 && (
             <>
               <button style={S.navTab(step===4)} onClick={() => setStep(4)}>30-Day Menu</button>
-              {isPremium && <button style={S.navTab(step===8)} onClick={() => setStep(8)}>Journal</button>}
-              {isPremium && <button style={S.navTab(step===10)} onClick={() => setStep(10)}>Routine</button>}
               {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today's Checklist</button>}
               {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
             </>
@@ -4747,12 +4745,14 @@ function NeuroThriveApp() {
         </div>
         {isPremium && step > 3 && (
           <div style={{ position:"relative", flexShrink:0 }}>
-            <button style={S.navTab([6,7,9].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
+            <button style={S.navTab([6,7,8,9,10].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
               <>
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
                 <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
                   {[
+                    { label:"📓 Journal",     s:8 },
+                    { label:"☀️ Routine",     s:10 },
                     { label:"🌿 Supplements", s:6 },
                     { label:"🔔 Reminders",   s:7 },
                     { label:"🧠 Toolkit",     s:9 },
