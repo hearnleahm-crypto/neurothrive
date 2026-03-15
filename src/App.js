@@ -5986,15 +5986,15 @@ function NeuroThriveApp() {
                         <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
                           <div style={{ textAlign:"center", flexShrink:0 }}>
                             <div style={{ width:"36px", height:"36px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{stepNum}</div>
-                            <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>Move</div>
+                            <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>15+ min</div>
                           </div>
                           <div style={{ flex:1 }}>
                             <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"4px" }}>Exercise</div>
-                            <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.6, marginBottom:"8px" }}>
+                            <div style={{ color:"#b0b8e8", fontSize:"13px", lineHeight:1.6 }}>
                               {exerciseDone ? "You moved today — amazing!" : "Any movement counts. Tap the checkmark when you've exercised."}
                             </div>
                             {cycleSuggestion && cyclePhase && (
-                              <div style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"10px" }}>
+                              <div style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginTop:"8px" }}>
                                 <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
                                   <span style={{ fontSize:"18px" }}>{cycleSuggestion.emoji}</span>
                                   <div>
@@ -6004,7 +6004,7 @@ function NeuroThriveApp() {
                                 </div>
                               </div>
                             )}
-                            <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"8px 14px", cursor:"pointer", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
+                            <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"8px 14px", cursor:"pointer", color:"#50c878", fontSize:"12px", fontWeight:"600", marginTop:"10px" }}>
                               {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
                             </button>
                             {exerciseExpanded && (
@@ -6549,7 +6549,7 @@ function NeuroThriveApp() {
                 const exerciseDone = !!todayChecks.exercise;
                 return (
                   <div style={{ ...S.card, padding:"16px 18px", marginBottom:"8px", border: exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : "1px solid rgba(80,200,120,0.18)", background: exerciseDone ? "rgba(80,200,120,0.06)" : "rgba(80,200,120,0.02)" }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom: exerciseExpanded ? "14px" : 0 }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
                       <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
                         {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                       </button>
@@ -6560,23 +6560,6 @@ function NeuroThriveApp() {
                         <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>Any movement counts — worth 10 Brain Points</div>
                       </div>
                     </div>
-                    <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"7px 14px", cursor:"pointer", color:"#50c878", fontSize:"11px", fontWeight:"600", marginLeft:"40px" }}>
-                      {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
-                    </button>
-                    {exerciseExpanded && (
-                      <div style={{ marginTop:"12px", marginLeft:"40px" }}>
-                        <div style={{ color:"#8890b8", fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px" }}>Personalized for {exRoutine.label}</div>
-                        {exRoutine.options.map((opt, oi) => (
-                          <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"8px", padding:"8px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
-                            <span style={{ fontSize:"18px", flexShrink:0 }}>{opt.emoji}</span>
-                            <div>
-                              <div style={{ color:"#eef0ff", fontSize:"12px", fontWeight:"700", marginBottom:"2px" }}>{opt.title}</div>
-                              <div style={{ color:"#9098c8", fontSize:"11px", lineHeight:1.6 }}>{opt.desc}</div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 );
               })()}
