@@ -5985,7 +5985,7 @@ function NeuroThriveApp() {
               return (
                 <div>
                   <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#7b9fff"}}>{routine.label}</strong></span>
+                    <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#7b9fff"}}>{routine.label || (selectedConditions.length > 0 ? selectedConditions.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean).join(" · ") : "Your Brain")}</strong></span>
                     <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
                   </div>
                   {(() => {

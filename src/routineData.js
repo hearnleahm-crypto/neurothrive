@@ -411,5 +411,8 @@ export function generateRoutine(prefs, conditions) {
     }));
   });
 
+  // Build a label from the conditions passed in
+  result.label = conditions.length > 0 ? conditions.map(c => c.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())).join(" · ") : "Your Brain";
+
   return result;
 }
