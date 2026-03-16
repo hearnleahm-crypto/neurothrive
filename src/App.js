@@ -5045,7 +5045,7 @@ function NeuroThriveApp() {
                   <span style={{ fontSize:"17px" }}>{c.emoji}</span>
                   <span style={{ display:"flex", flexDirection:"column" }}>
                     <span style={c.id === "neuro_core" ? { fontSize:"11px" } : {}}>{c.label}</span>
-                    {c.id === "neuro_core" && <span style={{ fontSize:"8px", fontWeight:"600", color:"#7b9fff", marginTop:"1px" }}>No Diagnosis Required</span>}
+                    {c.id === "neuro_core" && <span style={{ fontSize:"8px", fontWeight:"600", color:"#7b9fff", marginTop:"1px" }}>No Diagnosis</span>}
                   </span>
                 </div>
               ))}
