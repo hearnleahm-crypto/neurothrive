@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { TOOLKIT_CATEGORIES, BRAIN_TOOLKIT_STATES, BRAIN_TOOLKIT } from "./brainToolkitData";
 import { EXERCISE_ROUTINES } from "./exerciseData";
-import { DID_YOU_KNOW as _DID_YOU_KNOW, ONBOARDING_INSIGHTS, MOOD_NUTRIENT_CONNECTIONS, BRAIN_ON_CONDITION } from "./insightData";
+import { DID_YOU_KNOW as _DID_YOU_KNOW, ONBOARDING_INSIGHTS as _ONBOARDING_INSIGHTS, MOOD_NUTRIENT_CONNECTIONS, BRAIN_ON_CONDITION } from "./insightData";
 import { EXTRA_DID_YOU_KNOW } from "./extraInsights";
 import { EXTRA_DID_YOU_KNOW_2 } from "./extraInsights2";
+import { EXTRA_ONBOARDING } from "./extraOnboarding";
 import { ROUTINE_QUESTIONS, ROUTINE_STEP_LIBRARY, generateRoutine } from "./routineData";
 const DID_YOU_KNOW = { ..._DID_YOU_KNOW, ...EXTRA_DID_YOU_KNOW, ...EXTRA_DID_YOU_KNOW_2 };
+const ONBOARDING_INSIGHTS = { ..._ONBOARDING_INSIGHTS, ...EXTRA_ONBOARDING };
 
 const supabase = createClient(
   "https://gobmsfzpryeaqxkfbnfa.supabase.co",
