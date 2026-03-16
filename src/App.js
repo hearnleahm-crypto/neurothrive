@@ -4590,9 +4590,6 @@ function NeuroThriveApp() {
     }));
   };
 
-  // Update ref every render so setTimeout can read latest score
-  latestBPRef.current = dailyChecks[todayKey] ? getBrainPoints(todayKey) : { pct: 0 };
-
   // Confetti check — called from onClick handlers, reads ref after state settles
   const checkConfetti = () => {
     setTimeout(() => {
@@ -4714,6 +4711,9 @@ function NeuroThriveApp() {
       maxCats: { meals: mealMaxBP, morning: morningMaxBP, evening: eveningMaxBP, exercise: 10, journal: journalMaxBP },
     };
   };
+
+  // Update ref every render so confetti setTimeout reads latest score
+  latestBPRef.current = dailyChecks[todayKey] ? getBrainPoints(todayKey) : { pct: 0 };
 
   const getBrainLevel = (pct) => {
     if (pct >= 90) return { label: "Thriving", emoji: "", color: "#50c878" };
