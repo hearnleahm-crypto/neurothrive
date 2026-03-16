@@ -4869,12 +4869,12 @@ function NeuroThriveApp() {
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
                 <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
                   {[
+                    { label:"👤 Profile",     s:1 },
                     { label:"📓 Journal",     s:8 },
                     { label:"☀️ Routine",     s:10 },
                     { label:"🌿 Supplements", s:6 },
                     { label:"🔔 Reminders",   s:7 },
                     { label:"🧠 Toolkit",     s:9 },
-                    { label:"👤 Profile",     s:1 },
                     { label:"🥗 Adjust Diet Plan", s:3 },
                   ].map(({ label, s }) => (
                     <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
