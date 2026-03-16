@@ -61,7 +61,7 @@ const DIETARY_RESTRICTIONS = [
   { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
   // Fruits
   { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
-  { id: "banana_free", label: "Banana-Free", emoji: "🍌" },
+  { id: "banana_free", label: "Banana-Free", emoji: "🟡" },
   { id: "cherry_free", label: "Cherry-Free", emoji: "🍒" },
   { id: "peach_free", label: "Peach-Free", emoji: "🍑" },
   { id: "coconut_free", label: "Coconut-Free", emoji: "🥥" },
@@ -110,7 +110,7 @@ const FOOD_PREFS = [
   { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀" },
   // Fruits
   { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐" },
-  { id: "bananas", label: "Bananas", emoji: "🍌" },
+  { id: "bananas", label: "Bananas", emoji: "🟡" },
   { id: "cherries", label: "Cherries", emoji: "🍒" },
   { id: "peaches", label: "Peaches", emoji: "🍑" },
   { id: "avocado", label: "Avocado", emoji: "🥑" },
