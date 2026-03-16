@@ -6544,18 +6544,24 @@ function NeuroThriveApp() {
                 );
               })()}
 
-              {/* Onboarding Insights — first 7 days only */}
-              {daysElapsed <= 7 && (() => {
+              {/* Daily Insight — rotates through all 30 days */}
+              {(() => {
                 const insights = ONBOARDING_INSIGHTS[condKey] || ONBOARDING_INSIGHTS.default;
                 if (!insights || insights.length === 0) return null;
-                const insight = insights[daysElapsed - 1];
+                const insightIdx = Math.max(0, (daysElapsed - 1)) % insights.length;
+                const insight = insights[insightIdx];
                 if (!insight) return null;
+                // Build dynamic meal connection from today's actual menu
+                const mealNames = todayDay ? [todayDay.breakfast, todayDay.lunch, todayDay.dinner, todayDay.snacks].filter(Boolean) : [];
+                const dynamicConnection = mealNames.length > 0
+                  ? `Today's meals — ${mealNames[0]}, ${mealNames[1] || ""}, ${mealNames[2] || ""} — ${insight.mealConnection.split(" — ").pop() || insight.mealConnection}`
+                  : insight.mealConnection;
                 return (
                   <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
                     <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Day {daysElapsed} Insight</div>
                     <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
                     <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 8px 0" }}>{insight.body}</p>
-                    <p style={{ color:"#50c878", fontSize:"12px", lineHeight:1.5, margin:0, fontStyle:"italic" }}>{insight.mealConnection}</p>
+                    <p style={{ color:"#50c878", fontSize:"12px", lineHeight:1.5, margin:0, fontStyle:"italic" }}>{dynamicConnection}</p>
                   </div>
                 );
               })()}
