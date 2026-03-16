@@ -4660,7 +4660,7 @@ function NeuroThriveApp() {
   const getBrainPoints = (dateKey) => {
     const dk = dateKey || todayKey;
     const checks = dailyChecks[dk];
-    if (!checks) return { total: 0, max: 100, pct: 0, categories: { meals: 0, morning: 0, evening: 0, exercise: 0, journal: 0 }, maxCats: { meals: 0, morning: 0, evening: 0, exercise: 10, journal: 5 } };
+    if (!checks) return { total: 0, max: 100, pct: 0, categories: { meals: 0, morning: 0, evening: 0, exercise: 0, journal: 0 }, maxCats: { meals: 0, morning: 0, evening: 0, exercise: 0, journal: 5 } };
 
     // Meals: 5-15 BP each based on brain nutrient score
     const meals = checks.meals || {};
@@ -4691,9 +4691,11 @@ function NeuroThriveApp() {
     const eveningBP = eveningChecked * 3;
     const eveningMaxBP = eveningSteps.length * 3;
 
-    // Exercise: 10 BP
+    // Exercise: 10 BP only if routine includes an exercise step
+    const hasExerciseStep = [...morningSteps, ...eveningSteps].some(s => !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title));
     const exerciseDone = !!checks.exercise;
-    const exerciseBP = exerciseDone ? 10 : 0;
+    const exerciseMaxBP = hasExerciseStep ? 10 : 0;
+    const exerciseBP = (exerciseDone && hasExerciseStep) ? 10 : 0;
 
     // Journal: 5 BP + 2 bonus for positive mood
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
@@ -4702,13 +4704,13 @@ function NeuroThriveApp() {
     if (journalLog && journalLog.mood >= 3) journalBP += 2;
     const journalMaxBP = 7;
 
-    const max = mealMaxBP + morningMaxBP + eveningMaxBP + 10 + journalMaxBP;
+    const max = mealMaxBP + morningMaxBP + eveningMaxBP + exerciseMaxBP + journalMaxBP;
     const total = Math.min(mealBP + morningBP + eveningBP + exerciseBP + journalBP, max);
     return {
       total, max,
       pct: max > 0 ? Math.round((total / max) * 100) : 0,
       categories: { meals: mealBP, morning: morningBP, evening: eveningBP, exercise: exerciseBP, journal: journalBP },
-      maxCats: { meals: mealMaxBP, morning: morningMaxBP, evening: eveningMaxBP, exercise: 10, journal: journalMaxBP },
+      maxCats: { meals: mealMaxBP, morning: morningMaxBP, evening: eveningMaxBP, exercise: exerciseMaxBP, journal: journalMaxBP },
     };
   };
 
@@ -4756,11 +4758,12 @@ function NeuroThriveApp() {
       { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8" },
     ];
 
-    // Filter by context if provided
-    const items = context === "menu" ? catItems.filter(c => c.label === "Meals")
-      : context === "routine" ? catItems.filter(c => ["Morning","Evening","Exercise"].includes(c.label))
-      : context === "journal" ? catItems.filter(c => c.label === "Journal")
-      : catItems;
+    // Filter by context and hide categories with 0 max
+    const activeCats = catItems.filter(c => c.max > 0);
+    const items = context === "menu" ? activeCats.filter(c => c.label === "Meals")
+      : context === "routine" ? activeCats.filter(c => ["Morning","Evening","Exercise"].includes(c.label))
+      : context === "journal" ? activeCats.filter(c => c.label === "Journal")
+      : activeCats;
 
     return (
       <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "16px 18px", marginBottom: "18px" }}>
@@ -6873,7 +6876,7 @@ function NeuroThriveApp() {
                       </div>
                     </div>
 
-                    {cats.map((cat, i) => {
+                    {cats.filter(c => c.max > 0).map((cat, i) => {
                       const pct = cat.max > 0 ? Math.round((cat.bp / cat.max) * 100) : 0;
                       const full = pct >= 100;
                       return (
