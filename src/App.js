@@ -3947,9 +3947,8 @@ function NeuroThriveApp() {
   const [routineTab, setRoutineTab] = useState("morning");
   const [exerciseExpanded, setExerciseExpanded] = useState(false);
   const [dailyChecks, setDailyChecks] = useState({});
-  const [justChecked, setJustChecked] = useState(null); // key like "meal-breakfast" or "routine-morning-2"
+  const [justChecked, setJustChecked] = useState(null);
   const [showCelebration, setShowCelebration] = useState(false);
-  const [lastCelebratedDate, setLastCelebratedDate] = useState(null);
   const [streakCelebration, setStreakCelebration] = useState(null);
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
@@ -4783,17 +4782,19 @@ function NeuroThriveApp() {
   };
 
   // ── Celebration detection ─────────────────────────────────────────────
+  const celebratedRef = React.useRef({ date: null, streak: null });
   React.useEffect(() => {
     const bp = getBrainPoints(todayKey);
-    if (bp.pct >= 100 && lastCelebratedDate !== todayKey) {
+    if (bp.pct >= 100 && celebratedRef.current.date !== todayKey) {
+      celebratedRef.current.date = todayKey;
       setShowCelebration(true);
-      setLastCelebratedDate(todayKey);
       setTimeout(() => setShowCelebration(false), 4000);
     }
     const streak = getCompletionStreak();
     const milestones = [3, 7, 14, 21, 30, 60, 90];
     const hit = milestones.find(m => streak === m);
-    if (hit && streakCelebration !== `${todayKey}-${hit}`) {
+    if (hit && celebratedRef.current.streak !== `${todayKey}-${hit}`) {
+      celebratedRef.current.streak = `${todayKey}-${hit}`;
       setStreakCelebration(`${todayKey}-${hit}`);
       setTimeout(() => setStreakCelebration(null), 4000);
     }
