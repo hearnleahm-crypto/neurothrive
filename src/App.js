@@ -4636,8 +4636,8 @@ function NeuroThriveApp() {
     const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
     const morningSteps = routine?.morning || [];
     const eveningSteps = routine?.evening || [];
-    const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
-    const eveningChecked = (checks.routine?.evening || []).filter(Boolean).length;
+    const morningChecked = Math.min((checks.routine?.morning || []).filter(Boolean).length, morningSteps.length);
+    const eveningChecked = Math.min((checks.routine?.evening || []).filter(Boolean).length, eveningSteps.length);
     const morningBP = morningChecked * 3;
     const morningMaxBP = morningSteps.length * 3;
     const eveningBP = eveningChecked * 3;
@@ -4654,8 +4654,8 @@ function NeuroThriveApp() {
     if (journalLog && journalLog.mood >= 3) journalBP += 2;
     const journalMaxBP = 7;
 
-    const total = mealBP + morningBP + eveningBP + exerciseBP + journalBP;
     const max = mealMaxBP + morningMaxBP + eveningMaxBP + 10 + journalMaxBP;
+    const total = Math.min(mealBP + morningBP + eveningBP + exerciseBP + journalBP, max);
     return {
       total, max,
       pct: max > 0 ? Math.round((total / max) * 100) : 0,
