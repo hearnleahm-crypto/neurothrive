@@ -6904,8 +6904,9 @@ function NeuroThriveApp() {
                 );
               })()}
 
-              <div style={{ textAlign:"center", marginTop:"28px" }}>
+              <div style={{ display:"flex", gap:"10px", justifyContent:"center", marginTop:"28px" }}>
                 <button style={S.btn} onClick={() => setStep(4)}>View Full Menu →</button>
+                {!remindersEnabled && <button style={S.btnOutline} onClick={() => setStep(7)}>Set Reminders</button>}
               </div>
             </div>
           );
