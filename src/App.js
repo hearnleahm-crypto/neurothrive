@@ -6491,6 +6491,10 @@ function NeuroThriveApp() {
           const eveningChecks = todayChecks.routine?.evening || [];
           const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
           const sectionDivider = { height:"1px", background:"rgba(110,120,200,0.1)", margin:"28px 0" };
+          // Auto-sync to today's menu day based on daysElapsed
+          const todayDayIdx = Math.max(0, daysElapsed - 1) % 30;
+          const todayDay = menu30 ? menu30[todayDayIdx] : null;
+          const todayGlobalIdx = todayDayIdx;
 
           return (
             <div>
@@ -6535,16 +6539,16 @@ function NeuroThriveApp() {
               {/* Section B: Today's Meals */}
               <div style={sectionDivider} />
               <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Today's Meals</div>
-              {currentDay && [
+              {todayDay && [
                 { key:"breakfast", label:"Breakfast", emoji:"🌅" },
                 { key:"lunch",     label:"Lunch",     emoji:"☀️" },
                 { key:"dinner",    label:"Dinner",    emoji:"🌙" },
                 { key:"snacks",    label:"Snack",     emoji:"🍎" },
-                ...(currentDay.snacks2 ? [{ key:"snacks2", label:"Snack 2", emoji:"🍊" }] : []),
+                ...(todayDay.snacks2 ? [{ key:"snacks2", label:"Snack 2", emoji:"🍊" }] : []),
               ].map(({ key, label, emoji }) => {
-                const meal = currentDay[key];
+                const meal = todayDay[key];
                 if (!meal) return null;
-                const todayAltKey = `${globalDayIdx}_${key}`;
+                const todayAltKey = `${todayGlobalIdx}_${key}`;
                 const alt = altMeal[todayAltKey];
                 const mealChecked = todayChecks.meals[key];
                 const bs = getBrainScore(meal);
@@ -6568,12 +6572,12 @@ function NeuroThriveApp() {
                         <span style={{ fontSize:"10px" }}>🧠</span>
                         <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
                       </div>
-                      <button onClick={() => openExplain(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
-                      <button onClick={() => openRecipe(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                      <button onClick={() => openExplain(meal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
+                      <button onClick={() => openRecipe(meal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
                     </div>
                     {/* Cycle / gender note */}
-                    {(() => { const gn = getGenderNote(meal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
+                    {(() => { const gn = getGenderNote(meal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(todayGlobalIdx)); if (!gn) return null; return (
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginTop:"8px", marginLeft:"34px" }}>
                         <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
                         <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
@@ -6602,8 +6606,8 @@ function NeuroThriveApp() {
                           </div>
                         </div>
                         <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
-                          <button onClick={() => openExplain(alt, label, globalDayIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
-                          <button onClick={() => openRecipe(alt, label, globalDayIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🍳 Recipe</button>
+                          <button onClick={() => openExplain(alt, label, todayGlobalIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
+                          <button onClick={() => openRecipe(alt, label, todayGlobalIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🍳 Recipe</button>
                           <button onClick={() => getAltMeal(meal, label, key)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>✨ Try Another</button>
                         </div>
                       </div>
@@ -6612,7 +6616,7 @@ function NeuroThriveApp() {
                   </div>
                 );
               })}
-              {!currentDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
+              {!todayDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
 
               {/* Section C: Morning Routine */}
               <div style={sectionDivider} />
