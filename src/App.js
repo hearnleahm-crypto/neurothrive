@@ -3947,9 +3947,6 @@ function NeuroThriveApp() {
   const [routineTab, setRoutineTab] = useState("morning");
   const [exerciseExpanded, setExerciseExpanded] = useState(false);
   const [dailyChecks, setDailyChecks] = useState({});
-  const [justChecked, setJustChecked] = useState(null);
-  const [showCelebration, setShowCelebration] = useState(false);
-  const [streakCelebration, setStreakCelebration] = useState(null);
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
@@ -4596,8 +4593,6 @@ function NeuroThriveApp() {
       const newLog = { ...prev.foodLog };
       if (!wasChecked) {
         newLog[mealKey] = mealName;
-        setJustChecked("meal-" + mealKey);
-        setTimeout(() => setJustChecked(null), 600);
       } else {
         delete newLog[mealKey];
       }
@@ -4749,7 +4744,7 @@ function NeuroThriveApp() {
             <circle cx="26" cy="26" r={r} fill="none" stroke="rgba(80,200,120,0.12)" strokeWidth="4.5" />
             <circle cx="26" cy="26" r={r} fill="none" stroke={level.color} strokeWidth="4.5" strokeLinecap="round"
               strokeDasharray={circ} strokeDashoffset={offset}
-              transform="rotate(-90 26 26)" style={{ transition: "stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1)" }} />
+              transform="rotate(-90 26 26)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
             <text x="26" y="28" textAnchor="middle" fontSize="12" fontWeight="800" fill={level.color}>{bp.pct}%</text>
           </svg>
           <div style={{ flex: 1 }}>
@@ -4776,44 +4771,6 @@ function NeuroThriveApp() {
               </div>
             );
           })}
-        </div>
-      </div>
-    );
-  };
-
-  // ── Celebration detection — runs only from checkbox handlers ──
-  const celebratedRef = React.useRef({ date: null, streak: null });
-
-  // ── Confetti overlay component ──────────────────────────────────────────
-  const CelebrationOverlay = () => {
-    if (!showCelebration) return null;
-    const confettiColors = ["#50c878","#7b9fff","#e8c87a","#f06292","#ba68c8","#4dd0e1"];
-    return (
-      <div style={{ position:"fixed", inset:0, zIndex:9999, pointerEvents:"none", overflow:"hidden" }}>
-        {Array.from({ length: 40 }).map((_, i) => (
-          <div key={i} style={{
-            position:"absolute",
-            left: `${Math.random() * 100}%`,
-            top: "-20px",
-            width: `${6 + Math.random() * 8}px`,
-            height: `${6 + Math.random() * 8}px`,
-            borderRadius: Math.random() > 0.5 ? "50%" : "2px",
-            background: confettiColors[i % confettiColors.length],
-            animation: `confettiDrop ${1.5 + Math.random() * 2}s ${Math.random() * 0.5}s ease-in forwards`,
-            opacity: 0.9,
-          }} />
-        ))}
-        <div style={{
-          position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)",
-          animation:"celebrateScale 0.5s ease-out",
-          textAlign:"center", padding:"32px 40px", borderRadius:"24px",
-          background:"rgba(10,14,28,0.92)", border:"1px solid rgba(80,200,120,0.3)",
-          boxShadow:"0 0 60px rgba(80,200,120,0.15), 0 20px 60px rgba(0,0,0,0.4)",
-          backdropFilter:"blur(20px)",
-        }}>
-          <div style={{ fontSize:"40px", marginBottom:"12px" }}>🧠</div>
-          <div style={{ fontSize:"20px", fontWeight:"800", color:"#50c878", letterSpacing:"-0.5px" }}>Brain Score: 100%</div>
-          <div style={{ fontSize:"13px", color:"#8890b8", marginTop:"8px", lineHeight:1.6 }}>Every neuron is thanking you today.</div>
         </div>
       </div>
     );
@@ -4897,12 +4854,8 @@ function NeuroThriveApp() {
         @keyframes subtleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
         @keyframes checkPop { 0% { transform: scale(0); opacity:0; } 50% { transform: scale(1.3); } 100% { transform: scale(1); opacity:1; } }
         @keyframes checkGlow { 0% { box-shadow: 0 0 0 0 rgba(80,200,120,0.4); } 100% { box-shadow: 0 0 0 8px rgba(80,200,120,0); } }
-        @keyframes cardSlideIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         @keyframes celebrateScale { 0% { transform: scale(0.5); opacity:0; } 50% { transform: scale(1.05); } 100% { transform: scale(1); opacity:1; } }
         @keyframes confettiDrop { 0% { transform: translateY(-100%) rotate(0deg); opacity:1; } 100% { transform: translateY(100vh) rotate(720deg); opacity:0; } }
-        @keyframes scoreCountUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
-        @keyframes streakBadgeIn { 0% { transform: scale(0) rotate(-20deg); opacity:0; } 60% { transform: scale(1.1) rotate(3deg); } 100% { transform: scale(1) rotate(0deg); opacity:1; } }
-        @keyframes ringFill { from { stroke-dashoffset: var(--ring-circ); } to { stroke-dashoffset: var(--ring-offset); } }
         button { transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94); }
         button:hover { opacity: 0.88; }
         button:active { transform: scale(0.96); opacity: 0.92; }
@@ -4916,17 +4869,6 @@ function NeuroThriveApp() {
         ::selection { background: rgba(107,143,255,0.25); color: #fff; }
         input:focus, textarea:focus { border-color: rgba(107,143,255,0.4) !important; box-shadow: 0 0 0 3px rgba(107,143,255,0.08); outline: none; }
       `}</style>
-
-      <CelebrationOverlay />
-      {streakCelebration && (() => {
-        const days = parseInt(streakCelebration.split("-").pop());
-        return (
-          <div style={{ position:"fixed", top:"80px", left:"50%", transform:"translateX(-50%)", zIndex:9998, animation:"streakBadgeIn 0.5s ease-out", textAlign:"center", padding:"16px 28px", borderRadius:"16px", background:"rgba(10,14,28,0.94)", border:"1px solid rgba(232,200,122,0.3)", boxShadow:"0 0 40px rgba(232,200,122,0.12), 0 12px 40px rgba(0,0,0,0.4)", backdropFilter:"blur(20px)" }}>
-            <div style={{ fontSize:"13px", fontWeight:"700", color:"#e8c87a" }}>{days}-Day Streak</div>
-            <div style={{ fontSize:"11px", color:"#8890b8", marginTop:"4px" }}>Your brain is building new pathways</div>
-          </div>
-        );
-      })()}
 
       <nav style={S.nav}>
         <div style={{ ...S.logo, cursor:"pointer" }} onClick={() => setStep(0)}>
@@ -5525,10 +5467,10 @@ function NeuroThriveApp() {
 
                       {/* Main meal */}
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
-                        <button onClick={() => toggleMealCheck(key, mainMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: (mealChecked && !ateAlt) ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: (mealChecked && !ateAlt) ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
-                          {(mealChecked && !ateAlt) && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                        <button onClick={() => toggleMealCheck(key, mainMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: (mealChecked && !ateAlt) ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: (mealChecked && !ateAlt) ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px" }}>
+                          {(mealChecked && !ateAlt) && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                         </button>
-                        <span style={{ flex:1, color: (mealChecked && !ateAlt) ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: (mealChecked && !ateAlt) ? "line-through" : "none", opacity: (mealChecked && !ateAlt) ? 0.7 : 1, transition:"all 0.3s" }}>{mainMeal}</span>
+                        <span style={{ flex:1, color: (mealChecked && !ateAlt) ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: (mealChecked && !ateAlt) ? "line-through" : "none", opacity: (mealChecked && !ateAlt) ? 0.7 : 1 }}>{mainMeal}</span>
                       </div>
                       <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px" }}>
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -5579,10 +5521,10 @@ function NeuroThriveApp() {
                             <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase" }}>Alternative</div>
                           </div>
                           <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
-                            <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
-                              {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                            <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px" }}>
+                              {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                             </button>
-                            <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1, transition:"all 0.3s" }}>{alt}</span>
+                            <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
                           </div>
                           <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"10px" }}>
                             <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"3px 9px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -6193,16 +6135,16 @@ function NeuroThriveApp() {
                             {isExStep && renderExerciseGuide()}
                           </div>
                           {isExStep ? (
-                            <button onClick={() => { if (!exerciseDone) { setJustChecked("exercise"); setTimeout(() => setJustChecked(null), 600); } updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise })); }} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px", animation: justChecked === "exercise" ? "checkGlow 0.6s ease-out" : "none" }}>
-                              {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1, animation: justChecked === "exercise" ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                            <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                              {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                             </button>
                           ) : (
-                            <button onClick={() => { const ck = `routine-${routineTab}-${i}`; if (!isChecked) { setJustChecked(ck); setTimeout(() => setJustChecked(null), 600); } updateTodayChecks(prev => {
+                            <button onClick={() => updateTodayChecks(prev => {
                               const arr = [...(prev.routine?.[routineTab] || [])];
                               arr[i] = !arr[i];
                               return { ...prev, routine: { ...prev.routine, [routineTab]: arr } };
-                            }); }} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px", animation: justChecked === `routine-${routineTab}-${i}` ? "checkGlow 0.6s ease-out" : "none" }}>
-                              {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1, animation: justChecked === `routine-${routineTab}-${i}` ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                            })} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
+                              {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                             </button>
                           )}
                         </div>
@@ -6649,12 +6591,12 @@ function NeuroThriveApp() {
                 return (
                   <div key={key} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <button onClick={() => toggleMealCheck(key, meal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
-                        {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                      <button onClick={() => toggleMealCheck(key, meal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                       </button>
                       <div style={{ flex:1, minWidth:0 }}>
                         <div style={{ fontSize:"10px", color:"#8890b8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
-                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{meal}</div>
+                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis" }}>{meal}</div>
                       </div>
                     </div>
                     <div style={{ display:"flex", alignItems:"center", gap:"6px", marginTop:"8px", marginLeft:"34px" }}>
@@ -6684,10 +6626,10 @@ function NeuroThriveApp() {
                       <div style={{ marginTop:"8px", marginLeft:"34px", padding:"10px 12px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
                         <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Alternative</div>
                         <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
-                          <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
-                            {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                          <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px" }}>
+                            {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                           </button>
-                          <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1, transition:"all 0.3s" }}>{alt}</span>
+                          <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
                         </div>
                         <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"8px" }}>
                           <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -6724,8 +6666,6 @@ function NeuroThriveApp() {
                   <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
-                        const ck = isExStep ? "exercise" : `today-morning-${i}`;
-                        if (!isChecked) { setJustChecked(ck); setTimeout(() => setJustChecked(null), 600); }
                         if (isExStep) {
                           updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
                         } else {
@@ -6735,12 +6675,12 @@ function NeuroThriveApp() {
                             return { ...prev, routine: { ...prev.routine, morning: arr } };
                           });
                         }
-                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : `today-morning-${i}`) ? "checkGlow 0.6s ease-out" : "none" }}>
-                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : `today-morning-${i}`) ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{s.title}</div>
                         <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min · Tap to see exercise ideas" : s.time}</div>
                       </div>
                     </div>
@@ -6810,8 +6750,6 @@ function NeuroThriveApp() {
                   <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
-                        const ck = isExStep ? "exercise" : `today-evening-${i}`;
-                        if (!isChecked) { setJustChecked(ck); setTimeout(() => setJustChecked(null), 600); }
                         if (isExStep) {
                           updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
                         } else {
@@ -6821,8 +6759,8 @@ function NeuroThriveApp() {
                             return { ...prev, routine: { ...prev.routine, evening: arr } };
                           });
                         }
-                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : `today-evening-${i}`) ? "checkGlow 0.6s ease-out" : "none" }}>
-                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : `today-evening-${i}`) ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
+                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`e${i}`]: !p[`e${i}`] }))}>
