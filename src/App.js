@@ -42,8 +42,8 @@ const DIET_TYPES = [
   { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
   { id: "anti_inflammatory", label: "Anti-Inflammatory", emoji: "🔥" },
   { id: "low_fodmap", label: "Low FODMAP", emoji: "🍃" },
-  { id: "halal", label: "Halal", emoji: "☪️" },
-  { id: "kosher", label: "Kosher", emoji: "✡️" },
+  { id: "halal", label: "Halal", emoji: "✅" },
+  { id: "kosher", label: "Kosher", emoji: "✅" },
   { id: "low_sugar", label: "Low Sugar", emoji: "🍬" },
   { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
 ];
