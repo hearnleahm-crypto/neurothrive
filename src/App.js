@@ -4781,25 +4781,8 @@ function NeuroThriveApp() {
     );
   };
 
-  // ── Celebration detection ─────────────────────────────────────────────
+  // ── Celebration detection — runs only from checkbox handlers ──
   const celebratedRef = React.useRef({ date: null, streak: null });
-  React.useEffect(() => {
-    const bp = getBrainPoints(todayKey);
-    if (bp.pct >= 100 && celebratedRef.current.date !== todayKey) {
-      celebratedRef.current.date = todayKey;
-      setShowCelebration(true);
-      setTimeout(() => setShowCelebration(false), 4000);
-    }
-    const streak = getCompletionStreak();
-    const milestones = [3, 7, 14, 21, 30, 60, 90];
-    const hit = milestones.find(m => streak === m);
-    if (hit && celebratedRef.current.streak !== `${todayKey}-${hit}`) {
-      celebratedRef.current.streak = `${todayKey}-${hit}`;
-      setStreakCelebration(`${todayKey}-${hit}`);
-      setTimeout(() => setStreakCelebration(null), 4000);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dailyChecks, logs]);
 
   // ── Confetti overlay component ──────────────────────────────────────────
   const CelebrationOverlay = () => {
