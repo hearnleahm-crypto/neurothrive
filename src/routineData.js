@@ -362,11 +362,11 @@ export function generateRoutine(prefs, conditions) {
     const selected = [];
     const usedIds = new Set();
 
-    const pickTop = (filterFn) => {
+    const pickTop = (filterFn, ignoreBudget = false) => {
       for (const step of scored) {
         if (usedIds.has(step.id) || step.time === 0) continue;
         if (!filterFn(step)) continue;
-        if (timeUsed + step.time <= timeBudget) {
+        if (ignoreBudget || timeUsed + step.time <= timeBudget) {
           selected.push(step);
           usedIds.add(step.id);
           timeUsed += step.time;
@@ -376,17 +376,17 @@ export function generateRoutine(prefs, conditions) {
       return false;
     };
 
-    // Guarantee one from each category (respect user preferences — skip if they said "no")
+    // Guarantee one from each category — these ignore time budget so all categories are represented
     // If user wants exercise, guarantee the workout step first (it's big — 15 min)
     const exercisePref = period === "morning" ? periodPrefs.morning_exercise : periodPrefs.evening_exercise;
     if (exercisePref === "yes") {
-      pickTop(s => s.requiresExercise === true);
+      pickTop(s => s.requiresExercise === true, true);
     }
-    pickTop(isPhysical);
+    pickTop(isPhysical, true);
     const journalPref = period === "morning" ? periodPrefs.journaling : periodPrefs.evening_journaling;
     const meditationPref = period === "morning" ? periodPrefs.meditation : periodPrefs.evening_meditation;
-    if (meditationPref !== "no") pickTop(isMindful);
-    if (journalPref !== "no") pickTop(isPlanning);
+    if (meditationPref !== "no") pickTop(isMindful, true);
+    if (journalPref !== "no") pickTop(isPlanning, true);
 
     // Fill remaining time with highest-scored steps
     for (const step of scored) {
