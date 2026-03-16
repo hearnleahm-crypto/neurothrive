@@ -6567,6 +6567,13 @@ function NeuroThriveApp() {
                       <button onClick={() => openRecipe(meal, label, globalDayIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
                     </div>
+                    {/* Cycle / gender note */}
+                    {(() => { const gn = getGenderNote(meal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginTop:"8px", marginLeft:"34px" }}>
+                        <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
+                        <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
+                      </div>
+                    );})()}
                     {alt && (() => {
                       const ateAlt = mealChecked && todayChecks.foodLog?.[key] && todayChecks.foodLog[key] !== meal;
                       const altBs = getBrainScore(alt);
