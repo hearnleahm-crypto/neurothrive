@@ -3947,6 +3947,10 @@ function NeuroThriveApp() {
   const [routineTab, setRoutineTab] = useState("morning");
   const [exerciseExpanded, setExerciseExpanded] = useState(false);
   const [dailyChecks, setDailyChecks] = useState({});
+  const [justChecked, setJustChecked] = useState(null); // key like "meal-breakfast" or "routine-morning-2"
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [lastCelebratedDate, setLastCelebratedDate] = useState(null);
+  const [streakCelebration, setStreakCelebration] = useState(null);
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
@@ -4593,6 +4597,8 @@ function NeuroThriveApp() {
       const newLog = { ...prev.foodLog };
       if (!wasChecked) {
         newLog[mealKey] = mealName;
+        setJustChecked("meal-" + mealKey);
+        setTimeout(() => setJustChecked(null), 600);
       } else {
         delete newLog[mealKey];
       }
@@ -4691,11 +4697,11 @@ function NeuroThriveApp() {
   };
 
   const getBrainLevel = (pct) => {
-    if (pct >= 90) return { label: "Thriving", emoji: "🧠✨", color: "#50c878" };
-    if (pct >= 70) return { label: "Strong", emoji: "🧠💪", color: "#7b9fff" };
-    if (pct >= 50) return { label: "Building", emoji: "🧠🔨", color: "#e8c87a" };
-    if (pct >= 25) return { label: "Warming Up", emoji: "🧠🌅", color: "#e0a050" };
-    return { label: "Just Starting", emoji: "🧠🌱", color: "#8890b8" };
+    if (pct >= 90) return { label: "Thriving", emoji: "", color: "#50c878" };
+    if (pct >= 70) return { label: "Strong", emoji: "", color: "#7b9fff" };
+    if (pct >= 50) return { label: "Building", emoji: "", color: "#e8c87a" };
+    if (pct >= 25) return { label: "Warming Up", emoji: "", color: "#e0a050" };
+    return { label: "Just Starting", emoji: "", color: "#8890b8" };
   };
 
   const getCompletionStreak = () => {
@@ -4724,11 +4730,11 @@ function NeuroThriveApp() {
     const offset = circ - (bp.pct / 100) * circ;
 
     const catItems = [
-      { label: "Meals", bp: bp.categories.meals, max: bp.maxCats.meals, emoji: "🍽️" },
-      { label: "Morning", bp: bp.categories.morning, max: bp.maxCats.morning, emoji: "☀️" },
-      { label: "Evening", bp: bp.categories.evening, max: bp.maxCats.evening, emoji: "🌙" },
-      { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, emoji: "💪" },
-      { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, emoji: "📓" },
+      { label: "Meals", bp: bp.categories.meals, max: bp.maxCats.meals, dot: "#7b9fff" },
+      { label: "Morning", bp: bp.categories.morning, max: bp.maxCats.morning, dot: "#f0a830" },
+      { label: "Evening", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5570f0" },
+      { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, dot: "#50c878" },
+      { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8" },
     ];
 
     // Filter by context if provided
@@ -4744,14 +4750,14 @@ function NeuroThriveApp() {
             <circle cx="26" cy="26" r={r} fill="none" stroke="rgba(80,200,120,0.12)" strokeWidth="4.5" />
             <circle cx="26" cy="26" r={r} fill="none" stroke={level.color} strokeWidth="4.5" strokeLinecap="round"
               strokeDasharray={circ} strokeDashoffset={offset}
-              transform="rotate(-90 26 26)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
+              transform="rotate(-90 26 26)" style={{ transition: "stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1)" }} />
             <text x="26" y="28" textAnchor="middle" fontSize="12" fontWeight="800" fill={level.color}>{bp.pct}%</text>
           </svg>
           <div style={{ flex: 1 }}>
-            <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700" }}>Brain Score: {bp.total} BP</div>
-            <div style={{ color: level.color, fontSize: "12px", fontWeight: "600", marginTop: "2px" }}>{level.emoji} {level.label}</div>
+            <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700", letterSpacing: "-0.3px" }}>Brain Score · {bp.total} BP</div>
+            <div style={{ color: level.color, fontSize: "12px", fontWeight: "600", marginTop: "2px", letterSpacing: "0.5px", textTransform: "uppercase" }}>{level.label}</div>
             <div style={{ color: "#8890b8", fontSize: "11px", marginTop: "2px" }}>
-              {bp.total} of {bp.max} brain points {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak} day streak 🔥</span>}
+              {bp.total} of {bp.max} brain points {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak}-day streak</span>}
             </div>
           </div>
         </div>
@@ -4762,7 +4768,7 @@ function NeuroThriveApp() {
             const full = pct >= 100;
             return (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ fontSize: "11px", width: "16px", textAlign: "center" }}>{cat.emoji}</span>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: cat.dot, flexShrink: 0 }} />
                 <span style={{ fontSize: "10px", fontWeight: "600", color: full ? "#50c878" : "#8890b8", width: "52px" }}>{cat.label}</span>
                 <div style={{ flex: 1, height: "6px", borderRadius: "3px", background: "rgba(110,120,200,0.12)", overflow: "hidden" }}>
                   <div style={{ width: `${Math.min(100, pct)}%`, height: "100%", borderRadius: "3px", background: full ? "#50c878" : level.color, transition: "width 0.5s ease" }} />
@@ -4771,6 +4777,59 @@ function NeuroThriveApp() {
               </div>
             );
           })}
+        </div>
+      </div>
+    );
+  };
+
+  // ── Celebration detection ─────────────────────────────────────────────
+  React.useEffect(() => {
+    const bp = getBrainPoints(todayKey);
+    if (bp.pct >= 100 && lastCelebratedDate !== todayKey) {
+      setShowCelebration(true);
+      setLastCelebratedDate(todayKey);
+      setTimeout(() => setShowCelebration(false), 4000);
+    }
+    const streak = getCompletionStreak();
+    const milestones = [3, 7, 14, 21, 30, 60, 90];
+    const hit = milestones.find(m => streak === m);
+    if (hit && streakCelebration !== `${todayKey}-${hit}`) {
+      setStreakCelebration(`${todayKey}-${hit}`);
+      setTimeout(() => setStreakCelebration(null), 4000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dailyChecks, logs]);
+
+  // ── Confetti overlay component ──────────────────────────────────────────
+  const CelebrationOverlay = () => {
+    if (!showCelebration) return null;
+    const confettiColors = ["#50c878","#7b9fff","#e8c87a","#f06292","#ba68c8","#4dd0e1"];
+    return (
+      <div style={{ position:"fixed", inset:0, zIndex:9999, pointerEvents:"none", overflow:"hidden" }}>
+        {Array.from({ length: 40 }).map((_, i) => (
+          <div key={i} style={{
+            position:"absolute",
+            left: `${Math.random() * 100}%`,
+            top: "-20px",
+            width: `${6 + Math.random() * 8}px`,
+            height: `${6 + Math.random() * 8}px`,
+            borderRadius: Math.random() > 0.5 ? "50%" : "2px",
+            background: confettiColors[i % confettiColors.length],
+            animation: `confettiDrop ${1.5 + Math.random() * 2}s ${Math.random() * 0.5}s ease-in forwards`,
+            opacity: 0.9,
+          }} />
+        ))}
+        <div style={{
+          position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)",
+          animation:"celebrateScale 0.5s ease-out",
+          textAlign:"center", padding:"32px 40px", borderRadius:"24px",
+          background:"rgba(10,14,28,0.92)", border:"1px solid rgba(80,200,120,0.3)",
+          boxShadow:"0 0 60px rgba(80,200,120,0.15), 0 20px 60px rgba(0,0,0,0.4)",
+          backdropFilter:"blur(20px)",
+        }}>
+          <div style={{ fontSize:"40px", marginBottom:"12px" }}>🧠</div>
+          <div style={{ fontSize:"20px", fontWeight:"800", color:"#50c878", letterSpacing:"-0.5px" }}>Brain Score: 100%</div>
+          <div style={{ fontSize:"13px", color:"#8890b8", marginTop:"8px", lineHeight:1.6 }}>Every neuron is thanking you today.</div>
         </div>
       </div>
     );
@@ -4852,9 +4911,17 @@ function NeuroThriveApp() {
         @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
         @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(107,143,255,0.1); } 50% { box-shadow: 0 0 40px rgba(107,143,255,0.25); } }
         @keyframes subtleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        @keyframes checkPop { 0% { transform: scale(0); opacity:0; } 50% { transform: scale(1.3); } 100% { transform: scale(1); opacity:1; } }
+        @keyframes checkGlow { 0% { box-shadow: 0 0 0 0 rgba(80,200,120,0.4); } 100% { box-shadow: 0 0 0 8px rgba(80,200,120,0); } }
+        @keyframes cardSlideIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes celebrateScale { 0% { transform: scale(0.5); opacity:0; } 50% { transform: scale(1.05); } 100% { transform: scale(1); opacity:1; } }
+        @keyframes confettiDrop { 0% { transform: translateY(-100%) rotate(0deg); opacity:1; } 100% { transform: translateY(100vh) rotate(720deg); opacity:0; } }
+        @keyframes scoreCountUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes streakBadgeIn { 0% { transform: scale(0) rotate(-20deg); opacity:0; } 60% { transform: scale(1.1) rotate(3deg); } 100% { transform: scale(1) rotate(0deg); opacity:1; } }
+        @keyframes ringFill { from { stroke-dashoffset: var(--ring-circ); } to { stroke-dashoffset: var(--ring-offset); } }
         button { transition: all 0.2s cubic-bezier(0.25,0.46,0.45,0.94); }
         button:hover { opacity: 0.88; }
-        button:active { opacity: 0.95; }
+        button:active { transform: scale(0.96); opacity: 0.92; }
         details > summary { user-select: none; }
         details > summary::-webkit-details-marker { display: none; }
         .nav-tabs-scroll::-webkit-scrollbar { display: none; }
@@ -4865,6 +4932,17 @@ function NeuroThriveApp() {
         ::selection { background: rgba(107,143,255,0.25); color: #fff; }
         input:focus, textarea:focus { border-color: rgba(107,143,255,0.4) !important; box-shadow: 0 0 0 3px rgba(107,143,255,0.08); outline: none; }
       `}</style>
+
+      <CelebrationOverlay />
+      {streakCelebration && (() => {
+        const days = parseInt(streakCelebration.split("-").pop());
+        return (
+          <div style={{ position:"fixed", top:"80px", left:"50%", transform:"translateX(-50%)", zIndex:9998, animation:"streakBadgeIn 0.5s ease-out", textAlign:"center", padding:"16px 28px", borderRadius:"16px", background:"rgba(10,14,28,0.94)", border:"1px solid rgba(232,200,122,0.3)", boxShadow:"0 0 40px rgba(232,200,122,0.12), 0 12px 40px rgba(0,0,0,0.4)", backdropFilter:"blur(20px)" }}>
+            <div style={{ fontSize:"13px", fontWeight:"700", color:"#e8c87a" }}>{days}-Day Streak</div>
+            <div style={{ fontSize:"11px", color:"#8890b8", marginTop:"4px" }}>Your brain is building new pathways</div>
+          </div>
+        );
+      })()}
 
       <nav style={S.nav}>
         <div style={{ ...S.logo, cursor:"pointer" }} onClick={() => setStep(0)}>
@@ -4895,24 +4973,24 @@ function NeuroThriveApp() {
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
                 <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
                   {[
-                    { label:"👤 Profile",     s:1 },
-                    { label:"🥗 Adjust Diet Plan", s:3 },
+                    { label:"Profile",     s:1 },
+                    { label:"Adjust Diet Plan", s:3 },
                   ].map(({ label, s }) => (
                     <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
                   ))}
-                  <button onClick={() => { setRoutineQPage(personalRoutine ? "morning" : "intro"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🔄 Rebuild Routine</button>
+                  <button onClick={() => { setRoutineQPage(personalRoutine ? "morning" : "intro"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Rebuild Routine</button>
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   {[
-                    { label:"📓 Journal",     s:8 },
-                    { label:"☀️ Routine",     s:10 },
-                    { label:"🌿 Supplements", s:6 },
-                    { label:"🔔 Reminders",   s:7 },
-                    { label:"🧠 Toolkit",     s:9 },
+                    { label:"Journal",     s:8 },
+                    { label:"Routine",     s:10 },
+                    { label:"Supplements", s:6 },
+                    { label:"Reminders",   s:7 },
+                    { label:"Toolkit",     s:9 },
                   ].map(({ label, s }) => (
                     <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
                   ))}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
-                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🧬 Your Brain</button>
+                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
                 </div>
               </>
             )}
@@ -5116,12 +5194,12 @@ function NeuroThriveApp() {
                 <h2 style={S.sectionTitle}>Your Personalized Routine</h2>
                 <p style={S.sectionSub}>Here's your routine. Remove anything that doesn't fit — you can always rebuild later.</p>
 
-                <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>☀️ Morning Routine</div>
+                <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>Morning Routine</div>
                 {personalRoutine.morning.length > 0 ? personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)")) : (
                   <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No morning steps — that's okay!</div>
                 )}
 
-                <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>🌙 Evening Routine</div>
+                <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>Evening Routine</div>
                 {personalRoutine.evening.length > 0 ? personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5570f0,#4060e0)")) : (
                   <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No evening steps — that's okay!</div>
                 )}
@@ -5144,7 +5222,7 @@ function NeuroThriveApp() {
 
           return (
             <div>
-              <h2 style={S.sectionTitle}>{routineQPage === "morning" ? "☀️ Now Let's Build Your Morning Routine" : "🌙 Now Let's Build Your Evening Routine"}</h2>
+              <h2 style={S.sectionTitle}>{routineQPage === "morning" ? "Build Your Morning Routine" : "Build Your Evening Routine"}</h2>
               <p style={S.sectionSub}>
                 {routineQPage === "morning"
                   ? "Your 30-day menu is ready. Now tell us about your mornings so we can create a routine personalized to your brain."
@@ -5463,10 +5541,10 @@ function NeuroThriveApp() {
 
                       {/* Main meal */}
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
-                        <button onClick={() => toggleMealCheck(key, mainMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: (mealChecked && !ateAlt) ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: (mealChecked && !ateAlt) ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px" }}>
-                          {(mealChecked && !ateAlt) && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                        <button onClick={() => toggleMealCheck(key, mainMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: (mealChecked && !ateAlt) ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: (mealChecked && !ateAlt) ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
+                          {(mealChecked && !ateAlt) && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                         </button>
-                        <span style={{ flex:1, color: (mealChecked && !ateAlt) ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: (mealChecked && !ateAlt) ? "line-through" : "none", opacity: (mealChecked && !ateAlt) ? 0.7 : 1 }}>{mainMeal}</span>
+                        <span style={{ flex:1, color: (mealChecked && !ateAlt) ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: (mealChecked && !ateAlt) ? "line-through" : "none", opacity: (mealChecked && !ateAlt) ? 0.7 : 1, transition:"all 0.3s" }}>{mainMeal}</span>
                       </div>
                       <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px" }}>
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -5517,10 +5595,10 @@ function NeuroThriveApp() {
                             <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase" }}>Alternative</div>
                           </div>
                           <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
-                            <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px" }}>
-                              {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
+                              {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                             </button>
-                            <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
+                            <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1, transition:"all 0.3s" }}>{alt}</span>
                           </div>
                           <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"10px" }}>
                             <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"3px 9px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -5650,7 +5728,7 @@ function NeuroThriveApp() {
             </div>
             {logs.length > 0 && (
               <div style={{ textAlign:"center", marginTop:"12px" }}>
-                <button style={{ ...S.btnOutline, fontSize:"13px", padding:"10px 22px" }} onClick={() => setStep(11)}>📊 View Progress Dashboard →</button>
+                <button style={{ ...S.btnOutline, fontSize:"13px", padding:"10px 22px" }} onClick={() => setStep(11)}>View Progress Dashboard →</button>
               </div>
             )}
           </div>
@@ -5920,7 +5998,7 @@ function NeuroThriveApp() {
           };
           return (
           <div>
-            <h2 style={S.sectionTitle}>🧠 Brain Toolkit</h2>
+            <h2 style={S.sectionTitle}>Brain Toolkit</h2>
             <p style={S.sectionSub}>How are you feeling right now? Pick your current state for immediate, personalized coping tools.</p>
 
             {/* Level 1: Category Grid */}
@@ -6023,7 +6101,7 @@ function NeuroThriveApp() {
         {/* STEP 10: DAILY ROUTINE */}
         {step === 10 && isPremium && (
           <div>
-            <h2 style={S.sectionTitle}>☀️ Daily Routine</h2>
+            <h2 style={S.sectionTitle}>Daily Routine</h2>
             <p style={S.sectionSub}>Morning and evening routines tailored to your conditions — the two highest-leverage points in your day.</p>
             <ProgressBanner context="routine" />
             <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
@@ -6131,16 +6209,16 @@ function NeuroThriveApp() {
                             {isExStep && renderExerciseGuide()}
                           </div>
                           {isExStep ? (
-                            <button onClick={() => updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }))} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
-                              {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            <button onClick={() => { if (!exerciseDone) { setJustChecked("exercise"); setTimeout(() => setJustChecked(null), 600); } updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise })); }} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px", animation: justChecked === "exercise" ? "checkGlow 0.6s ease-out" : "none" }}>
+                              {exerciseDone && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1, animation: justChecked === "exercise" ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                             </button>
                           ) : (
-                            <button onClick={() => updateTodayChecks(prev => {
+                            <button onClick={() => { const ck = `routine-${routineTab}-${i}`; if (!isChecked) { setJustChecked(ck); setTimeout(() => setJustChecked(null), 600); } updateTodayChecks(prev => {
                               const arr = [...(prev.routine?.[routineTab] || [])];
                               arr[i] = !arr[i];
                               return { ...prev, routine: { ...prev.routine, [routineTab]: arr } };
-                            })} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px" }}>
-                              {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                            }); }} style={{ width:"28px", height:"28px", borderRadius:"8px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px", animation: justChecked === `routine-${routineTab}-${i}` ? "checkGlow 0.6s ease-out" : "none" }}>
+                              {isChecked && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800", lineHeight:1, animation: justChecked === `routine-${routineTab}-${i}` ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                             </button>
                           )}
                         </div>
@@ -6226,7 +6304,7 @@ function NeuroThriveApp() {
 
           return (
             <div>
-              <h2 style={S.sectionTitle}>📊 Your Progress</h2>
+              <h2 style={S.sectionTitle}>Your Progress</h2>
               <p style={S.sectionSub}>Patterns in your mood and energy tell a story. Here's yours so far.</p>
 
               {total === 0 ? (
@@ -6587,12 +6665,12 @@ function NeuroThriveApp() {
                 return (
                   <div key={key} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <button onClick={() => toggleMealCheck(key, meal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
-                        {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      <button onClick={() => toggleMealCheck(key, meal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
+                        {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                       </button>
                       <div style={{ flex:1, minWidth:0 }}>
                         <div style={{ fontSize:"10px", color:"#8890b8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
-                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis" }}>{meal}</div>
+                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{meal}</div>
                       </div>
                     </div>
                     <div style={{ display:"flex", alignItems:"center", gap:"6px", marginTop:"8px", marginLeft:"34px" }}>
@@ -6622,10 +6700,10 @@ function NeuroThriveApp() {
                       <div style={{ marginTop:"8px", marginLeft:"34px", padding:"10px 12px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
                         <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Alternative</div>
                         <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
-                          <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px" }}>
-                            {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                          <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : "none" }}>
+                            {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                           </button>
-                          <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1 }}>{alt}</span>
+                          <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1, transition:"all 0.3s" }}>{alt}</span>
                         </div>
                         <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"8px" }}>
                           <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
@@ -6662,6 +6740,8 @@ function NeuroThriveApp() {
                   <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
+                        const ck = isExStep ? "exercise" : `today-morning-${i}`;
+                        if (!isChecked) { setJustChecked(ck); setTimeout(() => setJustChecked(null), 600); }
                         if (isExStep) {
                           updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
                         } else {
@@ -6671,12 +6751,12 @@ function NeuroThriveApp() {
                             return { ...prev, routine: { ...prev.routine, morning: arr } };
                           });
                         }
-                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
-                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : `today-morning-${i}`) ? "checkGlow 0.6s ease-out" : "none" }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : `today-morning-${i}`) ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
                         <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min · Tap to see exercise ideas" : s.time}</div>
                       </div>
                     </div>
@@ -6746,6 +6826,8 @@ function NeuroThriveApp() {
                   <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
+                        const ck = isExStep ? "exercise" : `today-evening-${i}`;
+                        if (!isChecked) { setJustChecked(ck); setTimeout(() => setJustChecked(null), 600); }
                         if (isExStep) {
                           updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
                         } else {
@@ -6755,8 +6837,8 @@ function NeuroThriveApp() {
                             return { ...prev, routine: { ...prev.routine, evening: arr } };
                           });
                         }
-                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>
-                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : `today-evening-${i}`) ? "checkGlow 0.6s ease-out" : "none" }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : `today-evening-${i}`) ? "checkPop 0.3s ease-out" : "none" }}>✓</span>}
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`e${i}`]: !p[`e${i}`] }))}>
@@ -6791,11 +6873,11 @@ function NeuroThriveApp() {
                 const lvl = getBrainLevel(bp.pct);
                 const streak = getCompletionStreak();
                 const cats = [
-                  { label: "Nutrition", bp: bp.categories.meals, max: bp.maxCats.meals, emoji: "🍽️", desc: "Brain-boosting meals eaten" },
-                  { label: "Morning Routine", bp: bp.categories.morning, max: bp.maxCats.morning, emoji: "☀️", desc: "Morning steps completed" },
-                  { label: "Evening Routine", bp: bp.categories.evening, max: bp.maxCats.evening, emoji: "🌙", desc: "Evening steps completed" },
-                  { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, emoji: "💪", desc: "Movement for BDNF & dopamine" },
-                  { label: "Self-Awareness", bp: bp.categories.journal, max: bp.maxCats.journal, emoji: "📓", desc: "Journal & mood tracking" },
+                  { label: "Nutrition", bp: bp.categories.meals, max: bp.maxCats.meals, dot: "#7b9fff", desc: "Brain-boosting meals eaten" },
+                  { label: "Morning Routine", bp: bp.categories.morning, max: bp.maxCats.morning, dot: "#f0a830", desc: "Morning steps completed" },
+                  { label: "Evening Routine", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5570f0", desc: "Evening steps completed" },
+                  { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, dot: "#50c878", desc: "Movement for BDNF & dopamine" },
+                  { label: "Self-Awareness", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8", desc: "Journal & mood tracking" },
                 ];
                 const r2 = 38, circ2 = 2 * Math.PI * r2;
                 const off2 = circ2 - (bp.pct / 100) * circ2;
@@ -6814,10 +6896,9 @@ function NeuroThriveApp() {
                         <text x="45" y="56" textAnchor="middle" fontSize="9" fontWeight="600" fill="#8890b8">{bp.total} BP</text>
                       </svg>
                       <div>
-                        <div style={{ fontSize:"22px", fontWeight:"800", color:"#eef0ff", letterSpacing:"-0.5px" }}>{lvl.emoji}</div>
-                        <div style={{ fontSize:"16px", fontWeight:"700", color:lvl.color, marginTop:"4px" }}>{lvl.label}</div>
+                        <div style={{ fontSize:"16px", fontWeight:"700", color:lvl.color, letterSpacing:"0.5px", textTransform:"uppercase" }}>{lvl.label}</div>
                         <div style={{ fontSize:"11px", color:"#8890b8", marginTop:"4px" }}>{bp.total} of {bp.max} brain points earned</div>
-                        {streak > 0 && <div style={{ fontSize:"11px", color:"#e8c87a", marginTop:"2px" }}>{streak} day streak 🔥</div>}
+                        {streak > 0 && <div style={{ fontSize:"11px", color:"#e8c87a", marginTop:"2px" }}>{streak}-day streak</div>}
                       </div>
                     </div>
 
@@ -6827,7 +6908,7 @@ function NeuroThriveApp() {
                       return (
                         <div key={i} style={{ marginBottom:"12px" }}>
                           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"4px" }}>
-                            <span style={{ fontSize:"12px", fontWeight:"600", color: full ? "#50c878" : "#c8ccf0" }}>{cat.emoji} {cat.label}</span>
+                            <span style={{ fontSize:"12px", fontWeight:"600", color: full ? "#50c878" : "#c8ccf0", display:"flex", alignItems:"center", gap:"6px" }}><span style={{ width:"6px", height:"6px", borderRadius:"50%", background: full ? "#50c878" : cat.dot, display:"inline-block" }} />{cat.label}</span>
                             <span style={{ fontSize:"11px", fontWeight:"700", color: full ? "#50c878" : "#7b9fff" }}>{cat.bp}/{cat.max} BP</span>
                           </div>
                           <div style={{ height:"8px", borderRadius:"4px", background:"rgba(110,120,200,0.1)", overflow:"hidden" }}>
