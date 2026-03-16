@@ -377,6 +377,11 @@ export function generateRoutine(prefs, conditions) {
     };
 
     // Guarantee one from each category (respect user preferences — skip if they said "no")
+    // If user wants exercise, guarantee the workout step first (it's big — 15 min)
+    const exercisePref = period === "morning" ? periodPrefs.morning_exercise : periodPrefs.evening_exercise;
+    if (exercisePref === "yes") {
+      pickTop(s => s.requiresExercise === true);
+    }
     pickTop(isPhysical);
     const journalPref = period === "morning" ? periodPrefs.journaling : periodPrefs.evening_journaling;
     const meditationPref = period === "morning" ? periodPrefs.meditation : periodPrefs.evening_meditation;
