@@ -4868,20 +4868,23 @@ function NeuroThriveApp() {
               <>
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
                 <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
+                  <button onClick={() => { setStep(1); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===1 ? "rgba(107,143,255,0.12)" : "transparent", color: step===1 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===1 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>👤 Profile</button>
+                  <div style={{ display:"flex", gap:"6px", padding:"2px 0" }}>
+                    <button onClick={() => { setRoutineQPage(personalRoutine ? "morning" : "intro"); setStep(13); setShowMoreMenu(false); }} style={{ flex:1, padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🔄 Rebuild Routine</button>
+                    <button onClick={() => { setStep(3); setShowMoreMenu(false); }} style={{ flex:1, padding:"10px 14px", borderRadius:"10px", border:"none", background: step===3 ? "rgba(107,143,255,0.12)" : "transparent", color: step===3 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===3 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🥗 Adjust Diet</button>
+                  </div>
+                  <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   {[
-                    { label:"👤 Profile",     s:1 },
                     { label:"📓 Journal",     s:8 },
                     { label:"☀️ Routine",     s:10 },
                     { label:"🌿 Supplements", s:6 },
                     { label:"🔔 Reminders",   s:7 },
                     { label:"🧠 Toolkit",     s:9 },
-                    { label:"🥗 Adjust Diet Plan", s:3 },
                   ].map(({ label, s }) => (
                     <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
                   ))}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🧬 Your Brain</button>
-                  <button onClick={() => { setRoutineQPage(personalRoutine ? "morning" : "intro"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>🔄 Rebuild Routine</button>
                 </div>
               </>
             )}
