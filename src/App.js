@@ -4599,7 +4599,7 @@ function NeuroThriveApp() {
 
     if (checks.exercise) earned++;
 
-    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dateKey || todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+    const hasJournal = logs.some(l => l.date && l.date.includes(new Date((dateKey || todayKey) + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
     if (hasJournal) earned++;
 
     const hasSnacks2 = calorieTarget === "2000";
@@ -4648,8 +4648,8 @@ function NeuroThriveApp() {
     const exerciseBP = exerciseDone ? 10 : 0;
 
     // Journal: 5 BP + 2 bonus for positive mood
-    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
-    const journalLog = logs.find(l => l.date && l.date.includes(new Date(dk).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+    const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+    const journalLog = logs.find(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
     let journalBP = hasJournal ? 5 : 0;
     if (journalLog && journalLog.mood >= 3) journalBP += 2;
     const journalMaxBP = 7;
@@ -6489,7 +6489,7 @@ function NeuroThriveApp() {
           const todayChecks = getTodayChecks();
           const morningChecks = todayChecks.routine?.morning || [];
           const eveningChecks = todayChecks.routine?.evening || [];
-          const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey).toLocaleDateString("en-US", { month: "short", day: "numeric" })));
+          const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
           const sectionDivider = { height:"1px", background:"rgba(110,120,200,0.1)", margin:"28px 0" };
 
           return (
