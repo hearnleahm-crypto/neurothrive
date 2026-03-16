@@ -4589,17 +4589,19 @@ function NeuroThriveApp() {
     }));
   };
 
-  // Trigger confetti check after a short delay (lets state settle first)
-  const checkConfetti = () => {
-    setTimeout(() => {
-      const bp = getBrainPoints(todayKey);
-      if (bp.pct >= 100 && confettiShownRef.current !== todayKey) {
-        confettiShownRef.current = todayKey;
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 4000);
-      }
-    }, 100);
-  };
+  // Confetti check — runs after dailyChecks changes (ref-guarded, no loop)
+  React.useEffect(() => {
+    if (!dailyChecks[todayKey]) return;
+    const bp = getBrainPoints(todayKey);
+    if (bp.pct >= 100 && confettiShownRef.current !== todayKey) {
+      confettiShownRef.current = todayKey;
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 4000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dailyChecks]);
+
+  const checkConfetti = () => {}; // kept for call sites, actual logic in useEffect above
 
   const triggerCheckAnim = (key) => {
     setJustChecked(key);
