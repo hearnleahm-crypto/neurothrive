@@ -50,6 +50,15 @@ export const ROUTINE_QUESTIONS = {
       ]
     },
     {
+      id: "journaling",
+      question: "Want journaling, lists, or gratitude practices?",
+      options: [
+        { id: "yes", label: "Yes, love it", emoji: "📓" },
+        { id: "want_to_start", label: "Want to start", emoji: "🌱" },
+        { id: "no", label: "Not for me", emoji: "🚫" },
+      ]
+    },
+    {
       id: "structure_pref",
       question: "Do you prefer structured or flexible routines?",
       options: [
@@ -106,6 +115,15 @@ export const ROUTINE_QUESTIONS = {
         { id: "yes", label: "Yes", emoji: "🧘" },
         { id: "want_to_start", label: "Want to start", emoji: "🌱" },
         { id: "no", label: "Not interested", emoji: "🚫" },
+      ]
+    },
+    {
+      id: "evening_journaling",
+      question: "Want evening journaling, reflection, or gratitude?",
+      options: [
+        { id: "yes", label: "Yes, love it", emoji: "📓" },
+        { id: "want_to_start", label: "Want to start", emoji: "🌱" },
+        { id: "no", label: "Not for me", emoji: "🚫" },
       ]
     },
     {
@@ -283,6 +301,12 @@ export function generateRoutine(prefs, conditions) {
         if (step.phoneRelated && periodPrefs.phone_first === "yes") score += 4;
         if (step.phoneRelated && periodPrefs.phone_first === "no") score -= 2;
 
+        // Journaling & planning preference
+        const hasJournalTag = step.tags && step.tags.some(t => ["journaling","planning","intention","reflection","positive","gratitude"].includes(t));
+        if (hasJournalTag && periodPrefs.journaling === "yes") score += 5;
+        if (hasJournalTag && periodPrefs.journaling === "want_to_start") score += 3;
+        if (hasJournalTag && periodPrefs.journaling === "no") score -= 5;
+
         // Structure preference
         if (step.tags && step.tags.includes("structured") && periodPrefs.structure_pref === "structured") score += 2;
         if (step.tags && step.tags.includes("structured") && periodPrefs.structure_pref === "flexible") score -= 1;
@@ -314,6 +338,12 @@ export function generateRoutine(prefs, conditions) {
         if (step.tags && step.tags.includes("meditation") && periodPrefs.evening_meditation === "no") score -= 4;
         if (step.tags && step.tags.includes("mindfulness") && periodPrefs.evening_meditation === "yes") score += 2;
         if (step.requiresMeditation === true && periodPrefs.evening_meditation === "no") score -= 6;
+
+        // Evening journaling & reflection preference
+        const hasEveJournalTag = step.tags && step.tags.some(t => ["journaling","planning","reflection","positive","gratitude","processing"].includes(t));
+        if (hasEveJournalTag && periodPrefs.evening_journaling === "yes") score += 5;
+        if (hasEveJournalTag && periodPrefs.evening_journaling === "want_to_start") score += 3;
+        if (hasEveJournalTag && periodPrefs.evening_journaling === "no") score -= 5;
       }
 
       return { ...step, score };
@@ -346,10 +376,12 @@ export function generateRoutine(prefs, conditions) {
       return false;
     };
 
-    // Guarantee one from each category (physical, mindful, planning/journaling)
+    // Guarantee one from each category (respect user preferences — skip if they said "no")
     pickTop(isPhysical);
-    pickTop(isMindful);
-    pickTop(isPlanning);
+    const journalPref = period === "morning" ? periodPrefs.journaling : periodPrefs.evening_journaling;
+    const meditationPref = period === "morning" ? periodPrefs.meditation : periodPrefs.evening_meditation;
+    if (meditationPref !== "no") pickTop(isMindful);
+    if (journalPref !== "no") pickTop(isPlanning);
 
     // Fill remaining time with highest-scored steps
     for (const step of scored) {
