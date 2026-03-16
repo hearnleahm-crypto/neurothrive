@@ -6551,10 +6551,10 @@ function NeuroThriveApp() {
                 const insightIdx = Math.max(0, (daysElapsed - 1)) % insights.length;
                 const insight = insights[insightIdx];
                 if (!insight) return null;
-                // Build dynamic meal connection from today's actual menu
-                const mealNames = todayDay ? [todayDay.breakfast, todayDay.lunch, todayDay.dinner, todayDay.snacks].filter(Boolean) : [];
+                // Build dynamic meal connection: today's actual meals + original science explanation
+                const mealNames = todayDay ? [todayDay.breakfast, todayDay.lunch, todayDay.dinner].filter(Boolean) : [];
                 const dynamicConnection = mealNames.length > 0
-                  ? `Today's meals — ${mealNames[0]}, ${mealNames[1] || ""}, ${mealNames[2] || ""} — ${insight.mealConnection.split(" — ").pop() || insight.mealConnection}`
+                  ? `Today you're eating ${mealNames[0]}, ${mealNames[1]}, and ${mealNames[2]}. ${insight.mealConnection}`
                   : insight.mealConnection;
                 return (
                   <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
