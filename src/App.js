@@ -3950,7 +3950,7 @@ function NeuroThriveApp() {
   const [justChecked, setJustChecked] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const confettiShownRef = React.useRef(null);
-  const userCheckedRef = React.useRef(false);
+  const latestBPRef = React.useRef({ pct: 0 });
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
@@ -4590,29 +4590,26 @@ function NeuroThriveApp() {
     }));
   };
 
-  // Confetti check — only after user manually checks something (not on data load)
-  React.useEffect(() => {
-    if (!userCheckedRef.current) return;
-    if (!dailyChecks[todayKey]) return;
-    const bp = getBrainPoints(todayKey);
-    if (bp.pct >= 100 && confettiShownRef.current !== todayKey) {
-      confettiShownRef.current = todayKey;
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 4000);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dailyChecks]);
+  // Update ref every render so setTimeout can read latest score
+  latestBPRef.current = dailyChecks[todayKey] ? getBrainPoints(todayKey) : { pct: 0 };
 
-  const checkConfetti = () => {}; // kept for call sites, actual logic in useEffect above
+  // Confetti check — called from onClick handlers, reads ref after state settles
+  const checkConfetti = () => {
+    setTimeout(() => {
+      if (latestBPRef.current.pct >= 100 && confettiShownRef.current !== todayKey) {
+        confettiShownRef.current = todayKey;
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 4000);
+      }
+    }, 300);
+  };
 
   const triggerCheckAnim = (key) => {
-    userCheckedRef.current = true;
     setJustChecked(key);
     setTimeout(() => setJustChecked(null), 600);
   };
 
   const toggleMealCheck = (mealKey, mealName) => {
-    userCheckedRef.current = true;
     updateTodayChecks(prev => {
       const wasChecked = prev.meals[mealKey];
       const newMeals = { ...prev.meals, [mealKey]: !wasChecked };
