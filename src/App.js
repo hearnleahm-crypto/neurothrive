@@ -50,36 +50,41 @@ const DIET_TYPES = [
 
 // Allergen restrictions — these define what you DON'T eat (exclusion-based)
 const DIETARY_RESTRICTIONS = [
-  { id: "gluten_free", label: "Gluten-Free", emoji: "🌾" },
-  { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
-  { id: "nut_free", label: "Nut-Free", emoji: "🥜" },
-  { id: "shellfish_free", label: "Shellfish-Free", emoji: "🦐" },
-  { id: "soy_free", label: "Soy-Free", emoji: "🫘" },
-  { id: "egg_free", label: "Egg-Free", emoji: "🥚" },
-  { id: "corn_free", label: "Corn-Free", emoji: "🌽" },
+  // Proteins
+  { id: "chicken_free", label: "Chicken-Free", emoji: "🐔" },
+  { id: "turkey_free", label: "Turkey-Free", emoji: "🦃" },
   { id: "pork_free", label: "Pork-Free", emoji: "🚫" },
-  { id: "rice_free", label: "Rice-Free", emoji: "🌾" },
   { id: "fish_free", label: "Fish-Free", emoji: "🐟" },
+  { id: "sardine_free", label: "Sardine-Free", emoji: "🐠" },
+  { id: "shellfish_free", label: "Shellfish-Free", emoji: "🦐" },
+  { id: "egg_free", label: "Egg-Free", emoji: "🥚" },
+  { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
+  // Fruits
+  { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
+  { id: "banana_free", label: "Banana-Free", emoji: "🍌" },
+  { id: "cherry_free", label: "Cherry-Free", emoji: "🍒" },
+  { id: "peach_free", label: "Peach-Free", emoji: "🍑" },
+  { id: "coconut_free", label: "Coconut-Free", emoji: "🥥" },
+  // Veggies & starches
   { id: "onion_free", label: "Onion-Free", emoji: "🧅" },
   { id: "garlic_free", label: "Garlic-Free", emoji: "🧄" },
   { id: "mushroom_free", label: "Mushroom-Free", emoji: "🍄" },
   { id: "nightshade_free", label: "Nightshade-Free", emoji: "🍅" },
-  { id: "coconut_free", label: "Coconut-Free", emoji: "🥥" },
-  { id: "seed_free", label: "Seed-Free", emoji: "🌻" },
-  { id: "legume_free", label: "Legume-Free", emoji: "🫛" },
-  { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
-  { id: "oat_free", label: "Oat-Free", emoji: "🥣" },
-  { id: "sardine_free", label: "Sardine-Free", emoji: "🐠" },
   { id: "potato_free", label: "Potato-Free", emoji: "🥔" },
+  { id: "corn_free", label: "Corn-Free", emoji: "🌽" },
+  // Grains
+  { id: "gluten_free", label: "Gluten-Free", emoji: "🌾" },
+  { id: "rice_free", label: "Rice-Free", emoji: "🌾" },
+  { id: "oat_free", label: "Oat-Free", emoji: "🥣" },
   { id: "quinoa_free", label: "Quinoa-Free", emoji: "🌾" },
-  { id: "chicken_free", label: "Chicken-Free", emoji: "🐔" },
-  { id: "turkey_free", label: "Turkey-Free", emoji: "🦃" },
+  // Legumes & nuts
+  { id: "legume_free", label: "Legume-Free", emoji: "🫛" },
   { id: "lentil_free", label: "Lentil-Free", emoji: "🫘" },
   { id: "bean_free", label: "Bean-Free", emoji: "🫛" },
   { id: "chickpea_free", label: "Chickpea-Free", emoji: "🧆" },
-  { id: "cherry_free", label: "Cherry-Free", emoji: "🍒" },
-  { id: "peach_free", label: "Peach-Free", emoji: "🍑" },
-  { id: "banana_free", label: "Banana-Free", emoji: "🍌" },
+  { id: "soy_free", label: "Soy-Free", emoji: "🫘" },
+  { id: "nut_free", label: "Nut-Free", emoji: "🥜" },
+  { id: "seed_free", label: "Seed-Free", emoji: "🌻" },
 ];
 
 // Combined for backward compatibility
@@ -95,31 +100,37 @@ const CUISINE_TYPES = [
 ];
 
 const FOOD_PREFS = [
-  { id: "avocado", label: "Avocado", emoji: "🥑" },
-  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐" },
-  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣" },
+  // Proteins
   { id: "chicken", label: "Chicken", emoji: "🍗" },
   { id: "turkey", label: "Turkey", emoji: "🦃" },
-  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟" },
   { id: "red_meat", label: "Red Meat", emoji: "🥩" },
-  { id: "rice", label: "Rice", emoji: "🍚" },
+  { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓" },
+  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟" },
+  { id: "eggs", label: "Eggs", emoji: "🥚" },
+  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀" },
+  // Fruits
+  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐" },
+  { id: "bananas", label: "Bananas", emoji: "🍌" },
+  { id: "cherries", label: "Cherries", emoji: "🍒" },
+  { id: "peaches", label: "Peaches", emoji: "🍑" },
+  { id: "avocado", label: "Avocado", emoji: "🥑" },
+  // Veggies & starches
+  { id: "salads", label: "Salads", emoji: "🥗" },
   { id: "sweet_potato", label: "Sweet Potatoes", emoji: "🍠" },
   { id: "potatoes", label: "Potatoes", emoji: "🥔" },
-  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜" },
+  // Grains
+  { id: "rice", label: "Rice", emoji: "🍚" },
+  { id: "oatmeal", label: "Oatmeal", emoji: "🥣" },
+  { id: "pasta", label: "Pasta", emoji: "🍝" },
+  { id: "quinoa", label: "Quinoa", emoji: "🌾" },
+  // Legumes & nuts
   { id: "lentils", label: "Lentils", emoji: "🫘" },
   { id: "beans", label: "Beans", emoji: "🫛" },
   { id: "chickpeas", label: "Chickpeas & Hummus", emoji: "🧆" },
-  { id: "eggs", label: "Eggs", emoji: "🥚" },
-  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀" },
-  { id: "oatmeal", label: "Oatmeal", emoji: "🥣" },
-  { id: "pasta", label: "Pasta", emoji: "🍝" },
-  { id: "salads", label: "Salads", emoji: "🥗" },
+  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜" },
+  // Meals & combos
+  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣" },
   { id: "soups_stews", label: "Soups & Stews", emoji: "🍲" },
-  { id: "quinoa", label: "Quinoa", emoji: "🌾" },
-  { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓" },
-  { id: "cherries", label: "Cherries", emoji: "🍒" },
-  { id: "peaches", label: "Peaches", emoji: "🍑" },
-  { id: "bananas", label: "Bananas", emoji: "🍌" },
 ];
 
 const FOOD_PREF_PATTERNS = {
