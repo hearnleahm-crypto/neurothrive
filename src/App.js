@@ -3950,6 +3950,7 @@ function NeuroThriveApp() {
   const [justChecked, setJustChecked] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const confettiShownRef = React.useRef(null);
+  const userCheckedRef = React.useRef(false);
   const [notifPermission, setNotifPermission] = useState("default");
   const [reminderTimes, setReminderTimes] = useState({ breakfast:"08:00", lunch:"12:30", dinner:"18:30", snack:"15:00" });
   const [reminderActive, setReminderActive] = useState({ breakfast:true, lunch:true, dinner:true, snack:false });
@@ -4589,8 +4590,9 @@ function NeuroThriveApp() {
     }));
   };
 
-  // Confetti check — runs after dailyChecks changes (ref-guarded, no loop)
+  // Confetti check — only after user manually checks something (not on data load)
   React.useEffect(() => {
+    if (!userCheckedRef.current) return;
     if (!dailyChecks[todayKey]) return;
     const bp = getBrainPoints(todayKey);
     if (bp.pct >= 100 && confettiShownRef.current !== todayKey) {
@@ -4604,11 +4606,13 @@ function NeuroThriveApp() {
   const checkConfetti = () => {}; // kept for call sites, actual logic in useEffect above
 
   const triggerCheckAnim = (key) => {
+    userCheckedRef.current = true;
     setJustChecked(key);
     setTimeout(() => setJustChecked(null), 600);
   };
 
   const toggleMealCheck = (mealKey, mealName) => {
+    userCheckedRef.current = true;
     updateTodayChecks(prev => {
       const wasChecked = prev.meals[mealKey];
       const newMeals = { ...prev.meals, [mealKey]: !wasChecked };
