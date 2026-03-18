@@ -7345,7 +7345,51 @@ function NeuroThriveApp() {
               })}
               {!todayDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
 
-              {/* Section C: Exercise */}
+              {/* Section C: Morning Routine */}
+              <div style={sectionDivider} />
+              <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
+              {routine.morning.map((s, i) => {
+                const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
+                const isChecked = isExStep ? !!todayChecks.exercise : !!morningChecks[i];
+                const isExpanded = !!expandedTodayRoutine[`m${i}`];
+                return (
+                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <button onClick={() => {
+                        const ck = isExStep ? "exercise" : "today-m-" + i;
+                        if (!isChecked) triggerCheckAnim(ck);
+                        if (isExStep) {
+                          updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
+                        } else {
+                          updateTodayChecks(prev => {
+                            const arr = [...(prev.routine?.morning || [])];
+                            arr[i] = !arr[i];
+                            return { ...prev, routine: { ...prev.routine, morning: arr } };
+                          });
+                        }
+                        checkConfetti();
+                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : "today-m-" + i) ? "checkGlow 0.6s ease-out" : undefined }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : "today-m-" + i) ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
+                      </button>
+                      <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                      <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
+                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min" : s.time}</div>
+                      </div>
+                    </div>
+                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                    {isExpanded && isExStep && (
+                      <div style={{ marginTop:"8px", marginLeft:"56px" }}>
+                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Section D: Exercise */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Exercise")}>Exercise</div>
               {(() => { const cp = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null; const cs = getCycleSuggestion(cp); return cs && cp ? (
@@ -7390,7 +7434,95 @@ function NeuroThriveApp() {
                 <button onClick={() => setStep(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
               </div>
 
-              {/* Section D: Water Tracker */}
+              {/* Section D: Journal & Symptom Tracker */}
+              <div style={sectionDivider} />
+              <details style={{ marginBottom:"16px" }}>
+                <summary style={{ listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", borderRadius:"16px", background: hasJournal ? "rgba(80,200,120,0.04)" : "rgba(186,104,200,0.04)", border: hasJournal ? "1px solid rgba(80,200,120,0.2)" : "1px solid rgba(186,104,200,0.15)" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                    {hasJournal && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span>}
+                    <div>
+                      <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>Journal & Symptom Tracker</div>
+                      <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>{hasJournal ? "Logged today — tap to view" : "Log mood, energy, and symptoms"}</div>
+                    </div>
+                  </div>
+                  <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"600" }}>▾</span>
+                </summary>
+                <div style={{ ...S.card, marginTop:"10px" }}>
+                  {hasJournal ? (
+                    <div>
+                      <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
+                        <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Today's entry</span>
+                        <span style={{ fontSize:"13px", color:"#8890b8" }}>{MOOD_EMOJIS.find(m=>m.val===logs[0]?.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===logs[0]?.energy)?.emoji}</span>
+                      </div>
+                      {logs[0]?.note && <p style={{ color:"#a0a8e8", fontSize:"12px", margin:"0 0 8px 0", lineHeight:1.5 }}>{logs[0].note}</p>}
+                      {logs[0]?.symptoms && Object.keys(logs[0].symptoms).length > 0 && (
+                        <div style={{ display:"flex", flexWrap:"wrap", gap:"4px" }}>
+                          {Object.entries(logs[0].symptoms).map(([id, level]) => {
+                            const il = INTENSITY_LEVELS.find(l => l.id === level) || INTENSITY_LEVELS[0];
+                            const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
+                            const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
+                            return <span key={id} style={{ display:"inline-block", padding:"3px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"600", background:`${il.color}14`, border:`1px solid ${il.color}40`, color:il.color }}>{label}</span>;
+                          })}
+                        </div>
+                      )}
+                      <button onClick={() => setStep(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Open full journal →</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <div style={{ marginBottom:"10px" }}>
+                        <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
+                        <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
+                          {MOOD_EMOJIS.map(mood => (
+                            <button key={mood.val} onClick={() => setTodayMood(mood.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayMood===mood.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayMood===mood.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{mood.emoji}</button>
+                          ))}
+                        </div>
+                      </div>
+                      <div style={{ marginBottom:"10px" }}>
+                        <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
+                        <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
+                          {ENERGY_EMOJIS.map(energy => (
+                            <button key={energy.val} onClick={() => setTodayEnergy(energy.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayEnergy===energy.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayEnergy===energy.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{energy.emoji}</button>
+                          ))}
+                        </div>
+                      </div>
+                      <div style={{ marginBottom:"10px" }}>
+                        <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Symptoms</div>
+                        <div style={{ display:"flex", flexWrap:"wrap", gap:"6px" }}>
+                          {GENERAL_SYMPTOMS.map(s => (
+                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"6px 12px", borderRadius:"16px", fontSize:"11px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                          ))}
+                          {selectedConditions.flatMap(c => CONDITION_SYMPTOMS[c] || []).filter((s, i, arr) => arr.findIndex(x => x.id === s.id) === i).map(s => (
+                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"6px 12px", borderRadius:"16px", fontSize:"11px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                          ))}
+                        </div>
+                      </div>
+                      {Object.keys(todaySymptoms).length > 0 && (
+                        <div style={{ background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"12px", padding:"12px 14px", marginBottom:"10px" }}>
+                          <div style={{ fontSize:"10px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Set Intensity</div>
+                          {Object.entries(todaySymptoms).map(([id, level]) => {
+                            const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
+                            const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
+                            return (
+                              <div key={id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"6px" }}>
+                                <span style={{ color:"#d4a0e8", fontSize:"11px", fontWeight:"600", flex:"1" }}>{label}</span>
+                                <div style={{ display:"flex", gap:"4px" }}>
+                                  {INTENSITY_LEVELS.map(il => (
+                                    <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"3px 10px", borderRadius:"12px", fontSize:"9px", fontWeight:"700", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(110,120,200,0.15)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#6b7394", transition:"all 0.15s" }}>{il.label}</button>
+                                  ))}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                      <textarea style={{ ...S.textarea, minHeight:"60px" }} placeholder="Notes (optional)..." value={todayNote} onChange={e => setTodayNote(e.target.value)} />
+                      <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"10px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5570f0,#4060e0)" : "rgba(110,120,200,0.15)", color: (todayMood && todayEnergy) ? "#fff" : "#8890b8", fontSize:"12px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
+                    </div>
+                  )}
+                </div>
+              </details>
+
+              {/* Section E: Water Tracker */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Hydration")}>Hydration</div>
               <div style={{ ...S.card, padding:"18px 20px", marginBottom:"16px" }}>
@@ -7420,84 +7552,6 @@ function NeuroThriveApp() {
                 </div>
                 <p style={{ color:"#6b7394", fontSize:"11px", margin:"10px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water — even mild dehydration impairs focus and mood.</p>
               </div>
-
-              {/* Section E: Morning Routine */}
-              <div style={sectionDivider} />
-              <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
-              {routine.morning.map((s, i) => {
-                const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
-                const isChecked = isExStep ? !!todayChecks.exercise : !!morningChecks[i];
-                const isExpanded = !!expandedTodayRoutine[`m${i}`];
-                return (
-                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <button onClick={() => {
-                        const ck = isExStep ? "exercise" : "today-m-" + i;
-                        if (!isChecked) triggerCheckAnim(ck);
-                        if (isExStep) {
-                          updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
-                        } else {
-                          updateTodayChecks(prev => {
-                            const arr = [...(prev.routine?.morning || [])];
-                            arr[i] = !arr[i];
-                            return { ...prev, routine: { ...prev.routine, morning: arr } };
-                          });
-                        }
-                        checkConfetti();
-                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : "today-m-" + i) ? "checkGlow 0.6s ease-out" : undefined }}>
-                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : "today-m-" + i) ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
-                      </button>
-                      <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
-                      <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min" : s.time}</div>
-                      </div>
-                    </div>
-                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
-                    {isExpanded && isExStep && (
-                      <div style={{ marginTop:"8px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-
-              {/* Section E: Journal */}
-              <div style={sectionDivider} />
-              <div style={sectionHeader("How are you feeling?")}>How are you feeling?</div>
-              {hasJournal ? (
-                <div style={{ ...S.card, padding:"16px 18px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.2)" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-                    <span style={{ color:"#50c878", fontSize:"18px", fontWeight:"800" }}>✓</span>
-                    <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Journal logged today</span>
-                  </div>
-                  {logs[0] && logs[0].note && <p style={{ color:"#a0a8e8", fontSize:"12px", margin:"8px 0 0 26px", lineHeight:1.5 }}>{logs[0].note.length > 100 ? logs[0].note.slice(0,100) + "..." : logs[0].note}</p>}
-                </div>
-              ) : (
-                <div style={S.card}>
-                  <div style={{ marginBottom:"10px" }}>
-                    <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
-                    <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
-                      {MOOD_EMOJIS.map(mood => (
-                        <button key={mood.val} onClick={() => setTodayMood(mood.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayMood===mood.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayMood===mood.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{mood.emoji}</button>
-                      ))}
-                    </div>
-                  </div>
-                  <div style={{ marginBottom:"10px" }}>
-                    <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
-                    <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
-                      {ENERGY_EMOJIS.map(energy => (
-                        <button key={energy.val} onClick={() => setTodayEnergy(energy.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayEnergy===energy.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayEnergy===energy.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{energy.emoji}</button>
-                      ))}
-                    </div>
-                  </div>
-                  <textarea style={{ ...S.textarea, minHeight:"60px" }} placeholder="Notes (optional)..." value={todayNote} onChange={e => setTodayNote(e.target.value)} />
-                  <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"10px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5570f0,#4060e0)" : "rgba(110,120,200,0.15)", color: (todayMood && todayEnergy) ? "#fff" : "#8890b8", fontSize:"12px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
-                </div>
-              )}
 
               {/* Section F: Evening Routine */}
               <div style={sectionDivider} />
