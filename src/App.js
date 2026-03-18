@@ -1477,6 +1477,7 @@ const generateRecipe = (meal) => {
   else if (hasAny("veggie","vegetable","butternut","sweet potato") && !hasAny("chicken","beef","turkey","pork","salmon","shrimp","egg")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
   else if (hasAny("avocado toast")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
   else if (hasAny("rice bowl") && !hasAny("chicken","beef","turkey","pork","salmon","shrimp","egg","tofu")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
+  else if (has("lion's mane") && has("risotto")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
   else { protein="protein"; proteinIngredient="5–6 oz lean protein of choice"; proteinSteps=["Season protein with salt, pepper, and garlic powder.","Cook to safe internal temperature (165°F poultry, 145°F fish/pork, 145°F medium beef)."]; proteinTime=20; }
 
   // ── Detect cooking method / dish type ────────────────────────────────────
@@ -1561,7 +1562,7 @@ const generateRecipe = (meal) => {
   if (hasBeans && protein !== "black bean" && protein !== "white bean") ingredients.push(has("white bean") ? "1 can white cannellini beans, drained" : "1 can black beans, drained and rinsed");
   if (hasCorn) ingredients.push(has("corn tortilla") ? "" : "1 cup corn kernels (fresh or frozen)");
   if (hasKale) ingredients.push("2 cups kale, stems removed, roughly torn");
-  if (hasMushroom) ingredients.push("1 cup cremini mushrooms, sliced");
+  if (hasMushroom) ingredients.push(has("lion's mane") ? "4 oz lion's mane mushroom, torn into bite-sized pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms)" : "1 cup cremini mushrooms, sliced");
   if (hasPepper) ingredients.push("1 bell pepper (red or orange), sliced");
   if (hasCheese && !hasFeta) ingredients.push("¼ cup shredded cheddar or Monterey Jack");
   if (hasFeta) ingredients.push("2 oz feta cheese, crumbled");
@@ -2108,6 +2109,50 @@ const generateRecipe = (meal) => {
       steps: ["Heat water to just below boiling (175°F).","Add lion's mane powder to a mug and pour hot water over it.","Stir well until powder is fully dissolved. Add honey and optional milk.","Sip slowly; lion's mane compounds take time to absorb."],
       tip: "Lion's mane stimulates NGF (nerve growth factor), a protein that promotes the growth and maintenance of neurons. Consistent daily use shows the best results.",
       nutrition: ["Hericenones and erinacines stimulate nerve growth factor (NGF)","Supports hippocampal neurogenesis, growth of new brain cells","Reduces neuroinflammation through inhibition of NF-κB pathway","May improve mild cognitive impairment, shown in human clinical trials"]
+    };
+  }
+
+  // Lion's Mane Mushroom Risotto
+  if (has("lion's mane") && has("risotto")) {
+    return {
+      serves: 1, time: "35 min",
+      ingredients: ["1 cup arborio rice","3–4 cups vegetable or chicken broth, kept warm","4 oz lion's mane mushroom, torn into bite-sized pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms, sliced)","¼ cup grated Parmesan cheese","1 small shallot, finely diced","2 cloves garlic, minced","½ cup dry white wine (or extra broth)","1 tbsp butter","1 tbsp olive oil","1 tsp fresh thyme leaves (or ½ tsp dried thyme)","Salt and black pepper to taste"],
+      steps: ["Heat broth in a saucepan and keep at a gentle simmer.","In a large skillet or saucepan, heat olive oil over medium-high. Add lion's mane pieces and cook 3–4 minutes per side until golden brown. Season with salt and set aside.","In the same pan, melt butter over medium heat. Add shallot and cook 2 minutes until translucent. Add garlic and cook 30 seconds.","Add arborio rice and stir 1–2 minutes until edges become translucent.","Pour in wine (if using) and stir until absorbed.","Add warm broth one ladle (about ½ cup) at a time, stirring frequently. Wait until each addition is mostly absorbed before adding the next. This takes 18–20 minutes.","When rice is creamy and al dente, remove from heat. Stir in Parmesan and thyme.","Top with the seared lion's mane mushroom pieces. Season with salt and pepper."],
+      tip: "Lion's mane mushroom stimulates nerve growth factor (NGF), which supports neuroplasticity and memory. Fresh lion's mane can be found at specialty grocers or farmers' markets; if unavailable, use lion's mane powder mixed into the broth plus fresh cremini mushrooms for texture.",
+      nutrition: ["Hericenones and erinacines in lion's mane stimulate NGF production","Arborio rice provides steady glucose for brain energy","Parmesan delivers calcium and B12 for neural signaling","Thyme contains apigenin, which supports GABA activity and calm focus"]
+    };
+  }
+
+  // Lion's Mane Stir-Fry
+  if (has("lion's mane") && has("stir-fry")) {
+    return {
+      serves: 1, time: "25 min",
+      ingredients: ["4 oz lion's mane mushroom, torn into bite-sized pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms)","1 boneless skinless chicken breast (6 oz), sliced thin","1 cup cooked rice","1 tbsp soy sauce or tamari","1 tsp sesame oil","1 clove garlic, minced","1 tsp fresh ginger, grated","1 tbsp olive oil or avocado oil","1 cup mixed vegetables (broccoli, bell pepper, snap peas)","Salt and pepper to taste"],
+      steps: ["Heat olive oil in a wok or large skillet over high heat.","Season chicken slices with salt and pepper. Stir-fry 4–5 minutes until cooked through. Remove and set aside.","Add lion's mane pieces to the hot pan. Sear 2–3 minutes per side until golden. Remove and set aside.","Add vegetables, garlic, and ginger to the pan. Stir-fry 3–4 minutes until crisp-tender.","Return chicken and lion's mane to the pan. Add soy sauce and sesame oil. Toss to combine.","Serve over cooked rice."],
+      tip: "Lion's mane has a lobster-like texture when seared properly. Don't crowd the pan — let each piece make full contact with the hot surface for the best flavor and texture.",
+      nutrition: ["Lion's mane stimulates nerve growth factor (NGF) for neuroplasticity","Chicken provides tyrosine for dopamine synthesis","Ginger and garlic are potent anti-inflammatory compounds","Sesame oil contains sesamol, which protects against oxidative brain damage"]
+    };
+  }
+
+  // Lion's Mane & Egg Scramble
+  if (has("lion's mane") && has("egg")) {
+    return {
+      serves: 1, time: "12 min",
+      ingredients: ["3 large eggs","3 oz lion's mane mushroom, torn into small pieces (or 1 tsp lion's mane powder + ½ cup cremini mushrooms)","1 tbsp butter","1 tbsp fresh herbs (chives, parsley, or thyme)","Salt and black pepper to taste","Optional: 1 slice whole grain toast"],
+      steps: ["Melt half the butter in a non-stick skillet over medium-high heat.","Add lion's mane pieces and sear 2–3 minutes until golden. Season with salt and set aside.","Reduce heat to medium-low. Add remaining butter to the pan.","Crack eggs into a bowl, season with salt and pepper, and whisk.","Pour eggs into the pan. Stir slowly with a spatula, forming soft curds.","When eggs are still slightly wet, fold in the seared lion's mane and fresh herbs.","Serve immediately; residual heat will finish cooking the eggs."],
+      tip: "Lion's mane pairs beautifully with eggs because both support brain health — eggs provide choline for acetylcholine production, while lion's mane boosts NGF for nerve repair.",
+      nutrition: ["Lion's mane stimulates NGF for brain cell growth and repair","Eggs provide choline, the precursor to acetylcholine (memory neurotransmitter)","Butter contains butyrate, which supports gut-brain axis health","Fresh herbs add polyphenols that reduce neuroinflammation"]
+    };
+  }
+
+  // Lion's Mane Sheet Pan
+  if (has("lion's mane") && has("sheet pan")) {
+    return {
+      serves: 1, time: "35 min",
+      ingredients: ["4 oz lion's mane mushroom, torn into large pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms)","1 boneless skinless chicken breast (6 oz)","1 medium sweet potato, cubed","1 tbsp olive oil","1 tsp garlic powder","½ tsp smoked paprika","Salt and black pepper to taste","Fresh thyme or rosemary sprigs"],
+      steps: ["Preheat oven to 425°F (220°C). Line a sheet pan with parchment paper.","Toss sweet potato cubes with half the olive oil, salt, and pepper. Spread on one side of the pan.","Season chicken breast with garlic powder, paprika, salt, and pepper. Place on the pan.","Roast for 15 minutes.","Toss lion's mane pieces with remaining olive oil and salt. Add to the pan.","Roast another 12–15 minutes until chicken reaches 165°F and lion's mane is golden.","Rest chicken 5 minutes before slicing. Serve everything together."],
+      tip: "Lion's mane develops a meaty, almost lobster-like texture when roasted at high heat. The caramelization also enhances its umami flavor.",
+      nutrition: ["Lion's mane stimulates nerve growth factor (NGF)","Sweet potato provides beta-carotene and steady brain fuel","Chicken delivers B6 and tryptophan for serotonin synthesis","Rosemary contains carnosic acid, which protects against neurodegeneration"]
     };
   }
 
