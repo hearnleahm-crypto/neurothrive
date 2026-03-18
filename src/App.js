@@ -4105,6 +4105,8 @@ function NeuroThriveApp() {
   const [nsTool, setNsTool] = useState(null);
   const [groceryWeek, setGroceryWeek] = useState(0);
   const [groceryChecked, setGroceryChecked] = useState({});
+  const [mealPrepWeek, setMealPrepWeek] = useState(0);
+  const [mealPrepChecked, setMealPrepChecked] = useState({});
   const [swapHistory, setSwapHistory] = useState({});
   const [lockedWeeks, setLockedWeeks] = useState({});  // { weekIdx: { lockedAt: dateStr, meals: snapshot } }
   const [swapLockWarning, setSwapLockWarning] = useState(null);  // { mealKey, mealType, label, currentMeal, weekIdx }  // { "dayIdx_mealKey": ["prev1","prev2",...] }
@@ -4912,6 +4914,105 @@ function NeuroThriveApp() {
     return aisles;
   };
 
+  // ── Meal Prep Mode helpers ──────────────────────────────────────────────
+  const classifyPrepAhead = (mealName) => {
+    const n = mealName.toLowerCase();
+    const has = (...kw) => kw.some(k => n.includes(k));
+    // Full prep: soups, stews, casseroles, baked oats, overnight oats, muffins, bolognese, curry, chili
+    if (has("soup","stew","chili","casserole","bolognese","baked oat","overnight","egg muffin","frittata","quiche","curry","dal","lentil soup","bean soup")) {
+      return { tier:"full-prep", label:"Prep ahead", color:"#50c878", storage:"Fridge: 4–5 days", dayOfTime:2 };
+    }
+    // Day-of: smoothies, toast, yogurt, parfait, fresh items
+    if (has("smoothie","toast","yogurt","parfait","cereal","granola bowl")) {
+      return { tier:"day-of", label:"Make fresh", color:"#e8c87a", storage:"Best fresh", dayOfTime:5 };
+    }
+    // Partial prep: everything else (salads, bowls, stir-fry, sandwiches, wraps, etc.)
+    return { tier:"partial-prep", label:"Prep components", color:"#7b9fff", storage:"Components: 3–4 days", dayOfTime:10 };
+  };
+
+  const generatePrepPlan = (weekIdx) => {
+    if (!menu30) return null;
+    const startDay = weekIdx * 7;
+    const endDay = Math.min(startDay + 7, 30);
+    const meals = [];
+    const proteinSet = new Map();
+    const grainSet = new Map();
+    const vegSet = new Map();
+
+    for (let i = startDay; i < endDay; i++) {
+      const day = menu30[i];
+      if (!day) continue;
+      const dayNum = i - startDay;
+      const dayLabel = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][dayNum] || `Day ${dayNum+1}`;
+      for (const key of ["breakfast","lunch","dinner","snacks","snacks2"]) {
+        const swapKey = `${i}_${key}`;
+        const mealName = altMeal[swapKey] || day[key];
+        if (!mealName) continue;
+        const mealType = key === "breakfast" ? "Breakfast" : key === "lunch" ? "Lunch" : key === "dinner" ? "Dinner" : "Snack";
+        const classification = classifyPrepAhead(mealName);
+        let recipe = null;
+        try { recipe = generateRecipe(mealName); } catch(e) {}
+        meals.push({ mealName, mealType, dayLabel, dayNum, classification, recipe });
+
+        // Extract prep components from ingredients
+        if (recipe && recipe.ingredients) {
+          recipe.ingredients.forEach(ing => {
+            const il = ing.toLowerCase();
+            if (/chicken|salmon|tuna|turkey|beef|shrimp|tofu|tempeh|pork|fish|cod|tilapia/.test(il)) {
+              const protein = il.match(/(chicken|salmon|tuna|turkey|beef|shrimp|tofu|tempeh|pork|fish|cod|tilapia)/)[0];
+              if (!proteinSet.has(protein)) proteinSet.set(protein, []);
+              proteinSet.get(protein).push(`${dayLabel} ${mealType}`);
+            }
+            if (/rice|quinoa|pasta|noodle|farro|couscous|barley/.test(il)) {
+              const grain = il.match(/(rice|quinoa|pasta|noodle|farro|couscous|barley)/)[0];
+              if (!grainSet.has(grain)) grainSet.set(grain, []);
+              grainSet.get(grain).push(`${dayLabel} ${mealType}`);
+            }
+            if (/broccoli|spinach|kale|bell pepper|sweet potato|cauliflower|zucchini|carrot|onion/.test(il)) {
+              const veg = il.match(/(broccoli|spinach|kale|bell pepper|sweet potato|cauliflower|zucchini|carrot|onion)/)[0];
+              if (!vegSet.has(veg)) vegSet.set(veg, []);
+              vegSet.get(veg).push(`${dayLabel} ${mealType}`);
+            }
+          });
+        }
+      }
+    }
+
+    // Build batch prep tasks
+    const batchTasks = [];
+    proteinSet.forEach((usedIn, protein) => {
+      if (usedIn.length >= 2) batchTasks.push({ task:`Cook all ${protein} for the week`, usedIn, category:"Protein", time:25, color:"#e86060" });
+    });
+    grainSet.forEach((usedIn, grain) => {
+      if (usedIn.length >= 2) batchTasks.push({ task:`Cook ${grain} in bulk`, usedIn, category:"Grains", time:20, color:"#e8c87a" });
+    });
+    vegSet.forEach((usedIn, veg) => {
+      if (usedIn.length >= 2) batchTasks.push({ task:`Wash and chop ${veg}`, usedIn, category:"Vegetables", time:10, color:"#50c878" });
+    });
+
+    // Full-prep meals
+    const fullPrep = meals.filter(m => m.classification.tier === "full-prep");
+    fullPrep.forEach(m => {
+      batchTasks.push({ task:`Make ${m.mealName}`, usedIn:[`${m.dayLabel} ${m.mealType}`], category:"Full Meals", time: m.recipe ? parseInt(m.recipe.time) || 30 : 30, color:"#7b9fff" });
+    });
+
+    const totalPrepTime = batchTasks.reduce((s, t) => s + t.time, 0);
+    const fullPrepCount = meals.filter(m => m.classification.tier === "full-prep").length;
+    const partialCount = meals.filter(m => m.classification.tier === "partial-prep").length;
+    const dayOfCount = meals.filter(m => m.classification.tier === "day-of").length;
+
+    // Day-by-day assembly
+    const dayPlan = [];
+    for (let d = 0; d < 7 && startDay + d < 30; d++) {
+      const dayMeals = meals.filter(m => m.dayNum === d);
+      const dayLabel = dayMeals[0]?.dayLabel || `Day ${d+1}`;
+      const assemblyTime = dayMeals.reduce((s, m) => s + m.classification.dayOfTime, 0);
+      dayPlan.push({ dayLabel, meals: dayMeals, assemblyTime });
+    }
+
+    return { batchTasks, totalPrepTime, fullPrepCount, partialCount, dayOfCount, dayPlan, totalMeals: meals.length };
+  };
+
   const requestNotifPermission = async () => {
     if (!("Notification" in window)) return;
     const perm = await Notification.requestPermission();
@@ -5569,7 +5670,7 @@ function NeuroThriveApp() {
         </div>
         {isPremium && step > 3 && (
           <div style={{ position:"relative", flexShrink:0 }}>
-            <button style={S.navTab([6,7,8,9,10,14,15,16,17].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
+            <button style={S.navTab([6,7,8,9,10,14,15,16,17,18].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
               <>
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
@@ -5591,9 +5692,10 @@ function NeuroThriveApp() {
                     { label:"Toolkit",     s:9 },
                     { label:"Nervous System", s:14 },
                     { label:"Grocery List",  s:15 },
+                    { label:"Meal Prep",     s:18 },
                     { label:"Favorites",     s:16 },
                   ].map(({ label, s }) => (
-                    <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); if(s===14){setNsCategory(null);setNsTool(null);} if(s===15){setGroceryWeek(selectedWeek);setGroceryChecked({});} }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
+                    <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); if(s===14){setNsCategory(null);setNsTool(null);} if(s===15){setGroceryWeek(selectedWeek);setGroceryChecked({});} if(s===18){setMealPrepWeek(selectedWeek);setMealPrepChecked({});} }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
                   ))}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
@@ -6058,6 +6160,7 @@ function NeuroThriveApp() {
               </div>
               <div style={{ display:"flex", gap:"8px" }}>
                 <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => { setGroceryWeek(selectedWeek); setGroceryChecked({}); setStep(15); }}>🛒 Grocery List</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => { setMealPrepWeek(selectedWeek); setMealPrepChecked({}); setStep(18); }}>Meal Prep</button>
                 <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
               </div>
             </div>
@@ -8285,6 +8388,125 @@ function NeuroThriveApp() {
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
                 <button style={S.btnOutline} onClick={() => setStep(10)}>← Routine</button>
                 <button style={S.btn} onClick={() => setStep(12)}>Today's Checklist →</button>
+              </div>
+            </div>
+          );
+        })()}
+
+      {/* ── STEP 18: MEAL PREP MODE ──────────────────────────────────────── */}
+        {step === 18 && isPremium && (() => {
+          const plan = generatePrepPlan(mealPrepWeek);
+          if (!plan || !menu30) return (
+            <div>
+              <h2 style={S.sectionTitle}>Meal Prep Mode</h2>
+              <p style={S.sectionSub}>Generate your meal plan first to unlock prep mode.</p>
+              <button style={S.btnAccent} onClick={() => setStep(2)}>← Back to Setup</button>
+            </div>
+          );
+          const checkedCount = Object.values(mealPrepChecked).filter(Boolean).length;
+          const totalTasks = plan.batchTasks.length;
+          return (
+            <div>
+              <h2 style={S.sectionTitle}>Meal Prep Mode</h2>
+              <p style={S.sectionSub}>Batch cook for the week. Less time in the kitchen, more time for you.</p>
+
+              {/* Week selector */}
+              <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
+                {[0,1,2,3].map(w => (
+                  <button key={w} onClick={() => { setMealPrepWeek(w); setMealPrepChecked({}); }}
+                    style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border: mealPrepWeek===w ? "2px solid #50c878" : "1px solid rgba(110,120,200,0.18)", background: mealPrepWeek===w ? "rgba(80,200,120,0.12)" : "rgba(240,244,255,0.04)", color: mealPrepWeek===w ? "#50c878" : "#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>
+                    Week {w+1}
+                  </button>
+                ))}
+              </div>
+
+              {/* Prep Summary */}
+              <div style={{ ...S.card, padding:"20px", marginBottom:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.06), rgba(107,143,255,0.06))", border:"1px solid rgba(80,200,120,0.2)" }}>
+                <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"12px" }}>Prep Summary</div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"12px", marginBottom:"14px" }}>
+                  <div style={{ textAlign:"center" }}>
+                    <div style={{ fontSize:"22px", fontWeight:"800", color:"#50c878" }}>{plan.fullPrepCount}</div>
+                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1px" }}>Prep ahead</div>
+                  </div>
+                  <div style={{ textAlign:"center" }}>
+                    <div style={{ fontSize:"22px", fontWeight:"800", color:"#7b9fff" }}>{plan.partialCount}</div>
+                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1px" }}>Prep components</div>
+                  </div>
+                  <div style={{ textAlign:"center" }}>
+                    <div style={{ fontSize:"22px", fontWeight:"800", color:"#e8c87a" }}>{plan.dayOfCount}</div>
+                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1px" }}>Make fresh</div>
+                  </div>
+                </div>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                  <span style={{ color:"#8890b8", fontSize:"12px" }}>Total prep time: <strong style={{ color:"#eef0ff" }}>~{plan.totalPrepTime} min</strong></span>
+                  {totalTasks > 0 && <span style={{ color:"#50c878", fontSize:"11px", fontWeight:"600" }}>{checkedCount}/{totalTasks} done</span>}
+                </div>
+                {totalTasks > 0 && (
+                  <div style={{ height:"4px", borderRadius:"4px", background:"rgba(80,200,120,0.12)", marginTop:"8px", overflow:"hidden" }}>
+                    <div style={{ height:"4px", borderRadius:"4px", background:"linear-gradient(90deg,#50c878,#40a868)", width:`${(checkedCount/totalTasks)*100}%`, transition:"width 0.3s" }} />
+                  </div>
+                )}
+              </div>
+
+              {/* Batch Prep Tasks */}
+              {plan.batchTasks.length > 0 && (
+                <div style={{ marginBottom:"24px" }}>
+                  <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"2.5px", textTransform:"uppercase", marginBottom:"12px" }}>Prep Day Tasks</div>
+                  {plan.batchTasks.map((task, i) => (
+                    <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"8px", borderLeft:`3px solid ${task.color}`, display:"flex", alignItems:"flex-start", gap:"12px" }}>
+                      <button onClick={() => setMealPrepChecked(p => ({ ...p, [i]: !p[i] }))} style={{ width:"22px", height:"22px", borderRadius:"6px", border: mealPrepChecked[i] ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealPrepChecked[i] ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, marginTop:"1px" }}>
+                        {mealPrepChecked[i] && <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"800" }}>✓</span>}
+                      </button>
+                      <div style={{ flex:1 }}>
+                        <div style={{ color: mealPrepChecked[i] ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", textDecoration: mealPrepChecked[i] ? "line-through" : "none", transition:"all 0.2s" }}>{task.task}</div>
+                        <div style={{ display:"flex", gap:"8px", alignItems:"center", marginTop:"4px" }}>
+                          <span style={{ fontSize:"10px", color:"#6b7394" }}>~{task.time} min</span>
+                          <span style={{ fontSize:"10px", color:"#6b7394" }}>·</span>
+                          <span style={{ fontSize:"10px", color:"#8890b8" }}>{task.usedIn.slice(0,3).join(", ")}{task.usedIn.length > 3 ? ` +${task.usedIn.length-3} more` : ""}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Day-by-Day Assembly */}
+              <details style={{ marginBottom:"20px" }}>
+                <summary style={{ color:"#8890b8", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
+                  <span style={{ color:"#7b9fff" }}>▸</span> Day-by-day assembly guide
+                </summary>
+                <div style={{ marginTop:"12px", display:"grid", gap:"10px" }}>
+                  {plan.dayPlan.map((day, di) => (
+                    <div key={di} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.12)" }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
+                        <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"700", letterSpacing:"1px", textTransform:"uppercase" }}>{day.dayLabel}</span>
+                        <span style={{ fontSize:"10px", color:"#8890b8" }}>~{day.assemblyTime} min assembly</span>
+                      </div>
+                      {day.meals.map((m, mi) => (
+                        <div key={mi} style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
+                          <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: m.classification.color, flexShrink:0 }} />
+                          <span style={{ color:"#b0b8e8", fontSize:"12px", flex:1 }}>{m.mealName}</span>
+                          <span style={{ fontSize:"9px", fontWeight:"600", color: m.classification.color, padding:"2px 8px", borderRadius:"10px", border:`1px solid ${m.classification.color}30`, background:`${m.classification.color}10` }}>{m.classification.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </details>
+
+              {/* Legend */}
+              <div style={{ display:"flex", gap:"16px", justifyContent:"center", marginBottom:"20px" }}>
+                {[{label:"Prep ahead",color:"#50c878"},{label:"Prep components",color:"#7b9fff"},{label:"Make fresh",color:"#e8c87a"}].map(l => (
+                  <div key={l.label} style={{ display:"flex", alignItems:"center", gap:"5px" }}>
+                    <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:l.color }} />
+                    <span style={{ fontSize:"10px", color:"#8890b8" }}>{l.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display:"flex", justifyContent:"space-between" }}>
+                <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Menu</button>
+                <button style={S.btn} onClick={() => { setGroceryWeek(mealPrepWeek); setGroceryChecked({}); setStep(15); }}>Grocery List →</button>
               </div>
             </div>
           );
