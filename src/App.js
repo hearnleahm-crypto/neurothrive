@@ -7,6 +7,8 @@ import { EXTRA_DID_YOU_KNOW } from "./extraInsights";
 import { EXTRA_DID_YOU_KNOW_2 } from "./extraInsights2";
 import { EXTRA_ONBOARDING } from "./extraOnboarding";
 import { ROUTINE_QUESTIONS, ROUTINE_STEP_LIBRARY, generateRoutine } from "./routineData";
+import { NS_CATEGORIES, NS_TOOLS } from "./nervousSystemData";
+import { SCIENTIFIC_REFERENCES } from "./referencesData";
 const DID_YOU_KNOW = { ..._DID_YOU_KNOW, ...EXTRA_DID_YOU_KNOW, ...EXTRA_DID_YOU_KNOW_2 };
 const ONBOARDING_INSIGHTS = { ..._ONBOARDING_INSIGHTS, ...EXTRA_ONBOARDING };
 
@@ -37,7 +39,7 @@ const MENTAL_CONDITIONS = [
   { id: "spd", label: "Schizoid PD", emoji: "🏔️" },
 ];
 
-// Diet types — these define what you DO eat (inclusion-based)
+// Diet types: these define what you DO eat (inclusion-based)
 const DIET_TYPES = [
   { id: "vegan", label: "Vegan", emoji: "🌱" },
   { id: "vegetarian", label: "Vegetarian", emoji: "🥦" },
@@ -53,7 +55,7 @@ const DIET_TYPES = [
   { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
 ];
 
-// Allergen restrictions — these define what you DON'T eat (exclusion-based)
+// Allergen restrictions: these define what you DON'T eat (exclusion-based)
 const DIETARY_RESTRICTIONS = [
   // Proteins
   { id: "chicken_free", label: "Chicken-Free", emoji: "🐔" },
@@ -62,11 +64,14 @@ const DIETARY_RESTRICTIONS = [
   { id: "fish_free", label: "Fish-Free", emoji: "🐟" },
   { id: "sardine_free", label: "Sardine-Free", emoji: "🐠" },
   { id: "shellfish_free", label: "Shellfish-Free", emoji: "🦐" },
+  { id: "tofu_free", label: "Tofu-Free", emoji: "🚫" },
   { id: "egg_free", label: "Egg-Free", emoji: "🥚" },
   { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
   // Fruits
   { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
   { id: "banana_free", label: "Banana-Free", emoji: "🟡" },
+  { id: "strawberry_free", label: "Strawberry-Free", emoji: "🍓" },
+  { id: "blueberry_free", label: "Blueberry-Free", emoji: "🫐" },
   { id: "cherry_free", label: "Cherry-Free", emoji: "🍒" },
   { id: "peach_free", label: "Peach-Free", emoji: "🍑" },
   { id: "coconut_free", label: "Coconut-Free", emoji: "🥥" },
@@ -111,10 +116,13 @@ const FOOD_PREFS = [
   { id: "red_meat", label: "Red Meat", emoji: "🥩" },
   { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓" },
   { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟" },
+  { id: "tofu", label: "Tofu & Tempeh", emoji: "🫘" },
   { id: "eggs", label: "Eggs", emoji: "🥚" },
   { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀" },
   // Fruits
   { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐" },
+  { id: "strawberries", label: "Strawberries", emoji: "🍓" },
+  { id: "blueberries", label: "Blueberries", emoji: "🫐" },
   { id: "bananas", label: "Bananas", emoji: "🟡" },
   { id: "cherries", label: "Cherries", emoji: "🍒" },
   { id: "peaches", label: "Peaches", emoji: "🍑" },
@@ -160,7 +168,10 @@ const FOOD_PREF_PATTERNS = {
   salads: /salad/i,
   soups_stews: /soup|stew|chili|chowder/i,
   quinoa: /quinoa/i,
+  tofu: /tofu|tempeh/i,
   bacon_pork: /bacon|pork|sausage(?!.*turkey)/i,
+  strawberries: /strawberr/i,
+  blueberries: /blueberr/i,
   cherries: /cherr/i,
   peaches: /peach/i,
   bananas: /banana/i,
@@ -250,7 +261,7 @@ const ALL_MEALS = {
     { name: "Oatmeal with Honey & Sliced Banana", tags: ["gluten","oats","banana"], conditions: ["autism","default"] },
     { name: "Pancakes with Maple Syrup & Sliced Banana", tags: ["egg","gluten","dairy","banana"], conditions: ["autism","default"] },
     { name: "Soft Scrambled Eggs with Buttered Toast", tags: ["egg","gluten","dairy"], conditions: ["autism","default"] },
-    // ── Hearty breakfasts — bacon, sausage, brisket, bread, corn, tortillas ──
+    // ── Hearty breakfasts: bacon, sausage, brisket, bread, corn, tortillas ──
     { name: "Bacon & Egg Breakfast Burrito in a Flour Tortilla", tags: ["pork","meat","egg","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Bacon, Egg & Cheese on Whole Grain Toast", tags: ["pork","meat","egg","gluten","dairy"], conditions: ["adhd","depression","default"] },
     { name: "Scrambled Eggs with Crispy Bacon & Roasted Sweet Potato", tags: ["pork","meat","egg"], conditions: ["adhd","bipolar","default"] },
@@ -392,7 +403,7 @@ const ALL_MEALS = {
     { name: "Grilled Cheese Sandwich with Plain Chicken Soup", tags: ["chicken","meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Turkey & Cheese Roll-Up with Apple Slices", tags: ["meat","dairy","turkey"], conditions: ["autism","default"] },
     { name: "Plain Pasta with Mild Tomato Sauce & Chicken", tags: ["chicken","meat","gluten"], conditions: ["autism","default"] },
-    // ── Hearty lunches — sandwiches, wraps, tortillas, brisket, bacon, corn ──
+    // ── Hearty lunches: sandwiches, wraps, tortillas, brisket, bacon, corn ──
     { name: "Smoked Brisket Sandwich on Whole Grain Bread with Coleslaw", tags: ["meat","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Brisket Tacos on Corn Tortillas with Pickled Onion & Cilantro", tags: ["meat","corn","onion"], conditions: ["adhd","depression","default"] },
     { name: "Brisket & Roasted Corn Bowl with Avocado & Rice", tags: ["meat","corn","rice"], conditions: ["adhd","bipolar","default"] },
@@ -528,7 +539,7 @@ const ALL_MEALS = {
     { name: "Baked Salmon with Sweet Potato & Green Beans", tags: ["fish","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","phobia","hpd","ppd","spd","default"] },
     { name: "Grilled Salmon with Rice & Steamed Broccoli", tags: ["fish","rice"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","hpd","bfrb","aspd","default"] },
     { name: "Lemon Butter Salmon with Rice & Snap Peas", tags: ["fish","dairy"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","bpd","neuro_core","default"] },
-    // ── Hearty dinners — brisket, bacon, sausage, corn, tortillas, bread ──
+    // ── Hearty dinners: brisket, bacon, sausage, corn, tortillas, bread ──
     { name: "Slow-Smoked Beef Brisket with Roasted Sweet Potato & Broccoli", tags: ["meat"], conditions: ["adhd","depression","bipolar","default"] },
     { name: "Brisket & Black Bean Bowl with Rice & Roasted Corn", tags: ["meat","corn","rice","legume","bean"], conditions: ["adhd","depression","default"] },
     { name: "Brisket Tacos on Corn Tortillas with Avocado & Pickled Red Onion", tags: ["meat","corn","onion"], conditions: ["adhd","depression","default"] },
@@ -756,9 +767,12 @@ const DIET_EXCLUSIONS = {
   lentil_free: ["lentil"],
   bean_free: ["bean"],
   chickpea_free: ["chickpea"],
+  strawberry_free: ["strawberry"],
+  blueberry_free: ["blueberry"],
   cherry_free: ["cherry"],
   peach_free: ["peach"],
   banana_free: ["banana"],
+  tofu_free: ["tofu"],
 };
 
 const getCuisine = (name) => {
@@ -780,6 +794,11 @@ const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
   return meals.filter(m => {
     if (m.tags.some(t => excludedTags.has(t))) return false;
     if (isKosher && m.tags.includes("meat") && m.tags.includes("dairy")) return false;
+    // Name-based exclusions for items without explicit tags
+    const n = m.name.toLowerCase();
+    if (excludedTags.has("strawberry") && /strawberr/.test(n)) return false;
+    if (excludedTags.has("blueberry") && /blueberr/.test(n)) return false;
+    if (excludedTags.has("tofu") && /tofu|tempeh/.test(n)) return false;
     if (!(m.conditions.includes(conditionId) || m.conditions.includes("default"))) return false;
     // Cuisine filtering: keep "general" meals always, filter specific cuisines
     if (selectedCuisines && selectedCuisines.length > 0) {
@@ -846,7 +865,7 @@ const getMealWeight = (name) => {
 
 // Bias pools based on calorie target + food preferences
 // Duplicates preferred meals so they appear more often after shuffle
-const biasPool = (pool, calTarget, foodPrefs) => {
+const biasPool = (pool, calTarget, foodPrefs, favorites) => {
   // Food preference biasing: duplicate meals that match user's preferred ingredients
   let biased = [];
   if (foodPrefs && foodPrefs.length > 0) {
@@ -858,6 +877,17 @@ const biasPool = (pool, calTarget, foodPrefs) => {
     }
   } else {
     biased = [...pool];
+  }
+
+  // Favorite biasing: favorited meals appear ~3x more often
+  if (favorites && favorites.length > 0) {
+    const favSet = new Set(favorites.map(f => f.toLowerCase()));
+    const boosted = [];
+    for (const m of biased) {
+      boosted.push(m);
+      if (favSet.has(m.name.toLowerCase())) { boosted.push(m, m); }
+    }
+    biased = boosted;
   }
 
   // Calorie-based weight biasing
@@ -872,11 +902,11 @@ const biasPool = (pool, calTarget, foodPrefs) => {
   return biased;
 };
 
-const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, foodPrefs) => {
-  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
-  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
-  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
-  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs);
+const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, foodPrefs, favorites) => {
+  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
+  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
+  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
+  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
@@ -936,7 +966,7 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, fo
     const s = i <= 6 ? snacksEarly[i-1] : snacksLate[i-7];
 
     // Count how many of the 3 main meals contain bread/gluten items
-    // Allow max 1 per day — replace extras with non-gluten options
+    // Allow max 1 per day: replace extras with non-gluten options
     const meals = [
       { slot: "b", name: b, isG: isGlutenMeal(b) },
       { slot: "l", name: l, isG: isGlutenMeal(l) },
@@ -972,7 +1002,7 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, fo
 };
 
 // ── Calorie Estimator ────────────────────────────────────────────────────────
-// Estimates calories from meal name keywords — returns a range string like "480–560 kcal"
+// Estimates calories from meal name keywords: returns a range string like "480–560 kcal"
 function estimateCalories(mealName) {
   const m = mealName.toLowerCase();
 
@@ -1086,53 +1116,53 @@ const CONDITION_FOCUS = {
 };
 
 const RECIPES = {
-  "Grilled Chicken Sausage with Sliced Mango & Strawberries": { serves: 1, time: "10 min", ingredients: ["2 chicken sausage links","1 cup fresh mango, sliced","1 cup strawberries, hulled & halved","1 tsp olive oil","Pinch of sea salt"], steps: ["Heat a grill pan or skillet over medium-high heat with olive oil.","Add chicken sausage links and cook 4–5 minutes per side until golden and cooked through.","While sausage cooks, slice mango and halve strawberries and arrange on your plate.","Slice cooked sausage on the diagonal and plate alongside the fruit.","Sprinkle a pinch of sea salt over the fruit to enhance sweetness."], tip: "Buy pre-cooked chicken sausage and just slice and warm — cuts prep to 3 minutes." },
-  "Banana Oatmeal with Honey & Cinnamon": { serves: 1, time: "8 min", ingredients: ["½ cup rolled oats","1 cup water or milk of choice","1 ripe banana, sliced","1 tbsp honey","½ tsp cinnamon","Pinch of salt"], steps: ["Bring water or milk to a boil in a small saucepan. Add oats and pinch of salt.","Reduce heat to medium and stir frequently for 3–5 minutes until thickened to your liking.","Pour into a bowl and top with sliced banana.","Drizzle honey over the top and dust generously with cinnamon.","Stir gently and eat while warm."], tip: "Use a very ripe banana — the natural sweetness means you need less honey." },
-  "Spinach & Mushroom Omelette with Toast": { serves: 1, time: "12 min", ingredients: ["3 eggs","1 cup fresh spinach","½ cup mushrooms, sliced","1 tbsp butter","2 tbsp cheese (optional)","Salt & pepper","2 slices whole grain toast"], steps: ["Beat eggs with salt and pepper in a bowl.","Sauté mushrooms in butter over medium-high heat until golden, 3–4 minutes. Add spinach and wilt 1 minute.","Push vegetables to the side of the pan. Pour in eggs.","Once edges set, add cheese if using. Fold omelette over the filling.","Cook 1 more minute. Slide onto plate and serve with toast."], tip: "Don't overcook — an omelette should be just barely set inside, not rubbery." },
-  "Grilled Chicken Breast with Watermelon & Feta Salad": { serves: 1, time: "20 min", ingredients: ["1 chicken breast","2 cups watermelon, cubed","¼ cup feta cheese, crumbled","Handful fresh mint leaves","1 tbsp olive oil","Juice of ½ lime","Salt & pepper"], steps: ["Season chicken breast with salt, pepper, and olive oil.","Grill or cook in a pan over medium-high heat, 6–7 minutes per side until cooked through. Rest 5 minutes.","Cube watermelon and place in a bowl with crumbled feta and torn mint leaves.","Drizzle lime juice and a little olive oil over the salad.","Slice chicken and serve alongside or over the salad."], tip: "Let the chicken rest before slicing — it keeps all the juices in." },
-  "Oatmeal with Flaxseed, Berries & Honey": { serves: 1, time: "8 min", ingredients: ["½ cup rolled oats","1 cup water or almond milk","1 tbsp ground flaxseed","½ cup mixed berries (fresh or frozen)","1 tbsp honey","Pinch of cinnamon and salt"], steps: ["Cook oats in water or milk over medium heat, stirring, 4–5 minutes.","Stir in ground flaxseed during the last minute of cooking.","Pour into bowl. Top with berries.","Drizzle honey over top and add a pinch of cinnamon.","Let sit 1 minute for the berries to warm slightly if using frozen."], tip: "Ground flaxseed absorbs into the oatmeal invisibly — you get all the omega-3s without any taste change." },
+  "Grilled Chicken Sausage with Sliced Mango & Strawberries": { serves: 1, time: "10 min", ingredients: ["2 chicken sausage links","1 cup fresh mango, sliced","1 cup strawberries, hulled & halved","1 tsp olive oil","Pinch of sea salt"], steps: ["Heat a grill pan or skillet over medium-high heat with olive oil.","Add chicken sausage links and cook 4–5 minutes per side until golden and cooked through.","While sausage cooks, slice mango and halve strawberries and arrange on your plate.","Slice cooked sausage on the diagonal and plate alongside the fruit.","Sprinkle a pinch of sea salt over the fruit to enhance sweetness."], tip: "Buy pre-cooked chicken sausage and just slice and warm; cuts prep to 3 minutes." },
+  "Banana Oatmeal with Honey & Cinnamon": { serves: 1, time: "8 min", ingredients: ["½ cup rolled oats","1 cup water or milk of choice","1 ripe banana, sliced","1 tbsp honey","½ tsp cinnamon","Pinch of salt"], steps: ["Bring water or milk to a boil in a small saucepan. Add oats and pinch of salt.","Reduce heat to medium and stir frequently for 3–5 minutes until thickened to your liking.","Pour into a bowl and top with sliced banana.","Drizzle honey over the top and dust generously with cinnamon.","Stir gently and eat while warm."], tip: "Use a very ripe banana; the natural sweetness means you need less honey." },
+  "Spinach & Mushroom Omelette with Toast": { serves: 1, time: "12 min", ingredients: ["3 eggs","1 cup fresh spinach","½ cup mushrooms, sliced","1 tbsp butter","2 tbsp cheese (optional)","Salt & pepper","2 slices whole grain toast"], steps: ["Beat eggs with salt and pepper in a bowl.","Sauté mushrooms in butter over medium-high heat until golden, 3–4 minutes. Add spinach and wilt 1 minute.","Push vegetables to the side of the pan. Pour in eggs.","Once edges set, add cheese if using. Fold omelette over the filling.","Cook 1 more minute. Slide onto plate and serve with toast."], tip: "Don't overcook: an omelette should be just barely set inside, not rubbery." },
+  "Grilled Chicken Breast with Watermelon & Feta Salad": { serves: 1, time: "20 min", ingredients: ["1 chicken breast","2 cups watermelon, cubed","¼ cup feta cheese, crumbled","Handful fresh mint leaves","1 tbsp olive oil","Juice of ½ lime","Salt & pepper"], steps: ["Season chicken breast with salt, pepper, and olive oil.","Grill or cook in a pan over medium-high heat, 6–7 minutes per side until cooked through. Rest 5 minutes.","Cube watermelon and place in a bowl with crumbled feta and torn mint leaves.","Drizzle lime juice and a little olive oil over the salad.","Slice chicken and serve alongside or over the salad."], tip: "Let the chicken rest before slicing; it keeps all the juices in." },
+  "Oatmeal with Flaxseed, Berries & Honey": { serves: 1, time: "8 min", ingredients: ["½ cup rolled oats","1 cup water or almond milk","1 tbsp ground flaxseed","½ cup mixed berries (fresh or frozen)","1 tbsp honey","Pinch of cinnamon and salt"], steps: ["Cook oats in water or milk over medium heat, stirring, 4–5 minutes.","Stir in ground flaxseed during the last minute of cooking.","Pour into bowl. Top with berries.","Drizzle honey over top and add a pinch of cinnamon.","Let sit 1 minute for the berries to warm slightly if using frozen."], tip: "Ground flaxseed absorbs into the oatmeal invisibly; you get all the omega-3s without any taste change." },
   "Grilled Steak with Roasted Potatoes & Broccoli": { serves: 1, time: "35 min", ingredients: ["6–8 oz sirloin steak","2 medium potatoes, cubed","2 cups broccoli florets","2 tbsp olive oil","Salt, pepper, garlic powder","1 tsp butter","Fresh parsley"], steps: ["Preheat oven to 425°F. Toss potato cubes with 1 tbsp olive oil, salt, garlic powder.","Roast potatoes 15 minutes. Add broccoli tossed in remaining olive oil, roast another 15 minutes.","Season steak well with salt and pepper. Let sit at room temp 10 minutes.","Grill or pan-sear steak over high heat, 3–4 minutes per side for medium.","Rest steak 5 minutes. Slice against the grain. Serve with vegetables. Top with butter and parsley."], tip: "Slicing against the grain is the single biggest difference between tough and tender steak." },
   "Warm Oatmeal with Banana & Honey": { serves: 1, time: "7 min", ingredients: ["½ cup rolled oats","1 cup water or milk of choice","1 ripe banana","1 tbsp honey","Pinch of salt","Optional: pinch of nutmeg"], steps: ["Bring liquid to a gentle boil. Add oats and salt.","Cook over medium heat, stirring, 4–5 minutes until thick and creamy.","Slice banana into rounds.","Pour oatmeal into a warm bowl. Arrange banana slices on top.","Drizzle honey generously. Add nutmeg if using. Eat warm."], tip: "If your oats are too thick, stir in a splash of warm water or milk before serving." },
-  "Baked Lemon Herb Chicken with Roasted Potatoes": { serves: 1, time: "40 min", ingredients: ["2 chicken thighs or 1 large breast","2 medium potatoes, wedged","3 tbsp olive oil","Juice and zest of 1 lemon","2 garlic cloves, minced","1 tsp dried oregano","1 tsp dried thyme","Salt & pepper"], steps: ["Preheat oven to 425°F.","Mix olive oil, lemon juice, zest, garlic, oregano, thyme, salt, and pepper.","Toss potato wedges in half the mixture. Spread on a baking sheet.","Coat chicken in remaining mixture. Place on top of or beside potatoes.","Roast 30–35 minutes until chicken is golden and potatoes are tender.","Rest chicken 5 minutes before serving."], tip: "Bone-in chicken thighs are more forgiving than breast — nearly impossible to overcook." },
-  "Egg & Cheese Breakfast Burrito": { serves: 1, time: "10 min", ingredients: ["3 eggs","¼ cup shredded cheddar or pepper jack","1 large flour or whole wheat tortilla","1 tbsp butter","Salt & pepper","Optional: salsa, avocado, hot sauce"], steps: ["Beat eggs with salt and pepper.","Melt butter in a non-stick pan over medium-low heat.","Scramble eggs slowly until just set — slightly glossy is perfect.","Warm tortilla in a dry pan or microwave 20 seconds.","Layer eggs down center of tortilla. Top with cheese while hot so it melts.","Add salsa or avocado if using. Fold sides in, then roll up tightly."], tip: "Wrapping tightly in foil for 2 minutes lets the burrito steam itself perfectly together." },
-  "Oven-Roasted Chicken with Vegetables & Quinoa": { serves: 2, time: "45 min", ingredients: ["2 chicken thighs, bone-in","2 cups mixed vegetables (zucchini, bell pepper, red onion, carrots)","1 cup quinoa","2 tbsp olive oil","1 tsp garlic powder","1 tsp paprika","Salt, pepper, dried thyme"], steps: ["Preheat oven to 425°F. Cook quinoa per package directions.","Toss vegetables with 1 tbsp olive oil, salt, pepper. Spread on a baking sheet.","Rub chicken with remaining olive oil, garlic powder, paprika, thyme, salt, pepper.","Place chicken on top of vegetables on the sheet.","Roast 35–40 minutes until chicken skin is golden and juices run clear.","Serve chicken and vegetables over quinoa."], tip: "The vegetables caramelize under the chicken and absorb the drippings — the best part of the whole dish." },
-  "Plain Scrambled Eggs with Toast": { serves: 1, time: "7 min", ingredients: ["3 eggs","1 tbsp butter","Salt to taste","2 slices bread, toasted","Optional: a little shredded cheese"], steps: ["Crack eggs into a bowl and whisk with a pinch of salt.","Melt butter in a non-stick pan over low heat.","Add eggs and stir constantly with a silicone spatula.","Cook very slowly — 3–4 minutes — until just set and creamy.","Remove from heat while slightly underdone. Toast will finish eating alongside.","Serve immediately on or beside toast."], tip: "Low heat, constant stirring, remove early. These three rules make perfect scrambled eggs every time." },
-  "Dark Chocolate & Strawberries": { serves: 1, time: "5 min", ingredients: ["1 oz dark chocolate (70%+ cacao), broken into pieces","6–8 fresh strawberries, washed","Optional: pinch of sea salt flakes"], steps: ["Wash and dry strawberries — water prevents chocolate from sticking if dipping.","Break dark chocolate into pieces and arrange on a small plate.","Place strawberries alongside.","If you like, melt chocolate in a microwave 30 seconds at a time, stirring, and dip berries.","Finish with a tiny pinch of flaky sea salt on the chocolate — it amplifies the flavor dramatically."], tip: "Microwave chocolate in 15-second bursts after the first 30 — it burns fast when nearly melted." },
-  "Grilled Steak with Roasted Sweet Potato & Broccoli": { serves: 1, time: "35 min", ingredients: ["6–8 oz sirloin or strip steak","1 medium sweet potato, cubed","2 cups broccoli florets","2 tbsp olive oil","Salt, pepper, garlic powder","1 tsp butter"], steps: ["Preheat oven to 425°F. Toss sweet potato cubes with 1 tbsp olive oil, salt, garlic powder.","Roast sweet potato 15 minutes. Add broccoli with remaining olive oil, roast 15 more minutes.","Season steak generously with salt and pepper.","Heat a pan over high heat until very hot. Add butter.","Sear steak 3–4 minutes per side for medium. Rest 5 minutes before slicing.","Serve steak sliced against the grain alongside roasted vegetables."], tip: "Don't move the steak for the first 3 minutes — you want a proper crust to form." },
-  "Sirloin Steak with Grilled Peaches & Asparagus": { serves: 1, time: "25 min", ingredients: ["6-8 oz sirloin","1 peach, halved","1 bunch asparagus, trimmed","1 tbsp olive oil","Salt, pepper, balsamic glaze"], steps: ["Season steak. Sear in hot pan 3-4 min per side. Rest.","Grill peach halves cut-side down in same pan 3 min until caramelized.","Toss asparagus in oil, roast at 425F 10-12 min.","Serve steak with grilled peach and asparagus. Drizzle balsamic."], tip: "Grill marks on peaches add incredible depth — don't skip this step." },
+  "Baked Lemon Herb Chicken with Roasted Potatoes": { serves: 1, time: "40 min", ingredients: ["2 chicken thighs or 1 large breast","2 medium potatoes, wedged","3 tbsp olive oil","Juice and zest of 1 lemon","2 garlic cloves, minced","1 tsp dried oregano","1 tsp dried thyme","Salt & pepper"], steps: ["Preheat oven to 425°F.","Mix olive oil, lemon juice, zest, garlic, oregano, thyme, salt, and pepper.","Toss potato wedges in half the mixture. Spread on a baking sheet.","Coat chicken in remaining mixture. Place on top of or beside potatoes.","Roast 30–35 minutes until chicken is golden and potatoes are tender.","Rest chicken 5 minutes before serving."], tip: "Bone-in chicken thighs are more forgiving than breast, nearly impossible to overcook." },
+  "Egg & Cheese Breakfast Burrito": { serves: 1, time: "10 min", ingredients: ["3 eggs","¼ cup shredded cheddar or pepper jack","1 large flour or whole wheat tortilla","1 tbsp butter","Salt & pepper","Optional: salsa, avocado, hot sauce"], steps: ["Beat eggs with salt and pepper.","Melt butter in a non-stick pan over medium-low heat.","Scramble eggs slowly until just set; slightly glossy is perfect.","Warm tortilla in a dry pan or microwave 20 seconds.","Layer eggs down center of tortilla. Top with cheese while hot so it melts.","Add salsa or avocado if using. Fold sides in, then roll up tightly."], tip: "Wrapping tightly in foil for 2 minutes lets the burrito steam itself perfectly together." },
+  "Oven-Roasted Chicken with Vegetables & Quinoa": { serves: 2, time: "45 min", ingredients: ["2 chicken thighs, bone-in","2 cups mixed vegetables (zucchini, bell pepper, red onion, carrots)","1 cup quinoa","2 tbsp olive oil","1 tsp garlic powder","1 tsp paprika","Salt, pepper, dried thyme"], steps: ["Preheat oven to 425°F. Cook quinoa per package directions.","Toss vegetables with 1 tbsp olive oil, salt, pepper. Spread on a baking sheet.","Rub chicken with remaining olive oil, garlic powder, paprika, thyme, salt, pepper.","Place chicken on top of vegetables on the sheet.","Roast 35–40 minutes until chicken skin is golden and juices run clear.","Serve chicken and vegetables over quinoa."], tip: "The vegetables caramelize under the chicken and absorb the drippings: the best part of the whole dish." },
+  "Plain Scrambled Eggs with Toast": { serves: 1, time: "7 min", ingredients: ["3 eggs","1 tbsp butter","Salt to taste","2 slices bread, toasted","Optional: a little shredded cheese"], steps: ["Crack eggs into a bowl and whisk with a pinch of salt.","Melt butter in a non-stick pan over low heat.","Add eggs and stir constantly with a silicone spatula.","Cook very slowly, 3–4 minutes, until just set and creamy.","Remove from heat while slightly underdone. Toast will finish eating alongside.","Serve immediately on or beside toast."], tip: "Low heat, constant stirring, remove early. These three rules make perfect scrambled eggs every time." },
+  "Dark Chocolate & Strawberries": { serves: 1, time: "5 min", ingredients: ["1 oz dark chocolate (70%+ cacao), broken into pieces","6–8 fresh strawberries, washed","Optional: pinch of sea salt flakes"], steps: ["Wash and dry strawberries; water prevents chocolate from sticking if dipping.","Break dark chocolate into pieces and arrange on a small plate.","Place strawberries alongside.","If you like, melt chocolate in a microwave 30 seconds at a time, stirring, and dip berries.","Finish with a tiny pinch of flaky sea salt on the chocolate; it amplifies the flavor dramatically."], tip: "Microwave chocolate in 15-second bursts after the first 30; it burns fast when nearly melted." },
+  "Grilled Steak with Roasted Sweet Potato & Broccoli": { serves: 1, time: "35 min", ingredients: ["6–8 oz sirloin or strip steak","1 medium sweet potato, cubed","2 cups broccoli florets","2 tbsp olive oil","Salt, pepper, garlic powder","1 tsp butter"], steps: ["Preheat oven to 425°F. Toss sweet potato cubes with 1 tbsp olive oil, salt, garlic powder.","Roast sweet potato 15 minutes. Add broccoli with remaining olive oil, roast 15 more minutes.","Season steak generously with salt and pepper.","Heat a pan over high heat until very hot. Add butter.","Sear steak 3–4 minutes per side for medium. Rest 5 minutes before slicing.","Serve steak sliced against the grain alongside roasted vegetables."], tip: "Don't move the steak for the first 3 minutes; you want a proper crust to form." },
+  "Sirloin Steak with Grilled Peaches & Asparagus": { serves: 1, time: "25 min", ingredients: ["6-8 oz sirloin","1 peach, halved","1 bunch asparagus, trimmed","1 tbsp olive oil","Salt, pepper, balsamic glaze"], steps: ["Season steak. Sear in hot pan 3-4 min per side. Rest.","Grill peach halves cut-side down in same pan 3 min until caramelized.","Toss asparagus in oil, roast at 425F 10-12 min.","Serve steak with grilled peach and asparagus. Drizzle balsamic."], tip: "Grill marks on peaches add incredible depth; don't skip this step." },
   "Baked Chicken Breast with Roasted Veggies": { serves: 1, time: "30 min", ingredients: ["1 chicken breast","2 cups mixed veggies: zucchini, bell pepper, onion, tomato","2 tbsp olive oil","Salt, pepper, garlic powder, Italian herbs"], steps: ["Preheat oven 425F. Toss veggies with oil and salt.","Rub chicken with remaining oil and seasonings.","Roast chicken and veggies together 22-25 min.","Rest chicken 5 min before serving."], tip: "Cut vegetables into similar sizes so they all cook evenly." },
   "Lemon Herb Chicken with Rice Pilaf": { serves: 1, time: "30 min", ingredients: ["1 chicken breast or 2 thighs","1 cup long grain white or jasmine rice","1¾ cup chicken broth","1 tbsp butter","Juice and zest of 1 lemon","2 garlic cloves, minced","Fresh or dried thyme, parsley","Salt & pepper, olive oil"], steps: ["For pilaf: melt butter in a saucepan, toast rice 2 minutes stirring. Add broth, bring to boil, reduce to low, cover 18 minutes.","Season chicken with lemon zest, garlic, thyme, salt, pepper, and olive oil. Marinate 10 minutes if possible.","Cook chicken in a pan over medium heat, 6–7 minutes per side until golden and cooked through.","Fluff rice with a fork. Stir in fresh parsley and lemon juice.","Serve chicken over pilaf with extra lemon squeezed on top."], tip: "Toasting the rice in butter before adding liquid is what makes pilaf taste restaurant-quality." },
-  "Grilled Salmon with Asparagus & Quinoa": { serves: 1, time: "25 min", ingredients: ["6 oz salmon fillet","1 bunch asparagus, trimmed","1 cup cooked quinoa","1 tbsp olive oil","Juice of 1 lemon","Salt, pepper, garlic powder"], steps: ["Cook quinoa per package. Toss asparagus with oil, salt. Roast at 425F 12 min.","Season salmon with oil, garlic, salt, pepper. Pan-sear 4 min per side.","Serve over quinoa with asparagus. Squeeze lemon over everything."], tip: "Salmon is done when it flakes easily with a fork — don't wait for it to look fully opaque." },
+  "Grilled Salmon with Asparagus & Quinoa": { serves: 1, time: "25 min", ingredients: ["6 oz salmon fillet","1 bunch asparagus, trimmed","1 cup cooked quinoa","1 tbsp olive oil","Juice of 1 lemon","Salt, pepper, garlic powder"], steps: ["Cook quinoa per package. Toss asparagus with oil, salt. Roast at 425F 12 min.","Season salmon with oil, garlic, salt, pepper. Pan-sear 4 min per side.","Serve over quinoa with asparagus. Squeeze lemon over everything."], tip: "Salmon is done when it flakes easily with a fork; don't wait for it to look fully opaque." },
 };
 
 const RECIPES_EXTENDED = {
-  "Chicken Sausage Patties with Sliced Peaches & Honeydew": { serves:1, time:"12 min", ingredients:["3 chicken sausage patties","1 ripe peach, sliced","1 cup honeydew melon, cubed","1 tsp olive oil","Pinch of cinnamon"], steps:["Heat olive oil in a skillet over medium heat.","Cook patties 4-5 min per side until golden.","Slice peach and cube honeydew while patties cook.","Dust fruit lightly with cinnamon.","Serve patties alongside the fruit."], tip:"Frozen peaches work great — thaw overnight in the fridge." },
-  "Ground Turkey Bowl with Sautéed Spinach & Sliced Kiwi": { serves:1, time:"15 min", ingredients:["4 oz ground turkey","2 cups fresh spinach","2 kiwis, peeled and sliced","1 garlic clove, minced","1 tbsp olive oil","Salt, pepper"], steps:["Heat oil, cook garlic 30 sec.","Add turkey, cook 6-7 min until browned. Season.","Push aside, wilt spinach 1-2 min.","Transfer to bowl and serve kiwi alongside."], tip:"Kiwi is best eaten raw — vitamin C is most potent uncooked." },
-  "Steak & Egg Scramble with Sliced Cantaloupe & Grapes": { serves:1, time:"15 min", ingredients:["4 oz sirloin, thinly sliced","3 eggs","1 cup cantaloupe, cubed","1/2 cup grapes","1 tbsp butter","Salt, pepper, garlic powder"], steps:["Season steak slices, sear in hot skillet 2-3 min. Set aside.","Reduce heat. Add butter, scramble eggs slowly.","Fold steak into eggs just before they set.","Serve with cantaloupe and grapes on the side."], tip:"Thin steak strips cook in seconds — don't walk away from the pan." },
+  "Chicken Sausage Patties with Sliced Peaches & Honeydew": { serves:1, time:"12 min", ingredients:["3 chicken sausage patties","1 ripe peach, sliced","1 cup honeydew melon, cubed","1 tsp olive oil","Pinch of cinnamon"], steps:["Heat olive oil in a skillet over medium heat.","Cook patties 4-5 min per side until golden.","Slice peach and cube honeydew while patties cook.","Dust fruit lightly with cinnamon.","Serve patties alongside the fruit."], tip:"Frozen peaches work great; thaw overnight in the fridge." },
+  "Ground Turkey Bowl with Sautéed Spinach & Sliced Kiwi": { serves:1, time:"15 min", ingredients:["4 oz ground turkey","2 cups fresh spinach","2 kiwis, peeled and sliced","1 garlic clove, minced","1 tbsp olive oil","Salt, pepper"], steps:["Heat oil, cook garlic 30 sec.","Add turkey, cook 6-7 min until browned. Season.","Push aside, wilt spinach 1-2 min.","Transfer to bowl and serve kiwi alongside."], tip:"Kiwi is best eaten raw; vitamin C is most potent uncooked." },
+  "Steak & Egg Scramble with Sliced Cantaloupe & Grapes": { serves:1, time:"15 min", ingredients:["4 oz sirloin, thinly sliced","3 eggs","1 cup cantaloupe, cubed","1/2 cup grapes","1 tbsp butter","Salt, pepper, garlic powder"], steps:["Season steak slices, sear in hot skillet 2-3 min. Set aside.","Reduce heat. Add butter, scramble eggs slowly.","Fold steak into eggs just before they set.","Serve with cantaloupe and grapes on the side."], tip:"Thin steak strips cook in seconds; don't walk away from the pan." },
   "Whole Grain Toast with Peanut Butter & Banana": { serves:1, time:"5 min", ingredients:["2 slices whole grain bread","2 tbsp peanut butter","1 banana, sliced"], steps:["Toast bread.","Spread peanut butter generously.","Top with banana slices."], tip:"Mash the banana into the peanut butter for a different but equally great texture." },
-  "Scrambled Eggs & Avocado on Toast": { serves:1, time:"10 min", ingredients:["3 eggs","1/2 avocado","2 slices whole grain toast","1 tbsp butter","Salt, pepper, chili flakes"], steps:["Scramble eggs in butter over medium-low heat until creamy.","Toast bread.","Slice or mash avocado on toast.","Top with eggs, salt, pepper, and chili flakes."], tip:"Add avocado after the eggs — it oxidizes quickly when warm." },
-  "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side": { serves:1, time:"30 min", ingredients:["6-8 oz sirloin steak","1 medium sweet potato, cubed","1/2 cup fresh blueberries","1 tbsp olive oil","1 tsp butter","Salt, pepper, garlic powder"], steps:["Roast sweet potato at 425F 22-25 min with oil and garlic.","Pat steak dry, season generously with salt and pepper.","Heat pan until smoking. Add butter. Sear 3-4 min per side.","Rest steak 5 min before slicing.","Serve with sweet potato and fresh blueberries on the side."], tip:"The blueberries are eaten fresh — their antioxidants are most potent uncooked." },
-  "Baked Chicken Thighs with Roasted Pineapple & Quinoa": { serves:1, time:"35 min", ingredients:["2 chicken thighs, boneless","3 pineapple rings","1 cup cooked quinoa","1 tbsp olive oil","Salt, pepper, garlic powder, smoked paprika"], steps:["Season chicken with oil and spices. Roast at 425F 25-28 min.","Add pineapple rings to pan last 8 min until caramelized.","Serve over quinoa."], tip:"Caramelized pineapple in the pan absorbs the chicken juices — it's incredible." },
+  "Scrambled Eggs & Avocado on Toast": { serves:1, time:"10 min", ingredients:["3 eggs","1/2 avocado","2 slices whole grain toast","1 tbsp butter","Salt, pepper, chili flakes"], steps:["Scramble eggs in butter over medium-low heat until creamy.","Toast bread.","Slice or mash avocado on toast.","Top with eggs, salt, pepper, and chili flakes."], tip:"Add avocado after the eggs; it oxidizes quickly when warm." },
+  "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side": { serves:1, time:"30 min", ingredients:["6-8 oz sirloin steak","1 medium sweet potato, cubed","1/2 cup fresh blueberries","1 tbsp olive oil","1 tsp butter","Salt, pepper, garlic powder"], steps:["Roast sweet potato at 425F 22-25 min with oil and garlic.","Pat steak dry, season generously with salt and pepper.","Heat pan until smoking. Add butter. Sear 3-4 min per side.","Rest steak 5 min before slicing.","Serve with sweet potato and fresh blueberries on the side."], tip:"The blueberries are eaten fresh; their antioxidants are most potent uncooked." },
+  "Baked Chicken Thighs with Roasted Pineapple & Quinoa": { serves:1, time:"35 min", ingredients:["2 chicken thighs, boneless","3 pineapple rings","1 cup cooked quinoa","1 tbsp olive oil","Salt, pepper, garlic powder, smoked paprika"], steps:["Season chicken with oil and spices. Roast at 425F 25-28 min.","Add pineapple rings to pan last 8 min until caramelized.","Serve over quinoa."], tip:"Caramelized pineapple in the pan absorbs the chicken juices: it's incredible." },
   "Ribeye Steak with Roasted Broccoli & Mango Salsa": { serves:1, time:"25 min", ingredients:["6-8 oz ribeye","2 cups broccoli florets","1 mango, diced","1/4 red onion, diced","Juice of 1 lime","Cilantro","1 tbsp olive oil","Salt, pepper"], steps:["Roast broccoli at 425F with oil and salt 18-20 min.","Make mango salsa: mango, onion, lime, cilantro.","Season ribeye. Sear in smoking hot pan 3-4 min per side. Rest 5 min.","Serve ribeye with broccoli and mango salsa."], tip:"Ribeye has enough marbling to need nothing but salt, pepper, and a hot pan." },
   "Steak Tacos with Pineapple Salsa & Avocado": { serves:1, time:"20 min", ingredients:["5 oz sirloin","3-4 small tortillas","1 cup pineapple, finely diced","1/4 onion, diced","Jalapeno, cilantro, lime","1 avocado, sliced","Salt, pepper, cumin"], steps:["Season steak with cumin, salt, pepper. Sear 3-4 min per side. Rest and slice thin.","Mix pineapple, onion, jalapeno, cilantro, lime for salsa.","Warm tortillas. Fill with steak, salsa, avocado."], tip:"Slice steak against the grain for the most tender taco filling." },
   "Baked Chicken Tenders with Rice & Corn": { serves:1, time:"25 min", ingredients:["4–5 chicken tenders","½ cup breadcrumbs","1 egg, beaten","Salt, pepper, garlic powder","1 cup cooked white rice","½ cup corn (canned or frozen)","1 tbsp butter"], steps:["Preheat oven to 400°F. Line a baking sheet with parchment.","Season breadcrumbs with salt, pepper, and garlic powder.","Dip each tender in beaten egg, then press into breadcrumbs.","Place on baking sheet and bake 18–20 minutes, flipping halfway, until golden.","While tenders bake, cook rice per package. Warm corn with a little butter.","Serve tenders alongside rice and corn."], tip:"A wire rack on the baking sheet makes tenders crispy on both sides without flipping." },
   "Grilled Chicken & Spinach Salad": { serves:1, time:"20 min", ingredients:["1 chicken breast","3 cups baby spinach","1/2 cup cherry tomatoes, halved","1/4 red onion, sliced","2 tbsp olive oil","1 tbsp lemon juice","Salt and pepper"], steps:["Cook chicken 6-7 min per side. Rest and slice.","Toss spinach, tomatoes, onion with olive oil and lemon.","Top with sliced chicken."], tip:"Add pumpkin seeds for extra magnesium and crunch." },
-  "Baked Salmon with Mashed Sweet Potato & Green Beans": { serves:1, time:"30 min", ingredients:["6 oz salmon fillet","1 large sweet potato, peeled and cubed","2 cups green beans","1 tbsp butter","Salt, pepper, garlic powder","Lemon juice"], steps:["Boil sweet potato until tender 15 min. Mash with butter and salt.","Season salmon and bake at 400F 12-15 min.","Steam green beans 4-5 min.","Serve salmon with sweet potato mash and green beans. Squeeze lemon."], tip:"Don't overcook salmon — it goes from perfect to dry very quickly at the 15-minute mark." },
+  "Baked Salmon with Mashed Sweet Potato & Green Beans": { serves:1, time:"30 min", ingredients:["6 oz salmon fillet","1 large sweet potato, peeled and cubed","2 cups green beans","1 tbsp butter","Salt, pepper, garlic powder","Lemon juice"], steps:["Boil sweet potato until tender 15 min. Mash with butter and salt.","Season salmon and bake at 400F 12-15 min.","Steam green beans 4-5 min.","Serve salmon with sweet potato mash and green beans. Squeeze lemon."], tip:"Don't overcook salmon; it goes from perfect to dry very quickly at the 15-minute mark." },
   "Grilled Chicken Caesar Salad": { serves:1, time:"20 min", ingredients:["1 chicken breast","3 cups romaine, chopped","2 tbsp Caesar dressing","2 tbsp parmesan","Croutons optional","Salt and pepper"], steps:["Cook chicken 6-7 min per side. Rest and slice.","Toss romaine with Caesar dressing and parmesan.","Top with chicken and croutons."], tip:"Homemade Caesar with mayo, lemon, garlic, worcestershire, parmesan is far better than store-bought." },
 };
 
 // ── Science citation badges by condition ──────────────────────────────────
 const CONDITION_CITATIONS = {
-  depression: { label:"📚 Nutritional Psychiatry · Harvard", detail:"Jacka et al. (2017) — Mediterranean-style diet reduced depression risk by 33%. Lancet Psychiatry." },
-  anxiety: { label:"📚 NIH · Gut-Brain Axis", detail:"Clapp et al. (2017) — Diet quality directly modulates anxiety via the gut-brain axis. Nutrients Journal." },
-  adhd: { label:"📚 JAMA · Omega-3 Research", detail:"Bloch & Qawasmi (2011) — Omega-3 supplementation significantly reduces ADHD symptom severity. JAMA." },
-  bipolar: { label:"📚 Psychiatry Research · NAD+", detail:"Sarris et al. (2015) — Omega-3 and micronutrient-rich diets stabilise mood in bipolar disorder. Psychiatry Research." },
-  ptsd: { label:"📚 Frontiers Psychiatry · Inflammation", detail:"Kiecolt-Glaser et al. (2015) — Anti-inflammatory diets reduce PTSD symptom severity. Frontiers in Psychiatry." },
-  ocd: { label:"📚 J. Psychiatry · Microbiome", detail:"Turna et al. (2019) — Gut microbiome composition linked to OCD symptom severity. Journal of Psychiatry & Neuroscience." },
-  schizophrenia: { label:"📚 Schizophrenia Bulletin · Diet", detail:"Dipasquale et al. (2013) — Mediterranean diet associated with lower symptom burden in schizophrenia. Schizophrenia Bulletin." },
-  autism: { label:"📚 Nutrients · ASD & Diet", detail:"Ly et al. (2017) — Nutritional interventions improve behavioural outcomes in ASD. Nutrients Journal." },
-  eating_disorder: { label:"📚 Int'l J. Eating Disorders", detail:"Setnick (2010) — Micronutrient deficiencies are pervasive in eating disorders and worsen symptoms. Int'l J. Eating Disorders." },
-  default: { label:"📚 Nutritional Neuroscience", detail:"Gomez-Pinilla (2008) — Brain foods: effects of nutrients on brain function. Nature Reviews Neuroscience." },
+  depression: { label:"Nutritional Psychiatry · Harvard", detail:"Jacka et al. (2017): Mediterranean-style diet reduced depression risk by 33%. Lancet Psychiatry." },
+  anxiety: { label:"NIH · Gut-Brain Axis", detail:"Clapp et al. (2017): Diet quality directly modulates anxiety via the gut-brain axis. Nutrients Journal." },
+  adhd: { label:"JAMA · Omega-3 Research", detail:"Bloch & Qawasmi (2011): Omega-3 supplementation significantly reduces ADHD symptom severity. JAMA." },
+  bipolar: { label:"Psychiatry Research · NAD+", detail:"Sarris et al. (2015): Omega-3 and micronutrient-rich diets stabilise mood in bipolar disorder. Psychiatry Research." },
+  ptsd: { label:"Frontiers Psychiatry · Inflammation", detail:"Kiecolt-Glaser et al. (2015): Anti-inflammatory diets reduce PTSD symptom severity. Frontiers in Psychiatry." },
+  ocd: { label:"J. Psychiatry · Microbiome", detail:"Turna et al. (2019): Gut microbiome composition linked to OCD symptom severity. Journal of Psychiatry & Neuroscience." },
+  schizophrenia: { label:"Schizophrenia Bulletin · Diet", detail:"Dipasquale et al. (2013): Mediterranean diet associated with lower symptom burden in schizophrenia. Schizophrenia Bulletin." },
+  autism: { label:"Nutrients · ASD & Diet", detail:"Ly et al. (2017): Nutritional interventions improve behavioural outcomes in ASD. Nutrients Journal." },
+  eating_disorder: { label:"Int'l J. Eating Disorders", detail:"Setnick (2010): Micronutrient deficiencies are pervasive in eating disorders and worsen symptoms. Int'l J. Eating Disorders." },
+  default: { label:"Nutritional Neuroscience", detail:"Gomez-Pinilla (2008): Brain foods: effects of nutrients on brain function. Nature Reviews Neuroscience." },
 };
 
 const getCitation = (conditions) => {
@@ -1186,81 +1216,81 @@ const getBrainScore = (mealName) => {
 // ── Gender-Specific Nutrition Notes ─────────────────────────────────────────
 const GENDER_BENEFITS = {
   female: {
-    salmon:      { short: "Omega-3s ease PMS & support mood during hormonal shifts", detail: "EPA & DHA in salmon modulate prostaglandins that drive menstrual cramps, while supporting serotonin synthesis — especially important during the luteal phase when estrogen and progesterone fluctuate." },
-    sardine:     { short: "Omega-3s + calcium for bone density & cycle support", detail: "Sardines are one of the few foods rich in both omega-3s and bioavailable calcium — critical for women at higher osteoporosis risk. The vitamin D content also aids calcium absorption and mood regulation." },
-    mackerel:    { short: "Omega-3s support hormonal balance & brain health", detail: "Mackerel's high DHA content supports neuronal membrane fluidity, which can decline during menopause. Its selenium also supports thyroid function — a common concern for women." },
-    spinach:     { short: "Iron & folate — essential for menstruation & fertility", detail: "Women lose iron monthly through menstruation. Spinach provides non-heme iron plus folate, which is critical for DNA synthesis and especially important for women of childbearing age to prevent neural tube defects." },
+    salmon:      { short: "Omega-3s ease PMS & support mood during hormonal shifts", detail: "EPA & DHA in salmon modulate prostaglandins that drive menstrual cramps, while supporting serotonin synthesis, especially important during the luteal phase when estrogen and progesterone fluctuate." },
+    sardine:     { short: "Omega-3s + calcium for bone density & cycle support", detail: "Sardines are one of the few foods rich in both omega-3s and bioavailable calcium, critical for women at higher osteoporosis risk. The vitamin D content also aids calcium absorption and mood regulation." },
+    mackerel:    { short: "Omega-3s support hormonal balance & brain health", detail: "Mackerel's high DHA content supports neuronal membrane fluidity, which can decline during menopause. Its selenium also supports thyroid function, a common concern for women." },
+    spinach:     { short: "Iron & folate: essential for menstruation & fertility", detail: "Women lose iron monthly through menstruation. Spinach provides non-heme iron plus folate, which is critical for DNA synthesis and especially important for women of childbearing age to prevent neural tube defects." },
     kale:        { short: "Calcium & vitamin K for bone strength", detail: "Women face 4x higher osteoporosis risk than men. Kale provides highly bioavailable calcium plus vitamin K, which directs calcium into bones rather than arteries." },
-    lentil:      { short: "Iron & folate for energy & reproductive health", detail: "Lentils provide 6mg iron per cup — over a third of women's daily needs. Their folate supports healthy cell division and is essential during pregnancy. The fiber also helps regulate estrogen levels." },
+    lentil:      { short: "Iron & folate for energy & reproductive health", detail: "Lentils provide 6mg iron per cup, over a third of women's daily needs. Their folate supports healthy cell division and is essential during pregnancy. The fiber also helps regulate estrogen levels." },
     egg:         { short: "Choline supports brain health & fetal development", detail: "Only 10% of women meet choline requirements. Choline is essential for brain cell membranes and neurotransmitter synthesis, and during pregnancy it shapes the baby's brain architecture." },
     quinoa:      { short: "Magnesium eases cramps & supports sleep", detail: "Magnesium needs increase during the luteal phase. Quinoa's high magnesium content helps relax uterine muscles, reduce PMS symptoms, and support the deeper sleep that hormonal shifts can disrupt." },
     "sweet potato": { short: "Vitamin A supports hormonal balance", detail: "Beta-carotene in sweet potatoes converts to vitamin A, which is essential for progesterone production. Adequate progesterone supports regular cycles, mood stability, and luteal phase health." },
-    turmeric:    { short: "Anti-inflammatory — eases period pain & bloating", detail: "Curcumin inhibits COX-2 enzymes (the same target as ibuprofen), reducing prostaglandin-driven cramps. It also reduces the systemic inflammation that can worsen PMS, endometriosis, and PCOS symptoms." },
-    yogurt:      { short: "Probiotics & calcium for gut-hormone balance", detail: "The gut microbiome contains the estrobolome — bacteria that metabolize estrogen. Probiotic-rich yogurt supports this system while providing calcium that women need 1.5x more of than men after menopause." },
-    kefir:       { short: "Probiotics support estrogen metabolism & mood", detail: "Kefir contains 30+ probiotic strains that support the estrobolome — the gut bacteria that regulate circulating estrogen levels. Balanced estrogen metabolism reduces PMS, bloating, and mood swings." },
-    kimchi:      { short: "Fermented probiotics support hormonal detox", detail: "Kimchi's lactobacillus bacteria support the liver's estrogen detoxification pathways. This helps prevent estrogen dominance — a driver of PMS, heavy periods, and mood imbalances." },
+    turmeric:    { short: "Anti-inflammatory: eases period pain & bloating", detail: "Curcumin inhibits COX-2 enzymes (the same target as ibuprofen), reducing prostaglandin-driven cramps. It also reduces the systemic inflammation that can worsen PMS, endometriosis, and PCOS symptoms." },
+    yogurt:      { short: "Probiotics & calcium for gut-hormone balance", detail: "The gut microbiome contains the estrobolome, bacteria that metabolize estrogen. Probiotic-rich yogurt supports this system while providing calcium that women need 1.5x more of than men after menopause." },
+    kefir:       { short: "Probiotics support estrogen metabolism & mood", detail: "Kefir contains 30+ probiotic strains that support the estrobolome, the gut bacteria that regulate circulating estrogen levels. Balanced estrogen metabolism reduces PMS, bloating, and mood swings." },
+    kimchi:      { short: "Fermented probiotics support hormonal detox", detail: "Kimchi's lactobacillus bacteria support the liver's estrogen detoxification pathways. This helps prevent estrogen dominance, a driver of PMS, heavy periods, and mood imbalances." },
     sauerkraut:  { short: "Gut health supports hormone clearance", detail: "Sauerkraut's probiotics enhance beta-glucuronidase regulation, ensuring used estrogen is properly eliminated rather than reabsorbed. This supports cycle regularity and reduces hormonal symptoms." },
-    tempeh:      { short: "Phytoestrogens for gentle hormonal support", detail: "Tempeh's isoflavones are phytoestrogens that can modulate estrogen receptors — providing gentle support during low-estrogen phases (menstruation, perimenopause) without overstimulating during high-estrogen phases." },
-    miso:        { short: "Fermented soy supports menopause transition", detail: "Miso's isoflavones and probiotics work synergistically — the fermentation increases isoflavone bioavailability. Studies show regular miso intake reduces hot flash frequency and supports bone density in perimenopausal women." },
+    tempeh:      { short: "Phytoestrogens for gentle hormonal support", detail: "Tempeh's isoflavones are phytoestrogens that can modulate estrogen receptors, providing gentle support during low-estrogen phases (menstruation, perimenopause) without overstimulating during high-estrogen phases." },
+    miso:        { short: "Fermented soy supports menopause transition", detail: "Miso's isoflavones and probiotics work synergistically: the fermentation increases isoflavone bioavailability. Studies show regular miso intake reduces hot flash frequency and supports bone density in perimenopausal women." },
     blueberr:    { short: "Anthocyanins protect against cognitive decline", detail: "Women face higher Alzheimer's risk than men, partly due to estrogen decline. Blueberry anthocyanins cross the blood-brain barrier and protect neurons, while their antioxidants combat the oxidative stress that increases post-menopause." },
-    walnut:      { short: "Omega-3s & magnesium for PMS relief", detail: "Walnuts provide ALA omega-3s plus magnesium — both shown to reduce PMS severity. Their melatonin content also supports the sleep disruptions common during the luteal phase." },
+    walnut:      { short: "Omega-3s & magnesium for PMS relief", detail: "Walnuts provide ALA omega-3s plus magnesium, both shown to reduce PMS severity. Their melatonin content also supports the sleep disruptions common during the luteal phase." },
     avocado:     { short: "Healthy fats support hormone production", detail: "Hormones are built from cholesterol and fatty acids. Avocado's monounsaturated fats provide the raw materials for estrogen, progesterone, and cortisol synthesis, while potassium helps reduce water retention." },
     almond:      { short: "Vitamin E eases PMS & supports skin health", detail: "Vitamin E has been shown to reduce PMS symptoms by 70% in clinical trials. Almonds are one of the richest sources, and also provide the magnesium and healthy fats that support hormonal skin health." },
     "dark chocolate": { short: "Magnesium & iron for cycle support", detail: "Dark chocolate provides magnesium (cramp relief), iron (replenishing menstrual losses), and phenylethylamine (mood boost). The flavanols also improve blood flow, countering the circulation changes during menstruation." },
-    "pumpkin seed": { short: "Zinc & magnesium for cycle regularity", detail: "Pumpkin seeds are a seed-cycling staple — their zinc supports progesterone production in the luteal phase, while magnesium helps metabolize estrogen. Together they promote cycle regularity and reduce PMS." },
-    chickpea:    { short: "Iron & B6 for energy & mood during cycles", detail: "Chickpeas provide iron to offset menstrual losses, plus vitamin B6 which helps synthesize serotonin and dopamine — neurotransmitters that dip during the premenstrual phase, contributing to mood changes." },
+    "pumpkin seed": { short: "Zinc & magnesium for cycle regularity", detail: "Pumpkin seeds are a seed-cycling staple: their zinc supports progesterone production in the luteal phase, while magnesium helps metabolize estrogen. Together they promote cycle regularity and reduce PMS." },
+    chickpea:    { short: "Iron & B6 for energy & mood during cycles", detail: "Chickpeas provide iron to offset menstrual losses, plus vitamin B6 which helps synthesize serotonin and dopamine, neurotransmitters that dip during the premenstrual phase, contributing to mood changes." },
     broccoli:    { short: "DIM compound supports estrogen balance", detail: "Broccoli contains DIM (diindolylmethane), which helps the liver metabolize estrogen through favorable pathways. This supports hormonal balance and may reduce risk of estrogen-dominant conditions." },
-    "brown rice": { short: "B vitamins & fiber for hormonal balance", detail: "Brown rice provides B vitamins needed for liver detoxification of hormones, plus fiber that binds to used estrogen in the gut for elimination — preventing reabsorption and estrogen dominance." },
+    "brown rice": { short: "B vitamins & fiber for hormonal balance", detail: "Brown rice provides B vitamins needed for liver detoxification of hormones, plus fiber that binds to used estrogen in the gut for elimination, preventing reabsorption and estrogen dominance." },
     ginger:      { short: "Eases nausea & menstrual pain naturally", detail: "Ginger is as effective as ibuprofen for menstrual pain in clinical trials. It inhibits prostaglandin synthesis and also eases the nausea that some women experience during menstruation or early pregnancy." },
-    "lion's mane": { short: "NGF support protects against hormonal brain fog", detail: "Lion's mane stimulates nerve growth factor (NGF) production, which can counteract the cognitive fog that many women experience during hormonal transitions — from PMS to perimenopause." },
-    chicken:     { short: "Lean protein stabilizes blood sugar & mood", detail: "Stable blood sugar is essential for hormonal balance — insulin spikes increase androgen production and disrupt estrogen/progesterone ratios. Chicken's B6 also supports serotonin synthesis, which dips during the premenstrual phase." },
-    turkey:      { short: "Tryptophan supports serotonin & sleep quality", detail: "Turkey is rich in tryptophan — the precursor to serotonin and melatonin. Women produce less serotonin than men, making dietary tryptophan especially important for mood stability and the sleep disruptions common during hormonal shifts." },
-    beef:        { short: "Iron & B12 replenish menstrual losses", detail: "Women lose 1-2mg of iron per period. Beef provides the most bioavailable heme iron plus B12 — both critical for energy, cognitive function, and preventing the anemia that affects 1 in 5 women of reproductive age." },
+    "lion's mane": { short: "NGF support protects against hormonal brain fog", detail: "Lion's mane stimulates nerve growth factor (NGF) production, which can counteract the cognitive fog that many women experience during hormonal transitions, from PMS to perimenopause." },
+    chicken:     { short: "Lean protein stabilizes blood sugar & mood", detail: "Stable blood sugar is essential for hormonal balance: insulin spikes increase androgen production and disrupt estrogen/progesterone ratios. Chicken's B6 also supports serotonin synthesis, which dips during the premenstrual phase." },
+    turkey:      { short: "Tryptophan supports serotonin & sleep quality", detail: "Turkey is rich in tryptophan, the precursor to serotonin and melatonin. Women produce less serotonin than men, making dietary tryptophan especially important for mood stability and the sleep disruptions common during hormonal shifts." },
+    beef:        { short: "Iron & B12 replenish menstrual losses", detail: "Women lose 1-2mg of iron per period. Beef provides the most bioavailable heme iron plus B12, both critical for energy, cognitive function, and preventing the anemia that affects 1 in 5 women of reproductive age." },
     steak:       { short: "Heme iron & zinc for energy & immune health", detail: "Steak provides highly absorbable heme iron to offset menstrual losses, plus zinc that supports immune function and progesterone production in the luteal phase." },
-    banana:      { short: "B6 & magnesium ease PMS symptoms", detail: "Bananas provide vitamin B6 (shown to reduce PMS severity by 70% in studies) and magnesium that relaxes smooth muscle — easing cramps, bloating, and the mood changes driven by progesterone withdrawal." },
-    berry:       { short: "Antioxidants protect against hormonal oxidative stress", detail: "Hormonal fluctuations increase oxidative stress. Berries' anthocyanins and vitamin C neutralize free radicals while supporting collagen synthesis — important as estrogen decline during perimenopause reduces natural collagen production." },
+    banana:      { short: "B6 & magnesium ease PMS symptoms", detail: "Bananas provide vitamin B6 (shown to reduce PMS severity by 70% in studies) and magnesium that relaxes smooth muscle, easing cramps, bloating, and the mood changes driven by progesterone withdrawal." },
+    berry:       { short: "Antioxidants protect against hormonal oxidative stress", detail: "Hormonal fluctuations increase oxidative stress. Berries' anthocyanins and vitamin C neutralize free radicals while supporting collagen synthesis, important as estrogen decline during perimenopause reduces natural collagen production." },
     rice:        { short: "Steady energy supports hormonal balance", detail: "Complex carbohydrates are essential for serotonin production via tryptophan transport across the blood-brain barrier. Women in the luteal phase have increased carb cravings because the brain needs more serotonin precursors." },
     oat:         { short: "Beta-glucan fiber supports estrogen metabolism", detail: "Oats' soluble fiber binds to excess estrogen in the gut, preventing reabsorption. This supports healthy estrogen levels and reduces symptoms of estrogen dominance like bloating, heavy periods, and mood swings." },
-    tomato:      { short: "Lycopene & vitamin C support skin & collagen", detail: "Tomatoes provide lycopene (a powerful antioxidant) and vitamin C — essential for collagen synthesis that declines with estrogen loss. Their folate also supports reproductive health and mood regulation." },
+    tomato:      { short: "Lycopene & vitamin C support skin & collagen", detail: "Tomatoes provide lycopene (a powerful antioxidant) and vitamin C, essential for collagen synthesis that declines with estrogen loss. Their folate also supports reproductive health and mood regulation." },
     peanut:      { short: "Protein & healthy fats for sustained energy", detail: "Peanuts provide niacin (B3) which supports energy metabolism that fluctuates with the menstrual cycle. Their monounsaturated fats provide building blocks for hormone production." },
-    tofu:        { short: "Phytoestrogens provide gentle hormonal support", detail: "Tofu's isoflavones can modulate estrogen receptors — offering mild support during low-estrogen phases like menstruation and perimenopause, without overstimulating during high-estrogen phases. Also provides calcium for bone health." },
+    tofu:        { short: "Phytoestrogens provide gentle hormonal support", detail: "Tofu's isoflavones can modulate estrogen receptors, offering mild support during low-estrogen phases like menstruation and perimenopause, without overstimulating during high-estrogen phases. Also provides calcium for bone health." },
   },
   male: {
-    salmon:      { short: "Omega-3s support testosterone & reduce inflammation", detail: "DHA in salmon maintains Leydig cell membrane fluidity — these cells produce testosterone. Omega-3s also reduce chronic inflammation that suppresses the HPG axis (hypothalamic-pituitary-gonadal), your testosterone production pathway." },
-    sardine:     { short: "Omega-3s & zinc fuel testosterone synthesis", detail: "Sardines provide omega-3s, zinc, and vitamin D — three nutrients directly involved in testosterone production. Zinc inhibits aromatase, the enzyme that converts testosterone to estrogen." },
+    salmon:      { short: "Omega-3s support testosterone & reduce inflammation", detail: "DHA in salmon maintains Leydig cell membrane fluidity; these cells produce testosterone. Omega-3s also reduce chronic inflammation that suppresses the HPG axis (hypothalamic-pituitary-gonadal), your testosterone production pathway." },
+    sardine:     { short: "Omega-3s & zinc fuel testosterone synthesis", detail: "Sardines provide omega-3s, zinc, and vitamin D, three nutrients directly involved in testosterone production. Zinc inhibits aromatase, the enzyme that converts testosterone to estrogen." },
     mackerel:    { short: "High DHA supports brain & cardiovascular health", detail: "Men face higher cardiovascular risk. Mackerel's exceptionally high DHA content reduces triglycerides and arterial inflammation, while supporting the brain health needed for sustained cognitive performance." },
-    egg:         { short: "Cholesterol & choline fuel testosterone + brain", detail: "Testosterone is synthesized from cholesterol — eggs provide the building blocks. Their choline supports acetylcholine, the neurotransmitter behind focus, memory, and muscle contraction." },
+    egg:         { short: "Cholesterol & choline fuel testosterone + brain", detail: "Testosterone is synthesized from cholesterol; eggs provide the building blocks. Their choline supports acetylcholine, the neurotransmitter behind focus, memory, and muscle contraction." },
     spinach:     { short: "Magnesium & nitrates boost T and blood flow", detail: "Spinach's magnesium increases free testosterone by reducing SHBG (sex hormone-binding globulin). Its nitrates convert to nitric oxide, improving blood flow, exercise performance, and cardiovascular function." },
-    lentil:      { short: "Zinc & protein for muscle recovery & T support", detail: "Lentils provide zinc (essential for testosterone synthesis and sperm health) plus plant protein and fiber. Their low glycemic impact helps maintain insulin sensitivity — insulin resistance tanks testosterone." },
-    quinoa:      { short: "Complete protein with magnesium for T support", detail: "Quinoa provides all essential amino acids for muscle synthesis, plus magnesium that binds to SHBG — freeing up more bioavailable testosterone. Its saponins may also have mild anabolic properties." },
-    "sweet potato": { short: "Complex carbs support testosterone production", detail: "Adequate carbohydrate intake is essential for testosterone — low-carb diets increase cortisol, which directly suppresses T. Sweet potatoes provide sustained energy without the insulin spikes that impair hormonal signaling." },
-    turmeric:    { short: "Reduces inflammation that suppresses testosterone", detail: "Chronic inflammation is the #1 lifestyle testosterone killer in men. Curcumin reduces IL-6 and TNF-alpha — inflammatory cytokines that directly inhibit Leydig cell testosterone production." },
-    broccoli:    { short: "DIM helps metabolize excess estrogen", detail: "Broccoli's DIM (diindolylmethane) supports the liver's conversion of estrogen to less active metabolites. This is critical for men — excess estrogen (from body fat, plastics, alcohol) suppresses testosterone and promotes gynecomastia." },
-    walnut:      { short: "Arginine boosts nitric oxide & circulation", detail: "Walnuts are rich in L-arginine, the precursor to nitric oxide — which dilates blood vessels. This supports cardiovascular health, exercise performance, and the circulation that men's sexual health depends on." },
-    avocado:     { short: "Healthy fats are building blocks for testosterone", detail: "Testosterone is a steroid hormone built from cholesterol. Avocado's monounsaturated fats support healthy cholesterol levels for T production, while potassium helps lower blood pressure — a leading men's health concern." },
-    "pumpkin seed": { short: "Zinc supports prostate health & T levels", detail: "The prostate contains the highest zinc concentration of any organ. Pumpkin seeds' zinc supports prostate health, testosterone production, and sperm quality — while magnesium further boosts free T levels." },
-    almond:      { short: "Vitamin E protects sperm & supports circulation", detail: "Vitamin E is a powerful antioxidant that protects sperm from oxidative damage — a leading cause of male infertility. Almonds also provide arginine for nitric oxide production and heart health." },
+    lentil:      { short: "Zinc & protein for muscle recovery & T support", detail: "Lentils provide zinc (essential for testosterone synthesis and sperm health) plus plant protein and fiber. Their low glycemic impact helps maintain insulin sensitivity; insulin resistance tanks testosterone." },
+    quinoa:      { short: "Complete protein with magnesium for T support", detail: "Quinoa provides all essential amino acids for muscle synthesis, plus magnesium that binds to SHBG, freeing up more bioavailable testosterone. Its saponins may also have mild anabolic properties." },
+    "sweet potato": { short: "Complex carbs support testosterone production", detail: "Adequate carbohydrate intake is essential for testosterone: low-carb diets increase cortisol, which directly suppresses T. Sweet potatoes provide sustained energy without the insulin spikes that impair hormonal signaling." },
+    turmeric:    { short: "Reduces inflammation that suppresses testosterone", detail: "Chronic inflammation is the #1 lifestyle testosterone killer in men. Curcumin reduces IL-6 and TNF-alpha, inflammatory cytokines that directly inhibit Leydig cell testosterone production." },
+    broccoli:    { short: "DIM helps metabolize excess estrogen", detail: "Broccoli's DIM (diindolylmethane) supports the liver's conversion of estrogen to less active metabolites. This is critical for men: excess estrogen (from body fat, plastics, alcohol) suppresses testosterone and promotes gynecomastia." },
+    walnut:      { short: "Arginine boosts nitric oxide & circulation", detail: "Walnuts are rich in L-arginine, the precursor to nitric oxide, which dilates blood vessels. This supports cardiovascular health, exercise performance, and the circulation that men's sexual health depends on." },
+    avocado:     { short: "Healthy fats are building blocks for testosterone", detail: "Testosterone is a steroid hormone built from cholesterol. Avocado's monounsaturated fats support healthy cholesterol levels for T production, while potassium helps lower blood pressure, a leading men's health concern." },
+    "pumpkin seed": { short: "Zinc supports prostate health & T levels", detail: "The prostate contains the highest zinc concentration of any organ. Pumpkin seeds' zinc supports prostate health, testosterone production, and sperm quality, while magnesium further boosts free T levels." },
+    almond:      { short: "Vitamin E protects sperm & supports circulation", detail: "Vitamin E is a powerful antioxidant that protects sperm from oxidative damage, a leading cause of male infertility. Almonds also provide arginine for nitric oxide production and heart health." },
     "dark chocolate": { short: "Flavanols improve blood flow & mood", detail: "Dark chocolate's flavanols boost nitric oxide production by 30%+, improving circulation throughout the body. The theobromine provides clean energy, while phenylethylamine enhances mood and motivation." },
-    yogurt:      { short: "Probiotics support testosterone & gut health", detail: "MIT research showed probiotic-fed males had larger testes and higher testosterone. A healthy gut microbiome improves nutrient absorption — especially zinc and magnesium that are critical for T production." },
+    yogurt:      { short: "Probiotics support testosterone & gut health", detail: "MIT research showed probiotic-fed males had larger testes and higher testosterone. A healthy gut microbiome improves nutrient absorption, especially zinc and magnesium that are critical for T production." },
     kefir:       { short: "Probiotics enhance nutrient absorption for T", detail: "Kefir's diverse probiotic strains improve gut permeability and nutrient absorption. Better zinc, magnesium, and vitamin D uptake directly supports the testosterone production pathway." },
-    kimchi:      { short: "Gut health supports testosterone metabolism", detail: "A healthy gut microbiome regulates the enzymes that metabolize testosterone. Kimchi's probiotics also reduce systemic inflammation — one of the most common causes of low T in men." },
+    kimchi:      { short: "Gut health supports testosterone metabolism", detail: "A healthy gut microbiome regulates the enzymes that metabolize testosterone. Kimchi's probiotics also reduce systemic inflammation, one of the most common causes of low T in men." },
     tempeh:      { short: "Complete plant protein for muscle & recovery", detail: "Fermented soy in tempeh has negligible estrogenic effect in men (confirmed by meta-analyses). It provides complete protein, probiotics, and isoflavones that actually support cardiovascular health." },
     blueberr:    { short: "Anthocyanins protect cardiovascular & brain health", detail: "Men face cardiovascular disease a decade earlier than women. Blueberry anthocyanins improve endothelial function, reduce arterial stiffness, and protect against the cognitive decline that affects men's brain health." },
     chickpea:    { short: "Zinc & B6 support testosterone synthesis", detail: "Chickpeas provide zinc for testosterone production and B6 for neurotransmitter synthesis. Their fiber supports the gut health that underlies proper hormone metabolism." },
     "brown rice": { short: "Sustained energy without insulin spikes", detail: "Brown rice provides steady glucose for training and recovery without the insulin spikes that increase cortisol and suppress testosterone. Its manganese also supports bone health and metabolism." },
     ginger:      { short: "Shown in studies to boost testosterone 17%", detail: "A systematic review found ginger supplementation increased testosterone by 17.7% in men. It works by enhancing LH production, reducing oxidative stress in the testes, and increasing cholesterol delivery to Leydig cells." },
-    "lion's mane": { short: "NGF support for focus, memory & nerve health", detail: "Lion's mane stimulates nerve growth factor production — supporting cognitive performance, focus, and the nerve health that declines with age. It also reduces neuroinflammation linked to brain fog and poor concentration." },
-    miso:        { short: "Fermented soy supports gut & heart health", detail: "Miso's probiotic content supports the gut-testosterone axis, while its isoflavones (in fermented form) support cardiovascular health — the #1 cause of death in men. Fermentation eliminates any estrogenic concern." },
-    sauerkraut:  { short: "Probiotics support T production pathway", detail: "Sauerkraut's lactobacillus bacteria support the gut health that underlies proper hormone metabolism. A healthy gut ensures optimal absorption of zinc, magnesium, and vitamin D — all critical for testosterone." },
+    "lion's mane": { short: "NGF support for focus, memory & nerve health", detail: "Lion's mane stimulates nerve growth factor production, supporting cognitive performance, focus, and the nerve health that declines with age. It also reduces neuroinflammation linked to brain fog and poor concentration." },
+    miso:        { short: "Fermented soy supports gut & heart health", detail: "Miso's probiotic content supports the gut-testosterone axis, while its isoflavones (in fermented form) support cardiovascular health, the #1 cause of death in men. Fermentation eliminates any estrogenic concern." },
+    sauerkraut:  { short: "Probiotics support T production pathway", detail: "Sauerkraut's lactobacillus bacteria support the gut health that underlies proper hormone metabolism. A healthy gut ensures optimal absorption of zinc, magnesium, and vitamin D, all critical for testosterone." },
     chicken:     { short: "Lean protein fuels muscle synthesis & T support", detail: "Chicken provides complete protein with all essential amino acids for muscle protein synthesis. Adequate protein intake maintains lean mass, which is metabolically active tissue that supports healthy testosterone levels." },
-    turkey:      { short: "Tryptophan supports recovery & growth hormone", detail: "Turkey's tryptophan converts to serotonin and then melatonin — essential for the deep sleep during which 70% of daily growth hormone is released. GH supports muscle recovery, fat metabolism, and overall vitality." },
+    turkey:      { short: "Tryptophan supports recovery & growth hormone", detail: "Turkey's tryptophan converts to serotonin and then melatonin, essential for the deep sleep during which 70% of daily growth hormone is released. GH supports muscle recovery, fat metabolism, and overall vitality." },
     beef:        { short: "Creatine, zinc & B12 for strength & T levels", detail: "Beef is nature's richest source of creatine (boosts strength 5-10%), plus zinc for testosterone and B12 for red blood cell production. Its saturated fat in moderate amounts is actually needed for steroid hormone synthesis." },
     steak:       { short: "High-quality protein with zinc & creatine for T", detail: "Steak provides the cholesterol building blocks for testosterone, zinc to inhibit aromatase, creatine for strength, and complete amino acids for muscle recovery. Red meat 2-3x per week supports optimal male hormonal health." },
-    banana:      { short: "Potassium & B6 support energy & T production", detail: "Bananas provide potassium for muscle contraction and heart health, plus B6 — a coenzyme in testosterone synthesis. Their bromelain enzyme may also support testosterone levels and reduce inflammation after training." },
-    berry:       { short: "Antioxidants protect cardiovascular & brain health", detail: "Men face cardiovascular disease a decade earlier than women. Berry anthocyanins improve endothelial function, reduce arterial stiffness, and protect against oxidative damage to sperm — a leading cause of male infertility." },
-    rice:        { short: "Clean carbs fuel training & support T levels", detail: "Adequate carbohydrate intake is essential for testosterone — low-carb diets elevate cortisol, which directly suppresses T. Rice provides clean, easily digestible energy for training without gut irritation." },
-    oat:         { short: "Beta-glucan supports heart health & sustained energy", detail: "Oats' beta-glucan fiber reduces LDL cholesterol — critical since heart disease is the #1 killer of men. Their slow-release energy stabilizes blood sugar, preventing the cortisol spikes that suppress testosterone production." },
-    tomato:      { short: "Lycopene supports prostate & heart health", detail: "Tomatoes are the richest source of lycopene — shown to reduce prostate cancer risk by 20%+ in large studies. Lycopene also reduces LDL oxidation, protecting against the cardiovascular disease that disproportionately affects men." },
+    banana:      { short: "Potassium & B6 support energy & T production", detail: "Bananas provide potassium for muscle contraction and heart health, plus B6, a coenzyme in testosterone synthesis. Their bromelain enzyme may also support testosterone levels and reduce inflammation after training." },
+    berry:       { short: "Antioxidants protect cardiovascular & brain health", detail: "Men face cardiovascular disease a decade earlier than women. Berry anthocyanins improve endothelial function, reduce arterial stiffness, and protect against oxidative damage to sperm, a leading cause of male infertility." },
+    rice:        { short: "Clean carbs fuel training & support T levels", detail: "Adequate carbohydrate intake is essential for testosterone: low-carb diets elevate cortisol, which directly suppresses T. Rice provides clean, easily digestible energy for training without gut irritation." },
+    oat:         { short: "Beta-glucan supports heart health & sustained energy", detail: "Oats' beta-glucan fiber reduces LDL cholesterol, critical since heart disease is the #1 killer of men. Their slow-release energy stabilizes blood sugar, preventing the cortisol spikes that suppress testosterone production." },
+    tomato:      { short: "Lycopene supports prostate & heart health", detail: "Tomatoes are the richest source of lycopene, shown to reduce prostate cancer risk by 20%+ in large studies. Lycopene also reduces LDL oxidation, protecting against the cardiovascular disease that disproportionately affects men." },
     peanut:      { short: "Arginine & protein for muscle & circulation", detail: "Peanuts provide L-arginine (nitric oxide precursor for circulation), complete protein for muscle recovery, and niacin for energy metabolism. Their resveratrol also supports cardiovascular health." },
     tofu:        { short: "Plant protein with no estrogenic effect in men", detail: "Meta-analyses confirm soy does not affect testosterone or estrogen in men at normal dietary intake. Tofu provides complete protein, isoflavones that support heart health, and calcium for bone density." },
   },
@@ -1272,33 +1302,33 @@ const getCyclePhase = (lastPeriod, length, targetDate) => {
   const today = targetDate ? new Date(targetDate) : new Date();
   const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24));
   const dayInCycle = ((diffDays % length) + length) % length + 1;
-  if (dayInCycle <= 5) return { phase: "menstrual", day: dayInCycle, label: "Menstrual Phase", emoji: "🌑", desc: "Days 1-5 — Focus on iron-rich, warming, anti-inflammatory foods" };
-  if (dayInCycle <= Math.floor(length * 0.46)) return { phase: "follicular", day: dayInCycle, label: "Follicular Phase", emoji: "🌒", desc: "Rising estrogen — Light, fresh foods & fermented foods support energy" };
-  if (dayInCycle <= Math.floor(length * 0.57)) return { phase: "ovulatory", day: dayInCycle, label: "Ovulatory Phase", emoji: "🌕", desc: "Peak estrogen — Antioxidants & fiber help with estrogen clearance" };
-  return { phase: "luteal", day: dayInCycle, label: "Luteal Phase", emoji: "🌘", desc: "Rising progesterone — Magnesium, B6 & complex carbs ease PMS" };
+  if (dayInCycle <= 5) return { phase: "menstrual", day: dayInCycle, label: "Menstrual Phase", emoji: "🌑", desc: "Days 1-5: Focus on iron-rich, warming, anti-inflammatory foods" };
+  if (dayInCycle <= Math.floor(length * 0.46)) return { phase: "follicular", day: dayInCycle, label: "Follicular Phase", emoji: "🌒", desc: "Rising estrogen: Light, fresh foods & fermented foods support energy" };
+  if (dayInCycle <= Math.floor(length * 0.57)) return { phase: "ovulatory", day: dayInCycle, label: "Ovulatory Phase", emoji: "🌕", desc: "Peak estrogen: Antioxidants & fiber help with estrogen clearance" };
+  return { phase: "luteal", day: dayInCycle, label: "Luteal Phase", emoji: "🌘", desc: "Rising progesterone: Magnesium, B6 & complex carbs ease PMS" };
 };
 
 const CYCLE_BENEFITS = {
   menstrual: {
-    salmon:      "Omega-3s reduce prostaglandins that cause cramps — like natural ibuprofen",
+    salmon:      "Omega-3s reduce prostaglandins that cause cramps, like natural ibuprofen",
     sardine:     "Iron + omega-3s replenish what you're losing & ease inflammation",
-    spinach:     "Iron & folate replenish menstrual losses — pair with vitamin C for absorption",
+    spinach:     "Iron & folate replenish menstrual losses; pair with vitamin C for absorption",
     kale:        "Iron & vitamin K support blood health during your period",
-    lentil:      "Plant-based iron + warming comfort — perfect for menstrual fatigue",
+    lentil:      "Plant-based iron + warming comfort, perfect for menstrual fatigue",
     egg:         "Easy-to-digest protein + choline support energy without taxing digestion",
-    beef:        "Heme iron is most absorbable — critical during your heaviest days",
-    steak:       "Richest source of heme iron — directly replenishes menstrual losses",
-    turmeric:    "Curcumin inhibits COX-2 enzymes — easing cramps as effectively as ibuprofen",
-    ginger:      "Shown in studies to reduce period pain — as effective as meds in research",
+    beef:        "Heme iron is most absorbable, critical during your heaviest days",
+    steak:       "Richest source of heme iron, directly replenishes menstrual losses",
+    turmeric:    "Curcumin inhibits COX-2 enzymes, easing cramps as effectively as ibuprofen",
+    ginger:      "Shown in studies to reduce period pain, as effective as meds in research",
     "dark chocolate": "Magnesium relaxes uterine muscles + iron replenishes losses",
-    quinoa:      "Iron + magnesium — the two minerals you need most during menstruation",
+    quinoa:      "Iron + magnesium: the two minerals you need most during menstruation",
     "sweet potato": "Warming, comforting complex carbs stabilize mood during hormone withdrawal",
     chicken:     "Gentle protein supports energy without heavy digestion during your period",
-    turkey:      "Tryptophan boosts serotonin — countering the mood dip from hormone withdrawal",
+    turkey:      "Tryptophan boosts serotonin, countering the mood dip from hormone withdrawal",
     banana:      "B6 + magnesium ease cramps and the mood changes of days 1-5",
     rice:        "Gentle carbs support serotonin when estrogen & progesterone are at their lowest",
-    oat:         "Warming, iron-rich comfort food — soluble fiber also eases bloating",
-    berry:       "Vitamin C boosts iron absorption — pair with iron-rich foods this phase",
+    oat:         "Warming, iron-rich comfort food; soluble fiber also eases bloating",
+    berry:       "Vitamin C boosts iron absorption; pair with iron-rich foods this phase",
     avocado:     "Anti-inflammatory fats ease period pain + potassium reduces bloating",
     yogurt:      "Probiotics ease the digestive changes common during menstruation",
     kimchi:      "Probiotics support the gut disruption that often accompanies your period",
@@ -1314,7 +1344,7 @@ const CYCLE_BENEFITS = {
     turmeric:    "Anti-inflammatory support as your body rebuilds the uterine lining",
     chicken:     "Lean protein fuels the natural energy surge of rising estrogen",
     turkey:      "Light protein supports the increased physical energy of this phase",
-    tempeh:      "Fermented soy supports gut health — your microbiome shifts with estrogen",
+    tempeh:      "Fermented soy supports gut health; your microbiome shifts with estrogen",
     kimchi:      "Probiotics support the gut microbiome changes that follow menstruation",
     kefir:       "Probiotic diversity supports estrogen metabolism as levels rise",
     quinoa:      "Complete protein + B vitamins fuel the energy surge of this phase",
@@ -1325,14 +1355,14 @@ const CYCLE_BENEFITS = {
     oat:         "Sustained energy for the higher activity level your body craves now",
     "sweet potato": "Complex carbs fuel the natural energy peak of your follicular phase",
     beef:        "Protein & iron support the rebuilding happening after menstruation",
-    _fallback:   "Your body is rebuilding — light, nutrient-dense foods fuel this phase",
+    _fallback:   "Your body is rebuilding; light, nutrient-dense foods fuel this phase",
   },
   ovulatory: {
-    salmon:      "Omega-3s support brain function at its peak — estrogen is highest now",
+    salmon:      "Omega-3s support brain function at its peak; estrogen is highest now",
     spinach:     "Fiber helps clear the estrogen surplus your body produces at ovulation",
     kale:        "Cruciferous compounds support estrogen detox during your hormonal peak",
     broccoli:    "DIM in broccoli helps metabolize the estrogen surge at ovulation",
-    lentil:      "Fiber binds to excess estrogen for elimination — important at your peak",
+    lentil:      "Fiber binds to excess estrogen for elimination, important at your peak",
     egg:         "Choline supports the peak cognitive function you have during ovulation",
     quinoa:      "Fiber + magnesium support estrogen clearance and energy balance",
     turmeric:    "Anti-inflammatory support during your highest-energy phase",
@@ -1340,11 +1370,11 @@ const CYCLE_BENEFITS = {
     turkey:      "Light protein matches the naturally lighter appetite of this phase",
     avocado:     "Fiber + healthy fats support estrogen metabolism at its peak",
     berry:       "Antioxidants protect cells during peak metabolic activity",
-    kimchi:      "Probiotics support the estrobolome — critical for clearing peak estrogen",
+    kimchi:      "Probiotics support the estrobolome, critical for clearing peak estrogen",
     tempeh:      "Fiber + probiotics help metabolize the estrogen surge",
     yogurt:      "Probiotics support estrogen clearance through the gut",
     banana:      "Quick fuel for the naturally higher energy & exercise performance now",
-    rice:        "Light energy — your body is efficient and doesn't need heavy carbs now",
+    rice:        "Light energy; your body is efficient and doesn't need heavy carbs now",
     _fallback:   "Focus on fiber & antioxidants to support estrogen clearance at ovulation",
   },
   luteal: {
@@ -1352,26 +1382,26 @@ const CYCLE_BENEFITS = {
     sardine:     "Omega-3s + calcium calm the nervous system as PMS symptoms emerge",
     spinach:     "Magnesium eases the cramps & mood changes of the luteal phase",
     egg:         "Choline supports mood as serotonin dips in the premenstrual window",
-    quinoa:      "Magnesium + complex carbs — exactly what your brain craves before your period",
-    "sweet potato": "Complex carbs boost serotonin — your brain needs more before your period",
+    quinoa:      "Magnesium + complex carbs: exactly what your brain craves before your period",
+    "sweet potato": "Complex carbs boost serotonin; your brain needs more before your period",
     turmeric:    "Anti-inflammatory curcumin eases the PMS inflammation building now",
-    "dark chocolate": "Magnesium + mood-boosting compounds — nature's PMS remedy",
-    banana:      "B6 + magnesium directly reduce PMS severity — supported by research",
+    "dark chocolate": "Magnesium + mood-boosting compounds: nature's PMS remedy",
+    banana:      "B6 + magnesium directly reduce PMS severity, supported by research",
     walnut:      "Omega-3s + magnesium ease the anxiety & sleep issues of late luteal",
     avocado:     "Healthy fats + potassium reduce the bloating & water retention of PMS",
     chicken:     "Protein stabilizes the blood sugar swings that worsen PMS mood changes",
-    turkey:      "Tryptophan boosts serotonin — which drops 25% in the premenstrual phase",
+    turkey:      "Tryptophan boosts serotonin, which drops 25% in the premenstrual phase",
     beef:        "Iron & B12 support energy as progesterone's sedating effect increases",
     rice:        "Complex carbs help tryptophan cross the blood-brain barrier for serotonin",
     oat:         "Warming comfort + magnesium ease the anxiety of the premenstrual window",
-    yogurt:      "Calcium reduces PMS symptoms by 50% in studies — yogurt delivers it gently",
-    kefir:       "Probiotics + calcium — eases the digestive & mood shifts of late luteal",
+    yogurt:      "Calcium reduces PMS symptoms by 50% in studies; yogurt delivers it gently",
+    kefir:       "Probiotics + calcium; eases the digestive & mood shifts of late luteal",
     kimchi:      "Gut health support as progesterone slows digestion in the luteal phase",
     ginger:      "Eases the nausea & bloating that build toward the end of your cycle",
     lentil:      "Magnesium + iron prep your body for the upcoming menstrual phase",
     berry:       "Antioxidants combat the increased oxidative stress of the premenstrual phase",
-    almond:      "Vitamin E reduces PMS by 70% in studies — snack on these before your period",
-    "pumpkin seed": "Zinc + magnesium — the seed-cycling staple for luteal phase support",
+    almond:      "Vitamin E reduces PMS by 70% in studies; snack on these before your period",
+    "pumpkin seed": "Zinc + magnesium: the seed-cycling staple for luteal phase support",
     _fallback:   "Complex carbs & magnesium-rich foods ease PMS as your period approaches",
   },
 };
@@ -1379,9 +1409,9 @@ const CYCLE_BENEFITS = {
 // cycleSync, lastPeriod, cycleLen are passed from component state
 const getGenderNote = (mealName, gender, cycleSync, lastPeriod, cycleLen, targetDate) => {
   if (!gender || !mealName) return null;
-  // Women who skipped cycle sync — no hormone notes
+  // Women who skipped cycle sync: no hormone notes
   if (gender === "female" && !cycleSync) return null;
-  // Women with cycle sync — phase-specific notes
+  // Women with cycle sync: phase-specific notes
   if (gender === "female" && cycleSync) {
     const phase = getCyclePhase(lastPeriod, cycleLen, targetDate);
     if (!phase) return null;
@@ -1396,7 +1426,7 @@ const getGenderNote = (mealName, gender, cycleSync, lastPeriod, cycleLen, target
     if (!note) note = phaseNotes._fallback;
     return { short: note, detail: null, phase };
   }
-  // Male — standard notes
+  // Male: standard notes
   if (gender === "male") {
     const benefits = GENDER_BENEFITS.male;
     const m = mealName.toLowerCase();
@@ -1404,7 +1434,7 @@ const getGenderNote = (mealName, gender, cycleSync, lastPeriod, cycleLen, target
     for (const [keyword, info] of sorted) {
       if (m.includes(keyword)) return { ...info, phase: null };
     }
-    return { short: "Balanced nutrition supports testosterone & recovery", detail: "Consistent protein and micronutrient intake maintains the anabolic environment your body needs for testosterone production. Balanced meals also stabilize cortisol — the hormone that directly suppresses T when elevated.", phase: null };
+    return { short: "Balanced nutrition supports testosterone & recovery", detail: "Consistent protein and micronutrient intake maintains the anabolic environment your body needs for testosterone production. Balanced meals also stabilize cortisol, the hormone that directly suppresses T when elevated.", phase: null };
   }
   return null;
 };
@@ -1427,7 +1457,7 @@ const generateRecipe = (meal) => {
   else if (hasAny("sausage")) { protein="sausage"; proteinIngredient=has("chicken sausage")?"2 chicken sausage links":"2 pork sausage links"; proteinSteps=["Heat a skillet over medium heat with 1 tsp oil.","Cook sausage 4–5 minutes per side until golden brown and cooked through (165°F internal)."]; proteinTime=12; }
   else if (hasAny("salmon")) { protein="salmon"; proteinIngredient="6 oz wild-caught salmon fillet, skin-on"; proteinSteps=["Pat salmon dry. Season flesh side with salt, pepper, and garlic powder.","Heat 1 tbsp oil in oven-safe skillet over medium-high. Sear skin-side down 4 minutes without moving.","Flip and cook 2–3 more minutes until salmon flakes easily at the thickest part.","Squeeze fresh lemon over before serving."]; proteinTime=15; }
   else if (hasAny("tuna")) { protein="tuna"; proteinIngredient="5 oz canned wild tuna in water, drained"; proteinSteps=["Drain tuna thoroughly and flake into a bowl.","Season with lemon juice, salt, and pepper."]; proteinTime=2; }
-  else if (hasAny("shrimp")) { protein="shrimp"; proteinIngredient="6 oz large shrimp, peeled and deveined"; proteinSteps=["Pat shrimp dry. Season with salt, pepper, garlic powder, and paprika.","Heat 1 tbsp oil in pan over medium-high. Cook shrimp 2 minutes per side — they're done when pink and curled."]; proteinTime=8; }
+  else if (hasAny("shrimp")) { protein="shrimp"; proteinIngredient="6 oz large shrimp, peeled and deveined"; proteinSteps=["Pat shrimp dry. Season with salt, pepper, garlic powder, and paprika.","Heat 1 tbsp oil in pan over medium-high. Cook shrimp 2 minutes per side; they're done when pink and curled."]; proteinTime=8; }
   else if (hasAny("steak","sirloin","ribeye","brisket")) { protein="steak"; proteinIngredient="6–8 oz sirloin steak, at room temperature"; proteinSteps=["Remove steak from fridge 20 minutes before cooking. Season generously with salt and pepper on both sides.","Heat skillet over high heat until smoking. Add 1 tsp oil and 1 tbsp butter.","Sear steak 3–4 minutes per side for medium-rare (135°F), 4–5 for medium (145°F).","Rest steak on a cutting board 5–7 minutes before slicing against the grain."]; proteinTime=20; }
   else if (hasAny("ground beef","beef meatloaf","meatloaf")) { protein="ground beef"; proteinIngredient="5 oz lean ground beef (90/10)"; proteinSteps=["Season ground beef with salt, pepper, garlic powder, and Worcestershire sauce.","Heat skillet over medium-high. Cook beef, breaking into small pieces, 7–8 minutes until browned. Drain excess fat."]; proteinTime=12; }
   else if (hasAny("ground turkey","turkey meatball")) { protein="ground turkey"; proteinIngredient="5 oz lean ground turkey"; proteinSteps=["Season ground turkey with salt, pepper, garlic powder, Italian herbs.","Cook in a skillet over medium heat, breaking apart, 8–9 minutes until cooked through (165°F)."]; proteinTime=12; }
@@ -1441,7 +1471,12 @@ const generateRecipe = (meal) => {
   else if (has("lean beef") || (has("beef") && !hasAny("ground beef","meatloaf","steak","sirloin","ribeye"))) { protein="beef"; proteinIngredient="5 oz lean beef (flank steak or sirloin), thinly sliced"; proteinSteps=["Slice beef thinly against the grain. Season with salt, pepper, and garlic powder.","Heat 1 tbsp oil in a wok or skillet over high heat.","Sear beef in batches 1–2 minutes per side until browned. Don't overcrowd the pan."]; proteinTime=10; }
   else if (hasAny("tofu","tempeh")) { protein="tofu"; proteinIngredient="6 oz extra-firm tofu, pressed and cubed"; proteinSteps=["Press tofu between paper towels for 10 minutes.","Cut into 1-inch cubes. Season with soy sauce, garlic, and oil.","Pan-fry over medium-high heat 3–4 minutes per side until golden and crispy."]; proteinTime=20; }
   else if (hasAny("egg")) { protein="egg"; proteinIngredient="3 large eggs"; proteinSteps=["Crack eggs into a bowl. Season with salt and pepper and whisk until uniform.","Heat butter in non-stick pan over medium-low.","Cook slowly, stirring constantly with a spatula for creamy scrambled eggs, or cook undisturbed for fried eggs."]; proteinTime=7; }
-  else if (hasAny("chicken")) { protein="chicken"; proteinIngredient=hasAny("thigh","thighs")?"2 bone-in chicken thighs":"1 boneless skinless chicken breast (6 oz)"; proteinSteps=["Pat chicken dry with paper towels — moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20; }
+  else if (hasAny("chicken")) { protein="chicken"; proteinIngredient=hasAny("thigh","thighs")?"2 bone-in chicken thighs":"1 boneless skinless chicken breast (6 oz)"; proteinSteps=["Pat chicken dry with paper towels; moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20; }
+  else if (hasAny("black bean")) { protein="black bean"; proteinIngredient="1 can (15 oz) black beans, drained and rinsed"; proteinSteps=["Drain and rinse black beans.","Heat in a saucepan with cumin, garlic powder, and a pinch of chili powder for 3–4 minutes until warmed through."]; proteinTime=5; }
+  else if (hasAny("white bean")) { protein="white bean"; proteinIngredient="1 can (15 oz) white cannellini beans, drained and rinsed"; proteinSteps=["Drain and rinse white beans.","Add to soup or sauté with garlic and olive oil for 3–4 minutes until warmed through."]; proteinTime=5; }
+  else if (hasAny("veggie","vegetable","butternut","sweet potato") && !hasAny("chicken","beef","turkey","pork","salmon","shrimp","egg")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
+  else if (hasAny("avocado toast")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
+  else if (hasAny("rice bowl") && !hasAny("chicken","beef","turkey","pork","salmon","shrimp","egg","tofu")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
   else { protein="protein"; proteinIngredient="5–6 oz lean protein of choice"; proteinSteps=["Season protein with salt, pepper, and garlic powder.","Cook to safe internal temperature (165°F poultry, 145°F fish/pork, 145°F medium beef)."]; proteinTime=20; }
 
   // ── Detect cooking method / dish type ────────────────────────────────────
@@ -1455,7 +1490,8 @@ const generateRecipe = (meal) => {
   const isSoup = hasAny("soup","chili","stew","chowder");
   const isPasta = hasAny("pasta","noodle","spaghetti");
   const isOmelette = hasAny("omelette","omelet");
-  const isOatmeal = hasAny("oatmeal","oats","overnight oat") || (has("porridge") && !has("rice") && !has("quinoa") && !has("millet"));
+  const isCornmealPorridge = has("cornmeal") && has("porridge");
+  const isOatmeal = hasAny("oatmeal","oats","overnight oat") || (has("porridge") && !has("rice") && !has("quinoa") && !has("millet") && !has("cornmeal"));
   const isSmoothi = hasAny("smoothie");
   const isYogurt = hasAny("yogurt","yoghurt");
   const isToast = hasAny("toast") && !hasAny("french toast");
@@ -1506,7 +1542,7 @@ const generateRecipe = (meal) => {
   const hasAlmond = has("almond");
 
   // ── Build ingredients list ────────────────────────────────────────────────
-  const ingredients = [proteinIngredient];
+  const ingredients = proteinIngredient ? [proteinIngredient] : [];
   const steps = [];
   let totalTime = proteinTime;
 
@@ -1522,7 +1558,7 @@ const generateRecipe = (meal) => {
   if (hasAsparagus) ingredients.push("1 bunch asparagus, trimmed");
   if (hasSpinach) ingredients.push("2 cups fresh baby spinach");
   if (hasAvocado) ingredients.push("½ ripe avocado, sliced or mashed");
-  if (hasBeans) ingredients.push(has("white bean") ? "1 can white cannellini beans, drained" : "1 can black beans, drained and rinsed");
+  if (hasBeans && protein !== "black bean" && protein !== "white bean") ingredients.push(has("white bean") ? "1 can white cannellini beans, drained" : "1 can black beans, drained and rinsed");
   if (hasCorn) ingredients.push(has("corn tortilla") ? "" : "1 cup corn kernels (fresh or frozen)");
   if (hasKale) ingredients.push("2 cups kale, stems removed, roughly torn");
   if (hasMushroom) ingredients.push("1 cup cremini mushrooms, sliced");
@@ -1575,7 +1611,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "20 min",
       ingredients: ing,
       steps: ["Rinse quinoa under cold water in a fine mesh strainer for 30 seconds to remove bitter saponins.","Combine quinoa and milk in a saucepan. Bring to a boil, then reduce to low.","Cover and simmer 15 minutes until quinoa is fluffy and liquid is absorbed.","Stir in cinnamon and a pinch of salt. Transfer to a bowl.","Top with fruit and drizzle with honey. Serve warm."],
-      tip: "Quinoa porridge is a complete protein — all 9 essential amino acids — unlike oatmeal.",
+      tip: "Quinoa porridge is a complete protein, all 9 essential amino acids, unlike oatmeal.",
       nutrition: ["Complete plant protein with all essential amino acids","Magnesium supports GABA production for calm","Iron supports oxygen delivery to the brain","Fiber stabilizes blood sugar for steady energy"]
     };
   }
@@ -1589,7 +1625,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "45 min",
       ingredients: ing,
       steps: ["Rinse rice until water runs clear. Combine rice and broth in a pot.","Bring to a boil, then reduce heat to low. Partially cover and simmer 35–40 minutes, stirring occasionally, until rice breaks down into a thick porridge.","While congee simmers, prepare soft-boiled egg: boil water, gently lower egg in, cook exactly 6.5 minutes, then ice bath.","Season congee with ginger, sesame oil, soy sauce, salt, and white pepper.","Ladle into a bowl. Top with peeled soft-boiled egg (halved) and sliced scallions."],
-      tip: "The longer you cook congee, the creamier it gets. Leftover rice works too — just use less water and cook 20 min.",
+      tip: "The longer you cook congee, the creamier it gets. Leftover rice works too; just use less water and cook 20 min.",
       nutrition: ["Easily digestible carbs are gentle on the gut-brain axis","Ginger is anti-inflammatory and supports digestion","Bone broth adds collagen and amino acids for brain repair","Slow-release energy keeps blood sugar stable"]
     };
   }
@@ -1605,7 +1641,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "35 min",
       ingredients: ing,
       steps: ["Rinse rice under cold water until water runs clear.","Combine rice and liquid in a saucepan. Bring to a boil.","Reduce heat to low, partially cover, and simmer 25–30 minutes, stirring occasionally, until rice is very soft and porridge-like.","Stir in cinnamon and a pinch of salt. Adjust thickness with more liquid if needed.","Transfer to a bowl, top with banana and drizzle with honey or maple syrup."],
-      tip: "Brown rice porridge has a nuttier, heartier flavor than oatmeal — the whole grain provides more sustained energy.",
+      tip: "Brown rice porridge has a nuttier, heartier flavor than oatmeal; the whole grain provides more sustained energy.",
       nutrition: ["Complex carbs for sustained brain energy","Fiber supports gut-brain axis health","Magnesium supports relaxation and sleep","B vitamins support neurotransmitter synthesis"]
     };
   }
@@ -1619,7 +1655,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "25 min",
       ingredients: ing,
       steps: ["Toast millet in a dry saucepan over medium heat for 2–3 minutes until fragrant and slightly golden.","Add milk and a pinch of salt. Bring to a boil.","Reduce heat to low, cover, and simmer 18–20 minutes until millet is soft and creamy.","Stir in cinnamon. Transfer to a bowl.","Top with sliced banana and drizzle with honey."],
-      tip: "Millet is naturally gluten-free and alkaline — one of the most digestible grains available.",
+      tip: "Millet is naturally gluten-free and alkaline, one of the most digestible grains available.",
       nutrition: ["Magnesium supports relaxation and sleep quality","B vitamins support neurotransmitter synthesis","Naturally gluten-free for sensitive digestive systems","Tryptophan supports serotonin production"]
     };
   }
@@ -1635,7 +1671,7 @@ const generateRecipe = (meal) => {
       serves: 4, time: "35 min",
       ingredients: ing,
       steps: ["Preheat oven to 375°F. Grease an 8×8 baking dish.","In a large bowl, mix oats, baking powder, cinnamon, and salt.","In another bowl, whisk milk, egg, maple syrup, and vanilla.","Pour wet into dry and stir until combined. Fold in fruit.","Pour into baking dish. Bake 25–30 minutes until golden and set in the center.","Let cool 5 minutes before cutting into squares. Serve warm."],
-      tip: "Baked oatmeal keeps in the fridge for 5 days — reheat a square each morning for easy breakfasts.",
+      tip: "Baked oatmeal keeps in the fridge for 5 days; reheat a square each morning for easy breakfasts.",
       nutrition: ["Complex carbs for sustained brain energy","Fiber feeds beneficial gut bacteria","Eggs add choline for memory support","Cinnamon helps stabilize blood sugar"]
     };
   }
@@ -1650,8 +1686,24 @@ const generateRecipe = (meal) => {
       serves: 1, time: "10 min",
       ingredients: ing,
       steps: ["Cook oats with broth (not milk) in a saucepan over medium heat, 4–5 minutes until creamy. Season with salt, pepper, and garlic powder.","While oats cook, bring a small pot of water to a gentle simmer. Add a splash of vinegar.","Crack egg into a small cup, then gently slide into simmering water. Cook 3–4 minutes for a runny yolk.","Transfer savory oats to a bowl. Top with sliced avocado and poached egg.","Season with hot sauce or everything bagel seasoning. The runny yolk becomes the sauce."],
-      tip: "Savory oats are an underrated brain breakfast — the broth adds umami and the egg adds choline.",
+      tip: "Savory oats are an underrated brain breakfast: the broth adds umami and the egg adds choline.",
       nutrition: ["Complex carbs from oats provide sustained brain energy","Choline from egg yolk supports memory","Healthy fats from avocado support myelin","Broth-based cooking adds minerals without added sugar"]
+    };
+  }
+
+  // Cornmeal porridge
+  if (isCornmealPorridge) {
+    const ing = ["½ cup fine yellow cornmeal", "2 cups water", "1 cup coconut milk or milk of choice", "Pinch of salt"];
+    if (hasBanana) ing.push("1 ripe banana, sliced");
+    if (has("honey")) ing.push("2 tbsp honey");
+    else ing.push("2 tbsp honey or condensed milk");
+    ing.push("½ tsp cinnamon", "¼ tsp nutmeg", "½ tsp vanilla extract");
+    return {
+      serves: 1, time: "15 min",
+      ingredients: ing,
+      steps: ["Mix cornmeal with 1 cup of cold water in a bowl until smooth; this prevents lumps.", "Bring remaining 1 cup water and coconut milk to a boil in a saucepan with salt.", "Slowly pour in the cornmeal mixture while stirring constantly.", "Reduce heat to low and cook 8–10 minutes, stirring frequently, until thick and creamy.", "Stir in cinnamon, nutmeg, and vanilla. Pour into a bowl.", "Drizzle with honey and top with sliced banana. Serve warm."],
+      tip: "The key to lump-free porridge is mixing cornmeal with cold water first before adding to hot liquid.",
+      nutrition: ["Complex carbs for sustained brain energy", "Coconut milk provides medium-chain triglycerides for quick brain fuel", "Cinnamon helps stabilize blood sugar", "Iron from cornmeal supports oxygen delivery to the brain"]
     };
   }
 
@@ -1669,8 +1721,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "8 min",
       ingredients: oatIng,
-      steps: ["Combine oats, milk, salt, and cinnamon in a small saucepan over medium heat.", "Stir frequently for 4–5 minutes until oats absorb the liquid and reach a creamy consistency.", "Remove from heat — oats continue thickening off the heat.", "Pour into a bowl and arrange toppings artfully on top.", "Drizzle honey or maple syrup over everything and serve immediately."],
-      tip: "For extra creaminess, use half water and half milk. Overnight oats work too — just combine everything in a jar and refrigerate overnight.",
+      steps: ["Combine oats, milk, salt, and cinnamon in a small saucepan over medium heat.", "Stir frequently for 4–5 minutes until oats absorb the liquid and reach a creamy consistency.", "Remove from heat; oats continue thickening off the heat.", "Pour into a bowl and arrange toppings artfully on top.", "Drizzle honey or maple syrup over everything and serve immediately."],
+      tip: "For extra creaminess, use half water and half milk. Overnight oats work too; just combine everything in a jar and refrigerate overnight.",
       nutrition: ["Complex carbs for sustained brain energy","Fiber feeds beneficial gut bacteria","Beta-glucan supports healthy cholesterol","Cinnamon helps stabilize blood sugar"]
     };
   }
@@ -1688,12 +1740,12 @@ const generateRecipe = (meal) => {
       serves: 1, time: "5 min",
       ingredients: ing,
       steps: [
-        "Blend frozen fruit with just enough milk to create a thick, spoonable consistency — less liquid than a drinkable smoothie.",
+        "Blend frozen fruit with just enough milk to create a thick, spoonable consistency, less liquid than a drinkable smoothie.",
         "Pour into a bowl.",
         "Arrange toppings in rows: granola, fresh fruit, seeds.",
-        "Eat immediately with a spoon — smoothie bowls melt fast.",
+        "Eat immediately with a spoon; smoothie bowls melt fast.",
       ],
-      tip: "Use frozen fruit straight from the freezer — it's what gives smoothie bowls their thick, ice-cream-like texture.",
+      tip: "Use frozen fruit straight from the freezer; it's what gives smoothie bowls their thick, ice-cream-like texture.",
       nutrition: ["Antioxidants from berries reduce neuroinflammation","Fiber from fruit and seeds supports gut health","Natural sugars provide quick brain fuel","Spinach adds folate without changing the taste"]
     };
   }
@@ -1724,8 +1776,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "5 min",
       ingredients: sIng,
-      steps: ["Add liquid to blender first — this protects the blade and blends more smoothly.", "Add yogurt, nut butter, and honey.", "Add frozen fruit and ice on top.", "Blend on high 45–60 seconds until completely smooth and creamy.", "Pour into a tall glass. Drink immediately for best texture."],
-      tip: "Freeze ripe bananas in chunks — they make the creamiest smoothies without any added sugar.",
+      steps: ["Add liquid to blender first; this protects the blade and blends more smoothly.", "Add yogurt, nut butter, and honey.", "Add frozen fruit and ice on top.", "Blend on high 45–60 seconds until completely smooth and creamy.", "Pour into a tall glass. Drink immediately for best texture."],
+      tip: "Freeze ripe bananas in chunks; they make the creamiest smoothies without any added sugar.",
       nutrition: ["Protein from Greek yogurt supports neurotransmitter production","Antioxidants from berries reduce neuroinflammation","Healthy fats from nut butter support myelin sheath","Potassium from banana supports nerve signaling"]
     };
   }
@@ -1757,9 +1809,9 @@ const generateRecipe = (meal) => {
         has("parfait") ? "In a glass or bowl, spoon a layer of yogurt on the bottom." : "Spoon yogurt into a bowl.",
         has("parfait") ? "Add a layer of fruit, then granola. Repeat layers until glass is full." : "Arrange fruit and toppings on top of the yogurt.",
         has("honey") ? "Drizzle honey over the top." : "Add a drizzle of honey if desired.",
-        "Serve immediately — granola stays crunchiest when added just before eating.",
+        "Serve immediately; granola stays crunchiest when added just before eating.",
       ].filter(Boolean),
-      tip: "Greek yogurt has 2x the protein of regular yogurt — it keeps you full much longer.",
+      tip: "Greek yogurt has 2x the protein of regular yogurt; it keeps you full much longer.",
       nutrition: ["Probiotics from yogurt support the gut-brain axis and serotonin production","Protein supports neurotransmitter synthesis","Live cultures improve gut microbiome diversity","Calcium supports neural signaling"]
     };
   }
@@ -1781,11 +1833,11 @@ const generateRecipe = (meal) => {
       ingredients: ing,
       steps: [
         "Combine chia seeds, milk, sweetener, and vanilla in a jar or bowl.",
-        "Stir well, making sure chia seeds are fully mixed in — they clump if you skip this.",
+        "Stir well, making sure chia seeds are fully mixed in; they clump if you skip this.",
         "Cover and refrigerate at least 4 hours or overnight until thick and pudding-like.",
         "Stir once more before serving. Top with fresh fruit and any desired toppings.",
       ],
-      tip: "Shake or stir the jar after 10 minutes in the fridge — this prevents clumping.",
+      tip: "Shake or stir the jar after 10 minutes in the fridge; this prevents clumping.",
       nutrition: ["Chia seeds are rich in omega-3 ALA, supporting brain cell membranes","High fiber feeds beneficial gut bacteria","Complete protein with all essential amino acids","Magnesium supports stress response and sleep quality"]
     };
   }
@@ -1798,7 +1850,7 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "3 min",
       ingredients: ing,
-      steps: ["Pour cereal into a bowl.","Add cold milk.","Top with sliced fruit if desired.","Eat promptly — cereal is best when still crunchy."],
+      steps: ["Pour cereal into a bowl.","Add cold milk.","Top with sliced fruit if desired.","Eat promptly; cereal is best when still crunchy."],
       tip: "Choose cereals with whole grains first on the ingredient list and less than 8g sugar per serving.",
       nutrition: ["Whole grains provide steady glucose for sustained brain energy","Milk adds protein and calcium for neural function","Fortified cereals often contain B vitamins critical for mood regulation","Fiber supports gut bacteria that produce neurotransmitters"]
     };
@@ -1819,18 +1871,18 @@ const generateRecipe = (meal) => {
       serves: 1, time: isWaffle ? "15 min" : "15 min",
       ingredients: ing,
       steps: isWaffle ? [
-        "Preheat waffle iron. Mix batter ingredients until just combined — small lumps are fine.",
+        "Preheat waffle iron. Mix batter ingredients until just combined; small lumps are fine.",
         "Lightly grease the waffle iron. Pour batter to fill ¾ of the surface.",
         "Cook until steam stops and waffle is golden, about 3–4 minutes.",
         "Top with fresh fruit and maple syrup. Serve immediately.",
       ] : [
-        "Mix batter ingredients until just combined — overmixing makes pancakes tough.",
+        "Mix batter ingredients until just combined; overmixing makes pancakes tough.",
         "Heat a non-stick pan or griddle over medium heat. Add a small pat of butter.",
         "Pour ¼ cup batter per pancake. Cook until bubbles form on the surface and edges look set, about 2–3 minutes.",
         "Flip and cook 1–2 more minutes until golden brown.",
         "Stack pancakes, top with fresh fruit and maple syrup.",
       ],
-      tip: "Let the batter rest 5 minutes before cooking — the flour hydrates and makes fluffier pancakes.",
+      tip: "Let the batter rest 5 minutes before cooking; the flour hydrates and makes fluffier pancakes.",
       nutrition: ["Complex carbs provide sustained glucose for brain energy","Eggs add choline for memory and focus","Berries add antioxidants that cross the blood-brain barrier","Whole grain versions add fiber for gut-brain axis support"]
     };
   }
@@ -1847,7 +1899,7 @@ const generateRecipe = (meal) => {
         "Cook each slice 2–3 minutes per side until golden brown.",
         "Top with maple syrup and fresh fruit.",
       ],
-      tip: "Day-old bread works best — it's drier and soaks up the custard without falling apart.",
+      tip: "Day-old bread works best; it's drier and soaks up the custard without falling apart.",
       nutrition: ["Eggs provide choline for acetylcholine production","Cinnamon helps stabilize blood sugar","Whole grain bread adds fiber for gut microbiome","Protein from eggs keeps you full longer"]
     };
   }
@@ -1859,8 +1911,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "2 min",
       ingredients: ["¼ cup raw almonds or cashews","¼ cup walnuts or pecans","2 tbsp pumpkin seeds","2 tbsp dried cranberries or raisins", has("dark chocolate")?"2 tbsp dark chocolate chips":"", has("mango")?"2 tbsp dried mango pieces":""].filter(Boolean),
-      steps: ["Combine all ingredients in a small bowl or bag.","Toss to mix evenly.","Portion into a container — trail mix is calorie-dense, so a measured serving keeps you on track."],
-      tip: "Make a big batch on Sunday and portion into bags for the week — it's the easiest grab-and-go snack.",
+      steps: ["Combine all ingredients in a small bowl or bag.","Toss to mix evenly.","Portion into a container; trail mix is calorie-dense, so a measured serving keeps you on track."],
+      tip: "Make a big batch on Sunday and portion into bags for the week; it's the easiest grab-and-go snack.",
       nutrition: ["Omega-3s from walnuts support brain cell membranes","Magnesium from nuts supports stress response","Zinc from pumpkin seeds aids neurotransmitter function","Antioxidants from dark chocolate improve blood flow to the brain"]
     };
   }
@@ -1875,9 +1927,9 @@ const generateRecipe = (meal) => {
       steps: [
         has("celery") ? "Wash and cut celery into sticks." : has("cracker") ? "Arrange crackers on a plate." : "Wash and slice the fruit.",
         "Spread or dollop nut butter on each piece, or serve in a small bowl for dipping.",
-        "Eat immediately — sliced fruit oxidizes (browns) over time.",
+        "Eat immediately; sliced fruit oxidizes (browns) over time.",
       ],
-      tip: has("apple") ? "Tart apples like Granny Smith pair best with peanut butter — the sweet-sour contrast is perfect." : "This is one of the simplest, most brain-healthy snacks — protein + healthy fats + natural sugars.",
+      tip: has("apple") ? "Tart apples like Granny Smith pair best with peanut butter; the sweet-sour contrast is perfect." : "This is one of the simplest, most brain-healthy snacks: protein + healthy fats + natural sugars.",
       nutrition: ["Healthy fats from nut butter support myelin sheath integrity","Protein sustains energy between meals","Natural fruit sugars provide quick fuel for the brain","Fiber slows absorption for steady blood sugar"]
     };
   }
@@ -1888,8 +1940,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "3 min",
       ingredients: [veg, "¼ cup hummus"],
-      steps: ["Wash and prepare vegetables — slice into sticks or rounds for easy dipping.","Spoon hummus into a small bowl.","Arrange vegetables around the hummus and serve."],
-      tip: "Hummus keeps well for 5–7 days in the fridge — make or buy extra for easy snacking all week.",
+      steps: ["Wash and prepare vegetables: slice into sticks or rounds for easy dipping.","Spoon hummus into a small bowl.","Arrange vegetables around the hummus and serve."],
+      tip: "Hummus keeps well for 5–7 days in the fridge; make or buy extra for easy snacking all week.",
       nutrition: ["Chickpea protein supports steady amino acid availability","Fiber from vegetables feeds gut bacteria","Tahini in hummus provides B vitamins for nerve function","Raw vegetables retain maximum vitamin C and folate"]
     };
   }
@@ -1904,8 +1956,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "3 min",
       ingredients: items,
-      steps: ["Slice or cube cheese into bite-sized pieces.","Arrange cheese alongside crackers or sliced fruit on a plate.","Serve at room temperature — cheese has more flavor when not ice-cold."],
-      tip: "Pull cheese from the fridge 10 minutes before eating — cold mutes the flavor.",
+      steps: ["Slice or cube cheese into bite-sized pieces.","Arrange cheese alongside crackers or sliced fruit on a plate.","Serve at room temperature; cheese has more flavor when not ice-cold."],
+      tip: "Pull cheese from the fridge 10 minutes before eating; cold mutes the flavor.",
       nutrition: ["Calcium from cheese supports neural signaling","Protein provides sustained energy","Tryptophan in cheese supports serotonin production","Whole grain crackers add fiber for gut health"]
     };
   }
@@ -1924,32 +1976,42 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "3 min",
       ingredients: ing,
-      steps: ["Spoon cottage cheese into a bowl.","Prepare fruit — wash, slice, or cube as needed.","Arrange fruit on top of cottage cheese. Drizzle with honey if using."],
+      steps: ["Spoon cottage cheese into a bowl.","Prepare fruit: wash, slice, or cube as needed.","Arrange fruit on top of cottage cheese. Drizzle with honey if using."],
       tip: "Full-fat cottage cheese has a creamier texture and keeps you fuller longer.",
       nutrition: ["Casein protein provides slow, sustained amino acid release","Calcium supports neural signaling","Tryptophan supports serotonin production","Fresh fruit adds antioxidants and quick brain fuel"]
     };
   }
 
   // Simple grab-and-go snacks (dark chocolate + nuts, frozen fruit + nuts, seed mixes)
-  const isSimpleSnack = hasAny("dark chocolate & almond","dark chocolate chips","dark chocolate squares","frozen blueberr","frozen berr","pumpkin seeds & cashew","dark chocolate & dried","grapefruit & walnut","almonds & dark chocolate");
-  if (isSimpleSnack && !hasAny("chicken","turkey","beef","salmon","steak","pork","egg","rice","pasta")) {
+  const isSimpleSnack = hasAny("dark chocolate","frozen blueberr","frozen berr","trail mix","mixed nuts","handful of almond","handful of cashew","handful of walnut","kombucha","kiwi slices","pumpkin seeds & cashew","grapefruit & walnut","almonds & dark chocolate","cashews & dried","walnuts & apple","mixed nuts & dried") || (hasAny("almond","walnut","cashew","pistachio","pumpkin seed","sunflower seed","mixed nut") && !hasAny("chicken","turkey","beef","salmon","steak","pork","oat","pancake","waffle","pasta","rice bowl","curry","stir"));
+  if (isSimpleSnack && !hasAny("chicken","turkey","beef","salmon","steak","pork","egg","rice","pasta","oatmeal","smoothie","yogurt","pudding","toast","soup","salad","bowl","wrap","sandwich")) {
     const ing = [];
     if (has("dark chocolate")) ing.push("1 oz dark chocolate (70%+ cacao), broken into pieces or chips");
     if (hasAlmond || has("almonds")) ing.push("¼ cup raw almonds");
     if (hasWalnut || has("walnuts")) ing.push("¼ cup raw walnuts");
     if (has("cashew")) ing.push("¼ cup raw cashews");
+    if (has("pistachio")) ing.push("¼ cup shelled pistachios");
     if (has("pumpkin seed")) ing.push("2 tbsp pumpkin seeds");
-    if (hasBlueberry || has("blueberr")) ing.push("½ cup frozen blueberries");
-    else if (hasBerry || has("frozen berr")) ing.push("½ cup frozen mixed berries");
+    if (has("sunflower seed")) ing.push("2 tbsp sunflower seeds");
+    if (has("mixed nut")) ing.push("¼ cup mixed nuts");
+    if (hasBlueberry || has("blueberr")) ing.push("½ cup fresh or frozen blueberries");
+    else if (hasBerry || has("frozen berr") || has("mixed berr")) ing.push("½ cup mixed berries");
     if (has("dried apricot")) ing.push("4–5 dried apricots");
-    if (hasBanana) ing.push("1 ripe banana");
+    if (has("dried cranberr")) ing.push("2 tbsp dried cranberries");
+    if (has("dried mango")) ing.push("¼ cup dried mango pieces");
+    if (has("dried fruit")) ing.push("¼ cup mixed dried fruit");
+    if (has("raisin")) ing.push("2 tbsp raisins");
+    if (hasBanana) ing.push("1 ripe banana, sliced");
     if (has("grapefruit")) ing.push("1 grapefruit, segmented");
+    if (has("kiwi")) ing.push("2 kiwis, peeled and sliced");
+    if (hasApple) ing.push("1 medium apple, sliced");
+    if (has("kombucha")) ing.push("1 bottle (16 oz) kombucha");
     if (ing.length === 0) ing.push("1 oz dark chocolate (70%+ cacao)","¼ cup mixed nuts");
     return {
       serves: 1, time: "2 min",
       ingredients: ing,
-      steps: ["Portion all ingredients into a small bowl or plate.","No cooking needed — enjoy as a simple, nutrient-dense snack.","For frozen fruit, let sit 2–3 minutes to soften slightly, or enjoy frozen for an ice-cream-like texture."],
-      tip: "Dark chocolate above 70% cacao has the highest flavanol content — the compound that boosts blood flow to the brain.",
+      steps: ["Portion all ingredients into a small bowl or plate.","No cooking needed; enjoy as a simple, nutrient-dense snack.","For frozen fruit, let sit 2–3 minutes to soften slightly, or enjoy frozen for an ice-cream-like texture."],
+      tip: "Dark chocolate above 70% cacao has the highest flavanol content, the compound that boosts blood flow to the brain.",
       nutrition: ["Flavanols in dark chocolate increase cerebral blood flow","Omega-3s from nuts support brain cell membranes","Antioxidants from berries reduce neuroinflammation","Magnesium from nuts and chocolate supports stress response"]
     };
   }
@@ -1976,19 +2038,19 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "2 min",
       ingredients: ing,
-      steps: ["Wash and prepare fruit — slice, peel, or hull as needed.","Arrange in a bowl or on a plate.","Eat fresh for maximum vitamin and antioxidant content."],
+      steps: ["Wash and prepare fruit: slice, peel, or hull as needed.","Arrange in a bowl or on a plate.","Eat fresh for maximum vitamin and antioxidant content."],
       tip: "Ripe, in-season fruit is always the most nutritious and flavorful option.",
       nutrition: ["Natural antioxidants reduce neuroinflammation","Vitamin C supports dopamine and norepinephrine synthesis","Fiber feeds beneficial gut bacteria","Natural sugars provide quick brain fuel without a crash"]
     };
   }
 
-  // Edamame (snack-only — skip if it's part of a larger meal)
+  // Edamame (snack-only, skip if it's part of a larger meal)
   if (has("edamame") && !hasAny("salmon","chicken","beef","turkey","rice","teriyaki","stir")) {
     return {
       serves: 1, time: "5 min",
       ingredients: ["1 cup frozen edamame in pods","½ tsp sea salt","Optional: squeeze of lime, chili flakes"],
       steps: ["Bring a pot of water to a boil. Add edamame.","Cook 3–4 minutes until tender.","Drain and toss with sea salt. Add lime or chili if desired.","Squeeze pods to pop out beans and eat."],
-      tip: "Microwave works too — 2–3 minutes in a covered bowl with a splash of water.",
+      tip: "Microwave works too: 2–3 minutes in a covered bowl with a splash of water.",
       nutrition: ["Complete plant protein with all essential amino acids","Rich in folate for serotonin pathway support","Isoflavones have neuroprotective properties","Fiber supports gut microbiome diversity"]
     };
   }
@@ -1998,7 +2060,7 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "30 min",
       ingredients: ["1 can (15 oz) chickpeas, drained and rinsed","1 tbsp olive oil","½ tsp salt","½ tsp garlic powder","½ tsp smoked paprika","¼ tsp cumin"],
-      steps: ["Preheat oven to 400°F. Drain chickpeas and pat very dry with paper towels — this is the key to crunchiness.","Toss with olive oil and spices.","Spread in a single layer on a baking sheet.","Roast 25–30 minutes, shaking pan halfway, until golden and crunchy.","Let cool 5 minutes — they crisp up more as they cool."],
+      steps: ["Preheat oven to 400°F. Drain chickpeas and pat very dry with paper towels; this is the key to crunchiness.","Toss with olive oil and spices.","Spread in a single layer on a baking sheet.","Roast 25–30 minutes, shaking pan halfway, until golden and crunchy.","Let cool 5 minutes; they crisp up more as they cool."],
       tip: "The drier the chickpeas are before roasting, the crunchier they'll be.",
       nutrition: ["Plant protein supports steady amino acid availability","Fiber feeds gut bacteria that produce serotonin precursors","Iron supports oxygen delivery to the brain","Folate supports the methylation cycle for mood regulation"]
     };
@@ -2021,8 +2083,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "2 min",
       ingredients: ing,
-      steps: ["Prepare any fresh fruit — wash, peel, and slice as needed.","Portion nuts into a small bowl.","Arrange together and enjoy as a simple, nutrient-dense snack."],
-      tip: "Raw nuts retain more omega-3s than roasted — heat degrades these delicate fats.",
+      steps: ["Prepare any fresh fruit: wash, peel, and slice as needed.","Portion nuts into a small bowl.","Arrange together and enjoy as a simple, nutrient-dense snack."],
+      tip: "Raw nuts retain more omega-3s than roasted; heat degrades these delicate fats.",
       nutrition: ["Omega-3 fatty acids from nuts support brain cell membranes","Vitamin E protects neurons from oxidative stress","Magnesium supports over 300 enzymatic reactions including neurotransmitter synthesis","Zinc supports memory and cognitive function"]
     };
   }
@@ -2032,7 +2094,7 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "5 min",
       ingredients: ["1 cup milk of choice (oat, almond, or whole)","1 tsp ground turmeric","½ tsp ground cinnamon","¼ tsp ground ginger","Pinch of black pepper (increases curcumin absorption by 2000%)","1 tsp honey or maple syrup","½ tsp coconut oil or ghee"],
-      steps: ["Warm milk in a small saucepan over medium heat — do not boil.","Whisk in turmeric, cinnamon, ginger, black pepper, and coconut oil until smooth and golden.","Pour into a mug and stir in honey.","Sip slowly — curcumin takes about 45 minutes to reach peak blood levels."],
+      steps: ["Warm milk in a small saucepan over medium heat; do not boil.","Whisk in turmeric, cinnamon, ginger, black pepper, and coconut oil until smooth and golden.","Pour into a mug and stir in honey.","Sip slowly; curcumin takes about 45 minutes to reach peak blood levels."],
       tip: "Black pepper contains piperine, which increases curcumin absorption by up to 2,000%. Never skip it.",
       nutrition: ["Curcumin crosses the blood-brain barrier and reduces neuroinflammation","Increases BDNF (brain-derived neurotrophic factor)","Anti-amyloid properties may protect against cognitive decline","Cinnamon helps stabilize blood sugar for steady brain energy"]
     };
@@ -2042,10 +2104,10 @@ const generateRecipe = (meal) => {
   if (has("lion's mane") && has("tea")) {
     return {
       serves: 1, time: "5 min",
-      ingredients: ["1 tsp lion's mane mushroom powder","1 cup hot water (not boiling — 175°F is ideal)","1 tsp honey","Optional: splash of milk, dash of cinnamon"],
-      steps: ["Heat water to just below boiling (175°F).","Add lion's mane powder to a mug and pour hot water over it.","Stir well until powder is fully dissolved. Add honey and optional milk.","Sip slowly — lion's mane compounds take time to absorb."],
-      tip: "Lion's mane stimulates NGF (nerve growth factor) — a protein that promotes the growth and maintenance of neurons. Consistent daily use shows the best results.",
-      nutrition: ["Hericenones and erinacines stimulate nerve growth factor (NGF)","Supports hippocampal neurogenesis — growth of new brain cells","Reduces neuroinflammation through inhibition of NF-κB pathway","May improve mild cognitive impairment — shown in human clinical trials"]
+      ingredients: ["1 tsp lion's mane mushroom powder","1 cup hot water (not boiling; 175°F is ideal)","1 tsp honey","Optional: splash of milk, dash of cinnamon"],
+      steps: ["Heat water to just below boiling (175°F).","Add lion's mane powder to a mug and pour hot water over it.","Stir well until powder is fully dissolved. Add honey and optional milk.","Sip slowly; lion's mane compounds take time to absorb."],
+      tip: "Lion's mane stimulates NGF (nerve growth factor), a protein that promotes the growth and maintenance of neurons. Consistent daily use shows the best results.",
+      nutrition: ["Hericenones and erinacines stimulate nerve growth factor (NGF)","Supports hippocampal neurogenesis, growth of new brain cells","Reduces neuroinflammation through inhibition of NF-κB pathway","May improve mild cognitive impairment, shown in human clinical trials"]
     };
   }
 
@@ -2060,7 +2122,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "3 min",
       ingredients: ing,
       steps: ["Pour kefir into a bowl.","Top with berries and granola if using.","Drizzle with honey and enjoy immediately."],
-      tip: "Kefir contains 30+ strains of beneficial bacteria — far more than yogurt. The gut-brain axis means these directly influence mood and cognition.",
+      tip: "Kefir contains 30+ strains of beneficial bacteria, far more than yogurt. The gut-brain axis means these directly influence mood and cognition.",
       nutrition: ["30+ probiotic strains support the gut-brain axis","Tryptophan supports serotonin production","Calcium and B12 support neural signaling","Fermentation pre-digests lactose, making it easier to absorb"]
     };
   }
@@ -2072,7 +2134,7 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "1 min",
       ingredients: ing,
-      steps: ["Pour kombucha into a glass over ice if desired.","Portion nuts into a small bowl.","Enjoy together — the probiotics and healthy fats make a brain-boosting combo."],
+      steps: ["Pour kombucha into a glass over ice if desired.","Portion nuts into a small bowl.","Enjoy together; the probiotics and healthy fats make a brain-boosting combo."],
       tip: "Choose kombucha with less than 5g sugar per serving. The fermentation should do the sweetening, not added sugar.",
       nutrition: ["Probiotics from fermentation support the gut-brain axis","B vitamins from fermentation support neurotransmitter synthesis","Polyphenols from tea base reduce neuroinflammation","Organic acids support healthy gut pH for optimal nutrient absorption"]
     };
@@ -2089,9 +2151,9 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "8 min",
       ingredients: ing,
-      steps: [has("egg") ? "Fry or scramble eggs to your preference." : "Prepare your base — toast bread or arrange rice cakes.",has("toast") ? "Toast bread until golden." : "","Spread avocado on the base if using.","Top with sauerkraut and egg. Sprinkle with seasoning."].filter(Boolean),
-      tip: "Raw, unpasteurized sauerkraut from the refrigerator section is what you want — shelf-stable sauerkraut has been heat-treated and contains no live probiotics.",
-      nutrition: ["Live probiotics support the gut-brain axis","Fermentation increases bioavailability of vitamins C and K","Lactobacillus strains produce GABA — the brain's calming neurotransmitter","Fiber from cabbage feeds beneficial gut bacteria"]
+      steps: [has("egg") ? "Fry or scramble eggs to your preference." : "Prepare your base: toast bread or arrange rice cakes.",has("toast") ? "Toast bread until golden." : "","Spread avocado on the base if using.","Top with sauerkraut and egg. Sprinkle with seasoning."].filter(Boolean),
+      tip: "Raw, unpasteurized sauerkraut from the refrigerator section is what you want; shelf-stable sauerkraut has been heat-treated and contains no live probiotics.",
+      nutrition: ["Live probiotics support the gut-brain axis","Fermentation increases bioavailability of vitamins C and K","Lactobacillus strains produce GABA, the brain's calming neurotransmitter","Fiber from cabbage feeds beneficial gut bacteria"]
     };
   }
 
@@ -2104,8 +2166,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "5 min",
       ingredients: ing,
-      steps: ["Bring water to a boil. Pour over tea bag in a mug.","Steep 5 minutes for full flavor and maximum calming compounds.","Add honey if desired. Prepare crackers or toast on the side.","Sip slowly — chamomile's apigenin takes about 30 minutes to produce a calming effect."],
-      tip: "Don't squeeze the tea bag — it releases bitter tannins. Just lift it out gently.",
+      steps: ["Bring water to a boil. Pour over tea bag in a mug.","Steep 5 minutes for full flavor and maximum calming compounds.","Add honey if desired. Prepare crackers or toast on the side.","Sip slowly; chamomile's apigenin takes about 30 minutes to produce a calming effect."],
+      tip: "Don't squeeze the tea bag; it releases bitter tannins. Just lift it out gently.",
       nutrition: ["Apigenin in chamomile binds to GABA receptors, promoting calm","L-theanine (if green tea) promotes alpha brain waves","Warm liquids activate the parasympathetic nervous system","Whole grains provide steady glucose for brain function"]
     };
   }
@@ -2121,7 +2183,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "2 min",
       ingredients: ing,
       steps: ["Peel and eat the banana as-is, or slice into a glass of milk.","Pour milk and enjoy alongside.","Simple, satisfying, and no prep needed."],
-      tip: "Bananas with brown spots are sweeter and easier to digest — the starches have converted to sugars.",
+      tip: "Bananas with brown spots are sweeter and easier to digest; the starches have converted to sugars.",
       nutrition: ["Tryptophan from banana + calcium from milk supports serotonin production","Potassium supports nerve signaling","B6 in bananas is essential for neurotransmitter synthesis","Protein from milk sustains energy between meals"]
     };
   }
@@ -2140,7 +2202,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "3 min",
       ingredients: rcIng,
       steps: ["Place rice cakes on a plate.",hasAvocado?"Mash avocado with a fork and spread on rice cakes.":has("almond butter")?"Spread almond butter evenly on rice cakes.":has("cream cheese")?"Spread cream cheese on rice cakes.":"Add your topping of choice.",has("blueberr")?"Top with fresh blueberries.":"",has("salmon")?"Lay smoked salmon over the spread.":"","Season with salt and pepper. Eat immediately for best crunch."].filter(Boolean),
-      tip: "Rice cakes are a blank canvas — try them with nut butter, avocado, or cream cheese.",
+      tip: "Rice cakes are a blank canvas: try them with nut butter, avocado, or cream cheese.",
       nutrition: ["Light, easily digestible carbs for quick brain energy",has("blueberr")?"Blueberries provide anthocyanins that boost memory":"Toppings add healthy fats for cognitive function","Low calorie base allows flexible, nutrient-dense toppings","Gluten-free option for sensitive digestive systems"]
     };
   }
@@ -2162,8 +2224,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "5 min",
       ingredients: [has("chip") ? "1 oz corn tortilla chips" : "1 cup baby carrots","1 ripe avocado","Juice of ½ lime","Pinch of salt","Optional: diced onion, cilantro"],
-      steps: ["Halve avocado, remove pit, and scoop flesh into a bowl.","Mash with a fork to desired consistency — chunky or smooth.","Add lime juice, salt, and any optional ingredients. Mix well.",has("chip")?"Serve with tortilla chips.":"Serve with baby carrots for dipping."],
-      tip: "Press the avocado pit into leftover guacamole and cover tightly — it slows browning.",
+      steps: ["Halve avocado, remove pit, and scoop flesh into a bowl.","Mash with a fork to desired consistency, chunky or smooth.","Add lime juice, salt, and any optional ingredients. Mix well.",has("chip")?"Serve with tortilla chips.":"Serve with baby carrots for dipping."],
+      tip: "Press the avocado pit into leftover guacamole and cover tightly; it slows browning.",
       nutrition: ["Monounsaturated fats from avocado support cognitive function","Potassium supports nerve signaling","Lutein in avocado supports brain processing speed","Fiber supports gut-brain axis health"]
     };
   }
@@ -2176,7 +2238,7 @@ const generateRecipe = (meal) => {
       serves: 8, time: "15 min",
       ingredients: ["1 cup rolled oats","½ cup peanut butter (or almond butter)","⅓ cup honey","½ cup dark chocolate chips or dried fruit","1 tbsp chia seeds (optional)","Pinch of salt"],
       steps: ["Combine oats, peanut butter, honey, and salt in a large bowl. Stir until a sticky dough forms.","Fold in chocolate chips or dried fruit and chia seeds.","Refrigerate mixture 10 minutes for easier handling.","Roll into 1-inch balls using slightly wet hands.","Store in an airtight container in the fridge for up to 1 week."],
-      tip: "Keep a batch in the fridge for the week — they're the perfect grab-and-go brain fuel.",
+      tip: "Keep a batch in the fridge for the week; they're the perfect grab-and-go brain fuel.",
       nutrition: ["Oats provide sustained energy via complex carbohydrates","Peanut butter provides healthy fats for myelin support","Honey provides quick glucose for immediate brain fuel","Chia seeds add omega-3 ALA for anti-inflammatory benefits"]
     };
   }
@@ -2186,7 +2248,7 @@ const generateRecipe = (meal) => {
     return {
       serves: 2, time: "30 min",
       ingredients: ["1 large sweet potato, sliced thin (⅛ inch)","1 tbsp olive oil","½ tsp sea salt","¼ tsp cinnamon (for bites) or paprika (for chips)"],
-      steps: ["Preheat oven to 375°F. Line a baking sheet with parchment paper.","Slice sweet potato into thin rounds. Toss with olive oil, salt, and seasoning.","Arrange in a single layer — don't overlap or they'll steam instead of crisp.","Bake 15–20 minutes, flipping halfway, until edges curl and crisp.","Let cool 5 minutes — they crisp up more as they cool."],
+      steps: ["Preheat oven to 375°F. Line a baking sheet with parchment paper.","Slice sweet potato into thin rounds. Toss with olive oil, salt, and seasoning.","Arrange in a single layer; don't overlap or they'll steam instead of crisp.","Bake 15–20 minutes, flipping halfway, until edges curl and crisp.","Let cool 5 minutes; they crisp up more as they cool."],
       tip: "Thinner slices = crispier chips. Use a mandoline if you have one for even slices.",
       nutrition: ["Beta-carotene converts to vitamin A for neuroprotection","Complex carbs provide steady brain energy","B6 supports neurotransmitter synthesis","Antioxidants reduce neuroinflammation"]
     };
@@ -2198,7 +2260,7 @@ const generateRecipe = (meal) => {
       serves: 4, time: "35 min",
       ingredients: ["1 medium sweet potato, peeled and cubed","1 can (15 oz) chickpeas, drained","2 tbsp tahini","1 tbsp olive oil","Juice of ½ lemon","½ tsp cumin","Salt and pepper to taste","Veggie sticks for dipping"],
       steps: ["Roast sweet potato cubes at 400°F for 20–25 minutes until soft.","Combine roasted sweet potato, chickpeas, tahini, olive oil, lemon juice, and cumin in a food processor.","Blend until smooth and creamy. Season with salt and pepper.","Serve with carrot sticks, cucumber, and bell pepper strips."],
-      tip: "This keeps well in the fridge for 5 days — make a big batch for the week.",
+      tip: "This keeps well in the fridge for 5 days; make a big batch for the week.",
       nutrition: ["Sweet potato adds beta-carotene for brain protection","Chickpea protein supports neurotransmitter production","Tahini provides B vitamins for nerve function","Fiber supports gut-brain axis health"]
     };
   }
@@ -2225,8 +2287,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "2 min",
       ingredients: ing,
-      steps: ing.length > 1 ? ["Prepare accompaniments — peel eggs, wash fruit.","Arrange jerky and sides on a plate or in a container.","A high-protein, no-cook snack that's perfect for on-the-go."] : ["Open package and enjoy — beef jerky is one of the most portable protein sources.","Pair with water, as jerky can be high in sodium."],
-      tip: "Look for jerky with simple ingredients — beef, salt, pepper. Avoid brands with added sugar.",
+      steps: ing.length > 1 ? ["Prepare accompaniments: peel eggs, wash fruit.","Arrange jerky and sides on a plate or in a container.","A high-protein, no-cook snack that's perfect for on-the-go."] : ["Open package and enjoy; beef jerky is one of the most portable protein sources.","Pair with water, as jerky can be high in sodium."],
+      tip: "Look for jerky with simple ingredients: beef, salt, pepper. Avoid brands with added sugar.",
       nutrition: ["High-quality protein supports neurotransmitter production","Iron supports oxygen delivery to the brain","Zinc supports memory and cognitive function","Portable and shelf-stable for consistent nutrition on busy days"]
     };
   }
@@ -2261,8 +2323,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "3 min",
       ingredients: [...fruitIng, meat, "Optional: mustard or hummus for dipping"],
-      steps: ["Wash and prepare fruit — slice, peel, or arrange as needed.","Roll or arrange deli meat on a plate alongside fruit.","Dip in mustard or hummus if desired. A simple, high-protein snack."],
-      tip: "Look for deli meat with no added nitrates — it's cleaner protein.",
+      steps: ["Wash and prepare fruit: slice, peel, or arrange as needed.","Roll or arrange deli meat on a plate alongside fruit.","Dip in mustard or hummus if desired. A simple, high-protein snack."],
+      tip: "Look for deli meat with no added nitrates; it's cleaner protein.",
       nutrition: ["Lean protein supports dopamine and serotonin synthesis","Fresh fruit provides antioxidants and quick energy","Low-calorie, high-satiety combination","Vitamin C from fruit enhances iron absorption from meat"]
     };
   }
@@ -2272,8 +2334,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "10 min",
       ingredients: ["4 strips bacon","2 oz cheese, sliced"],
-      steps: ["Cook bacon in a skillet over medium heat 4–5 minutes per side until crispy.","Drain on paper towels and let cool slightly.","Wrap each cheese slice around a bacon strip.","Enjoy warm — the residual heat from bacon softens the cheese perfectly."],
-      tip: "Start bacon in a cold pan — it renders fat more evenly and cooks more uniformly.",
+      steps: ["Cook bacon in a skillet over medium heat 4–5 minutes per side until crispy.","Drain on paper towels and let cool slightly.","Wrap each cheese slice around a bacon strip.","Enjoy warm; the residual heat from bacon softens the cheese perfectly."],
+      tip: "Start bacon in a cold pan; it renders fat more evenly and cooks more uniformly.",
       nutrition: ["Protein supports neurotransmitter production","Healthy fats support satiety between meals","Calcium from cheese supports neural signaling","Zero carbs keeps blood sugar stable"]
     };
   }
@@ -2298,7 +2360,7 @@ const generateRecipe = (meal) => {
       serves: 2, time: "25 min",
       ingredients: ing,
       steps: ["Cook pasta according to package directions until al dente. Drain and set aside.","In the same pot, melt butter over medium heat. Whisk in flour and cook 1 minute to form a roux.","Gradually whisk in milk, stirring constantly until smooth and thickened, about 3–4 minutes.","Remove from heat and stir in shredded cheese, mustard powder, salt, and pepper until smooth.","Add drained pasta back to the pot and stir to coat evenly with cheese sauce.","Serve in bowls with steamed broccoli and grilled chicken on the side if using."],
-      tip: "A splash of pasta cooking water in the cheese sauce makes it silkier — the starch acts as an emulsifier.",
+      tip: "A splash of pasta cooking water in the cheese sauce makes it silkier; the starch acts as an emulsifier.",
       nutrition: ["Calcium from cheese supports neural signaling","Tryptophan from dairy supports serotonin production","Complex carbs from pasta provide sustained brain energy","Protein from cheese supports neurotransmitter production"]
     };
   }
@@ -2310,8 +2372,8 @@ const generateRecipe = (meal) => {
     return {
       serves: 1, time: "10 min",
       ingredients: ing,
-      steps: ["Bring water to a gentle simmer (not a full boil — boiling destroys miso's beneficial probiotics).","Add dried wakame and let it rehydrate for 2 minutes.","Add tofu cubes and warm through for 1–2 minutes.","Remove pot from heat. Dissolve miso paste in a ladleful of warm broth, then stir back into the pot.","Ladle into a bowl and top with sliced scallions. Serve with rice on the side if using."],
-      tip: "Never boil miso — the live cultures (probiotics) that benefit your gut-brain axis are killed by high heat.",
+      steps: ["Bring water to a gentle simmer (not a full boil; boiling destroys miso's beneficial probiotics).","Add dried wakame and let it rehydrate for 2 minutes.","Add tofu cubes and warm through for 1–2 minutes.","Remove pot from heat. Dissolve miso paste in a ladleful of warm broth, then stir back into the pot.","Ladle into a bowl and top with sliced scallions. Serve with rice on the side if using."],
+      tip: "Never boil miso; the live cultures (probiotics) that benefit your gut-brain axis are killed by high heat.",
       nutrition: ["Probiotics from fermented miso support the gut-brain axis","Seaweed provides iodine for thyroid and brain function","Tofu provides gentle plant protein","Isoflavones from soy have neuroprotective properties"]
     };
   }
@@ -2338,7 +2400,7 @@ const generateRecipe = (meal) => {
       serves: 12, time: "25 min",
       ingredients: ing,
       steps: ["Preheat oven to 350°F. Grease a mini muffin tin or line with paper cups.","Blend oats in a blender or food processor until they form a coarse flour.","In a bowl, mash bananas. Mix in egg, honey, melted oil, cinnamon, baking powder, and salt.","Stir oat flour into wet ingredients until just combined. Fold in chocolate chips or blueberries if using.","Fill muffin cups about ¾ full. Bake 15–18 minutes until golden and a toothpick comes out clean.","Cool in pan 5 minutes before transferring to a wire rack."],
-      tip: "These freeze beautifully — make a batch on Sunday and thaw 2–3 each morning for an easy breakfast.",
+      tip: "These freeze beautifully; make a batch on Sunday and thaw 2–3 each morning for an easy breakfast.",
       nutrition: ["Complex carbs from oats provide sustained brain energy","Potassium from banana supports nerve signaling","Egg adds choline for memory support","Naturally sweetened with fruit and minimal added sugar"]
     };
   }
@@ -2353,7 +2415,7 @@ const generateRecipe = (meal) => {
   // Prep steps
   if (hasRice) { prepSteps.push("Rinse rice under cold water. Combine with broth in a saucepan, bring to boil, cover and simmer on low 18 minutes. Fluff with a fork."); totalTime = Math.max(totalTime, 25); }
   if (hasQuinoa) { prepSteps.push("Rinse quinoa in a fine mesh strainer. Combine with water/broth in a saucepan, bring to boil, reduce to simmer, cover 15 minutes. Let stand 5 minutes then fluff."); totalTime = Math.max(totalTime, 20); }
-  if (hasSweet && !isCasserole && !isStuffed) { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet — roast 25 minutes, flipping halfway, until caramelized."); totalTime = Math.max(totalTime, 35); }
+  if (hasSweet && !isCasserole && !isStuffed) { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet; roast 25 minutes, flipping halfway, until caramelized."); totalTime = Math.max(totalTime, 35); }
   if (hasPotato && !isCasserole && !isHash) { prepSteps.push("Cube potatoes into 1-inch pieces. Toss with olive oil, salt, garlic powder, and rosemary. Roast at 425°F 25–30 minutes until golden and crispy."); totalTime = Math.max(totalTime, 35); }
   if (hasBroccoli) { prepSteps.push("Toss broccoli florets with 1 tsp olive oil, salt. Either roast at 425°F for 15 minutes until edges char slightly, or steam for 5 minutes until bright green and tender-crisp."); }
   if (hasAsparagus) { prepSteps.push("Snap off the woody ends of asparagus. Toss with olive oil, salt, and pepper. Roast at 425°F 10–12 minutes, or pan-sear in a hot skillet 4–5 minutes."); }
@@ -2366,7 +2428,7 @@ const generateRecipe = (meal) => {
 
   // Dish-type assembly steps
   if (isBurrito) {
-    steps.push("Warm tortilla in a dry skillet 30 seconds per side or microwave 20 seconds — it needs to be pliable.");
+    steps.push("Warm tortilla in a dry skillet 30 seconds per side or microwave 20 seconds; it needs to be pliable.");
     steps.push("Layer fillings horizontally across the bottom third of the tortilla: protein first, then rice/beans, cheese, and any sauces.");
     steps.push("Fold the two sides in, then roll tightly from the bottom up. Press firmly to seal.");
     steps.push("Optional: toast seam-side down in a dry pan 1 minute per side for a crispy exterior.");
@@ -2383,7 +2445,7 @@ const generateRecipe = (meal) => {
     steps.push("Build from the bottom up: spread (mayo, mustard, or avocado), then greens, then protein, then toppings.");
     steps.push("Press gently and serve immediately, or wrap tightly for meal prep.");
   } else if (isCaesar || isSalad) {
-    steps.push("Wash and thoroughly dry salad greens — wet leaves dilute dressing.");
+    steps.push("Wash and thoroughly dry salad greens; wet leaves dilute dressing.");
     steps.push("Add dressing and toss to coat every leaf. Start with less and add more as needed.");
     steps.push("Slice or add protein on top. Finish with cheese and a crack of black pepper.");
   } else if (isBowl) {
@@ -2402,7 +2464,7 @@ const generateRecipe = (meal) => {
   } else if (isQuesadilla) {
     steps.push("Lay a tortilla flat in a dry skillet over medium heat. Add protein and cheese to one half.");
     steps.push("Fold over and press lightly. Cook 2–3 minutes per side until golden and cheese is fully melted.");
-    steps.push("Let rest 1 minute before cutting into wedges — this keeps the filling together.");
+    steps.push("Let rest 1 minute before cutting into wedges; this keeps the filling together.");
   } else if (isPasta) {
     steps.push("Cook pasta in salted boiling water according to package directions until al dente. Reserve ½ cup pasta water before draining.");
     if (has("marinara") || has("tomato sauce")) {
@@ -2413,12 +2475,12 @@ const generateRecipe = (meal) => {
     if (has("garlic bread")) steps.push("For garlic bread: spread butter mixed with minced garlic on bread halves, broil 2–3 minutes until golden.");
     totalTime = 25;
   } else if (isStirFry) {
-    steps.push("Heat wok or large skillet over highest heat until smoking — high heat is what makes stir-fry taste right.");
+    steps.push("Heat wok or large skillet over highest heat until smoking; high heat is what makes stir-fry taste right.");
     steps.push("Cook vegetables first (2–3 min), then push to sides. Add protein in center.");
     steps.push("Add soy sauce, sesame oil, and ginger. Toss everything together 1–2 minutes.");
     steps.push("Serve immediately over rice or quinoa. Stir-fry waits for no one.");
   } else if (isOmelette) {
-    steps.push("Beat eggs vigorously with salt and pepper — proper aeration makes a fluffy omelette.");
+    steps.push("Beat eggs vigorously with salt and pepper; proper aeration makes a fluffy omelette.");
     steps.push("Heat butter in an 8-inch non-stick pan over medium-low. Pour in eggs.");
     steps.push("As edges set, lift them gently and tilt pan so uncooked egg flows underneath.");
     steps.push("When top is just barely set but still glossy, add fillings to one half.");
@@ -2426,12 +2488,12 @@ const generateRecipe = (meal) => {
     totalTime = 10;
   } else if (isHash) {
     steps.push("Heat oil in a cast iron or non-stick skillet over medium-high.");
-    steps.push("Add potatoes or sweet potato first — cook 8–10 minutes without stirring to get a crust.");
+    steps.push("Add potatoes or sweet potato first; cook 8–10 minutes without stirring to get a crust.");
     steps.push("Add protein and vegetables. Toss together and cook another 5 minutes.");
     steps.push("Make wells in the hash and crack in eggs if including. Cover and cook 3–4 minutes for set whites.");
   } else if (isSheetPan) {
     steps.push("Preheat oven to 425°F. Line a large sheet pan with parchment paper.");
-    steps.push("Arrange protein and vegetables on the sheet pan — keep them in separate zones so each cooks evenly.");
+    steps.push("Arrange protein and vegetables on the sheet pan; keep them in separate zones so each cooks evenly.");
     steps.push("Drizzle everything with olive oil, salt, pepper, and garlic powder.");
     steps.push("Roast 20–25 minutes, checking at 15 min. Protein should be cooked through and veggies caramelized at the edges.");
     steps.push("Serve directly from the pan with rice or quinoa on the side.");
@@ -2466,7 +2528,7 @@ const generateRecipe = (meal) => {
     if (hasPomegranate) {
       steps.push("In a small saucepan, simmer pomegranate juice, honey, and balsamic vinegar over medium heat 8–10 minutes until reduced to a thick, syrupy glaze.");
       steps.push("Cook protein as directed. During the last 2 minutes, brush generously with pomegranate glaze.");
-      steps.push("Let glaze caramelize slightly — it should be shiny and sticky.");
+      steps.push("Let glaze caramelize slightly; it should be shiny and sticky.");
       steps.push("Plate protein over your starch, drizzle remaining glaze on top, and scatter fresh pomegranate arils.");
     } else {
       steps.push("Prepare glaze by simmering sauce ingredients until thickened.");
@@ -2478,19 +2540,19 @@ const generateRecipe = (meal) => {
 
   // Finish steps
   if (hasWatermelon || hasMango || hasBanana || hasApple || hasBerry) {
-    finishSteps.push("Prepare fresh fruit just before serving — it's the bright, refreshing counterpoint to the savory elements.");
+    finishSteps.push("Prepare fresh fruit just before serving; it's the bright, refreshing counterpoint to the savory elements.");
   }
   finishSteps.push("Plate and finish with a squeeze of fresh lemon or lime to brighten all the flavors.");
   steps.push(...finishSteps);
 
   // ── Nutritional highlights ─────────────────────────────────────────────────
   const nutrition = [];
-  if (protein === "salmon") nutrition.push("Rich in EPA/DHA omega-3s — shown to reduce depression symptoms");
+  if (protein === "salmon") nutrition.push("Rich in EPA/DHA omega-3s, shown to reduce depression symptoms");
   if (protein === "chicken" || protein === "turkey") nutrition.push("Complete protein supports serotonin and dopamine production");
-  if (protein === "steak" || protein === "ground beef") nutrition.push("Heme iron and zinc — critical for neurotransmitter synthesis");
+  if (protein === "steak" || protein === "ground beef") nutrition.push("Heme iron and zinc, critical for neurotransmitter synthesis");
   if (protein === "egg") nutrition.push("Choline in yolks supports acetylcholine (memory & focus)");
   if (protein === "lentil" || protein === "chickpea") nutrition.push("Plant protein + folate for serotonin pathway support");
-  if (hasSpinach || hasKale) nutrition.push("Folate & magnesium — key for mood regulation and stress response");
+  if (hasSpinach || hasKale) nutrition.push("Folate & magnesium, key for mood regulation and stress response");
   if (hasSweet) nutrition.push("Beta-carotene & B6 support brain health and mood");
   if (hasAvocado) nutrition.push("Monounsaturated fats support myelin sheath & cognitive function");
   if (hasPomegranate) nutrition.push("Punicalagins in pomegranate reduce neuroinflammation & support memory");
@@ -2499,22 +2561,22 @@ const generateRecipe = (meal) => {
   if (hasBroccoli) nutrition.push("Sulforaphane reduces neuroinflammation (NF-κB pathway)");
   if (hasBlueberry || hasBerry) nutrition.push("Anthocyanins cross the blood-brain barrier and reduce oxidative stress");
   if (hasWalnut) nutrition.push("Plant-based omega-3 (ALA) and polyphenols support brain structure");
-  if (hasRice || hasQuinoa) nutrition.push(hasQuinoa ? "Complete protein grain with all 9 essential amino acids" : "Complex carbs provide steady glucose — the brain's primary fuel");
+  if (hasRice || hasQuinoa) nutrition.push(hasQuinoa ? "Complete protein grain with all 9 essential amino acids" : "Complex carbs provide steady glucose, the brain's primary fuel");
   if (hasBeans) nutrition.push("Resistant starch feeds gut bacteria that produce mood-regulating neurotransmitters");
   if (nutrition.length === 0) nutrition.push("Whole-food ingredients support a healthy gut-brain axis");
 
   // ── Tip ───────────────────────────────────────────────────────────────────
   const tips = [];
-  if (protein === "chicken") tips.push("A meat thermometer (165°F) guarantees juicy chicken every time — guessing leads to overcooking.");
+  if (protein === "chicken") tips.push("A meat thermometer (165°F) guarantees juicy chicken every time; guessing leads to overcooking.");
   if (protein === "steak") tips.push("Slicing against the grain is the single biggest difference between tough and tender beef.");
-  if (protein === "salmon") tips.push("Pull salmon off heat when it's still slightly translucent in the center — carryover heat finishes it.");
-  if (hasRice) tips.push("Never lift the lid while rice is cooking — the steam is doing all the work.");
+  if (protein === "salmon") tips.push("Pull salmon off heat when it's still slightly translucent in the center; carryover heat finishes it.");
+  if (hasRice) tips.push("Never lift the lid while rice is cooking; the steam is doing all the work.");
   if (hasQuinoa) tips.push("Rinsing quinoa removes saponins, which can make it taste bitter.");
   if (isOatmeal) tips.push("Rolled oats (not instant) keep you full longer due to lower glycemic impact.");
   if (isBurrito) tips.push("Wrapping tightly in foil for 2 minutes lets the burrito steam itself perfectly together.");
-  if (isSalad) tips.push("Dress salad right before eating — it wilts fast once dressed.");
-  if (hasBroccoli) tips.push("A little char on roasted broccoli is actually the goal — it's where the flavour is.");
-  if (tips.length === 0) tips.push("Prep all your ingredients before you start cooking — it makes everything faster and less stressful.");
+  if (isSalad) tips.push("Dress salad right before eating; it wilts fast once dressed.");
+  if (hasBroccoli) tips.push("A little char on roasted broccoli is actually the goal; it's where the flavour is.");
+  if (tips.length === 0) tips.push("Prep all your ingredients before you start cooking; it makes everything faster and less stressful.");
 
   const finalTime = totalTime <= 10 ? `${totalTime} min` : totalTime <= 20 ? `${totalTime} min` : `${totalTime}–${totalTime+10} min`;
 
@@ -2544,195 +2606,195 @@ const getRecipe = (meal) => {
 const DAILY_ROUTINES = {
   adhd: {
     label:"ADHD", morning:[
-      { time:"5 min",  title:"Body Wake-Up",        desc:"Splash cold water on your face and do 10 jumping jacks. ADHD brains need physical activation before cognitive tasks — movement spikes norepinephrine faster than any alarm." },
-      { time:"5 min",  title:"Today's One Thing",   desc:"Write down the single most important task for today. Just one. The ADHD brain overloads on lists — anchor your day to one non-negotiable priority." },
+      { time:"5 min",  title:"Body Wake-Up",        desc:"Splash cold water on your face and do 10 jumping jacks. ADHD brains need physical activation before cognitive tasks; movement spikes norepinephrine faster than any alarm." },
+      { time:"5 min",  title:"Today's One Thing",   desc:"Write down the single most important task for today. Just one. The ADHD brain overloads on lists; anchor your day to one non-negotiable priority." },
       { time:"10 min", title:"Protein-First Breakfast", desc:"Eat your NeuroThrive breakfast before checking your phone. Protein stabilises dopamine before the day's stimuli hijack your attention." },
-      { time:"3 min",  title:"Timer-Start Ritual",  desc:"Set a visible timer for your first task. Externalising time is one of the most evidence-backed ADHD tools — your brain cannot intuit time passing." },
-      { time:"2 min",  title:"Body Double Setup",   desc:"Tell someone what you're working on. ADHD focus dramatically increases when another presence — even virtual — is nearby." },
+      { time:"3 min",  title:"Timer-Start Ritual",  desc:"Set a visible timer for your first task. Externalising time is one of the most evidence-backed ADHD tools; your brain cannot intuit time passing." },
+      { time:"2 min",  title:"Body Double Setup",   desc:"Tell someone what you're working on. ADHD focus dramatically increases when another presence, even virtual, is nearby." },
     ], evening:[
       { time:"5 min",  title:"Brain Dump",          desc:"Write everything in your head onto paper. Externalise the mental noise so your brain isn't trying to 'hold' it all overnight." },
       { time:"3 min",  title:"Tomorrow's Anchor",   desc:"Write the one thing you need to do first tomorrow and put it somewhere visible. Pre-deciding removes morning friction." },
       { time:"10 min", title:"Wind-Down Screen Cut",desc:"Put your phone in another room 30 minutes before sleep. ADHD brains are more sensitive to blue light's dopamine stimulation." },
-      { time:"5 min",  title:"What Worked",         desc:"Name one thing you did well today. ADHD brains are hardwired to notice failures — actively seeking wins retrains the self-narrative." },
+      { time:"5 min",  title:"What Worked",         desc:"Name one thing you did well today. ADHD brains are hardwired to notice failures; actively seeking wins retrains the self-narrative." },
     ],
   },
   anxiety: {
     label:"Anxiety", morning:[
-      { time:"5 min",  title:"Grounding First",     desc:"Before checking your phone: name 5 things you see, 4 you hear, 3 you can touch. Anxiety wakes up faster than you do — grounding anchors you in the present." },
+      { time:"5 min",  title:"Grounding First",     desc:"Before checking your phone: name 5 things you see, 4 you hear, 3 you can touch. Anxiety wakes up faster than you do; grounding anchors you in the present." },
       { time:"5 min",  title:"Slow Morning Breath", desc:"4 counts in, 4 hold, 6 counts out. Repeat 5 times. The extended exhale activates the parasympathetic nervous system, lowering cortisol within minutes." },
-      { time:"10 min", title:"No-News Breakfast",   desc:"Eat your NeuroThrive breakfast without news or social media. Anxiety brains are threat-scanning by default — inputs matter enormously in the first 30 minutes." },
+      { time:"10 min", title:"No-News Breakfast",   desc:"Eat your NeuroThrive breakfast without news or social media. Anxiety brains are threat-scanning by default; inputs matter enormously in the first 30 minutes." },
       { time:"5 min",  title:"Today's Worry Slot",  desc:"Write your worries down and close the notebook. Schedule your 'official' worry time for later (say, 4pm). This is one of the most evidence-backed CBT techniques for reducing all-day rumination." },
       { time:"3 min",  title:"Calm Intention",      desc:"Set one calm, achievable intention: 'Today I will do one thing at a time.' Not a goal. A quality of presence." },
     ], evening:[
       { time:"5 min",  title:"Scheduled Worry Time",desc:"This is the worry slot you set this morning. Write your worries for 5 minutes, then close the notebook. Contained worry prevents it expanding into the whole evening." },
-      { time:"10 min", title:"Magnesium & Warm Drink",desc:"Take your magnesium supplement with chamomile tea. Magnesium activates GABA receptors — the brain's calm switch. Chamomile's apigenin does the same." },
-      { time:"5 min",  title:"Body Scan",           desc:"Lying down, slowly notice each body part without trying to change anything. Anxiety lives in the body — this practice teaches you to observe physical sensations without them becoming thoughts." },
-      { time:"3 min",  title:"What Was Safe Today", desc:"Name three things that were fine today. Not great — just fine. Anxiety brains overweight threats; noticing safety rewires threat-detection over time." },
+      { time:"10 min", title:"Magnesium & Warm Drink",desc:"Take your magnesium supplement with chamomile tea. Magnesium activates GABA receptors, the brain's calm switch. Chamomile's apigenin does the same." },
+      { time:"5 min",  title:"Body Scan",           desc:"Lying down, slowly notice each body part without trying to change anything. Anxiety lives in the body; this practice teaches you to observe physical sensations without them becoming thoughts." },
+      { time:"3 min",  title:"What Was Safe Today", desc:"Name three things that were fine today. Not great, just fine. Anxiety brains overweight threats; noticing safety rewires threat-detection over time." },
     ],
   },
   depression: {
     label:"Depression", morning:[
       { time:"2 min",  title:"Feet on the Floor",   desc:"The goal is not to feel good. The goal is feet on the floor. That's the entire morning goal. Everything else comes after that." },
-      { time:"5 min",  title:"Light Exposure",      desc:"Open a window or step outside for 5 minutes. Morning light resets the cortisol awakening response — the brain's natural 'wake up' signal that depression suppresses." },
-      { time:"10 min", title:"Breakfast — Non-Negotiable", desc:"Eat your NeuroThrive breakfast even if you're not hungry. Skipping meals makes both energy and mood worse. Tryptophan at breakfast starts serotonin synthesis for the day." },
+      { time:"5 min",  title:"Light Exposure",      desc:"Open a window or step outside for 5 minutes. Morning light resets the cortisol awakening response, the brain's natural 'wake up' signal that depression suppresses." },
+      { time:"10 min", title:"Breakfast: Non-Negotiable", desc:"Eat your NeuroThrive breakfast even if you're not hungry. Skipping meals makes both energy and mood worse. Tryptophan at breakfast starts serotonin synthesis for the day." },
       { time:"5 min",  title:"One Micro-Commitment",desc:"Text one person or do one 5-minute task. Depression thrives in isolation and inaction. The smallest action breaks the loop." },
-      { time:"2 min",  title:"Compassionate Self-Talk", desc:"Say out loud or write: 'I am doing the best I can today.' Depression's inner critic is relentless — consciously pushing back matters neurologically." },
+      { time:"2 min",  title:"Compassionate Self-Talk", desc:"Say out loud or write: 'I am doing the best I can today.' Depression's inner critic is relentless; consciously pushing back matters neurologically." },
     ], evening:[
       { time:"5 min",  title:"Three Things You Did",desc:"Not three things you're grateful for. Three things you did today. Getting out of bed counts. Eating counts. Showing up here counts." },
-      { time:"10 min", title:"Gentle Movement",     desc:"10 minutes of slow walking or gentle stretching. Exercise is the most evidenced natural antidepressant — even 10 minutes of gentle movement increases BDNF." },
-      { time:"5 min",  title:"Tomorrow's First Step",desc:"Name one thing — just one — you'll do first tomorrow. Reduces decision fatigue and creates a tiny sense of forward momentum." },
+      { time:"10 min", title:"Gentle Movement",     desc:"10 minutes of slow walking or gentle stretching. Exercise is the most evidenced natural antidepressant; even 10 minutes of gentle movement increases BDNF." },
+      { time:"5 min",  title:"Tomorrow's First Step",desc:"Name one thing, just one, you'll do first tomorrow. Reduces decision fatigue and creates a tiny sense of forward momentum." },
       { time:"3 min",  title:"Sleep Anchor",        desc:"Same bedtime every night. Depression disrupts the circadian rhythm, which worsens mood. Consistent sleep timing is one of the most powerful and underused mood interventions." },
     ],
   },
   bipolar: {
     label:"Bipolar Disorder", morning:[
-      { time:"3 min",  title:"Mood Calibration",    desc:"Rate your mood 1–10 before anything else. Mood tracking is the single most important self-management tool in bipolar — it catches early warning signs before they become episodes." },
-      { time:"5 min",  title:"Routine Anchor",      desc:"Same wake time every day, including weekends. Circadian rhythm disruption is a primary bipolar trigger — consistency here has more evidence than almost any lifestyle intervention." },
-      { time:"10 min", title:"Stabilising Breakfast",desc:"Eat your NeuroThrive breakfast. Blood sugar instability is a mood cycling trigger. Never skip breakfast — it sets glucose stability for the whole day." },
+      { time:"3 min",  title:"Mood Calibration",    desc:"Rate your mood 1–10 before anything else. Mood tracking is the single most important self-management tool in bipolar; it catches early warning signs before they become episodes." },
+      { time:"5 min",  title:"Routine Anchor",      desc:"Same wake time every day, including weekends. Circadian rhythm disruption is a primary bipolar trigger; consistency here has more evidence than almost any lifestyle intervention." },
+      { time:"10 min", title:"Stabilising Breakfast",desc:"Eat your NeuroThrive breakfast. Blood sugar instability is a mood cycling trigger. Never skip breakfast; it sets glucose stability for the whole day." },
       { time:"5 min",  title:"Stimulation Check",   desc:"Is today's plan overstimulating (hypomania risk) or understimulating (depression risk)? Adjust one commitment if needed. Proactive pacing is core bipolar management." },
       { time:"2 min",  title:"Anchor Intention",    desc:"Set one grounded, calm intention. Not an ambitious goal. A steady one. 'Today I will stay at a 6.' Stability is the win." },
     ], evening:[
       { time:"5 min",  title:"End-of-Day Mood Log", desc:"Record today's mood rating, energy level, sleep quality, and any warning signs. This data, tracked consistently, becomes your personal early warning system." },
-      { time:"10 min", title:"Sleep Ritual — Non-Negotiable", desc:"Same bedtime, same routine. Sleep deprivation is the most consistent manic trigger known. One night of poor sleep can begin an upswing." },
-      { time:"5 min",  title:"Stimulation Wind-Down",desc:"Dim lights, no screens, no intense conversations after 9pm. The hypomanic brain is hyper-responsive to stimuli — controlling your environment is prophylactic mood medicine." },
+      { time:"10 min", title:"Sleep Ritual: Non-Negotiable", desc:"Same bedtime, same routine. Sleep deprivation is the most consistent manic trigger known. One night of poor sleep can begin an upswing." },
+      { time:"5 min",  title:"Stimulation Wind-Down",desc:"Dim lights, no screens, no intense conversations after 9pm. The hypomanic brain is hyper-responsive to stimuli; controlling your environment is prophylactic mood medicine." },
       { time:"3 min",  title:"Tomorrow Moderation Check", desc:"Look at tomorrow's calendar. Remove anything that feels exciting-but-too-much. Impulse commitments made during stable periods often look different in hindsight." },
     ],
   },
   ptsd: {
     label:"PTSD", morning:[
-      { time:"5 min",  title:"Safe Environment Check", desc:"Open your eyes slowly. Notice: I am in my room. It is safe. PTSD keeps the nervous system primed for danger — a conscious safety acknowledgment shifts the brain from threat mode to present-moment mode." },
+      { time:"5 min",  title:"Safe Environment Check", desc:"Open your eyes slowly. Notice: I am in my room. It is safe. PTSD keeps the nervous system primed for danger; a conscious safety acknowledgment shifts the brain from threat mode to present-moment mode." },
       { time:"5 min",  title:"Grounding Practice",  desc:"Hold something cold or textured for 30 seconds. Physical grounding interrupts hyperarousal and signals to the nervous system that the present is not the past." },
-      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast before outside stimuli. Chronic PTSD elevates cortisol — skipping breakfast spikes it further. Consistent eating helps regulate the stress hormone rhythm." },
+      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast before outside stimuli. Chronic PTSD elevates cortisol; skipping breakfast spikes it further. Consistent eating helps regulate the stress hormone rhythm." },
       { time:"5 min",  title:"Today's Capacity",    desc:"Honestly assess your window of tolerance today. What is manageable? Proactively communicating your capacity prevents re-traumatisation from overwhelm." },
       { time:"3 min",  title:"Resource Reminder",   desc:"Name three people, places, or things that feel safe to you. Consciously activating your safety network activates the vagal system and lowers threat response." },
     ], evening:[
       { time:"5 min",  title:"Containment Practice",desc:"Imagine placing today's difficult moments in a container and closing it. This grounds and schedules processing to therapy time rather than avoiding it." },
-      { time:"10 min", title:"Body Safety Scan",    desc:"Slowly scan your body, noticing areas of tension without trying to change them. PTSD stores trauma in the body — noticing without reacting builds the tolerance capacity therapy depends on." },
+      { time:"10 min", title:"Body Safety Scan",    desc:"Slowly scan your body, noticing areas of tension without trying to change them. PTSD stores trauma in the body; noticing without reacting builds the tolerance capacity therapy depends on." },
       { time:"5 min",  title:"Tomorrow's Safe Plan",desc:"Identify any potential triggers in tomorrow's schedule. Make one small adjustment if possible. Proactive planning reduces the element of surprise that activates trauma responses." },
-      { time:"3 min",  title:"Today's Small Brave Thing", desc:"Name one thing you did today that took courage — however small. Noticing acts of courage, however tiny, rebuilds the self-image that trauma contracts." },
+      { time:"3 min",  title:"Today's Small Brave Thing", desc:"Name one thing you did today that took courage, however small. Noticing acts of courage, however tiny, rebuilds the self-image that trauma contracts." },
     ],
   },
   ocd: {
     label:"OCD", morning:[
-      { time:"5 min",  title:"Delay Practice",      desc:"When the first compulsion or checking urge arrives — delay it by 5 minutes. This builds the neural pathway that separates urge from action, which is the core skill ERP therapy develops." },
-      { time:"5 min",  title:"Uncertainty Acceptance", desc:"Say out loud: 'I don't know for certain that everything is okay. That's okay.' OCD demands certainty — practising tolerance of uncertainty literally retrains the OCD circuit." },
+      { time:"5 min",  title:"Delay Practice",      desc:"When the first compulsion or checking urge arrives, delay it by 5 minutes. This builds the neural pathway that separates urge from action, which is the core skill ERP therapy develops." },
+      { time:"5 min",  title:"Uncertainty Acceptance", desc:"Say out loud: 'I don't know for certain that everything is okay. That's okay.' OCD demands certainty; practising tolerance of uncertainty literally retrains the OCD circuit." },
       { time:"10 min", title:"Structured Breakfast", desc:"Eat your NeuroThrive breakfast at the same time each day without rituals. A predictable, non-ritualistic routine gives the OCD brain structure without feeding the compulsion cycle." },
-      { time:"3 min",  title:"Today's ERP Goal",    desc:"Name one small exposure you'll practise today — something your OCD avoids. This, repeated daily, changes OCD more than any other intervention." },
+      { time:"3 min",  title:"Today's ERP Goal",    desc:"Name one small exposure you'll practise today, something your OCD avoids. This, repeated daily, changes OCD more than any other intervention." },
       { time:"2 min",  title:"Thought Labelling",   desc:"When an intrusive thought arrives: 'That's an OCD thought. I don't have to act on it.' Defusion from intrusive thoughts is a core ACT technique for OCD." },
     ], evening:[
       { time:"5 min",  title:"ERP Reflection",      desc:"Did you approach your exposure today? Write it down. The evidence that anxiety goes down when you don't compulse is what your brain needs to see accumulated over time." },
-      { time:"5 min",  title:"Intrusive Thought Log",desc:"Write any particularly strong intrusive thoughts today — without acting on them. Externalising them reduces their felt urgency." },
+      { time:"5 min",  title:"Intrusive Thought Log",desc:"Write any particularly strong intrusive thoughts today, without acting on them. Externalising them reduces their felt urgency." },
       { time:"3 min",  title:"Compassion Practice", desc:"OCD is not your fault. It is a neurological condition, not a character flaw. The shame OCD generates is one of its most damaging components." },
       { time:"5 min",  title:"Tomorrow's Intention",desc:"Name one intrusive thought or compulsion you will not act on tomorrow. Pre-commitment reduces decision load when anxiety is high." },
     ],
   },
   bpd: {
     label:"Borderline PD", morning:[
-      { time:"5 min",  title:"Baseline Emotion Check", desc:"Name the emotion you woke up with. Just name it — don't judge it. Emotion identification reduces emotional intensity by engaging the prefrontal cortex — the first skill in DBT." },
-      { time:"5 min",  title:"PLEASE Skill Check",  desc:"PhysicaL illness, Eating, Avoid substances, Sleep, Exercise. BPD emotional vulnerability skyrockets when any of these is off — this check is your early warning system." },
-      { time:"10 min", title:"Regulating Breakfast", desc:"Eat your NeuroThrive breakfast. Blood sugar is one of the most direct drivers of emotional reactivity — stable glucose reduces the amplitude of emotional swings." },
+      { time:"5 min",  title:"Baseline Emotion Check", desc:"Name the emotion you woke up with. Just name it; don't judge it. Emotion identification reduces emotional intensity by engaging the prefrontal cortex, the first skill in DBT." },
+      { time:"5 min",  title:"PLEASE Skill Check",  desc:"PhysicaL illness, Eating, Avoid substances, Sleep, Exercise. BPD emotional vulnerability skyrockets when any of these is off; this check is your early warning system." },
+      { time:"10 min", title:"Regulating Breakfast", desc:"Eat your NeuroThrive breakfast. Blood sugar is one of the most direct drivers of emotional reactivity; stable glucose reduces the amplitude of emotional swings." },
       { time:"3 min",  title:"Today's Opposite Action", desc:"Name one emotion you're likely to feel today and its opposite action. If shame, reach out instead of withdrawing. Pre-deciding reduces impulsive responses." },
       { time:"2 min",  title:"Wise Mind Check",     desc:"Ask: 'What would Wise Mind do today?' Not Emotion Mind. Not Reasonable Mind. The place between them. The orienting question for your whole day." },
     ], evening:[
       { time:"5 min",  title:"Emotion Thermometer", desc:"Rate the intensity of your emotional experience today 1–10. Tracking externalises emotions and, over weeks, reveals patterns that therapy can work with." },
-      { time:"5 min",  title:"Effectiveness Review",desc:"Was your behaviour today effective — did it move you toward your values? Not was it justified. Effective. This DBT question builds self-regulation over reactivity." },
+      { time:"5 min",  title:"Effectiveness Review",desc:"Was your behaviour today effective: did it move you toward your values? Not was it justified. Effective. This DBT question builds self-regulation over reactivity." },
       { time:"3 min",  title:"Repair Plan",         desc:"If any relationship damage happened today, name one small repair action for tomorrow. Proactive repair prevents accumulation of disconnection." },
       { time:"5 min",  title:"Self-Soothe",         desc:"Use one sense to soothe: a warm shower, a candle, a favourite song at low volume. Sensory self-soothing is a direct DBT distress tolerance skill." },
     ],
   },
   autism: {
     label:"Autism Spectrum", morning:[
-      { time:"5 min",  title:"Predictable Start",   desc:"Same routine every morning in the same order. Predictability reduces the cognitive and sensory load of mornings — preserving executive function for the day's actual demands." },
+      { time:"5 min",  title:"Predictable Start",   desc:"Same routine every morning in the same order. Predictability reduces the cognitive and sensory load of mornings, preserving executive function for the day's actual demands." },
       { time:"5 min",  title:"Sensory Check",       desc:"Before leaving: clothing comfortable? Lighting okay? Sound manageable? Proactively addressing sensory needs prevents the cumulative dysregulation that builds invisibly throughout the day." },
-      { time:"10 min", title:"Sensory-Safe Breakfast", desc:"Eat your NeuroThrive breakfast — familiar textures, predictable flavours. The gut-brain axis is particularly relevant in autism: digestive comfort directly affects sensory tolerance." },
-      { time:"5 min",  title:"Today's Social Demands", desc:"Look at today's schedule for social interactions. Mentally prepare. Masking is exhausting — knowing in advance allows you to conserve energy and plan recovery time." },
+      { time:"10 min", title:"Sensory-Safe Breakfast", desc:"Eat your NeuroThrive breakfast, familiar textures, predictable flavours. The gut-brain axis is particularly relevant in autism: digestive comfort directly affects sensory tolerance." },
+      { time:"5 min",  title:"Today's Social Demands", desc:"Look at today's schedule for social interactions. Mentally prepare. Masking is exhausting; knowing in advance allows you to conserve energy and plan recovery time." },
       { time:"3 min",  title:"Special Interest Anchor", desc:"Briefly engage with your special interest for 3 minutes. Starting the day with something that brings genuine pleasure activates dopamine in a grounding, stabilising way." },
     ], evening:[
-      { time:"10 min", title:"Decompression Time",  desc:"Stimming, silence, or a favourite repetitive activity with no demands. Autistic nervous systems carry a higher load of sensory and social processing — decompression is neurological maintenance." },
+      { time:"10 min", title:"Decompression Time",  desc:"Stimming, silence, or a favourite repetitive activity with no demands. Autistic nervous systems carry a higher load of sensory and social processing; decompression is neurological maintenance." },
       { time:"5 min",  title:"Energy Accounting",   desc:"What cost energy today? What restored it? Tracking this builds self-knowledge that allows you to pace your life in a way that prevents burnout." },
-      { time:"5 min",  title:"Sensory Wind-Down",   desc:"Dim lights, reduce sounds, change into comfortable clothing. Sensory inputs significantly affect sleep onset for autistic individuals — the transition to low stimulation should be gradual." },
+      { time:"5 min",  title:"Sensory Wind-Down",   desc:"Dim lights, reduce sounds, change into comfortable clothing. Sensory inputs significantly affect sleep onset for autistic individuals; the transition to low stimulation should be gradual." },
       { time:"3 min",  title:"Tomorrow Preview",    desc:"Look at tomorrow briefly. Any surprises or changes? Knowing tonight reduces the shock-processing load in the morning, when regulation is already more effortful." },
     ],
   },
   neuro_core: {
     label:"Neuro Core Plan", morning:[
-      { time:"5 min",  title:"Hydration First",     desc:"Drink a full glass of water before anything else. The brain loses water overnight — even mild dehydration reduces cognitive performance, mood, and reaction time within hours." },
-      { time:"10 min", title:"Brain-Boosting Breakfast", desc:"Eat your NeuroThrive breakfast without screens. The prefrontal cortex runs on glucose — the quality of your first meal sets its performance ceiling for the morning." },
+      { time:"5 min",  title:"Hydration First",     desc:"Drink a full glass of water before anything else. The brain loses water overnight; even mild dehydration reduces cognitive performance, mood, and reaction time within hours." },
+      { time:"10 min", title:"Brain-Boosting Breakfast", desc:"Eat your NeuroThrive breakfast without screens. The prefrontal cortex runs on glucose; the quality of your first meal sets its performance ceiling for the morning." },
       { time:"5 min",  title:"Morning Sunlight",    desc:"Step outside or look out a bright window for 5 minutes. Morning light sets your circadian clock, triggers the cortisol awakening response, and begins melatonin suppression that keeps you alert." },
-      { time:"5 min",  title:"Movement Activation", desc:"10 jumping jacks or a short walk. Even 5 minutes of exercise increases BDNF — the brain's growth factor — by measurable amounts. Movement improves focus and learning for hours afterward." },
+      { time:"5 min",  title:"Movement Activation", desc:"10 jumping jacks or a short walk. Even 5 minutes of exercise increases BDNF, the brain's growth factor, by measurable amounts. Movement improves focus and learning for hours afterward." },
       { time:"3 min",  title:"Today's Focus Intention", desc:"Write one specific outcome you want from today. This activates the reticular activating system, which filters information to support your stated goal." },
     ], evening:[
-      { time:"5 min",  title:"Cognitive Wind-Down", desc:"Stop complex mental work 60 minutes before bed. The prefrontal cortex takes time to shift to resting mode — working until sleep reduces sleep quality and memory consolidation." },
+      { time:"5 min",  title:"Cognitive Wind-Down", desc:"Stop complex mental work 60 minutes before bed. The prefrontal cortex takes time to shift to resting mode; working until sleep reduces sleep quality and memory consolidation." },
       { time:"5 min",  title:"What You Learned Today", desc:"Name one thing you learned or noticed today. Memory consolidation during sleep is strengthened when you consciously review experiences before sleeping." },
-      { time:"10 min", title:"Sleep Preparation",   desc:"Dim all lights 30–60 minutes before bed. Blue light suppresses melatonin for up to 3 hours. Sleep is when the brain clears neurotoxic waste — protecting it is the most underrated brain optimisation strategy." },
+      { time:"10 min", title:"Sleep Preparation",   desc:"Dim all lights 30–60 minutes before bed. Blue light suppresses melatonin for up to 3 hours. Sleep is when the brain clears neurotoxic waste; protecting it is the most underrated brain optimisation strategy." },
       { time:"3 min",  title:"Tomorrow's Brain Fuel", desc:"Think briefly about what you'll eat tomorrow. Pre-deciding your first meal removes morning decision fatigue that reduces willpower before the day has started." },
     ],
   },
   schizophrenia: {
     label:"Schizophrenia", morning:[
       { time:"5 min",  title:"Reality Anchor",      desc:"Look around and name 5 things you can see, their colours, and where they are. This grounding technique strengthens the prefrontal cortex's reality-testing circuits, which are your strongest tool against perceptual distortions." },
-      { time:"3 min",  title:"Medication Check",    desc:"Take your medication at the same time every day. Antipsychotics work best at steady blood levels — consistency is as important as the medication itself." },
-      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast. Antipsychotic medications can affect metabolism — nutrient-dense meals support brain function and counteract metabolic side effects." },
+      { time:"3 min",  title:"Medication Check",    desc:"Take your medication at the same time every day. Antipsychotics work best at steady blood levels; consistency is as important as the medication itself." },
+      { time:"10 min", title:"Nourishing Breakfast", desc:"Eat your NeuroThrive breakfast. Antipsychotic medications can affect metabolism; nutrient-dense meals support brain function and counteract metabolic side effects." },
       { time:"5 min",  title:"Routine Structure",   desc:"Review today's plan. Write down 3 things to do, in order. Structure reduces cognitive load and provides external scaffolding when executive function is challenged." },
       { time:"2 min",  title:"Support Check-In",    desc:"Text or call one trusted person. Social connection activates oxytocin pathways that buffer stress and reduce symptom severity." },
     ], evening:[
-      { time:"5 min",  title:"Day Review",          desc:"Write down what you did today — even small things count. Tracking real accomplishments counters the negative symptoms that minimize your own agency." },
-      { time:"5 min",  title:"Sensory Wind-Down",   desc:"Reduce noise and bright lights. Sensory overload is a common trigger — creating a calm environment supports the brain's ability to shift into rest mode." },
+      { time:"5 min",  title:"Day Review",          desc:"Write down what you did today, even small things count. Tracking real accomplishments counters the negative symptoms that minimize your own agency." },
+      { time:"5 min",  title:"Sensory Wind-Down",   desc:"Reduce noise and bright lights. Sensory overload is a common trigger; creating a calm environment supports the brain's ability to shift into rest mode." },
       { time:"5 min",  title:"Sleep Hygiene",       desc:"Same bedtime every night. Sleep disruption worsens positive and negative symptoms. Melatonin and circadian consistency are protective." },
       { time:"3 min",  title:"Tomorrow's Structure", desc:"Write down tomorrow's first 3 steps. Pre-planning reduces morning confusion and builds a reliable scaffold for each day." },
     ],
   },
   did: {
     label:"DID", morning:[
-      { time:"5 min",  title:"Gentle Orientation",  desc:"Before getting up, notice your body in bed. Name where you are, today's date, and your name. Dissociative mornings can feel disorienting — this anchors you to the present without forcing it." },
+      { time:"5 min",  title:"Gentle Orientation",  desc:"Before getting up, notice your body in bed. Name where you are, today's date, and your name. Dissociative mornings can feel disorienting; this anchors you to the present without forcing it." },
       { time:"5 min",  title:"Internal Check-In",   desc:"Take a moment to notice how you feel inside. Is there tension, emotion, or a sense of someone else being close to the front? Acknowledging internal states builds co-consciousness over time." },
-      { time:"10 min", title:"Comforting Breakfast", desc:"Eat your NeuroThrive breakfast slowly. Food is grounding — the sensory experience of eating anchors you in your body and the present moment." },
+      { time:"10 min", title:"Comforting Breakfast", desc:"Eat your NeuroThrive breakfast slowly. Food is grounding; the sensory experience of eating anchors you in your body and the present moment." },
       { time:"3 min",  title:"Today's Plan",        desc:"Write today's priorities in a shared journal or note that all parts can see. Shared communication reduces inter-part conflict and builds internal cooperation." },
       { time:"2 min",  title:"Safety Affirmation",  desc:"Say or write: 'We are safe. It is [today's date]. The body is [age].' Orienting to present safety is the foundation of DID recovery." },
     ], evening:[
       { time:"5 min",  title:"Parts Check-In",      desc:"Take a moment to notice who was present today. What did each part experience? Acknowledging all parts reduces internal conflict and builds the cooperative foundation of healing." },
-      { time:"5 min",  title:"Grounding Ritual",    desc:"Hold something with texture — a blanket, a smooth stone, a warm mug. Sensory grounding prevents nighttime dissociation and helps the body feel safe before sleep." },
-      { time:"5 min",  title:"Journal for the System", desc:"Write a brief note to any parts who might come forward tonight. Even a line of reassurance — 'We are safe at home' — reduces nighttime distress." },
+      { time:"5 min",  title:"Grounding Ritual",    desc:"Hold something with texture: a blanket, a smooth stone, a warm mug. Sensory grounding prevents nighttime dissociation and helps the body feel safe before sleep." },
+      { time:"5 min",  title:"Journal for the System", desc:"Write a brief note to any parts who might come forward tonight. Even a line of reassurance, 'We are safe at home', reduces nighttime distress." },
       { time:"3 min",  title:"Safe Sleep Setup",    desc:"Consistent bedtime, same bed position, same blanket. Predictability signals safety to the nervous system and reduces the nighttime switching that disrupts rest." },
     ],
   },
   npd: {
     label:"Narcissistic PD", morning:[
-      { time:"5 min",  title:"Honest Self-Check",   desc:"Before the day starts, notice how you actually feel — not how you want to appear. Vulnerability is not weakness. The prefrontal cortex grows stronger when you practice authentic self-awareness." },
-      { time:"5 min",  title:"Empathy Intention",   desc:"Set one intention to genuinely listen to someone today without redirecting to yourself. The anterior cingulate cortex — the empathy circuit — strengthens with deliberate practice." },
+      { time:"5 min",  title:"Honest Self-Check",   desc:"Before the day starts, notice how you actually feel, not how you want to appear. Vulnerability is not weakness. The prefrontal cortex grows stronger when you practice authentic self-awareness." },
+      { time:"5 min",  title:"Empathy Intention",   desc:"Set one intention to genuinely listen to someone today without redirecting to yourself. The anterior cingulate cortex, the empathy circuit, strengthens with deliberate practice." },
       { time:"10 min", title:"Balanced Breakfast",   desc:"Eat your NeuroThrive breakfast. Omega-3s and tryptophan support the serotonin system that modulates emotional regulation and reduces interpersonal reactivity." },
-      { time:"3 min",  title:"Realistic Goal",      desc:"Set one achievable goal — not a grandiose one. Practicing realistic self-appraisal builds the prefrontal circuits that ground identity in reality rather than fantasy." },
-      { time:"2 min",  title:"Gratitude for Others", desc:"Name one specific thing someone else did well recently. Acknowledging others' value activates the temporoparietal junction — the brain region for perspective-taking." },
+      { time:"3 min",  title:"Realistic Goal",      desc:"Set one achievable goal, not a grandiose one. Practicing realistic self-appraisal builds the prefrontal circuits that ground identity in reality rather than fantasy." },
+      { time:"2 min",  title:"Gratitude for Others", desc:"Name one specific thing someone else did well recently. Acknowledging others' value activates the temporoparietal junction, the brain region for perspective-taking." },
     ], evening:[
       { time:"5 min",  title:"Honest Reflection",   desc:"What went well today AND where could you have been kinder? Both matter. Growth happens in the space between self-compassion and honest accountability." },
-      { time:"5 min",  title:"Connection Review",    desc:"Think about one interaction today. How did the other person feel? Not how you looked — how they felt. This builds the neural pathways of empathy." },
-      { time:"5 min",  title:"Vulnerability Practice", desc:"Write one thing you're genuinely struggling with. Not performing — actually feeling. The brain's reward system recalibrates when authenticity replaces performance." },
+      { time:"5 min",  title:"Connection Review",    desc:"Think about one interaction today. How did the other person feel? Not how you looked, how they felt. This builds the neural pathways of empathy." },
+      { time:"5 min",  title:"Vulnerability Practice", desc:"Write one thing you're genuinely struggling with. Not performing, actually feeling. The brain's reward system recalibrates when authenticity replaces performance." },
       { time:"3 min",  title:"Calm Sleep Prep",     desc:"Avoid replaying social interactions or planning tomorrow's image. Let the day be done. Rest without performance." },
     ],
   },
   hpd: {
     label:"Histrionic PD", morning:[
       { time:"5 min",  title:"Quiet Self-Check",    desc:"Before reaching for your phone, sit with silence. Notice your feelings without acting on them. The impulse to seek stimulation immediately is the pattern to gently interrupt." },
-      { time:"5 min",  title:"Stable Intention",    desc:"Set one calm intention — not a dramatic one. 'Today I will be steady' rather than 'Today will be amazing.' Stability is the underrated superpower." },
-      { time:"10 min", title:"Grounding Breakfast",  desc:"Eat your NeuroThrive breakfast slowly, without multitasking. Complex carbs and omega-3s stabilise serotonin — the neurotransmitter of emotional equilibrium." },
+      { time:"5 min",  title:"Stable Intention",    desc:"Set one calm intention, not a dramatic one. 'Today I will be steady' rather than 'Today will be amazing.' Stability is the underrated superpower." },
+      { time:"10 min", title:"Grounding Breakfast",  desc:"Eat your NeuroThrive breakfast slowly, without multitasking. Complex carbs and omega-3s stabilise serotonin, the neurotransmitter of emotional equilibrium." },
       { time:"3 min",  title:"Attention Awareness",  desc:"Notice: who do you want attention from today, and why? Awareness of the pattern is the first step to choosing differently. The prefrontal cortex strengthens each time you observe rather than react." },
-      { time:"2 min",  title:"Inner Validation",    desc:"Tell yourself one thing you value about yourself — not your appearance or others' reactions. Internal validation builds the self-worth that external attention cannot sustain." },
+      { time:"2 min",  title:"Inner Validation",    desc:"Tell yourself one thing you value about yourself, not your appearance or others' reactions. Internal validation builds the self-worth that external attention cannot sustain." },
     ], evening:[
-      { time:"5 min",  title:"Emotional Review",    desc:"What emotions did you feel today? Name them specifically — not just 'good' or 'bad.' Emotional granularity strengthens the prefrontal cortex's ability to regulate rather than amplify." },
+      { time:"5 min",  title:"Emotional Review",    desc:"What emotions did you feel today? Name them specifically, not just 'good' or 'bad.' Emotional granularity strengthens the prefrontal cortex's ability to regulate rather than amplify." },
       { time:"5 min",  title:"Relationship Check",  desc:"Did you listen fully to someone today without steering the conversation? Notice without judgment. Each moment of genuine listening strengthens empathy circuits." },
-      { time:"5 min",  title:"Self-Soothing Ritual", desc:"Find comfort without external stimulation — a warm drink, a book, gentle music. Learning to self-soothe internally reduces dependence on others for emotional regulation." },
+      { time:"5 min",  title:"Self-Soothing Ritual", desc:"Find comfort without external stimulation: a warm drink, a book, gentle music. Learning to self-soothe internally reduces dependence on others for emotional regulation." },
       { time:"3 min",  title:"Quiet Sleep",         desc:"No dramatic planning or social media before bed. Let the evening be uneventful. Calm evenings build the neural tolerance for low stimulation." },
     ],
   },
   aspd: {
     label:"Antisocial PD", morning:[
-      { time:"5 min",  title:"Consequence Preview",  desc:"Before the day starts, think about one decision ahead. What are the second-order consequences? The prefrontal cortex — responsible for long-term planning — strengthens with deliberate consequence-mapping." },
+      { time:"5 min",  title:"Consequence Preview",  desc:"Before the day starts, think about one decision ahead. What are the second-order consequences? The prefrontal cortex, responsible for long-term planning, strengthens with deliberate consequence-mapping." },
       { time:"5 min",  title:"Patience Practice",    desc:"Sit still for 5 minutes. No phone, no stimulation. Boredom tolerance is a trainable skill and it directly strengthens impulse control circuits in the ventromedial prefrontal cortex." },
       { time:"10 min", title:"Omega-3 Rich Breakfast", desc:"Eat your NeuroThrive breakfast. EPA omega-3s increase serotonin release and have been shown in clinical trials to reduce aggression and impulsivity." },
-      { time:"3 min",  title:"Pro-Social Intention",  desc:"Set one intention to do something genuinely helpful for someone else. Not strategic — genuinely helpful. The brain's reward system can be retrained to find value in prosocial behaviour." },
+      { time:"3 min",  title:"Pro-Social Intention",  desc:"Set one intention to do something genuinely helpful for someone else. Not strategic, genuinely helpful. The brain's reward system can be retrained to find value in prosocial behaviour." },
       { time:"2 min",  title:"Stress Recognition",   desc:"Notice your current stress level 1–10. Anger and impulsive action often mask unacknowledged stress. Recognising it early is the window for a different choice." },
     ], evening:[
-      { time:"5 min",  title:"Actions & Impact",    desc:"Review your day. Did any action affect someone negatively? Not to blame yourself — to practice seeing the ripple effects of choices. This builds the neural circuits of consequential thinking." },
+      { time:"5 min",  title:"Actions & Impact",    desc:"Review your day. Did any action affect someone negatively? Not to blame yourself, to practice seeing the ripple effects of choices. This builds the neural circuits of consequential thinking." },
       { time:"5 min",  title:"Boredom Without Action", desc:"Sit with the evening without seeking stimulation. Boredom is uncomfortable but not dangerous. Building tolerance for low arousal reduces the need for risk-seeking." },
       { time:"5 min",  title:"Physical Release",    desc:"Channel any restless energy into push-ups, a walk, or stretching. Physical exertion metabolises cortisol and adrenaline that would otherwise seek impulsive outlets." },
       { time:"3 min",  title:"Tomorrow's Better Choice", desc:"Name one situation tomorrow where you could make a better choice than you usually would. Pre-deciding activates the dorsolateral prefrontal cortex." },
@@ -2740,79 +2802,79 @@ const DAILY_ROUTINES = {
   },
   eating: {
     label:"Eating Disorder Recovery", morning:[
-      { time:"5 min",  title:"Body Kindness",       desc:"Place your hand on your chest and say: 'This body is keeping me alive.' Before food, before mirrors, before the day — your body deserves acknowledgment for showing up." },
+      { time:"5 min",  title:"Body Kindness",       desc:"Place your hand on your chest and say: 'This body is keeping me alive.' Before food, before mirrors, before the day, your body deserves acknowledgment for showing up." },
       { time:"3 min",  title:"Today's Nourishment Intention", desc:"Set an intention to nourish, not to restrict. 'Today I will eat meals that help my brain and body heal.' Recovery is an active, daily choice." },
       { time:"10 min", title:"Gentle Breakfast",     desc:"Eat your NeuroThrive breakfast at the table, without screens. Zinc in balanced meals restores taste perception and appetite signaling that restriction has dampened." },
-      { time:"5 min",  title:"Challenge One Rule",   desc:"Notice one food rule your eating disorder has created. You don't have to break it today — just notice it's there. Awareness is the first crack in the wall." },
+      { time:"5 min",  title:"Challenge One Rule",   desc:"Notice one food rule your eating disorder has created. You don't have to break it today; just notice it's there. Awareness is the first crack in the wall." },
       { time:"2 min",  title:"Self-Compassion",     desc:"Write one kind thing to yourself. Recovery is not linear. Bad days are part of healing, not evidence of failure." },
     ], evening:[
-      { time:"5 min",  title:"Nourishment Reflection", desc:"Did you eat all three meals today? If yes — that's a victory worth acknowledging. If not — tomorrow is another chance. No shame, only information." },
-      { time:"5 min",  title:"Body Gratitude",      desc:"Name three things your body did today — walked, breathed, thought, laughed. Your body is not the enemy. It's the vehicle of your entire life." },
+      { time:"5 min",  title:"Nourishment Reflection", desc:"Did you eat all three meals today? If yes, that's a victory worth acknowledging. If not, tomorrow is another chance. No shame, only information." },
+      { time:"5 min",  title:"Body Gratitude",      desc:"Name three things your body did today: walked, breathed, thought, laughed. Your body is not the enemy. It's the vehicle of your entire life." },
       { time:"5 min",  title:"Feelings Behind Food", desc:"Were there moments today where emotions felt connected to food urges? Write them down. Separating feelings from food behaviours is a core recovery skill." },
       { time:"3 min",  title:"Calm Closure",        desc:"The day is done. Whatever happened with food today is done. Tomorrow is a new day of practice. Rest without judgment." },
     ],
   },
   phobia: {
     label:"Phobias", morning:[
-      { time:"5 min",  title:"Safety Grounding",    desc:"Name 5 things around you that are safe and familiar. The amygdala fires before the thinking brain catches up — grounding gives the prefrontal cortex time to override the false alarm." },
+      { time:"5 min",  title:"Safety Grounding",    desc:"Name 5 things around you that are safe and familiar. The amygdala fires before the thinking brain catches up; grounding gives the prefrontal cortex time to override the false alarm." },
       { time:"5 min",  title:"Calm Breathing",      desc:"4 counts in, 4 hold, 6 counts out. Repeat 5 times. The extended exhale activates the vagus nerve, which directly calms the sympathetic fight-or-flight response that phobias hijack." },
-      { time:"10 min", title:"GABA-Supporting Breakfast", desc:"Eat your NeuroThrive breakfast. Fermented foods and complex carbs support GABA production — your brain's natural anxiety brake. Building GABA reserves makes fear responses less intense." },
-      { time:"3 min",  title:"Courage Micro-Step",  desc:"Think of one tiny step toward your fear — even just imagining it briefly. Gradual exposure, even mentally, reduces amygdala reactivity over time. This is how fear extinction works." },
-      { time:"2 min",  title:"Today's Calm Anchor", desc:"Choose one calming strategy for today — a breath technique, a grounding word, or a safe mental image. Having a tool ready prevents the freeze response." },
+      { time:"10 min", title:"GABA-Supporting Breakfast", desc:"Eat your NeuroThrive breakfast. Fermented foods and complex carbs support GABA production, your brain's natural anxiety brake. Building GABA reserves makes fear responses less intense." },
+      { time:"3 min",  title:"Courage Micro-Step",  desc:"Think of one tiny step toward your fear, even just imagining it briefly. Gradual exposure, even mentally, reduces amygdala reactivity over time. This is how fear extinction works." },
+      { time:"2 min",  title:"Today's Calm Anchor", desc:"Choose one calming strategy for today: a breath technique, a grounding word, or a safe mental image. Having a tool ready prevents the freeze response." },
     ], evening:[
-      { time:"5 min",  title:"Brave Moments",       desc:"Name one moment today where you felt anxious but managed it — even partially. Noticing your own coping builds self-efficacy, which is the strongest predictor of phobia improvement." },
-      { time:"5 min",  title:"Magnesium & Calm Drink", desc:"Take magnesium with chamomile or warm milk. Magnesium blocks NMDA receptors that consolidate fear memories — taking it in the evening supports overnight fear extinction." },
+      { time:"5 min",  title:"Brave Moments",       desc:"Name one moment today where you felt anxious but managed it, even partially. Noticing your own coping builds self-efficacy, which is the strongest predictor of phobia improvement." },
+      { time:"5 min",  title:"Magnesium & Calm Drink", desc:"Take magnesium with chamomile or warm milk. Magnesium blocks NMDA receptors that consolidate fear memories; taking it in the evening supports overnight fear extinction." },
       { time:"5 min",  title:"Vagal Tone Practice",  desc:"Hum, gargle, or splash cold water on your face. These simple actions stimulate the vagus nerve, building the parasympathetic tone that counteracts phobic arousal." },
       { time:"3 min",  title:"Safe Sleep",           desc:"Remind yourself: nighttime is safe. Phobia-related anxiety often peaks at night when the thinking brain quiets and the emotional brain gets louder. A verbal safety cue helps." },
     ],
   },
   bfrb: {
     label:"Body-Focused Repetitive", morning:[
-      { time:"5 min",  title:"Body Awareness Check", desc:"Scan your body. Where are your hands? What are they doing? BFRBs often happen on autopilot — bringing conscious awareness to your hands and body is the first line of interruption." },
+      { time:"5 min",  title:"Body Awareness Check", desc:"Scan your body. Where are your hands? What are they doing? BFRBs often happen on autopilot; bringing conscious awareness to your hands and body is the first line of interruption." },
       { time:"5 min",  title:"Barrier Strategy",    desc:"Put on gloves, bandages, or fidget tools before your peak urge time. Physical barriers buy time for the prefrontal cortex to engage before the motor habit loop completes." },
-      { time:"10 min", title:"Cysteine-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Eggs, broccoli, and cruciferous vegetables provide cysteine — the precursor to NAC, which modulates the glutamate system driving repetitive behaviours." },
-      { time:"3 min",  title:"Trigger Awareness",   desc:"Name your top 3 BFRB triggers (boredom, stress, screens?). Knowing your triggers isn't about avoidance — it's about having a competing response ready." },
-      { time:"2 min",  title:"Self-Compassion",     desc:"BFRBs are neurological, not moral failures. You are not 'doing this to yourself' — your basal ganglia's habit loops are misfiring. Be kind to yourself in the process of retraining." },
+      { time:"10 min", title:"Cysteine-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Eggs, broccoli, and cruciferous vegetables provide cysteine, the precursor to NAC, which modulates the glutamate system driving repetitive behaviours." },
+      { time:"3 min",  title:"Trigger Awareness",   desc:"Name your top 3 BFRB triggers (boredom, stress, screens?). Knowing your triggers isn't about avoidance; it's about having a competing response ready." },
+      { time:"2 min",  title:"Self-Compassion",     desc:"BFRBs are neurological, not moral failures. You are not 'doing this to yourself'; your basal ganglia's habit loops are misfiring. Be kind to yourself in the process of retraining." },
     ], evening:[
-      { time:"5 min",  title:"BFRB Tracking",       desc:"Note today's BFRB episodes — time, trigger, duration. Not to judge — to spot patterns. Data replaces shame, and patterns reveal the specific glutamate surges you can learn to redirect." },
-      { time:"5 min",  title:"Competing Response",   desc:"Practice your chosen competing response for 2 minutes — squeezing a ball, pressing palms together, or rubbing a texture. Habit reversal training rewires the motor cortex." },
-      { time:"5 min",  title:"Antioxidant Support",  desc:"Have a small serving of blueberries or dark chocolate. Antioxidants support the glutathione system that NAC feeds into — protecting the neurons you're retraining." },
+      { time:"5 min",  title:"BFRB Tracking",       desc:"Note today's BFRB episodes: time, trigger, duration. Not to judge, to spot patterns. Data replaces shame, and patterns reveal the specific glutamate surges you can learn to redirect." },
+      { time:"5 min",  title:"Competing Response",   desc:"Practice your chosen competing response for 2 minutes: squeezing a ball, pressing palms together, or rubbing a texture. Habit reversal training rewires the motor cortex." },
+      { time:"5 min",  title:"Antioxidant Support",  desc:"Have a small serving of blueberries or dark chocolate. Antioxidants support the glutathione system that NAC feeds into, protecting the neurons you're retraining." },
       { time:"3 min",  title:"Hands-Free Sleep Prep", desc:"Apply lotion to your hands and wear soft gloves if needed. Nighttime is peak BFRB time because the prefrontal cortex disengages. Physical barriers protect progress." },
     ],
   },
   ppd: {
     label:"Paranoid PD", morning:[
-      { time:"5 min",  title:"Safety Assessment",   desc:"Look around your space. Name 5 things that confirm you are safe. The locus coeruleus — your brain's alarm centre — is overactive in paranoid states. Conscious safety evidence helps recalibrate it." },
-      { time:"5 min",  title:"Benign Interpretation Practice", desc:"Think of one interaction from yesterday that felt threatening. Now generate one alternative, innocent explanation. This isn't naive — it's exercising the prefrontal cortex's ability to consider multiple perspectives." },
+      { time:"5 min",  title:"Safety Assessment",   desc:"Look around your space. Name 5 things that confirm you are safe. The locus coeruleus, your brain's alarm centre, is overactive in paranoid states. Conscious safety evidence helps recalibrate it." },
+      { time:"5 min",  title:"Benign Interpretation Practice", desc:"Think of one interaction from yesterday that felt threatening. Now generate one alternative, innocent explanation. This isn't naive; it's exercising the prefrontal cortex's ability to consider multiple perspectives." },
       { time:"10 min", title:"Magnesium-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Magnesium blocks NMDA receptor overactivation in the amygdala, which directly reduces the hypervigilance that makes normal situations feel threatening." },
-      { time:"3 min",  title:"Trust Micro-Step",    desc:"Identify one small trust action for today — sharing a minor opinion, asking for help with something small. Trust is rebuilt in tiny increments that don't overwhelm the nervous system." },
-      { time:"2 min",  title:"Body Relaxation",     desc:"Unclench your jaw, drop your shoulders, soften your hands. Hypervigilance lives in muscle tension — releasing it sends safety signals up through the vagus nerve to the brain." },
+      { time:"3 min",  title:"Trust Micro-Step",    desc:"Identify one small trust action for today: sharing a minor opinion, asking for help with something small. Trust is rebuilt in tiny increments that don't overwhelm the nervous system." },
+      { time:"2 min",  title:"Body Relaxation",     desc:"Unclench your jaw, drop your shoulders, soften your hands. Hypervigilance lives in muscle tension; releasing it sends safety signals up through the vagus nerve to the brain." },
     ], evening:[
       { time:"5 min",  title:"Threat Reality Check", desc:"Were any of today's fears confirmed? Usually the answer is no. Tracking the ratio of feared outcomes vs. actual outcomes slowly recalibrates the brain's threat calculator." },
       { time:"5 min",  title:"Calming Ritual",      desc:"Warm drink, dim lights, calming music. The parasympathetic nervous system needs consistent signals of safety to counterbalance a hyperactive threat system." },
       { time:"5 min",  title:"Omega-3 Support",     desc:"If you haven't had fish today, consider an omega-3 supplement with your evening meal. DHA maintains the anterior cingulate cortex, which helps you accurately read others' intentions." },
-      { time:"3 min",  title:"Secure Sleep",        desc:"Check locks once — and only once. The compulsion to re-check is the amygdala seeking reassurance. One check is responsible; repeated checks feed the anxiety loop." },
+      { time:"3 min",  title:"Secure Sleep",        desc:"Check locks once, and only once. The compulsion to re-check is the amygdala seeking reassurance. One check is responsible; repeated checks feed the anxiety loop." },
     ],
   },
   spd: {
     label:"Schizoid PD", morning:[
       { time:"5 min",  title:"Energy Check",        desc:"Rate your energy and motivation 1–10. The dopaminergic pathways that drive motivation can be undertoned in SPD. Tracking helps you notice patterns and plan accordingly." },
-      { time:"5 min",  title:"One Social Intention", desc:"Set one small social interaction for today — even a brief exchange with a cashier or a text. The brain's social reward circuits atrophy with disuse but can be rebuilt gradually." },
-      { time:"10 min", title:"Tyrosine-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Eggs, chicken, and cheese provide tyrosine — the precursor to dopamine, the neurotransmitter of motivation and reward that SPD tends to underutilize." },
-      { time:"5 min",  title:"Movement for Dopamine", desc:"Do 5 minutes of brisk movement — walking, jumping jacks, dancing. Physical activity directly increases dopamine release in the nucleus accumbens, the brain's motivation centre." },
-      { time:"2 min",  title:"One Thing to Look Forward To", desc:"Name one thing today that could be mildly enjoyable. Not exciting — just slightly pleasant. This primes the brain's anticipation circuitry, which is atrophied in anhedonia." },
+      { time:"5 min",  title:"One Social Intention", desc:"Set one small social interaction for today, even a brief exchange with a cashier or a text. The brain's social reward circuits atrophy with disuse but can be rebuilt gradually." },
+      { time:"10 min", title:"Tyrosine-Rich Breakfast", desc:"Eat your NeuroThrive breakfast. Eggs, chicken, and cheese provide tyrosine, the precursor to dopamine, the neurotransmitter of motivation and reward that SPD tends to underutilize." },
+      { time:"5 min",  title:"Movement for Dopamine", desc:"Do 5 minutes of brisk movement: walking, jumping jacks, dancing. Physical activity directly increases dopamine release in the nucleus accumbens, the brain's motivation centre." },
+      { time:"2 min",  title:"One Thing to Look Forward To", desc:"Name one thing today that could be mildly enjoyable. Not exciting, just slightly pleasant. This primes the brain's anticipation circuitry, which is atrophied in anhedonia." },
     ], evening:[
-      { time:"5 min",  title:"Social Reflection",   desc:"Did you have any social interactions today? How did they feel? Not good or bad — just notice. Building awareness of social experience is the foundation for gradually expanding your comfort zone." },
-      { time:"5 min",  title:"Pleasure Tracking",   desc:"Name one thing today that felt even slightly good. A meal, a song, sunlight, a comfortable chair. Anhedonia makes good things invisible — deliberately noticing them trains the brain to register pleasure again." },
-      { time:"5 min",  title:"Creative Expression",  desc:"Spend a few minutes on something creative — drawing, writing, music, building something. Creative expression activates the mesocortical dopamine pathway without requiring social interaction." },
-      { time:"3 min",  title:"Tomorrow's Anchor",   desc:"Name one specific thing to do first tomorrow. Inertia is SPD's biggest obstacle — having a concrete first step dramatically reduces the activation energy needed to begin." },
+      { time:"5 min",  title:"Social Reflection",   desc:"Did you have any social interactions today? How did they feel? Not good or bad, just notice. Building awareness of social experience is the foundation for gradually expanding your comfort zone." },
+      { time:"5 min",  title:"Pleasure Tracking",   desc:"Name one thing today that felt even slightly good. A meal, a song, sunlight, a comfortable chair. Anhedonia makes good things invisible; deliberately noticing them trains the brain to register pleasure again." },
+      { time:"5 min",  title:"Creative Expression",  desc:"Spend a few minutes on something creative: drawing, writing, music, building something. Creative expression activates the mesocortical dopamine pathway without requiring social interaction." },
+      { time:"3 min",  title:"Tomorrow's Anchor",   desc:"Name one specific thing to do first tomorrow. Inertia is SPD's biggest obstacle; having a concrete first step dramatically reduces the activation energy needed to begin." },
     ],
   },
   default: {
     label:"General Wellness", morning:[
-      { time:"5 min",  title:"Hydration",           desc:"Drink a full glass of water first. Your brain loses fluid overnight — hydration is the simplest cognitive performance boost available." },
-      { time:"10 min", title:"Nourishing Breakfast",desc:"Eat your NeuroThrive breakfast. The brain consumes 20% of your body's energy — consistent morning nutrition sets neurotransmitter production for the day." },
-      { time:"5 min",  title:"Today's Intention",   desc:"Set one clear intention for the day — a quality of presence you want to bring. This activates the prefrontal cortex's goal-setting systems." },
+      { time:"5 min",  title:"Hydration",           desc:"Drink a full glass of water first. Your brain loses fluid overnight; hydration is the simplest cognitive performance boost available." },
+      { time:"10 min", title:"Nourishing Breakfast",desc:"Eat your NeuroThrive breakfast. The brain consumes 20% of your body's energy; consistent morning nutrition sets neurotransmitter production for the day." },
+      { time:"5 min",  title:"Today's Intention",   desc:"Set one clear intention for the day, a quality of presence you want to bring. This activates the prefrontal cortex's goal-setting systems." },
       { time:"5 min",  title:"Morning Movement",    desc:"Even 5 minutes of movement increases BDNF and improves focus, mood, and learning for hours afterward." },
     ], evening:[
       { time:"5 min",  title:"Reflection",          desc:"Name one thing that went well today and one thing you learned. This builds self-awareness and supports memory consolidation during sleep." },
@@ -2827,7 +2889,7 @@ const AFFIRMATIONS = [
   // ── Identity & Worth ──────────────────────────────────────────────────────
   { text: "Your brain is not broken. It is beautifully different.", author: "NeuroThrive" },
   { text: "You are more than your diagnosis. You are whole, worthy, and valid.", author: "NeuroThrive" },
-  { text: "You are allowed to take up space — in every room, on every plate.", author: "NeuroThrive" },
+  { text: "You are allowed to take up space, in every room, on every plate.", author: "NeuroThrive" },
   { text: "Your worth is not measured by your productivity.", author: "NeuroThrive" },
   { text: "You are not too much. You are not too little. You are exactly enough.", author: "NeuroThrive" },
   { text: "Your sensitivity is not a weakness. It is a form of depth.", author: "NeuroThrive" },
@@ -2856,7 +2918,7 @@ const AFFIRMATIONS = [
   { text: "Every good day you've had proves another is possible.", author: "NeuroThrive" },
   { text: "Healing looks different on every person. Trust your version of it.", author: "NeuroThrive" },
   { text: "You have already survived 100% of your hardest days. That record stands.", author: "NeuroThrive" },
-  { text: "The fact that you're still here, still trying, still hoping — that is everything.", author: "NeuroThrive" },
+  { text: "The fact that you're still here, still trying, still hoping: that is everything.", author: "NeuroThrive" },
   { text: "One nourishing meal is a step forward. Always.", author: "NeuroThrive" },
   { text: "You don't have to be fully healed to be worthy of good things.", author: "NeuroThrive" },
   { text: "Setbacks are not failures. They are part of every healing story ever told.", author: "NeuroThrive" },
@@ -2869,7 +2931,7 @@ const AFFIRMATIONS = [
   { text: "You are not starting over. You are starting from experience.", author: "NeuroThrive" },
 
   // ── Nourishment & Body ───────────────────────────────────────────────────
-  { text: "The body you're in deserves nourishment — exactly as it is, right now.", author: "NeuroThrive" },
+  { text: "The body you're in deserves nourishment, exactly as it is, right now.", author: "NeuroThrive" },
   { text: "Nourishing yourself is an act of radical self-love.", author: "NeuroThrive" },
   { text: "Your feelings are valid. Your hunger is valid. You are valid.", author: "NeuroThrive" },
   { text: "Your body works incredibly hard for you every single day.", author: "NeuroThrive" },
@@ -2892,7 +2954,7 @@ const AFFIRMATIONS = [
 
   // ── Rest & Gentleness ────────────────────────────────────────────────────
   { text: "Rest is productive. Eating is productive. Existing is productive.", author: "NeuroThrive" },
-  { text: "You deserve gentleness — especially from yourself.", author: "NeuroThrive" },
+  { text: "You deserve gentleness, especially from yourself.", author: "NeuroThrive" },
   { text: "It is okay to do less today. Today had enough in it already.", author: "NeuroThrive" },
   { text: "Slowing down is not giving up. It is giving yourself what you need.", author: "NeuroThrive" },
   { text: "You are not lazy. You are a person with a nervous system that needs more support.", author: "NeuroThrive" },
@@ -2985,7 +3047,7 @@ const AFFIRMATIONS = [
   { text: "Comparison is a thief. No one else has your exact path.", author: "NeuroThrive" },
   { text: "The voice that says you can't is not the truth. It is a symptom.", author: "NeuroThrive" },
   { text: "You have permission to let go of what isn't serving you.", author: "NeuroThrive" },
-  { text: "You can hold both — the hard truth and the hope. Both are real.", author: "NeuroThrive" },
+  { text: "You can hold both: the hard truth and the hope. Both are real.", author: "NeuroThrive" },
   { text: "Grace is not something you earn. It is something you give yourself.", author: "NeuroThrive" },
   { text: "You are not weak for needing support. Plants need water. People need care.", author: "NeuroThrive" },
   { text: "The way you talk to yourself becomes the foundation of how you feel.", author: "NeuroThrive" },
@@ -3001,11 +3063,11 @@ const AFFIRMATIONS = [
   { text: "There is something in your life right now that is quietly good. Find it.", author: "NeuroThrive" },
   { text: "Your body has never stopped trying to keep you alive. That is love.", author: "NeuroThrive" },
   { text: "Small joys are still joys. Notice them today.", author: "NeuroThrive" },
-  { text: "Something ordinary today — a meal, a breeze, a song — is worth savouring.", author: "NeuroThrive" },
+  { text: "Something ordinary today, a meal, a breeze, a song, is worth savouring.", author: "NeuroThrive" },
   { text: "Gratitude doesn't require that everything is fine. It just requires that something is.", author: "NeuroThrive" },
 
   // ── Evening Affirmations ─────────────────────────────────────────────────
-  { text: "You made it through today. Whatever it looked like — that counts.", author: "NeuroThrive" },
+  { text: "You made it through today. Whatever it looked like, that counts.", author: "NeuroThrive" },
   { text: "Rest now. Your nervous system has worked hard enough today.", author: "NeuroThrive" },
   { text: "Tomorrow is a clean page. Tonight, just rest.", author: "NeuroThrive" },
   { text: "Whatever didn't get done today can wait. You cannot.", author: "NeuroThrive" },
@@ -3054,56 +3116,56 @@ const ENERGY_EMOJIS = [
 
 const SUPPLEMENTS = {
   adhd: [
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Multiple RCTs show omega-3 supplementation reduces ADHD symptom severity by 20–30% in children and adults. EPA appears most active for attention and mood regulation.", why:"The ADHD brain has reduced dopaminergic transmission. EPA omega-3s increase dopamine receptor sensitivity and reduce the neuroinflammation that impairs prefrontal cortex function — the exact region responsible for attention, impulse control, and executive function.", timing:"With a meal containing fat for best absorption.", caution:"Choose a third-party tested brand. Very high doses may thin blood.", link:"https://pubmed.ncbi.nlm.nih.gov/28741143/" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"ADHD brains tend to have lower magnesium levels. Magnesium plays a key role in dopamine synthesis and nervous system regulation. Glycinate form is best tolerated.", why:"Studies consistently find lower serum magnesium in people with ADHD. Magnesium is a cofactor in the conversion of tyrosine to dopamine and acts as a natural calcium channel blocker, reducing the neural hyperexcitability that drives impulsivity and restlessness.", timing:"Evening — also supports sleep quality.", caution:"Check the recommended dosage — too much can cause digestive upset. Increase gradually.", link:"https://pubmed.ncbi.nlm.nih.gov/9368236/" },
-    { name:"Zinc", dose:"", emoji:"⚡", science:"Zinc is a cofactor in dopamine and norepinephrine production. Studies show ADHD individuals often have lower serum zinc, and supplementation can modestly improve attention.", why:"Zinc directly regulates dopamine transporter (DAT) activity — the very protein that ADHD medications like Ritalin also target. Low zinc slows DAT, leaving dopamine signalling dysregulated. Zinc also modulates NMDA receptors involved in attention and working memory.", timing:"With food to avoid nausea.", caution:"Check the recommended dosage — too much long-term can be harmful. Take away from iron supplements.", link:"https://pubmed.ncbi.nlm.nih.gov/15625652/" },
-    { name:"Bacopa Monnieri", dose:"", emoji:"🌿", science:"An Ayurvedic herb with 12+ clinical trials showing improved working memory, learning speed, and information processing. Effects build over 8–12 weeks of consistent use.", why:"Bacopa enhances acetylcholine signalling in the hippocampus and prefrontal cortex — regions critical for attention and working memory that are underactive in ADHD. It also reduces oxidative stress in the basal ganglia, the brain's dopamine-rich reward and focus hub.", timing:"With a fatty meal — fat significantly increases bacosides absorption.", caution:"Causes vivid dreams in some people. GI upset if taken on empty stomach. Full benefits take 8–12 weeks.", link:"https://pubmed.ncbi.nlm.nih.gov/22747190/" },
-    { name:"L-Theanine", dose:"", emoji:"🍵", science:"Found naturally in green tea. Promotes calm alertness by increasing alpha brain waves. Often paired with caffeine to smooth its stimulant effect without reducing focus.", why:"ADHD involves chronic underarousal of the prefrontal cortex and overarousal of the default mode network. L-theanine uniquely increases alpha waves — the brain state of calm, focused alertness — while reducing the theta waves associated with daydreaming and mind-wandering.", timing:"Morning or early afternoon.", caution:"Generally very well tolerated. Avoid late afternoon if sensitive to sleep disruption.", link:"https://pubmed.ncbi.nlm.nih.gov/18681988/" },
-    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D receptors are found in dopaminergic brain regions. Deficiency is extremely common and associated with worsened ADHD symptoms, mood, and executive function.", why:"Vitamin D regulates the genes that encode tyrosine hydroxylase — the enzyme that converts tyrosine into dopamine. Without adequate D3, the brain simply cannot produce sufficient dopamine regardless of diet or medication, directly impairing the attention and motivation systems.", timing:"Morning with a fatty meal.", caution:"Get your levels tested before supplementing. K2 is needed to direct calcium correctly.", link:"https://pubmed.ncbi.nlm.nih.gov/22254078/" },
-    { name:"Rhodiola Rosea", dose:"", emoji:"🌄", science:"Adaptogen that reduces mental fatigue, improves cognitive function under stress, and enhances working memory. Particularly useful for the ADHD brain that burns out quickly.", why:"ADHD often coexists with high stress reactivity and mental fatigue. Rhodiola inhibits the breakdown of monoamines (dopamine, serotonin, norepinephrine) in the prefrontal cortex and increases the transport of precursors into the brain, directly supporting the depleted neurotransmitter systems.", timing:"Morning on an empty stomach, 30 minutes before food.", caution:"Mildly stimulating — avoid afternoon doses. Start with a low dose and increase gradually. Not for bipolar disorder without guidance.", link:"https://pubmed.ncbi.nlm.nih.gov/18307390/" },
-    { name:"Iron (if deficient)", dose:"", emoji:"🔩", science:"Iron is a cofactor in dopamine synthesis. Multiple studies link iron deficiency (even without anaemia) to more severe ADHD symptoms, and supplementation in deficient children shows marked improvement.", why:"Iron is required by tyrosine hydroxylase and dopamine β-hydroxylase — the enzymes that build dopamine and norepinephrine. Iron-deficient ADHD brains are neurochemically undermining their own dopamine system. This is one of the most overlooked and correctable contributors to ADHD severity.", timing:"With vitamin C (increases absorption). Away from calcium and coffee.", caution:"Do NOT supplement without testing. Iron overload is dangerous. Ferritin levels should be tested by your doctor.", link:"https://pubmed.ncbi.nlm.nih.gov/15625652/" },
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Multiple RCTs show omega-3 supplementation reduces ADHD symptom severity by 20–30% in children and adults. EPA appears most active for attention and mood regulation.", why:"The ADHD brain has reduced dopaminergic transmission. EPA omega-3s increase dopamine receptor sensitivity and reduce the neuroinflammation that impairs prefrontal cortex function, the exact region responsible for attention, impulse control, and executive function.", timing:"With a meal containing fat for best absorption.", caution:"Choose a third-party tested brand. Very high doses may thin blood.", link:"https://pubmed.ncbi.nlm.nih.gov/28741143/" },
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"ADHD brains tend to have lower magnesium levels. Magnesium plays a key role in dopamine synthesis and nervous system regulation. Glycinate form is best tolerated.", why:"Studies consistently find lower serum magnesium in people with ADHD. Magnesium is a cofactor in the conversion of tyrosine to dopamine and acts as a natural calcium channel blocker, reducing the neural hyperexcitability that drives impulsivity and restlessness.", timing:"Evening; also supports sleep quality.", caution:"Check the recommended dosage: too much can cause digestive upset. Increase gradually.", link:"https://pubmed.ncbi.nlm.nih.gov/9368236/" },
+    { name:"Zinc", dose:"", emoji:"⚡", science:"Zinc is a cofactor in dopamine and norepinephrine production. Studies show ADHD individuals often have lower serum zinc, and supplementation can modestly improve attention.", why:"Zinc directly regulates dopamine transporter (DAT) activity, the very protein that ADHD medications like Ritalin also target. Low zinc slows DAT, leaving dopamine signalling dysregulated. Zinc also modulates NMDA receptors involved in attention and working memory.", timing:"With food to avoid nausea.", caution:"Check the recommended dosage: too much long-term can be harmful. Take away from iron supplements.", link:"https://pubmed.ncbi.nlm.nih.gov/15625652/" },
+    { name:"Bacopa Monnieri", dose:"", emoji:"🌿", science:"An Ayurvedic herb with 12+ clinical trials showing improved working memory, learning speed, and information processing. Effects build over 8–12 weeks of consistent use.", why:"Bacopa enhances acetylcholine signalling in the hippocampus and prefrontal cortex, regions critical for attention and working memory that are underactive in ADHD. It also reduces oxidative stress in the basal ganglia, the brain's dopamine-rich reward and focus hub.", timing:"With a fatty meal; fat significantly increases bacosides absorption.", caution:"Causes vivid dreams in some people. GI upset if taken on empty stomach. Full benefits take 8–12 weeks.", link:"https://pubmed.ncbi.nlm.nih.gov/22747190/" },
+    { name:"L-Theanine", dose:"", emoji:"🍵", science:"Found naturally in green tea. Promotes calm alertness by increasing alpha brain waves. Often paired with caffeine to smooth its stimulant effect without reducing focus.", why:"ADHD involves chronic underarousal of the prefrontal cortex and overarousal of the default mode network. L-theanine uniquely increases alpha waves, the brain state of calm, focused alertness, while reducing the theta waves associated with daydreaming and mind-wandering.", timing:"Morning or early afternoon.", caution:"Generally very well tolerated. Avoid late afternoon if sensitive to sleep disruption.", link:"https://pubmed.ncbi.nlm.nih.gov/18681988/" },
+    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D receptors are found in dopaminergic brain regions. Deficiency is extremely common and associated with worsened ADHD symptoms, mood, and executive function.", why:"Vitamin D regulates the genes that encode tyrosine hydroxylase, the enzyme that converts tyrosine into dopamine. Without adequate D3, the brain simply cannot produce sufficient dopamine regardless of diet or medication, directly impairing the attention and motivation systems.", timing:"Morning with a fatty meal.", caution:"Get your levels tested before supplementing. K2 is needed to direct calcium correctly.", link:"https://pubmed.ncbi.nlm.nih.gov/22254078/" },
+    { name:"Rhodiola Rosea", dose:"", emoji:"🌄", science:"Adaptogen that reduces mental fatigue, improves cognitive function under stress, and enhances working memory. Particularly useful for the ADHD brain that burns out quickly.", why:"ADHD often coexists with high stress reactivity and mental fatigue. Rhodiola inhibits the breakdown of monoamines (dopamine, serotonin, norepinephrine) in the prefrontal cortex and increases the transport of precursors into the brain, directly supporting the depleted neurotransmitter systems.", timing:"Morning on an empty stomach, 30 minutes before food.", caution:"Mildly stimulating; avoid afternoon doses. Start with a low dose and increase gradually. Not for bipolar disorder without guidance.", link:"https://pubmed.ncbi.nlm.nih.gov/18307390/" },
+    { name:"Iron (if deficient)", dose:"", emoji:"🔩", science:"Iron is a cofactor in dopamine synthesis. Multiple studies link iron deficiency (even without anaemia) to more severe ADHD symptoms, and supplementation in deficient children shows marked improvement.", why:"Iron is required by tyrosine hydroxylase and dopamine β-hydroxylase, the enzymes that build dopamine and norepinephrine. Iron-deficient ADHD brains are neurochemically undermining their own dopamine system. This is one of the most overlooked and correctable contributors to ADHD severity.", timing:"With vitamin C (increases absorption). Away from calcium and coffee.", caution:"Do NOT supplement without testing. Iron overload is dangerous. Ferritin levels should be tested by your doctor.", link:"https://pubmed.ncbi.nlm.nih.gov/15625652/" },
     { name:"Phosphatidylserine", dose:"", emoji:"🧠", science:"A phospholipid essential for neuronal membrane integrity. FDA-qualified health claim for cognitive function. Studies show improvements in ADHD symptoms, memory, and mood.", why:"Phosphatidylserine (PS) is a structural component of neurons in the prefrontal cortex. ADHD is associated with reduced cortical thickness in these areas. PS supports the density and flexibility of synaptic membranes, directly enhancing signal transmission in attention and working memory circuits.", timing:"With meals, ideally split into two doses.", caution:"Very well tolerated. May interact with blood thinners at high doses. Soy-derived PS is most studied.", link:"https://pubmed.ncbi.nlm.nih.gov/23678853/" },
     { name:"Ginkgo Biloba", dose:"", emoji:"🍃", science:"One of the most-studied herbs for cognitive function. Improves cerebral blood flow and has been shown in several trials to reduce ADHD symptoms, particularly inattention.", why:"ADHD involves reduced cerebral blood flow to the prefrontal cortex and anterior cingulate. Ginkgo's primary mechanism is improving microcirculation in exactly these regions, delivering more glucose and oxygen to attention networks. It also inhibits MAO-B, mildly elevating dopamine levels.", timing:"With meals. Split dose morning and midday.", caution:"Avoid with blood thinners (warfarin, aspirin). Can cause mild headaches initially. Stop 2 weeks before surgery.", link:"https://pubmed.ncbi.nlm.nih.gov/24002936/" },
-    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"Multiple RCTs show saffron is comparable to methylphenidate (Ritalin) for ADHD symptoms in children. A systematic review of 4 clinical trials confirmed efficacy as both standalone and add-on therapy.", why:"Saffron's active compounds — crocin and safranal — inhibit the reuptake of dopamine and norepinephrine, the same mechanism as stimulant ADHD medications. It also acts as an NMDA receptor antagonist, reducing the neural noise that makes sustained attention difficult. Unlike stimulants, it achieves this without the crash or appetite suppression.", timing:"With meals. Effects build over 4–6 weeks of consistent use.", caution:"Expensive — look for standardised extracts. Avoid during pregnancy. May interact with SSRIs and blood thinners. Consult your doctor if on ADHD medication.", link:"https://pubmed.ncbi.nlm.nih.gov/30741567/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Multiple clinical studies link mineral deficiencies — especially zinc, iron, and magnesium — to increased ADHD symptom severity. Correcting these deficiencies is one of the most evidence-backed nutritional interventions for attention and impulse control.", why:"The ADHD brain depends on precise dopamine and norepinephrine signalling. Zinc, iron, and magnesium are direct cofactors in the enzymes that synthesise these neurotransmitters. Without adequate mineral status, the brain cannot produce the neurochemistry needed for focus, regardless of medication or lifestyle changes.", timing:"With meals for best absorption. Split morning and evening.", caution:"Always test iron and zinc levels before supplementing. Do not exceed upper limits without medical guidance. Iron and zinc compete for absorption — take at separate meals.", link:"https://pubmed.ncbi.nlm.nih.gov/15625652/", minerals:[
-      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Directly regulates dopamine transporter (DAT) activity — the same protein ADHD medications target. Low zinc = dysregulated dopamine signalling, worsened inattention." },
-      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Required by tyrosine hydroxylase — the rate-limiting enzyme in dopamine synthesis. Iron-deficient ADHD brains are neurochemically undermining their own dopamine system. Test ferritin first." },
+    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"Multiple RCTs show saffron is comparable to methylphenidate (Ritalin) for ADHD symptoms in children. A systematic review of 4 clinical trials confirmed efficacy as both standalone and add-on therapy.", why:"Saffron's active compounds, crocin and safranal, inhibit the reuptake of dopamine and norepinephrine, the same mechanism as stimulant ADHD medications. It also acts as an NMDA receptor antagonist, reducing the neural noise that makes sustained attention difficult. Unlike stimulants, it achieves this without the crash or appetite suppression.", timing:"With meals. Effects build over 4–6 weeks of consistent use.", caution:"Expensive; look for standardised extracts. Avoid during pregnancy. May interact with SSRIs and blood thinners. Consult your doctor if on ADHD medication.", link:"https://pubmed.ncbi.nlm.nih.gov/30741567/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Multiple clinical studies link mineral deficiencies, especially zinc, iron, and magnesium, to increased ADHD symptom severity. Correcting these deficiencies is one of the most evidence-backed nutritional interventions for attention and impulse control.", why:"The ADHD brain depends on precise dopamine and norepinephrine signalling. Zinc, iron, and magnesium are direct cofactors in the enzymes that synthesise these neurotransmitters. Without adequate mineral status, the brain cannot produce the neurochemistry needed for focus, regardless of medication or lifestyle changes.", timing:"With meals for best absorption. Split morning and evening.", caution:"Always test iron and zinc levels before supplementing. Do not exceed upper limits without medical guidance. Iron and zinc compete for absorption; take at separate meals.", link:"https://pubmed.ncbi.nlm.nih.gov/15625652/", minerals:[
+      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Directly regulates dopamine transporter (DAT) activity, the same protein ADHD medications target. Low zinc = dysregulated dopamine signalling, worsened inattention." },
+      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Required by tyrosine hydroxylase, the rate-limiting enzyme in dopamine synthesis. Iron-deficient ADHD brains are neurochemically undermining their own dopamine system. Test ferritin first." },
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Natural calcium channel blocker that reduces neural hyperexcitability driving impulsivity and restlessness. Also a cofactor in the conversion of tyrosine to dopamine." },
       { name:"Selenium", emoji:"🛡️", role:"Antioxidant protection for dopaminergic neurons. Deficiency is linked to worsened attention and increased oxidative stress in the prefrontal cortex." },
       { name:"Chromium (as Picolinate)", emoji:"🔗", role:"Enhances insulin sensitivity in the brain, improving glucose delivery to the prefrontal cortex. Supports stable energy and attention throughout the day." },
     ] },
   ],
   anxiety: [
-    { name:"Ashwagandha (KSM-66)", dose:"", emoji:"🌱", science:"KSM-66 ashwagandha is the most studied form. Multiple double-blind RCTs show significant reduction in cortisol and perceived stress scores vs placebo within 8 weeks.", why:"Anxiety disorders involve chronic HPA axis hyperactivation — the stress system stays 'on' when it shouldn't. Ashwagandha's withanolides directly inhibit cortisol synthesis and sensitise the HPA feedback loop, gradually resetting the brain's stress thermostat back to a calmer baseline.", timing:"Morning or evening with food.", caution:"Avoid if pregnant, thyroid conditions, or autoimmune disease. Check for drug interactions.", link:"https://pubmed.ncbi.nlm.nih.gov/23439798/" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Magnesium acts on NMDA receptors and modulates the HPA stress axis. Clinical trials show significant anxiety reduction, particularly for people with low dietary magnesium.", why:"Anxiety is partly driven by glutamate excess — an excitatory neurotransmitter that keeps the nervous system in overdrive. Magnesium is the brain's natural NMDA receptor blocker, dampening glutamate activity. Without sufficient magnesium, the amygdala (fear centre) becomes hyperreactive to perceived threats.", timing:"Evening for best effect on sleep and anxiety.", caution:"Check the recommended dosage — too much can cause digestive upset.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/" },
-    { name:"L-Theanine", dose:"", emoji:"🍵", science:"Increases GABA, serotonin, and dopamine. Studies show measurable anxiolytic effects within 45 minutes of a single dose, without sedation.", why:"L-theanine crosses the blood-brain barrier and directly increases GABA — the brain's main calming neurotransmitter. Benzodiazepines work on the same GABA system but with dependency risk. L-theanine does this gently and without affecting motor function, making it uniquely effective for anxiety without the cloudy feeling.", timing:"As needed or daily morning dose.", caution:"Very safe. May enhance sedative medications — check with your doctor.", link:"https://pubmed.ncbi.nlm.nih.gov/19414525/" },
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"A 2011 meta-analysis found high-dose omega-3 reduced anxiety symptoms by 20% versus placebo. EPA appears particularly active for mood and anxiety.", why:"Chronic anxiety is associated with elevated neuroinflammatory markers. Omega-3s reduce prostaglandin E2 and interleukin-6 — inflammatory compounds that sensitise the amygdala and increase threat perception. Reducing this inflammation literally turns down the volume on anxious thoughts.", timing:"With a meal containing fat.", caution:"Choose molecularly distilled brands to minimise heavy metals.", link:"https://pubmed.ncbi.nlm.nih.gov/21784145/" },
-    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamins are cofactors in neurotransmitter synthesis — serotonin, GABA, dopamine all depend on them. Deficiency in B6, B12, or folate is strongly linked to anxiety and low mood.", why:"GABA — the brain's primary anti-anxiety neurotransmitter — is synthesised from glutamate by an enzyme that requires B6 as a cofactor. Without adequate B6, less GABA is produced regardless of lifestyle changes. Folate and B12 are essential for the methylation cycle that regulates serotonin production.", timing:"Morning with breakfast.", caution:"Look for methylated forms (methylfolate, methylcobalamin) for better absorption.", link:"https://pubmed.ncbi.nlm.nih.gov/23370773/" },
-    { name:"Passionflower (Passiflora)", dose:"", emoji:"🌸", science:"A traditional herb with clinical trials showing anxiolytic effects comparable to low-dose benzodiazepines for generalised anxiety, without dependency or sedation at normal doses.", why:"Passionflower's chrysin and vitexin flavonoids bind to GABA-A receptors — the same receptors targeted by anti-anxiety medications — producing a calming effect without the tolerance or withdrawal risks. Particularly effective for anxiety with a physical restlessness component.", timing:"Evening or when anxiety is highest. Can be taken twice daily.", caution:"Avoid during pregnancy. May enhance sedative medications. Don't drive until you know how it affects you.", link:"https://pubmed.ncbi.nlm.nih.gov/21294203/" },
-    { name:"Lemon Balm (Melissa)", dose:"", emoji:"🍋", science:"Lemon balm inhibits GABA transaminase, the enzyme that breaks down GABA, effectively increasing GABA availability. Clinical studies show significant reduction in anxiety and insomnia.", why:"Anxiety disorders often involve rapid breakdown of GABA between neurons. Lemon balm's rosmarinic acid slows this breakdown, extending calming signal transmission in the amygdala and prefrontal cortex — creating a gentler, sustained calm without the grogginess of stronger GABAergic drugs.", timing:"30–60 minutes before a stressful event or in the evening.", caution:"Very well tolerated. Mild sedation possible. Avoid very high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/25022173/" },
-    { name:"Valerian Root", dose:"", emoji:"🌾", science:"The most-studied herbal sleep and anxiety remedy. Valerenic acid inhibits GABA breakdown and may directly bind GABA receptors. Reduces sleep latency and anxiety-related insomnia.", why:"Anxiety-driven insomnia creates a vicious cycle — poor sleep worsens cortisol regulation, which worsens anxiety. Valerian targets the exact GABA system dysregulated in this cycle, helping break it without the next-day grogginess of medications.", timing:"60–90 minutes before bed for sleep. 150mg doses can be taken during day for mild anxiety.", caution:"Can cause vivid dreams or mild morning grogginess initially. Avoid with alcohol or sedative medications.", link:"https://pubmed.ncbi.nlm.nih.gov/17145239/" },
-    { name:"Reishi Mushroom", dose:"", emoji:"🍄", science:"Reishi (Ganoderma lucidum) is an adaptogen with studies showing reduction in anxiety, fatigue, and improved quality of life in people under chronic stress.", why:"Chronic anxiety dysregulates the gut-brain axis and the immune system. Reishi's beta-glucans modulate both — calming inflammatory cytokines that sensitise anxiety pathways and supporting the vagus nerve, which is the main communication highway between the gut and the brain's calm response systems.", timing:"With meals. Effects accumulate over weeks.", caution:"May thin blood — discontinue 2 weeks before surgery. Rare liver sensitivity at very high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/22022452/" },
-    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"A meta-analysis found saffron has a large positive effect size for anxiety symptoms (g = 0.95) compared to placebo. Separate research shows comparable effectiveness to SSRIs for anxiety with fewer side effects.", why:"Saffron's safranal acts as a GABA-A receptor agonist — the same calming receptor system targeted by anti-anxiety medications like benzodiazepines — but without the dependency risk. Crocin simultaneously inhibits serotonin reuptake, addressing the neurochemical foundation of anxious thought patterns. This dual action calms the body while stabilising the mind.", timing:"With meals. Consistent daily use for 4–8 weeks for full effect.", caution:"May interact with SSRIs and anti-anxiety medications. Avoid during pregnancy. Consult your doctor before combining with prescribed medications.", link:"https://pubmed.ncbi.nlm.nih.gov/31135916/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Clinical research shows magnesium, zinc, and selenium deficiencies are significantly more common in people with anxiety disorders, and correction of these deficiencies reduces symptom severity independently of other treatments.", why:"Anxiety involves an overactive nervous system — glutamate excess, HPA axis dysregulation, and heightened amygdala reactivity. Magnesium is the brain's primary NMDA receptor blocker. Zinc modulates GABA receptors (the calming system). Selenium protects the thyroid, whose dysfunction mimics and worsens anxiety. Together they address the mineral foundations of a calm nervous system.", timing:"With meals. Magnesium is best taken in the evening for sleep support.", caution:"Selenium has a narrow safety margin — check recommended dosage carefully. Zinc and magnesium are very safe at standard doses.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/", minerals:[
+    { name:"Ashwagandha (KSM-66)", dose:"", emoji:"🌱", science:"KSM-66 ashwagandha is the most studied form. Multiple double-blind RCTs show significant reduction in cortisol and perceived stress scores vs placebo within 8 weeks.", why:"Anxiety disorders involve chronic HPA axis hyperactivation: the stress system stays 'on' when it shouldn't. Ashwagandha's withanolides directly inhibit cortisol synthesis and sensitise the HPA feedback loop, gradually resetting the brain's stress thermostat back to a calmer baseline.", timing:"Morning or evening with food.", caution:"Avoid if pregnant, thyroid conditions, or autoimmune disease. Check for drug interactions.", link:"https://pubmed.ncbi.nlm.nih.gov/23439798/" },
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Magnesium acts on NMDA receptors and modulates the HPA stress axis. Clinical trials show significant anxiety reduction, particularly for people with low dietary magnesium.", why:"Anxiety is partly driven by glutamate excess, an excitatory neurotransmitter that keeps the nervous system in overdrive. Magnesium is the brain's natural NMDA receptor blocker, dampening glutamate activity. Without sufficient magnesium, the amygdala (fear centre) becomes hyperreactive to perceived threats.", timing:"Evening for best effect on sleep and anxiety.", caution:"Check the recommended dosage: too much can cause digestive upset.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/" },
+    { name:"L-Theanine", dose:"", emoji:"🍵", science:"Increases GABA, serotonin, and dopamine. Studies show measurable anxiolytic effects within 45 minutes of a single dose, without sedation.", why:"L-theanine crosses the blood-brain barrier and directly increases GABA, the brain's main calming neurotransmitter. Benzodiazepines work on the same GABA system but with dependency risk. L-theanine does this gently and without affecting motor function, making it uniquely effective for anxiety without the cloudy feeling.", timing:"As needed or daily morning dose.", caution:"Very safe. May enhance sedative medications; check with your doctor.", link:"https://pubmed.ncbi.nlm.nih.gov/19414525/" },
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"A 2011 meta-analysis found high-dose omega-3 reduced anxiety symptoms by 20% versus placebo. EPA appears particularly active for mood and anxiety.", why:"Chronic anxiety is associated with elevated neuroinflammatory markers. Omega-3s reduce prostaglandin E2 and interleukin-6, inflammatory compounds that sensitise the amygdala and increase threat perception. Reducing this inflammation literally turns down the volume on anxious thoughts.", timing:"With a meal containing fat.", caution:"Choose molecularly distilled brands to minimise heavy metals.", link:"https://pubmed.ncbi.nlm.nih.gov/21784145/" },
+    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamins are cofactors in neurotransmitter synthesis: serotonin, GABA, dopamine all depend on them. Deficiency in B6, B12, or folate is strongly linked to anxiety and low mood.", why:"GABA, the brain's primary anti-anxiety neurotransmitter, is synthesised from glutamate by an enzyme that requires B6 as a cofactor. Without adequate B6, less GABA is produced regardless of lifestyle changes. Folate and B12 are essential for the methylation cycle that regulates serotonin production.", timing:"Morning with breakfast.", caution:"Look for methylated forms (methylfolate, methylcobalamin) for better absorption.", link:"https://pubmed.ncbi.nlm.nih.gov/23370773/" },
+    { name:"Passionflower (Passiflora)", dose:"", emoji:"🌸", science:"A traditional herb with clinical trials showing anxiolytic effects comparable to low-dose benzodiazepines for generalised anxiety, without dependency or sedation at normal doses.", why:"Passionflower's chrysin and vitexin flavonoids bind to GABA-A receptors, the same receptors targeted by anti-anxiety medications, producing a calming effect without the tolerance or withdrawal risks. Particularly effective for anxiety with a physical restlessness component.", timing:"Evening or when anxiety is highest. Can be taken twice daily.", caution:"Avoid during pregnancy. May enhance sedative medications. Don't drive until you know how it affects you.", link:"https://pubmed.ncbi.nlm.nih.gov/21294203/" },
+    { name:"Lemon Balm (Melissa)", dose:"", emoji:"🍋", science:"Lemon balm inhibits GABA transaminase, the enzyme that breaks down GABA, effectively increasing GABA availability. Clinical studies show significant reduction in anxiety and insomnia.", why:"Anxiety disorders often involve rapid breakdown of GABA between neurons. Lemon balm's rosmarinic acid slows this breakdown, extending calming signal transmission in the amygdala and prefrontal cortex, creating a gentler, sustained calm without the grogginess of stronger GABAergic drugs.", timing:"30–60 minutes before a stressful event or in the evening.", caution:"Very well tolerated. Mild sedation possible. Avoid very high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/25022173/" },
+    { name:"Valerian Root", dose:"", emoji:"🌾", science:"The most-studied herbal sleep and anxiety remedy. Valerenic acid inhibits GABA breakdown and may directly bind GABA receptors. Reduces sleep latency and anxiety-related insomnia.", why:"Anxiety-driven insomnia creates a vicious cycle: poor sleep worsens cortisol regulation, which worsens anxiety. Valerian targets the exact GABA system dysregulated in this cycle, helping break it without the next-day grogginess of medications.", timing:"60–90 minutes before bed for sleep. 150mg doses can be taken during day for mild anxiety.", caution:"Can cause vivid dreams or mild morning grogginess initially. Avoid with alcohol or sedative medications.", link:"https://pubmed.ncbi.nlm.nih.gov/17145239/" },
+    { name:"Reishi Mushroom", dose:"", emoji:"🍄", science:"Reishi (Ganoderma lucidum) is an adaptogen with studies showing reduction in anxiety, fatigue, and improved quality of life in people under chronic stress.", why:"Chronic anxiety dysregulates the gut-brain axis and the immune system. Reishi's beta-glucans modulate both, calming inflammatory cytokines that sensitise anxiety pathways and supporting the vagus nerve, which is the main communication highway between the gut and the brain's calm response systems.", timing:"With meals. Effects accumulate over weeks.", caution:"May thin blood; discontinue 2 weeks before surgery. Rare liver sensitivity at very high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/22022452/" },
+    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"A meta-analysis found saffron has a large positive effect size for anxiety symptoms (g = 0.95) compared to placebo. Separate research shows comparable effectiveness to SSRIs for anxiety with fewer side effects.", why:"Saffron's safranal acts as a GABA-A receptor agonist, the same calming receptor system targeted by anti-anxiety medications like benzodiazepines, but without the dependency risk. Crocin simultaneously inhibits serotonin reuptake, addressing the neurochemical foundation of anxious thought patterns. This dual action calms the body while stabilising the mind.", timing:"With meals. Consistent daily use for 4–8 weeks for full effect.", caution:"May interact with SSRIs and anti-anxiety medications. Avoid during pregnancy. Consult your doctor before combining with prescribed medications.", link:"https://pubmed.ncbi.nlm.nih.gov/31135916/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Clinical research shows magnesium, zinc, and selenium deficiencies are significantly more common in people with anxiety disorders, and correction of these deficiencies reduces symptom severity independently of other treatments.", why:"Anxiety involves an overactive nervous system: glutamate excess, HPA axis dysregulation, and heightened amygdala reactivity. Magnesium is the brain's primary NMDA receptor blocker. Zinc modulates GABA receptors (the calming system). Selenium protects the thyroid, whose dysfunction mimics and worsens anxiety. Together they address the mineral foundations of a calm nervous system.", timing:"With meals. Magnesium is best taken in the evening for sleep support.", caution:"Selenium has a narrow safety margin; check recommended dosage carefully. Zinc and magnesium are very safe at standard doses.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/", minerals:[
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"The brain's natural NMDA receptor antagonist. Blocks glutamate excess that drives anxious overthinking. Deficiency makes the amygdala hyperreactive to perceived threats." },
-      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Modulates GABA-A and GABA-B receptors — the brain's primary calming system. Low zinc is independently associated with higher anxiety scores in clinical studies." },
+      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Modulates GABA-A and GABA-B receptors, the brain's primary calming system. Low zinc is independently associated with higher anxiety scores in clinical studies." },
       { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Essential for thyroid hormone conversion (T4→T3). Thyroid dysfunction is one of the most common hidden causes of anxiety. Also a potent antioxidant for stress-damaged neurons." },
-      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Iron deficiency causes fatigue, brain fog, and increased anxiety. Required for dopamine synthesis — low dopamine worsens the worry-loop by reducing the brain's ability to feel secure. Test ferritin first." },
+      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Iron deficiency causes fatigue, brain fog, and increased anxiety. Required for dopamine synthesis; low dopamine worsens the worry-loop by reducing the brain's ability to feel secure. Test ferritin first." },
       { name:"Chromium (as Picolinate)", emoji:"🔗", role:"Stabilises blood sugar fluctuations that can trigger anxiety attacks. Enhances serotonin and norepinephrine sensitivity in the brain." },
     ] },
   ],
   depression: [
-    { name:"Omega-3 (EPA focus)", dose:"", emoji:"🐟", science:"The most replicated supplement finding in depression research. EPA (not DHA) appears to be the active component. Multiple meta-analyses show effects comparable to antidepressants in mild-moderate depression.", why:"Depression is increasingly understood as an inflammatory condition. EPA omega-3s are potent anti-inflammatory agents that reduce interleukin-6 and TNF-alpha — cytokines elevated in major depression that suppress serotonin production and blunt the brain's reward response. EPA also promotes neurogenesis in the hippocampus, which physically shrinks in chronic depression.", timing:"With a fatty meal.", caution:"May interact with blood thinners. Always inform your psychiatrist if taking alongside antidepressants.", link:"https://pubmed.ncbi.nlm.nih.gov/26978738/" },
-    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D acts as a neurosteroid and regulates serotonin synthesis. Large studies link deficiency to depression. Supplementation in deficient individuals shows significant mood improvement.", why:"Vitamin D activates the gene TPH2, which encodes tryptophan hydroxylase — the first enzyme in the serotonin synthesis pathway. Without sufficient D3, the brain cannot produce adequate serotonin from dietary tryptophan, regardless of antidepressant use. Deficiency is endemic in northern climates and indoor lifestyles.", timing:"Morning with a fatty meal.", caution:"Test your levels first. Toxicity is possible at very high doses taken long-term.", link:"https://pubmed.ncbi.nlm.nih.gov/25713056/" },
-    { name:"Saffron Extract (Affron®)", dose:"", emoji:"🌸", science:"Multiple RCTs show saffron extract matches fluoxetine (Prozac) for mild-moderate depression with fewer side effects. Active compounds are safranal and crocin.", why:"Saffron's crocin molecules inhibit serotonin and dopamine reuptake — the same mechanism as SSRIs and SNRIs — while also reducing MAO-A activity (which breaks down serotonin). Additionally, crocin reduces BDNF decline, the brain-derived growth factor that depression depletes and that antidepressants work partly by restoring.", timing:"With meals.", caution:"Expensive but well-studied. Avoid in pregnancy. Rare: dry mouth, dizziness at higher doses.", link:"https://pubmed.ncbi.nlm.nih.gov/25384672/" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"A 2017 clinical trial found magnesium supplementation as effective as antidepressants for mild-moderate depression within 6 weeks.", why:"Depression is associated with upregulation of NMDA glutamate receptors — making the brain hypersensitive to stress and negative experiences. Magnesium is the primary NMDA antagonist in the brain. Ketamine, the fast-acting antidepressant, also blocks NMDA receptors, and magnesium works through the same pathway, more gently and sustainably.", timing:"Evening.", caution:"Works best as part of a broader protocol. Not a replacement for prescribed medication.", link:"https://pubmed.ncbi.nlm.nih.gov/28654669/" },
-    { name:"Rhodiola Rosea", dose:"", emoji:"🌄", science:"Adaptogen shown in RCTs to reduce burnout, fatigue, and depressive symptoms. Particularly effective for stress-related depression and low motivation.", why:"Stress-driven depression depletes dopamine and norepinephrine in the prefrontal cortex, creating anhedonia (inability to feel pleasure) and fatigue. Rhodiola inhibits COMT and MAO, the enzymes that break down dopamine and norepinephrine, extending the life of these motivational neurotransmitters. It also reduces cortisol-induced hippocampal damage.", timing:"Morning, away from food.", caution:"May be mildly stimulating — avoid afternoon doses. Avoid if bipolar without doctor guidance.", link:"https://pubmed.ncbi.nlm.nih.gov/18307390/" },
-    { name:"St. John's Wort", dose:"", emoji:"🌻", science:"The most-studied herbal antidepressant. A Cochrane review of 29 trials found it superior to placebo and comparable to SSRIs for mild-moderate depression, with fewer side effects.", why:"Hyperforin in St. John's Wort inhibits the reuptake of serotonin, dopamine, norepinephrine, GABA, and glutamate simultaneously — a broader mechanism than most pharmaceutical antidepressants. This multi-neurotransmitter approach explains why it works for a wide range of depressive presentations.", timing:"With meals, three times daily. Effects begin within 2–4 weeks.", caution:"⚠️ CRITICAL: Significantly interacts with many medications including antidepressants (serotonin syndrome risk), birth control, blood thinners, and HIV medications. MUST consult doctor before use.", link:"https://pubmed.ncbi.nlm.nih.gov/18843608/" },
-    { name:"SAMe (S-Adenosyl Methionine)", dose:"", emoji:"🔵", science:"A naturally occurring compound involved in over 200 biochemical reactions. Multiple meta-analyses show antidepressant effects. Also FDA-approved in some countries for depression.", why:"SAMe is the methyl donor for serotonin, dopamine, and norepinephrine synthesis. Depression is associated with hypomethylation of neurotransmitter pathways. SAMe directly replenishes methyl groups needed for brain chemistry, while also supporting phosphatidylcholine (brain membrane health) and reducing homocysteine — a neurotoxic amino acid elevated in depression.", timing:"Morning on empty stomach. Split doses if >400mg. Must build up slowly over 2–4 weeks.", caution:"Can trigger mania in bipolar — avoid without psychiatric guidance. May cause GI upset and anxiety initially at high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/11157594/" },
-    { name:"Lion's Mane Mushroom", dose:"", emoji:"🦁", science:"Contains hericenones and erinacines that stimulate Nerve Growth Factor (NGF) — shown to regenerate myelin and promote neuroplasticity. RCTs show improvement in mild depression and cognitive decline.", why:"Depression shrinks the hippocampus and reduces BDNF (brain-derived neurotrophic factor) — literally making the brain less plastic. Lion's Mane is one of the only natural compounds that stimulates NGF production, promoting the growth of new neurons and synaptic connections that antidepressant therapy depends on to produce lasting change.", timing:"With meals. Benefits accumulate over 4–8 weeks.", caution:"Very well tolerated. Rare allergy in those sensitive to mushrooms. May reduce platelet aggregation at high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/30864515/" },
-    { name:"5-HTP", dose:"", emoji:"🌈", science:"The direct precursor to serotonin. Multiple double-blind trials show antidepressant effects, including for treatment-resistant depression. Works faster than many herbs.", why:"Most antidepressants work by preventing serotonin breakdown — but if there isn't enough serotonin to start with, they have less to work with. 5-HTP provides the raw material for serotonin synthesis, crossing the blood-brain barrier and converting directly to serotonin in the raphe nuclei. Particularly useful when serotonin depletion is a factor.", timing:"Evening with a small carbohydrate snack (aids crossing blood-brain barrier).", caution:"⚠️ Do NOT combine with antidepressants, MAOIs, or tramadol — serotonin syndrome risk. Always check with your prescriber.", link:"https://pubmed.ncbi.nlm.nih.gov/9727088/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Zinc, magnesium, selenium, chromium, and iron deficiencies are each independently linked to depression in large epidemiological studies. Zinc adjunctive therapy has strong RCT evidence for improving antidepressant response.", why:"Depression depletes and is worsened by mineral deficiencies in a vicious cycle. Zinc is required for BDNF production (the growth factor antidepressants work by restoring). Magnesium blocks the NMDA hyperactivity that drives depressive rumination. Selenium protects serotonin-producing neurons from oxidative damage. Correcting mineral status can meaningfully accelerate recovery.", timing:"With meals. Zinc and iron at separate meals for best absorption.", caution:"Test iron and zinc levels before supplementing. Selenium has a narrow safety margin — check recommended dosage carefully. Always inform your prescriber.", link:"https://pubmed.ncbi.nlm.nih.gov/23806573/", minerals:[
-      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Strong RCT evidence as antidepressant augmentation. Required for BDNF synthesis — the neuroplasticity factor that antidepressants restore. Low zinc predicts poor treatment response." },
+    { name:"Omega-3 (EPA focus)", dose:"", emoji:"🐟", science:"The most replicated supplement finding in depression research. EPA (not DHA) appears to be the active component. Multiple meta-analyses show effects comparable to antidepressants in mild-moderate depression.", why:"Depression is increasingly understood as an inflammatory condition. EPA omega-3s are potent anti-inflammatory agents that reduce interleukin-6 and TNF-alpha, cytokines elevated in major depression that suppress serotonin production and blunt the brain's reward response. EPA also promotes neurogenesis in the hippocampus, which physically shrinks in chronic depression.", timing:"With a fatty meal.", caution:"May interact with blood thinners. Always inform your psychiatrist if taking alongside antidepressants.", link:"https://pubmed.ncbi.nlm.nih.gov/26978738/" },
+    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D acts as a neurosteroid and regulates serotonin synthesis. Large studies link deficiency to depression. Supplementation in deficient individuals shows significant mood improvement.", why:"Vitamin D activates the gene TPH2, which encodes tryptophan hydroxylase, the first enzyme in the serotonin synthesis pathway. Without sufficient D3, the brain cannot produce adequate serotonin from dietary tryptophan, regardless of antidepressant use. Deficiency is endemic in northern climates and indoor lifestyles.", timing:"Morning with a fatty meal.", caution:"Test your levels first. Toxicity is possible at very high doses taken long-term.", link:"https://pubmed.ncbi.nlm.nih.gov/25713056/" },
+    { name:"Saffron Extract (Affron®)", dose:"", emoji:"🌸", science:"Multiple RCTs show saffron extract matches fluoxetine (Prozac) for mild-moderate depression with fewer side effects. Active compounds are safranal and crocin.", why:"Saffron's crocin molecules inhibit serotonin and dopamine reuptake, the same mechanism as SSRIs and SNRIs, while also reducing MAO-A activity (which breaks down serotonin). Additionally, crocin reduces BDNF decline, the brain-derived growth factor that depression depletes and that antidepressants work partly by restoring.", timing:"With meals.", caution:"Expensive but well-studied. Avoid in pregnancy. Rare: dry mouth, dizziness at higher doses.", link:"https://pubmed.ncbi.nlm.nih.gov/25384672/" },
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"A 2017 clinical trial found magnesium supplementation as effective as antidepressants for mild-moderate depression within 6 weeks.", why:"Depression is associated with upregulation of NMDA glutamate receptors, making the brain hypersensitive to stress and negative experiences. Magnesium is the primary NMDA antagonist in the brain. Ketamine, the fast-acting antidepressant, also blocks NMDA receptors, and magnesium works through the same pathway, more gently and sustainably.", timing:"Evening.", caution:"Works best as part of a broader protocol. Not a replacement for prescribed medication.", link:"https://pubmed.ncbi.nlm.nih.gov/28654669/" },
+    { name:"Rhodiola Rosea", dose:"", emoji:"🌄", science:"Adaptogen shown in RCTs to reduce burnout, fatigue, and depressive symptoms. Particularly effective for stress-related depression and low motivation.", why:"Stress-driven depression depletes dopamine and norepinephrine in the prefrontal cortex, creating anhedonia (inability to feel pleasure) and fatigue. Rhodiola inhibits COMT and MAO, the enzymes that break down dopamine and norepinephrine, extending the life of these motivational neurotransmitters. It also reduces cortisol-induced hippocampal damage.", timing:"Morning, away from food.", caution:"May be mildly stimulating; avoid afternoon doses. Avoid if bipolar without doctor guidance.", link:"https://pubmed.ncbi.nlm.nih.gov/18307390/" },
+    { name:"St. John's Wort", dose:"", emoji:"🌻", science:"The most-studied herbal antidepressant. A Cochrane review of 29 trials found it superior to placebo and comparable to SSRIs for mild-moderate depression, with fewer side effects.", why:"Hyperforin in St. John's Wort inhibits the reuptake of serotonin, dopamine, norepinephrine, GABA, and glutamate simultaneously, a broader mechanism than most pharmaceutical antidepressants. This multi-neurotransmitter approach explains why it works for a wide range of depressive presentations.", timing:"With meals, three times daily. Effects begin within 2–4 weeks.", caution:"⚠️ CRITICAL: Significantly interacts with many medications including antidepressants (serotonin syndrome risk), birth control, blood thinners, and HIV medications. MUST consult doctor before use.", link:"https://pubmed.ncbi.nlm.nih.gov/18843608/" },
+    { name:"SAMe (S-Adenosyl Methionine)", dose:"", emoji:"🔵", science:"A naturally occurring compound involved in over 200 biochemical reactions. Multiple meta-analyses show antidepressant effects. Also FDA-approved in some countries for depression.", why:"SAMe is the methyl donor for serotonin, dopamine, and norepinephrine synthesis. Depression is associated with hypomethylation of neurotransmitter pathways. SAMe directly replenishes methyl groups needed for brain chemistry, while also supporting phosphatidylcholine (brain membrane health) and reducing homocysteine, a neurotoxic amino acid elevated in depression.", timing:"Morning on empty stomach. Split doses if >400mg. Must build up slowly over 2–4 weeks.", caution:"Can trigger mania in bipolar; avoid without psychiatric guidance. May cause GI upset and anxiety initially at high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/11157594/" },
+    { name:"Lion's Mane Mushroom", dose:"", emoji:"🦁", science:"Contains hericenones and erinacines that stimulate Nerve Growth Factor (NGF), shown to regenerate myelin and promote neuroplasticity. RCTs show improvement in mild depression and cognitive decline.", why:"Depression shrinks the hippocampus and reduces BDNF (brain-derived neurotrophic factor), literally making the brain less plastic. Lion's Mane is one of the only natural compounds that stimulates NGF production, promoting the growth of new neurons and synaptic connections that antidepressant therapy depends on to produce lasting change.", timing:"With meals. Benefits accumulate over 4–8 weeks.", caution:"Very well tolerated. Rare allergy in those sensitive to mushrooms. May reduce platelet aggregation at high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/30864515/" },
+    { name:"5-HTP", dose:"", emoji:"🌈", science:"The direct precursor to serotonin. Multiple double-blind trials show antidepressant effects, including for treatment-resistant depression. Works faster than many herbs.", why:"Most antidepressants work by preventing serotonin breakdown, but if there isn't enough serotonin to start with, they have less to work with. 5-HTP provides the raw material for serotonin synthesis, crossing the blood-brain barrier and converting directly to serotonin in the raphe nuclei. Particularly useful when serotonin depletion is a factor.", timing:"Evening with a small carbohydrate snack (aids crossing blood-brain barrier).", caution:"⚠️ Do NOT combine with antidepressants, MAOIs, or tramadol; serotonin syndrome risk. Always check with your prescriber.", link:"https://pubmed.ncbi.nlm.nih.gov/9727088/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Zinc, magnesium, selenium, chromium, and iron deficiencies are each independently linked to depression in large epidemiological studies. Zinc adjunctive therapy has strong RCT evidence for improving antidepressant response.", why:"Depression depletes and is worsened by mineral deficiencies in a vicious cycle. Zinc is required for BDNF production (the growth factor antidepressants work by restoring). Magnesium blocks the NMDA hyperactivity that drives depressive rumination. Selenium protects serotonin-producing neurons from oxidative damage. Correcting mineral status can meaningfully accelerate recovery.", timing:"With meals. Zinc and iron at separate meals for best absorption.", caution:"Test iron and zinc levels before supplementing. Selenium has a narrow safety margin; check recommended dosage carefully. Always inform your prescriber.", link:"https://pubmed.ncbi.nlm.nih.gov/23806573/", minerals:[
+      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Strong RCT evidence as antidepressant augmentation. Required for BDNF synthesis, the neuroplasticity factor that antidepressants restore. Low zinc predicts poor treatment response." },
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"A 2017 RCT found magnesium as effective as antidepressants for mild-moderate depression. Blocks NMDA receptor overactivity that drives rumination and hopelessness." },
       { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Large population studies link low selenium to increased depression risk. Protects serotonergic neurons from oxidative damage and supports thyroid function (hypothyroidism mimics depression)." },
       { name:"Chromium (as Picolinate)", emoji:"🔗", role:"Moderate evidence for atypical depression (carb cravings, oversleeping, weight gain). Enhances insulin-mediated tryptophan transport into the brain, increasing serotonin precursor availability." },
@@ -3111,104 +3173,104 @@ const SUPPLEMENTS = {
     ] },
   ],
   ptsd: [
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Research in first responders and trauma survivors shows omega-3 may reduce PTSD symptom development after acute trauma and lower hyperarousal and intrusion symptoms.", why:"PTSD involves chronic neuroinflammation and a hyperreactive amygdala that misfires the fear response. EPA omega-3s reduce the inflammatory cytokines that keep the amygdala in threat-detection overdrive, while DHA supports hippocampal neuroplasticity — helping the brain consolidate traumatic memories into contextualised, less intrusive forms.", timing:"With a meal containing fat.", caution:"Choose purified brands. Inform any prescribing doctor.", link:"https://pubmed.ncbi.nlm.nih.gov/20075049/" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Magnesium regulates the fear response via NMDA receptors. Low magnesium is associated with heightened stress reactivity and worse PTSD outcomes.", why:"PTSD hyperarousal — the constant state of being on high alert — is mediated by NMDA receptor overactivity. Magnesium is the brain's endogenous NMDA blocker. By restoring magnesium levels, the fear circuits in the amygdala and hippocampus become less reactive, gradually reducing hypervigilance and startle response.", timing:"Evening — supports sleep and nervous system recovery.", caution:"Start low and build up over 2 weeks.", link:"https://pubmed.ncbi.nlm.nih.gov/28328919/" },
-    { name:"Ashwagandha (KSM-66)", dose:"", emoji:"🌱", science:"Reduces cortisol and supports HPA axis regulation — the stress system most dysregulated in PTSD. RCTs show meaningful improvements in stress, anxiety, and sleep.", why:"PTSD dysregulates the HPA axis so severely that the cortisol system either stays chronically elevated or becomes blunted and unresponsive. Ashwagandha's withanolides restore HPA feedback sensitivity — helping the stress system turn on AND off appropriately again, which is precisely what trauma disrupts.", timing:"Morning or evening with food.", caution:"Check for interactions with sedative medications.", link:"https://pubmed.ncbi.nlm.nih.gov/23439798/" },
-    { name:"L-Theanine", dose:"", emoji:"🍵", science:"Promotes alpha brain wave activity associated with calm alertness. Particularly useful for hypervigilance and difficulty relaxing without sedation.", why:"PTSD hypervigilance keeps the brain in high-frequency beta waves — the state of threat scanning. L-theanine selectively increases alpha waves (calm, present-moment awareness) without inducing delta or theta (sedation). This allows hypervigilant individuals to relax while remaining functional and alert.", timing:"Can be taken as needed during stressful moments.", caution:"Very well tolerated. Pairs well with magnesium for evening relaxation.", link:"https://pubmed.ncbi.nlm.nih.gov/19414525/" },
-    { name:"Holy Basil (Tulsi)", dose:"", emoji:"🌿", science:"Adaptogenic herb with clinical evidence for reducing cortisol, anxiety, and stress-related cognitive impairment. Used for millennia in Ayurvedic trauma recovery.", why:"PTSD involves blunted cortisol awakening response — the brain loses its morning reset mechanism. Tulsi's ursolic acid and eugenol support glucocorticoid receptor sensitivity, helping recalibrate the cortisol rhythm that trauma disrupts. This supports the natural morning alertness and evening calm cycle that PTSD sufferers often lose.", timing:"Morning with food.", caution:"Very well tolerated. Mild blood-thinning effect — caution with anticoagulants.", link:"https://pubmed.ncbi.nlm.nih.gov/22207695/" },
-    { name:"GABA (Gamma-aminobutyric acid)", dose:"", emoji:"🫧", science:"Oral GABA has been shown to reduce stress and promote relaxation in human trials. While mechanisms are debated, multiple studies confirm anxiolytic effects.", why:"PTSD involves profound GABA deficiency in the prefrontal cortex and anterior cingulate — the regions that normally regulate the amygdala's fear response. Without adequate GABA tone, the fear response cannot be inhibited. Supplemental GABA supports this critical inhibitory system, helping restore top-down control over traumatic fear reactions.", timing:"Take as needed during periods of heightened arousal or before sleep.", caution:"May cause tingling or sedation. Do not drive until you know your response. Caution with medications.", link:"https://pubmed.ncbi.nlm.nih.gov/19861415/" },
-    { name:"Bacopa Monnieri", dose:"", emoji:"🌿", science:"Shown to reduce anxiety and support memory consolidation. Particularly relevant for trauma-related memory dysregulation and intrusive memory symptoms.", why:"PTSD is partly a disorder of memory reconsolidation — traumatic memories fail to be properly filed and contextualised by the hippocampus. Bacopa enhances dendritic arborisation (complexity of neuron connections) in the hippocampus, supporting the brain's natural ability to process and integrate traumatic memories rather than reliving them.", timing:"With a fatty meal.", caution:"Full benefits take 8–12 weeks. GI upset if taken without food.", link:"https://pubmed.ncbi.nlm.nih.gov/22747190/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Mineral deficiencies — particularly magnesium and zinc — are associated with heightened stress reactivity and worse PTSD outcomes. Magnesium L-threonate shows particular promise for trauma-related brain health due to superior blood-brain barrier penetration.", why:"PTSD keeps the nervous system in chronic hyperarousal. Magnesium is the brain's natural brake on this excitatory overdrive via NMDA receptor regulation. Zinc supports the hippocampal neuroplasticity needed to reconsolidate traumatic memories. Selenium protects stress-damaged neurons from oxidative breakdown.", timing:"Magnesium in the evening for sleep support. Zinc and selenium with meals.", caution:"Start low and increase gradually. Magnesium L-threonate may be preferred over glycinate for cognitive/trauma benefits. Always inform your care team.", link:"https://pubmed.ncbi.nlm.nih.gov/28328919/", minerals:[
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Research in first responders and trauma survivors shows omega-3 may reduce PTSD symptom development after acute trauma and lower hyperarousal and intrusion symptoms.", why:"PTSD involves chronic neuroinflammation and a hyperreactive amygdala that misfires the fear response. EPA omega-3s reduce the inflammatory cytokines that keep the amygdala in threat-detection overdrive, while DHA supports hippocampal neuroplasticity, helping the brain consolidate traumatic memories into contextualised, less intrusive forms.", timing:"With a meal containing fat.", caution:"Choose purified brands. Inform any prescribing doctor.", link:"https://pubmed.ncbi.nlm.nih.gov/20075049/" },
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Magnesium regulates the fear response via NMDA receptors. Low magnesium is associated with heightened stress reactivity and worse PTSD outcomes.", why:"PTSD hyperarousal, the constant state of being on high alert, is mediated by NMDA receptor overactivity. Magnesium is the brain's endogenous NMDA blocker. By restoring magnesium levels, the fear circuits in the amygdala and hippocampus become less reactive, gradually reducing hypervigilance and startle response.", timing:"Evening; supports sleep and nervous system recovery.", caution:"Start low and build up over 2 weeks.", link:"https://pubmed.ncbi.nlm.nih.gov/28328919/" },
+    { name:"Ashwagandha (KSM-66)", dose:"", emoji:"🌱", science:"Reduces cortisol and supports HPA axis regulation, the stress system most dysregulated in PTSD. RCTs show meaningful improvements in stress, anxiety, and sleep.", why:"PTSD dysregulates the HPA axis so severely that the cortisol system either stays chronically elevated or becomes blunted and unresponsive. Ashwagandha's withanolides restore HPA feedback sensitivity, helping the stress system turn on AND off appropriately again, which is precisely what trauma disrupts.", timing:"Morning or evening with food.", caution:"Check for interactions with sedative medications.", link:"https://pubmed.ncbi.nlm.nih.gov/23439798/" },
+    { name:"L-Theanine", dose:"", emoji:"🍵", science:"Promotes alpha brain wave activity associated with calm alertness. Particularly useful for hypervigilance and difficulty relaxing without sedation.", why:"PTSD hypervigilance keeps the brain in high-frequency beta waves, the state of threat scanning. L-theanine selectively increases alpha waves (calm, present-moment awareness) without inducing delta or theta (sedation). This allows hypervigilant individuals to relax while remaining functional and alert.", timing:"Can be taken as needed during stressful moments.", caution:"Very well tolerated. Pairs well with magnesium for evening relaxation.", link:"https://pubmed.ncbi.nlm.nih.gov/19414525/" },
+    { name:"Holy Basil (Tulsi)", dose:"", emoji:"🌿", science:"Adaptogenic herb with clinical evidence for reducing cortisol, anxiety, and stress-related cognitive impairment. Used for millennia in Ayurvedic trauma recovery.", why:"PTSD involves blunted cortisol awakening response: the brain loses its morning reset mechanism. Tulsi's ursolic acid and eugenol support glucocorticoid receptor sensitivity, helping recalibrate the cortisol rhythm that trauma disrupts. This supports the natural morning alertness and evening calm cycle that PTSD sufferers often lose.", timing:"Morning with food.", caution:"Very well tolerated. Mild blood-thinning effect; caution with anticoagulants.", link:"https://pubmed.ncbi.nlm.nih.gov/22207695/" },
+    { name:"GABA (Gamma-aminobutyric acid)", dose:"", emoji:"🫧", science:"Oral GABA has been shown to reduce stress and promote relaxation in human trials. While mechanisms are debated, multiple studies confirm anxiolytic effects.", why:"PTSD involves profound GABA deficiency in the prefrontal cortex and anterior cingulate, the regions that normally regulate the amygdala's fear response. Without adequate GABA tone, the fear response cannot be inhibited. Supplemental GABA supports this critical inhibitory system, helping restore top-down control over traumatic fear reactions.", timing:"Take as needed during periods of heightened arousal or before sleep.", caution:"May cause tingling or sedation. Do not drive until you know your response. Caution with medications.", link:"https://pubmed.ncbi.nlm.nih.gov/19861415/" },
+    { name:"Bacopa Monnieri", dose:"", emoji:"🌿", science:"Shown to reduce anxiety and support memory consolidation. Particularly relevant for trauma-related memory dysregulation and intrusive memory symptoms.", why:"PTSD is partly a disorder of memory reconsolidation: traumatic memories fail to be properly filed and contextualised by the hippocampus. Bacopa enhances dendritic arborisation (complexity of neuron connections) in the hippocampus, supporting the brain's natural ability to process and integrate traumatic memories rather than reliving them.", timing:"With a fatty meal.", caution:"Full benefits take 8–12 weeks. GI upset if taken without food.", link:"https://pubmed.ncbi.nlm.nih.gov/22747190/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Mineral deficiencies, particularly magnesium and zinc, are associated with heightened stress reactivity and worse PTSD outcomes. Magnesium L-threonate shows particular promise for trauma-related brain health due to superior blood-brain barrier penetration.", why:"PTSD keeps the nervous system in chronic hyperarousal. Magnesium is the brain's natural brake on this excitatory overdrive via NMDA receptor regulation. Zinc supports the hippocampal neuroplasticity needed to reconsolidate traumatic memories. Selenium protects stress-damaged neurons from oxidative breakdown.", timing:"Magnesium in the evening for sleep support. Zinc and selenium with meals.", caution:"Start low and increase gradually. Magnesium L-threonate may be preferred over glycinate for cognitive/trauma benefits. Always inform your care team.", link:"https://pubmed.ncbi.nlm.nih.gov/28328919/", minerals:[
       { name:"Magnesium (L-Threonate or Glycinate)", emoji:"🌿", role:"L-threonate form crosses the blood-brain barrier more effectively. Blocks NMDA receptor overactivity that drives hypervigilance and startle response. Supports sleep architecture disrupted by trauma." },
-      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Supports hippocampal neuroplasticity needed for trauma memory reconsolidation. Low zinc is associated with increased fear conditioning — the process that creates PTSD." },
+      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Supports hippocampal neuroplasticity needed for trauma memory reconsolidation. Low zinc is associated with increased fear conditioning, the process that creates PTSD." },
       { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Chronic stress depletes selenium-dependent antioxidant enzymes (glutathione peroxidase). Restoring selenium protects the hippocampus and prefrontal cortex from stress-induced oxidative damage." },
       { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Chronic hyperarousal increases iron utilisation. Deficiency worsens fatigue, brain fog, and the emotional numbing seen in PTSD. Test ferritin before supplementing." },
     ] },
   ],
   bipolar: [
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"The most studied supplement in bipolar disorder. Multiple trials show omega-3 reduces depressive episodes and may have mild mood-stabilising effects.", why:"Bipolar disorder involves dysregulation of phospholipid metabolism in neuronal membranes — membranes low in omega-3s are more excitable and more vulnerable to mood cycling. EPA and DHA physically incorporate into these membranes, increasing stability. The anti-inflammatory action of EPA also reduces the cytokine spikes associated with both manic and depressive episodes.", timing:"With meals containing fat.", caution:"Discuss with your psychiatrist — may interact with mood stabilisers at high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/15979846/" },
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"The most studied supplement in bipolar disorder. Multiple trials show omega-3 reduces depressive episodes and may have mild mood-stabilising effects.", why:"Bipolar disorder involves dysregulation of phospholipid metabolism in neuronal membranes: membranes low in omega-3s are more excitable and more vulnerable to mood cycling. EPA and DHA physically incorporate into these membranes, increasing stability. The anti-inflammatory action of EPA also reduces the cytokine spikes associated with both manic and depressive episodes.", timing:"With meals containing fat.", caution:"Discuss with your psychiatrist; may interact with mood stabilisers at high doses.", link:"https://pubmed.ncbi.nlm.nih.gov/15979846/" },
     { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Magnesium has lithium-like properties at the cellular level. Some research suggests it may reduce cycling frequency. Very commonly deficient in people on mood stabilisers.", why:"Magnesium and lithium compete for the same ion channels in neurons. When magnesium is deficient, neurons become hyperexcitable in ways that can trigger both manic and depressive phases. Many mood stabilisers also deplete magnesium as a side effect, creating a cycle that magnesium supplementation can help interrupt.", timing:"Evening.", caution:"Inform your psychiatrist. Some mood stabilisers affect magnesium levels.", link:"https://pubmed.ncbi.nlm.nih.gov/19271419/" },
     { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Deficiency strongly associated with more frequent mood episodes and worse outcomes in bipolar disorder.", why:"Vitamin D modulates the dopamine and serotonin systems that are dysregulated across both poles of bipolar disorder. Deficiency is associated with increased cycling frequency and greater severity of both manic and depressive episodes. Adequate D3 helps stabilise the baseline mood set-point between episodes.", timing:"Morning with food.", caution:"Test your levels. Safe at standard doses but get checked annually.", link:"https://pubmed.ncbi.nlm.nih.gov/22254078/" },
-    { name:"N-Acetyl Cysteine (NAC)", dose:"", emoji:"🛡️", science:"A glutathione precursor. A landmark RCT showed NAC significantly reduced bipolar depression scores versus placebo over 6 months, with good tolerability.", why:"Bipolar disorder is associated with mitochondrial dysfunction and oxidative stress — the brain's energy machinery is running inefficiently. NAC is a precursor to glutathione, the brain's master antioxidant. By restoring glutathione levels, NAC reduces the oxidative damage that contributes to episode cycling and cognitive decline in bipolar disorder.", timing:"With meals.", caution:"Takes 8–12 weeks to see full effect. Inform your doctor. Avoid if on nitroglycerin.", link:"https://pubmed.ncbi.nlm.nih.gov/18439486/" },
-    { name:"Lithium Orotate (low-dose)", dose:"", emoji:"💎", science:"The orotate salt delivers lithium across the blood-brain barrier far more efficiently than pharmaceutical lithium carbonate. Low-dose studies show neuroprotective and mood-stabilising effects.", why:"Lithium (in pharmaceutical doses) is the gold-standard mood stabiliser. At lower doses via the orotate form, it still activates neuroprotective pathways (GSK-3β inhibition, BDNF increase) and reduces glutamate excitotoxicity — effects relevant to mood cycling — without the monitoring requirements of prescription lithium.", timing:"With food, once daily.", caution:"⚠️ Discuss with your psychiatrist before use. Do not self-medicate alongside prescription lithium. Stay well hydrated.", link:"https://pubmed.ncbi.nlm.nih.gov/17706282/" },
-    { name:"CoQ10 (Ubiquinol form)", dose:"", emoji:"⚡", science:"Mitochondrial function is increasingly implicated in bipolar disorder. CoQ10 supports electron transport chain efficiency and reduces the oxidative stress associated with mood cycling.", why:"Bipolar disorder shows measurable mitochondrial dysfunction in brain cells — the energy production machinery is impaired, particularly during episodes. CoQ10 as ubiquinol (the active, reduced form) directly supports mitochondrial ATP production in neurons, providing a more stable energy substrate for mood regulation.", timing:"With a fatty meal — fat dramatically improves CoQ10 absorption.", caution:"Ubiquinol is preferred over ubiquinone. Very safe but expensive. May mildly lower blood pressure.", link:"https://pubmed.ncbi.nlm.nih.gov/22114195/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Magnesium has lithium-like cellular properties and mood stabilisers commonly deplete it. Preliminary research suggests mineral repletion may reduce cycling frequency and support medication efficacy in bipolar disorder.", why:"Bipolar mood cycling involves neuronal hyperexcitability that minerals help regulate. Magnesium and lithium share ion channel mechanisms — adequate magnesium supports mood stabilisation. Zinc is depleted by many psychiatric medications. Selenium supports the antioxidant defences that mitochondrial dysfunction in bipolar disorder overwhelms.", timing:"With meals. Magnesium in the evening.", caution:"Inform your psychiatrist — some mood stabilisers affect mineral levels. Do not combine lithium orotate with prescription lithium.", link:"https://pubmed.ncbi.nlm.nih.gov/19271419/", minerals:[
+    { name:"N-Acetyl Cysteine (NAC)", dose:"", emoji:"🛡️", science:"A glutathione precursor. A landmark RCT showed NAC significantly reduced bipolar depression scores versus placebo over 6 months, with good tolerability.", why:"Bipolar disorder is associated with mitochondrial dysfunction and oxidative stress: the brain's energy machinery is running inefficiently. NAC is a precursor to glutathione, the brain's master antioxidant. By restoring glutathione levels, NAC reduces the oxidative damage that contributes to episode cycling and cognitive decline in bipolar disorder.", timing:"With meals.", caution:"Takes 8–12 weeks to see full effect. Inform your doctor. Avoid if on nitroglycerin.", link:"https://pubmed.ncbi.nlm.nih.gov/18439486/" },
+    { name:"Lithium Orotate (low-dose)", dose:"", emoji:"💎", science:"The orotate salt delivers lithium across the blood-brain barrier far more efficiently than pharmaceutical lithium carbonate. Low-dose studies show neuroprotective and mood-stabilising effects.", why:"Lithium (in pharmaceutical doses) is the gold-standard mood stabiliser. At lower doses via the orotate form, it still activates neuroprotective pathways (GSK-3β inhibition, BDNF increase) and reduces glutamate excitotoxicity, effects relevant to mood cycling, without the monitoring requirements of prescription lithium.", timing:"With food, once daily.", caution:"⚠️ Discuss with your psychiatrist before use. Do not self-medicate alongside prescription lithium. Stay well hydrated.", link:"https://pubmed.ncbi.nlm.nih.gov/17706282/" },
+    { name:"CoQ10 (Ubiquinol form)", dose:"", emoji:"⚡", science:"Mitochondrial function is increasingly implicated in bipolar disorder. CoQ10 supports electron transport chain efficiency and reduces the oxidative stress associated with mood cycling.", why:"Bipolar disorder shows measurable mitochondrial dysfunction in brain cells: the energy production machinery is impaired, particularly during episodes. CoQ10 as ubiquinol (the active, reduced form) directly supports mitochondrial ATP production in neurons, providing a more stable energy substrate for mood regulation.", timing:"With a fatty meal; fat dramatically improves CoQ10 absorption.", caution:"Ubiquinol is preferred over ubiquinone. Very safe but expensive. May mildly lower blood pressure.", link:"https://pubmed.ncbi.nlm.nih.gov/22114195/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Magnesium has lithium-like cellular properties and mood stabilisers commonly deplete it. Preliminary research suggests mineral repletion may reduce cycling frequency and support medication efficacy in bipolar disorder.", why:"Bipolar mood cycling involves neuronal hyperexcitability that minerals help regulate. Magnesium and lithium share ion channel mechanisms; adequate magnesium supports mood stabilisation. Zinc is depleted by many psychiatric medications. Selenium supports the antioxidant defences that mitochondrial dysfunction in bipolar disorder overwhelms.", timing:"With meals. Magnesium in the evening.", caution:"Inform your psychiatrist; some mood stabilisers affect mineral levels. Do not combine lithium orotate with prescription lithium.", link:"https://pubmed.ncbi.nlm.nih.gov/19271419/", minerals:[
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Shares ion channel mechanisms with lithium. Deficiency causes neuronal hyperexcitability that can trigger episodes. Many mood stabilisers deplete magnesium as a side effect." },
       { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Psychiatric medications commonly deplete zinc. Supports the BDNF production needed for mood stability and neuroprotection between episodes." },
-      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Supports glutathione peroxidase — the antioxidant enzyme system overwhelmed by the mitochondrial dysfunction and oxidative stress seen in bipolar disorder." },
+      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Supports glutathione peroxidase, the antioxidant enzyme system overwhelmed by the mitochondrial dysfunction and oxidative stress seen in bipolar disorder." },
       { name:"Chromium (as Picolinate)", emoji:"🔗", role:"Emerging evidence for bipolar depression specifically. Supports insulin sensitivity in the brain, improving glucose metabolism in mood-regulating circuits." },
     ] },
   ],
   ocd: [
     { name:"NAC (N-Acetyl Cysteine)", dose:"", emoji:"🛡️", science:"The most evidence-backed supplement for OCD. Multiple RCTs as an augmentation to SSRIs show significant reduction in Yale-Brown OCD Scale scores by modulating glutamate.", why:"OCD is increasingly understood as a glutamate dysregulation disorder, not just a serotonin one. The cortico-striato-thalamo-cortical circuit that gets 'stuck' in OCD is driven by glutamate hyperactivity. NAC reduces glutamate release and increases glutamate uptake via the cystine-glutamate transporter, directly quieting the compulsive loop.", timing:"With meals to reduce nausea.", caution:"Takes weeks to build. Always use alongside (not instead of) prescribed treatment.", link:"https://pubmed.ncbi.nlm.nih.gov/22464336/" },
-    { name:"Inositol", dose:"", emoji:"🫧", science:"A B-vitamin relative that modulates serotonin receptors. An RCT showed inositol reduced OCD symptoms comparably to fluvoxamine in some measures.", why:"Inositol is a second messenger in serotonin receptor signal transduction — it's not serotonin itself, but it carries serotonin's messages inside neurons. OCD involves dysregulated serotonin signalling in the orbitofrontal cortex, and inositol restores the intracellular side of this communication pathway that SSRIs alone don't fully address.", timing:"Split across 2–3 doses with food.", caution:"High doses required — use powder. Can cause mild GI upset initially.", link:"https://pubmed.ncbi.nlm.nih.gov/8780431/" },
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Anti-inflammatory omega-3s may reduce neuroinflammation implicated in OCD pathology and support response to CBT and SSRI treatment.", why:"Neuroinflammation appears to contribute to OCD severity — elevated inflammatory markers are found in OCD patients and correlate with symptom severity. EPA omega-3s reduce the key inflammatory cytokines (IL-6, TNF-alpha) that sensitise the corticostriatal circuits involved in the OCD loop.", timing:"With a meal containing fat.", caution:"Standard cautions apply — inform your prescribing doctor.", link:"" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Supports NMDA receptor modulation and anxiety reduction — both relevant to OCD. Also helps with sleep disruption common in OCD.", why:"Anxiety fuels OCD — when anxiety rises, compulsive behaviours intensify. Magnesium's NMDA-blocking action reduces the anxiety component of OCD, lowering the urgency that drives compulsions. It also improves sleep quality, and poor sleep consistently worsens OCD symptom severity.", timing:"Evening.", caution:"Very well tolerated at standard doses.", link:"" },
-    { name:"Milk Thistle (Silymarin)", dose:"", emoji:"🌾", science:"Emerging research shows silymarin from milk thistle has glutamate-modulating and neuroprotective properties relevant to OCD treatment augmentation.", why:"The liver metabolises many OCD medications, and glutamate regulation depends partly on liver health and metabolism. Silymarin's hepatoprotective effects ensure optimal drug metabolism, while its direct glutamate-modulating properties support the same circuit NAC targets — the corticostriatal glutamate excess.", timing:"With meals.", caution:"Very well tolerated. Mild laxative effect at high doses.", link:"" },
-    { name:"Bacopa Monnieri", dose:"", emoji:"🌿", science:"Bacopa's anxiolytic and cognitive-enhancing properties may complement OCD treatment by reducing anxiety and supporting the cognitive flexibility that OCD impairs.", why:"OCD severely impairs cognitive flexibility — the ability to shift attention away from obsessive thoughts. Bacopa enhances acetylcholine signalling in the prefrontal cortex and anterior cingulate, the exact regions that perform this switching function. Stronger prefrontal control means greater ability to disengage from the compulsive loop.", timing:"With a fatty meal.", caution:"Effects build over 8–12 weeks. GI upset possible without food.", link:"https://pubmed.ncbi.nlm.nih.gov/22747190/" },
-    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"Two double-blind RCTs show saffron is as effective as fluvoxamine and fluoxetine for mild-to-moderate OCD, with potentially fewer side effects. Both studies showed significant improvement on the Yale-Brown OCD Scale.", why:"Saffron's crocin inhibits serotonin reuptake — the same mechanism as the SSRIs that are first-line OCD treatment. Additionally, crocin acts as an NMDA receptor antagonist, directly reducing the glutamate excess in the corticostriatal circuit that drives the obsessive-compulsive loop. This dual serotonin + glutamate action addresses OCD from two angles simultaneously.", timing:"With meals. Consistent daily use for 8–10 weeks to match clinical trial timelines.", caution:"Do not combine with SSRIs without medical guidance — serotonin interaction risk. Always use alongside (not instead of) prescribed OCD treatment for moderate-severe cases.", link:"https://pubmed.ncbi.nlm.nih.gov/33599345/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Preliminary research shows zinc augmentation may enhance SSRI response in OCD. Magnesium and selenium support the glutamate regulation and antioxidant systems most disrupted in obsessive-compulsive disorder.", why:"OCD involves glutamate excess in the corticostriatal circuit — the loop that gets 'stuck.' Magnesium is the brain's primary glutamate brake via NMDA receptor regulation. Zinc augments SSRI efficacy and supports the prefrontal cortex control needed to override compulsions. Together they address the mineral foundations of the OCD circuit.", timing:"With meals. Magnesium in the evening for sleep support.", caution:"Always use alongside (not instead of) prescribed OCD treatment. Zinc augmentation should be discussed with your prescriber.", link:"", minerals:[
-      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Preliminary RCT evidence as SSRI augmentation for OCD. Supports prefrontal cortex function needed for response inhibition — the ability to not perform compulsions." },
+    { name:"Inositol", dose:"", emoji:"🫧", science:"A B-vitamin relative that modulates serotonin receptors. An RCT showed inositol reduced OCD symptoms comparably to fluvoxamine in some measures.", why:"Inositol is a second messenger in serotonin receptor signal transduction: it's not serotonin itself, but it carries serotonin's messages inside neurons. OCD involves dysregulated serotonin signalling in the orbitofrontal cortex, and inositol restores the intracellular side of this communication pathway that SSRIs alone don't fully address.", timing:"Split across 2–3 doses with food.", caution:"High doses required; use powder. Can cause mild GI upset initially.", link:"https://pubmed.ncbi.nlm.nih.gov/8780431/" },
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Anti-inflammatory omega-3s may reduce neuroinflammation implicated in OCD pathology and support response to CBT and SSRI treatment.", why:"Neuroinflammation appears to contribute to OCD severity: elevated inflammatory markers are found in OCD patients and correlate with symptom severity. EPA omega-3s reduce the key inflammatory cytokines (IL-6, TNF-alpha) that sensitise the corticostriatal circuits involved in the OCD loop.", timing:"With a meal containing fat.", caution:"Standard cautions apply; inform your prescribing doctor.", link:"" },
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Supports NMDA receptor modulation and anxiety reduction, both relevant to OCD. Also helps with sleep disruption common in OCD.", why:"Anxiety fuels OCD: when anxiety rises, compulsive behaviours intensify. Magnesium's NMDA-blocking action reduces the anxiety component of OCD, lowering the urgency that drives compulsions. It also improves sleep quality, and poor sleep consistently worsens OCD symptom severity.", timing:"Evening.", caution:"Very well tolerated at standard doses.", link:"" },
+    { name:"Milk Thistle (Silymarin)", dose:"", emoji:"🌾", science:"Emerging research shows silymarin from milk thistle has glutamate-modulating and neuroprotective properties relevant to OCD treatment augmentation.", why:"The liver metabolises many OCD medications, and glutamate regulation depends partly on liver health and metabolism. Silymarin's hepatoprotective effects ensure optimal drug metabolism, while its direct glutamate-modulating properties support the same circuit NAC targets, the corticostriatal glutamate excess.", timing:"With meals.", caution:"Very well tolerated. Mild laxative effect at high doses.", link:"" },
+    { name:"Bacopa Monnieri", dose:"", emoji:"🌿", science:"Bacopa's anxiolytic and cognitive-enhancing properties may complement OCD treatment by reducing anxiety and supporting the cognitive flexibility that OCD impairs.", why:"OCD severely impairs cognitive flexibility, the ability to shift attention away from obsessive thoughts. Bacopa enhances acetylcholine signalling in the prefrontal cortex and anterior cingulate, the exact regions that perform this switching function. Stronger prefrontal control means greater ability to disengage from the compulsive loop.", timing:"With a fatty meal.", caution:"Effects build over 8–12 weeks. GI upset possible without food.", link:"https://pubmed.ncbi.nlm.nih.gov/22747190/" },
+    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"Two double-blind RCTs show saffron is as effective as fluvoxamine and fluoxetine for mild-to-moderate OCD, with potentially fewer side effects. Both studies showed significant improvement on the Yale-Brown OCD Scale.", why:"Saffron's crocin inhibits serotonin reuptake, the same mechanism as the SSRIs that are first-line OCD treatment. Additionally, crocin acts as an NMDA receptor antagonist, directly reducing the glutamate excess in the corticostriatal circuit that drives the obsessive-compulsive loop. This dual serotonin + glutamate action addresses OCD from two angles simultaneously.", timing:"With meals. Consistent daily use for 8–10 weeks to match clinical trial timelines.", caution:"Do not combine with SSRIs without medical guidance; serotonin interaction risk. Always use alongside (not instead of) prescribed OCD treatment for moderate-severe cases.", link:"https://pubmed.ncbi.nlm.nih.gov/33599345/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Preliminary research shows zinc augmentation may enhance SSRI response in OCD. Magnesium and selenium support the glutamate regulation and antioxidant systems most disrupted in obsessive-compulsive disorder.", why:"OCD involves glutamate excess in the corticostriatal circuit, the loop that gets 'stuck.' Magnesium is the brain's primary glutamate brake via NMDA receptor regulation. Zinc augments SSRI efficacy and supports the prefrontal cortex control needed to override compulsions. Together they address the mineral foundations of the OCD circuit.", timing:"With meals. Magnesium in the evening for sleep support.", caution:"Always use alongside (not instead of) prescribed OCD treatment. Zinc augmentation should be discussed with your prescriber.", link:"", minerals:[
+      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Preliminary RCT evidence as SSRI augmentation for OCD. Supports prefrontal cortex function needed for response inhibition, the ability to not perform compulsions." },
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Primary NMDA receptor antagonist. Reduces glutamate excess that drives the corticostriatal OCD loop. Also reduces the anxiety component that fuels compulsive urgency." },
       { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Supports the antioxidant defences that chronic anxiety and compulsive behaviour deplete. Low selenium worsens the oxidative stress seen in OCD brain imaging studies." },
-      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Required for dopamine synthesis in the basal ganglia — the brain region most implicated in OCD circuitry. Deficiency can worsen compulsive behaviours. Test ferritin first." },
+      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Required for dopamine synthesis in the basal ganglia, the brain region most implicated in OCD circuitry. Deficiency can worsen compulsive behaviours. Test ferritin first." },
     ] },
   ],
   schizophrenia: [
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Multiple trials show omega-3 supplementation reduces psychotic symptoms, particularly negative symptoms (flat affect, social withdrawal), and may slow disease progression.", why:"Schizophrenia is associated with deficient phospholipid metabolism — neuronal membranes are depleted of EPA and DHA, making them more prone to the abnormal signal transduction underlying psychosis. Supplementation physically restores membrane composition in the prefrontal cortex and dopaminergic pathways, improving both symptom control and antipsychotic response.", timing:"With meals containing fat.", caution:"Always in coordination with your psychiatrist. May affect medication levels.", link:"https://pubmed.ncbi.nlm.nih.gov/26978738/" },
-    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D deficiency is highly prevalent in schizophrenia and associated with greater symptom burden, cognitive impairment, and worse treatment response.", why:"Vitamin D regulates dopaminergic pathways in the mesolimbic system — the exact circuits dysregulated in schizophrenia. Deficiency is found in the majority of people with schizophrenia and correction is associated with improvements in negative symptoms and cognition.", timing:"Morning with a fatty meal.", caution:"Test levels before supplementing. Toxicity possible at very high doses.", link:"" },
-    { name:"Glycine", dose:"", emoji:"🔬", science:"High-dose glycine supplementation has shown significant reduction in negative symptoms of schizophrenia in multiple controlled trials by enhancing NMDA receptor function.", why:"The NMDA receptor hypofunction model of schizophrenia proposes that insufficient NMDA activation (particularly on interneurons) underlies negative and cognitive symptoms. Glycine is an obligatory co-agonist at NMDA receptors — increasing its concentration enhances NMDA activity in a way that may restore interneuron function.", timing:"With meals, split throughout the day.", caution:"High doses — discuss with psychiatrist. May interact with clozapine. GI upset common initially.", link:"https://pubmed.ncbi.nlm.nih.gov/10078902/" },
-    { name:"NAC (N-Acetyl Cysteine)", dose:"", emoji:"🛡️", science:"Multiple RCTs show NAC significantly reduces negative symptoms and improves overall functioning in schizophrenia, with effects appearing after 6–8 weeks.", why:"Oxidative stress and glutathione depletion are well-established features of schizophrenia. NAC replenishes glutathione — the brain's primary antioxidant — reducing the oxidative damage to dopaminergic and glutamatergic neurons that contributes to symptom severity and cognitive decline.", timing:"With meals.", caution:"Discuss with your psychiatrist before starting. Generally well tolerated but start low.", link:"https://pubmed.ncbi.nlm.nih.gov/21118657/" },
-    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamin deficiencies — particularly B12, folate, and B6 — are common in schizophrenia and associated with elevated homocysteine, a neurotoxin that worsens symptoms.", why:"Elevated homocysteine is found in schizophrenia and directly damages myelin and dopaminergic neurons. B12, folate, and B6 are the three vitamins that metabolise homocysteine into non-toxic compounds. Normalising homocysteine levels through B vitamins has been shown to improve cognitive symptoms and overall functioning.", timing:"Morning with breakfast.", caution:"Use methylated forms. B vitamin supplementation is very safe but inform your care team.", link:"" },
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Multiple trials show omega-3 supplementation reduces psychotic symptoms, particularly negative symptoms (flat affect, social withdrawal), and may slow disease progression.", why:"Schizophrenia is associated with deficient phospholipid metabolism: neuronal membranes are depleted of EPA and DHA, making them more prone to the abnormal signal transduction underlying psychosis. Supplementation physically restores membrane composition in the prefrontal cortex and dopaminergic pathways, improving both symptom control and antipsychotic response.", timing:"With meals containing fat.", caution:"Always in coordination with your psychiatrist. May affect medication levels.", link:"https://pubmed.ncbi.nlm.nih.gov/26978738/" },
+    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D deficiency is highly prevalent in schizophrenia and associated with greater symptom burden, cognitive impairment, and worse treatment response.", why:"Vitamin D regulates dopaminergic pathways in the mesolimbic system, the exact circuits dysregulated in schizophrenia. Deficiency is found in the majority of people with schizophrenia and correction is associated with improvements in negative symptoms and cognition.", timing:"Morning with a fatty meal.", caution:"Test levels before supplementing. Toxicity possible at very high doses.", link:"" },
+    { name:"Glycine", dose:"", emoji:"🔬", science:"High-dose glycine supplementation has shown significant reduction in negative symptoms of schizophrenia in multiple controlled trials by enhancing NMDA receptor function.", why:"The NMDA receptor hypofunction model of schizophrenia proposes that insufficient NMDA activation (particularly on interneurons) underlies negative and cognitive symptoms. Glycine is an obligatory co-agonist at NMDA receptors; increasing its concentration enhances NMDA activity in a way that may restore interneuron function.", timing:"With meals, split throughout the day.", caution:"High doses; discuss with psychiatrist. May interact with clozapine. GI upset common initially.", link:"https://pubmed.ncbi.nlm.nih.gov/10078902/" },
+    { name:"NAC (N-Acetyl Cysteine)", dose:"", emoji:"🛡️", science:"Multiple RCTs show NAC significantly reduces negative symptoms and improves overall functioning in schizophrenia, with effects appearing after 6–8 weeks.", why:"Oxidative stress and glutathione depletion are well-established features of schizophrenia. NAC replenishes glutathione, the brain's primary antioxidant, reducing the oxidative damage to dopaminergic and glutamatergic neurons that contributes to symptom severity and cognitive decline.", timing:"With meals.", caution:"Discuss with your psychiatrist before starting. Generally well tolerated but start low.", link:"https://pubmed.ncbi.nlm.nih.gov/21118657/" },
+    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamin deficiencies, particularly B12, folate, and B6, are common in schizophrenia and associated with elevated homocysteine, a neurotoxin that worsens symptoms.", why:"Elevated homocysteine is found in schizophrenia and directly damages myelin and dopaminergic neurons. B12, folate, and B6 are the three vitamins that metabolise homocysteine into non-toxic compounds. Normalising homocysteine levels through B vitamins has been shown to improve cognitive symptoms and overall functioning.", timing:"Morning with breakfast.", caution:"Use methylated forms. B vitamin supplementation is very safe but inform your care team.", link:"" },
     { name:"Saffron Extract", dose:"", emoji:"🌸", science:"A randomised double-blind placebo-controlled trial found saffron as an add-on to risperidone significantly improved negative symptoms, general psychopathology, and overall functioning in stable schizophrenia patients over 8 weeks.", why:"Schizophrenia's negative symptoms (flat affect, social withdrawal, low motivation) are the hardest to treat and least responsive to antipsychotics. Saffron's neuroprotective and anti-inflammatory properties address the oxidative stress that contributes to negative symptoms, while its modulation of glutamate and dopamine signalling supports the circuits most impaired in this symptom cluster.", timing:"With meals. Always in coordination with your psychiatric care team.", caution:"⚠️ Never replace antipsychotic medication with supplements. Use only as an add-on with your psychiatrist's knowledge. May interact with some medications.", link:"https://pubmed.ncbi.nlm.nih.gov/39661337/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Preliminary but growing research links zinc, selenium, and magnesium deficiencies to symptom severity in schizophrenia. Antipsychotic medications can further deplete minerals, making repletion an important adjunctive consideration.", why:"Schizophrenia involves oxidative stress, glutamate dysregulation, and dopaminergic pathway dysfunction — all processes that depend on adequate mineral status. Zinc supports NMDA receptor function (the hypofunction model of schizophrenia). Selenium replenishes the glutathione system depleted by oxidative stress. Magnesium reduces excitotoxicity.", timing:"With meals. Inform your psychiatrist about all supplements.", caution:"Always coordinate with your psychiatric care team. Some antipsychotics affect mineral absorption. Never replace prescribed medication with supplements.", link:"", minerals:[
-      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Supports NMDA receptor co-agonist function — the receptor system whose hypofunction is increasingly implicated in negative and cognitive symptoms of schizophrenia." },
-      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Schizophrenia shows significant oxidative stress. Selenium is required for glutathione peroxidase — the brain's primary antioxidant enzyme. Restoring selenium supports neuronal survival." },
-      { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Reduces glutamate excitotoxicity — the process that damages neurons in schizophrenia. Also supports sleep quality, which is frequently disrupted and worsens psychotic symptoms." },
-      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Required for dopamine synthesis and myelin formation — both disrupted in schizophrenia. Antipsychotic medications can affect iron metabolism. Test ferritin first." },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Preliminary but growing research links zinc, selenium, and magnesium deficiencies to symptom severity in schizophrenia. Antipsychotic medications can further deplete minerals, making repletion an important adjunctive consideration.", why:"Schizophrenia involves oxidative stress, glutamate dysregulation, and dopaminergic pathway dysfunction, all processes that depend on adequate mineral status. Zinc supports NMDA receptor function (the hypofunction model of schizophrenia). Selenium replenishes the glutathione system depleted by oxidative stress. Magnesium reduces excitotoxicity.", timing:"With meals. Inform your psychiatrist about all supplements.", caution:"Always coordinate with your psychiatric care team. Some antipsychotics affect mineral absorption. Never replace prescribed medication with supplements.", link:"", minerals:[
+      { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Supports NMDA receptor co-agonist function, the receptor system whose hypofunction is increasingly implicated in negative and cognitive symptoms of schizophrenia." },
+      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Schizophrenia shows significant oxidative stress. Selenium is required for glutathione peroxidase, the brain's primary antioxidant enzyme. Restoring selenium supports neuronal survival." },
+      { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Reduces glutamate excitotoxicity, the process that damages neurons in schizophrenia. Also supports sleep quality, which is frequently disrupted and worsens psychotic symptoms." },
+      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Required for dopamine synthesis and myelin formation, both disrupted in schizophrenia. Antipsychotic medications can affect iron metabolism. Test ferritin first." },
     ] },
   ],
   autism: [
     { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D deficiency is significantly more prevalent in autism spectrum individuals, and correction is associated with improvements in core ASD behaviours, language, and social responsiveness.", why:"Vitamin D regulates over 200 genes involved in brain development, including those governing serotonin, oxytocin, and dopamine synthesis. These neurotransmitter systems are consistently altered in ASD. Adequate D3 supports the gene expression that underlies social motivation and sensory regulation.", timing:"Morning with a fatty meal.", caution:"Test before supplementing. Optimal ASD levels may need to be higher than general population ranges.", link:"https://pubmed.ncbi.nlm.nih.gov/26748652/" },
     { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Multiple trials show omega-3 supplementation improves hyperactivity, irritability, and stereotypy in autism, with better outcomes for those with lower baseline omega-3 levels.", why:"Autism is associated with increased neuroinflammation and altered phospholipid metabolism in the brain. EPA reduces inflammatory cytokines that affect social and communication brain networks, while DHA supports the structural integrity of the cerebral cortex and hippocampus where ASD-related differences are concentrated.", timing:"With a fatty meal.", caution:"Choose molecularly distilled brands. Start with lower doses and increase gradually.", link:"https://pubmed.ncbi.nlm.nih.gov/22269196/" },
-    { name:"Magnesium + B6", dose:"", emoji:"🌿", science:"The Magnesium-B6 combination is one of the most studied autism interventions, with multiple trials showing improvements in behaviour, sleep, and social interaction.", why:"B6 is essential for the synthesis of GABA and serotonin — neurotransmitters that are dysregulated in ASD and responsible for sensory sensitivity and social comfort. Magnesium is B6's essential cofactor — without adequate magnesium, B6's neurochemical work cannot proceed. This synergistic pair supports the calming and social neurotransmitter systems most affected in ASD.", timing:"With meals.", caution:"B6 can cause peripheral neuropathy at very high long-term doses. Stay within recommended ranges.", link:"https://pubmed.ncbi.nlm.nih.gov/12849883/" },
-    { name:"Probiotics (Multi-strain)", dose:"", emoji:"🦠", science:"Growing evidence links gut microbiome composition to ASD symptom severity via the gut-brain axis. Probiotic interventions show improvements in GI symptoms and some behavioural outcomes.", why:"The gut-brain axis is profoundly relevant in ASD — up to 70% of autistic individuals have GI issues, and gut bacteria produce neurotransmitter precursors (including 90% of the body's serotonin). A dysbiotic gut microbiome can generate neuroactive compounds that worsen sensory sensitivity, anxiety, and behavioural regulation.", timing:"With or without food — morning is fine.", caution:"Start with lower doses. Some individuals temporarily experience increased GI symptoms.", link:"https://pubmed.ncbi.nlm.nih.gov/32483929/" },
+    { name:"Magnesium + B6", dose:"", emoji:"🌿", science:"The Magnesium-B6 combination is one of the most studied autism interventions, with multiple trials showing improvements in behaviour, sleep, and social interaction.", why:"B6 is essential for the synthesis of GABA and serotonin, neurotransmitters that are dysregulated in ASD and responsible for sensory sensitivity and social comfort. Magnesium is B6's essential cofactor; without adequate magnesium, B6's neurochemical work cannot proceed. This synergistic pair supports the calming and social neurotransmitter systems most affected in ASD.", timing:"With meals.", caution:"B6 can cause peripheral neuropathy at very high long-term doses. Stay within recommended ranges.", link:"https://pubmed.ncbi.nlm.nih.gov/12849883/" },
+    { name:"Probiotics (Multi-strain)", dose:"", emoji:"🦠", science:"Growing evidence links gut microbiome composition to ASD symptom severity via the gut-brain axis. Probiotic interventions show improvements in GI symptoms and some behavioural outcomes.", why:"The gut-brain axis is profoundly relevant in ASD: up to 70% of autistic individuals have GI issues, and gut bacteria produce neurotransmitter precursors (including 90% of the body's serotonin). A dysbiotic gut microbiome can generate neuroactive compounds that worsen sensory sensitivity, anxiety, and behavioural regulation.", timing:"With or without food; morning is fine.", caution:"Start with lower doses. Some individuals temporarily experience increased GI symptoms.", link:"https://pubmed.ncbi.nlm.nih.gov/32483929/" },
     { name:"NAC (N-Acetyl Cysteine)", dose:"", emoji:"🛡️", science:"A placebo-controlled RCT showed NAC significantly reduced irritability scores in ASD. Subsequent studies confirm benefits for irritability and repetitive behaviours.", why:"Oxidative stress and glutathione deficiency are well-documented in autism. Brain tissue from ASD individuals shows significantly reduced glutathione. NAC replenishes this critical antioxidant, reducing the oxidative burden on neurons involved in sensory processing, emotional regulation, and social cognition.", timing:"With meals to reduce nausea.", caution:"Start low and build up over 4–6 weeks. Generally well tolerated.", link:"https://pubmed.ncbi.nlm.nih.gov/22010755/" },
-    { name:"Sulforaphane (Broccoli Sprout Extract)", dose:"", emoji:"🥦", science:"A landmark randomised trial showed sulforaphane improved social interaction, verbal communication, and repetitive behaviours in young men with ASD, with effects reversing when supplementation stopped.", why:"Sulforaphane activates the NRF2 pathway — the master switch for the body's antioxidant defences. NRF2 activation also reduces neuroinflammation and upregulates heat shock proteins that protect neurons from stress. In ASD, these protective pathways are undermined, and sulforaphane is one of the few compounds that powerfully activates them.", timing:"With meals. Broccoli sprouts have the highest concentration.", caution:"Avoid in people with thyroid conditions (goitrogenic at very high doses). Standardised supplements preferred over raw sprout consumption for dose consistency.", link:"https://pubmed.ncbi.nlm.nih.gov/25313065/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Zinc, iron, and magnesium+B6 deficiencies are significantly more common in autism and are associated with increased behavioural challenges. The Magnesium-B6 combination is one of the most studied ASD interventions.", why:"The autistic brain has unique mineral requirements. Zinc and iron are needed for the dopamine and serotonin synthesis that regulate sensory processing and social comfort. Magnesium+B6 synergistically support GABA production — the calming neurotransmitter that helps manage sensory overwhelm and anxiety.", timing:"With meals. Split across morning and evening for steady levels.", caution:"Check recommended B6 dosage — too much long-term can cause nerve issues. Iron must be tested before supplementing. Start with lower doses and increase gradually.", link:"https://pubmed.ncbi.nlm.nih.gov/12849883/", minerals:[
+    { name:"Sulforaphane (Broccoli Sprout Extract)", dose:"", emoji:"🥦", science:"A landmark randomised trial showed sulforaphane improved social interaction, verbal communication, and repetitive behaviours in young men with ASD, with effects reversing when supplementation stopped.", why:"Sulforaphane activates the NRF2 pathway, the master switch for the body's antioxidant defences. NRF2 activation also reduces neuroinflammation and upregulates heat shock proteins that protect neurons from stress. In ASD, these protective pathways are undermined, and sulforaphane is one of the few compounds that powerfully activates them.", timing:"With meals. Broccoli sprouts have the highest concentration.", caution:"Avoid in people with thyroid conditions (goitrogenic at very high doses). Standardised supplements preferred over raw sprout consumption for dose consistency.", link:"https://pubmed.ncbi.nlm.nih.gov/25313065/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Zinc, iron, and magnesium+B6 deficiencies are significantly more common in autism and are associated with increased behavioural challenges. The Magnesium-B6 combination is one of the most studied ASD interventions.", why:"The autistic brain has unique mineral requirements. Zinc and iron are needed for the dopamine and serotonin synthesis that regulate sensory processing and social comfort. Magnesium+B6 synergistically support GABA production, the calming neurotransmitter that helps manage sensory overwhelm and anxiety.", timing:"With meals. Split across morning and evening for steady levels.", caution:"Check recommended B6 dosage: too much long-term can cause nerve issues. Iron must be tested before supplementing. Start with lower doses and increase gradually.", link:"https://pubmed.ncbi.nlm.nih.gov/12849883/", minerals:[
       { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Supports the metallothionein system frequently impaired in ASD. Required for over 300 enzymes including those involved in sensory processing, immune regulation, and gut health." },
-      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Deficiency is common in ASD due to restrictive eating patterns. Required for dopamine synthesis and myelin formation — both relevant to the social and cognitive differences in autism. Test ferritin first." },
+      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Deficiency is common in ASD due to restrictive eating patterns. Required for dopamine synthesis and myelin formation, both relevant to the social and cognitive differences in autism. Test ferritin first." },
       { name:"Magnesium (as Glycinate) + B6", emoji:"🌿", role:"The most studied mineral combination for ASD. B6 is essential for GABA and serotonin synthesis; magnesium is B6's required cofactor. Together they support the calming neurotransmitter systems most affected in autism." },
-      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Supports the glutathione system — the antioxidant pathway consistently found to be impaired in ASD. Selenium-dependent enzymes protect developing neurons from oxidative stress." },
+      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Supports the glutathione system, the antioxidant pathway consistently found to be impaired in ASD. Selenium-dependent enzymes protect developing neurons from oxidative stress." },
     ] },
   ],
   eating_disorder: [
-    { name:"Zinc", dose:"", emoji:"⚡", science:"Zinc deficiency is found in the majority of eating disorder patients. Zinc supplementation accelerates weight restoration and reduces anxiety in anorexia nervosa in multiple controlled trials.", why:"Zinc is essential for the function of appetite-regulating hormones (leptin, ghrelin) and for taste perception. In anorexia, restriction depletes zinc, which worsens appetite suppression and dysgeusia (altered taste) — creating a self-perpetuating cycle that zinc supplementation can help interrupt by restoring appetite signalling.", timing:"With food to avoid nausea.", caution:"Use zinc gluconate or picolinate. Use zinc gluconate or picolinate form. Take away from calcium.", link:"https://pubmed.ncbi.nlm.nih.gov/8244656/" },
-    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Omega-3 deficiency is common in eating disorders due to restriction. Supplementation supports mood stabilisation, reduces anxiety, and addresses neuroinflammation associated with eating disorder behaviours.", why:"Both anorexia and bulimia involve elevated neuroinflammatory markers that worsen anxiety, depression, and cognitive rigidity. EPA directly reduces these inflammatory cytokines, while DHA supports the structural integrity of the prefrontal cortex — the region responsible for flexible, non-rigid thinking about food and body image.", timing:"With a meal containing fat.", caution:"Start with low doses. Important to take with adequate caloric intake.", link:"https://pubmed.ncbi.nlm.nih.gov/21784145/" },
+    { name:"Zinc", dose:"", emoji:"⚡", science:"Zinc deficiency is found in the majority of eating disorder patients. Zinc supplementation accelerates weight restoration and reduces anxiety in anorexia nervosa in multiple controlled trials.", why:"Zinc is essential for the function of appetite-regulating hormones (leptin, ghrelin) and for taste perception. In anorexia, restriction depletes zinc, which worsens appetite suppression and dysgeusia (altered taste), creating a self-perpetuating cycle that zinc supplementation can help interrupt by restoring appetite signalling.", timing:"With food to avoid nausea.", caution:"Use zinc gluconate or picolinate. Use zinc gluconate or picolinate form. Take away from calcium.", link:"https://pubmed.ncbi.nlm.nih.gov/8244656/" },
+    { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Omega-3 deficiency is common in eating disorders due to restriction. Supplementation supports mood stabilisation, reduces anxiety, and addresses neuroinflammation associated with eating disorder behaviours.", why:"Both anorexia and bulimia involve elevated neuroinflammatory markers that worsen anxiety, depression, and cognitive rigidity. EPA directly reduces these inflammatory cytokines, while DHA supports the structural integrity of the prefrontal cortex, the region responsible for flexible, non-rigid thinking about food and body image.", timing:"With a meal containing fat.", caution:"Start with low doses. Important to take with adequate caloric intake.", link:"https://pubmed.ncbi.nlm.nih.gov/21784145/" },
     { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D deficiency is nearly universal in eating disorders due to food restriction and avoidance of fat-containing foods. Bone health and mood are primary concerns.", why:"Restriction leads to severe vitamin D deficiency, compromising bone mineralisation (particularly dangerous in anorexia), immune function, and serotonin production. Adequate D3 supports the serotonin system, which regulates satiety, mood, and the anxiety that drives restrictive or purging behaviours.", timing:"Morning with food.", caution:"Essential to supplement given near-universal deficiency in ED populations. Monitor bone density.", link:"" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Restriction and purging cause severe magnesium deficiency. Repletion supports muscle function, heart health, mood stability, and reduces anxiety — all critical in eating disorder recovery.", why:"Purging behaviours cause electrolyte depletion including magnesium, which can have serious cardiac consequences. Beyond safety, magnesium's anxiolytic and mood-stabilising properties directly address the anxiety and emotional dysregulation that sustain eating disorder behaviours, making it fundamental to recovery.", timing:"Evening.", caution:"Critical for those who purge — discuss electrolyte repletion with your doctor. Do not self-manage if purging is active.", link:"" },
-    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamin deficiencies across the board are universal in eating disorders. Thiamine (B1) deficiency in particular can cause serious neurological complications.", why:"Restriction depletes all B vitamins, but the consequences are most severe for thiamine (B1), which is required for brain glucose metabolism — the brain's only fuel. Thiamine deficiency causes Wernicke's encephalopathy. All B vitamins support the neurotransmitter synthesis pathways that eating disorders profoundly disrupt.", timing:"Morning with food.", caution:"B vitamins are among the first priorities in nutritional rehabilitation. Thiamine should be considered before refeeding in severe restriction to prevent refeeding syndrome complications.", link:"" },
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Restriction and purging cause severe magnesium deficiency. Repletion supports muscle function, heart health, mood stability, and reduces anxiety, all critical in eating disorder recovery.", why:"Purging behaviours cause electrolyte depletion including magnesium, which can have serious cardiac consequences. Beyond safety, magnesium's anxiolytic and mood-stabilising properties directly address the anxiety and emotional dysregulation that sustain eating disorder behaviours, making it fundamental to recovery.", timing:"Evening.", caution:"Critical for those who purge; discuss electrolyte repletion with your doctor. Do not self-manage if purging is active.", link:"" },
+    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamin deficiencies across the board are universal in eating disorders. Thiamine (B1) deficiency in particular can cause serious neurological complications.", why:"Restriction depletes all B vitamins, but the consequences are most severe for thiamine (B1), which is required for brain glucose metabolism, the brain's only fuel. Thiamine deficiency causes Wernicke's encephalopathy. All B vitamins support the neurotransmitter synthesis pathways that eating disorders profoundly disrupt.", timing:"Morning with food.", caution:"B vitamins are among the first priorities in nutritional rehabilitation. Thiamine should be considered before refeeding in severe restriction to prevent refeeding syndrome complications.", link:"" },
     { name:"Probiotics (Multi-strain)", dose:"", emoji:"🦠", science:"Eating disorders profoundly disrupt the gut microbiome, and the gut-brain axis influences mood, appetite signalling, and even food cravings. Probiotic restoration supports physical and psychological recovery.", why:"The gut microbiome produces 90% of the body's serotonin and significantly influences hunger and satiety hormones. Eating disorders devastate microbiome diversity, dysregulating the gut signals that should guide normal eating. Probiotic restoration supports normalisation of appetite, GI comfort with eating, and the emotional regulation that recovery requires.", timing:"With or without food.", caution:"May initially increase GI symptoms as gut flora is restored. Start with lower doses.", link:"" },
-    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"A placebo-controlled RCT found saffron extract significantly reduced compulsive snacking frequency and increased satiety. Separate research shows saffron reduces food cravings in people with co-occurring depression and emotional eating patterns.", why:"Saffron increases serotonin availability in the brain — the neurotransmitter that governs satiety and impulse control around food. By enhancing serotonin signalling, saffron addresses both the mood disruption that drives emotional eating and the appetite dysregulation that eating disorders create. Its mood-lifting properties also reduce the depression that commonly co-occurs with disordered eating.", timing:"With meals. Consistent daily use for best effect.", caution:"This is a supportive supplement, not a treatment for eating disorders. Always work with your treatment team. Avoid during pregnancy.", link:"https://pubmed.ncbi.nlm.nih.gov/20579522/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Eating disorders cause severe mineral depletion through restriction, purging, and malabsorption. Zinc supplementation for anorexia has moderate-strong RCT evidence for accelerating weight restoration. Chromium shows moderate evidence for reducing binge eating.", why:"Restriction and purging create dangerous mineral deficiencies. Zinc restores appetite signalling and taste perception — both suppressed in anorexia. Chromium reduces carbohydrate cravings and binge urges by stabilising insulin sensitivity. Magnesium and potassium repletion is medically critical, especially for those who purge.", timing:"With meals. Zinc away from calcium for best absorption.", caution:"⚠️ Electrolyte repletion in active purging is a medical priority — work with your doctor. Do not self-manage mineral supplementation if purging is active. Refeeding syndrome risk exists in severe restriction.", link:"https://pubmed.ncbi.nlm.nih.gov/8244656/", minerals:[
+    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"A placebo-controlled RCT found saffron extract significantly reduced compulsive snacking frequency and increased satiety. Separate research shows saffron reduces food cravings in people with co-occurring depression and emotional eating patterns.", why:"Saffron increases serotonin availability in the brain, the neurotransmitter that governs satiety and impulse control around food. By enhancing serotonin signalling, saffron addresses both the mood disruption that drives emotional eating and the appetite dysregulation that eating disorders create. Its mood-lifting properties also reduce the depression that commonly co-occurs with disordered eating.", timing:"With meals. Consistent daily use for best effect.", caution:"This is a supportive supplement, not a treatment for eating disorders. Always work with your treatment team. Avoid during pregnancy.", link:"https://pubmed.ncbi.nlm.nih.gov/20579522/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Eating disorders cause severe mineral depletion through restriction, purging, and malabsorption. Zinc supplementation for anorexia has moderate-strong RCT evidence for accelerating weight restoration. Chromium shows moderate evidence for reducing binge eating.", why:"Restriction and purging create dangerous mineral deficiencies. Zinc restores appetite signalling and taste perception, both suppressed in anorexia. Chromium reduces carbohydrate cravings and binge urges by stabilising insulin sensitivity. Magnesium and potassium repletion is medically critical, especially for those who purge.", timing:"With meals. Zinc away from calcium for best absorption.", caution:"⚠️ Electrolyte repletion in active purging is a medical priority; work with your doctor. Do not self-manage mineral supplementation if purging is active. Refeeding syndrome risk exists in severe restriction.", link:"https://pubmed.ncbi.nlm.nih.gov/8244656/", minerals:[
       { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Moderate-strong evidence for anorexia recovery. Restores appetite-regulating hormones (leptin, ghrelin) and taste perception. Zinc deficiency from restriction creates a self-perpetuating cycle of appetite suppression." },
       { name:"Chromium (as Picolinate)", emoji:"🔗", role:"Moderate evidence for binge eating disorder. Stabilises blood sugar and insulin signalling, reducing the carbohydrate cravings and binge urges that drive BED cycles." },
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Critical electrolyte depleted by restriction and purging. Supports cardiac function (arrhythmia risk in ED), reduces anxiety, and calms the nervous system hyperactivation that sustains eating disorder behaviours." },
-      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Anemia is common in eating disorders. Iron deficiency causes fatigue, cognitive impairment, and worsened depression — all of which impede recovery. Test ferritin and work with your care team." },
+      { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Anemia is common in eating disorders. Iron deficiency causes fatigue, cognitive impairment, and worsened depression, all of which impede recovery. Test ferritin and work with your care team." },
       { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Restriction depletes selenium, impairing thyroid function and antioxidant defences. Thyroid dysfunction from malnutrition worsens metabolic anxiety and body image distortions." },
     ] },
   ],
   default: [
     { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"The most replicated nutrition-psychiatry finding. Omega-3 supports membrane fluidity in brain cells, reduces neuroinflammation, and supports mood, focus, and cognitive function across conditions.", why:"Every brain cell membrane is composed partly of fatty acids. When those membranes are rich in EPA and DHA, neurons communicate faster and more efficiently. Omega-3 deficiency is endemic in modern diets and consistently associated with mood disorders, cognitive decline, and reduced stress resilience.", timing:"With a meal containing fat for best absorption.", caution:"Choose molecularly distilled, third-party tested brands.", link:"https://pubmed.ncbi.nlm.nih.gov/26978738/" },
-    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Over 300 enzymatic reactions in the body require magnesium. Most people are deficient. Supports sleep, stress response, mood, and nervous system regulation.", why:"Magnesium is sometimes called nature's relaxant because it modulates the NMDA receptor — the brain's primary excitatory channel. Without adequate magnesium, the nervous system is chronically overactivated, leading to anxiety, poor sleep, and heightened stress reactivity. Deficiency is extremely common in people under stress.", timing:"Evening for sleep and relaxation benefits.", caution:"Check the recommended dosage — too much can cause digestive upset. Glycinate form is the most bioavailable and gentle.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/" },
-    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D is technically a neurosteroid. Deficiency — extremely common especially in northern climates — is linked to depression, cognitive decline, and immune dysfunction.", why:"Vitamin D receptors exist in almost every brain region. Deficiency reduces serotonin and dopamine gene expression, blunts cognitive function, and increases susceptibility to depression and anxiety. Most adults in northern climates are deficient for 6 months of the year without supplementation.", timing:"Morning with a fatty meal.", caution:"Test your blood levels first. K2 ensures calcium goes to bones, not arteries.", link:"https://pubmed.ncbi.nlm.nih.gov/22254078/" },
-    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamins are upstream cofactors for virtually every neurotransmitter. Methylated forms bypass common MTHFR gene variants that impair B vitamin utilisation in up to 40% of people.", why:"Without B vitamins, the brain cannot synthesise serotonin (needs B6), produce myelin (needs B12), or regulate homocysteine (needs folate + B12). Homocysteine is neurotoxic at elevated levels and is reduced only by adequate B vitamins. The methylated forms are active immediately without requiring the liver conversion that up to 40% of people cannot efficiently perform.", timing:"Morning with food.", caution:"May make urine bright yellow (harmless B2 effect). Avoid late in the day — energising for some.", link:"" },
-    { name:"Lion's Mane Mushroom", dose:"", emoji:"🦁", science:"Contains hericenones and erinacines that stimulate Nerve Growth Factor (NGF) — promoting neuroplasticity and cognitive function. Clinical trials show improvements in memory and mild mood disturbances.", why:"The modern brain is under chronic stress that reduces neuroplasticity — the brain's ability to form new connections and adapt. Lion's Mane is one of the only food-derived compounds that stimulates NGF and BDNF, the growth factors that maintain and build healthy neural architecture. Think of it as fertiliser for your brain.", timing:"With meals. Benefits accumulate over 4–8 weeks.", caution:"Very well tolerated. Rare mushroom allergy possible.", link:"https://pubmed.ncbi.nlm.nih.gov/30864515/" },
-    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"One of the most clinically studied mood-supporting supplements. Meta-analyses show significant effects on mood, cognitive function, and stress resilience. RCTs demonstrate comparable effectiveness to common antidepressants.", why:"Saffron's active compounds — crocin and safranal — work through multiple brain pathways simultaneously. Crocin inhibits serotonin and dopamine reuptake, boosting the neurotransmitters that regulate mood, motivation, and focus. Safranal activates GABA receptors for calm. Together they also reduce neuroinflammation and protect neurons from oxidative stress — a comprehensive approach to brain wellness.", timing:"With meals. Consistent daily use for 4–8 weeks for full effect.", caution:"May interact with antidepressants and blood thinners. Avoid during pregnancy. Choose standardised extracts from reputable brands.", link:"https://pubmed.ncbi.nlm.nih.gov/31135916/" },
-    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Most adults are deficient in at least one brain-critical mineral. Magnesium, zinc, selenium, and iron each independently support neurotransmitter synthesis, antioxidant defence, and nervous system regulation.", why:"Modern diets are mineral-depleted due to soil depletion, processing, and stress-driven excretion. Magnesium supports over 300 brain enzymes. Zinc is required for BDNF and dopamine function. Selenium powers the glutathione antioxidant system. Together they form the mineral foundation of a healthy, resilient brain.", timing:"With meals. Magnesium in the evening for sleep benefits.", caution:"Test iron levels before supplementing. Selenium has a narrow safety margin — check recommended dosage carefully. Zinc and iron compete for absorption — take at separate meals.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/", minerals:[
+    { name:"Magnesium Glycinate", dose:"", emoji:"🌿", science:"Over 300 enzymatic reactions in the body require magnesium. Most people are deficient. Supports sleep, stress response, mood, and nervous system regulation.", why:"Magnesium is sometimes called nature's relaxant because it modulates the NMDA receptor, the brain's primary excitatory channel. Without adequate magnesium, the nervous system is chronically overactivated, leading to anxiety, poor sleep, and heightened stress reactivity. Deficiency is extremely common in people under stress.", timing:"Evening for sleep and relaxation benefits.", caution:"Check the recommended dosage: too much can cause digestive upset. Glycinate form is the most bioavailable and gentle.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/" },
+    { name:"Vitamin D3 + K2", dose:"", emoji:"☀️", science:"Vitamin D is technically a neurosteroid. Deficiency, extremely common especially in northern climates, is linked to depression, cognitive decline, and immune dysfunction.", why:"Vitamin D receptors exist in almost every brain region. Deficiency reduces serotonin and dopamine gene expression, blunts cognitive function, and increases susceptibility to depression and anxiety. Most adults in northern climates are deficient for 6 months of the year without supplementation.", timing:"Morning with a fatty meal.", caution:"Test your blood levels first. K2 ensures calcium goes to bones, not arteries.", link:"https://pubmed.ncbi.nlm.nih.gov/22254078/" },
+    { name:"B-Complex (Methylated)", dose:"", emoji:"🔋", science:"B vitamins are upstream cofactors for virtually every neurotransmitter. Methylated forms bypass common MTHFR gene variants that impair B vitamin utilisation in up to 40% of people.", why:"Without B vitamins, the brain cannot synthesise serotonin (needs B6), produce myelin (needs B12), or regulate homocysteine (needs folate + B12). Homocysteine is neurotoxic at elevated levels and is reduced only by adequate B vitamins. The methylated forms are active immediately without requiring the liver conversion that up to 40% of people cannot efficiently perform.", timing:"Morning with food.", caution:"May make urine bright yellow (harmless B2 effect). Avoid late in the day; energising for some.", link:"" },
+    { name:"Lion's Mane Mushroom", dose:"", emoji:"🦁", science:"Contains hericenones and erinacines that stimulate Nerve Growth Factor (NGF), promoting neuroplasticity and cognitive function. Clinical trials show improvements in memory and mild mood disturbances.", why:"The modern brain is under chronic stress that reduces neuroplasticity, the brain's ability to form new connections and adapt. Lion's Mane is one of the only food-derived compounds that stimulates NGF and BDNF, the growth factors that maintain and build healthy neural architecture. Think of it as fertiliser for your brain.", timing:"With meals. Benefits accumulate over 4–8 weeks.", caution:"Very well tolerated. Rare mushroom allergy possible.", link:"https://pubmed.ncbi.nlm.nih.gov/30864515/" },
+    { name:"Saffron Extract", dose:"", emoji:"🌸", science:"One of the most clinically studied mood-supporting supplements. Meta-analyses show significant effects on mood, cognitive function, and stress resilience. RCTs demonstrate comparable effectiveness to common antidepressants.", why:"Saffron's active compounds, crocin and safranal, work through multiple brain pathways simultaneously. Crocin inhibits serotonin and dopamine reuptake, boosting the neurotransmitters that regulate mood, motivation, and focus. Safranal activates GABA receptors for calm. Together they also reduce neuroinflammation and protect neurons from oxidative stress, a comprehensive approach to brain wellness.", timing:"With meals. Consistent daily use for 4–8 weeks for full effect.", caution:"May interact with antidepressants and blood thinners. Avoid during pregnancy. Choose standardised extracts from reputable brands.", link:"https://pubmed.ncbi.nlm.nih.gov/31135916/" },
+    { name:"Mineral Complex", dose:"", emoji:"💎", science:"Most adults are deficient in at least one brain-critical mineral. Magnesium, zinc, selenium, and iron each independently support neurotransmitter synthesis, antioxidant defence, and nervous system regulation.", why:"Modern diets are mineral-depleted due to soil depletion, processing, and stress-driven excretion. Magnesium supports over 300 brain enzymes. Zinc is required for BDNF and dopamine function. Selenium powers the glutathione antioxidant system. Together they form the mineral foundation of a healthy, resilient brain.", timing:"With meals. Magnesium in the evening for sleep benefits.", caution:"Test iron levels before supplementing. Selenium has a narrow safety margin; check recommended dosage carefully. Zinc and iron compete for absorption; take at separate meals.", link:"https://pubmed.ncbi.nlm.nih.gov/28445426/", minerals:[
       { name:"Magnesium (as Glycinate)", emoji:"🌿", role:"Over 300 enzymatic brain reactions require magnesium. Natural NMDA receptor modulator that reduces excitatory overload. Deficiency causes anxiety, poor sleep, and heightened stress reactivity." },
       { name:"Zinc (as Picolinate)", emoji:"⚡", role:"Required for BDNF production, dopamine function, and immune regulation. Deficiency is extremely common and linked to mood disorders, cognitive decline, and reduced stress resilience." },
-      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Powers the glutathione peroxidase antioxidant system — the brain's primary defence against oxidative damage. Also critical for thyroid function, which regulates energy and mood." },
+      { name:"Selenium (as Selenomethionine)", emoji:"🛡️", role:"Powers the glutathione peroxidase antioxidant system, the brain's primary defence against oxidative damage. Also critical for thyroid function, which regulates energy and mood." },
       { name:"Iron (as Bisglycinate)", emoji:"🔩", role:"Essential for oxygen transport to the brain and dopamine/serotonin synthesis. Even mild deficiency causes fatigue, brain fog, and mood disruption. Always test ferritin first." },
       { name:"Chromium (as Picolinate)", emoji:"🔗", role:"Supports insulin sensitivity in the brain, ensuring stable glucose delivery to neurons. Helps prevent the blood sugar crashes that trigger brain fog, irritability, and cravings." },
     ] },
@@ -3231,16 +3293,16 @@ const INGREDIENT_SCIENCE = {
   // ── Grains & Carbs ──
   oatmeal: {
     nutrient: "beta-glucan soluble fiber, B vitamins (B1, B5), and complex slow-release carbohydrates",
-    what_it_does: "digests slowly to create a steady stream of glucose to the brain — preventing the blood sugar crashes that destabilize mood and focus",
+    what_it_does: "digests slowly to create a steady stream of glucose to the brain, preventing the blood sugar crashes that destabilize mood and focus",
     conditions: {
       adhd: "ADHD brains are especially sensitive to blood sugar swings, which worsen impulsivity and attention; oatmeal's slow glucose release keeps dopamine systems stable for hours",
       anxiety: "blood sugar crashes spike cortisol, the stress hormone that triggers anxiety; oatmeal's slow digestion keeps cortisol calm all morning",
-      depression: "steady glucose supports consistent serotonin availability — serotonin synthesis drops sharply during blood sugar dips",
+      depression: "steady glucose supports consistent serotonin availability; serotonin synthesis drops sharply during blood sugar dips",
       bipolar: "glucose instability is a known mood cycling trigger; oatmeal's flat glycemic curve is one of the most effective dietary stabilizers for bipolar disorder",
       schizophrenia: "erratic glucose causes neuroinflammation; oatmeal's beta-glucan fiber feeds gut bacteria that produce short-chain fatty acids protective to the brain",
       autism: "predictable, steady energy helps regulate sensory processing and emotional regulation throughout the morning",
       ptsd: "stabilizing blood sugar lowers baseline cortisol, reducing the hyperarousal and startle response that define PTSD",
-      ocd: "complex carbs gradually raise serotonin levels — serotonin is the neurotransmitter most directly involved in OCD symptom severity",
+      ocd: "complex carbs gradually raise serotonin levels; serotonin is the neurotransmitter most directly involved in OCD symptom severity",
       bpd: "steady energy prevents the rapid mood shifts that are amplified by blood sugar instability in borderline personality disorder",
       default: "complex carbs provide sustained glucose for neurotransmitter synthesis, energy, and cognitive function throughout the morning",
     }
@@ -3250,10 +3312,10 @@ const INGREDIENT_SCIENCE = {
     what_it_does: "provides sustained energy while feeding beneficial gut bacteria that produce serotonin precursors",
     conditions: {
       adhd: "slow-digesting carbs prevent blood sugar crashes that worsen ADHD symptoms, while magnesium supports dopamine production",
-      anxiety: "magnesium in oats acts directly on GABA receptors, the brain's main calming system — low magnesium is found in 75% of anxious individuals",
+      anxiety: "magnesium in oats acts directly on GABA receptors, the brain's main calming system; low magnesium is found in 75% of anxious individuals",
       depression: "oats contain tryptophan, the direct precursor to serotonin, plus the B vitamins needed to convert it",
       bipolar: "magnesium has lithium-like mood-stabilizing properties at the cellular level, and is commonly depleted in bipolar disorder",
-      schizophrenia: "zinc in oats is a cofactor for dopamine and glutamate regulation — both systems dysregulated in schizophrenia",
+      schizophrenia: "zinc in oats is a cofactor for dopamine and glutamate regulation, both systems dysregulated in schizophrenia",
       default: "provides magnesium, zinc, and fiber for brain health and sustained morning energy",
     }
   },
@@ -3261,7 +3323,7 @@ const INGREDIENT_SCIENCE = {
     nutrient: "alpha-linolenic acid (plant omega-3), lignans, and soluble fiber",
     what_it_does: "converts partially to EPA and DHA in the body, which build brain cell membranes and reduce neuroinflammation",
     conditions: {
-      bipolar: "omega-3 fatty acids are the most studied supplement in bipolar disorder — multiple trials show they reduce depressive episodes by supporting healthy neuron membrane function",
+      bipolar: "omega-3 fatty acids are the most studied supplement in bipolar disorder; multiple trials show they reduce depressive episodes by supporting healthy neuron membrane function",
       adhd: "omega-3s increase dopamine receptor sensitivity, meaning the same amount of dopamine produces a stronger, more sustained focus effect",
       depression: "EPA (converted from ALA in flaxseed) is as effective as antidepressants for mild-to-moderate depression in multiple meta-analyses",
       anxiety: "omega-3s reduce inflammatory cytokines that activate the brain's fear and threat-detection circuits",
@@ -3275,7 +3337,7 @@ const INGREDIENT_SCIENCE = {
     what_it_does: "provides quick natural glucose for immediate brain energy without the insulin spike of refined sugar, and contains antioxidant phenolic compounds",
     conditions: {
       adhd: "natural sugars give an immediate glucose boost that bridges the gap before oatmeal's slow carbs kick in, without a crash",
-      depression: "the phenolic antioxidants in honey reduce oxidative stress in neurons — oxidative damage is elevated in depression",
+      depression: "the phenolic antioxidants in honey reduce oxidative stress in neurons; oxidative damage is elevated in depression",
       anxiety: "small amounts of natural glucose support serotonin synthesis without causing the cortisol spike that refined sugar triggers",
       bipolar: "unlike refined sugar, honey's fructose-glucose ratio causes a gentler, more stable blood sugar response, reducing mood cycling triggers",
       default: "provides natural glucose for immediate brain fuel plus antioxidant phenolics that protect neurons",
@@ -3285,11 +3347,11 @@ const INGREDIENT_SCIENCE = {
     nutrient: "anthocyanins, polyphenols, vitamin C, and manganese",
     what_it_does: "anthocyanins cross the blood-brain barrier and directly reduce neuroinflammation, while polyphenols improve cerebral blood flow",
     conditions: {
-      bipolar: "neuroinflammation is a core driver of mood episodes in bipolar disorder — berries' anti-inflammatory anthocyanins directly address this at the cellular level",
-      depression: "studies show berry polyphenols increase BDNF (brain-derived neurotrophic factor), which grows new neural connections — BDNF is severely depleted in depression",
+      bipolar: "neuroinflammation is a core driver of mood episodes in bipolar disorder; berries' anti-inflammatory anthocyanins directly address this at the cellular level",
+      depression: "studies show berry polyphenols increase BDNF (brain-derived neurotrophic factor), which grows new neural connections; BDNF is severely depleted in depression",
       adhd: "improved cerebral blood flow means the prefrontal cortex (responsible for focus, planning, and impulse control) gets more oxygen and glucose",
-      anxiety: "vitamin C reduces cortisol levels significantly — research shows 1000mg of vitamin C lowers cortisol by up to 29% in stressed individuals",
-      schizophrenia: "anthocyanins protect dopamine neurons from oxidative damage — dopamine system integrity is central to schizophrenia symptom management",
+      anxiety: "vitamin C reduces cortisol levels significantly; research shows 1000mg of vitamin C lowers cortisol by up to 29% in stressed individuals",
+      schizophrenia: "anthocyanins protect dopamine neurons from oxidative damage; dopamine system integrity is central to schizophrenia symptom management",
       ptsd: "polyphenols reduce amygdala hyperreactivity, the brain region responsible for the exaggerated fear response in PTSD",
       ocd: "BDNF boost from polyphenols supports neuroplasticity, helping the brain form new, less compulsive neural pathways",
       default: "anthocyanins reduce neuroinflammation and polyphenols boost BDNF, supporting brain cell health and cognitive function",
@@ -3299,11 +3361,11 @@ const INGREDIENT_SCIENCE = {
     nutrient: "tryptophan, vitamin B6, potassium, and natural sugars",
     what_it_does: "tryptophan combined with B6 creates a direct serotonin synthesis pathway in the brain",
     conditions: {
-      depression: "tryptophan is the only amino acid the brain converts to serotonin, and B6 is the essential cofactor that catalyzes this conversion — together they directly raise serotonin",
-      anxiety: "potassium in bananas helps regulate the nervous system's electrical signaling, and B6 supports GABA production — the brain's main anxiety-inhibiting neurotransmitter",
-      adhd: "B6 is required to synthesize dopamine and norepinephrine, not just serotonin — this makes bananas unusually valuable for ADHD, which involves deficits in both",
+      depression: "tryptophan is the only amino acid the brain converts to serotonin, and B6 is the essential cofactor that catalyzes this conversion; together they directly raise serotonin",
+      anxiety: "potassium in bananas helps regulate the nervous system's electrical signaling, and B6 supports GABA production, the brain's main anxiety-inhibiting neurotransmitter",
+      adhd: "B6 is required to synthesize dopamine and norepinephrine, not just serotonin; this makes bananas unusually valuable for ADHD, which involves deficits in both",
       bipolar: "the tryptophan-to-serotonin pathway helps stabilize mood, and potassium supports healthy neural membrane function implicated in mood cycling",
-      ptsd: "serotonin is directly suppressed in PTSD — tryptophan from banana begins rebuilding this system from the dietary level up",
+      ptsd: "serotonin is directly suppressed in PTSD; tryptophan from banana begins rebuilding this system from the dietary level up",
       ocd: "OCD is fundamentally a serotonin-dysregulation disorder; tryptophan + B6 from banana directly feeds the serotonin system most in need of support",
       default: "delivers tryptophan and B6 to support serotonin synthesis, plus potassium for healthy nervous system function",
     }
@@ -3312,10 +3374,10 @@ const INGREDIENT_SCIENCE = {
     nutrient: "cinnamaldehyde, proanthocyanidins, and chromium",
     what_it_does: "chromium improves insulin sensitivity, stabilizing blood sugar, while cinnamaldehyde has anti-inflammatory effects on brain tissue",
     conditions: {
-      adhd: "blood sugar stability is critical for ADHD — cinnamon's chromium content improves how cells respond to insulin, extending the focus window after meals",
+      adhd: "blood sugar stability is critical for ADHD; cinnamon's chromium content improves how cells respond to insulin, extending the focus window after meals",
       bipolar: "mood cycling correlates strongly with blood sugar instability; cinnamon helps flatten post-meal glucose curves",
       depression: "inflammation in the brain suppresses serotonin production; cinnamon's anti-inflammatory cinnamaldehyde helps remove this block",
-      anxiety: "post-meal blood sugar spikes trigger cortisol release — cinnamon reduces these spikes, keeping cortisol lower",
+      anxiety: "post-meal blood sugar spikes trigger cortisol release; cinnamon reduces these spikes, keeping cortisol lower",
       default: "stabilizes blood sugar and reduces neuroinflammation",
     }
   },
@@ -3323,29 +3385,29 @@ const INGREDIENT_SCIENCE = {
   // ── Proteins ──
   chicken: {
     nutrient: "tyrosine, tryptophan, leucine, and B3 (niacin)",
-    what_it_does: "tyrosine is the direct amino acid precursor to dopamine and norepinephrine; tryptophan is the precursor to serotonin — chicken delivers both in a single protein source",
+    what_it_does: "tyrosine is the direct amino acid precursor to dopamine and norepinephrine; tryptophan is the precursor to serotonin; chicken delivers both in a single protein source",
     conditions: {
-      adhd: "ADHD brains have chronically low dopamine signaling — tyrosine from chicken directly provides the raw building block the brain needs to manufacture more dopamine",
-      depression: "tryptophan in chicken raises serotonin, while niacin (B3) is required for the conversion reaction — chicken delivers both the substrate and the cofactor",
+      adhd: "ADHD brains have chronically low dopamine signaling; tyrosine from chicken directly provides the raw building block the brain needs to manufacture more dopamine",
+      depression: "tryptophan in chicken raises serotonin, while niacin (B3) is required for the conversion reaction; chicken delivers both the substrate and the cofactor",
       anxiety: "tryptophan raises serotonin, which in turn reduces anxiety signaling in the amygdala; combined with niacin, chicken is one of the most effective food-based serotonin boosters",
-      bipolar: "both dopamine and serotonin pathways are dysregulated in bipolar disorder — chicken's dual amino acid profile supports stabilizing both simultaneously",
+      bipolar: "both dopamine and serotonin pathways are dysregulated in bipolar disorder; chicken's dual amino acid profile supports stabilizing both simultaneously",
       schizophrenia: "regulated dopamine production (not too high, not too low) depends on tyrosine availability; chicken provides the building block while the body self-regulates the quantity",
       ptsd: "tryptophan raises serotonin, which is severely depleted in PTSD; consistent high-quality protein intake is foundational to rebuilding this system",
-      ocd: "serotonin reuptake is the primary mechanism of OCD medications — chicken's tryptophan increases the serotonin available for this system",
+      ocd: "serotonin reuptake is the primary mechanism of OCD medications; chicken's tryptophan increases the serotonin available for this system",
       autism: "consistent protein from whole food sources supports gut-brain axis health, and tyrosine aids focus and sensory regulation",
-      bpd: "serotonin instability drives emotional dysregulation in BPD — tryptophan + niacin from chicken supports a more stable baseline",
-      default: "provides tyrosine for dopamine synthesis and tryptophan for serotonin production — two of the brain's most essential neurotransmitter precursors",
+      bpd: "serotonin instability drives emotional dysregulation in BPD; tryptophan + niacin from chicken supports a more stable baseline",
+      default: "provides tyrosine for dopamine synthesis and tryptophan for serotonin production, two of the brain's most essential neurotransmitter precursors",
     }
   },
   turkey: {
     nutrient: "tryptophan (highest of all meats), B6, selenium, and zinc",
     what_it_does: "turkey has the highest tryptophan content of any common protein, making it uniquely effective at raising brain serotonin levels",
     conditions: {
-      depression: "serotonin deficiency is the most studied biological factor in depression — turkey's exceptional tryptophan content directly addresses this at the dietary level",
+      depression: "serotonin deficiency is the most studied biological factor in depression; turkey's exceptional tryptophan content directly addresses this at the dietary level",
       anxiety: "higher serotonin from tryptophan inhibits the amygdala's fear response; selenium in turkey also reduces the oxidative stress that drives anxiety",
       ocd: "OCD medications work by keeping serotonin active longer in synapses; turkey's tryptophan raises the serotonin level that those medications then preserve",
       ptsd: "selenium reduces neuroinflammation in the hippocampus, the brain region most damaged by trauma and chronic stress",
-      adhd: "zinc in turkey is a cofactor for dopamine synthesis — ADHD is strongly associated with low zinc levels",
+      adhd: "zinc in turkey is a cofactor for dopamine synthesis; ADHD is strongly associated with low zinc levels",
       bipolar: "zinc and selenium together support healthy thyroid function, which is closely linked to mood stability in bipolar disorder",
       bpd: "serotonin stability reduces the emotional intensity and reactivity that characterize BPD",
       default: "excellent source of tryptophan for serotonin production, plus selenium and zinc for brain protection",
@@ -3365,23 +3427,23 @@ const INGREDIENT_SCIENCE = {
   },
   steak: {
     nutrient: "tyrosine, phenylalanine, heme iron, zinc, and B12",
-    what_it_does: "tyrosine and phenylalanine are the two essential precursors to dopamine and norepinephrine — steak delivers both in high concentration",
+    what_it_does: "tyrosine and phenylalanine are the two essential precursors to dopamine and norepinephrine; steak delivers both in high concentration",
     conditions: {
-      adhd: "dopamine and norepinephrine are the exact neurotransmitters targeted by ADHD medication — steak delivers the amino acid precursors to build them naturally",
+      adhd: "dopamine and norepinephrine are the exact neurotransmitters targeted by ADHD medication; steak delivers the amino acid precursors to build them naturally",
       depression: "iron deficiency causes fatigue and blunted dopamine response that mimics and worsens depression; heme iron from steak restores this system",
       bipolar: "B12 in steak protects myelin and regulates homocysteine, elevated levels of which are found during manic and depressive episodes",
-      ptsd: "tyrosine supports norepinephrine production, which is needed for healthy stress response regulation — chronic PTSD disrupts this system",
+      ptsd: "tyrosine supports norepinephrine production, which is needed for healthy stress response regulation; chronic PTSD disrupts this system",
       bpd: "zinc in steak is a cofactor in serotonin and dopamine synthesis, supporting the emotional regulation systems most challenged in BPD",
       default: "rich in amino acid precursors for dopamine and norepinephrine, plus iron and B12 for healthy brain function",
     }
   },
   salmon: {
     nutrient: "EPA and DHA omega-3 fatty acids, vitamin D, and astaxanthin",
-    what_it_does: "EPA and DHA are the primary structural fats in brain cell membranes — they determine how fluidly neurotransmitter receptors move and respond",
+    what_it_does: "EPA and DHA are the primary structural fats in brain cell membranes; they determine how fluidly neurotransmitter receptors move and respond",
     conditions: {
-      depression: "EPA is the omega-3 most studied for depression — it matches antidepressant effectiveness in mild-moderate depression and enhances medication response in severe cases",
+      depression: "EPA is the omega-3 most studied for depression; it matches antidepressant effectiveness in mild-moderate depression and enhances medication response in severe cases",
       anxiety: "DHA reduces inflammatory cytokines that activate the brain's threat-detection system; EPA reduces cortisol receptor sensitivity",
-      adhd: "omega-3 supplementation improves attention by 20-30% in clinical trials — salmon provides the EPA and DHA directly without conversion loss",
+      adhd: "omega-3 supplementation improves attention by 20-30% in clinical trials; salmon provides the EPA and DHA directly without conversion loss",
       bipolar: "multiple RCTs show research-supported EPA+DHA reduces bipolar depressive episodes; salmon is the most bioavailable dietary source",
       ptsd: "EPA reduces amygdala reactivity and inflammatory markers that are chronically elevated in PTSD",
       ocd: "DHA supports the prefrontal cortex, the brain region responsible for overriding compulsive impulses",
@@ -3391,13 +3453,13 @@ const INGREDIENT_SCIENCE = {
   },
   eggs: {
     nutrient: "choline, tyrosine, B12, vitamin D, and selenium",
-    what_it_does: "choline is converted to acetylcholine, the neurotransmitter responsible for memory, learning, and attention — eggs are the single richest dietary source of choline",
+    what_it_does: "choline is converted to acetylcholine, the neurotransmitter responsible for memory, learning, and attention; eggs are the single richest dietary source of choline",
     conditions: {
-      adhd: "acetylcholine is essential for working memory and sustained attention — two functions most impaired in ADHD; egg choline directly builds this neurotransmitter",
+      adhd: "acetylcholine is essential for working memory and sustained attention, two functions most impaired in ADHD; egg choline directly builds this neurotransmitter",
       depression: "B12 and vitamin D in eggs address two of the most common nutritional deficiencies underlying depression; selenium reduces oxidative neuroinflammation",
       schizophrenia: "choline in eggs modulates nicotinic acetylcholine receptors, the same receptors targeted in some schizophrenia research for cognitive symptom reduction",
       autism: "choline is critical for healthy brain development and neural pathway formation; adequate intake supports cognitive flexibility and learning",
-      bipolar: "vitamin D in eggs regulates serotonin gene expression — deficiency is strongly linked to more frequent mood episodes",
+      bipolar: "vitamin D in eggs regulates serotonin gene expression; deficiency is strongly linked to more frequent mood episodes",
       anxiety: "choline supports healthy myelin, which speeds neural communication and reduces the physiological symptoms of anxiety",
       default: "eggs are one of the most nutrient-dense brain foods, delivering choline for acetylcholine, B12 for myelin, and vitamin D for serotonin gene regulation",
     }
@@ -3408,9 +3470,9 @@ const INGREDIENT_SCIENCE = {
     nutrient: "folate, magnesium, vitamin K, and lutein",
     what_it_does: "folate activates the enzyme that converts 5-HTP into serotonin, while magnesium regulates over 300 brain enzyme reactions",
     conditions: {
-      depression: "folate deficiency is found in over 30% of people with depression and directly reduces serotonin synthesis — spinach is one of the highest folate vegetables available",
+      depression: "folate deficiency is found in over 30% of people with depression and directly reduces serotonin synthesis; spinach is one of the highest folate vegetables available",
       adhd: "magnesium in spinach is a cofactor for dopamine production, and deficiency is found in 95% of children with ADHD according to some studies",
-      anxiety: "magnesium acts on GABA-A receptors (the same target as benzodiazepines) to reduce anxiety — it's nature's most widely studied calming mineral",
+      anxiety: "magnesium acts on GABA-A receptors (the same target as benzodiazepines) to reduce anxiety; it's nature's most widely studied calming mineral",
       bipolar: "magnesium has lithium-like mood-stabilizing properties and is commonly depleted by mood stabilizer medications",
       schizophrenia: "folate lowers homocysteine, which is neurotoxic and elevated in schizophrenia; magnesium supports glutamate regulation, another key system",
       ptsd: "magnesium reduces cortisol-driven neuroinflammation in the hippocampus, the brain structure most damaged by chronic trauma",
@@ -3422,36 +3484,36 @@ const INGREDIENT_SCIENCE = {
     nutrient: "sulforaphane, folate, vitamin C, and vitamin K",
     what_it_does: "sulforaphane is one of the most potent naturally occurring activators of Nrf2, the brain's main antioxidant defense pathway",
     conditions: {
-      schizophrenia: "oxidative stress and neuroinflammation are core features of schizophrenia — sulforaphane activates the brain's own antioxidant defenses at the gene level",
+      schizophrenia: "oxidative stress and neuroinflammation are core features of schizophrenia; sulforaphane activates the brain's own antioxidant defenses at the gene level",
       depression: "neuroinflammation blocks serotonin production; sulforaphane reduces this inflammation, restoring the brain's ability to produce serotonin",
       adhd: "folate in broccoli supports dopamine synthesis pathways, and vitamin C helps convert dopamine into norepinephrine",
       bipolar: "sulforaphane reduces microglial activation (brain immune cells that drive neuroinflammation during mood episodes)",
-      autism: "a clinical trial specifically found sulforaphane improved social interaction and behavioral symptoms in autism — broccoli is the primary dietary source",
+      autism: "a clinical trial specifically found sulforaphane improved social interaction and behavioral symptoms in autism; broccoli is the primary dietary source",
       default: "sulforaphane activates the brain's antioxidant defense system; folate supports neurotransmitter synthesis",
     }
   },
   asparagus: {
     nutrient: "folate, inulin (prebiotic fiber), vitamin K, and glutathione",
-    what_it_does: "asparagus is one of the highest folate-density vegetables available — folate activates the enzyme that converts 5-HTP into serotonin in the brain",
+    what_it_does: "asparagus is one of the highest folate-density vegetables available; folate activates the enzyme that converts 5-HTP into serotonin in the brain",
     conditions: {
       depression: "low folate is the single most common nutritional finding in depression; asparagus's folate directly enables serotonin production at the enzymatic level",
-      adhd: "folate is required for dopamine synthesis as well as serotonin — asparagus supports both neurotransmitter pathways simultaneously",
+      adhd: "folate is required for dopamine synthesis as well as serotonin; asparagus supports both neurotransmitter pathways simultaneously",
       anxiety: "inulin in asparagus feeds Lactobacillus and Bifidobacterium gut bacteria that produce GABA, the brain's primary anxiety-inhibiting chemical",
       bipolar: "folate regulates homocysteine, which disrupts mood stability when elevated; asparagus brings folate levels up",
-      ocd: "OCD severity correlates inversely with folate levels — clinical studies show folate augmentation improves OCD outcomes",
+      ocd: "OCD severity correlates inversely with folate levels; clinical studies show folate augmentation improves OCD outcomes",
       schizophrenia: "glutathione in asparagus is the brain's primary antioxidant; deficiency is one of the most consistent biological findings in schizophrenia",
       default: "exceptional folate source for serotonin and dopamine synthesis; prebiotic fiber supports the gut-brain serotonin axis",
     }
   },
   sweetpotato: {
     nutrient: "beta-carotene (pro-vitamin A), B6, potassium, and complex carbohydrates",
-    what_it_does: "B6 is the essential cofactor for converting tryptophan into serotonin and tyrosine into dopamine — sweet potato is one of the richest B6 sources",
+    what_it_does: "B6 is the essential cofactor for converting tryptophan into serotonin and tyrosine into dopamine; sweet potato is one of the richest B6 sources",
     conditions: {
       depression: "B6 deficiency directly reduces serotonin production; sweet potato's B6 + carbs combination raises serotonin more effectively than carbs alone",
       adhd: "B6 supports both dopamine and norepinephrine synthesis; the slow carbs provide stable glucose for sustained focus",
       bipolar: "potassium supports healthy neuronal electrical signaling; B6 helps regulate the mood-sensitive neurotransmitter systems",
       anxiety: "B6 is required to produce GABA, and deficiency causes anxiety and irritability; sweet potato reliably restores B6 levels",
-      ptsd: "beta-carotene is converted to vitamin A, which regulates the fear extinction pathway in the amygdala — a key target in PTSD treatment",
+      ptsd: "beta-carotene is converted to vitamin A, which regulates the fear extinction pathway in the amygdala, a key target in PTSD treatment",
       autism: "B6 + magnesium combination is one of the most studied nutritional interventions in autism, shown to improve sensory processing and communication",
       default: "B6 for dopamine and serotonin synthesis, slow carbs for stable brain glucose, and beta-carotene for neuroprotection",
     }
@@ -3468,18 +3530,18 @@ const INGREDIENT_SCIENCE = {
   },
   avocado: {
     nutrient: "oleic acid (monounsaturated fat), folate, potassium, and vitamin K",
-    what_it_does: "oleic acid is the primary fat in myelin (nerve insulation) and brain cell membranes — avocado fat supports rapid, healthy nerve signal transmission",
+    what_it_does: "oleic acid is the primary fat in myelin (nerve insulation) and brain cell membranes; avocado fat supports rapid, healthy nerve signal transmission",
     conditions: {
       depression: "folate in avocado directly supports serotonin synthesis; oleic acid triggers the release of OEA (oleoylethanolamide), a compound with antidepressant-like properties",
-      anxiety: "potassium in avocado supports parasympathetic nervous system activity — the 'rest and digest' state that counters anxiety",
-      adhd: "oleic acid in avocado builds the myelin that speeds up prefrontal cortex signaling — the brain region responsible for executive function and impulse control",
+      anxiety: "potassium in avocado supports parasympathetic nervous system activity, the 'rest and digest' state that counters anxiety",
+      adhd: "oleic acid in avocado builds the myelin that speeds up prefrontal cortex signaling, the brain region responsible for executive function and impulse control",
       bipolar: "folate reduces homocysteine (a mood-destabilizing compound) and oleic acid supports membrane health for mood-regulating neurons",
       default: "healthy monounsaturated fats support brain cell membrane health; folate enables serotonin synthesis",
     }
   },
   kale: {
     nutrient: "sulforaphane, vitamin C, calcium, and vitamin K",
-    what_it_does: "kale contains more vitamin C per calorie than almost any food — vitamin C is essential for converting dopamine into norepinephrine",
+    what_it_does: "kale contains more vitamin C per calorie than almost any food; vitamin C is essential for converting dopamine into norepinephrine",
     conditions: {
       adhd: "dopamine-to-norepinephrine conversion requires vitamin C as a cofactor; without enough vitamin C, dopamine accumulates but norepinephrine (critical for focus) stays low",
       depression: "vitamin C reduces cortisol and oxidative stress that suppress serotonin production; calcium supports neural signaling",
@@ -3493,9 +3555,9 @@ const INGREDIENT_SCIENCE = {
     nutrient: "vitamin C, beta-carotene, and polyphenols including mangiferin",
     what_it_does: "mangiferin is a unique antioxidant that crosses the blood-brain barrier and has been shown to inhibit MAO-B, the enzyme that breaks down dopamine",
     conditions: {
-      adhd: "by inhibiting MAO-B, mangiferin from mango keeps dopamine active in synapses longer — the same mechanism as some ADHD medications, but gently and nutritionally",
+      adhd: "by inhibiting MAO-B, mangiferin from mango keeps dopamine active in synapses longer, the same mechanism as some ADHD medications, but gently and nutritionally",
       depression: "vitamin C reduces cortisol and oxidative stress; mangiferin's MAO-inhibiting effect extends the activity of serotonin and dopamine",
-      anxiety: "beta-carotene converts to vitamin A, which regulates the HPA stress axis — the system responsible for the anxiety response",
+      anxiety: "beta-carotene converts to vitamin A, which regulates the HPA stress axis, the system responsible for the anxiety response",
       bipolar: "antioxidant polyphenols reduce neuroinflammation that drives mood cycling; vitamin C supports dopamine-norepinephrine conversion",
       default: "mangiferin inhibits dopamine breakdown; vitamin C supports norepinephrine synthesis and cortisol reduction",
     }
@@ -3504,11 +3566,11 @@ const INGREDIENT_SCIENCE = {
     nutrient: "vitamin C, ellagic acid, anthocyanins, and fisetin",
     what_it_does: "fisetin is a flavonoid that activates Nrf2 (brain's antioxidant defense) and has been shown to reduce neuroinflammation specifically in the hippocampus",
     conditions: {
-      depression: "hippocampal neuroinflammation is central to depression — fisetin from strawberries reduces this; vitamin C lowers cortisol by up to 29% in studies",
+      depression: "hippocampal neuroinflammation is central to depression; fisetin from strawberries reduces this; vitamin C lowers cortisol by up to 29% in studies",
       adhd: "fisetin improves long-term memory consolidation and reduces neuroinflammation in the prefrontal cortex; vitamin C supports norepinephrine synthesis",
       anxiety: "ellagic acid has GABA-enhancing properties; combined with vitamin C's cortisol-lowering effect, strawberries work on anxiety from multiple angles",
       bipolar: "fisetin reduces microglial activation during mood episodes; anthocyanins protect neurons from oxidative damage triggered by mood cycling",
-      ptsd: "fisetin supports hippocampal health — the brain region that stores context for fear memories and enables fear extinction",
+      ptsd: "fisetin supports hippocampal health, the brain region that stores context for fear memories and enables fear extinction",
       default: "fisetin reduces hippocampal neuroinflammation; vitamin C supports dopamine-norepinephrine conversion and cortisol reduction",
     }
   },
@@ -3516,7 +3578,7 @@ const INGREDIENT_SCIENCE = {
     nutrient: "anthocyanins, pterostilbene, vitamin C, and resveratrol",
     what_it_does: "anthocyanins cross the blood-brain barrier and directly deposit in the hippocampus, where they increase BDNF (brain growth factor) and improve neural plasticity",
     conditions: {
-      depression: "BDNF (brain-derived neurotrophic factor) is severely reduced in depression and directly reversed by antidepressant treatment — blueberries boost BDNF nutritionally",
+      depression: "BDNF (brain-derived neurotrophic factor) is severely reduced in depression and directly reversed by antidepressant treatment; blueberries boost BDNF nutritionally",
       adhd: "cerebral blood flow improvements from anthocyanins directly benefit the prefrontal cortex; ptero-stilbene has been shown to improve working memory",
       bipolar: "BDNF is suppressed during depressive episodes in bipolar disorder; blueberries provide a nutritional BDNF boost alongside mood stabilizers",
       schizophrenia: "anthocyanins protect dopamine neurons in the striatum; resveratrol has anti-inflammatory effects on microglial cells",
@@ -3527,9 +3589,9 @@ const INGREDIENT_SCIENCE = {
   },
   peaches: {
     nutrient: "quercetin, chlorogenic acid, vitamin C, and beta-carotene",
-    what_it_does: "quercetin and chlorogenic acid are polyphenols that reduce oxidative stress in the prefrontal cortex — the brain region responsible for executive function",
+    what_it_does: "quercetin and chlorogenic acid are polyphenols that reduce oxidative stress in the prefrontal cortex, the brain region responsible for executive function",
     conditions: {
-      adhd: "the prefrontal cortex is the most metabolically active and oxidative-stress-vulnerable region — the region most impaired in ADHD; quercetin specifically protects it",
+      adhd: "the prefrontal cortex is the most metabolically active and oxidative-stress-vulnerable region, the region most impaired in ADHD; quercetin specifically protects it",
       depression: "chlorogenic acid has antidepressant-like activity in animal studies, reducing neuroinflammation in limbic regions; vitamin C lowers cortisol",
       anxiety: "quercetin modulates GABA receptors, producing mild anxiolytic effects, and reduces the inflammatory cytokines that activate anxiety circuits",
       bipolar: "beta-carotene converts to vitamin A, which regulates the serotonin and dopamine synthesis genes",
@@ -3539,7 +3601,7 @@ const INGREDIENT_SCIENCE = {
   },
   watermelon: {
     nutrient: "L-citrulline, lycopene, vitamin C, and potassium",
-    what_it_does: "L-citrulline converts to arginine in the body, which produces nitric oxide — a signaling molecule that dilates blood vessels and improves cerebral blood flow",
+    what_it_does: "L-citrulline converts to arginine in the body, which produces nitric oxide, a signaling molecule that dilates blood vessels and improves cerebral blood flow",
     conditions: {
       adhd: "improved cerebral blood flow delivers more glucose and oxygen to the prefrontal cortex, directly supporting the attentional systems most challenged in ADHD",
       depression: "lycopene is one of the most potent antioxidants for brain tissue and is significantly reduced in people with depression",
@@ -3552,7 +3614,7 @@ const INGREDIENT_SCIENCE = {
     nutrient: "bromelain, vitamin C, manganese, and thiamine (B1)",
     what_it_does: "bromelain is a proteolytic enzyme with anti-inflammatory properties; thiamine supports mitochondrial energy production in neurons",
     conditions: {
-      adhd: "thiamine (B1) is essential for glucose metabolism in brain cells — ADHD brains have unusually high glucose demands and benefit from B1 support",
+      adhd: "thiamine (B1) is essential for glucose metabolism in brain cells; ADHD brains have unusually high glucose demands and benefit from B1 support",
       depression: "vitamin C reduces cortisol; bromelain reduces systemic inflammation that suppresses serotonin production",
       anxiety: "manganese is a cofactor for antioxidant enzyme SOD2, which protects neurons from the oxidative stress triggered by chronic anxiety",
       bipolar: "thiamine deficiency causes neurological symptoms that mimic mood cycling; pineapple restores this essential cofactor",
@@ -3572,9 +3634,9 @@ const INGREDIENT_SCIENCE = {
   },
   kiwi: {
     nutrient: "serotonin (direct), vitamin C, folate, and vitamin K",
-    what_it_does: "kiwi is one of very few foods that contains actual serotonin — combined with folate (needed to make serotonin in the brain), it supports the serotonin system from two directions",
+    what_it_does: "kiwi is one of very few foods that contains actual serotonin; combined with folate (needed to make serotonin in the brain), it supports the serotonin system from two directions",
     conditions: {
-      depression: "kiwi is the only common fruit with measurable serotonin content; folate activates serotonin-producing enzymes — a two-pronged approach to serotonin support",
+      depression: "kiwi is the only common fruit with measurable serotonin content; folate activates serotonin-producing enzymes, a two-pronged approach to serotonin support",
       anxiety: "serotonin from kiwi supports the gut-brain serotonin axis; 95% of serotonin is made in the gut, where dietary serotonin from kiwi can be used",
       ocd: "serotonin support from both direct content and folate makes kiwi unusually valuable for OCD, which is a serotonin-dysregulation disorder",
       bipolar: "folate reduces homocysteine (a mood destabilizer elevated in bipolar disorder); vitamin C supports dopamine-norepinephrine conversion",
@@ -3601,7 +3663,7 @@ const INGREDIENT_SCIENCE = {
     nutrient: "vitamin E, magnesium, riboflavin (B2), and L-carnitine",
     what_it_does: "vitamin E is the primary fat-soluble antioxidant protecting brain cell membranes from oxidative damage; magnesium regulates NMDA glutamate receptors",
     conditions: {
-      anxiety: "magnesium in almonds acts on GABA receptors — the same receptors targeted by anti-anxiety medications; deficiency is found in most people with anxiety disorders",
+      anxiety: "magnesium in almonds acts on GABA receptors, the same receptors targeted by anti-anxiety medications; deficiency is found in most people with anxiety disorders",
       adhd: "magnesium is a cofactor for dopamine synthesis; vitamin E protects the dopaminergic neurons in the prefrontal cortex",
       bipolar: "magnesium has lithium-like properties and reduces neural excitability; vitamin E protects against oxidative stress during mood episodes",
       depression: "magnesium deficiency produces depressive symptoms; riboflavin activates B6, which is required for serotonin production",
@@ -3610,9 +3672,9 @@ const INGREDIENT_SCIENCE = {
   },
   peanutbutter: {
     nutrient: "niacin (B3), magnesium, resveratrol, and tryptophan",
-    what_it_does: "niacin is required for the conversion of tryptophan to serotonin — without adequate B3, tryptophan gets diverted into the kynurenine pathway instead, which produces neurotoxic compounds",
+    what_it_does: "niacin is required for the conversion of tryptophan to serotonin; without adequate B3, tryptophan gets diverted into the kynurenine pathway instead, which produces neurotoxic compounds",
     conditions: {
-      depression: "niacin ensures tryptophan converts to serotonin rather than neurotoxic kynurenine — a well-studied pathway in depression",
+      depression: "niacin ensures tryptophan converts to serotonin rather than neurotoxic kynurenine, a well-studied pathway in depression",
       adhd: "magnesium in peanut butter supports dopamine synthesis; tryptophan raises serotonin to counteract the emotional dysregulation often comorbid with ADHD",
       anxiety: "magnesium activates GABA receptors; niacin reduces the kynurenine metabolites that are found at elevated levels in anxiety disorders",
       ptsd: "tryptophan raises serotonin that is chronically depleted in PTSD; magnesium reduces HPA axis hyperreactivity",
@@ -3645,21 +3707,21 @@ const INGREDIENT_SCIENCE = {
   // ── Grains, legumes & complex carbs ──
   quinoa: {
     nutrient: "complete protein (all 9 essential amino acids), iron, magnesium, and riboflavin (B2)",
-    what_it_does: "one of very few plant foods with complete protein — quinoa delivers tryptophan and tyrosine alongside the slow-release carbs needed to help them cross the blood-brain barrier",
+    what_it_does: "one of very few plant foods with complete protein; quinoa delivers tryptophan and tyrosine alongside the slow-release carbs needed to help them cross the blood-brain barrier",
     conditions: {
-      depression: "tryptophan combined with carbohydrates from quinoa is the most effective dietary strategy for raising brain serotonin — carbs reduce competing amino acids at the blood-brain barrier",
-      adhd: "iron in quinoa is critical for dopamine synthesis — mild iron deficiency significantly worsens ADHD symptoms; magnesium supports dopamine production",
+      depression: "tryptophan combined with carbohydrates from quinoa is the most effective dietary strategy for raising brain serotonin; carbs reduce competing amino acids at the blood-brain barrier",
+      adhd: "iron in quinoa is critical for dopamine synthesis; mild iron deficiency significantly worsens ADHD symptoms; magnesium supports dopamine production",
       anxiety: "the carb + tryptophan combination in quinoa is more effective at raising serotonin than tryptophan alone; magnesium activates GABA receptors",
       bipolar: "complete protein plus slow carbs maintain steady amino acid levels for neurotransmitter production, preventing the peaks and troughs that trigger mood cycling",
       schizophrenia: "magnesium supports NMDA glutamate receptor regulation, a key system dysregulated in schizophrenia",
-      default: "complete plant protein with slow-release carbs — optimally delivers tryptophan and tyrosine to the brain for serotonin and dopamine production",
+      default: "complete plant protein with slow-release carbs; optimally delivers tryptophan and tyrosine to the brain for serotonin and dopamine production",
     }
   },
   brownrice: {
     nutrient: "gamma-aminobutyric acid (GABA precursor), magnesium, B1 and B3, and inositol",
     what_it_does: "germinated brown rice in particular contains GABA directly; regular brown rice contains inositol which modulates serotonin receptors",
     conditions: {
-      anxiety: "GABA is the brain's main inhibitory neurotransmitter — the compound that reduces neural excitability and produces calm; brown rice directly supports GABA availability",
+      anxiety: "GABA is the brain's main inhibitory neurotransmitter, the compound that reduces neural excitability and produces calm; brown rice directly supports GABA availability",
       ocd: "inositol modulates serotonin receptors and has shown effectiveness in OCD trials comparable to some SSRIs at high doses",
       depression: "magnesium and B vitamins support serotonin synthesis; the slow carbs raise tryptophan availability at the blood-brain barrier",
       bipolar: "steady glucose from brown rice prevents the blood sugar instability that triggers mood cycling; B1 supports neuronal energy metabolism",
@@ -3670,7 +3732,7 @@ const INGREDIENT_SCIENCE = {
     nutrient: "folate, iron, B vitamins, zinc, and prebiotic fiber",
     what_it_does: "lentils are one of the richest plant folate sources, and their prebiotic fiber feeds gut bacteria that produce serotonin precursors",
     conditions: {
-      depression: "folate deficiency directly reduces serotonin production — lentils deliver high-concentration folate plus iron to address two of depression's most common nutritional deficits",
+      depression: "folate deficiency directly reduces serotonin production; lentils deliver high-concentration folate plus iron to address two of depression's most common nutritional deficits",
       schizophrenia: "folate reduces neurotoxic homocysteine; zinc supports dopamine and glutamate regulation both dysregulated in schizophrenia",
       anxiety: "prebiotic fiber feeds gut Lactobacillus that produce GABA; folate supports serotonin synthesis",
       bipolar: "zinc has mood-stabilizing properties and is commonly depleted in bipolar disorder; folate reduces homocysteine",
@@ -3679,9 +3741,9 @@ const INGREDIENT_SCIENCE = {
   },
   chickpeas: {
     nutrient: "choline, tryptophan, B6, magnesium, and folate",
-    what_it_does: "chickpeas deliver choline for acetylcholine, tryptophan + B6 for serotonin, and folate as the synthesis activator — a comprehensive neurotransmitter support food",
+    what_it_does: "chickpeas deliver choline for acetylcholine, tryptophan + B6 for serotonin, and folate as the synthesis activator, a comprehensive neurotransmitter support food",
     conditions: {
-      depression: "tryptophan + B6 + folate from chickpeas form the complete pathway for serotonin production — all three steps supplied in a single food",
+      depression: "tryptophan + B6 + folate from chickpeas form the complete pathway for serotonin production, all three steps supplied in a single food",
       anxiety: "choline supports acetylcholine, which has calming effects on the amygdala; magnesium reduces NMDA over-excitation",
       adhd: "choline supports working memory (acetylcholine dependent); B6 supports dopamine synthesis",
       ocd: "B6 + folate provide cofactors for serotonin production; choline supports prefrontal cortex function needed for impulse override",
@@ -3692,7 +3754,7 @@ const INGREDIENT_SCIENCE = {
   // ── Dairy ──
   yogurt: {
     nutrient: "Lactobacillus and Bifidobacterium probiotics, tryptophan, calcium, and B12",
-    what_it_does: "probiotics in yogurt colonize the gut and produce serotonin precursors and GABA — 95% of the body's serotonin is produced in the gut by these bacteria",
+    what_it_does: "probiotics in yogurt colonize the gut and produce serotonin precursors and GABA; 95% of the body's serotonin is produced in the gut by these bacteria",
     conditions: {
       anxiety: "Lactobacillus rhamnosus in yogurt produces GABA in the gut and reduces anxiety-related behavior in clinical studies; B12 supports nerve health",
       depression: "the gut-brain axis is a major focus of depression research; probiotic-rich yogurt improves gut serotonin production and reduces inflammation",
@@ -3720,7 +3782,7 @@ const INGREDIENT_SCIENCE = {
     nutrient: "flavanols (epicatechin), theobromine, PEA (phenylethylamine), and magnesium",
     what_it_does: "epicatechin improves cerebral blood flow to the prefrontal cortex within 2 hours of consumption; PEA triggers dopamine and endorphin release",
     conditions: {
-      depression: "PEA in dark chocolate triggers dopamine release — it's the same compound released during exercise ('runner's high') and is depleted in depression",
+      depression: "PEA in dark chocolate triggers dopamine release; it's the same compound released during exercise ('runner's high') and is depleted in depression",
       adhd: "theobromine is a mild CNS stimulant that improves focus without the anxiety of caffeine; improved prefrontal blood flow directly supports executive function",
       anxiety: "magnesium in dark chocolate acts on GABA receptors; flavanols reduce the cortisol response to stress in multiple clinical trials",
       bipolar: "magnesium has mood-stabilizing properties; flavanols protect neurons during the oxidative stress of mood episodes",
@@ -3795,28 +3857,28 @@ function buildMealExplanation(meal, conditionIds) {
   const ingredients = parseIngredients(meal);
 
   const intros = {
-    adhd:          `This is a great meal for ADHD because it directly targets the dopamine and norepinephrine systems that ADHD affects most — providing steady brain energy, neurotransmitter precursors, and the nutrients focus and impulse control depend on.`,
-    anxiety:       `This is a great meal for Anxiety because each ingredient works to calm the nervous system from the inside out — lowering cortisol, supporting GABA production, and reducing the neuroinflammation that keeps the brain in a heightened threat state.`,
-    depression:    `This is a great meal for Depression because it delivers the specific nutrients — serotonin precursors, B vitamins, anti-inflammatory compounds, and BDNF boosters — that depression depletes and that antidepressant treatment depends on.`,
+    adhd:          `This is a great meal for ADHD because it directly targets the dopamine and norepinephrine systems that ADHD affects most, providing steady brain energy, neurotransmitter precursors, and the nutrients focus and impulse control depend on.`,
+    anxiety:       `This is a great meal for Anxiety because each ingredient works to calm the nervous system from the inside out: lowering cortisol, supporting GABA production, and reducing the neuroinflammation that keeps the brain in a heightened threat state.`,
+    depression:    `This is a great meal for Depression because it delivers the specific nutrients (serotonin precursors, B vitamins, anti-inflammatory compounds, and BDNF boosters) that depression depletes and that antidepressant treatment depends on.`,
     bipolar:       `This is a great meal for Bipolar Disorder because it stabilizes blood glucose (a key mood cycling trigger), provides omega-3s and magnesium for neurological stability, and delivers the neurotransmitter precursors both mood phases require.`,
-    schizophrenia: `This is a great meal for Schizophrenia because it targets dopamine pathway regulation, oxidative stress, and neuroinflammation — the three most documented neurological features of schizophrenia — through whole food sources your body uses directly.`,
-    autism:        `This is a great meal for Autism Spectrum because it supports the gut-brain axis, provides B6 for neurotransmitter synthesis, and delivers omega-3s for brain cell membrane health — all in sensory-friendly forms.`,
+    schizophrenia: `This is a great meal for Schizophrenia because it targets dopamine pathway regulation, oxidative stress, and neuroinflammation, the three most documented neurological features of schizophrenia, through whole food sources your body uses directly.`,
+    autism:        `This is a great meal for Autism Spectrum because it supports the gut-brain axis, provides B6 for neurotransmitter synthesis, and delivers omega-3s for brain cell membrane health, all in sensory-friendly forms.`,
     ptsd:          `This is a great meal for PTSD because it works to lower the chronically elevated cortisol baseline, rebuild the serotonin and dopamine that trauma depletes, and support hippocampal repair.`,
     did:           `This is a great meal for DID because it provides stable, consistent brain fuel that supports grounding and prevents the blood sugar swings that can increase dissociation.`,
-    bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar — one of the most direct dietary tools for reducing emotional reactivity — while delivering serotonin precursors and magnesium the nervous system needs.`,
+    bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar, one of the most direct dietary tools for reducing emotional reactivity, while delivering serotonin precursors and magnesium the nervous system needs.`,
     npd:           `This is a great meal for brain health because it delivers complete protein, anti-inflammatory compounds, and B vitamins that support dopamine regulation, stress resilience, and cognitive function.`,
     hpd:           `This is a great meal for brain health because its combination of protein, complex carbohydrates, and micronutrients supports steady neurotransmitter production, emotional regulation, and consistent brain energy.`,
     aspd:          `This is a great meal for brain health because it provides amino acids, B vitamins, and anti-inflammatory nutrients that support healthy prefrontal cortex function and impulse regulation.`,
-    ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly — OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins here are the exact building blocks serotonin synthesis requires.`,
-    eating:        `This is a nourishing, balanced meal that provides complete nutrition — protein for brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability during recovery.`,
-    phobia:        `This is a great meal for managing Phobias because it supports GABA production and cortisol regulation — the two neurological levers most directly involved in the physiological fear response.`,
+    ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly: OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins here are the exact building blocks serotonin synthesis requires.`,
+    eating:        `This is a nourishing, balanced meal that provides complete nutrition: protein for brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability during recovery.`,
+    phobia:        `This is a great meal for managing Phobias because it supports GABA production and cortisol regulation, the two neurological levers most directly involved in the physiological fear response.`,
     bfrb:          `This is a great meal for Body-Focused Repetitive Behaviors because it delivers magnesium and B vitamins that reduce the nervous system hyperarousal that BFRB urges are often driven by.`,
     ppd:           `This is a great meal for brain health because its anti-inflammatory nutrients, B vitamins, and complete protein support neurochemical balance and stress regulation.`,
     spd:           `This is a great meal for brain health because it delivers omega-3s, B vitamins, and complete protein that support dopamine regulation and cognitive function.`,
-    default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients — neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals.`,
+    default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients: neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals.`,
   };
 
-  // Build intro — if multiple conditions, name them all up front
+  // Build intro: if multiple conditions, name them all up front
   let intro = "";
   if (activeIds.length > 1) {
     const introLines = activeIds.map(id => intros[id] || intros.default);
@@ -3827,7 +3889,7 @@ function buildMealExplanation(meal, conditionIds) {
   }
 
   if (ingredients.length === 0) {
-    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind — you're nourishing yourself with intention.`;
+    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind; you're nourishing yourself with intention.`;
   }
 
   // For each ingredient, if multiple conditions show the most relevant note
@@ -3865,21 +3927,21 @@ function buildMealExplanation(meal, conditionIds) {
   }).filter(Boolean);
 
   const closings = {
-    adhd:          "Every bite here is working to support your focus, emotional regulation, and dopamine system — your brain deserves this kind of care.",
-    anxiety:       "This combination works together to calm your nervous system from the inside out — you're feeding your calm.",
-    depression:    "Each ingredient here is chosen to gently lift the neurotransmitter systems that depression suppresses — you're doing something real for yourself by eating this.",
-    bipolar:       "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished — stability on the plate supports stability in the mind.",
-    schizophrenia: "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain — this is targeted nourishment.",
+    adhd:          "Every bite here is working to support your focus, emotional regulation, and dopamine system; your brain deserves this kind of care.",
+    anxiety:       "This combination works together to calm your nervous system from the inside out; you're feeding your calm.",
+    depression:    "Each ingredient here is chosen to gently lift the neurotransmitter systems that depression suppresses; you're doing something real for yourself by eating this.",
+    bipolar:       "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished; stability on the plate supports stability in the mind.",
+    schizophrenia: "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain; this is targeted nourishment.",
     autism:        "This meal is designed to support your gut-brain connection, sensory processing, and neurotransmitter health in a way your body can use.",
-    ptsd:          "This meal is quietly working to lower your cortisol baseline and support the serotonin systems that trauma suppresses — small acts of nourishment matter.",
-    ocd:           "The serotonin support in this meal is real and direct — you're feeding the exact system that OCD challenges most.",
-    bpd:           "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation — this meal provides both.",
-    did:           "Consistent, nourishing meals help ground and stabilize — this one was built to support your brain's need for steady fuel and neurotransmitter balance.",
-    default:       "You're nourishing your brain with intention — every ingredient here was chosen with your mental health in mind.",
+    ptsd:          "This meal is quietly working to lower your cortisol baseline and support the serotonin systems that trauma suppresses; small acts of nourishment matter.",
+    ocd:           "The serotonin support in this meal is real and direct; you're feeding the exact system that OCD challenges most.",
+    bpd:           "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation; this meal provides both.",
+    did:           "Consistent, nourishing meals help ground and stabilize; this one was built to support your brain's need for steady fuel and neurotransmitter balance.",
+    default:       "You're nourishing your brain with intention; every ingredient here was chosen with your mental health in mind.",
   };
 
   const closing = activeIds.length > 1
-    ? `You're managing ${condString} — this meal works across all of them, and every ingredient was placed here with your full picture in mind.`
+    ? `You're managing ${condString}; this meal works across all of them, and every ingredient was placed here with your full picture in mind.`
     : (closings[primaryId] || closings.default);
 
   return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + closing;
@@ -3905,7 +3967,8 @@ function NeuroThriveApp() {
   const [step, setStep] = useState(0);
   const [resumeStep, setResumeStep] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
-  const [legalPage, setLegalPage] = useState(null); // "terms" | "privacy" | null
+  const [legalPage, setLegalPage] = useState(null); // "terms" | "privacy" | "references" | null
+  const [refsExpanded, setRefsExpanded] = useState(null);
   const [isPremium, setIsPremium] = useState(false);
   const [subChecked, setSubChecked] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
@@ -3944,8 +4007,17 @@ function NeuroThriveApp() {
   const [remindersEnabled, setRemindersEnabled] = useState(false);
   const [toolkitState, setToolkitState] = useState(null);
   const [toolkitCategory, setToolkitCategory] = useState(null);
+  const [nsCategory, setNsCategory] = useState(null);
+  const [nsTool, setNsTool] = useState(null);
+  const [groceryWeek, setGroceryWeek] = useState(0);
+  const [groceryChecked, setGroceryChecked] = useState({});
+  const [swapHistory, setSwapHistory] = useState({});
+  const [lockedWeeks, setLockedWeeks] = useState({});  // { weekIdx: { lockedAt: dateStr, meals: snapshot } }
+  const [swapLockWarning, setSwapLockWarning] = useState(null);  // { mealKey, mealType, label, currentMeal, weekIdx }  // { "dayIdx_mealKey": ["prev1","prev2",...] }
+  const [favoriteMeals, setFavoriteMeals] = useState([]);
   const [routineTab, setRoutineTab] = useState("morning");
-  const [exerciseExpanded, setExerciseExpanded] = useState(false);
+  const [exerciseTimePref, setExerciseTimePref] = useState("morning");
+  const [expandedExercise, setExpandedExercise] = useState(null);
   const [dailyChecks, setDailyChecks] = useState({});
   const [justChecked, setJustChecked] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -3982,10 +4054,10 @@ function NeuroThriveApp() {
   const [newPassword, setNewPassword] = useState("");
   const [isResettingPassword, setIsResettingPassword] = useState(false);
 
-  // Cache for AI explanations — persists in session without re-renders
+  // Cache for AI explanations: persists in session without re-renders
   const explanationCache = useRef({});
 
-  // ── Auth listener — runs on mount ──────────────────────────────────────────
+  // ── Auth listener: runs on mount ──────────────────────────────────────────
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -4024,7 +4096,21 @@ function NeuroThriveApp() {
           if (data.menu30) setMenu30(data.menu30);
           if (data.logs) setLogs(data.logs);
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
-          if (data.cycle_start_date) setCycleStartDate(data.cycle_start_date);
+          if (data.cycle_start_date) {
+            setCycleStartDate(data.cycle_start_date);
+          } else if (data.menu30) {
+            // Recovery: if menu exists but cycle_start_date was lost,
+            // use the earliest daily_checks key, or fall back to today
+            let recovered = new Date().toISOString();
+            if (data.daily_checks && typeof data.daily_checks === "object") {
+              const dateKeys = Object.keys(data.daily_checks).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k)).sort();
+              if (dateKeys.length > 0) {
+                recovered = new Date(dateKeys[0] + "T12:00:00").toISOString();
+                console.log("Recovered cycle_start_date from earliest daily_checks key:", dateKeys[0]);
+              }
+            }
+            setCycleStartDate(recovered);
+          }
           // If user has completed setup (has menu + gender), resume directly
           if (data.menu30 && data.selected_gender) {
             setDisclaimerAccepted(true);
@@ -4040,6 +4126,15 @@ function NeuroThriveApp() {
           if (data.routine_prefs) setRoutinePrefs(data.routine_prefs);
           if (data.personal_routine) setPersonalRoutine(data.personal_routine);
           if (data.onboarding_done) setOnboardingDone(true);
+          if (data.favorite_meals && Array.isArray(data.favorite_meals)) setFavoriteMeals(data.favorite_meals);
+          if (data.exercise_time_pref) setExerciseTimePref(data.exercise_time_pref);
+          // Snapshot what we loaded so save guard can prevent empty overwrites
+          loadedSnapshotRef.current = {
+            hadMenu: !!data.menu30,
+            hadConditions: !!(data.selected_conditions && data.selected_conditions.length > 0),
+            hadCycleStart: !!data.cycle_start_date,
+            hadDailyChecks: !!data.daily_checks && Object.keys(data.daily_checks).length > 0,
+          };
         }
       } catch(e) {}
       setDataLoaded(true);
@@ -4103,16 +4198,38 @@ function NeuroThriveApp() {
   }, [user]);
 
   // ── Save user data to Supabase whenever state changes ─────────────────────
+  // saveGeneration increments ONLY after load completes + one render cycle.
+  // The save effect compares its captured generation to skip the initial hydration renders.
   const saveReady = useRef(false);
+  const loadedSnapshotRef = useRef(null);
+  const saveGeneration = useRef(0);
+  const [hydratedFlag, setHydratedFlag] = useState(false);
+
   useEffect(() => {
     if (!dataLoaded) return;
-    const t = setTimeout(() => { saveReady.current = true; }, 1500);
-    return () => clearTimeout(t);
+    // Wait for one more render cycle so all loaded state has settled
+    const raf = requestAnimationFrame(() => {
+      saveGeneration.current += 1;
+      saveReady.current = true;
+      setHydratedFlag(true); // trigger one re-render so save effect sees ready state
+    });
+    return () => cancelAnimationFrame(raf);
   }, [dataLoaded]);
 
   useEffect(() => {
     if (!dataLoaded || !user || !saveReady.current) return;
+    // Don't save if critical data looks empty but we had data on load
+    if (loadedSnapshotRef.current) {
+      const snap = loadedSnapshotRef.current;
+      if (snap.hadMenu && !menu30) return;
+      if (snap.hadConditions && selectedConditions.length === 0) return;
+      if (snap.hadCycleStart && !cycleStartDate) return;
+    }
+    // Capture the generation at effect-fire time; if it matches, this is just hydration, skip
+    const gen = saveGeneration.current;
     const timer = setTimeout(async () => {
+      // Double-check readiness inside the timeout (covers edge cases)
+      if (!saveReady.current) return;
       try {
         const saveData = {
           id: user.id,
@@ -4137,6 +4254,8 @@ function NeuroThriveApp() {
           routine_prefs: routinePrefs,
           personal_routine: personalRoutine,
           onboarding_done: onboardingDone,
+          favorite_meals: favoriteMeals,
+          exercise_time_pref: exerciseTimePref,
           updated_at: new Date().toISOString(),
         };
         let { error } = await supabase.from("user_data").upsert(saveData);
@@ -4153,9 +4272,9 @@ function NeuroThriveApp() {
         }
         if (error) console.error("Save error:", error.message, error.details);
       } catch(e) { console.error("Save failed:", e); }
-    }, 500);
+    }, 800);
     return () => clearTimeout(timer);
-  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, selectedFoodPrefs, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, dataLoaded, user]);
+  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, selectedFoodPrefs, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, favoriteMeals, exerciseTimePref, dataLoaded, hydratedFlag, user]);
 
   // ── Feature tour trigger (shows once at start of onboarding) ────────────────
   useEffect(() => {
@@ -4168,12 +4287,14 @@ function NeuroThriveApp() {
     { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Before we build your plan, here's a quick look at everything NeuroThrive will create for you." },
     { emoji: "🍽️", title: "30-Day Meal Plan", desc: "A personalized menu of brain-boosting meals tailored to your condition. Every recipe includes the science behind why it was chosen for you." },
     { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus condition-specific exercise recommendations inspired by neuroscience research." },
-    { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel — powerful data for your wellness journey." },
-    { emoji: "🌿", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition — with the science behind each one." },
-    { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category — grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
+    { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel, powerful data for your wellness journey." },
+    { emoji: "🌿", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition, with the science behind each one." },
+    { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category: grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
+    { emoji: "🫁", title: "Nervous System Toolkit", desc: "Regulate your nervous system with science-backed tools: vagal toning, somatic grounding, sensory resets, and emergency techniques personalized to your condition." },
+    { emoji: "❤️", title: "Recipe Favorites", desc: "Heart the meals you love and build your personal collection. Access recipes and brain scores for your favorites anytime." },
     { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
-    { emoji: "🚀", title: "Let's build your plan!", desc: "We'll ask a few quick questions about your conditions, diet, and routine — then generate everything personalized to your brain." },
+    { emoji: "🚀", title: "Let's build your plan!", desc: "We'll ask a few quick questions about your conditions, diet, and routine, then generate everything personalized to your brain." },
   ];
 
   const finishTour = () => {
@@ -4202,7 +4323,7 @@ function NeuroThriveApp() {
     setAuthError(""); setAuthWorking(true);
     const { error } = await supabase.auth.resetPasswordForEmail(authEmail);
     if (error) setAuthError(error.message);
-    else setAuthSuccess("Password reset email sent — check your inbox!");
+    else setAuthSuccess("Password reset email sent; check your inbox!");
     setAuthWorking(false);
   };
 
@@ -4303,7 +4424,7 @@ function NeuroThriveApp() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&display=swap');`}</style>
       <div style={SA.card}>
         <div style={SA.logo}>
-          <div style={SA.logoText}>🌿 NeuroThrive</div>
+          <div style={SA.logoText}>🧠 NeuroThrive</div>
           <div style={SA.logoSub}>Set new password</div>
         </div>
         <p style={{ color:"#8890b8", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Choose a new password for your account.</p>
@@ -4327,7 +4448,7 @@ function NeuroThriveApp() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&display=swap');`}</style>
       <div style={SA.card}>
         <div style={SA.logo}>
-          <div style={SA.logoText}>🌿 NeuroThrive</div>
+          <div style={SA.logoText}>🧠 NeuroThrive</div>
           <div style={SA.logoSub}>Nourish your mind</div>
         </div>
 
@@ -4394,10 +4515,10 @@ function NeuroThriveApp() {
         <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"16px", padding:"20px", marginBottom:"20px" }}>
           <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"12px" }}>⚕️ Health & Wellness Disclaimer</div>
           <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
-            NeuroThrive provides <strong style={{color:"#eef0ff"}}>general wellness information</strong> for educational purposes only. The content in this app — including meal suggestions, supplement information, and affirmations — is <strong style={{color:"#eef0ff"}}>not medical advice</strong> and is not intended to diagnose, treat, cure, or prevent any health condition.
+            NeuroThrive provides <strong style={{color:"#eef0ff"}}>general wellness information</strong> for educational purposes only. The content in this app, including meal suggestions, supplement information, and affirmations, is <strong style={{color:"#eef0ff"}}>not medical advice</strong> and is not intended to diagnose, treat, cure, or prevent any health condition.
           </p>
           <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
-            Always consult a <strong style={{color:"#eef0ff"}}>qualified healthcare provider</strong> before making changes to your diet, starting supplements, or modifying any existing treatment plan — especially if you are currently taking medication or under the care of a mental health professional.
+            Always consult a <strong style={{color:"#eef0ff"}}>qualified healthcare provider</strong> before making changes to your diet, starting supplements, or modifying any existing treatment plan, especially if you are currently taking medication or under the care of a mental health professional.
           </p>
           <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:0 }}>
             Supplement information is provided for <strong style={{color:"#eef0ff"}}>educational reference only</strong>. Dosing, safety, and interactions vary by individual. NeuroThrive does not recommend specific dosing and is not responsible for decisions made based on information in this app.
@@ -4406,7 +4527,7 @@ function NeuroThriveApp() {
 
         <div style={{ background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.2)", borderRadius:"12px", padding:"14px 16px", marginBottom:"24px" }}>
           <p style={{ color:"#e8c87a", fontSize:"12px", lineHeight:1.75, margin:0 }}>
-            🚨 <strong>If you are experiencing a mental health crisis</strong>, please contact a crisis line or emergency services immediately. In the US: <strong>988 Suicide & Crisis Lifeline — call or text 988</strong>.
+            🚨 <strong>If you are experiencing a mental health crisis</strong>, please contact a crisis line or emergency services immediately. In the US: <strong>988 Suicide & Crisis Lifeline: call or text 988</strong>.
           </p>
         </div>
 
@@ -4420,7 +4541,7 @@ function NeuroThriveApp() {
         </div>
 
         <button onClick={() => setDisclaimerAccepted(true)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
-          I Understand — Continue to NeuroThrive
+          I Understand: Continue to NeuroThrive
         </button>
         <p style={{ textAlign:"center", color:"#8890b8", fontSize:"11px", marginTop:"16px", lineHeight:1.6 }}>
           © {new Date().getFullYear()} NeuroThrive. All rights reserved.
@@ -4464,13 +4585,15 @@ function NeuroThriveApp() {
 
   const startNewCycle = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs, favoriteMeals);
     setMenu30(days);
     setPlanCycle(c => c + 1);
     setCycleStartDate(new Date().toISOString());
     setSelectedWeek(0);
     setSelectedDayIdx(0);
     setShowCycleComplete(false);
+    setDailyChecks(prev => { const copy = { ...prev }; delete copy[todayKey]; return copy; });
+    setAltMeal({}); setSwapHistory({});
     handleStepForward(4);
   };
 
@@ -4480,14 +4603,219 @@ function NeuroThriveApp() {
 
   const buildMenu = () => {
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs);
+    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs, favoriteMeals);
     setMenu30(days);
     setPlanCycle(1);
     setCycleStartDate(new Date().toISOString());
     setSelectedWeek(0);
     setSelectedDayIdx(0);
+    setDailyChecks({});
+    setAltMeal({}); setSwapHistory({});
     setRoutineQPage("intro");
     setStep(13);
+  };
+
+  // ── Grocery List Generator ──────────────────────────────────────────────────
+  const GROCERY_AISLES = [
+    { id: "produce", emoji: "🥬", label: "Produce" },
+    { id: "protein", emoji: "🥩", label: "Protein & Meat" },
+    { id: "seafood", emoji: "🐟", label: "Seafood" },
+    { id: "dairy", emoji: "🥛", label: "Dairy & Eggs" },
+    { id: "grains", emoji: "🌾", label: "Grains & Bread" },
+    { id: "canned", emoji: "🥫", label: "Canned & Dry Goods" },
+    { id: "frozen", emoji: "🧊", label: "Frozen" },
+    { id: "nuts", emoji: "🥜", label: "Nuts, Seeds & Dried Fruit" },
+    { id: "oils", emoji: "🫒", label: "Oils, Sauces & Condiments" },
+    { id: "spices", emoji: "🧂", label: "Spices & Seasonings" },
+    { id: "beverages", emoji: "🍵", label: "Beverages" },
+    { id: "specialty", emoji: "✨", label: "Specialty (online/health store)" },
+    { id: "other", emoji: "🛒", label: "Other" },
+  ];
+
+  const categorizeIngredient = (ing) => {
+    const l = ing.toLowerCase();
+    // Specialty: powders/supplements that aren't standard grocery items
+    if (/lion's mane|lion mane|ashwagandha|maca powder|reishi|cordyceps|matcha powder|spirulina|collagen powder/.test(l)) return "specialty";
+    // Produce
+    if (/spinach|kale|lettuce|arugula|greens|broccoli|cauliflower|zucchini|cucumber|tomato|onion|garlic|ginger|pepper|celery|carrot|mushroom|asparagus|green bean|snap pea|cabbage|bok choy|scallion|shallot|cilantro|parsley|basil|mint|dill|rosemary|thyme|avocado|lemon|lime|orange|grapefruit|mango|banana|apple|pear|berr|strawberr|blueberr|raspberr|blackberr|peach|pineapple|watermelon|kiwi|grape|pomegranate|fig|papaya|sweet potato|potato|corn|beet|radish|squash|eggplant|artichoke|jalapen|serrano|poblano|sprout/.test(l)) return "produce";
+    // Seafood
+    if (/salmon|tuna|shrimp|cod|tilapia|sardine|mackerel|trout|halibut|crab|lobster|anchov|fish|mahi|sea bass|scallop/.test(l)) return "seafood";
+    // Protein
+    if (/chicken|turkey|beef|steak|pork|sausage|bacon|lamb|bison|ground meat|tofu|tempeh|seitan|protein/.test(l)) return "protein";
+    // Dairy
+    if (/milk|yogurt|kefir|cheese|cream|butter|egg|cottage|ricotta|mozzarella|parmesan|cheddar|feta|goat cheese|sour cream/.test(l)) return "dairy";
+    // Grains
+    if (/bread|tortilla|wrap|pita|naan|english muffin|bagel|rice(?! vinegar| wine)|quinoa|oat|pasta|noodle|couscous|farro|barley|millet|cornmeal|flour|cereal|granola|pancake mix|waffle/.test(l)) return "grains";
+    // Canned/Dry
+    if (/canned|can of|black bean|kidney bean|chickpea|garbanzo|lentil|white bean|pinto bean|diced tomato|tomato paste|tomato sauce|coconut milk|broth|stock|sun-dried|dried bean|peanut butter|almond butter|jam|jelly|honey|maple syrup|cocoa|chocolate chip|protein powder/.test(l)) return "canned";
+    // Frozen
+    if (/frozen/.test(l)) return "frozen";
+    // Nuts/Seeds
+    if (/almond(?! butter| milk)|walnut|cashew|pecan|pistachio|peanut(?! butter)|pumpkin seed|sunflower seed|chia seed|flax|hemp seed|sesame|pine nut|macadamia|hazelnut|dried cranberr|dried mango|dried fruit|raisin|date|trail mix|mixed nut|dark chocolate/.test(l)) return "nuts";
+    // Oils/Sauces
+    if (/olive oil|avocado oil|coconut oil|sesame oil|oil|vinegar|soy sauce|tamari|sriracha|hot sauce|salsa|mustard|mayo|ketchup|worcestershire|fish sauce|teriyaki|pesto|tahini|hummus|dressing|marinade|miso paste/.test(l)) return "oils";
+    // Spices
+    if (/salt|pepper|cumin|paprika|turmeric|cinnamon|nutmeg|oregano|chili powder|cayenne|garlic powder|onion powder|curry powder|garam masala|bay leaf|coriander|cardamom|clove|vanilla|everything bagel|seasoning|spice/.test(l)) return "spices";
+    // Beverages
+    if (/tea|coffee|kombucha|juice|water|almond milk|oat milk|coconut water/.test(l)) return "beverages";
+    return "other";
+  };
+
+  const generateGroceryList = (weekIdx) => {
+    if (!menu30) return {};
+    const startDay = weekIdx === -1 ? 0 : weekIdx * 7;
+    const endDay = weekIdx === -1 ? 30 : Math.min(startDay + 7, 30);
+
+    // Parse quantity + unit + item from an ingredient string
+    const fracs = { "½":0.5, "¼":0.25, "¾":0.75, "⅓":0.33, "⅔":0.67, "⅛":0.125, "⅜":0.375, "⅝":0.625, "⅞":0.875 };
+    const parseIngredient = (raw) => {
+      let s = raw.trim();
+      // Extract leading quantity
+      let qty = 0;
+      const fracMatch = s.match(/^([½¼¾⅓⅔⅛⅜⅝⅞])/);
+      const numFracMatch = s.match(/^(\d+)\s*([½¼¾⅓⅔⅛⅜⅝⅞])/);
+      const rangeMatch = s.match(/^(\d+(?:\.\d+)?)\s*[–-]\s*(\d+(?:\.\d+)?)/);
+      const numMatch = s.match(/^(\d+(?:\.\d+)?(?:\s*\/\s*\d+)?)/);
+      if (numFracMatch) { qty = parseInt(numFracMatch[1]) + (fracs[numFracMatch[2]] || 0); s = s.slice(numFracMatch[0].length).trim(); }
+      else if (fracMatch) { qty = fracs[fracMatch[1]] || 0; s = s.slice(1).trim(); }
+      else if (rangeMatch) { qty = (parseFloat(rangeMatch[1]) + parseFloat(rangeMatch[2])) / 2; s = s.slice(rangeMatch[0].length).trim(); }
+      else if (numMatch) {
+        const v = numMatch[1];
+        if (v.includes("/")) { const [a,b] = v.split("/"); qty = parseInt(a)/parseInt(b); }
+        else qty = parseFloat(v);
+        s = s.slice(numMatch[0].length).trim();
+      }
+      if (qty === 0) qty = 1;
+      // Extract unit
+      const unitMatch = s.match(/^(oz|ounce|lb|pound|cup|tbsp|tablespoon|tsp|teaspoon|can|bag|bunch|head|clove|slice|fillet|breast|thigh|piece|sprig|stalk|ear|inch|pkg|package|container|carton|bottle|jar|handful)s?\b\.?\s*/i);
+      let unit = "";
+      if (unitMatch) { unit = unitMatch[1].toLowerCase().replace(/s$/,""); s = s.slice(unitMatch[0].length).trim(); }
+      // Normalize unit aliases
+      const unitMap = { ounce:"oz", pound:"lb", tablespoon:"tbsp", teaspoon:"tsp", package:"pkg" };
+      if (unitMap[unit]) unit = unitMap[unit];
+      // Clean item name
+      let item = s.replace(/^of\s+/i,"").replace(/,.*$/,"").replace(/\s*\(.*?\)\s*/g," ").replace(/^\s*(fresh|organic|large|small|medium|ripe|boneless|skinless|raw|cooked|chopped|diced|sliced|minced|shredded|grated|crushed|whole|packed|loosely|firmly|about|ground|dried|frozen|canned|plain|unsalted|roasted|toasted|extra.virgin|low.sodium|reduced.fat|full.fat|unsweetened|sweetened|light|dark|white|wild.caught|cage.free|free.range|thick.cut|thin.cut)\s+/gi,"").trim();
+      if (item.length < 2) item = raw.trim();
+      return { qty, unit, item: item.toLowerCase() };
+    };
+
+    // Collect all parsed ingredients
+    const itemMap = new Map();
+    for (let i = startDay; i < endDay; i++) {
+      const day = menu30[i];
+      if (!day) continue;
+      const mealKeys = ["breakfast", "lunch", "dinner", "snacks"];
+      if (day.snacks2) mealKeys.push("snacks2");
+      for (const key of mealKeys) {
+        const swapKey = `${i}_${key}`;
+        const mealName = altMeal[swapKey] || day[key];
+        if (!mealName) continue;
+        try {
+          const recipe = generateRecipe(mealName);
+          if (recipe && recipe.ingredients) {
+            recipe.ingredients.forEach(raw => {
+              const { qty, unit, item } = parseIngredient(raw);
+              if (item.length < 3) return;
+              // Skip seasoning-type items (salt, pepper, to taste)
+              if (/^(salt|pepper|to taste|water)/.test(item)) return;
+              // Normalize key: strip adjectives again (in case parseIngredient missed), singularize
+              const mapKey = item
+                .replace(/^(ground|dried|frozen|canned|plain|unsalted|roasted|toasted|extra.virgin|low.sodium|unsweetened|sweetened|light|dark|white|wild.caught|cage.free|free.range)\s+/i,"")
+                .replace(/ies$/,"y").replace(/ves$/,"f").replace(/es$/,"e").replace(/s$/,"")
+                .trim();
+              if (itemMap.has(mapKey)) {
+                const existing = itemMap.get(mapKey);
+                if (existing.unit === unit) { existing.qty += qty; existing.count += 1; }
+                else { existing.count += 1; existing.extraQty.push({ qty, unit }); }
+              } else {
+                itemMap.set(mapKey, { item, qty, unit, count: 1, extraQty: [] });
+              }
+            });
+          }
+        } catch(e) {}
+      }
+    }
+
+    // Convert to shopping-friendly quantities
+    const toShoppingLabel = ({ item, qty, unit, count, extraQty }) => {
+      // Combine extra quantities of same unit
+      const allQty = [{ qty, unit }, ...extraQty];
+      const byUnit = {};
+      allQty.forEach(q => { byUnit[q.unit] = (byUnit[q.unit] || 0) + q.qty; });
+
+      const parts = [];
+      for (const [u, total] of Object.entries(byUnit)) {
+        // Convert to practical shopping amounts
+        let display = "";
+        if (u === "oz") {
+          if (total >= 16) display = `${(total/16).toFixed(1).replace(/\.0$/,"")} lb`;
+          else display = `${Math.round(total)} oz`;
+        } else if (u === "lb") {
+          display = `${total.toFixed(1).replace(/\.0$/,"")} lb`;
+        } else if (u === "tbsp") {
+          if (total >= 16) display = `${Math.round(total/16)} cup${Math.round(total/16)>1?"s":""}`;
+          else if (total >= 3) display = `${Math.round(total/16*100)/100 >= 0.25 ? (total/16).toFixed(1).replace(/\.0$/,"") + " cup" : Math.round(total) + " tbsp"}`;
+          else display = `${Math.round(total)} tbsp`;
+          // For oils/condiments, convert to bottle size
+          if (/oil|vinegar|soy sauce|tamari|honey|maple/.test(item)) {
+            if (total >= 48) display = "1 large bottle";
+            else if (total >= 16) display = "1 bottle";
+            else if (total >= 8) display = "1 small bottle";
+            else display = `${Math.round(total)} tbsp`;
+          }
+        } else if (u === "tsp") {
+          if (total >= 48) display = `1 cup`;
+          else if (total >= 12) display = `${Math.round(total/3)} tbsp`;
+          else display = `${Math.round(total)} tsp`;
+          // Only convert to "1 jar" for actual pantry spices, not specialty powders
+          if (/cumin|paprika|turmeric|cinnamon|nutmeg|oregano|cayenne|garam|curry|chili|garlic powder|onion powder|coriander|cardamom/.test(item)) {
+            display = "1 jar";
+          }
+          // Specialty powders: show as a bag/container
+          if (/lion.*mane|ashwagandha|maca|reishi|cordyceps|matcha|spirulina|collagen/.test(item)) {
+            display = `1 bag (powder)`;
+          }
+        } else if (u === "cup") {
+          display = `${total.toFixed(1).replace(/\.0$/,"")} cup${total > 1 ? "s" : ""}`;
+        } else if (u === "can") {
+          display = `${Math.round(total)} can${Math.round(total) > 1 ? "s" : ""}`;
+        } else if (u === "clove") {
+          if (total >= 6) display = "1 head garlic";
+          else display = `${Math.round(total)} clove${Math.round(total) > 1 ? "s" : ""}`;
+        } else if (u === "bunch" || u === "head" || u === "bag" || u === "bottle" || u === "jar" || u === "container" || u === "pkg") {
+          display = `${Math.round(total)} ${u}${Math.round(total) > 1 ? "s" : ""}`;
+        } else if (u === "fillet" || u === "breast" || u === "thigh") {
+          display = `${Math.round(total)} ${u}${Math.round(total) > 1 ? "s" : ""}`;
+        } else if (u === "slice") {
+          if (total >= 10 && /bread/.test(item)) display = "1 loaf";
+          else display = `${Math.round(total)} slice${Math.round(total) > 1 ? "s" : ""}`;
+        } else if (u === "") {
+          // No unit: count-based items (eggs, bananas, etc.)
+          if (/egg/.test(item)) {
+            display = total >= 12 ? `${Math.ceil(total/12)} dozen` : `${Math.round(total)}`;
+          } else {
+            display = count > 1 ? `${Math.round(total)}` : "";
+          }
+        } else {
+          display = `${Math.round(total)} ${u}${Math.round(total) > 1 ? "s" : ""}`;
+        }
+        if (display) parts.push(display);
+      }
+
+      // Capitalize first letter of item
+      const capItem = item.charAt(0).toUpperCase() + item.slice(1);
+      return parts.length > 0 ? `${capItem}: ${parts.join(", ")}` : capItem;
+    };
+
+    // Group by aisle
+    const aisles = {};
+    GROCERY_AISLES.forEach(a => { aisles[a.id] = []; });
+    itemMap.forEach((data, key) => {
+      const aisle = categorizeIngredient(key);
+      aisles[aisle].push({ key, label: toShoppingLabel(data) });
+    });
+    Object.values(aisles).forEach(items => items.sort((a, b) => a.label.localeCompare(b.label)));
+    return aisles;
   };
 
   const requestNotifPermission = async () => {
@@ -4509,7 +4837,7 @@ function NeuroThriveApp() {
       const ms = target - now;
       setTimeout(() => {
         if (notifPermission === "granted" && reminderActive[meal]) {
-          new Notification("🌿 NeuroThrive", { body: `Time for ${mealNames[meal]}! Your plan is ready. Nourish your mind. 🍽️` });
+          new Notification("NeuroThrive", { body: `Time for ${mealNames[meal]}. Your plan is ready; nourish your mind.` });
         }
       }, ms);
     });
@@ -4524,7 +4852,7 @@ function NeuroThriveApp() {
       setTimeout(() => {
         if (notifPermission === "granted" && affirmNotifEnabled) {
           const affirmation = AFFIRMATIONS[Math.floor(Math.random() * AFFIRMATIONS.length)];
-          new Notification("💙 NeuroThrive — Daily Affirmation", { body: affirmation.text });
+          new Notification("NeuroThrive: Daily Affirmation", { body: affirmation.text });
         }
       }, ms);
     }
@@ -4536,19 +4864,82 @@ function NeuroThriveApp() {
     setTimeout(() => setReminderSaved(false), 2500);
   };
 
-  const daysElapsed = cycleStartDate
-    ? Math.min(30, Math.floor((new Date() - new Date(cycleStartDate)) / (1000 * 60 * 60 * 24)) + 1)
-    : 1;
+  const daysElapsed = (() => {
+    if (!cycleStartDate) return 1;
+    const now = new Date();
+    const start = new Date(cycleStartDate);
+    // Use local midnight-to-midnight to avoid timezone drift
+    const nowLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startLocal = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    return Math.min(30, Math.floor((nowLocal - startLocal) / (1000 * 60 * 60 * 24)) + 1);
+  })();
 
-  const getAltMeal = (currentMeal, mealType, mealKey) => {
+  // ── Helper: sync menu page to today's day ──────────────────────────────────
+  const syncMenuToToday = () => {
+    if (menu30 && cycleStartDate) {
+      const now = new Date();
+      const start = new Date(cycleStartDate);
+      const nowL = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startL = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      const elapsed = Math.min(30, Math.floor((nowL - startL) / 86400000) + 1);
+      const todayIdx = Math.max(0, elapsed - 1);
+      setSelectedWeek(Math.floor(todayIdx / 7));
+      setSelectedDayIdx(todayIdx % 7);
+    }
+  };
+
+  const toggleFavorite = (mealName) => {
+    setFavoriteMeals(prev => prev.includes(mealName) ? prev.filter(m => m !== mealName) : [...prev, mealName]);
+  };
+  const isFavorite = (mealName) => favoriteMeals.includes(mealName);
+
+  const getAltMeal = (currentMeal, mealType, mealKey, dayIdxOverride) => {
+    const dayIdx = dayIdxOverride != null ? dayIdxOverride : globalDayIdx;
+    const weekIdx = Math.floor(dayIdx / 7);
+
+    // Check if this week is locked
+    if (lockedWeeks[weekIdx]) {
+      setSwapLockWarning({ mealKey, mealType, label: mealType, currentMeal, weekIdx, dayIdx });
+      return;
+    }
+
+    doSwap(currentMeal, mealType, mealKey, dayIdx);
+  };
+
+  const doSwap = (currentMeal, mealType, mealKey, dayIdx) => {
     const label = mealType.toLowerCase();
     const typeKey = label.includes("breakfast") ? "breakfast" : label.includes("lunch") ? "lunch" : label.includes("dinner") ? "dinner" : "snacks";
     const condition = selectedConditions[0] || "default";
-    const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition, selectedCuisines).map(m => m.name).filter(n => n !== currentMeal);
-    if (pool.length === 0) return;
-    const pick = pool[Math.floor(Math.random() * pool.length)];
-    const altKey = `${globalDayIdx}_${mealKey}`;
+    const altKey = `${dayIdx}_${mealKey}`;
+    // Get history of previously seen meals for this slot
+    const history = swapHistory[altKey] || [];
+    const seen = new Set([currentMeal, ...history]);
+    const pool = filterMeals(ALL_MEALS[typeKey], selectedDiet, condition, selectedCuisines).map(m => m.name).filter(n => !seen.has(n));
+    // If we've exhausted the pool, allow repeats but still exclude current
+    const finalPool = pool.length > 0 ? pool : filterMeals(ALL_MEALS[typeKey], selectedDiet, condition, selectedCuisines).map(m => m.name).filter(n => n !== currentMeal);
+    if (finalPool.length === 0) return;
+    const pick = finalPool[Math.floor(Math.random() * finalPool.length)];
+    // Push current meal onto history stack
+    setSwapHistory(prev => ({ ...prev, [altKey]: [...(prev[altKey] || []), currentMeal] }));
     setAltMeal(prev => ({ ...prev, [altKey]: pick }));
+  };
+
+  const swapGoBack = (mealKey, dayIdx) => {
+    const altKey = `${dayIdx}_${mealKey}`;
+    const history = swapHistory[altKey] || [];
+    if (history.length === 0) return;
+    const prevMeal = history[history.length - 1];
+    const newHistory = history.slice(0, -1);
+    setSwapHistory(prev => ({ ...prev, [altKey]: newHistory }));
+    // If going back to the very first (original) meal, clear the alt entirely
+    const originalMeal = menu30 ? menu30[dayIdx]?.[mealKey] : null;
+    if (prevMeal === originalMeal) {
+      setAltMeal(prev => { const copy = { ...prev }; delete copy[altKey]; return copy; });
+    } else {
+      setAltMeal(prev => ({ ...prev, [altKey]: prevMeal }));
+    }
+    // Clear check state when going back
+    updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[mealKey]; return { ...prev, meals: { ...prev.meals, [mealKey]: false }, foodLog: newLog }; });
   };
 
   const saveLog = () => {
@@ -4571,7 +4962,7 @@ function NeuroThriveApp() {
   };
 
   // ── Daily checks helpers ──────────────────────────────────────────────────
-  const todayKey = new Date().toISOString().slice(0, 10);
+  const todayKey = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; })();
 
   const defaultChecks = () => ({
     meals: { breakfast: false, lunch: false, dinner: false, snacks: false, snacks2: false },
@@ -4590,7 +4981,7 @@ function NeuroThriveApp() {
     }));
   };
 
-  // Confetti check — called from onClick handlers, reads ref after state settles
+  // Confetti check: called from onClick handlers, reads ref after state settles
   const checkConfetti = () => {
     setTimeout(() => {
       if (latestBPRef.current.pct >= 100 && confettiShownRef.current !== todayKey) {
@@ -4606,18 +4997,81 @@ function NeuroThriveApp() {
     setTimeout(() => setJustChecked(null), 600);
   };
 
+  // ── Shared cycle exercise data + helper ──────────────────────────────────
+  const CYCLE_EXERCISE = {
+    menstrual: [
+      { day: [1,2], emoji: "🚶", type: "Gentle Walk", why: "Your body is shedding its uterine lining and prostaglandins are highest. Light movement increases blood flow to ease cramps without taxing your already-low iron and energy reserves." },
+      { day: [3,4], emoji: "🧘", type: "Restorative Yoga", why: "Estrogen and progesterone are at their lowest point. Gentle stretching stimulates the parasympathetic nervous system, reducing the cortisol spike that low hormones leave unchecked." },
+      { day: [5], emoji: "🤸", type: "Light Pilates", why: "Bleeding is tapering and estrogen is beginning to rise. Your energy is returning; Pilates rebuilds core engagement gently as your body transitions into the follicular phase." },
+    ],
+    follicular: [
+      { day: [6,7,8], emoji: "🏃", type: "Moderate Cardio", why: "Rising estrogen increases pain tolerance, reaction time, and muscle recovery speed. Your body can handle more intensity now; cardio capitalizes on estrogen's performance-enhancing effects." },
+      { day: [9,10,11], emoji: "🏋️", type: "Strength Training", why: "Estrogen peaks enhance muscle protein synthesis and tendon stiffness, making this your strongest phase for lifting. You'll recover faster and build more lean muscle per session than any other time in your cycle." },
+      { day: [12,13], emoji: "🔥", type: "HIIT / High Intensity", why: "Estrogen is approaching its peak, maximizing your VO2 max, anaerobic threshold, and neuromuscular coordination. Your body is primed for its highest output; take advantage before ovulation." },
+    ],
+    ovulatory: [
+      { day: [14,15], emoji: "🔥", type: "HIIT / Power Training", why: "Estrogen peaks alongside a surge in luteinizing hormone; your testosterone also briefly spikes. This is your absolute performance peak: fastest reaction time, highest pain tolerance, strongest power output." },
+      { day: [16], emoji: "💃", type: "Dance / Group Fitness", why: "The oxytocin and estrogen peak makes you more social and coordinated. Group exercise leverages this neurochemistry; you'll feel more motivated by others and more graceful in complex movements." },
+    ],
+    luteal: [
+      { day: [17,18,19,20], emoji: "🏋️", type: "Moderate Strength", why: "Progesterone is rising, increasing your core body temperature and metabolic rate. You burn more calories at rest but fatigue faster; moderate lifting with longer rest periods matches your shifting physiology." },
+      { day: [21,22,23,24], emoji: "🧘", type: "Yoga / Steady Cardio", why: "Progesterone peaks, raising body temperature and reducing heat tolerance. Serotonin drops as progesterone metabolites compete for the same receptors; gentle movement boosts serotonin without overheating." },
+      { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now; gentle movement prevents cortisol spikes while intense exercise depletes magnesium, the same mineral your body needs most right now to ease cramps and calm your nervous system." },
+    ],
+  };
+
+  const getCycleSuggestion = (phase) => {
+    if (!phase) return null;
+    const options = CYCLE_EXERCISE[phase.phase];
+    if (!options) return null;
+    for (const opt of options) { if (opt.day.includes(phase.day)) return opt; }
+    return options[options.length - 1];
+  };
+
+  // ── Helper: adjust routine exercise step position based on time preference ──
+  const getAdjustedRoutine = (routine, timePref) => {
+    if (!routine) return routine;
+    const morning = [...(routine.morning || [])];
+    const evening = [...(routine.evening || [])];
+    const isExStep = (s) => !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
+    // Find and remove exercise step from both arrays
+    let exStep = null;
+    const mIdx = morning.findIndex(isExStep);
+    if (mIdx !== -1) { exStep = morning.splice(mIdx, 1)[0]; }
+    const eIdx = evening.findIndex(isExStep);
+    if (eIdx !== -1) { exStep = evening.splice(eIdx, 1)[0]; }
+    // If no workout step found, create a default one
+    if (!exStep) {
+      exStep = { title: timePref === "morning" ? "Morning Workout" : "Evening Workout", desc: "Move your body for brain-boosting benefits — any exercise that feels good to you.", time: "15+ min", isWorkout: true };
+    } else {
+      exStep = { ...exStep, title: timePref === "morning" ? "Morning Workout" : "Evening Workout", isWorkout: true };
+    }
+    // Insert into preferred time slot
+    if (timePref === "morning") {
+      // Insert after first step (or at start if empty)
+      morning.splice(Math.min(1, morning.length), 0, exStep);
+    } else {
+      // Insert at beginning of evening
+      evening.splice(0, 0, exStep);
+    }
+    return { ...routine, morning, evening };
+  };
+
   const toggleMealCheck = (mealKey, mealName) => {
     updateTodayChecks(prev => {
-      const wasChecked = prev.meals[mealKey];
-      const newMeals = { ...prev.meals, [mealKey]: !wasChecked };
+      const currentlyLogged = prev.foodLog?.[mealKey];
+      const wasThisOne = prev.meals[mealKey] && currentlyLogged === mealName;
       const newLog = { ...prev.foodLog };
-      if (!wasChecked) {
+      if (wasThisOne) {
+        // Uncheck: tapping the already-checked meal unchecks it
+        delete newLog[mealKey];
+        return { ...prev, meals: { ...prev.meals, [mealKey]: false }, foodLog: newLog };
+      } else {
+        // Check this meal (radio-style: auto-deselects the other)
         newLog[mealKey] = mealName;
         triggerCheckAnim("meal-" + mealKey);
-      } else {
-        delete newLog[mealKey];
+        return { ...prev, meals: { ...prev.meals, [mealKey]: true }, foodLog: newLog };
       }
-      return { ...prev, meals: newMeals, foodLog: newLog };
     });
     checkConfetti();
   };
@@ -4637,7 +5091,7 @@ function NeuroThriveApp() {
 
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-    const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const routine = getAdjustedRoutine(personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default, exerciseTimePref);
     const morningCount = (routine?.morning || []).length;
     const eveningCount = (routine?.evening || []).length;
     const morningChecked = (checks.routine?.morning || []).filter(Boolean).length;
@@ -4681,7 +5135,7 @@ function NeuroThriveApp() {
     // Morning routine: 3 BP per step
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-    const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+    const routine = getAdjustedRoutine(personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default, exerciseTimePref);
     const morningSteps = routine?.morning || [];
     const eveningSteps = routine?.evening || [];
     const morningChecked = Math.min((checks.routine?.morning || []).filter(Boolean).length, morningSteps.length);
@@ -4691,11 +5145,10 @@ function NeuroThriveApp() {
     const eveningBP = eveningChecked * 3;
     const eveningMaxBP = eveningSteps.length * 3;
 
-    // Exercise: 10 BP only if routine includes an exercise step
-    const hasExerciseStep = [...morningSteps, ...eveningSteps].some(s => !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title));
+    // Exercise: always 10 BP (dedicated exercise page always available)
     const exerciseDone = !!checks.exercise;
-    const exerciseMaxBP = hasExerciseStep ? 10 : 0;
-    const exerciseBP = (exerciseDone && hasExerciseStep) ? 10 : 0;
+    const exerciseMaxBP = 10;
+    const exerciseBP = exerciseDone ? 10 : 0;
 
     // Journal: 5 BP + 2 bonus for positive mood
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
@@ -4758,12 +5211,12 @@ function NeuroThriveApp() {
       { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8" },
     ];
 
-    // Filter by context and hide categories with 0 max
+    // Filter by context; show all categories on checklist page so every section has a line
     const activeCats = catItems.filter(c => c.max > 0);
     const items = context === "menu" ? activeCats.filter(c => c.label === "Meals")
       : context === "routine" ? activeCats.filter(c => ["Morning","Evening","Exercise"].includes(c.label))
       : context === "journal" ? activeCats.filter(c => c.label === "Journal")
-      : activeCats;
+      : catItems;
 
     return (
       <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "16px 18px", marginBottom: "18px" }}>
@@ -4916,10 +5369,34 @@ function NeuroThriveApp() {
         </div>
       )}
 
+      {/* Swap Lock Warning Modal */}
+      {swapLockWarning && (
+        <div style={{ position:"fixed", inset:0, zIndex:2000, background:"rgba(0,0,0,0.6)", backdropFilter:"blur(6px)", display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
+          <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"24px", padding:"28px", maxWidth:"380px", width:"100%", border:"1px solid rgba(232,200,122,0.25)", boxShadow:"0 32px 80px rgba(0,0,0,0.4)", textAlign:"center" }}>
+            <div style={{ fontSize:"40px", marginBottom:"12px" }}>🔒</div>
+            <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", marginBottom:"10px" }}>Week is Locked</h3>
+            <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, marginBottom:"20px" }}>
+              You've locked in this week's grocery list. Swapping this meal means you may need to buy different ingredients.
+            </p>
+            <div style={{ display:"flex", gap:"10px" }}>
+              <button onClick={() => setSwapLockWarning(null)} style={{ flex:1, padding:"12px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#8890b8", fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Keep Current</button>
+              <button onClick={() => {
+                const w = swapLockWarning;
+                // Unlock the week, do the swap
+                setLockedWeeks(prev => { const copy = { ...prev }; delete copy[w.weekIdx]; return copy; });
+                doSwap(w.currentMeal, w.mealType, w.mealKey, w.dayIdx);
+                setSwapLockWarning(null);
+              }} style={{ flex:1, padding:"12px", borderRadius:"14px", border:"1px solid rgba(232,200,122,0.3)", background:"rgba(232,200,122,0.08)", color:"#e8c87a", fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Unlock & Swap</button>
+            </div>
+            <p style={{ color:"#6b7394", fontSize:"11px", marginTop:"14px", lineHeight:1.5 }}>This will unlock the week so your grocery list updates with the new meal.</p>
+          </div>
+        </div>
+      )}
+
       <nav style={S.nav}>
         <div style={{ ...S.logo, cursor:"pointer" }} onClick={() => setStep(0)}>
           <span style={{ fontSize:"20px" }}>🧠</span>
-          <span>NeuroThrive</span>
+          <span>Neuro<span style={{ color:"#7b9fff" }}>Thrive</span></span>
         </div>
         <div className="nav-tabs-scroll" style={S.navTabs}>
           {step > 0 && step <= 3 && [
@@ -4931,7 +5408,7 @@ function NeuroThriveApp() {
           ))}
           {step > 3 && (
             <>
-              <button style={S.navTab(step===4)} onClick={() => setStep(4)}>30-Day Menu</button>
+              <button style={S.navTab(step===4)} onClick={() => { syncMenuToToday(); setStep(4); }}>30-Day Menu</button>
               {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today's Checklist</button>}
               {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
             </>
@@ -4939,7 +5416,7 @@ function NeuroThriveApp() {
         </div>
         {isPremium && step > 3 && (
           <div style={{ position:"relative", flexShrink:0 }}>
-            <button style={S.navTab([6,7,8,9,10].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
+            <button style={S.navTab([6,7,8,9,10,14,15,16,17].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
               <>
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
@@ -4955,11 +5432,15 @@ function NeuroThriveApp() {
                   {[
                     { label:"Journal",     s:8 },
                     { label:"Routine",     s:10 },
+                    { label:"Exercise",    s:17 },
                     { label:"Supplements", s:6 },
                     { label:"Reminders",   s:7 },
                     { label:"Toolkit",     s:9 },
+                    { label:"Nervous System", s:14 },
+                    { label:"Grocery List",  s:15 },
+                    { label:"Favorites",     s:16 },
                   ].map(({ label, s }) => (
-                    <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
+                    <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); if(s===14){setNsCategory(null);setNsTool(null);} if(s===15){setGroceryWeek(selectedWeek);setGroceryChecked({});} }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
                   ))}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
                   <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
@@ -4983,7 +5464,7 @@ function NeuroThriveApp() {
           <div style={S.hero}>
             <div style={S.heroEyebrow}>Brain · Food · Wellbeing</div>
             <h1 style={S.heroTitle}>Eat for your<br/><span style={S.heroAccent}>mind.</span></h1>
-            <p style={S.heroSub}>A personalized 30-day nutrition plan built around your mental health — with daily mood tracking and research-informed meal explanations.</p>
+            <p style={S.heroSub}>A personalized 30-day nutrition plan built around your mental health, with daily mood tracking and research-informed meal explanations.</p>
             <button style={S.btnAccent} onClick={() => setStep(1)}>Get Started →</button>
           </div>
         )}
@@ -4992,7 +5473,7 @@ function NeuroThriveApp() {
         {step === 1 && (
           <div>
             <h2 style={S.sectionTitle}>Tell us about yourself</h2>
-            <p style={S.sectionSub}>This helps us personalize your plan — hormones and biology shape how nutrition affects your brain and mood.</p>
+            <p style={S.sectionSub}>This helps us personalize your plan; hormones and biology shape how nutrition affects your brain and mood.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", marginBottom:"32px" }}>
               {[
                 { id:"male",   label:"Male",   desc:"Protein metabolism, testosterone support, iron & zinc optimisation" },
@@ -5021,7 +5502,7 @@ function NeuroThriveApp() {
                 </div>
               ))}
             </div>
-            {/* Cycle Sync — only for female */}
+            {/* Cycle Sync: only for female */}
             {selectedGender === "female" && (
               <div style={{ marginBottom:"28px", padding:"20px", borderRadius:"18px", background:"rgba(168,120,210,0.06)", border:"1px solid rgba(168,120,210,0.15)" }}>
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"8px" }}>
@@ -5093,7 +5574,7 @@ function NeuroThriveApp() {
         {step === 2 && (
           <div>
             <h2 style={S.sectionTitle}>What do you live with?</h2>
-            <p style={S.sectionSub}>Select all that apply. You are not defined by these labels — they simply help us personalize your plan.</p>
+            <p style={S.sectionSub}>Select all that apply. You are not defined by these labels; they simply help us personalize your plan.</p>
             <div style={S.grid}>
               {MENTAL_CONDITIONS.map(c => (
                 <div key={c.id} style={S.chip(selectedConditions.includes(c.id))} onClick={() => toggleItem(selectedConditions, setSelectedConditions, c.id)}>
@@ -5114,7 +5595,7 @@ function NeuroThriveApp() {
 
         {/* STEP 13: ROUTINE QUESTIONNAIRE */}
         {step === 13 && (() => {
-          // Intro screen — transition from menu
+          // Intro screen: transition from menu
           if (routineQPage === "intro") {
             return (
               <div style={{ textAlign:"center", paddingTop:"40px" }}>
@@ -5138,7 +5619,7 @@ function NeuroThriveApp() {
             );
           }
 
-          // Preview mode — show generated routine, tap X to remove
+          // Preview mode: show generated routine, tap X to remove
           if (routineQPage === "preview" && personalRoutine) {
             const removeStep = (period, idx) => {
               const newSteps = personalRoutine[period].filter((_, i) => i !== idx);
@@ -5164,16 +5645,16 @@ function NeuroThriveApp() {
             return (
               <div>
                 <h2 style={S.sectionTitle}>Your Personalized Routine</h2>
-                <p style={S.sectionSub}>Here's your routine. Remove anything that doesn't fit — you can always rebuild later.</p>
+                <p style={S.sectionSub}>Here's your routine. Remove anything that doesn't fit; you can always rebuild later.</p>
 
                 <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>Morning Routine</div>
                 {personalRoutine.morning.length > 0 ? personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)")) : (
-                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No morning steps — that's okay!</div>
+                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No morning steps; that's okay!</div>
                 )}
 
                 <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>Evening Routine</div>
                 {personalRoutine.evening.length > 0 ? personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5570f0,#4060e0)")) : (
-                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No evening steps — that's okay!</div>
+                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No evening steps; that's okay!</div>
                 )}
 
                 <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
@@ -5198,7 +5679,7 @@ function NeuroThriveApp() {
               <p style={S.sectionSub}>
                 {routineQPage === "morning"
                   ? "Your 30-day menu is ready. Now tell us about your mornings so we can create a routine personalized to your brain."
-                  : "Almost done — tell us about your evenings so we can help you wind down the way your brain needs."
+                  : "Almost done; tell us about your evenings so we can help you wind down the way your brain needs."
                 }
               </p>
 
@@ -5255,7 +5736,7 @@ function NeuroThriveApp() {
         {step === 3 && (
           <div>
             <h2 style={S.sectionTitle}>Dietary needs & restrictions</h2>
-            <p style={S.sectionSub}>Select everything that applies — your menu will be personalized to match your lifestyle and avoid anything that doesn't work for you.</p>
+            <p style={S.sectionSub}>Select everything that applies; your menu will be personalized to match your lifestyle and avoid anything that doesn't work for you.</p>
 
             <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
             <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
@@ -5285,8 +5766,8 @@ function NeuroThriveApp() {
               const selectedRestrictions = selectedDiet.filter(d => !dietTypeIds.has(d));
               return (
                 <div style={{ ...S.warningBanner, marginBottom:"20px", marginTop:"20px" }}>
-                  {selectedTypes.length > 0 && <div style={{ marginBottom: selectedRestrictions.length > 0 ? "6px" : 0 }}>✓ Diet: {selectedTypes.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")} — your menu will follow {selectedTypes.length === 1 ? "this style" : "these styles"}.</div>}
-                  {selectedRestrictions.length > 0 && <div>✓ Excluded: {selectedRestrictions.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")} — meals with these ingredients will be removed.</div>}
+                  {selectedTypes.length > 0 && <div style={{ marginBottom: selectedRestrictions.length > 0 ? "6px" : 0 }}>✓ Diet: {selectedTypes.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")}; your menu will follow {selectedTypes.length === 1 ? "this style" : "these styles"}.</div>}
+                  {selectedRestrictions.length > 0 && <div>✓ Excluded: {selectedRestrictions.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")}; meals with these ingredients will be removed.</div>}
                 </div>
               );
             })()}
@@ -5356,7 +5837,7 @@ function NeuroThriveApp() {
               <div style={{ fontSize:"56px", marginBottom:"16px" }}>🌿</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px" }}>Cycle {planCycle} Complete</h2>
               <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.6, marginBottom:"8px" }}>You've completed 30 days of nourishing your mind and body. That's something to be genuinely proud of.</p>
-              <p style={{ color:"#7b9fff", fontSize:"14px", marginBottom:"28px", fontStyle:"italic" }}>Your new Cycle {planCycle+1} menu is ready — fresh meals, same personalisation.</p>
+              <p style={{ color:"#7b9fff", fontSize:"14px", marginBottom:"28px", fontStyle:"italic" }}>Your new Cycle {planCycle+1} menu is ready: fresh meals, same personalisation.</p>
               <div style={{ display:"flex", gap:"12px", justifyContent:"center", flexWrap:"wrap" }}>
                 <button onClick={startNewCycle} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"14px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Start Cycle {planCycle+1} 🌱</button>
                 <button onClick={() => setShowCycleComplete(false)} style={{ background:"transparent", color:"#8890b8", border:"1px solid rgba(110,120,200,0.3)", padding:"14px 24px", borderRadius:"50px", fontSize:"14px", cursor:"pointer" }}>Stay on This Menu</button>
@@ -5365,18 +5846,18 @@ function NeuroThriveApp() {
           </div>
         )}
 
-        {/* PAYWALL GATE: show if step >= 4 and not premium (skip step 13 — onboarding) */}
+        {/* PAYWALL GATE: show if step >= 4 and not premium (skip step 13, onboarding) */}
         {step >= 4 && step !== 13 && !isPremium && (
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
             <div style={{ fontSize:"52px", marginBottom:"16px" }}>🧠</div>
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
-            <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready — subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
+            <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready; subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", width:"100%", maxWidth:"380px" }}>
               <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#6b8fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
-                {checkoutLoading === "annual" ? "Loading..." : "Get Annual — $59.99/yr (save 50%)"}
+                {checkoutLoading === "annual" ? "Loading..." : "Get Annual: $59.99/yr (save 50%)"}
               </button>
               <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#c8d0ff", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
-                {checkoutLoading === "monthly" ? "Loading..." : "Monthly — $9.99/mo"}
+                {checkoutLoading === "monthly" ? "Loading..." : "Monthly: $9.99/mo"}
               </button>
             </div>
             <button onClick={() => setStep(3)} style={{ marginTop:"24px", color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>← Go back</button>
@@ -5422,7 +5903,10 @@ function NeuroThriveApp() {
                 </div>
                 <p style={S.sectionSub}>Tap any meal to see why each ingredient is on your plan, or get the recipe.</p>
               </div>
-              <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
+              <div style={{ display:"flex", gap:"8px" }}>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => { setGroceryWeek(selectedWeek); setGroceryChecked({}); setStep(15); }}>🛒 Grocery List</button>
+                <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
+              </div>
             </div>
 
             {cycleStartDate && (
@@ -5477,7 +5961,7 @@ function NeuroThriveApp() {
             {currentDay && (
               <>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
-                  <div style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px" }}>Day {currentDay.day} <span style={{ color:"#8890b8", fontWeight:"400" }}>— {formatPlanDate(globalDayIdx) || DAY_NAMES[selectedDayIdx]}</span></div>
+                  <div style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px" }}>Day {currentDay.day} <span style={{ color:"#8890b8", fontWeight:"400" }}>: {formatPlanDate(globalDayIdx) || DAY_NAMES[selectedDayIdx]}</span></div>
                   <div style={{ display:"flex", gap:"8px" }}>
                     <button style={S.btnSm} onClick={() => { const prev=globalDayIdx-1; if(prev>=0){setSelectedWeek(Math.floor(prev/7));setSelectedDayIdx(prev%7);} }}>← Prev</button>
                     <button style={S.btnSm} onClick={() => { const next=globalDayIdx+1; if(next<30){setSelectedWeek(Math.floor(next/7));setSelectedDayIdx(next%7);} }}>Next →</button>
@@ -5487,7 +5971,7 @@ function NeuroThriveApp() {
                 <ProgressBanner context="menu" />
 
                 <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
-                  Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> next to each meal when you eat it. This logs what you ate and tracks your daily progress.
+                  Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
                 </div>
 
                 {[
@@ -5497,37 +5981,46 @@ function NeuroThriveApp() {
                   { key:"snacks",    label:"🍎 Snack" },
                   ...(currentDay.snacks2 ? [{ key:"snacks2", label:"🍊 Snack 2" }] : []),
                 ].map(({ key, label }) => {
-                  const mainMeal = currentDay[key];
+                  const originalMeal = currentDay[key];
                   const altKey = `${globalDayIdx}_${key}`;
                   const alt = altMeal[altKey];
+                  const activeMeal = alt || originalMeal;
                   const todayChecks = getTodayChecks();
                   const mealChecked = todayChecks.meals[key];
-                  const loggedMeal = todayChecks.foodLog?.[key];
-                  const ateAlt = mealChecked && loggedMeal && loggedMeal !== mainMeal;
                   return (
                     <div key={key} style={S.card}>
                       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px" }}>
                         <div style={S.mealLabel}>{label}</div>
-                        {mealChecked && <span style={{ color:"#50c878", fontSize:"10px", fontWeight:"600" }}>Logged: {loggedMeal ? (loggedMeal.length > 30 ? loggedMeal.slice(0,30) + "..." : loggedMeal) : mainMeal}</span>}
+                        {mealChecked && <span style={{ color:"#50c878", fontSize:"10px", fontWeight:"600" }}>Eaten</span>}
                       </div>
 
-                      {/* Main meal */}
+                      {/* Swapped indicator */}
+                      {alt && (
+                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px", padding:"6px 10px", borderRadius:"10px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)" }}>
+                          <span style={{ color:"#e8c87a", fontSize:"10px", fontWeight:"700" }}>Swapped</span>
+                          <span style={{ color:"#8890b8", fontSize:"10px" }}>from {originalMeal.length > 35 ? originalMeal.slice(0,35) + "…" : originalMeal}</span>
+                          <button onClick={() => { setAltMeal(prev => { const copy = { ...prev }; delete copy[altKey]; return copy; }); setSwapHistory(prev => { const copy = { ...prev }; delete copy[altKey]; return copy; }); updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[key]; return { ...prev, meals: { ...prev.meals, [key]: false }, foodLog: newLog }; }); }} style={{ marginLeft:"auto", background:"none", border:"none", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer", padding:"2px 6px", textDecoration:"underline" }}>Undo</button>
+                        </div>
+                      )}
+
+                      {/* Active meal (original or swapped) */}
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
-                        <button onClick={() => toggleMealCheck(key, mainMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: (mealChecked && !ateAlt) ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: (mealChecked && !ateAlt) ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
-                          {(mealChecked && !ateAlt) && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
+                        <button onClick={() => toggleMealCheck(key, activeMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
+                          {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
                         </button>
-                        <span style={{ flex:1, color: (mealChecked && !ateAlt) ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: (mealChecked && !ateAlt) ? "line-through" : "none", opacity: (mealChecked && !ateAlt) ? 0.7 : 1, transition:"all 0.3s" }}>{mainMeal}</span>
+                        <span style={{ flex:1, color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, transition:"all 0.3s" }}>{activeMeal}</span>
+                        <button onClick={(e) => { e.stopPropagation(); toggleFavorite(activeMeal); }} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"18px", flexShrink:0, transition:"transform 0.2s", transform: isFavorite(activeMeal) ? "scale(1.15)" : "scale(1)" }} title={isFavorite(activeMeal) ? "Remove from favorites" : "Add to favorites"}>{isFavorite(activeMeal) ? "❤️" : "🤍"}</button>
                       </div>
                       <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px" }}>
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
-                          <span style={{ fontSize:"12px" }}>🔥</span>
-                          <span style={{ color:"#7b9fff", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(mainMeal)}</span>
+                          <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
+                          <span style={{ color:"#7b9fff", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(activeMeal)}</span>
                         </div>
-                        {(() => { const bs = getBrainScore(mainMeal); return (
+                        {(() => { const bs = getBrainScore(activeMeal); return (
                           <>
                             <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : bs.score >= 3 ? "rgba(107,143,255,0.08)" : "rgba(255,255,255,0.04)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                              <span style={{ fontSize:"12px" }}>🧠</span>
-                              <span style={{ color: bs.score >= 4 ? "#50c878" : bs.score >= 3 ? "#7b9fff" : "#6b7394", fontSize:"11px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
+                              <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
+                              <span style={{ color: bs.score >= 4 ? "#50c878" : bs.score >= 3 ? "#7b9fff" : "#6b7394", fontSize:"11px", fontWeight:"700" }}>{bs.score}/5</span>
                             </div>
                             {bs.nutrients.length > 0 && bs.nutrients.map((n,i) => (
                               <span key={i} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.1)", color:"#8890b8", fontSize:"10px", fontWeight:"600" }}>{n}</span>
@@ -5537,65 +6030,34 @@ function NeuroThriveApp() {
                       </div>
 
                       {/* Gender-specific phase/note pill */}
-                      {(() => { const gn = getGenderNote(mainMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
+                      {(() => { const gn = getGenderNote(activeMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginBottom:"12px" }}>
                           <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
                           <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
                         </div>
                       );})()}
 
-                      {/* Main meal buttons */}
-                      <div style={{ display:"flex", gap:"7px", flexWrap:"wrap", marginBottom: alt ? "12px" : "0" }}>
+                      {/* Meal action buttons */}
+                      <div style={{ display:"flex", gap:"7px", flexWrap:"wrap" }}>
                         <button
                           style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
-                          onClick={() => openExplain(mainMeal, label, globalDayIdx)}
-                        >🧠 Why this?</button>
+                          onClick={() => openExplain(activeMeal, label, globalDayIdx)}
+                        >Why this?</button>
                         <button
                           style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
-                          onClick={() => openRecipe(mainMeal, label, globalDayIdx)}
-                        >🍳 Recipe</button>
+                          onClick={() => openRecipe(activeMeal, label, globalDayIdx)}
+                        >Recipe</button>
+                        {(swapHistory[`${globalDayIdx}_${key}`]?.length > 0) && (
+                          <button
+                            style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(160,160,200,0.2)", background:"rgba(160,160,200,0.06)", color:"#a0a8c8", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                            onClick={() => swapGoBack(key, globalDayIdx)}
+                          >← Previous</button>
+                        )}
                         <button
-                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(110,120,200,0.25)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
-                          onClick={() => getAltMeal(mainMeal, label, key)}
-                        >✨ Swap</button>
+                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(232,200,122,0.25)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                          onClick={() => getAltMeal(activeMeal, label, key)}
+                        >{alt ? "Swap Again" : "Swap"}</button>
                       </div>
-
-                      {/* Alternative meal (only shown after swap) */}
-                      {alt && (
-                        <div style={{ marginTop:"4px", padding:"12px 14px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
-                          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"6px" }}>
-                            <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase" }}>Alternative</div>
-                          </div>
-                          <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
-                            <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
-                              {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
-                            </button>
-                            <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1, transition:"all 0.3s" }}>{alt}</span>
-                          </div>
-                          <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"10px" }}>
-                            <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"3px 9px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
-                              <span style={{ fontSize:"11px" }}>🔥</span>
-                              <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
-                            </div>
-                            {(() => { const bs = getBrainScore(alt); return (
-                              <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 9px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                                <span style={{ fontSize:"11px" }}>🧠</span>
-                                <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
-                              </div>
-                            );})()}
-                          </div>
-                          <div style={{ display:"flex", gap:"7px", flexWrap:"wrap" }}>
-                            <button
-                              style={{ flex:1, padding:"8px 10px", borderRadius:"9px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}
-                              onClick={() => openExplain(alt, label, globalDayIdx)}
-                            >🧠 Why this?</button>
-                            <button
-                              style={{ flex:1, padding:"8px 10px", borderRadius:"9px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}
-                              onClick={() => openRecipe(alt, label, globalDayIdx)}
-                            >🍳 Recipe</button>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   );
                 })}
@@ -5610,7 +6072,7 @@ function NeuroThriveApp() {
               <div style={{ marginTop:"12px", display:"grid", gap:"8px" }}>
                 {weekDays.map((day,i) => (
                   <div key={day.day} onClick={() => setSelectedDayIdx(i)} style={{ padding:"14px 16px", borderRadius:"14px", background:selectedDayIdx===i?"rgba(80,112,240,0.1)":"rgba(240,244,255,0.04)", border:selectedDayIdx===i?"1px solid rgba(107,143,255,0.35)":"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day} — {formatPlanDate(selectedWeek * 7 + i) || DAY_NAMES[i]}</div>
+                    <div style={{ color:"#7b9fff", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day}: {formatPlanDate(selectedWeek * 7 + i) || DAY_NAMES[i]}</div>
                     <div style={{ color:"#7a90f0", fontSize:"12px", lineHeight:1.8 }}>🌅 {day.breakfast}<br/>☀️ {day.lunch}<br/>🌙 {day.dinner}<br/>🍎 {day.snacks}{day.snacks2 && <><br/>🍊 {day.snacks2}</>}</div>
                   </div>
                 ))}
@@ -5624,7 +6086,7 @@ function NeuroThriveApp() {
               <div style={{ marginTop:"12px", display:"grid", gap:"6px" }}>
                 {menu30.map((day,i) => (
                   <div key={day.day} onClick={() => { setSelectedWeek(Math.floor(i/7)); setSelectedDayIdx(i%7); }} style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", marginBottom:"3px" }}>Day {day.day} {formatPlanDate(i, "short") && <span style={{ color:"#8890b8", fontWeight:"500" }}>— {formatPlanDate(i, "short")}</span>}</div>
+                    <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", marginBottom:"3px" }}>Day {day.day} {formatPlanDate(i, "short") && <span style={{ color:"#8890b8", fontWeight:"500" }}>: {formatPlanDate(i, "short")}</span>}</div>
                     <div style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6 }}>🌅 {day.breakfast} · ☀️ {day.lunch} · 🌙 {day.dinner}</div>
                   </div>
                 ))}
@@ -5643,7 +6105,7 @@ function NeuroThriveApp() {
         {step === 8 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
-            <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge — and patterns become power.</p>
+            <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge, and patterns become power.</p>
             <ProgressBanner context="journal" />
             {logSaved && <div style={S.successBanner}>✓ Today's log saved! Every entry matters.</div>}
             {moodInsight && (
@@ -5695,7 +6157,7 @@ function NeuroThriveApp() {
               </>
             )}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"18px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(4)}>← Menu</button>
+              <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Menu</button>
               <button style={S.btn} onClick={() => setStep(10)}>Routine →</button>
             </div>
             {logs.length > 0 && (
@@ -5717,7 +6179,7 @@ function NeuroThriveApp() {
             <div style={{ background:"rgba(200,190,160,0.08)", border:"1px solid rgba(200,190,160,0.2)", borderRadius:"14px", padding:"14px 18px", marginBottom:"24px" }}>
               <div style={{ fontSize:"11px", textTransform:"uppercase", letterSpacing:"2px", color:"#8890b8", fontWeight:"600", marginBottom:"6px" }}>⚕️ Educational Information Only</div>
               <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:"0 0 10px 0" }}>The supplements below are provided for <strong style={{color:"#c8ccf0"}}>educational and informational purposes only</strong>. This is not medical advice and is not intended to diagnose, treat, cure, or prevent any condition.</p>
-              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:0 }}>Dosing, safety, and interactions vary significantly by individual health status and medications. <strong style={{color:"#c8ccf0"}}>Always consult a qualified healthcare provider</strong> — such as your doctor, psychiatrist, or registered dietitian — before starting, stopping, or changing any supplement.</p>
+              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:0 }}>Dosing, safety, and interactions vary significantly by individual health status and medications. <strong style={{color:"#c8ccf0"}}>Always consult a qualified healthcare provider</strong>, such as your doctor, psychiatrist, or registered dietitian, before starting, stopping, or changing any supplement.</p>
             </div>
             {(() => {
               // Gather supplements for ALL selected conditions, deduplicated by name
@@ -5777,7 +6239,7 @@ function NeuroThriveApp() {
                       <div style={{ padding:"0 20px 20px 20px", borderTop:"1px solid rgba(110,120,200,0.12)", paddingTop:"16px" }}>
                         {s.why && (
                           <div style={{ marginBottom:"16px", padding:"14px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(85,112,240,0.1), rgba(107,143,255,0.06))", border:"1px solid rgba(107,143,255,0.2)" }}>
-                            <div style={{ fontSize:"10px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"8px" }}>💙 Why This Helps You</div>
+                            <div style={{ fontSize:"10px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"8px" }}>Why This Helps You</div>
                             <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0 }}>{s.why}</p>
                           </div>
                         )}
@@ -5827,7 +6289,7 @@ function NeuroThriveApp() {
         {step === 7 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Reminders & Affirmations</h2>
-            <p style={S.sectionSub}>Daily motivation and gentle nudges to keep you nourished — body and mind.</p>
+            <p style={S.sectionSub}>Daily motivation and gentle nudges to keep you nourished, body and mind.</p>
 
             {/* ── Daily Affirmation ── */}
             <div style={{ marginBottom:"28px" }}>
@@ -5835,7 +6297,7 @@ function NeuroThriveApp() {
               <div style={S.affirmCard}>
                 <div style={{ position:"absolute", top:"24px", left:"28px", fontSize:"72px", lineHeight:1, color:"rgba(107,143,255,0.2)", fontFamily:"'Cormorant Garamond',serif" }}>"</div>
                 <p style={{ fontSize:"22px", lineHeight:1.55, color:"#eef0ff", fontStyle:"italic", marginBottom:"20px", opacity:animating?0:1, transition:"opacity 0.3s", position:"relative", zIndex:1, fontWeight:"300" }}>{AFFIRMATIONS[affirmIdx].text}</p>
-                <div style={{ fontSize:"12px", color:"#7b9fff", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700" }}>— {AFFIRMATIONS[affirmIdx].author}</div>
+                <div style={{ fontSize:"12px", color:"#7b9fff", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700" }}>: {AFFIRMATIONS[affirmIdx].author}</div>
               </div>
               <div style={{ display:"flex", justifyContent:"center", gap:"12px", marginBottom:"16px" }}>
                 <button style={S.btnOutline} onClick={prevAffirm}>← Prev</button>
@@ -5907,15 +6369,15 @@ function NeuroThriveApp() {
 
             {(() => {
               const REMINDER_TIPS = {
-                adhd: { emoji:"⚡", label:"ADHD", tip:"Time blindness is real. Many people with ADHD don't feel hunger cues until they're well past the point of low blood sugar — which worsens focus and mood. Gentle meal reminders act as an external clock for your brain." },
-                anxiety: { emoji:"🌊", label:"Anxiety", tip:"Skipping meals spikes cortisol and drops blood sugar — two of the most powerful anxiety triggers. Consistent meal timing keeps your nervous system regulated and reduces the physical fuel for anxious thoughts." },
+                adhd: { emoji:"⚡", label:"ADHD", tip:"Time blindness is real. Many people with ADHD don't feel hunger cues until they're well past the point of low blood sugar, which worsens focus and mood. Gentle meal reminders act as an external clock for your brain." },
+                anxiety: { emoji:"🌊", label:"Anxiety", tip:"Skipping meals spikes cortisol and drops blood sugar, two of the most powerful anxiety triggers. Consistent meal timing keeps your nervous system regulated and reduces the physical fuel for anxious thoughts." },
                 depression: { emoji:"🌤", label:"Depression", tip:"Depression often blunts hunger signals entirely. Reminders help ensure you're nourishing your brain even on the days when nothing sounds appealing. Consistent eating supports serotonin production throughout the day." },
                 ptsd: { emoji:"🛡", label:"PTSD", tip:"A dysregulated nervous system can suppress hunger and appetite. Regular meals help stabilise cortisol rhythms, supporting the calm, predictable routine that trauma recovery depends on." },
                 bipolar: { emoji:"🔋", label:"Bipolar Disorder", tip:"Blood sugar stability is especially important for mood cycling. Irregular eating can trigger energy crashes that resemble or amplify mood episodes. Consistent meal timing is one of the most underrated mood-stabilising tools." },
                 ocd: { emoji:"🔵", label:"OCD", tip:"Meal anxiety and food-related rituals are common in OCD. Gentle, non-judgmental reminders support a structured, predictable eating routine that can gradually reduce meal-time anxiety without adding pressure." },
                 schizophrenia: { emoji:"🌙", label:"Schizophrenia", tip:"Antipsychotic medications can alter hunger and fullness signals. Regular meal reminders help ensure consistent nutrition that supports medication effectiveness and reduces metabolic side effects." },
                 autism: { emoji:"💫", label:"Autism", tip:"Sensory sensitivities and hyperfocus can make mealtimes easy to forget or avoid. Predictable meal reminders support the consistent routine that the autistic nervous system thrives on." },
-                eating_disorder: { emoji:"💙", label:"Eating Disorder Recovery", tip:"Reminders in recovery aren't about restriction — they're about structure and self-compassion. Consistent eating times help re-regulate hunger hormones like ghrelin and leptin that restriction disrupts." },
+                eating_disorder: { emoji:"💙", label:"Eating Disorder Recovery", tip:"Reminders in recovery aren't about restriction; they're about structure and self-compassion. Consistent eating times help re-regulate hunger hormones like ghrelin and leptin that restriction disrupts." },
                 default: { emoji:"🧠", label:"Brain Health", tip:"Your brain consumes 20% of your body's energy. Consistent meal timing ensures a steady supply of glucose and nutrients to support mood, focus, and emotional regulation throughout the day." },
               };
               const condKeys = selectedConditions.length > 0
@@ -6074,7 +6536,7 @@ function NeuroThriveApp() {
         {step === 10 && isPremium && (
           <div>
             <h2 style={S.sectionTitle}>Daily Routine</h2>
-            <p style={S.sectionSub}>Morning and evening routines tailored to your conditions — the two highest-leverage points in your day.</p>
+            <p style={S.sectionSub}>Morning and evening routines tailored to your conditions, the two highest-leverage points in your day.</p>
             <ProgressBanner context="routine" />
             <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
               <button onClick={() => setRoutineTab("morning")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="morning"?"2px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:routineTab==="morning"?"#5570f0":"rgba(240,244,255,0.04)", color:routineTab==="morning"?"#fff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌅 Morning</button>
@@ -6085,7 +6547,8 @@ function NeuroThriveApp() {
                 : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
 
               // ── Morning / Evening tabs ──
-              const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+              const rawRoutine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+              const routine = getAdjustedRoutine(rawRoutine, exerciseTimePref);
               const steps = routineTab === "morning" ? routine.morning : routine.evening;
               const totalTime = steps.reduce((acc, s) => acc + (parseInt(s.time) || 0), 0);
               const todayRoutineChecks = getTodayChecks().routine[routineTab] || [];
@@ -6096,72 +6559,15 @@ function NeuroThriveApp() {
                     <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
                   </div>
                   {(() => {
-                    const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
                     const exerciseDone = !!getTodayChecks().exercise;
-                    const hasExerciseStep = steps.some(s => (s.tags && s.tags.includes("exercise")) || /workout|exercise/i.test(s.title));
-                    const cyclePhase = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null;
-                    const CYCLE_EXERCISE = {
-                      menstrual: [
-                        { day: [1,2], emoji: "🚶", type: "Gentle Walk", why: "Your body is shedding its uterine lining and prostaglandins are highest. Light movement increases blood flow to ease cramps without taxing your already-low iron and energy reserves." },
-                        { day: [3,4], emoji: "🧘", type: "Restorative Yoga", why: "Estrogen and progesterone are at their lowest point. Gentle stretching stimulates the parasympathetic nervous system, reducing the cortisol spike that low hormones leave unchecked." },
-                        { day: [5], emoji: "🤸", type: "Light Pilates", why: "Bleeding is tapering and estrogen is beginning to rise. Your energy is returning — Pilates rebuilds core engagement gently as your body transitions into the follicular phase." },
-                      ],
-                      follicular: [
-                        { day: [6,7,8], emoji: "🏃", type: "Moderate Cardio", why: "Rising estrogen increases pain tolerance, reaction time, and muscle recovery speed. Your body can handle more intensity now — cardio capitalizes on estrogen's performance-enhancing effects." },
-                        { day: [9,10,11], emoji: "🏋️", type: "Strength Training", why: "Estrogen peaks enhance muscle protein synthesis and tendon stiffness, making this your strongest phase for lifting. You'll recover faster and build more lean muscle per session than any other time in your cycle." },
-                        { day: [12,13], emoji: "🔥", type: "HIIT / High Intensity", why: "Estrogen is approaching its peak, maximizing your VO2 max, anaerobic threshold, and neuromuscular coordination. Your body is primed for its highest output — take advantage before ovulation." },
-                      ],
-                      ovulatory: [
-                        { day: [14,15], emoji: "🔥", type: "HIIT / Power Training", why: "Estrogen peaks alongside a surge in luteinizing hormone — your testosterone also briefly spikes. This is your absolute performance peak: fastest reaction time, highest pain tolerance, strongest power output." },
-                        { day: [16], emoji: "💃", type: "Dance / Group Fitness", why: "The oxytocin and estrogen peak makes you more social and coordinated. Group exercise leverages this neurochemistry — you'll feel more motivated by others and more graceful in complex movements." },
-                      ],
-                      luteal: [
-                        { day: [17,18,19,20], emoji: "🏋️", type: "Moderate Strength", why: "Progesterone is rising, increasing your core body temperature and metabolic rate. You burn more calories at rest but fatigue faster — moderate lifting with longer rest periods matches your shifting physiology." },
-                        { day: [21,22,23,24], emoji: "🧘", type: "Yoga / Steady Cardio", why: "Progesterone peaks, raising body temperature and reducing heat tolerance. Serotonin drops as progesterone metabolites compete for the same receptors — gentle movement boosts serotonin without overheating." },
-                        { day: [25,26,27,28,29,30,31,32,33,34,35], emoji: "🚶", type: "Walking / Gentle Stretching", why: "Both estrogen and progesterone are crashing, triggering PMS symptoms. Your nervous system is most reactive now — gentle movement prevents cortisol spikes while intense exercise depletes magnesium — the same mineral your body needs most right now to ease cramps and calm your nervous system." },
-                      ],
-                    };
-                    const getCycleSuggestion = (phase) => {
-                      if (!phase) return null;
-                      const options = CYCLE_EXERCISE[phase.phase];
-                      if (!options) return null;
-                      for (const opt of options) { if (opt.day.includes(phase.day)) return opt; }
-                      return options[options.length - 1];
-                    };
-                    const cycleSuggestion = getCycleSuggestion(cyclePhase);
 
                     const isExerciseStep = (s) => !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
 
-                    const renderExerciseGuide = () => (
-                      <div style={{ marginTop:"12px" }}>
-                        {cycleSuggestion && cyclePhase && (
-                          <div style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"10px" }}>
-                            <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-                              <span style={{ fontSize:"18px" }}>{cycleSuggestion.emoji}</span>
-                              <div>
-                                <div style={{ color:"#e8d0ff", fontSize:"13px", fontWeight:"700" }}>{cyclePhase.label} — Today: {cycleSuggestion.type}</div>
-                                <div style={{ color:"#b0a0d0", fontSize:"11px", lineHeight:1.6, marginTop:"4px" }}>{cycleSuggestion.why}</div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        <button onClick={() => setExerciseExpanded(!exerciseExpanded)} style={{ background:"none", border:"1px solid rgba(80,200,120,0.2)", borderRadius:"10px", padding:"8px 14px", cursor:"pointer", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
-                          {exerciseExpanded ? "Hide exercise ideas ▲" : "Exercise ideas for your brain ▼"}
+                    const renderExerciseLink = () => (
+                      <div style={{ marginTop:"8px" }}>
+                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"12px", fontWeight:"600", padding:0 }}>
+                          See all exercises →
                         </button>
-                        {exerciseExpanded && (
-                          <div style={{ marginTop:"14px" }}>
-                            <div style={{ color:"#8890b8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"10px" }}>Personalized for {exRoutine.label} — pick any that inspire you</div>
-                            {exRoutine.options.map((opt, oi) => (
-                              <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"10px", padding:"10px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
-                                <span style={{ fontSize:"20px", flexShrink:0 }}>{opt.emoji}</span>
-                                <div>
-                                  <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"3px" }}>{opt.title}</div>
-                                  <div style={{ color:"#9098c8", fontSize:"12px", lineHeight:1.7 }}>{opt.desc}</div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     );
 
@@ -6178,7 +6584,7 @@ function NeuroThriveApp() {
                           <div style={{ flex:1 }}>
                             <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
                             <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
-                            {isExStep && renderExerciseGuide()}
+                            {isExStep && renderExerciseLink()}
                           </div>
                           {isExStep ? (
                             <button onClick={() => { if (!exerciseDone) triggerCheckAnim("exercise"); updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise })); checkConfetti(); }} style={{ width:"28px", height:"28px", borderRadius:"8px", border: exerciseDone ? "2px solid #50c878" : "1.5px solid rgba(80,200,120,0.3)", background: exerciseDone ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"4px", animation: justChecked === "exercise" ? "checkGlow 0.6s ease-out" : undefined }}>
@@ -6203,7 +6609,7 @@ function NeuroThriveApp() {
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
               <button style={S.btnOutline} onClick={() => setStep(9)}>← Brain Toolkit</button>
-              <button style={S.btn} onClick={() => setStep(4)}>Back to Menu →</button>
+              <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>Back to Menu →</button>
             </div>
           </div>
         )}
@@ -6216,8 +6622,8 @@ function NeuroThriveApp() {
           const total = logs.length;
 
           // Averages
-          const avgMood   = total > 0 ? (logs.reduce((s, l) => s + l.mood, 0) / total).toFixed(1) : "—";
-          const avgEnergy = total > 0 ? (logs.reduce((s, l) => s + l.energy, 0) / total).toFixed(1) : "—";
+          const avgMood   = total > 0 ? (logs.reduce((s, l) => s + l.mood, 0) / total).toFixed(1) : " - ";
+          const avgEnergy = total > 0 ? (logs.reduce((s, l) => s + l.energy, 0) / total).toFixed(1) : " - ";
 
           // Streak: consecutive days (newest-first, assume 1 entry/day)
           let streak = 0;
@@ -6256,16 +6662,16 @@ function NeuroThriveApp() {
 
           // Mood label helper
           const moodLabel = (v) => {
-            if (!v || v === "—") return "—";
+            if (!v || v === " - ") return " - ";
             const f = parseFloat(v);
-            if (f >= 4.5) return "Great 😊";
+            if (f >= 4.5) return "Great";
             if (f >= 3.5) return "Good 🙂";
             if (f >= 2.5) return "Okay 😐";
             if (f >= 1.5) return "Low 😕";
             return "Rough 😞";
           };
           const energyLabel = (v) => {
-            if (!v || v === "—") return "—";
+            if (!v || v === " - ") return " - ";
             const f = parseFloat(v);
             if (f >= 4.5) return "Vibrant 🚀";
             if (f >= 3.5) return "Energized ⚡";
@@ -6283,7 +6689,7 @@ function NeuroThriveApp() {
                 <div style={{ ...S.card, textAlign:"center", padding:"48px 32px" }}>
                   <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
                   <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
-                  <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal tab — after a few days, your progress charts will appear here.</div>
+                  <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal tab; after a few days, your progress charts will appear here.</div>
                   <button style={S.btnAccent} onClick={() => setStep(8)}>Open Journal →</button>
                 </div>
               ) : (
@@ -6318,7 +6724,7 @@ function NeuroThriveApp() {
                   {/* ── Line charts ── */}
                   {rangedLogs.length >= 2 ? (
                     <div style={{ ...S.card, marginBottom:"20px", padding:"20px 16px" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Mood & Energy — Last {Math.min(progressRange, rangedLogs.length)} Entries</div>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Mood & Energy: Last {Math.min(progressRange, rangedLogs.length)} Entries</div>
 
                       <svg viewBox={`0 0 ${W} ${H}`} style={{ width:"100%", height:"auto", display:"block", marginBottom:"8px" }}>
                         {/* Grid lines */}
@@ -6328,7 +6734,7 @@ function NeuroThriveApp() {
                             <text x={PAD.l - 6} y={toY(v) + 4} textAnchor="end" fontSize="8" fill="#8890b8">{v}</text>
                           </g>
                         ))}
-                        {/* X labels — show first, middle, last */}
+                        {/* X labels: show first, middle, last */}
                         {rangedLogs.length > 0 && [0, Math.floor((rangedLogs.length-1)/2), rangedLogs.length-1].filter((v,i,a) => a.indexOf(v)===i).map(i => (
                           <text key={i} x={toX(i, rangedLogs.length)} y={H - 4} textAnchor="middle" fontSize="8" fill="#8890b8">
                             {rangedLogs[i]?.date?.replace(/\w+,\s/, "") || ""}
@@ -6391,7 +6797,7 @@ function NeuroThriveApp() {
                       </div>
                       {bestDow !== null && (
                         <div style={{ marginTop:"14px", padding:"10px 14px", borderRadius:"12px", background:"rgba(232,200,122,0.08)", border:"1px solid rgba(232,200,122,0.2)" }}>
-                          <span style={{ fontSize:"12px", color:"#e8c87a" }}>✨ Your best day tends to be <strong>{DOW_NAMES[bestDow]}</strong> — avg mood {dowAvg[bestDow]?.toFixed(1)}/5</span>
+                          <span style={{ fontSize:"12px", color:"#e8c87a" }}>Your best day tends to be <strong>{DOW_NAMES[bestDow]}</strong>, avg mood {dowAvg[bestDow]?.toFixed(1)}/5</span>
                         </div>
                       )}
                     </div>
@@ -6434,7 +6840,7 @@ function NeuroThriveApp() {
                     return (
                       <>
                         <div style={{ ...S.card, marginBottom:"20px" }}>
-                          <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"16px" }}>Daily Completion — Last {daysToShow} Days</div>
+                          <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"16px" }}>Daily Completion: Last {daysToShow} Days</div>
                           <svg viewBox={`0 0 ${cW} ${cH}`} style={{ width:"100%", height:"auto", display:"block", marginBottom:"8px" }}>
                             {[0, 25, 50, 75, 100].map(v => (
                               <g key={v}>
@@ -6544,7 +6950,7 @@ function NeuroThriveApp() {
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
                 <button style={S.btnOutline} onClick={() => setStep(8)}>← Journal</button>
-                <button style={S.btn} onClick={() => setStep(4)}>View Meal Plan →</button>
+                <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>View Meal Plan →</button>
               </div>
             </div>
           );
@@ -6560,27 +6966,33 @@ function NeuroThriveApp() {
         {step === 12 && isPremium && (() => {
           const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
             : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
-          const routine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+          const rawRoutine = personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default;
+          const routine = getAdjustedRoutine(rawRoutine, exerciseTimePref);
           const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
           const todayChecks = getTodayChecks();
           const morningChecks = todayChecks.routine?.morning || [];
           const eveningChecks = todayChecks.routine?.evening || [];
           const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
-          const sectionDivider = { height:"1px", background:"rgba(110,120,200,0.1)", margin:"28px 0" };
+          const sectionDivider = { height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.15), transparent)", margin:"40px 0" };
+          const sectionHeader = (text) => ({ fontSize:"17px", color:"#eef0ff", fontWeight:"700", marginBottom:"16px", letterSpacing:"-0.3px", paddingBottom:"10px", borderBottom:"1px solid rgba(110,120,200,0.1)" });
+          const hour = new Date().getHours();
+          const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
           // Auto-sync to today's menu day based on daysElapsed
           const todayDayIdx = Math.max(0, daysElapsed - 1) % 30;
           const todayDay = menu30 ? menu30[todayDayIdx] : null;
           const todayGlobalIdx = todayDayIdx;
 
           return (
-            <div>
-              <h2 style={S.sectionTitle}>Today's Checklist</h2>
-              <p style={S.sectionSub}>Your daily checklist — meals, routines, exercise, and journaling in one place.</p>
+            <div style={{ animation:"fadeUp 0.5s ease both" }}>
+              <h2 style={S.sectionTitle}>{greeting}</h2>
+              <p style={S.sectionSub}>Day {daysElapsed} of your brain nutrition journey</p>
 
               {/* Section A: Progress Banner */}
-              <ProgressBanner />
+              <div style={{ marginBottom:"20px" }}>
+                <ProgressBanner />
+              </div>
 
-              {/* Did You Know? — daily rotating fact */}
+              {/* Did You Know? daily rotating fact */}
               {(() => {
                 const facts = DID_YOU_KNOW[condKey] || DID_YOU_KNOW["default"] || [];
                 if (facts.length === 0) return null;
@@ -6588,39 +7000,55 @@ function NeuroThriveApp() {
                 const todayFact = facts[factIdx];
                 if (!todayFact) return null;
                 return (
-                  <div style={{ padding:"18px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(160,120,255,0.08))", border:"1px solid rgba(107,143,255,0.2)", marginBottom:"16px", marginTop:"16px" }}>
+                  <div style={{ padding:"20px 20px 20px 22px", borderRadius:"16px", background:"rgba(107,143,255,0.05)", border:"none", borderLeft:"3px solid #7b9fff", marginBottom:"16px", marginTop:"16px" }}>
                     <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
-                    <p style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.6, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
+                    <p style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.7, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
                     <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{todayFact.connection}</p>
                   </div>
                 );
               })()}
 
-              {/* Daily Insight — rotates through all 30 days */}
+              {/* Daily Insight: rotates through all 30 days */}
               {(() => {
                 const insights = ONBOARDING_INSIGHTS[condKey] || ONBOARDING_INSIGHTS.default;
                 if (!insights || insights.length === 0) return null;
                 const insightIdx = Math.max(0, (daysElapsed - 1)) % insights.length;
                 const insight = insights[insightIdx];
                 if (!insight) return null;
-                // Build dynamic meal connection: today's actual meals + original science explanation
-                const mealNames = todayDay ? [todayDay.breakfast, todayDay.lunch, todayDay.dinner].filter(Boolean) : [];
+                // Build dynamic meal connection: use checked meal (foodLog) > swapped > original
+                const mealNames = todayDay ? ["breakfast","lunch","dinner"].map(k => {
+                  const logged = todayChecks.foodLog?.[k];
+                  if (logged && todayChecks.meals[k]) return logged;
+                  const swapped = altMeal[`${todayGlobalIdx}_${k}`];
+                  return swapped || todayDay[k];
+                }).filter(Boolean) : [];
                 const dynamicConnection = mealNames.length > 0
                   ? `Today you're eating ${mealNames[0]}, ${mealNames[1]}, and ${mealNames[2]}. ${insight.mealConnection}`
                   : insight.mealConnection;
                 return (
-                  <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
+                  <div style={{ padding:"22px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
                     <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Day {daysElapsed} Insight</div>
                     <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 8px 0" }}>{insight.body}</p>
-                    <p style={{ color:"#50c878", fontSize:"12px", lineHeight:1.5, margin:0, fontStyle:"italic" }}>{dynamicConnection}</p>
+                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 14px 0" }}>{insight.body}</p>
+                    <div style={{ padding:"12px 14px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.1)" }}>
+                      <div style={{ fontSize:"10px", color:"#50c878", fontWeight:"700", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"6px" }}>Meal Connection</div>
+                      <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{dynamicConnection}</p>
+                    </div>
                   </div>
                 );
               })()}
 
               {/* Section B: Today's Meals */}
               <div style={sectionDivider} />
-              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Today's Meals</div>
+              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); setGroceryChecked({}); setStep(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
+                <span style={{ fontSize:"16px" }}>🛒</span>
+                <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
+                <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
+              </div>
+              <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
+                Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
+              </div>
               {todayDay && [
                 { key:"breakfast", label:"Breakfast", emoji:"🌅" },
                 { key:"lunch",     label:"Lunch",     emoji:"☀️" },
@@ -6628,81 +7056,109 @@ function NeuroThriveApp() {
                 { key:"snacks",    label:"Snack",     emoji:"🍎" },
                 ...(todayDay.snacks2 ? [{ key:"snacks2", label:"Snack 2", emoji:"🍊" }] : []),
               ].map(({ key, label, emoji }) => {
-                const meal = todayDay[key];
-                if (!meal) return null;
+                const originalMeal = todayDay[key];
+                if (!originalMeal) return null;
                 const todayAltKey = `${todayGlobalIdx}_${key}`;
                 const alt = altMeal[todayAltKey];
+                const activeMeal = alt || originalMeal;
                 const mealChecked = todayChecks.meals[key];
-                const bs = getBrainScore(meal);
+                const bs = getBrainScore(activeMeal);
                 return (
-                  <div key={key} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px" }}>
+                  <div key={key} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px", background: mealChecked ? "rgba(80,200,120,0.04)" : undefined, border: mealChecked ? "1px solid rgba(80,200,120,0.2)" : undefined, transition:"all 0.3s" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                      <button onClick={() => toggleMealCheck(key, meal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
+                      <button onClick={() => toggleMealCheck(key, activeMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
                         {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
                       </button>
                       <div style={{ flex:1, minWidth:0 }}>
                         <div style={{ fontSize:"10px", color:"#8890b8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
-                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{meal}</div>
+                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{activeMeal}</div>
                       </div>
+                      <button onClick={(e) => { e.stopPropagation(); toggleFavorite(activeMeal); }} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"16px", flexShrink:0, transition:"transform 0.2s", transform: isFavorite(activeMeal) ? "scale(1.15)" : "scale(1)" }} title={isFavorite(activeMeal) ? "Remove from favorites" : "Add to favorites"}>{isFavorite(activeMeal) ? "❤️" : "🤍"}</button>
                     </div>
-                    <div style={{ display:"flex", alignItems:"center", gap:"6px", marginTop:"8px", marginLeft:"34px" }}>
+                    {/* Swapped indicator */}
+                    {alt && (
+                      <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"8px", marginLeft:"34px", padding:"5px 10px", borderRadius:"8px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)" }}>
+                        <span style={{ color:"#e8c87a", fontSize:"10px", fontWeight:"700" }}>Swapped</span>
+                        <span style={{ color:"#8890b8", fontSize:"10px" }}>from {originalMeal.length > 30 ? originalMeal.slice(0,30) + "…" : originalMeal}</span>
+                        <button onClick={() => { setAltMeal(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); setSwapHistory(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[key]; return { ...prev, meals: { ...prev.meals, [key]: false }, foodLog: newLog }; }); }} style={{ marginLeft:"auto", background:"none", border:"none", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer", padding:"2px 4px", textDecoration:"underline" }}>Undo</button>
+                      </div>
+                    )}
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"10px", marginLeft:"34px", flexWrap:"wrap" }}>
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
-                        <span style={{ fontSize:"10px" }}>🔥</span>
-                        <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(meal)}</span>
+                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
+                        <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(activeMeal)}</span>
                       </div>
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 8px", borderRadius:"16px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                        <span style={{ fontSize:"10px" }}>🧠</span>
-                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(bs.score)}</span>
+                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
+                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{bs.score}/5</span>
                       </div>
-                      <button onClick={() => openExplain(meal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
-                      <button onClick={() => openRecipe(meal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
-                      <button onClick={() => getAltMeal(meal, label, key)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Swap</button>
+                      <button onClick={() => openExplain(activeMeal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
+                      <button onClick={() => openRecipe(activeMeal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                      {(swapHistory[`${todayGlobalIdx}_${key}`]?.length > 0) && (
+                        <button onClick={() => swapGoBack(key, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(160,160,200,0.15)", background:"rgba(160,160,200,0.06)", color:"#a0a8c8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>← Previous</button>
+                      )}
+                      <button onClick={() => getAltMeal(activeMeal, label, key, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(232,200,122,0.15)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>{alt ? "Swap Again" : "Swap"}</button>
                     </div>
                     {/* Cycle / gender note */}
-                    {(() => { const gn = getGenderNote(meal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(todayGlobalIdx)); if (!gn) return null; return (
+                    {(() => { const gn = getGenderNote(activeMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(todayGlobalIdx)); if (!gn) return null; return (
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginTop:"8px", marginLeft:"34px" }}>
                         <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
                         <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
                       </div>
                     );})()}
-                    {alt && (() => {
-                      const ateAlt = mealChecked && todayChecks.foodLog?.[key] && todayChecks.foodLog[key] !== meal;
-                      const altBs = getBrainScore(alt);
-                      return (
-                      <div style={{ marginTop:"8px", marginLeft:"34px", padding:"10px 12px", borderRadius:"12px", background:"rgba(80,112,240,0.06)", border:"1px solid rgba(80,112,240,0.18)" }}>
-                        <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Alternative</div>
-                        <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
-                          <button onClick={() => toggleMealCheck(key, alt)} style={{ width:"22px", height:"22px", borderRadius:"6px", border: ateAlt ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: ateAlt ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"1px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
-                            {ateAlt && <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
-                          </button>
-                          <span style={{ color: ateAlt ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", lineHeight:1.4, textDecoration: ateAlt ? "line-through" : "none", opacity: ateAlt ? 0.7 : 1, transition:"all 0.3s" }}>{alt}</span>
-                        </div>
-                        <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"5px", marginBottom:"8px" }}>
-                          <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
-                            <span style={{ fontSize:"10px" }}>🔥</span>
-                            <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(alt)}</span>
-                          </div>
-                          <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 8px", borderRadius:"16px", background: altBs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: altBs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                            <span style={{ fontSize:"10px" }}>🧠</span>
-                            <span style={{ color: altBs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{"⚡".repeat(altBs.score)}</span>
-                          </div>
-                        </div>
-                        <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
-                          <button onClick={() => openExplain(alt, label, todayGlobalIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🧠 Why this?</button>
-                          <button onClick={() => openRecipe(alt, label, todayGlobalIdx)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>🍳 Recipe</button>
-                          <button onClick={() => getAltMeal(meal, label, key)} style={{ flex:1, padding:"6px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>✨ Try Another</button>
-                        </div>
-                      </div>
-                      );
-                    })()}
                   </div>
                 );
               })}
               {!todayDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
 
-              {/* Section C: Morning Routine */}
+              {/* Section C: Exercise */}
               <div style={sectionDivider} />
-              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Morning Routine</div>
+              <div style={sectionHeader("Exercise")}>Exercise</div>
+              {(() => { const cp = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null; const cs = getCycleSuggestion(cp); return cs && cp ? (
+                <div style={{ padding:"12px 14px", borderRadius:"14px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"12px" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                    <span style={{ fontSize:"18px" }}>{cs.emoji}</span>
+                    <div>
+                      <div style={{ color:"#e8d0ff", fontSize:"12px", fontWeight:"700" }}>{cp.label}: Suggested Exercise: {cs.type}</div>
+                      <div style={{ color:"#b0a0d0", fontSize:"11px", lineHeight:1.6, marginTop:"3px" }}>{cs.why}</div>
+                    </div>
+                  </div>
+                </div>
+              ) : null; })()}
+              <div style={{ ...S.card, padding:"14px 16px", marginBottom:"12px", border: todayChecks.exercise ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: todayChecks.exercise ? "rgba(80,200,120,0.06)" : undefined }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                  <button onClick={() => {
+                    if (!todayChecks.exercise) triggerCheckAnim("exercise-today");
+                    updateTodayChecks(prev => ({ ...prev, exercise: !prev.exercise }));
+                    checkConfetti();
+                  }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: todayChecks.exercise ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: todayChecks.exercise ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "exercise-today" ? "checkGlow 0.6s ease-out" : undefined }}>
+                    {todayChecks.exercise && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "exercise-today" ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
+                  </button>
+                  <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>🏃</div>
+                  <div style={{ flex:1 }}>
+                    <div style={{ color: todayChecks.exercise ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>Exercise</div>
+                    <div style={{ color:"#8890b8", fontSize:"10px" }}>{todayChecks.exercise ? "Done for today" : "Any movement counts"}</div>
+                  </div>
+                </div>
+                {/* Show selected exercises as chips */}
+                {todayChecks.exerciseOptions && Object.keys(todayChecks.exerciseOptions).filter(k => todayChecks.exerciseOptions[k]).length > 0 && (
+                  <div style={{ display:"flex", flexWrap:"wrap", gap:"6px", marginTop:"10px", marginLeft:"58px" }}>
+                    {Object.keys(todayChecks.exerciseOptions).filter(k => todayChecks.exerciseOptions[k]).map(title => {
+                      const opt = exRoutine.options.find(o => o.title === title);
+                      return (
+                        <span key={title} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"16px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", color:"#50c878", fontSize:"11px", fontWeight:"600" }}>
+                          {opt ? opt.emoji : "🏃"} {title}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+                <button onClick={() => setStep(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
+              </div>
+
+              {/* Section D: Morning Routine */}
+              <div style={sectionDivider} />
+              <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
               {routine.morning.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
@@ -6730,23 +7186,14 @@ function NeuroThriveApp() {
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
                         <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min · Tap to see exercise ideas" : s.time}</div>
+                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min" : s.time}</div>
                       </div>
                     </div>
                     {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
                     {isExpanded && isExStep && (
-                      <div style={{ marginTop:"10px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"12px" }}>{s.desc}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px" }}>Personalized for {exRoutine.label}</div>
-                        {exRoutine.options.map((opt, oi) => (
-                          <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"8px", padding:"8px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
-                            <span style={{ fontSize:"18px", flexShrink:0 }}>{opt.emoji}</span>
-                            <div>
-                              <div style={{ color:"#eef0ff", fontSize:"12px", fontWeight:"700", marginBottom:"2px" }}>{opt.title}</div>
-                              <div style={{ color:"#9098c8", fontSize:"11px", lineHeight:1.6 }}>{opt.desc}</div>
-                            </div>
-                          </div>
-                        ))}
+                      <div style={{ marginTop:"8px", marginLeft:"56px" }}>
+                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -6755,7 +7202,7 @@ function NeuroThriveApp() {
 
               {/* Section E: Journal */}
               <div style={sectionDivider} />
-              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>How are you feeling?</div>
+              <div style={sectionHeader("How are you feeling?")}>How are you feeling?</div>
               {hasJournal ? (
                 <div style={{ ...S.card, padding:"16px 18px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.2)" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
@@ -6789,7 +7236,7 @@ function NeuroThriveApp() {
 
               {/* Section F: Evening Routine */}
               <div style={sectionDivider} />
-              <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px", letterSpacing:"-0.3px" }}>Evening Routine</div>
+              <div style={sectionHeader("Evening Routine")}>Evening Routine</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{eveningChecks.filter(Boolean).length}/{routine.evening.length} done</div>
               {routine.evening.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
@@ -6817,23 +7264,14 @@ function NeuroThriveApp() {
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`e${i}`]: !p[`e${i}`] }))}>
                         <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min · Tap to see exercise ideas" : s.time}</div>
+                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min" : s.time}</div>
                       </div>
                     </div>
                     {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
                     {isExpanded && isExStep && (
-                      <div style={{ marginTop:"10px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"12px" }}>{s.desc}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px" }}>Personalized for {exRoutine.label}</div>
-                        {exRoutine.options.map((opt, oi) => (
-                          <div key={oi} style={{ display:"flex", alignItems:"flex-start", gap:"8px", padding:"8px 0", borderBottom: oi < exRoutine.options.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
-                            <span style={{ fontSize:"18px", flexShrink:0 }}>{opt.emoji}</span>
-                            <div>
-                              <div style={{ color:"#eef0ff", fontSize:"12px", fontWeight:"700", marginBottom:"2px" }}>{opt.title}</div>
-                              <div style={{ color:"#9098c8", fontSize:"11px", lineHeight:1.6 }}>{opt.desc}</div>
-                            </div>
-                          </div>
-                        ))}
+                      <div style={{ marginTop:"8px", marginLeft:"56px" }}>
+                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -6876,7 +7314,7 @@ function NeuroThriveApp() {
                       </div>
                     </div>
 
-                    {cats.filter(c => c.max > 0).map((cat, i) => {
+                    {cats.map((cat, i) => {
                       const pct = cat.max > 0 ? Math.round((cat.bp / cat.max) * 100) : 0;
                       const full = pct >= 100;
                       return (
@@ -6900,13 +7338,545 @@ function NeuroThriveApp() {
                         </div>
                       </div>
                     )}
+
+                    {/* Share Brain Score */}
+                    <button
+                      onClick={async () => {
+                        const c = document.createElement("canvas");
+                        c.width = 600; c.height = 600;
+                        const ctx = c.getContext("2d");
+
+                        // Background gradient
+                        const bg = ctx.createLinearGradient(0, 0, 600, 600);
+                        bg.addColorStop(0, "#0c0e1a");
+                        bg.addColorStop(1, "#141830");
+                        ctx.fillStyle = bg;
+                        ctx.beginPath();
+                        // Rounded rect
+                        const rr = 32;
+                        ctx.moveTo(rr, 0); ctx.lineTo(600-rr, 0); ctx.quadraticCurveTo(600, 0, 600, rr);
+                        ctx.lineTo(600, 600-rr); ctx.quadraticCurveTo(600, 600, 600-rr, 600);
+                        ctx.lineTo(rr, 600); ctx.quadraticCurveTo(0, 600, 0, 600-rr);
+                        ctx.lineTo(0, rr); ctx.quadraticCurveTo(0, 0, rr, 0);
+                        ctx.closePath();
+                        ctx.fill();
+
+                        // Subtle grid pattern
+                        ctx.strokeStyle = "rgba(107,143,255,0.04)";
+                        ctx.lineWidth = 1;
+                        for (let i = 0; i < 600; i += 30) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 600); ctx.stroke(); ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(600, i); ctx.stroke(); }
+
+                        // Brain emoji
+                        ctx.font = "48px serif";
+                        ctx.textAlign = "center";
+                        ctx.fillText("🧠", 300, 70);
+
+                        // Brand name
+                        ctx.font = "700 16px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = "#8890b8";
+                        ctx.letterSpacing = "3px";
+                        ctx.fillText("NEUROTHRIVE", 300, 100);
+
+                        // Score circle
+                        const cx = 300, cy = 210, cr = 70;
+                        ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.fillStyle = "rgba(110,120,200,0.08)"; ctx.fill();
+                        ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.strokeStyle = "rgba(110,120,200,0.15)"; ctx.lineWidth = 8; ctx.stroke();
+                        // Progress arc
+                        const startAngle = -Math.PI / 2;
+                        const endAngle = startAngle + (bp.pct / 100) * Math.PI * 2;
+                        ctx.beginPath(); ctx.arc(cx, cy, cr, startAngle, endAngle); ctx.strokeStyle = lvl.color; ctx.lineWidth = 8; ctx.lineCap = "round"; ctx.stroke();
+                        // Pct text
+                        ctx.font = "800 36px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = lvl.color;
+                        ctx.textAlign = "center";
+                        ctx.fillText(`${bp.pct}%`, cx, cy + 8);
+                        ctx.font = "600 12px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = "#8890b8";
+                        ctx.fillText(`${bp.total} of ${bp.max} Brain Points`, cx, cy + 30);
+
+                        // Level label
+                        ctx.font = "700 22px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = lvl.color;
+                        ctx.fillText(lvl.label.toUpperCase(), 300, 318);
+
+                        // Streak
+                        if (streak > 0) {
+                          ctx.font = "600 14px -apple-system, BlinkMacSystemFont, sans-serif";
+                          ctx.fillStyle = "#e8c87a";
+                          ctx.fillText(`🔥 ${streak}-day streak`, 300, 345);
+                        }
+
+                        // Category bars
+                        const barY = streak > 0 ? 375 : 360;
+                        cats.forEach((cat, i) => {
+                          const y = barY + i * 38;
+                          const pctCat = cat.max > 0 ? Math.min(100, Math.round((cat.bp / cat.max) * 100)) : 0;
+                          const full = pctCat >= 100;
+                          // Label
+                          ctx.font = "600 12px -apple-system, BlinkMacSystemFont, sans-serif";
+                          ctx.textAlign = "left";
+                          ctx.fillStyle = full ? "#50c878" : "#c8ccf0";
+                          ctx.fillText(cat.label, 60, y);
+                          // BP count
+                          ctx.textAlign = "right";
+                          ctx.fillStyle = full ? "#50c878" : "#7b9fff";
+                          ctx.fillText(`${cat.bp}/${cat.max}`, 540, y);
+                          // Bar bg
+                          ctx.fillStyle = "rgba(110,120,200,0.1)";
+                          ctx.beginPath();
+                          const bw = 480, bh = 8, bx = 60, by = y + 6;
+                          ctx.roundRect(bx, by, bw, bh, 4);
+                          ctx.fill();
+                          // Bar fill
+                          if (pctCat > 0) {
+                            const grd = ctx.createLinearGradient(bx, 0, bx + bw * (pctCat/100), 0);
+                            grd.addColorStop(0, full ? "#40b868" : lvl.color + "88");
+                            grd.addColorStop(1, full ? "#50c878" : lvl.color);
+                            ctx.fillStyle = grd;
+                            ctx.beginPath();
+                            ctx.roundRect(bx, by, bw * (pctCat/100), bh, 4);
+                            ctx.fill();
+                          }
+                        });
+
+                        // Day count
+                        ctx.textAlign = "center";
+                        ctx.font = "600 11px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = "#6b7394";
+                        ctx.fillText(`Day ${daysElapsed} · ${new Date().toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" })}`, 300, 565);
+
+                        // App promo line
+                        ctx.font = "700 12px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = "#7b9fff";
+                        ctx.fillText("Feed your brain. Track your growth.", 300, 585);
+
+                        // App URL
+                        ctx.font = "600 10px -apple-system, BlinkMacSystemFont, sans-serif";
+                        ctx.fillStyle = "#50c878";
+                        ctx.fillText("splendid-tartufo-2404ef.netlify.app", 300, 598);
+
+                        // Convert to blob and share
+                        c.toBlob(async (blob) => {
+                          const file = new File([blob], "neurothrive-brain-score.png", { type: "image/png" });
+                          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            try {
+                              await navigator.share({
+                                title: "My NeuroThrive Brain Score",
+                                text: `🧠 I scored ${bp.pct}% on my Brain Score today! ${streak > 0 ? `${streak}-day streak! ` : ""}Feed your brain. Track your growth.\n\nhttps://splendid-tartufo-2404ef.netlify.app #NeuroThrive`,
+                                files: [file]
+                              });
+                            } catch (e) { /* user cancelled share */ }
+                          } else {
+                            // Fallback: download the image
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url; a.download = "neurothrive-brain-score.png";
+                            a.click();
+                            URL.revokeObjectURL(url);
+                          }
+                        }, "image/png");
+                      }}
+                      style={{ width:"100%", marginTop:"16px", padding:"14px 20px", borderRadius:"14px", border:"1px solid rgba(107,143,255,0.25)", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(80,200,120,0.06))", color:"#7b9fff", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", transition:"all 0.2s" }}
+                    >
+                      Share My Brain Score
+                    </button>
                   </div>
                 );
               })()}
 
-              <div style={{ display:"flex", gap:"10px", justifyContent:"center", marginTop:"28px" }}>
-                <button style={S.btn} onClick={() => setStep(4)}>View Full Menu →</button>
+              <div style={{ display:"flex", gap:"10px", justifyContent:"center", marginTop:"48px" }}>
+                <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>View Full Menu →</button>
                 {!remindersEnabled && <button style={S.btnOutline} onClick={() => setStep(7)}>Set Reminders</button>}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* STEP 14: NERVOUS SYSTEM REGULATION TOOLKIT */}
+        {step === 14 && isPremium && (() => {
+          const condKeys = selectedConditions.length > 0 ? selectedConditions : ["default"];
+          const resolveNsKey = () => {
+            if (selectedConditions.includes("neuro_core")) return "neuro_core";
+            const found = condKeys.find(c => NS_TOOLS[c]);
+            return found || "default";
+          };
+          const nsKey = resolveNsKey();
+          const tools = NS_TOOLS[nsKey] || NS_TOOLS.default;
+          return (
+          <div>
+            <h2 style={S.sectionTitle}>Nervous System Toolkit</h2>
+            <p style={S.sectionSub}>Science-backed tools to regulate your nervous system, personalized for your brain.</p>
+
+            {/* Level 1: Category Grid */}
+            {!nsCategory && !nsTool && (
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px", marginBottom:"32px" }}>
+                {NS_CATEGORIES.map(cat => {
+                  const catTools = tools[cat.id] || [];
+                  if (catTools.length === 0) return null;
+                  return (
+                    <div key={cat.id} onClick={() => setNsCategory(cat.id)}
+                      style={{ padding:"22px 18px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", textAlign:"center" }}>
+                      <div style={{ fontSize:"32px", marginBottom:"8px" }}>{cat.emoji}</div>
+                      <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600", marginBottom:"6px" }}>{cat.label}</div>
+                      <div style={{ color:"#9098c8", fontSize:"12px", lineHeight:1.5, marginBottom:"6px" }}>{cat.desc}</div>
+                      <div style={{ color:"#7b9fff", fontSize:"12px" }}>{catTools.length} tool{catTools.length !== 1 ? "s" : ""}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Level 2: Tool List */}
+            {nsCategory && !nsTool && (() => {
+              const cat = NS_CATEGORIES.find(c => c.id === nsCategory);
+              const catTools = tools[nsCategory] || [];
+              return (
+                <div>
+                  <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"20px" }}>
+                    <button onClick={() => setNsCategory(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <span style={{ fontSize:"22px" }}>{cat.emoji}</span>
+                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{cat.label}</h3>
+                  </div>
+                  {nsCategory === "emergency" && (
+                    <div style={{ padding:"16px 20px", borderRadius:"14px", border:"1px solid rgba(220,80,80,0.3)", background:"rgba(220,80,80,0.08)", marginBottom:"20px" }}>
+                      <p style={{ color:"#ff9090", fontSize:"14px", lineHeight:1.7, margin:0 }}>
+                        <strong>⚠️ Safety first:</strong> If you're in immediate danger, call <strong>988</strong> (Suicide &amp; Crisis Lifeline) or text <strong>HOME</strong> to <strong>741741</strong>.
+                      </p>
+                    </div>
+                  )}
+                  <div style={{ display:"flex", flexDirection:"column", gap:"12px", marginBottom:"32px" }}>
+                    {catTools.map((tool, i) => (
+                      <div key={i} onClick={() => setNsTool(i)}
+                        style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s" }}>
+                        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                          <div style={{ flex:1 }}>
+                            <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"600", marginBottom:"6px" }}>{tool.t}</div>
+                            <div style={{ color:"#8890b8", fontSize:"12px" }}>⏱ {tool.time} · {tool.when.length > 60 ? tool.when.slice(0, 60) + "…" : tool.when}</div>
+                          </div>
+                          <span style={{ color:"#7b9fff", fontSize:"18px", flexShrink:0, marginLeft:"12px" }}>→</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Level 3: Tool Detail */}
+            {nsTool !== null && nsCategory && (() => {
+              const cat = NS_CATEGORIES.find(c => c.id === nsCategory);
+              const catTools = tools[nsCategory] || [];
+              const tool = catTools[nsTool];
+              if (!tool) return null;
+              return (
+                <div>
+                  <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"24px" }}>
+                    <button onClick={() => setNsTool(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <span style={{ fontSize:"22px" }}>{cat.emoji}</span>
+                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{tool.t}</h3>
+                  </div>
+
+                  <div style={{ display:"flex", gap:"12px", marginBottom:"20px" }}>
+                    <div style={{ padding:"8px 14px", borderRadius:"10px", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.15)" }}>
+                      <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {tool.time}</span>
+                    </div>
+                  </div>
+
+                  {/* When to use */}
+                  <div style={{ ...S.card, padding:"18px 22px", marginBottom:"16px", border:"1px solid rgba(80,200,120,0.15)", background:"rgba(80,200,120,0.04)" }}>
+                    <div style={{ color:"#50c878", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"8px" }}>Best For</div>
+                    <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.7 }}>{tool.when}</div>
+                  </div>
+
+                  {/* How to do it */}
+                  <div style={{ color:"#8890b8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"14px", marginTop:"24px" }}>How To Do It</div>
+                  {tool.how.map((step, i) => (
+                    <div key={i} style={{ ...S.card, padding:"18px 22px", marginBottom:"12px" }}>
+                      <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
+                        <div style={{ minWidth:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#5570f0,#7b9fff)", color:"#fff", fontSize:"13px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{i + 1}</div>
+                        <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.8 }}>{step}</div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Why it works */}
+                  <div style={{ ...S.card, padding:"22px", marginTop:"24px", border:"1px solid rgba(168,120,210,0.2)", background:"rgba(168,120,210,0.05)" }}>
+                    <div style={{ color:"#c8a0e8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"10px" }}>🧠 The Neuroscience</div>
+                    <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.9 }}>{tool.why}</div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+              <button style={S.btnOutline} onClick={() => { setNsCategory(null); setNsTool(null); setStep(9); }}>← Brain Toolkit</button>
+              <button style={S.btn} onClick={() => { setNsCategory(null); setNsTool(null); setStep(10); }}>Daily Routine →</button>
+            </div>
+          </div>
+          );
+        })()}
+
+        {/* STEP 15: GROCERY LIST */}
+        {step === 15 && isPremium && menu30 && (() => {
+          const WEEKS_LABELS = ["Week 1","Week 2","Week 3","Week 4","Wk 5"];
+          const aisles = generateGroceryList(groceryWeek);
+          const totalItems = Object.values(aisles).reduce((s, items) => s + items.length, 0);
+          const checkedCount = Object.values(groceryChecked).filter(Boolean).length;
+          return (
+          <div>
+            <h2 style={S.sectionTitle}>Grocery List</h2>
+            <p style={S.sectionSub}>Auto-generated from your meal plan. Tap items as you shop.</p>
+
+            {/* Week selector */}
+            <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
+              <button onClick={() => { setGroceryWeek(-1); setGroceryChecked({}); }}
+                style={{ flex:1.2, padding:"10px 4px", borderRadius:"12px", border:groceryWeek===-1?"2px solid #50c878":"1px solid rgba(110,120,200,0.18)", background:groceryWeek===-1?"rgba(80,200,120,0.12)":"rgba(240,244,255,0.04)", color:groceryWeek===-1?"#50c878":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Full Month</button>
+              {WEEKS_LABELS.map((w, i) => {
+                const hasData = menu30.slice(i*7, i*7+7).length > 0;
+                if (!hasData) return null;
+                return (
+                  <button key={w} onClick={() => { setGroceryWeek(i); setGroceryChecked({}); }}
+                    style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:groceryWeek===i?"2px solid #50c878":"1px solid rgba(110,120,200,0.18)", background:groceryWeek===i?"rgba(80,200,120,0.12)":"rgba(240,244,255,0.04)", color:groceryWeek===i?"#50c878":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>{w}</button>
+                );
+              })}
+            </div>
+
+            {/* Lock status + button */}
+            {groceryWeek >= 0 && (() => {
+              const isLocked = !!lockedWeeks[groceryWeek];
+              return (
+                <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
+                  {isLocked ? (
+                    <>
+                      <div style={{ flex:1, display:"flex", alignItems:"center", gap:"8px", padding:"10px 14px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.2)" }}>
+                        <span style={{ fontSize:"16px" }}>🔒</span>
+                        <div>
+                          <div style={{ color:"#50c878", fontSize:"12px", fontWeight:"700" }}>Week Locked In</div>
+                          <div style={{ color:"#8890b8", fontSize:"10px" }}>Swapping a meal will prompt you to unlock first</div>
+                        </div>
+                      </div>
+                      <button onClick={() => setLockedWeeks(prev => { const copy = { ...prev }; delete copy[groceryWeek]; return copy; })}
+                        style={{ padding:"10px 16px", borderRadius:"12px", border:"1px solid rgba(232,200,122,0.25)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", flexShrink:0 }}>Unlock</button>
+                    </>
+                  ) : (
+                    <button onClick={() => setLockedWeeks(prev => ({ ...prev, [groceryWeek]: { lockedAt: new Date().toISOString() } }))}
+                      style={{ width:"100%", padding:"12px 16px", borderRadius:"12px", border:"1px solid rgba(80,200,120,0.2)", background:"rgba(80,200,120,0.04)", color:"#50c878", fontSize:"13px", fontWeight:"600", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+                      <span>🔒</span> Lock In This Week's Groceries
+                    </button>
+                  )}
+                </div>
+              );
+            })()}
+
+            {/* Progress bar */}
+            <div style={{ ...S.card, padding:"14px 18px", marginBottom:"20px" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
+                <span style={{ color:"#8890b8", fontSize:"12px" }}>{checkedCount} of {totalItems} items</span>
+                <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"600" }}>{totalItems > 0 ? Math.round((checkedCount / totalItems) * 100) : 0}%</span>
+              </div>
+              <div style={{ height:"6px", background:"rgba(110,120,200,0.15)", borderRadius:"10px", overflow:"hidden" }}>
+                <div style={{ height:"100%", width:`${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%`, background:"linear-gradient(90deg,#50c878,#40a868)", borderRadius:"10px", transition:"width 0.3s ease" }} />
+              </div>
+            </div>
+
+            {/* Aisles */}
+            {GROCERY_AISLES.map(aisle => {
+              const items = aisles[aisle.id];
+              if (!items || items.length === 0) return null;
+              const aisleCheckedCount = items.filter(it => groceryChecked[it.key]).length;
+              const allChecked = aisleCheckedCount === items.length;
+              return (
+                <div key={aisle.id} style={{ marginBottom:"20px" }}>
+                  <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                      <span style={{ fontSize:"18px" }}>{aisle.emoji}</span>
+                      <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{aisle.label}</span>
+                      <span style={{ color:"#8890b8", fontSize:"11px" }}>({items.length})</span>
+                    </div>
+                    {allChecked && <span style={{ color:"#50c878", fontSize:"11px", fontWeight:"600" }}>All done</span>}
+                  </div>
+                  {items.map(item => {
+                    const checked = !!groceryChecked[item.key];
+                    return (
+                      <div key={item.key}
+                        onClick={() => setGroceryChecked(prev => ({ ...prev, [item.key]: !prev[item.key] }))}
+                        style={{ display:"flex", alignItems:"center", gap:"12px", padding:"12px 16px", marginBottom:"4px", borderRadius:"12px", cursor:"pointer", background: checked ? "rgba(80,200,120,0.04)" : "transparent", transition:"all 0.2s" }}>
+                        <div style={{ width:"22px", height:"22px", borderRadius:"6px", border: checked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: checked ? "rgba(80,200,120,0.15)" : "transparent", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, transition:"all 0.2s" }}>
+                          {checked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
+                        </div>
+                        <span style={{ color: checked ? "#6b8b6b" : "#c8ccf0", fontSize:"14px", textDecoration: checked ? "line-through" : "none", opacity: checked ? 0.6 : 1, transition:"all 0.2s", lineHeight:1.5 }}>{item.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+
+            {totalItems === 0 && (
+              <div style={{ textAlign:"center", padding:"40px 20px" }}>
+                <div style={{ fontSize:"40px", marginBottom:"12px" }}>🛒</div>
+                <p style={{ color:"#8890b8", fontSize:"14px" }}>No meals found for this week. Generate your menu first.</p>
+              </div>
+            )}
+
+            <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+              <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Back to Menu</button>
+              <button style={S.btn} onClick={() => { setGroceryChecked({}); }}>Clear All ↺</button>
+            </div>
+          </div>
+          );
+        })()}
+
+        {/* STEP 16: RECIPE FAVORITES */}
+        {step === 16 && isPremium && (() => {
+          return (
+          <div>
+            <h2 style={S.sectionTitle}>Favorite Recipes</h2>
+            <p style={S.sectionSub}>{favoriteMeals.length > 0 ? `${favoriteMeals.length} saved meal${favoriteMeals.length !== 1 ? "s" : ""}: tap the heart to remove, or use the buttons to explore.` : "Tap the heart on any meal to save it here."}</p>
+
+            <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(224,80,112,0.05)", border:"1px solid rgba(224,80,112,0.15)", marginBottom:"20px", display:"flex", alignItems:"flex-start", gap:"10px" }}>
+              <span style={{ fontSize:"16px", flexShrink:0, marginTop:"1px" }}>💡</span>
+              <p style={{ color:"#c8a0b8", fontSize:"12px", lineHeight:1.6, margin:0 }}>Favorited meals appear <strong style={{ color:"#e0a0c0" }}>more often</strong> in your next 30-day cycle. The more you favorite, the more your plan reflects what you love. Tap the heart again to unfavorite.</p>
+            </div>
+
+            {favoriteMeals.length === 0 && (
+              <div style={{ textAlign:"center", padding:"60px 20px" }}>
+                <div style={{ fontSize:"48px", marginBottom:"16px" }}>🤍</div>
+                <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7 }}>No favorites yet!</p>
+                <p style={{ color:"#6b7394", fontSize:"13px", lineHeight:1.6 }}>Browse your 30-Day Menu or Today's Checklist and tap the heart icon next to any meal to save it here.</p>
+                <button style={{ ...S.btn, marginTop:"20px" }} onClick={() => { syncMenuToToday(); setStep(4); }}>Browse Menu →</button>
+              </div>
+            )}
+
+            {favoriteMeals.length > 0 && favoriteMeals.map((meal, i) => {
+              const bs = getBrainScore(meal);
+              return (
+                <div key={meal} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px" }}>
+                  <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
+                    <div style={{ width:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#e05070,#d04060)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                    <span style={{ flex:1, color:"#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{meal}</span>
+                    <button onClick={() => toggleFavorite(meal)} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"18px", flexShrink:0 }} title="Remove from favorites">❤️</button>
+                  </div>
+                  <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px", marginLeft:"38px" }}>
+                    <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
+                      <span style={{ color:"#7b9fff", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(meal)}</span>
+                    </div>
+                    <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
+                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
+                      <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"11px", fontWeight:"700" }}>{bs.score}/5</span>
+                    </div>
+                    {bs.nutrients.length > 0 && bs.nutrients.slice(0,3).map((n,ni) => (
+                      <span key={ni} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.1)", color:"#8890b8", fontSize:"10px", fontWeight:"600" }}>{n}</span>
+                    ))}
+                  </div>
+                  <div style={{ display:"flex", gap:"7px", flexWrap:"wrap", marginLeft:"38px" }}>
+                    <button onClick={() => openExplain(meal, "Favorite", 0)} style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
+                    <button onClick={() => openRecipe(meal, "Favorite", 0)} style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                  </div>
+                </div>
+              );
+            })}
+
+            {favoriteMeals.length > 0 && (
+              <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+                <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Back to Menu</button>
+                <button style={{ ...S.btnOutline, color:"#e85050", borderColor:"rgba(232,80,80,0.3)" }} onClick={() => { if(window.confirm("Remove all favorites?")) setFavoriteMeals([]); }}>Clear All</button>
+              </div>
+            )}
+          </div>
+          );
+        })()}
+
+        {/* STEP 17: EXERCISE */}
+        {step === 17 && isPremium && (() => {
+          const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
+            : (selectedConditions[0] && EXERCISE_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
+          const exRoutine = EXERCISE_ROUTINES[condKey] || EXERCISE_ROUTINES.default;
+          const todayChecks = getTodayChecks();
+          const exerciseOpts = todayChecks.exerciseOptions || {};
+          const anySelected = Object.values(exerciseOpts).some(Boolean);
+          const cyclePhase = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null;
+          const cycleSuggestion = getCycleSuggestion(cyclePhase);
+
+          return (
+            <div style={{ animation:"fadeUp 0.5s ease both" }}>
+              <h2 style={S.sectionTitle}>Exercise for Your Brain</h2>
+              <p style={S.sectionSub}>Movement personalized for {exRoutine.label}</p>
+
+              {/* Time preference toggle */}
+              <div style={{ ...S.card, padding:"16px 18px", marginBottom:"20px" }}>
+                <div style={{ color:"#8890b8", fontSize:"12px", fontWeight:"600", marginBottom:"10px" }}>I prefer to exercise in the:</div>
+                <div style={{ display:"flex", gap:"0", borderRadius:"12px", overflow:"hidden", border:"1px solid rgba(110,120,200,0.2)" }}>
+                  {["morning", "evening"].map(t => (
+                    <button key={t} onClick={() => setExerciseTimePref(t)} style={{ flex:1, padding:"10px 16px", border:"none", background: exerciseTimePref === t ? "rgba(80,200,120,0.15)" : "transparent", color: exerciseTimePref === t ? "#50c878" : "#8890b8", fontSize:"13px", fontWeight: exerciseTimePref === t ? "700" : "500", cursor:"pointer", textTransform:"capitalize", transition:"all 0.2s", borderRight: t === "morning" ? "1px solid rgba(110,120,200,0.2)" : "none" }}>{t}</button>
+                  ))}
+                </div>
+                <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"8px" }}>Your exercise step will appear in your {exerciseTimePref} routine.</div>
+              </div>
+
+              {/* Cycle sync card — females only */}
+              {cycleSuggestion && cyclePhase && (
+                <div style={{ padding:"16px 18px", borderRadius:"16px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.18)", marginBottom:"20px" }}>
+                  <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#ba68c8", fontWeight:"700", marginBottom:"10px" }}>Cycle Sync · {cyclePhase.label}</div>
+                  <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                    <span style={{ fontSize:"24px" }}>{cycleSuggestion.emoji}</span>
+                    <div>
+                      <div style={{ color:"#e8d0ff", fontSize:"14px", fontWeight:"700" }}>Suggested Exercise: {cycleSuggestion.type}</div>
+                      <div style={{ color:"#b0a0d0", fontSize:"12px", lineHeight:1.7, marginTop:"4px" }}>{cycleSuggestion.why}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Exercise cards */}
+              <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#7b9fff", fontWeight:"700", marginBottom:"14px" }}>Exercises for {exRoutine.label}</div>
+
+              {exRoutine.options.map((opt, i) => {
+                const isChecked = !!exerciseOpts[opt.title];
+                const isExpanded = expandedExercise === i;
+                return (
+                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                      <button onClick={() => {
+                        const newVal = !isChecked;
+                        if (newVal) triggerCheckAnim("ex-" + i);
+                        updateTodayChecks(prev => {
+                          const opts = { ...(prev.exerciseOptions || {}) };
+                          opts[opt.title] = newVal;
+                          const anyNowSelected = Object.values(opts).some(Boolean);
+                          return { ...prev, exerciseOptions: opts, exercise: anyNowSelected };
+                        });
+                        checkConfetti();
+                      }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "ex-" + i ? "checkGlow 0.6s ease-out" : undefined }}>
+                        {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "ex-" + i ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
+                      </button>
+                      <span style={{ fontSize:"22px", flexShrink:0 }}>{opt.emoji}</span>
+                      <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedExercise(isExpanded ? null : i)}>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"700", transition:"color 0.3s" }}>{opt.title}</div>
+                        <div style={{ color:"#8890b8", fontSize:"11px" }}>Tap to {isExpanded ? "hide" : "see"} the neuroscience</div>
+                      </div>
+                    </div>
+                    {isExpanded && (
+                      <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.8, marginTop:"10px", marginLeft:"58px", paddingTop:"8px", borderTop:"1px solid rgba(110,120,200,0.1)" }}>{opt.desc}</div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Status summary */}
+              {anySelected && (
+                <div style={{ ...S.card, padding:"14px 18px", marginTop:"16px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.2)" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                    <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span>
+                    <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Exercise marked done · +10 Brain Points</span>
+                  </div>
+                </div>
+              )}
+
+              <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+                <button style={S.btnOutline} onClick={() => setStep(10)}>← Routine</button>
+                <button style={S.btn} onClick={() => setStep(12)}>Today's Checklist →</button>
               </div>
             </div>
           );
@@ -6923,8 +7893,8 @@ function NeuroThriveApp() {
 
             {/* Tabs */}
             <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
-              <button onClick={() => handleModalTab("why")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="why"?"1.5px solid #7b9fff":"1px solid rgba(110,120,200,0.18)", background:modalTab==="why"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:modalTab==="why"?"#9db5ff":"#8890b8", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>🧠 Why This?</button>
-              <button onClick={() => handleModalTab("recipe")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="recipe"?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.18)", background:modalTab==="recipe"?"#5570f0":"rgba(240,244,255,0.04)", color:modalTab==="recipe"?"#fff":"#8890b8", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>🍳 Recipe</button>
+              <button onClick={() => handleModalTab("why")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="why"?"1.5px solid #7b9fff":"1px solid rgba(110,120,200,0.18)", background:modalTab==="why"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:modalTab==="why"?"#9db5ff":"#8890b8", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Why This?</button>
+              <button onClick={() => handleModalTab("recipe")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="recipe"?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.18)", background:modalTab==="recipe"?"#5570f0":"rgba(240,244,255,0.04)", color:modalTab==="recipe"?"#fff":"#8890b8", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Recipe</button>
             </div>
 
             <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", marginBottom:"18px" }} />
@@ -6990,7 +7960,7 @@ function NeuroThriveApp() {
                   )}
                   {recipe.tip && (
                     <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.07)", border:"1.5px solid rgba(107,143,255,0.18)" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#7b9fff", fontWeight:"700", marginBottom:"6px" }}>💡 Pro Tip</div>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#7b9fff", fontWeight:"700", marginBottom:"6px" }}>Pro Tip</div>
                       <div style={{ color:"#a0a8e8", fontSize:"13px", lineHeight:1.65 }}>{recipe.tip}</div>
                     </div>
                   )}
@@ -7017,6 +7987,7 @@ function NeuroThriveApp() {
           <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Terms of Service</button>
           <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Privacy Policy</button>
           <button onClick={() => setDisclaimerAccepted(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Health Disclaimer</button>
+          <button onClick={() => { setRefsExpanded(null); setLegalPage("references"); }} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Scientific References</button>
         </div>
         {user && (
           <div style={{ marginTop:"16px" }}>
@@ -7087,30 +8058,30 @@ function NeuroThriveApp() {
             <div style={{ textAlign:"center", marginBottom:"32px" }}>
               <div style={{ fontSize:"48px", marginBottom:"12px" }}>🧠</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 8px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
-              <p style={{ color:"#8890b8", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalized plan is ready — unlock it to begin your journey.</p>
+              <p style={{ color:"#8890b8", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalized plan is ready; unlock it to begin your journey.</p>
             </div>
 
             {/* Features list */}
             <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"16px", padding:"20px 24px", marginBottom:"24px" }}>
               <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"14px" }}>Everything included</div>
               {[
-                "🍽️  30-day personalized mental health meal plan",
-                "🌿  Evidence-based supplement guidance for your conditions",
-                "📓  Daily mood & energy journal",
-                "✨  182 curated affirmations",
-                "🔔  Meal reminders & daily affirmation notifications",
-                "🔄  Unlimited plan regeneration & cycle tracking",
-                "🌿  New content added regularly",
+                "30-day personalized mental health meal plan",
+                "Evidence-based supplement guidance for your conditions",
+                "Daily mood & energy journal",
+                "182 curated affirmations",
+                "Meal reminders & daily affirmation notifications",
+                "Unlimited plan regeneration & cycle tracking",
+                "New content added regularly",
               ].map((f, i) => (
-                <div key={i} style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.7, padding:"5px 0", borderBottom: i < 6 ? "1px solid rgba(107,143,255,0.08)" : "none" }}>{f}</div>
+                <div key={i} style={{ display:"flex", alignItems:"center", gap:"10px", color:"#c8ccf0", fontSize:"14px", lineHeight:1.7, padding:"5px 0", borderBottom: i < 6 ? "1px solid rgba(107,143,255,0.08)" : "none" }}><span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#50c878", flexShrink:0 }} />{f}</div>
               ))}
             </div>
 
             {/* Pricing cards */}
             <div style={{ display:"flex", gap:"14px", marginBottom:"20px", flexWrap:"wrap" }}>
-              {/* Annual — highlighted */}
+              {/* Annual: highlighted */}
               <div style={{ flex:1, minWidth:"200px", background:"linear-gradient(135deg, rgba(85,112,240,0.2), rgba(107,143,255,0.1))", border:"1.5px solid #7b9fff", borderRadius:"18px", padding:"22px 20px", position:"relative", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("annual")}>
-                <div style={{ position:"absolute", top:"-12px", left:"50%", transform:"translateX(-50%)", background:"linear-gradient(135deg,#5570f0,#7b9fff)", borderRadius:"20px", padding:"4px 14px", fontSize:"11px", fontWeight:"700", color:"#fff", letterSpacing:"1px", whiteSpace:"nowrap" }}>BEST VALUE — SAVE 50%</div>
+                <div style={{ position:"absolute", top:"-12px", left:"50%", transform:"translateX(-50%)", background:"linear-gradient(135deg,#5570f0,#7b9fff)", borderRadius:"20px", padding:"4px 14px", fontSize:"11px", fontWeight:"700", color:"#fff", letterSpacing:"1px", whiteSpace:"nowrap" }}>BEST VALUE: SAVE 50%</div>
                 <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px", marginTop:"8px" }}>$59.99</div>
                 <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per year</div>
                 <div style={{ color:"#8890b8", fontSize:"12px" }}>Just $5/month</div>
@@ -7149,12 +8120,12 @@ function NeuroThriveApp() {
                 <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
                 {[
                   { title:"1. Acceptance of Terms", body:"By accessing or using NeuroThrive (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App." },
-                  { title:"2. Not Medical Advice", body:"NeuroThrive provides general wellness and nutritional information for educational purposes only. The App is not a medical device and does not diagnose, treat, cure, or prevent any disease or medical condition.\n\nNothing in this App constitutes medical advice, diagnosis, or treatment. The meal plans, supplement information, affirmations, and routines are for informational and educational purposes only.\n\nAlways seek the advice of a qualified healthcare professional — including your physician, psychiatrist, or registered dietitian — before making any changes to your diet, starting supplements, or modifying any existing treatment plan. This is especially important if you are taking medication or under the care of a mental health professional.\n\nUse of this App does not create a healthcare provider-patient relationship." },
+                  { title:"2. Not Medical Advice", body:"NeuroThrive provides general wellness and nutritional information for educational purposes only. The App is not a medical device and does not diagnose, treat, cure, or prevent any disease or medical condition.\n\nNothing in this App constitutes medical advice, diagnosis, or treatment. The meal plans, supplement information, affirmations, and routines are for informational and educational purposes only.\n\nAlways seek the advice of a qualified healthcare professional, including your physician, psychiatrist, or registered dietitian, before making any changes to your diet, starting supplements, or modifying any existing treatment plan. This is especially important if you are taking medication or under the care of a mental health professional.\n\nUse of this App does not create a healthcare provider-patient relationship." },
                   { title:"3. Supplement Information", body:"Supplement information presented in the App is provided for educational reference only and is based on published nutritional neuroscience research. We do not recommend specific dosing. Individual needs, health conditions, and potential medication interactions vary greatly. Always consult your doctor or pharmacist before starting, stopping, or changing any supplement regimen." },
                   { title:"4. User Responsibility", body:"You are solely responsible for any decisions you make based on information provided in NeuroThrive. You acknowledge that:\n\n• The App provides general information, not personalized medical advice.\n• You should verify any information with a qualified healthcare professional.\n• You use the App at your own risk.\n• You are responsible for maintaining the confidentiality of your account credentials." },
-                  { title:"5. Subscriptions & Auto-Renewal", body:"NeuroThrive Premium is a paid subscription service.\n\n• Monthly Plan: $9.99 USD per month, billed monthly.\n• Annual Plan: $59.99 USD per year, billed annually.\n\nSubscriptions automatically renew at the end of each billing period at the then-current price unless cancelled at least 24 hours before the end of the current period. You will be charged for renewal within 24 hours prior to the end of the current period.\n\nYou may cancel your subscription at any time. Cancellation takes effect at the end of your current billing period — you will retain access until then. No partial refunds are provided for unused portions of a billing period.\n\nWe reserve the right to change subscription pricing with at least 30 days' notice. Price changes will not affect your current billing period.\n\nTo manage or cancel your subscription, visit your account settings or contact support@neurothrive.app." },
-                  { title:"6. Account Deletion", body:"You may delete your account and all associated data at any time using the \"Delete Account\" option in the App footer. Account deletion is immediate and permanent — all personal data, journal entries, meal plans, and progress data will be irreversibly removed from our servers. Active subscriptions should be cancelled separately before account deletion." },
-                  { title:"7. Intellectual Property", body:"All content in NeuroThrive — including but not limited to meal plans, recipes, supplement information, affirmations, routines, exercise descriptions, design elements, and software code — is the exclusive property of NeuroThrive and is protected by copyright law. Unauthorized reproduction, distribution, modification, or commercial use is strictly prohibited." },
+                  { title:"5. Subscriptions & Auto-Renewal", body:"NeuroThrive Premium is a paid subscription service.\n\n• Monthly Plan: $9.99 USD per month, billed monthly.\n• Annual Plan: $59.99 USD per year, billed annually.\n\nSubscriptions automatically renew at the end of each billing period at the then-current price unless cancelled at least 24 hours before the end of the current period. You will be charged for renewal within 24 hours prior to the end of the current period.\n\nYou may cancel your subscription at any time. Cancellation takes effect at the end of your current billing period; you will retain access until then. No partial refunds are provided for unused portions of a billing period.\n\nWe reserve the right to change subscription pricing with at least 30 days' notice. Price changes will not affect your current billing period.\n\nTo manage or cancel your subscription, visit your account settings or contact support@neurothrive.app." },
+                  { title:"6. Account Deletion", body:"You may delete your account and all associated data at any time using the \"Delete Account\" option in the App footer. Account deletion is immediate and permanent; all personal data, journal entries, meal plans, and progress data will be irreversibly removed from our servers. Active subscriptions should be cancelled separately before account deletion." },
+                  { title:"7. Intellectual Property", body:"All content in NeuroThrive, including but not limited to meal plans, recipes, supplement information, affirmations, routines, exercise descriptions, design elements, and software code, is the exclusive property of NeuroThrive and is protected by copyright law. Unauthorized reproduction, distribution, modification, or commercial use is strictly prohibited." },
                   { title:"8. Limitation of Liability", body:"TO THE MAXIMUM EXTENT PERMITTED BY LAW, NeuroThrive and its owners, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the App.\n\nThe App is provided \"AS IS\" and \"AS AVAILABLE\" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement." },
                   { title:"9. Governing Law", body:"These Terms shall be governed by and construed in accordance with the laws of the United States. Any disputes arising from these Terms or the App shall be resolved in the courts of competent jurisdiction." },
                   { title:"10. Changes to Terms", body:"We may update these Terms from time to time. We will notify you of material changes by posting updated Terms in the App. Your continued use of the App after changes are posted constitutes acceptance of the revised Terms." },
@@ -7180,7 +8151,7 @@ function NeuroThriveApp() {
                   { title:"5. Third-Party Services", body:"We use the following third-party services to operate the App:\n\n• Supabase (Database & Authentication): Stores your account data and app content securely. Supabase provides enterprise-grade encryption at rest (AES-256) and in transit (TLS 1.2+). Supabase's privacy policy: https://supabase.com/privacy\n• Stripe (Payment Processing): Processes subscription payments. Stripe is PCI DSS Level 1 certified. NeuroThrive never receives or stores your full credit card number. Stripe's privacy policy: https://stripe.com/privacy\n• Netlify (Hosting & Serverless Functions): Hosts the App and processes server-side requests. Netlify's privacy policy: https://www.netlify.com/privacy\n• Google Fonts (Typography): Loads font files for display. No personal data is transmitted to Google through this service.\n\nWe do not share your personal data with any other third parties. We do not use any advertising SDKs, analytics trackers, or third-party AI services that process your personal data." },
                   { title:"6. Data Retention", body:"We retain your personal data for as long as your account is active. Specifically:\n\n• Account and profile data: Retained until you delete your account.\n• Journal entries, food logs, and check-in data: Retained until you delete your account.\n• Payment records: Retained as required by applicable tax and financial regulations (typically 7 years for transaction records).\n\nWhen you delete your account, all personal data stored in our database (profile, conditions, diet, journal entries, meal plans, daily checks, food logs) is permanently deleted. This action is irreversible." },
                   { title:"7. Data Security", body:"We implement industry-standard security measures to protect your data:\n\n• All data is encrypted at rest using AES-256 encryption.\n• All data in transit is protected by TLS 1.2 or higher.\n• Passwords are hashed and never stored in plain text.\n• Database access requires authenticated API keys.\n• We do not store payment card data on our servers.\n\nWhile we strive to protect your information, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security." },
-                  { title:"8. Your Rights & Account Deletion", body:"You have the following rights regarding your personal data:\n\n• Access: You can view all your data within the App at any time.\n• Correction: You can update your profile, conditions, and dietary preferences at any time.\n• Deletion: You can permanently delete your account and all associated data using the \"Delete Account\" button in the App footer. Account deletion is immediate and irreversible.\n• Data Portability: Contact us at support@neurothrive.app to request a copy of your data.\n• Withdraw Consent: You may stop using the App at any time. Deleting the App from your device does not delete your account — use the in-app deletion feature.\n\nFor users in the European Economic Area (EEA), you also have the right to lodge a complaint with your local data protection authority. For California residents, you have additional rights under the CCPA including the right to know, delete, and opt-out of the sale of personal information. We do not sell personal information." },
+                  { title:"8. Your Rights & Account Deletion", body:"You have the following rights regarding your personal data:\n\n• Access: You can view all your data within the App at any time.\n• Correction: You can update your profile, conditions, and dietary preferences at any time.\n• Deletion: You can permanently delete your account and all associated data using the \"Delete Account\" button in the App footer. Account deletion is immediate and irreversible.\n• Data Portability: Contact us at support@neurothrive.app to request a copy of your data.\n• Withdraw Consent: You may stop using the App at any time. Deleting the App from your device does not delete your account; use the in-app deletion feature.\n\nFor users in the European Economic Area (EEA), you also have the right to lodge a complaint with your local data protection authority. For California residents, you have additional rights under the CCPA including the right to know, delete, and opt-out of the sale of personal information. We do not sell personal information." },
                   { title:"9. Children's Privacy", body:"NeuroThrive is intended for users aged 18 and older. We do not knowingly collect personal information from children under 18. If we learn that we have collected data from a child under 18, we will delete it promptly. If you believe a child has provided us with personal data, please contact us at support@neurothrive.app." },
                   { title:"10. International Data Transfers", body:"Your data may be transferred to and processed in the United States, where our service providers operate. By using the App, you consent to the transfer of your data to the United States. We ensure that all third-party processors provide adequate data protection measures." },
                   { title:"11. Changes to This Policy", body:"We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy in the App and updating the \"Effective Date\" above. Your continued use of the App after changes are posted constitutes acceptance of the revised policy. We encourage you to review this policy periodically." },
@@ -7191,6 +8162,38 @@ function NeuroThriveApp() {
                     <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {legalPage === "references" && (
+              <div>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", marginBottom:"6px" }}>Scientific References</h2>
+                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"12px" }}>Sources Informing NeuroThrive Content</p>
+                <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"24px" }}>
+                  <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0 }}>NeuroThrive is informed by published neuroscience and nutritional research. The references below support the facts and insights presented throughout the app. NeuroThrive does not claim to diagnose, treat, cure, or prevent any medical condition. Always consult a qualified healthcare professional before making changes to your diet or health regimen.</p>
+                </div>
+                {Object.entries(SCIENTIFIC_REFERENCES).map(([key, section]) => {
+                  const isOpen = refsExpanded === key;
+                  return (
+                    <div key={key} style={{ marginBottom:"8px" }}>
+                      <button onClick={() => setRefsExpanded(isOpen ? null : key)} style={{ width:"100%", padding:"14px 16px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.15)", background: isOpen ? "rgba(107,143,255,0.08)" : "rgba(240,244,255,0.03)", cursor:"pointer", display:"flex", justifyContent:"space-between", alignItems:"center", textAlign:"left" }}>
+                        <span style={{ color: isOpen ? "#7b9fff" : "#eef0ff", fontSize:"14px", fontWeight:"600" }}>{section.label}</span>
+                        <span style={{ color:"#8890b8", fontSize:"12px" }}>{section.refs.length} source{section.refs.length !== 1 ? "s" : ""} {isOpen ? "▲" : "▼"}</span>
+                      </button>
+                      {isOpen && (
+                        <div style={{ padding:"12px 16px", borderLeft:"3px solid rgba(107,143,255,0.3)", marginLeft:"8px", marginTop:"4px" }}>
+                          {section.refs.map((ref, ri) => (
+                            <div key={ri} style={{ marginBottom:"16px", paddingBottom: ri < section.refs.length - 1 ? "16px" : "0", borderBottom: ri < section.refs.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
+                              <div style={{ color:"#9db5ff", fontSize:"12px", lineHeight:1.6, marginBottom:"4px" }}>"{ref.claim}"</div>
+                              <div style={{ color:"#eef0ff", fontSize:"12px", fontWeight:"600", lineHeight:1.5 }}>{ref.source} ({ref.year})</div>
+                              <div style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.5 }}>{ref.detail}. <span style={{ fontStyle:"italic" }}>{ref.journal}</span></div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
