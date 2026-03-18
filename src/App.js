@@ -7220,8 +7220,8 @@ function NeuroThriveApp() {
                 <div style={{ ...S.card, textAlign:"center", padding:"48px 32px" }}>
                   <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
                   <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
-                  <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal tab; after a few days, your progress charts will appear here.</div>
-                  <button style={S.btnAccent} onClick={() => setStep(8)}>Open Journal →</button>
+                  <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal & Symptom Tracker on your Checklist; after a few days, your progress charts will appear here.</div>
+                  <button style={S.btnAccent} onClick={() => setStep(12)}>Open Checklist →</button>
                 </div>
               ) : (
                 <>
@@ -7480,7 +7480,7 @@ function NeuroThriveApp() {
               )}
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-                <button style={S.btnOutline} onClick={() => setStep(8)}>← Journal</button>
+                <button style={S.btnOutline} onClick={() => setStep(12)}>← Checklist</button>
                 <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>View Meal Plan →</button>
               </div>
             </div>
