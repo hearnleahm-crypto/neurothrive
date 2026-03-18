@@ -4935,9 +4935,43 @@ function NeuroThriveApp() {
     const startDay = weekIdx * 7;
     const endDay = Math.min(startDay + 7, 30);
     const meals = [];
-    const proteinSet = new Map();
-    const grainSet = new Map();
-    const vegSet = new Map();
+
+    // Collect ingredients with quantities per component type
+    const componentMap = new Map(); // key -> { totalQty, unit, rawIngredients[], usedIn[], category }
+
+    const PROTEIN_PATTERNS = [
+      { regex: /chicken/i, name: "chicken", cook: "Season with salt, pepper, and garlic powder. Bake at 400°F (200°C) for 25 min until internal temp reaches 165°F. Let rest 5 min, then slice or shred.", store: "Divide into meal-sized portions in airtight containers. Fridge: 4 days." },
+      { regex: /salmon/i, name: "salmon", cook: "Pat dry, season with salt and pepper. Bake at 400°F (200°C) skin-side down for 12–15 min. Fillets should flake easily with a fork.", store: "Store in airtight containers. Best within 2–3 days. Reheat gently at 275°F." },
+      { regex: /turkey/i, name: "turkey", cook: "Season with herbs and spices. Cook in a skillet over medium-high heat, breaking apart, for 8–10 min until no pink remains.", store: "Divide into containers. Fridge: 4 days. Great for bowls and wraps." },
+      { regex: /beef/i, name: "beef", cook: "Season generously. For ground: cook over medium-high 8–10 min. For steak: sear 4 min per side for medium. For stew: cube and brown all sides.", store: "Divide into portions. Fridge: 3–4 days. Freeze for up to 3 months." },
+      { regex: /shrimp/i, name: "shrimp", cook: "Peel and devein if needed. Sauté in olive oil over high heat for 2–3 min per side until pink and opaque.", store: "Fridge in airtight container: 2–3 days. Do not reheat more than once." },
+      { regex: /tofu/i, name: "tofu", cook: "Press for 15 min to remove water. Cube, toss with soy sauce and cornstarch. Bake at 400°F for 25 min, flipping halfway.", store: "Fridge in airtight container: 4–5 days. Stays crispy if stored uncovered." },
+      { regex: /tempeh/i, name: "tempeh", cook: "Slice into strips or cubes. Steam 10 min to reduce bitterness, then pan-fry in oil 3–4 min per side until golden.", store: "Fridge: 4–5 days. Marinates well overnight." },
+      { regex: /tuna/i, name: "tuna", cook: "For fresh: sear in hot pan 1–2 min per side for rare. For canned: drain and mix with desired seasonings.", store: "Fresh: best same day. Canned mix: fridge 2–3 days." },
+      { regex: /cod|tilapia|fish/i, name: "white fish", cook: "Season with lemon, salt, pepper. Bake at 400°F for 12–15 min until flaky. Or pan-sear in butter 3–4 min per side.", store: "Fridge: 2–3 days. Reheat gently to avoid drying out." },
+      { regex: /pork/i, name: "pork", cook: "Season with salt, pepper, paprika. For tenderloin: roast at 400°F for 20–25 min to 145°F internal. For chops: pan-sear 4 min per side.", store: "Slice and store in containers. Fridge: 4 days." },
+    ];
+
+    const GRAIN_PATTERNS = [
+      { regex: /rice/i, name: "rice", cook: "Rinse until water runs clear. Combine 1 cup rice with 2 cups water. Bring to boil, reduce to low, cover, and cook 18 min. Fluff with fork.", store: "Spread on sheet pan to cool quickly. Fridge in containers: 5 days. Reheat with a splash of water." },
+      { regex: /quinoa/i, name: "quinoa", cook: "Rinse well. Combine 1 cup quinoa with 2 cups water. Bring to boil, reduce to low, cover 15 min. Let stand 5 min, then fluff.", store: "Fridge: 5–7 days. Great cold in salads or reheated." },
+      { regex: /pasta|noodle/i, name: "pasta", cook: "Boil in salted water until al dente (1 min less than package says). Drain, toss with a little olive oil to prevent sticking.", store: "Fridge: 4–5 days. Toss with sauce when reheating to restore moisture." },
+      { regex: /farro/i, name: "farro", cook: "Boil in salted water for 25–30 min until chewy-tender. Drain any excess water.", store: "Fridge: 5 days. Excellent cold in grain bowls." },
+      { regex: /couscous/i, name: "couscous", cook: "Boil equal parts water. Remove from heat, stir in couscous, cover 5 min. Fluff with fork.", store: "Fridge: 5 days. Reheat with a splash of water or serve cold." },
+      { regex: /barley/i, name: "barley", cook: "Simmer 1 cup barley in 3 cups water for 45–50 min until tender. Drain excess.", store: "Fridge: 5 days." },
+    ];
+
+    const VEG_PATTERNS = [
+      { regex: /broccoli/i, name: "broccoli", cook: "Cut into florets. Toss with olive oil, salt, pepper. Roast at 425°F for 20 min until edges are crispy. Or blanch 2 min for softer texture.", store: "Fridge: 4 days. Roasted reheats better than blanched." },
+      { regex: /sweet potato/i, name: "sweet potato", cook: "Peel and cube into 1-inch pieces. Toss with olive oil and salt. Roast at 400°F for 25–30 min, stirring halfway.", store: "Fridge: 4–5 days. Great in bowls, salads, or as a side." },
+      { regex: /bell pepper/i, name: "bell peppers", cook: "Wash, remove seeds, slice into strips. Use raw or roast at 425°F for 15 min.", store: "Raw sliced: fridge 4–5 days in water. Roasted: 4 days." },
+      { regex: /cauliflower/i, name: "cauliflower", cook: "Cut into florets. Toss with oil and seasoning. Roast at 425°F for 25 min until golden.", store: "Fridge: 4 days." },
+      { regex: /zucchini/i, name: "zucchini", cook: "Slice into half-moons or spiralize. Best cooked day-of to avoid sogginess, but can be pre-sliced.", store: "Pre-sliced raw: fridge 3 days. Cook day-of for best texture." },
+      { regex: /carrot/i, name: "carrots", cook: "Peel and slice into sticks or coins. Roast at 400°F for 20 min or store raw for snacking.", store: "Raw sticks in water: fridge 7 days. Roasted: 4 days." },
+      { regex: /spinach/i, name: "spinach", cook: "Wash and dry thoroughly. Use raw in salads or sauté in garlic and olive oil for 2 min.", store: "Washed and dried in paper towel-lined container: 5 days." },
+      { regex: /kale/i, name: "kale", cook: "Remove stems, tear into pieces. Massage with olive oil and lemon juice for raw salads. Or sauté 3–4 min.", store: "Washed and dried: 5 days. Massaged with dressing: 3 days (holds up well)." },
+      { regex: /onion/i, name: "onions", cook: "Peel and dice. Sauté in olive oil over medium heat 8–10 min until translucent, or 20 min for caramelized.", store: "Raw diced: fridge 7 days in sealed container. Caramelized: 5 days." },
+    ];
 
     for (let i = startDay; i < endDay; i++) {
       const day = menu30[i];
@@ -4954,46 +4988,117 @@ function NeuroThriveApp() {
         try { recipe = generateRecipe(mealName); } catch(e) {}
         meals.push({ mealName, mealType, dayLabel, dayNum, classification, recipe });
 
-        // Extract prep components from ingredients
         if (recipe && recipe.ingredients) {
           recipe.ingredients.forEach(ing => {
             const il = ing.toLowerCase();
-            if (/chicken|salmon|tuna|turkey|beef|shrimp|tofu|tempeh|pork|fish|cod|tilapia/.test(il)) {
-              const protein = il.match(/(chicken|salmon|tuna|turkey|beef|shrimp|tofu|tempeh|pork|fish|cod|tilapia)/)[0];
-              if (!proteinSet.has(protein)) proteinSet.set(protein, []);
-              proteinSet.get(protein).push(`${dayLabel} ${mealType}`);
-            }
-            if (/rice|quinoa|pasta|noodle|farro|couscous|barley/.test(il)) {
-              const grain = il.match(/(rice|quinoa|pasta|noodle|farro|couscous|barley)/)[0];
-              if (!grainSet.has(grain)) grainSet.set(grain, []);
-              grainSet.get(grain).push(`${dayLabel} ${mealType}`);
-            }
-            if (/broccoli|spinach|kale|bell pepper|sweet potato|cauliflower|zucchini|carrot|onion/.test(il)) {
-              const veg = il.match(/(broccoli|spinach|kale|bell pepper|sweet potato|cauliflower|zucchini|carrot|onion)/)[0];
-              if (!vegSet.has(veg)) vegSet.set(veg, []);
-              vegSet.get(veg).push(`${dayLabel} ${mealType}`);
+            const allPatterns = [...PROTEIN_PATTERNS, ...GRAIN_PATTERNS, ...VEG_PATTERNS];
+            for (const pat of allPatterns) {
+              if (pat.regex.test(il)) {
+                if (!componentMap.has(pat.name)) {
+                  const cat = PROTEIN_PATTERNS.includes(pat) ? "Protein" : GRAIN_PATTERNS.includes(pat) ? "Grains" : "Vegetables";
+                  componentMap.set(pat.name, { rawIngredients: [], usedIn: [], category: cat, cook: pat.cook, store: pat.store });
+                }
+                const entry = componentMap.get(pat.name);
+                entry.rawIngredients.push(ing.trim());
+                const usedLabel = `${dayLabel} ${mealType}`;
+                if (!entry.usedIn.includes(usedLabel)) entry.usedIn.push(usedLabel);
+                break;
+              }
             }
           });
         }
       }
     }
 
-    // Build batch prep tasks
+    // Build batch prep tasks with quantities and instructions
     const batchTasks = [];
-    proteinSet.forEach((usedIn, protein) => {
-      if (usedIn.length >= 2) batchTasks.push({ task:`Cook all ${protein} for the week`, usedIn, category:"Protein", time:25, color:"#e86060" });
-    });
-    grainSet.forEach((usedIn, grain) => {
-      if (usedIn.length >= 2) batchTasks.push({ task:`Cook ${grain} in bulk`, usedIn, category:"Grains", time:20, color:"#e8c87a" });
-    });
-    vegSet.forEach((usedIn, veg) => {
-      if (usedIn.length >= 2) batchTasks.push({ task:`Wash and chop ${veg}`, usedIn, category:"Vegetables", time:10, color:"#50c878" });
-    });
+    const catOrder = { "Protein": 0, "Grains": 1, "Vegetables": 2 };
+    [...componentMap.entries()]
+      .filter(([, v]) => v.usedIn.length >= 2)
+      .sort((a, b) => (catOrder[a[1].category] || 9) - (catOrder[b[1].category] || 9))
+      .forEach(([name, data]) => {
+        const color = data.category === "Protein" ? "#e86060" : data.category === "Grains" ? "#e8c87a" : "#50c878";
+        const time = data.category === "Protein" ? 25 : data.category === "Grains" ? 20 : 15;
+        // Consolidate duplicate ingredients
+        const ingMap = new Map();
+        data.rawIngredients.forEach(raw => {
+          // Simple parse: extract leading number and the rest
+          const numMatch = raw.match(/^([\d½¼¾⅓⅔⅛]+(?:\s*[\d½¼¾⅓⅔⅛/]*)?)\s*(.*)/);
+          if (numMatch) {
+            const fracs = {"½":0.5,"¼":0.25,"¾":0.75,"⅓":0.33,"⅔":0.67,"⅛":0.125};
+            let qty = 0;
+            const qPart = numMatch[1].trim();
+            for (const [f, v] of Object.entries(fracs)) { if (qPart.includes(f)) { qty += v; } }
+            const digits = qPart.match(/\d+/g);
+            if (digits) qty += parseInt(digits[0]);
+            if (qty === 0) qty = 1;
+            const desc = numMatch[2].trim().toLowerCase();
+            const key = desc.replace(/s$/,"");
+            if (ingMap.has(key)) { ingMap.get(key).qty += qty; }
+            else { ingMap.set(key, { qty, desc: numMatch[2].trim() }); }
+          } else {
+            const key = raw.trim().toLowerCase();
+            if (ingMap.has(key)) { ingMap.get(key).qty += 1; }
+            else { ingMap.set(key, { qty: 1, desc: raw.trim() }); }
+          }
+        });
+        const consolidated = [...ingMap.values()].map(({ qty, desc }) => {
+          const qStr = qty % 1 === 0 ? String(qty) : qty.toFixed(1).replace(/\.0$/,"");
+          return `${qStr} ${desc}`;
+        });
+        const qtyStr = data.usedIn.length + " meals this week";
+        batchTasks.push({
+          task: `Batch ${data.category === "Vegetables" ? "prep" : "cook"} ${name}`,
+          quantity: qtyStr,
+          ingredients: consolidated,
+          cook: data.cook,
+          store: data.store,
+          usedIn: data.usedIn,
+          category: data.category,
+          time,
+          color
+        });
+      });
 
-    // Full-prep meals
+    // Full-prep meals with recipe steps
     const fullPrep = meals.filter(m => m.classification.tier === "full-prep");
     fullPrep.forEach(m => {
-      batchTasks.push({ task:`Make ${m.mealName}`, usedIn:[`${m.dayLabel} ${m.mealType}`], category:"Full Meals", time: m.recipe ? parseInt(m.recipe.time) || 30 : 30, color:"#7b9fff" });
+      const steps = m.recipe?.steps || [];
+      // Consolidate full-meal ingredients too
+      const fullIngMap = new Map();
+      (m.recipe?.ingredients || []).forEach(raw => {
+        const numMatch = raw.match(/^([\d½¼¾⅓⅔⅛]+(?:\s*[\d½¼¾⅓⅔⅛/]*)?)\s*(.*)/);
+        if (numMatch) {
+          const fracs = {"½":0.5,"¼":0.25,"¾":0.75,"⅓":0.33,"⅔":0.67,"⅛":0.125};
+          let qty = 0;
+          const qPart = numMatch[1].trim();
+          for (const [f, v] of Object.entries(fracs)) { if (qPart.includes(f)) { qty += v; } }
+          const digits = qPart.match(/\d+/g);
+          if (digits) qty += parseInt(digits[0]);
+          if (qty === 0) qty = 1;
+          const desc = numMatch[2].trim().toLowerCase();
+          const key = desc.replace(/s$/,"");
+          if (fullIngMap.has(key)) { fullIngMap.get(key).qty += qty; }
+          else { fullIngMap.set(key, { qty, desc: numMatch[2].trim() }); }
+        } else {
+          fullIngMap.set(raw.trim(), { qty: 1, desc: raw.trim() });
+        }
+      });
+      const fullConsolidated = [...fullIngMap.values()].map(({ qty, desc }) => {
+        const qStr = qty % 1 === 0 ? String(qty) : qty.toFixed(1).replace(/\.0$/,"");
+        return `${qStr} ${desc}`;
+      }).slice(0, 8);
+      batchTasks.push({
+        task: `Make ${m.mealName}`,
+        quantity: m.recipe?.serves || "4 servings",
+        ingredients: fullConsolidated,
+        cook: steps.length > 0 ? steps.join(" ") : "Follow recipe instructions.",
+        store: m.classification.storage,
+        usedIn: [`${m.dayLabel} ${m.mealType}`],
+        category: "Full Meals",
+        time: m.recipe ? parseInt(m.recipe.time) || 30 : 30,
+        color: "#7b9fff"
+      });
     });
 
     const totalPrepTime = batchTasks.reduce((s, t) => s + t.time, 0);
@@ -8453,19 +8558,53 @@ function NeuroThriveApp() {
                 <div style={{ marginBottom:"24px" }}>
                   <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"2.5px", textTransform:"uppercase", marginBottom:"12px" }}>Prep Day Tasks</div>
                   {plan.batchTasks.map((task, i) => (
-                    <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"8px", borderLeft:`3px solid ${task.color}`, display:"flex", alignItems:"flex-start", gap:"12px" }}>
-                      <button onClick={() => setMealPrepChecked(p => ({ ...p, [i]: !p[i] }))} style={{ width:"22px", height:"22px", borderRadius:"6px", border: mealPrepChecked[i] ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealPrepChecked[i] ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, marginTop:"1px" }}>
-                        {mealPrepChecked[i] && <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"800" }}>✓</span>}
-                      </button>
-                      <div style={{ flex:1 }}>
-                        <div style={{ color: mealPrepChecked[i] ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", textDecoration: mealPrepChecked[i] ? "line-through" : "none", transition:"all 0.2s" }}>{task.task}</div>
-                        <div style={{ display:"flex", gap:"8px", alignItems:"center", marginTop:"4px" }}>
-                          <span style={{ fontSize:"10px", color:"#6b7394" }}>~{task.time} min</span>
-                          <span style={{ fontSize:"10px", color:"#6b7394" }}>·</span>
-                          <span style={{ fontSize:"10px", color:"#8890b8" }}>{task.usedIn.slice(0,3).join(", ")}{task.usedIn.length > 3 ? ` +${task.usedIn.length-3} more` : ""}</span>
+                    <details key={i} style={{ ...S.card, padding:"0", marginBottom:"10px", borderLeft:`3px solid ${task.color}`, overflow:"hidden" }}>
+                      <summary style={{ listStyle:"none", cursor:"pointer", padding:"14px 16px", display:"flex", alignItems:"flex-start", gap:"12px" }}>
+                        <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMealPrepChecked(p => ({ ...p, [i]: !p[i] })); }} style={{ width:"22px", height:"22px", borderRadius:"6px", border: mealPrepChecked[i] ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealPrepChecked[i] ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, marginTop:"1px" }}>
+                          {mealPrepChecked[i] && <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"800" }}>✓</span>}
+                        </button>
+                        <div style={{ flex:1 }}>
+                          <div style={{ color: mealPrepChecked[i] ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", textDecoration: mealPrepChecked[i] ? "line-through" : "none", transition:"all 0.2s" }}>{task.task}</div>
+                          <div style={{ display:"flex", gap:"8px", alignItems:"center", marginTop:"4px", flexWrap:"wrap" }}>
+                            <span style={{ fontSize:"10px", color:"#6b7394" }}>~{task.time} min</span>
+                            <span style={{ fontSize:"10px", color:"#6b7394" }}>·</span>
+                            <span style={{ fontSize:"10px", color:"#8890b8" }}>{task.quantity}</span>
+                            <span style={{ fontSize:"10px", color:"#6b7394" }}>·</span>
+                            <span style={{ fontSize:"10px", color:task.color }}>Tap for instructions</span>
+                          </div>
+                        </div>
+                      </summary>
+                      <div style={{ padding:"0 16px 16px 50px", borderTop:"1px solid rgba(110,120,200,0.1)" }}>
+                        {task.ingredients && task.ingredients.length > 0 && (
+                          <div style={{ marginTop:"12px", marginBottom:"10px" }}>
+                            <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Ingredients</div>
+                            {task.ingredients.map((ing, j) => (
+                              <div key={j} style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, paddingLeft:"8px", borderLeft:"2px solid rgba(110,120,200,0.15)" }}>{ing}</div>
+                            ))}
+                          </div>
+                        )}
+                        {task.cook && (
+                          <div style={{ marginBottom:"10px" }}>
+                            <div style={{ fontSize:"10px", fontWeight:"700", color:"#50c878", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>How to Cook</div>
+                            <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7 }}>{task.cook}</div>
+                          </div>
+                        )}
+                        {task.store && (
+                          <div style={{ marginBottom:"8px" }}>
+                            <div style={{ fontSize:"10px", fontWeight:"700", color:"#e8c87a", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Storage</div>
+                            <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7 }}>{task.store}</div>
+                          </div>
+                        )}
+                        <div style={{ marginTop:"8px" }}>
+                          <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"4px" }}>Used In</div>
+                          <div style={{ display:"flex", flexWrap:"wrap", gap:"4px" }}>
+                            {task.usedIn.map((u, j) => (
+                              <span key={j} style={{ padding:"3px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"600", background:`${task.color}10`, border:`1px solid ${task.color}30`, color:task.color }}>{u}</span>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </details>
                   ))}
                 </div>
               )}
