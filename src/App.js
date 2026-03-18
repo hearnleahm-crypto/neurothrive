@@ -3114,6 +3114,98 @@ const ENERGY_EMOJIS = [
   { emoji: "🚀", label: "Vibrant", val: 5 },
 ];
 
+const GENERAL_SYMPTOMS = [
+  { id: "brain_fog", label: "Brain Fog" },
+  { id: "headache", label: "Headache" },
+  { id: "fatigue", label: "Fatigue" },
+  { id: "insomnia", label: "Insomnia" },
+  { id: "irritability", label: "Irritability" },
+  { id: "poor_appetite", label: "Poor Appetite" },
+  { id: "overeating", label: "Overeating" },
+  { id: "muscle_tension", label: "Muscle Tension" },
+  { id: "low_motivation", label: "Low Motivation" },
+];
+
+const CONDITION_SYMPTOMS = {
+  adhd: [
+    { id: "hyperfocus_crash", label: "Hyperfocus Crash" },
+    { id: "restlessness", label: "Restlessness" },
+    { id: "time_blindness", label: "Time Blindness" },
+    { id: "sensory_overload", label: "Sensory Overload" },
+    { id: "impulsivity", label: "Impulsivity" },
+  ],
+  anxiety: [
+    { id: "racing_thoughts", label: "Racing Thoughts" },
+    { id: "panic_feelings", label: "Panic Feelings" },
+    { id: "chest_tightness", label: "Chest Tightness" },
+    { id: "avoidance", label: "Avoidance" },
+    { id: "dread", label: "Sense of Dread" },
+  ],
+  depression: [
+    { id: "hopelessness", label: "Hopelessness" },
+    { id: "anhedonia", label: "Can't Feel Pleasure" },
+    { id: "crying_spells", label: "Crying Spells" },
+    { id: "social_withdrawal", label: "Social Withdrawal" },
+    { id: "rumination", label: "Rumination" },
+  ],
+  bipolar: [
+    { id: "racing_thoughts_bp", label: "Racing Thoughts" },
+    { id: "grandiosity", label: "Grandiosity" },
+    { id: "rapid_speech", label: "Rapid Speech" },
+    { id: "reckless_urges", label: "Reckless Urges" },
+    { id: "sleep_change", label: "Sleep Change" },
+  ],
+  ptsd: [
+    { id: "flashbacks", label: "Flashbacks" },
+    { id: "hypervigilance", label: "Hypervigilance" },
+    { id: "nightmares", label: "Nightmares" },
+    { id: "emotional_numbness", label: "Emotional Numbness" },
+    { id: "startle_response", label: "Startle Response" },
+  ],
+  ocd: [
+    { id: "intrusive_thoughts", label: "Intrusive Thoughts" },
+    { id: "compulsive_urges", label: "Compulsive Urges" },
+    { id: "checking_behavior", label: "Checking Behavior" },
+    { id: "contamination_fear", label: "Contamination Fear" },
+  ],
+  bpd: [
+    { id: "abandonment_fear", label: "Abandonment Fear" },
+    { id: "identity_confusion", label: "Identity Confusion" },
+    { id: "emotional_swings", label: "Emotional Swings" },
+    { id: "splitting", label: "Splitting" },
+  ],
+  eating: [
+    { id: "body_image_distress", label: "Body Image Distress" },
+    { id: "restriction_urge", label: "Restriction Urge" },
+    { id: "binge_urge", label: "Binge Urge" },
+    { id: "food_guilt", label: "Food Guilt" },
+  ],
+  schizophrenia: [
+    { id: "disorganized_thinking", label: "Disorganized Thinking" },
+    { id: "paranoia", label: "Paranoia" },
+    { id: "flat_affect", label: "Flat Affect" },
+  ],
+  autism: [
+    { id: "sensory_overload_asd", label: "Sensory Overload" },
+    { id: "meltdown_risk", label: "Meltdown Risk" },
+    { id: "masking_fatigue", label: "Masking Fatigue" },
+    { id: "routine_disruption", label: "Routine Disruption" },
+    { id: "social_drain", label: "Social Drain" },
+  ],
+  did: [
+    { id: "dissociation", label: "Dissociation" },
+    { id: "amnesia_gaps", label: "Amnesia Gaps" },
+    { id: "switching", label: "Switching" },
+    { id: "depersonalization", label: "Depersonalization" },
+  ],
+};
+
+const INTENSITY_LEVELS = [
+  { id: "mild", label: "Mild", color: "#e8c87a" },
+  { id: "moderate", label: "Moderate", color: "#f0a050" },
+  { id: "severe", label: "Severe", color: "#e86060" },
+];
+
 const SUPPLEMENTS = {
   adhd: [
     { name:"Omega-3 (EPA/DHA)", dose:"", emoji:"🐟", science:"Multiple RCTs show omega-3 supplementation reduces ADHD symptom severity by 20–30% in children and adults. EPA appears most active for attention and mood regulation.", why:"The ADHD brain has reduced dopaminergic transmission. EPA omega-3s increase dopamine receptor sensitivity and reduce the neuroinflammation that impairs prefrontal cortex function, the exact region responsible for attention, impulse control, and executive function.", timing:"With a meal containing fat for best absorption.", caution:"Choose a third-party tested brand. Very high doses may thin blood.", link:"https://pubmed.ncbi.nlm.nih.gov/28741143/" },
@@ -3990,6 +4082,8 @@ function NeuroThriveApp() {
   const [todayMood, setTodayMood] = useState(null);
   const [todayEnergy, setTodayEnergy] = useState(null);
   const [todayNote, setTodayNote] = useState("");
+  const [todaySymptoms, setTodaySymptoms] = useState({});
+  const [showPatterns, setShowPatterns] = useState(false);
   const [affirmIdx, setAffirmIdx] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [logSaved, setLogSaved] = useState(false);
@@ -4947,6 +5041,7 @@ function NeuroThriveApp() {
     const entry = {
       date: new Date().toLocaleDateString("en-US", { weekday:"short", month:"short", day:"numeric" }),
       mood: todayMood, energy: todayEnergy, note: todayNote,
+      symptoms: Object.keys(todaySymptoms).length > 0 ? todaySymptoms : undefined,
     };
     setLogs(prev => [entry, ...prev]);
     // Show mood-nutrient connection for low moods
@@ -4957,8 +5052,59 @@ function NeuroThriveApp() {
     } else {
       setMoodInsight(null);
     }
-    setTodayMood(null); setTodayEnergy(null); setTodayNote("");
+    setTodayMood(null); setTodayEnergy(null); setTodayNote(""); setTodaySymptoms({});
     setLogSaved(true); setTimeout(() => setLogSaved(false), 3000);
+  };
+
+  const toggleSymptom = (id) => {
+    setTodaySymptoms(prev => {
+      if (prev[id]) {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      }
+      return { ...prev, [id]: "mild" };
+    });
+  };
+
+  const setSymptomIntensity = (id, level) => {
+    setTodaySymptoms(prev => ({ ...prev, [id]: level }));
+  };
+
+  const getSymptomPatterns = () => {
+    const logsWithSymptoms = logs.filter(l => l.symptoms && Object.keys(l.symptoms).length > 0);
+    if (logsWithSymptoms.length < 5) return null;
+    const symptomCounts = {};
+    const symptomMoodSums = {};
+    const symptomEnergySums = {};
+    logsWithSymptoms.forEach(l => {
+      Object.keys(l.symptoms).forEach(s => {
+        if (!symptomCounts[s]) { symptomCounts[s] = 0; symptomMoodSums[s] = 0; symptomEnergySums[s] = 0; }
+        symptomCounts[s]++;
+        symptomMoodSums[s] += (l.mood || 3);
+        symptomEnergySums[s] += (l.energy || 3);
+      });
+    });
+    const totalLogs = logs.length;
+    const avgMoodAll = logs.reduce((s, l) => s + (l.mood || 3), 0) / totalLogs;
+    const avgEnergyAll = logs.reduce((s, l) => s + (l.energy || 3), 0) / totalLogs;
+    const allSymptoms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
+    const patterns = Object.entries(symptomCounts)
+      .filter(([, count]) => count >= 2)
+      .sort((a, b) => b[1] - a[1])
+      .map(([id, count]) => {
+        const freq = Math.round((count / totalLogs) * 100);
+        const avgMood = symptomMoodSums[id] / count;
+        const avgEnergy = symptomEnergySums[id] / count;
+        const moodDiff = (avgMoodAll - avgMood).toFixed(1);
+        const energyDiff = (avgEnergyAll - avgEnergy).toFixed(1);
+        const label = allSymptoms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
+        let insight = `Appeared in ${freq}% of entries.`;
+        if (moodDiff > 0.3) insight += ` Mood tends ${moodDiff} points lower on these days.`;
+        if (energyDiff > 0.3) insight += ` Energy tends ${energyDiff} points lower.`;
+        return { id, label, count, freq, insight };
+      });
+    return patterns.length > 0 ? patterns : null;
   };
 
   // ── Daily checks helpers ──────────────────────────────────────────────────
@@ -4969,7 +5115,8 @@ function NeuroThriveApp() {
     foodLog: {},
     routine: { morning: [], evening: [] },
     exercise: false,
-    exerciseOptions: {}
+    exerciseOptions: {},
+    water: 0
   });
 
   const getTodayChecks = () => dailyChecks[todayKey] || defaultChecks();
@@ -5150,6 +5297,11 @@ function NeuroThriveApp() {
     const exerciseMaxBP = 10;
     const exerciseBP = exerciseDone ? 10 : 0;
 
+    // Water: 5 BP for 6+ glasses
+    const waterCount = checks.water || 0;
+    const waterMaxBP = 5;
+    const waterBP = waterCount >= 6 ? 5 : 0;
+
     // Journal: 5 BP + 2 bonus for positive mood
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
     const journalLog = logs.find(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
@@ -5157,13 +5309,13 @@ function NeuroThriveApp() {
     if (journalLog && journalLog.mood >= 3) journalBP += 2;
     const journalMaxBP = 7;
 
-    const max = mealMaxBP + morningMaxBP + eveningMaxBP + exerciseMaxBP + journalMaxBP;
-    const total = Math.min(mealBP + morningBP + eveningBP + exerciseBP + journalBP, max);
+    const max = mealMaxBP + morningMaxBP + eveningMaxBP + exerciseMaxBP + waterMaxBP + journalMaxBP;
+    const total = Math.min(mealBP + morningBP + eveningBP + exerciseBP + waterBP + journalBP, max);
     return {
       total, max,
       pct: max > 0 ? Math.round((total / max) * 100) : 0,
-      categories: { meals: mealBP, morning: morningBP, evening: eveningBP, exercise: exerciseBP, journal: journalBP },
-      maxCats: { meals: mealMaxBP, morning: morningMaxBP, evening: eveningMaxBP, exercise: exerciseMaxBP, journal: journalMaxBP },
+      categories: { meals: mealBP, morning: morningBP, evening: eveningBP, exercise: exerciseBP, water: waterBP, journal: journalBP },
+      maxCats: { meals: mealMaxBP, morning: morningMaxBP, evening: eveningMaxBP, exercise: exerciseMaxBP, water: waterMaxBP, journal: journalMaxBP },
     };
   };
 
@@ -5208,6 +5360,7 @@ function NeuroThriveApp() {
       { label: "Morning", bp: bp.categories.morning, max: bp.maxCats.morning, dot: "#f0a830" },
       { label: "Evening", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5570f0" },
       { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, dot: "#50c878" },
+      { label: "Water", bp: bp.categories.water, max: bp.maxCats.water, dot: "#60b0e0" },
       { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8" },
     ];
 
@@ -6134,6 +6287,47 @@ function NeuroThriveApp() {
                   </button>
                 ))}
               </div>
+              <div style={S.mealLabel}>Any symptoms today?</div>
+              <div style={{ display:"flex", flexWrap:"wrap", gap:"8px", marginBottom:"12px" }}>
+                {GENERAL_SYMPTOMS.map(s => (
+                  <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"20px", fontSize:"12px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                ))}
+              </div>
+              {(() => {
+                const condSymptoms = selectedConditions.flatMap(c => CONDITION_SYMPTOMS[c] || []);
+                const seen = new Set();
+                const unique = condSymptoms.filter(s => { if (seen.has(s.id)) return false; seen.add(s.id); return true; });
+                if (unique.length === 0) return null;
+                return (
+                  <div style={{ marginBottom:"12px" }}>
+                    <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Condition-Specific</div>
+                    <div style={{ display:"flex", flexWrap:"wrap", gap:"8px" }}>
+                      {unique.map(s => (
+                        <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"20px", fontSize:"12px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+              {Object.keys(todaySymptoms).length > 0 && (
+                <div style={{ background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"14px", padding:"14px 16px", marginBottom:"16px" }}>
+                  <div style={{ fontSize:"10px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"10px" }}>Set Intensity</div>
+                  {Object.entries(todaySymptoms).map(([id, level]) => {
+                    const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
+                    const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
+                    return (
+                      <div key={id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"8px" }}>
+                        <span style={{ color:"#d4a0e8", fontSize:"12px", fontWeight:"600", flex:"1" }}>{label}</span>
+                        <div style={{ display:"flex", gap:"6px" }}>
+                          {INTENSITY_LEVELS.map(il => (
+                            <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"4px 12px", borderRadius:"14px", fontSize:"10px", fontWeight:"700", letterSpacing:"0.5px", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(110,120,200,0.15)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#6b7394", transition:"all 0.15s" }}>{il.label}</button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
               <div style={S.mealLabel}>Notes (optional)</div>
               <textarea style={S.textarea} placeholder="How did eating feel today? Any changes you noticed? Be kind to yourself..." value={todayNote} onChange={evt => setTodayNote(evt.target.value)} />
               <button
@@ -6145,16 +6339,56 @@ function NeuroThriveApp() {
               <>
                 <div style={S.divider} />
                 <div style={S.mealLabel}>Past entries</div>
-                {logs.map((log, idx) => (
-                  <div key={idx} style={{ padding:"16px 18px", borderRadius:"14px", background:"rgba(240,244,255,0.05)", border:"1px solid rgba(110,120,200,0.14)", marginBottom:"10px" }}>
-                    <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"6px" }}>
-                      <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
-                      <span style={{ fontSize:"13px", color:"#8890b8" }}>{MOOD_EMOJIS.find(m=>m.val===log.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===log.energy)?.emoji}</span>
+                {logs.map((log, idx) => {
+                  const syms = log.symptoms || {};
+                  const symKeys = Object.keys(syms);
+                  const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
+                  return (
+                    <div key={idx} style={{ padding:"16px 18px", borderRadius:"14px", background:"rgba(240,244,255,0.05)", border:"1px solid rgba(110,120,200,0.14)", marginBottom:"10px" }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"6px" }}>
+                        <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
+                        <span style={{ fontSize:"13px", color:"#8890b8" }}>{MOOD_EMOJIS.find(m=>m.val===log.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===log.energy)?.emoji}</span>
+                      </div>
+                      {log.note && <p style={{ color:"#a0a8e8", fontSize:"13px", margin:0, lineHeight:1.5 }}>{log.note}</p>}
+                      {symKeys.length > 0 && (
+                        <div style={{ display:"flex", flexWrap:"wrap", gap:"4px", marginTop:"8px" }}>
+                          {symKeys.map(id => {
+                            const il = INTENSITY_LEVELS.find(l => l.id === syms[id]) || INTENSITY_LEVELS[0];
+                            const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
+                            return <span key={id} style={{ display:"inline-block", padding:"3px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"600", background:`${il.color}14`, border:`1px solid ${il.color}40`, color:il.color }}>{label}</span>;
+                          })}
+                        </div>
+                      )}
                     </div>
-                    {log.note && <p style={{ color:"#a0a8e8", fontSize:"13px", margin:0, lineHeight:1.5 }}>{log.note}</p>}
-                  </div>
-                ))}
+                  );
+                })}
               </>
+            )}
+            {logs.length >= 5 && logs.some(l => l.symptoms && Object.keys(l.symptoms).length > 0) && (
+              <div style={{ marginTop:"8px" }}>
+                <button onClick={() => setShowPatterns(!showPatterns)} style={{ background:"transparent", border:"1px solid rgba(186,104,200,0.25)", color:"#ba68c8", padding:"10px 22px", borderRadius:"14px", fontSize:"13px", fontWeight:"600", cursor:"pointer", width:"100%", transition:"all 0.15s" }}>{showPatterns ? "Hide Symptom Patterns" : "View Symptom Patterns"}</button>
+                {showPatterns && (() => {
+                  const patterns = getSymptomPatterns();
+                  if (!patterns) return <p style={{ color:"#8890b8", fontSize:"12px", textAlign:"center", marginTop:"12px" }}>Keep tracking symptoms to see patterns emerge.</p>;
+                  return (
+                    <div style={{ marginTop:"14px", padding:"18px", borderRadius:"16px", background:"rgba(186,104,200,0.06)", borderLeft:"3px solid #ba68c8", border:"1px solid rgba(186,104,200,0.15)", borderLeftWidth:"3px" }}>
+                      <div style={{ fontSize:"13px", fontWeight:"700", color:"#d4a0e8", marginBottom:"14px" }}>Your Symptom Patterns</div>
+                      {patterns.map(p => (
+                        <div key={p.id} style={{ marginBottom:"14px" }}>
+                          <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"4px" }}>
+                            <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600" }}>{p.label}</span>
+                            <span style={{ color:"#ba68c8", fontSize:"11px", fontWeight:"700" }}>{p.freq}%</span>
+                          </div>
+                          <div style={{ height:"4px", borderRadius:"4px", background:"rgba(186,104,200,0.15)", marginBottom:"6px" }}>
+                            <div style={{ height:"4px", borderRadius:"4px", background:"linear-gradient(90deg,#ba68c8,#9050a0)", width:`${Math.min(p.freq, 100)}%`, transition:"width 0.3s" }} />
+                          </div>
+                          <p style={{ color:"#8890b8", fontSize:"11px", margin:0, lineHeight:1.5 }}>{p.insight}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
             )}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"18px" }}>
               <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Menu</button>
@@ -7156,7 +7390,38 @@ function NeuroThriveApp() {
                 <button onClick={() => setStep(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
               </div>
 
-              {/* Section D: Morning Routine */}
+              {/* Section D: Water Tracker */}
+              <div style={sectionDivider} />
+              <div style={sectionHeader("Hydration")}>Hydration</div>
+              <div style={{ ...S.card, padding:"18px 20px", marginBottom:"16px" }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"12px" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+                    <span style={{ fontSize:"20px" }}>💧</span>
+                    <div>
+                      <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{todayChecks.water || 0}/8 glasses</div>
+                      <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>{(todayChecks.water || 0) >= 6 ? "Great hydration! +5 BP" : "Drink 6+ glasses for +5 BP"}</div>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display:"flex", gap:"8px", justifyContent:"center", marginBottom:"12px" }}>
+                  {[1,2,3,4,5,6,7,8].map(n => {
+                    const filled = (todayChecks.water || 0) >= n;
+                    return (
+                      <button key={n} onClick={() => {
+                        const current = todayChecks.water || 0;
+                        const newVal = current === n ? n - 1 : n;
+                        updateTodayChecks(prev => ({ ...prev, water: newVal }));
+                      }} style={{ width:"34px", height:"34px", borderRadius:"50%", border: filled ? "2px solid #60b0e0" : "2px solid rgba(110,120,200,0.2)", background: filled ? "rgba(96,176,224,0.15)" : "rgba(255,255,255,0.02)", color: filled ? "#60b0e0" : "#4a5070", fontSize:"14px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s", display:"flex", alignItems:"center", justifyContent:"center" }}>{n}</button>
+                    );
+                  })}
+                </div>
+                <div style={{ height:"4px", borderRadius:"4px", background:"rgba(96,176,224,0.12)", overflow:"hidden" }}>
+                  <div style={{ height:"4px", borderRadius:"4px", background:"linear-gradient(90deg,#60b0e0,#4090c0)", width:`${Math.min(((todayChecks.water || 0) / 8) * 100, 100)}%`, transition:"width 0.3s" }} />
+                </div>
+                <p style={{ color:"#6b7394", fontSize:"11px", margin:"10px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water — even mild dehydration impairs focus and mood.</p>
+              </div>
+
+              {/* Section E: Morning Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
