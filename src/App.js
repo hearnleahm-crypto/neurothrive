@@ -1467,9 +1467,11 @@ const generateRecipe = (meal) => {
   else if (hasAny("lentil")) { protein="lentil"; proteinIngredient="½ cup red or green lentils, rinsed"; proteinSteps=["Combine lentils with 1½ cups water or broth in a saucepan.","Bring to boil, reduce to simmer, cook 20–25 minutes until tender. Season well."]; proteinTime=25; }
   else if (hasAny("chickpea","hummus")) { protein="chickpea"; proteinIngredient="1 can (15 oz) chickpeas, drained and rinsed"; proteinSteps=["Drain and rinse chickpeas. Pat dry if roasting.","For warm dishes: heat in a pan with oil and spices 3–4 minutes until lightly crisped."]; proteinTime=5; }
   else if (has("sardine")) { protein="sardine"; proteinIngredient="1 can (4 oz) sardines, drained"; proteinSteps=["Drain sardines and gently pat dry.","If serving warm, heat 1 tsp olive oil in a skillet and sear sardines 1–2 minutes per side until lightly crisped."]; proteinTime=5; }
+  else if (has("cod")) { protein="cod"; proteinIngredient="6 oz cod fillet"; proteinSteps=["Pat cod dry with paper towels. Season with salt, pepper, and garlic powder.","Heat 1 tbsp oil in an oven-safe skillet over medium-high. Sear cod 3 minutes until golden.","Flip and cook 2–3 more minutes until fish flakes easily with a fork."]; proteinTime=10; }
   else if (has("mackerel")) { protein="mackerel"; proteinIngredient="1 mackerel fillet (5–6 oz)"; proteinSteps=["Pat mackerel fillet dry. Season with salt, pepper, and lemon zest.","Heat 1 tbsp oil in a skillet over medium-high. Cook skin-side down 4 minutes until crispy.","Flip and cook 2–3 more minutes until flesh is opaque and flakes easily."]; proteinTime=10; }
   else if (has("lean beef") || (has("beef") && !hasAny("ground beef","meatloaf","steak","sirloin","ribeye"))) { protein="beef"; proteinIngredient="5 oz lean beef (flank steak or sirloin), thinly sliced"; proteinSteps=["Slice beef thinly against the grain. Season with salt, pepper, and garlic powder.","Heat 1 tbsp oil in a wok or skillet over high heat.","Sear beef in batches 1–2 minutes per side until browned. Don't overcrowd the pan."]; proteinTime=10; }
-  else if (hasAny("tofu","tempeh")) { protein="tofu"; proteinIngredient="6 oz extra-firm tofu, pressed and cubed"; proteinSteps=["Press tofu between paper towels for 10 minutes.","Cut into 1-inch cubes. Season with soy sauce, garlic, and oil.","Pan-fry over medium-high heat 3–4 minutes per side until golden and crispy."]; proteinTime=20; }
+  else if (has("tempeh")) { protein="tempeh"; proteinIngredient="6 oz tempeh, sliced or crumbled"; proteinSteps=[has("scramble") ? "Crumble tempeh into small pieces with your hands or a fork." : "Slice tempeh into ½-inch strips or cubes.","Season with soy sauce, garlic powder, and a pinch of smoked paprika.","Heat 1 tbsp oil in a skillet over medium-high. Cook 3–4 minutes per side until golden brown and crispy."]; proteinTime=12; }
+  else if (has("tofu")) { protein="tofu"; proteinIngredient="6 oz extra-firm tofu, pressed and cubed"; proteinSteps=["Press tofu between paper towels for 10 minutes.","Cut into 1-inch cubes. Season with soy sauce, garlic, and oil.","Pan-fry over medium-high heat 3–4 minutes per side until golden and crispy."]; proteinTime=20; }
   else if (hasAny("egg")) { protein="egg"; proteinIngredient="3 large eggs"; proteinSteps=["Crack eggs into a bowl. Season with salt and pepper and whisk until uniform.","Heat butter in non-stick pan over medium-low.","Cook slowly, stirring constantly with a spatula for creamy scrambled eggs, or cook undisturbed for fried eggs."]; proteinTime=7; }
   else if (hasAny("chicken")) { protein="chicken"; proteinIngredient=hasAny("thigh","thighs")?"2 bone-in chicken thighs":"1 boneless skinless chicken breast (6 oz)"; proteinSteps=["Pat chicken dry with paper towels; moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20; }
   else if (hasAny("black bean")) { protein="black bean"; proteinIngredient="1 can (15 oz) black beans, drained and rinsed"; proteinSteps=["Drain and rinse black beans.","Heat in a saucepan with cumin, garlic powder, and a pinch of chili powder for 3–4 minutes until warmed through."]; proteinTime=5; }
@@ -1525,6 +1527,8 @@ const generateRecipe = (meal) => {
   const hasKale = has("kale");
   const hasMushroom = has("mushroom");
   const hasPepper = hasAny("bell pepper","pepper");
+  const hasBrusselsSprouts = hasAny("brussels sprout","brussels");
+  const hasGreenBeans = hasAny("green bean","green beans");
   const hasCornbread = has("cornbread");
   const hasTortilla = hasAny("tortilla","corn tortilla","flour tortilla");
   const hasBread = hasAny("bread","toast","sourdough","bun","roll","bagel","muffin","english muffin");
@@ -1564,6 +1568,8 @@ const generateRecipe = (meal) => {
   if (hasKale) ingredients.push("2 cups kale, stems removed, roughly torn");
   if (hasMushroom) ingredients.push(has("lion's mane") ? "4 oz lion's mane mushroom, torn into bite-sized pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms)" : "1 cup cremini mushrooms, sliced");
   if (hasPepper) ingredients.push("1 bell pepper (red or orange), sliced");
+  if (hasBrusselsSprouts) ingredients.push("2 cups Brussels sprouts, halved");
+  if (hasGreenBeans) ingredients.push("1 cup green beans, trimmed");
   if (hasCheese && !hasFeta) ingredients.push("¼ cup shredded cheddar or Monterey Jack");
   if (hasFeta) ingredients.push("2 oz feta cheese, crumbled");
   if (hasWatermelon) ingredients.push("2 cups seedless watermelon, cubed");
@@ -1592,7 +1598,7 @@ const generateRecipe = (meal) => {
   if (isSalad && !isCaesar) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
   if (isSoup || has("chili")) { ingredients.push(has("bone broth") ? "2½ cups bone broth" : "2½ cups low-sodium chicken or vegetable broth"); ingredients.push("1 garlic clove, minced"); ingredients.push("½ onion, diced"); }
   if (isCurry) { ingredients.push("1 can (14 oz) light coconut milk"); ingredients.push("2 tsp curry powder"); ingredients.push("1 tsp turmeric"); ingredients.push("½ onion, diced"); }
-  if (isPasta && !isBolognese) { ingredients.push("6 oz pasta (penne, spaghetti, or shape of choice)"); if (has("marinara") || has("tomato sauce")) { ingredients.push("1 cup marinara or crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); } if (has("garlic bread")) { ingredients.push("2 slices bread or baguette"); ingredients.push("1 tbsp butter"); ingredients.push("1 clove garlic, minced"); } }
+  if (isPasta && !isBolognese) { if (has("zucchini noodle") || has("zucchini noodles")) { ingredients.push("2 medium zucchini, spiralized or cut into noodle strips"); } else { ingredients.push("6 oz pasta (penne, spaghetti, or shape of choice)"); } if (has("marinara") || has("tomato sauce")) { ingredients.push("1 cup marinara or crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); } if (has("garlic bread")) { ingredients.push("2 slices bread or baguette"); ingredients.push("1 tbsp butter"); ingredients.push("1 clove garlic, minced"); } }
   if (isStirFry) { ingredients.push("2 tbsp low-sodium soy sauce or coconut aminos"); ingredients.push("1 tsp sesame oil"); ingredients.push("1 tsp fresh ginger, minced"); }
   if (isFajita) { ingredients.push("½ onion, sliced into strips"); ingredients.push("1 tsp cumin + ½ tsp chili powder"); ingredients.push("3 flour or corn tortillas, warmed"); }
   if (isEnchilada) { ingredients.push("½ cup red enchilada sauce"); ingredients.push("3 corn tortillas"); ingredients.push("¼ cup shredded Monterey Jack cheese"); }
@@ -2410,6 +2416,34 @@ const generateRecipe = (meal) => {
     };
   }
 
+  // Miso-Glazed dishes (must come before generic miso soup)
+  if (has("miso") && hasAny("glaze","glazed")) {
+    const ing = ["2 tbsp white miso paste","1 tbsp mirin","1 tbsp rice vinegar","1 tsp sesame oil","1 tsp honey or maple syrup"];
+    if (protein === "salmon") { ing.unshift("6 oz wild-caught salmon fillet, skin-on"); }
+    else if (has("cod")) { ing.unshift("6 oz cod fillet"); }
+    else if (protein === "chicken") { ing.unshift(hasAny("thigh","thighs") ? "2 bone-in chicken thighs" : "1 boneless skinless chicken breast (6 oz)"); }
+    else if (proteinIngredient) { ing.unshift(proteinIngredient); }
+    if (hasRice) { ing.push("1 cup cooked white or brown rice"); }
+    if (has("bok choy")) { ing.push("2 heads baby bok choy, halved lengthwise"); ing.push("1 tsp soy sauce"); }
+    if (hasBroccoli) ing.push("2 cups broccoli florets");
+    if (hasAsparagus) ing.push("1 bunch asparagus, trimmed");
+    return {
+      serves: 1, time: "25 min",
+      ingredients: ing,
+      steps: [
+        "Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.",
+        "Whisk together miso paste, mirin, rice vinegar, sesame oil, and honey until smooth.",
+        `Pat ${protein || "protein"} dry with paper towels. Place on the prepared baking sheet.`,
+        "Spread the miso glaze generously over the top and sides of the protein.",
+        "Bake 12–15 minutes until the glaze is caramelized and the protein is cooked through.",
+        has("bok choy") ? "While protein bakes, heat 1 tsp oil in a skillet over medium-high. Add bok choy cut-side down and cook 2 minutes. Flip, add soy sauce, cover and steam 2 minutes until tender-crisp." : "",
+        hasRice ? "Serve over rice with the vegetables alongside." : "Plate with vegetables alongside.",
+      ].filter(Boolean),
+      tip: "Miso's probiotics are destroyed by high heat, but the fermented flavor compounds, amino acids, and minerals survive baking and create an incredible umami glaze.",
+      nutrition: ["Miso provides fermented amino acids and minerals for brain function","The protein delivers neurotransmitter precursors (tyrosine, tryptophan)","Sesame oil contains sesamol, which protects against oxidative brain damage","Rice provides steady glucose for sustained brain energy"]
+    };
+  }
+
   // Miso Soup
   if (has("miso")) {
     const ing = ["2 cups water","2 tbsp white or yellow miso paste","4 oz silken or soft tofu, cubed","2 tbsp dried wakame seaweed","2 scallions, thinly sliced"];
@@ -2452,6 +2486,51 @@ const generateRecipe = (meal) => {
 
   // (hasKimchi moved to detection section above)
 
+  // Chicken Noodle Soup
+  if (has("noodle") && has("soup")) {
+    const ing = ["1 boneless skinless chicken breast (6 oz)","6 cups chicken broth","2 cups egg noodles or whole grain noodles","2 carrots, peeled and sliced","2 stalks celery, sliced","1 small onion, diced","2 cloves garlic, minced","1 tbsp olive oil","1 bay leaf","½ tsp dried thyme","Salt and black pepper to taste","Fresh parsley for garnish"];
+    if (has("roll") || has("bread")) ing.push("1 whole grain roll");
+    return { serves: 2, time: "30 min", ingredients: ing, steps: ["Heat olive oil in a large pot over medium heat. Add onion, carrots, and celery. Cook 5 minutes until softened.","Add garlic and cook 30 seconds until fragrant.","Pour in chicken broth. Add bay leaf, thyme, and whole chicken breast. Bring to a boil.","Reduce to a simmer and cook 15 minutes until chicken reaches 165°F.","Remove chicken, shred with two forks, and return to the pot.","Add noodles and cook 6–8 minutes until tender. Season with salt and pepper.","Remove bay leaf. Ladle into bowls and garnish with fresh parsley."], tip: "For the most nourishing soup, use bone broth instead of regular broth; the collagen and amino acids (especially glycine) have calming effects on the nervous system.", nutrition: ["Chicken provides tryptophan for serotonin and tyrosine for dopamine","Bone broth delivers glycine, which supports GABA-like calming effects","Carrots provide beta-carotene for neuroprotection","Warm soup activates the vagus nerve, promoting a calming parasympathetic response"] };
+  }
+
+  // Corn Chowder
+  if (has("chowder")) {
+    const ing = ["3 cups corn kernels (fresh or frozen)","2 medium potatoes, diced small","2 cups chicken or vegetable broth","1 cup whole milk or heavy cream","4 strips bacon, diced (optional)","1 small onion, diced","2 cloves garlic, minced","2 tbsp butter","2 tbsp all-purpose flour","Salt, pepper, and smoked paprika to taste"];
+    if (has("bread") || has("roll")) ing.push("1 whole grain bread roll");
+    return { serves: 2, time: "30 min", ingredients: ing, steps: ["If using bacon, cook in a large pot over medium heat until crispy. Remove and set aside, leaving fat in pot.","Melt butter in the pot (or with bacon fat). Add onion and cook 4 minutes until soft. Add garlic, cook 30 seconds.","Sprinkle flour over the onion mixture and stir 1 minute to form a roux.","Slowly whisk in broth, then add diced potatoes. Simmer 10 minutes until potatoes are tender.","Add corn kernels and milk/cream. Simmer 5 more minutes until thick and creamy.","Use a potato masher to mash some of the soup against the side of the pot for extra thickness while leaving chunks.","Season with salt, pepper, and smoked paprika. Top with crumbled bacon if using."], tip: "Mashing a portion of the soup against the side of the pot creates the thick, creamy chowder texture without needing excessive cream.", nutrition: ["Corn provides lutein and zeaxanthin for brain cell protection","Potatoes deliver B6 for neurotransmitter synthesis","Milk adds tryptophan and calcium for serotonin and neural signaling","Warm, creamy texture promotes vagus nerve activation and calm"] };
+  }
+
+  // Shepherd's Pie
+  if (has("shepherd") && has("pie")) {
+    return { serves: 2, time: "45 min", ingredients: ["5 oz lean ground turkey","3 medium potatoes, peeled and quartered","2 tbsp butter","¼ cup milk","1 cup mixed vegetables (peas, carrots, corn)","1 small onion, diced","2 cloves garlic, minced","1 tbsp tomato paste","½ cup chicken broth","1 tsp Worcestershire sauce","½ tsp dried thyme","Salt and pepper to taste"], steps: ["Boil potatoes in salted water 15–18 minutes until fork-tender. Drain and mash with butter and milk until smooth. Season with salt and pepper.","While potatoes cook, heat a skillet over medium-high. Cook ground turkey 7–8 minutes, breaking apart until browned.","Add onion to the skillet and cook 3 minutes. Add garlic, cook 30 seconds.","Stir in tomato paste, Worcestershire sauce, thyme, and broth. Add mixed vegetables. Simmer 5 minutes until sauce thickens.","Transfer meat mixture to an oven-safe dish. Spread mashed potatoes evenly over the top.","Broil 3–5 minutes until potato topping is golden brown.","Let rest 5 minutes before serving."], tip: "For the crispiest top, drag a fork across the mashed potatoes before broiling to create ridges that brown beautifully.", nutrition: ["Turkey provides tryptophan for serotonin production","Potatoes deliver B6 and potassium for neural signaling","Mixed vegetables provide folate and fiber for gut-brain health","Comfort food structure supports positive associations with nourishment"] };
+  }
+
+  // Kimchi Stew (Jjigae)
+  if (has("kimchi") && hasAny("stew","jjigae")) {
+    return { serves: 1, time: "25 min", ingredients: ["1 cup fermented kimchi (aged/sour is best), roughly chopped","½ cup kimchi juice from the jar","6 oz firm tofu, cubed","2 cups water or vegetable broth","1 tsp gochugaru (Korean red pepper flakes) or ½ tsp regular red pepper flakes","1 tsp sesame oil","1 clove garlic, minced","1 scallion, sliced","1 cup cooked white or brown rice"], steps: ["Heat sesame oil in a pot over medium heat. Add kimchi and stir-fry 3–4 minutes until slightly caramelized.","Add garlic and gochugaru, stir 30 seconds.","Pour in water/broth and kimchi juice. Bring to a boil.","Add tofu cubes gently. Reduce heat and simmer 10–12 minutes until flavors meld.","Ladle into a bowl, top with sliced scallions, and serve with rice on the side."], tip: "The older and more sour your kimchi, the better the stew.", nutrition: ["Fermented kimchi is rich in Lactobacillus probiotics for the gut-brain axis","Tofu provides gentle plant protein and isoflavones for neuroprotection","Capsaicin from pepper triggers endorphin release","Garlic contains allicin, which reduces neuroinflammation"] };
+  }
+
+  // Fried Rice
+  if (has("fried rice")) {
+    const ing = ["2 cups cooked rice (day-old or cold rice works best)","2 large eggs, beaten","1 cup mixed vegetables (peas, carrots, corn)","2 scallions, sliced","2 cloves garlic, minced","2 tbsp soy sauce or tamari","1 tsp sesame oil","1 tbsp vegetable or avocado oil"];
+    if (protein === "chicken") ing.push("1 boneless skinless chicken breast (6 oz), diced small");
+    else if (protein === "shrimp") ing.push("6 oz shrimp, peeled and deveined");
+    return { serves: 1, time: "15 min", ingredients: ing, steps: ["Heat oil in a wok or large skillet over high heat until smoking.",protein && protein !== "egg" ? `Add ${protein} pieces and stir-fry 3–4 minutes until cooked. Remove and set aside.` : "","Push everything to one side. Pour beaten eggs into the empty space. Scramble 30 seconds until just set, then break into small pieces.","Add cold rice to the wok. Press flat and let it sear without stirring for 1 minute.","Toss rice, breaking up any clumps. Add vegetables and garlic, stir-fry 2 minutes.","Add soy sauce and sesame oil. Toss everything together.",protein && protein !== "egg" ? "Return protein to the wok and toss to combine." : "","Top with sliced scallions and serve immediately."].filter(Boolean), tip: "Day-old refrigerated rice is essential; fresh rice has too much moisture and will steam instead of fry.", nutrition: ["Eggs provide choline for acetylcholine and memory","Rice provides glucose for steady brain energy","Sesame oil contains sesamol, which protects against oxidative brain damage","Soy sauce provides fermented amino acids"] };
+  }
+
+  // Beef Meatballs
+  if (has("meatball") && hasAny("beef","mild")) {
+    const ing = ["8 oz ground beef (80/20 or 90/10)","¼ cup breadcrumbs","1 egg","2 cloves garlic, minced","1 tsp Italian seasoning","Salt and pepper to taste","1 tbsp olive oil"];
+    if (isPasta) { ing.push("6 oz spaghetti or penne"); ing.push("1½ cups marinara sauce"); }
+    if (has("butter")) ing.push("2 tbsp butter");
+    return { serves: 2, time: "25 min", ingredients: ing, steps: ["In a bowl, combine ground beef, breadcrumbs, egg, garlic, Italian seasoning, salt, and pepper. Mix gently.","Form into 1½-inch meatballs (about 8–10).","Heat olive oil in a skillet over medium-high. Sear meatballs 2–3 minutes per side until browned.","Reduce heat to medium-low, cover, and cook 8–10 minutes until internal temp reaches 160°F.",isPasta ? "While meatballs cook, boil pasta according to package directions. Drain." : "",isPasta ? "Warm marinara sauce in a saucepan. Add meatballs and simmer 5 minutes." : "",isPasta ? `Toss pasta with ${has("butter") ? "butter and " : ""}sauce. Serve meatballs on top.` : "Serve meatballs with your sides."].filter(Boolean), tip: "Adding a splash of milk to the breadcrumbs before mixing keeps meatballs tender.", nutrition: ["Ground beef provides heme iron for dopamine synthesis","B12 protects myelin sheaths for nerve signaling","Complete protein delivers all amino acids for neurotransmitter production","Iron from beef is 2–3x more bioavailable than plant iron"] };
+  }
+
+  // Meatloaf
+  if (has("meatloaf")) {
+    return { serves: 2, time: "50 min", ingredients: ["1 lb lean ground beef (90/10)","½ cup breadcrumbs","1 egg","¼ cup milk","1 small onion, finely diced","2 cloves garlic, minced","1 tbsp Worcestershire sauce","1 tsp dried thyme","Salt and pepper to taste","3 tbsp ketchup","1 tbsp brown sugar","1 tsp mustard"], steps: ["Preheat oven to 375°F (190°C). Line a baking sheet with parchment paper.","Soak breadcrumbs in milk for 2 minutes.","Combine ground beef, soaked breadcrumbs, egg, onion, garlic, Worcestershire sauce, thyme, salt, and pepper. Mix gently.","Shape into a loaf on the prepared baking sheet (about 8×4 inches).","Mix ketchup, brown sugar, and mustard. Spread over the top of the loaf.","Bake 35–40 minutes until internal temperature reaches 160°F.","Rest 10 minutes before slicing."], tip: "The milk-soaked breadcrumbs (called a panade) are the secret to tender, juicy meatloaf.", nutrition: ["Lean beef provides heme iron critical for dopamine synthesis","B12 supports myelin formation and healthy nerve conduction","Complete amino acid profile supports neurotransmitter production","Onion and garlic contain quercetin, which reduces neuroinflammation"] };
+  }
+
   // Now build steps intelligently
   const prepSteps = [];
   const cookSteps = [];
@@ -2460,11 +2539,23 @@ const generateRecipe = (meal) => {
   // Prep steps
   if (hasRice) { prepSteps.push("Rinse rice under cold water. Combine with broth in a saucepan, bring to boil, cover and simmer on low 18 minutes. Fluff with a fork."); totalTime = Math.max(totalTime, 25); }
   if (hasQuinoa) { prepSteps.push("Rinse quinoa in a fine mesh strainer. Combine with water/broth in a saucepan, bring to boil, reduce to simmer, cover 15 minutes. Let stand 5 minutes then fluff."); totalTime = Math.max(totalTime, 20); }
-  if (hasSweet && !isCasserole && !isStuffed) { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet; roast 25 minutes, flipping halfway, until caramelized."); totalTime = Math.max(totalTime, 35); }
-  if (hasPotato && !isCasserole && !isHash) { prepSteps.push("Cube potatoes into 1-inch pieces. Toss with olive oil, salt, garlic powder, and rosemary. Roast at 425°F 25–30 minutes until golden and crispy."); totalTime = Math.max(totalTime, 35); }
+  if (hasSweet && !isCasserole && !isStuffed) {
+    if (has("mashed")) { prepSteps.push("Peel and cube sweet potato. Boil in salted water 15–18 minutes until fork-tender. Drain and mash with 1 tbsp butter, a splash of milk, salt, and a pinch of cinnamon until smooth and creamy."); }
+    else { prepSteps.push("Preheat oven to 425°F. Cube sweet potato into 1-inch pieces, toss with 1 tbsp olive oil, salt, garlic powder. Spread on a baking sheet; roast 25 minutes, flipping halfway, until caramelized."); }
+    totalTime = Math.max(totalTime, 35);
+  }
+  if (hasPotato && !isCasserole && !isHash) {
+    if (has("mashed")) { prepSteps.push("Peel and quarter potatoes. Boil in salted water 15–18 minutes until fork-tender. Drain and mash with 2 tbsp butter, ¼ cup warm milk, salt, and pepper until smooth and fluffy."); }
+    else if (has("loaded") && has("baked")) { prepSteps.push("Preheat oven to 400°F. Scrub potatoes and poke several holes with a fork. Bake directly on oven rack 50–60 minutes until easily pierced. Slice open lengthwise, fluff interior with a fork, and load with toppings."); totalTime = Math.max(totalTime, 60); }
+    else if (has("wedge")) { prepSteps.push("Preheat oven to 425°F. Cut potatoes into wedges. Toss with olive oil, salt, garlic powder, and paprika. Spread cut-side down on a baking sheet; roast 30–35 minutes, flipping halfway, until golden and crispy."); }
+    else { prepSteps.push("Cube potatoes into 1-inch pieces. Toss with olive oil, salt, garlic powder, and rosemary. Roast at 425°F 25–30 minutes until golden and crispy."); }
+    totalTime = Math.max(totalTime, 35);
+  }
   if (hasBroccoli) { prepSteps.push("Toss broccoli florets with 1 tsp olive oil, salt. Either roast at 425°F for 15 minutes until edges char slightly, or steam for 5 minutes until bright green and tender-crisp."); }
   if (hasAsparagus) { prepSteps.push("Snap off the woody ends of asparagus. Toss with olive oil, salt, and pepper. Roast at 425°F 10–12 minutes, or pan-sear in a hot skillet 4–5 minutes."); }
   if (hasSpinach) { prepSteps.push("Rinse spinach thoroughly. Heat 1 tsp oil in a skillet, add spinach, and wilt over medium heat 1–2 minutes with a pinch of garlic. Season with salt."); }
+  if (hasBrusselsSprouts) { prepSteps.push("Halve Brussels sprouts. Toss with 1 tbsp olive oil, salt, and pepper. Roast cut-side down at 425°F for 20–25 minutes until caramelized and tender."); }
+  if (hasGreenBeans) { prepSteps.push(has("butter") ? "Trim green beans. Blanch in boiling salted water 3–4 minutes until bright green. Drain and toss with 1 tbsp butter, salt, and pepper." : "Trim green beans. Steam or blanch in boiling salted water 4–5 minutes until bright green and tender-crisp. Season with salt and a squeeze of lemon."); }
 
   // Add all prepSteps
   steps.push(...prepSteps);
@@ -3453,6 +3544,11 @@ const INGREDIENT_SCIENCE = {
       depression: "oats contain tryptophan, the direct precursor to serotonin, plus the B vitamins needed to convert it",
       bipolar: "magnesium has lithium-like mood-stabilizing properties at the cellular level, and is commonly depleted in bipolar disorder",
       schizophrenia: "zinc in oats is a cofactor for dopamine and glutamate regulation, both systems dysregulated in schizophrenia",
+      npd: "magnesium in oats supports prefrontal cortex empathy circuits and emotional regulation, while steady glucose prevents the reactive irritability tied to narcissistic injury",
+      hpd: "slow-release carbs stabilize the blood sugar swings that amplify emotional intensity and attention-seeking behavior driven by serotonin fluctuations",
+      aspd: "magnesium activates GABA receptors to support impulse control, while zinc aids serotonin production needed for aggression modulation in the prefrontal cortex",
+      ppd: "magnesium directly calms overactive amygdala threat-detection circuits, and steady glucose prevents the cortisol spikes that amplify paranoid ideation",
+      spd: "B vitamins and zinc in oats support dopamine synthesis to counter the motivational deficits and emotional flatness characteristic of underactive reward circuits",
       default: "provides magnesium, zinc, and fiber for brain health and sustained morning energy",
     }
   },
@@ -3466,6 +3562,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "omega-3s reduce inflammatory cytokines that activate the brain's fear and threat-detection circuits",
       ptsd: "omega-3s lower baseline inflammation in the amygdala, reducing hypervigilance and intrusive thoughts",
       ocd: "anti-inflammatory omega-3s reduce neuroinflammation in the cortico-striatal-thalamic circuits involved in OCD",
+      npd: "omega-3s improve prefrontal cortex membrane fluidity, enhancing the empathy and self-other processing circuits that are structurally underactive in narcissistic personality disorder",
+      hpd: "omega-3s reduce neuroinflammation that destabilizes serotonin signaling, calming the emotional intensity and reward-seeking impulsivity driven by histrionic neurocircuitry",
+      aspd: "EPA from flaxseed reduces amygdala-based aggression and supports prefrontal impulse control by improving serotonin receptor sensitivity in underactive empathy circuits",
+      ppd: "omega-3s lower the chronic neuroinflammation that amplifies amygdala threat detection and paranoid misinterpretation of social cues",
+      spd: "DHA from converted ALA builds healthier neural membranes in social cognition circuits, supporting the BDNF-driven plasticity needed to counter emotional flatness",
       default: "plant omega-3s reduce neuroinflammation and support healthy brain cell membrane structure",
     }
   },
@@ -3477,6 +3578,11 @@ const INGREDIENT_SCIENCE = {
       depression: "the phenolic antioxidants in honey reduce oxidative stress in neurons; oxidative damage is elevated in depression",
       anxiety: "small amounts of natural glucose support serotonin synthesis without causing the cortisol spike that refined sugar triggers",
       bipolar: "unlike refined sugar, honey's fructose-glucose ratio causes a gentler, more stable blood sugar response, reducing mood cycling triggers",
+      npd: "quick glucose from honey fuels the prefrontal cortex during emotionally demanding self-regulation, while phenolic antioxidants protect empathy-processing neural circuits",
+      hpd: "honey's gentle glucose curve prevents the blood sugar crashes that intensify emotional volatility and dopamine-driven attention-seeking behavior",
+      aspd: "phenolic compounds in honey reduce oxidative stress in prefrontal regions responsible for impulse control and consequence evaluation, both impaired in ASPD",
+      ppd: "natural glucose supports prefrontal override of amygdala false alarms, while antioxidant phenolics reduce the neuroinflammation that amplifies suspicious threat perception",
+      spd: "immediate brain glucose from honey provides energy for the prefrontal social processing circuits that are chronically underactivated in schizoid personality disorder",
       default: "provides natural glucose for immediate brain fuel plus antioxidant phenolics that protect neurons",
     }
   },
@@ -3504,6 +3610,11 @@ const INGREDIENT_SCIENCE = {
       bipolar: "the tryptophan-to-serotonin pathway helps stabilize mood, and potassium supports healthy neural membrane function implicated in mood cycling",
       ptsd: "serotonin is directly suppressed in PTSD; tryptophan from banana begins rebuilding this system from the dietary level up",
       ocd: "OCD is fundamentally a serotonin-dysregulation disorder; tryptophan + B6 from banana directly feeds the serotonin system most in need of support",
+      npd: "tryptophan-to-serotonin conversion supported by B6 stabilizes the emotional regulation circuits disrupted during narcissistic reactivity and interpersonal conflict",
+      hpd: "B6 supports both serotonin and GABA production, reducing the emotional intensity and impulsive attention-seeking driven by serotonin instability in HPD",
+      aspd: "serotonin from tryptophan + B6 directly modulates aggression circuits; low serotonin is consistently linked to impulsive antisocial behavior and reduced empathy",
+      ppd: "potassium in banana regulates neural electrical signaling to reduce hyperarousal, while serotonin from tryptophan calms the overactive threat-detection driving paranoid ideation",
+      spd: "B6 catalyzes dopamine synthesis from tyrosine, addressing the underactive motivation and reward circuitry that drives emotional detachment and social withdrawal in SPD",
       default: "delivers tryptophan and B6 to support serotonin synthesis, plus potassium for healthy nervous system function",
     }
   },
@@ -3515,6 +3626,11 @@ const INGREDIENT_SCIENCE = {
       bipolar: "mood cycling correlates strongly with blood sugar instability; cinnamon helps flatten post-meal glucose curves",
       depression: "inflammation in the brain suppresses serotonin production; cinnamon's anti-inflammatory cinnamaldehyde helps remove this block",
       anxiety: "post-meal blood sugar spikes trigger cortisol release; cinnamon reduces these spikes, keeping cortisol lower",
+      npd: "blood sugar stability from chromium prevents the reactive irritability and emotional dysregulation that intensify narcissistic injury responses",
+      hpd: "cinnamon's blood sugar stabilization reduces the glucose crashes that amplify dopamine-driven reward-seeking and emotional volatility in histrionic presentations",
+      aspd: "cinnamaldehyde reduces neuroinflammation in prefrontal impulse-control regions, while chromium stabilizes the glucose supply needed for executive function and consequence evaluation",
+      ppd: "anti-inflammatory cinnamaldehyde reduces the neuroinflammation that amplifies amygdala-driven suspicion, while stable blood sugar prevents cortisol-fueled paranoid escalation",
+      spd: "stable glucose from cinnamon's chromium content ensures consistent energy delivery to prefrontal social processing circuits that are chronically underactivated in SPD",
       default: "stabilizes blood sugar and reduces neuroinflammation",
     }
   },
@@ -3533,6 +3649,11 @@ const INGREDIENT_SCIENCE = {
       ocd: "serotonin reuptake is the primary mechanism of OCD medications; chicken's tryptophan increases the serotonin available for this system",
       autism: "consistent protein from whole food sources supports gut-brain axis health, and tyrosine aids focus and sensory regulation",
       bpd: "serotonin instability drives emotional dysregulation in BPD; tryptophan + niacin from chicken supports a more stable baseline",
+      npd: "tyrosine normalizes dopamine reward system dysregulation central to NPD, while tryptophan-derived serotonin supports the prefrontal empathy circuits needed for self-other processing",
+      hpd: "tryptophan raises serotonin to reduce emotional intensity, while niacin ensures conversion efficiency, calming the neurochemical basis of attention-seeking and impulsive behavior",
+      aspd: "serotonin from tryptophan directly modulates aggression in prefrontal-amygdala circuits; tyrosine supports the dopamine balance needed for healthy reward processing rather than exploitation",
+      ppd: "tryptophan-derived serotonin calms the overactive amygdala threat-detection system, while tyrosine supports prefrontal cortex override of false-alarm paranoid interpretations",
+      spd: "tyrosine provides the dopamine precursor needed to activate underactive motivation and reward circuits, while tryptophan supports the serotonin system underlying social engagement",
       default: "provides tyrosine for dopamine synthesis and tryptophan for serotonin production, two of the brain's most essential neurotransmitter precursors",
     }
   },
@@ -3547,6 +3668,11 @@ const INGREDIENT_SCIENCE = {
       adhd: "zinc in turkey is a cofactor for dopamine synthesis; ADHD is strongly associated with low zinc levels",
       bipolar: "zinc and selenium together support healthy thyroid function, which is closely linked to mood stability in bipolar disorder",
       bpd: "serotonin stability reduces the emotional intensity and reactivity that characterize BPD",
+      npd: "turkey's exceptional tryptophan content raises serotonin to stabilize the emotional regulation circuits disrupted during narcissistic injury and interpersonal conflict",
+      hpd: "high tryptophan raises serotonin levels that reduce emotional intensity, while selenium protects neurons from the oxidative stress of chronic emotional dysregulation in HPD",
+      aspd: "serotonin from turkey's high tryptophan content directly modulates aggression and impulsivity; zinc supports the prefrontal circuits needed for empathy and consequence evaluation",
+      ppd: "selenium reduces the neuroinflammation that amplifies paranoid threat perception, while tryptophan-derived serotonin calms overactive amygdala fear circuitry",
+      spd: "zinc supports dopamine synthesis to counter motivational deficits, while tryptophan provides serotonin for the social cognition circuits underactivated in schizoid presentations",
       default: "excellent source of tryptophan for serotonin production, plus selenium and zinc for brain protection",
     }
   },
@@ -3559,6 +3685,11 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "B12 and folate work together to regulate homocysteine, which is elevated in schizophrenia and is neurotoxic at high levels",
       bipolar: "creatine in beef supports cellular energy production in neurons, which is dysregulated during mood episodes",
       ptsd: "zinc reduces neuroinflammation in the hippocampus; B12 supports rebuilding of myelin damaged by chronic stress hormone exposure",
+      npd: "heme iron fuels dopamine production to normalize the dysregulated reward system in NPD, while B12 maintains myelin in prefrontal empathy and self-other processing circuits",
+      hpd: "iron supports dopamine synthesis to stabilize reward-seeking behavior, while B12 maintains the myelinated prefrontal pathways needed for emotional regulation and impulse control",
+      aspd: "heme iron and zinc together support serotonin and dopamine synthesis in prefrontal impulse-control circuits; B12 maintains the myelin insulating empathy-processing neural pathways",
+      ppd: "B12 in beef maintains myelin integrity in prefrontal circuits that override amygdala false alarms, while zinc reduces the neuroinflammation amplifying paranoid threat perception",
+      spd: "creatine in beef supports neuronal energy production needed to activate underactive social cognition circuits, while iron fuels dopamine synthesis for motivation and engagement",
       default: "heme iron supports dopamine synthesis, B12 maintains nerve insulation, and zinc supports multiple neurotransmitter systems",
     }
   },
@@ -3571,6 +3702,11 @@ const INGREDIENT_SCIENCE = {
       bipolar: "B12 in steak protects myelin and regulates homocysteine, elevated levels of which are found during manic and depressive episodes",
       ptsd: "tyrosine supports norepinephrine production, which is needed for healthy stress response regulation; chronic PTSD disrupts this system",
       bpd: "zinc in steak is a cofactor in serotonin and dopamine synthesis, supporting the emotional regulation systems most challenged in BPD",
+      npd: "tyrosine and phenylalanine normalize dopamine reward circuitry dysregulated in NPD, while zinc supports the serotonin system underlying emotional regulation during interpersonal stress",
+      hpd: "zinc supports serotonin synthesis to reduce emotional intensity, while tyrosine stabilizes the dopamine reward system that drives attention-seeking and impulsive behavior in HPD",
+      aspd: "iron fuels serotonin production needed for aggression modulation, while tyrosine supports prefrontal dopamine levels critical for impulse control and consequence evaluation",
+      ppd: "B12 maintains myelin in prefrontal circuits that override paranoid misinterpretations, while zinc reduces neuroinflammation in the overactive amygdala threat-detection system",
+      spd: "tyrosine and phenylalanine provide dopamine precursors to activate underactive reward and motivation circuits, countering the anhedonia and social withdrawal of SPD",
       default: "rich in amino acid precursors for dopamine and norepinephrine, plus iron and B12 for healthy brain function",
     }
   },
@@ -3585,6 +3721,11 @@ const INGREDIENT_SCIENCE = {
       ptsd: "EPA reduces amygdala reactivity and inflammatory markers that are chronically elevated in PTSD",
       ocd: "DHA supports the prefrontal cortex, the brain region responsible for overriding compulsive impulses",
       schizophrenia: "omega-3 deficiency is found in most people with schizophrenia; supplementation reduces positive symptoms and supports antipsychotic medication efficacy",
+      npd: "DHA builds healthier membranes in prefrontal empathy circuits, while EPA reduces the neuroinflammation that impairs self-other processing and emotional regulation in NPD",
+      hpd: "EPA reduces inflammatory cytokines that destabilize serotonin signaling, while DHA supports the prefrontal membrane health needed for impulse control and emotional regulation",
+      aspd: "DHA supports prefrontal cortex membrane integrity for impulse control, while EPA reduces the neuroinflammation linked to reduced amygdala reactivity and empathy deficits",
+      ppd: "EPA directly reduces the neuroinflammation that amplifies amygdala-driven paranoid threat perception, while DHA supports prefrontal circuits that override false-alarm interpretations",
+      spd: "DHA builds neural membranes in social cognition circuits, while EPA reduces neuroinflammation that impairs BDNF-driven plasticity needed to counter emotional flatness and withdrawal",
       default: "EPA and DHA from salmon build brain cell membranes and reduce neuroinflammation across all mental health conditions",
     }
   },
@@ -3598,6 +3739,11 @@ const INGREDIENT_SCIENCE = {
       autism: "choline is critical for healthy brain development and neural pathway formation; adequate intake supports cognitive flexibility and learning",
       bipolar: "vitamin D in eggs regulates serotonin gene expression; deficiency is strongly linked to more frequent mood episodes",
       anxiety: "choline supports healthy myelin, which speeds neural communication and reduces the physiological symptoms of anxiety",
+      npd: "choline builds acetylcholine for the prefrontal empathy and perspective-taking circuits impaired in NPD, while vitamin D regulates serotonin gene expression for emotional stability",
+      hpd: "vitamin D regulates serotonin synthesis genes to reduce emotional intensity, while choline supports the prefrontal acetylcholine pathways needed for impulse control in HPD",
+      aspd: "choline supports acetylcholine in prefrontal impulse-control and empathy circuits, while selenium reduces oxidative damage in the underactive amygdala regions linked to ASPD",
+      ppd: "B12 maintains myelin in prefrontal pathways that override paranoid false alarms, while vitamin D reduces the neuroinflammation that amplifies amygdala threat-detection sensitivity",
+      spd: "tyrosine in eggs supports dopamine synthesis for motivation and reward processing, while choline builds acetylcholine needed for social cognition and engagement circuits",
       default: "eggs are one of the most nutrient-dense brain foods, delivering choline for acetylcholine, B12 for myelin, and vitamin D for serotonin gene regulation",
     }
   },
@@ -3614,6 +3760,11 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "folate lowers homocysteine, which is neurotoxic and elevated in schizophrenia; magnesium supports glutamate regulation, another key system",
       ptsd: "magnesium reduces cortisol-driven neuroinflammation in the hippocampus, the brain structure most damaged by chronic trauma",
       ocd: "magnesium modulates NMDA glutamate receptors, which are overactive in OCD; folate supports the serotonin pathway central to OCD treatment",
+      npd: "magnesium supports emotional regulation by calming prefrontal circuits during narcissistic injury, while folate enables serotonin production for stable self-other processing",
+      hpd: "magnesium's GABA receptor activation reduces the neural excitability driving emotional intensity, while folate supports serotonin stability to calm attention-seeking impulses",
+      aspd: "magnesium calms neural excitability in prefrontal impulse-control regions, while folate supports serotonin synthesis needed for aggression modulation and empathy circuit function",
+      ppd: "magnesium acts directly on GABA receptors to calm the overactive amygdala threat-detection system, while folate supports serotonin production that reduces suspicious hypervigilance",
+      spd: "folate activates serotonin and dopamine synthesis enzymes to counter the emotional flatness and motivational deficits of underactive reward circuitry in SPD",
       default: "folate for serotonin synthesis, magnesium for neurotransmitter production and nervous system calm",
     }
   },
@@ -3626,6 +3777,11 @@ const INGREDIENT_SCIENCE = {
       adhd: "folate in broccoli supports dopamine synthesis pathways, and vitamin C helps convert dopamine into norepinephrine",
       bipolar: "sulforaphane reduces microglial activation (brain immune cells that drive neuroinflammation during mood episodes)",
       autism: "a clinical trial specifically found sulforaphane improved social interaction and behavioral symptoms in autism; broccoli is the primary dietary source",
+      npd: "sulforaphane reduces neuroinflammation in prefrontal empathy circuits, while folate supports serotonin synthesis for emotional regulation during narcissistic reactivity",
+      hpd: "sulforaphane's Nrf2 activation protects neurons from oxidative stress caused by chronic emotional dysregulation, while vitamin C supports dopamine-to-norepinephrine conversion for impulse control",
+      aspd: "sulforaphane activates antioxidant defenses in prefrontal impulse-control regions, while folate and vitamin C support serotonin synthesis for aggression modulation",
+      ppd: "sulforaphane reduces the microglial neuroinflammation that amplifies paranoid threat perception, while folate supports serotonin production to calm overactive amygdala fear circuits",
+      spd: "sulforaphane's neuroprotective Nrf2 activation supports BDNF-driven neural plasticity in social cognition circuits, countering the emotional flatness of schizoid presentations",
       default: "sulforaphane activates the brain's antioxidant defense system; folate supports neurotransmitter synthesis",
     }
   },
@@ -3639,6 +3795,11 @@ const INGREDIENT_SCIENCE = {
       bipolar: "folate regulates homocysteine, which disrupts mood stability when elevated; asparagus brings folate levels up",
       ocd: "OCD severity correlates inversely with folate levels; clinical studies show folate augmentation improves OCD outcomes",
       schizophrenia: "glutathione in asparagus is the brain's primary antioxidant; deficiency is one of the most consistent biological findings in schizophrenia",
+      npd: "folate supports serotonin stability needed for emotional regulation during narcissistic injury, while glutathione protects the prefrontal empathy circuits from oxidative damage",
+      hpd: "folate enables steady serotonin production that reduces the emotional intensity and impulsive reward-seeking behavior driven by histrionic neurocircuitry",
+      aspd: "glutathione in asparagus protects prefrontal neurons responsible for impulse control, while folate supports serotonin synthesis needed for aggression modulation",
+      ppd: "inulin prebiotic fiber feeds gut bacteria that produce GABA, directly calming the overactive amygdala threat-detection system that drives paranoid thinking",
+      spd: "folate activates dopamine and serotonin synthesis pathways to counter the motivational deficits and anhedonia of underactive reward circuitry in SPD",
       default: "exceptional folate source for serotonin and dopamine synthesis; prebiotic fiber supports the gut-brain serotonin axis",
     }
   },
@@ -3652,6 +3813,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "B6 is required to produce GABA, and deficiency causes anxiety and irritability; sweet potato reliably restores B6 levels",
       ptsd: "beta-carotene is converted to vitamin A, which regulates the fear extinction pathway in the amygdala, a key target in PTSD treatment",
       autism: "B6 + magnesium combination is one of the most studied nutritional interventions in autism, shown to improve sensory processing and communication",
+      npd: "B6 supports both dopamine and serotonin synthesis to stabilize the reward system dysregulation and emotional reactivity that characterize narcissistic personality disorder",
+      hpd: "B6 is required for GABA production, calming the neural excitability behind emotional intensity, while slow carbs prevent glucose crashes that amplify impulsive attention-seeking",
+      aspd: "B6 supports serotonin synthesis for aggression modulation, and potassium regulates neural electrical signaling in prefrontal impulse-control circuits impaired in ASPD",
+      ppd: "beta-carotene converts to vitamin A, which regulates amygdala fear-extinction pathways, while B6 supports GABA production to calm overactive paranoid threat-detection circuits",
+      spd: "B6 catalyzes dopamine synthesis to counter underactive motivation circuits, while slow-release carbs provide sustained energy for prefrontal social processing in SPD",
       default: "B6 for dopamine and serotonin synthesis, slow carbs for stable brain glucose, and beta-carotene for neuroprotection",
     }
   },
@@ -3662,6 +3828,11 @@ const INGREDIENT_SCIENCE = {
       depression: "ergothioneine is found at lower levels in people with depression; mushrooms are the richest dietary source, and vitamin D supports serotonin gene expression",
       schizophrenia: "oxidative stress is a primary driver of neurodegeneration in schizophrenia; ergothioneine specifically protects the neurons most vulnerable",
       adhd: "B vitamins in mushrooms are cofactors for dopamine and norepinephrine production; B5 specifically supports adrenal function that regulates attention",
+      npd: "ergothioneine protects prefrontal empathy circuits from oxidative damage, while vitamin D regulates serotonin gene expression for emotional stability during narcissistic reactivity",
+      hpd: "vitamin D supports serotonin synthesis genes to reduce emotional intensity, while B vitamins provide cofactors for the neurotransmitter balance needed for impulse control in HPD",
+      aspd: "ergothioneine specifically protects prefrontal neurons responsible for impulse control and empathy, while B vitamins support serotonin synthesis for aggression modulation",
+      ppd: "vitamin D in UV-exposed mushrooms reduces the neuroinflammation that amplifies paranoid amygdala activation, while ergothioneine protects stress-vulnerable brain tissue",
+      spd: "ergothioneine protects dopaminergic neurons from oxidative damage, supporting the underactive reward and motivation circuits that drive social withdrawal and anhedonia in SPD",
       default: "ergothioneine protects brain cells from oxidative damage; B vitamins support neurotransmitter production",
     }
   },
@@ -3673,6 +3844,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "potassium in avocado supports parasympathetic nervous system activity, the 'rest and digest' state that counters anxiety",
       adhd: "oleic acid in avocado builds the myelin that speeds up prefrontal cortex signaling, the brain region responsible for executive function and impulse control",
       bipolar: "folate reduces homocysteine (a mood-destabilizing compound) and oleic acid supports membrane health for mood-regulating neurons",
+      npd: "oleic acid builds healthy myelin in prefrontal empathy circuits, while folate supports serotonin synthesis for the emotional regulation impaired during narcissistic injury",
+      hpd: "oleic acid's OEA release has calming properties that reduce emotional intensity, while folate supports serotonin stability to counter dopamine-driven attention-seeking behavior",
+      aspd: "oleic acid supports myelin health in prefrontal impulse-control pathways, while potassium regulates neural signaling in the empathy circuits underactive in ASPD",
+      ppd: "potassium supports parasympathetic nervous system activation to counter the chronic hyperarousal of paranoid threat detection, while folate enables calming serotonin production",
+      spd: "oleic acid builds the myelin insulating social cognition neural pathways, while folate activates dopamine and serotonin synthesis to counter emotional flatness in SPD",
       default: "healthy monounsaturated fats support brain cell membrane health; folate enables serotonin synthesis",
     }
   },
@@ -3683,6 +3859,11 @@ const INGREDIENT_SCIENCE = {
       adhd: "dopamine-to-norepinephrine conversion requires vitamin C as a cofactor; without enough vitamin C, dopamine accumulates but norepinephrine (critical for focus) stays low",
       depression: "vitamin C reduces cortisol and oxidative stress that suppress serotonin production; calcium supports neural signaling",
       schizophrenia: "sulforaphane activates Nrf2 antioxidant pathways; vitamin C protects dopaminergic neurons from oxidative damage",
+      npd: "vitamin C supports dopamine-to-norepinephrine conversion for prefrontal emotional regulation, while calcium supports the neural signaling in empathy circuits impaired in NPD",
+      hpd: "sulforaphane reduces neuroinflammation that destabilizes emotional regulation circuits, while vitamin C supports norepinephrine synthesis for impulse control in HPD",
+      aspd: "vitamin C converts dopamine to norepinephrine in prefrontal impulse-control regions, while sulforaphane protects the serotonergic neurons needed for aggression modulation",
+      ppd: "sulforaphane reduces microglial neuroinflammation that amplifies paranoid threat perception, while vitamin C lowers the cortisol chronically elevated by overactive stress circuitry",
+      spd: "vitamin C supports norepinephrine synthesis to counter the low arousal and motivational deficits in SPD, while sulforaphane promotes BDNF-driven neural plasticity in social circuits",
       default: "vitamin C for dopamine-to-norepinephrine conversion; sulforaphane for neuroprotection",
     }
   },
@@ -3696,6 +3877,11 @@ const INGREDIENT_SCIENCE = {
       depression: "vitamin C reduces cortisol and oxidative stress; mangiferin's MAO-inhibiting effect extends the activity of serotonin and dopamine",
       anxiety: "beta-carotene converts to vitamin A, which regulates the HPA stress axis, the system responsible for the anxiety response",
       bipolar: "antioxidant polyphenols reduce neuroinflammation that drives mood cycling; vitamin C supports dopamine-norepinephrine conversion",
+      npd: "mangiferin's MAO-B inhibition keeps dopamine active longer, helping normalize the dysregulated reward system in NPD; vitamin C supports prefrontal emotional regulation circuits",
+      hpd: "mangiferin stabilizes dopamine signaling to reduce reward-seeking impulsivity, while vitamin C supports norepinephrine synthesis for better emotional regulation in HPD",
+      aspd: "mangiferin extends dopamine activity in prefrontal impulse-control regions, while vitamin C supports norepinephrine synthesis needed for healthy consequence evaluation",
+      ppd: "beta-carotene converts to vitamin A, regulating amygdala fear-extinction pathways; vitamin C lowers the cortisol that fuels overactive paranoid threat detection",
+      spd: "mangiferin's MAO-B inhibition keeps dopamine active longer in underactive reward circuits, directly addressing the anhedonia and motivational deficits central to SPD",
       default: "mangiferin inhibits dopamine breakdown; vitamin C supports norepinephrine synthesis and cortisol reduction",
     }
   },
@@ -3708,6 +3894,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "ellagic acid has GABA-enhancing properties; combined with vitamin C's cortisol-lowering effect, strawberries work on anxiety from multiple angles",
       bipolar: "fisetin reduces microglial activation during mood episodes; anthocyanins protect neurons from oxidative damage triggered by mood cycling",
       ptsd: "fisetin supports hippocampal health, the brain region that stores context for fear memories and enables fear extinction",
+      npd: "fisetin reduces neuroinflammation in prefrontal empathy circuits, while vitamin C lowers cortisol to reduce the emotional reactivity triggered by narcissistic injury",
+      hpd: "ellagic acid's GABA-enhancing properties calm the neural excitability driving emotional intensity, while fisetin protects neurons from the oxidative stress of chronic emotional dysregulation",
+      aspd: "fisetin reduces prefrontal neuroinflammation to support impulse control, while ellagic acid enhances GABA activity in circuits needed for aggression modulation",
+      ppd: "fisetin reduces inflammatory activation in the amygdala and hippocampus, calming the threat-detection circuits that drive paranoid misinterpretation of social cues",
+      spd: "fisetin boosts BDNF to support neural plasticity in social cognition circuits, while vitamin C aids norepinephrine synthesis to counter low arousal and emotional flatness",
       default: "fisetin reduces hippocampal neuroinflammation; vitamin C supports dopamine-norepinephrine conversion and cortisol reduction",
     }
   },
@@ -3721,6 +3912,11 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "anthocyanins protect dopamine neurons in the striatum; resveratrol has anti-inflammatory effects on microglial cells",
       ptsd: "BDNF is critical for fear extinction and hippocampal recovery from trauma; blueberries are one of the best dietary BDNF boosters available",
       ocd: "BDNF supports neuroplasticity needed for the brain to form new, less compulsive behavioral pathways during therapy",
+      npd: "anthocyanins boost BDNF in prefrontal empathy circuits, supporting the neural plasticity needed for healthier self-other processing and emotional regulation in NPD",
+      hpd: "improved cerebral blood flow from anthocyanins delivers more oxygen to prefrontal impulse-control regions, while BDNF supports emotional regulation circuit plasticity",
+      aspd: "pterostilbene and anthocyanins protect prefrontal neurons from oxidative damage, while BDNF supports plasticity in the empathy and impulse-control circuits impaired in ASPD",
+      ppd: "anthocyanins reduce neuroinflammation in the overactive amygdala threat-detection system, while BDNF supports plasticity in prefrontal circuits that override paranoid false alarms",
+      spd: "BDNF from blueberry anthocyanins directly promotes neural plasticity in underactive social cognition and reward circuits, countering the emotional flatness and withdrawal of SPD",
       default: "anthocyanins boost BDNF and improve cerebral blood flow, supporting brain plasticity and neuroprotection",
     }
   },
@@ -3733,6 +3929,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "quercetin modulates GABA receptors, producing mild anxiolytic effects, and reduces the inflammatory cytokines that activate anxiety circuits",
       bipolar: "beta-carotene converts to vitamin A, which regulates the serotonin and dopamine synthesis genes",
       ptsd: "quercetin reduces amygdala inflammatory activity; vitamin C counteracts the cortisol chronically elevated in PTSD",
+      npd: "quercetin protects prefrontal empathy and self-other processing circuits from oxidative stress, while vitamin C reduces cortisol during narcissistic injury and emotional reactivity",
+      hpd: "quercetin's GABA-enhancing properties reduce the neural excitability driving emotional intensity, while chlorogenic acid protects neurons from chronic emotional dysregulation in HPD",
+      aspd: "quercetin specifically protects the prefrontal cortex regions responsible for impulse control and consequence evaluation, both structurally underactive in antisocial presentations",
+      ppd: "quercetin modulates GABA receptors to calm overactive amygdala threat detection, while vitamin C lowers the cortisol that fuels paranoid hypervigilance and suspicious ideation",
+      spd: "chlorogenic acid reduces neuroinflammation in social cognition circuits, while vitamin C supports norepinephrine synthesis to counter the low arousal characteristic of SPD",
       default: "quercetin and chlorogenic acid reduce neuroinflammation in the prefrontal cortex; vitamin C supports cortisol reduction",
     }
   },
@@ -3744,6 +3945,11 @@ const INGREDIENT_SCIENCE = {
       depression: "lycopene is one of the most potent antioxidants for brain tissue and is significantly reduced in people with depression",
       anxiety: "potassium supports healthy neuronal electrical thresholds, reducing the physiological arousal that accompanies anxiety",
       bipolar: "cerebral blood flow improvements support more even energy distribution across brain regions, reducing the imbalance between hypomanic and depressive states",
+      npd: "improved cerebral blood flow from L-citrulline delivers more oxygen to prefrontal empathy circuits, while lycopene protects neurons involved in self-other processing",
+      hpd: "L-citrulline boosts blood flow to prefrontal impulse-control regions, while potassium regulates the neural electrical signaling that becomes erratic during emotional intensity in HPD",
+      aspd: "increased cerebral blood flow from L-citrulline supports prefrontal impulse-control function, while lycopene protects the neurons in empathy circuits structurally underactive in ASPD",
+      ppd: "L-citrulline improves blood flow to prefrontal cortex regions that override amygdala false alarms, while potassium calms the neural hyperarousal fueling paranoid threat detection",
+      spd: "L-citrulline increases cerebral blood flow to underactive social cognition and motivation circuits, while lycopene protects dopaminergic neurons from oxidative damage in SPD",
       default: "L-citrulline improves cerebral blood flow; lycopene protects brain cells from oxidative damage",
     }
   },
@@ -3755,6 +3961,11 @@ const INGREDIENT_SCIENCE = {
       depression: "vitamin C reduces cortisol; bromelain reduces systemic inflammation that suppresses serotonin production",
       anxiety: "manganese is a cofactor for antioxidant enzyme SOD2, which protects neurons from the oxidative stress triggered by chronic anxiety",
       bipolar: "thiamine deficiency causes neurological symptoms that mimic mood cycling; pineapple restores this essential cofactor",
+      npd: "bromelain reduces neuroinflammation in prefrontal empathy circuits, while thiamine supports the mitochondrial energy production needed for emotional regulation during narcissistic reactivity",
+      hpd: "bromelain's anti-inflammatory action protects neurons from the oxidative stress of chronic emotional dysregulation, while manganese supports antioxidant defenses in impulse-control regions",
+      aspd: "bromelain reduces inflammation in prefrontal impulse-control regions, while thiamine supports the neuronal energy metabolism needed for consequence evaluation and behavioral inhibition",
+      ppd: "bromelain reduces the systemic neuroinflammation that amplifies paranoid amygdala activation, while vitamin C lowers cortisol driving the chronic stress response in PPD",
+      spd: "thiamine supports mitochondrial energy production in underactive social cognition circuits, while vitamin C aids norepinephrine synthesis to counter motivational deficits in SPD",
       default: "bromelain reduces neuroinflammation; thiamine supports brain cell energy metabolism",
     }
   },
@@ -3766,6 +3977,11 @@ const INGREDIENT_SCIENCE = {
       depression: "resveratrol has MAOI-like activity (inhibits the enzyme that breaks down serotonin and dopamine) and reduces hippocampal inflammation",
       bipolar: "OPCs reduce microglial activation during mood episodes; resveratrol's neuroprotective effect supports mood-regulating circuits",
       anxiety: "quercetin in grapes modulates GABA-A receptors, producing mild calming effects",
+      npd: "resveratrol's SIRT1 activation protects neurons in prefrontal empathy circuits from stress-induced damage during narcissistic reactivity and interpersonal conflict",
+      hpd: "quercetin's GABA-A modulation reduces the neural excitability driving emotional intensity, while resveratrol protects neurons from the oxidative stress of chronic emotional dysregulation",
+      aspd: "resveratrol's MAOI-like activity extends serotonin availability for aggression modulation, while quercetin supports GABA function in prefrontal impulse-control circuits",
+      ppd: "quercetin modulates GABA-A receptors to directly calm overactive amygdala threat-detection circuits, while resveratrol reduces the neuroinflammation amplifying paranoid ideation",
+      spd: "resveratrol's SIRT1 activation supports mitochondrial function in underactive dopamine circuits, while OPCs promote neuroprotection in social cognition pathways impaired in SPD",
       default: "resveratrol activates neuroprotective SIRT1; quercetin reduces neuroinflammation and supports GABA function",
     }
   },
@@ -3778,6 +3994,11 @@ const INGREDIENT_SCIENCE = {
       ocd: "serotonin support from both direct content and folate makes kiwi unusually valuable for OCD, which is a serotonin-dysregulation disorder",
       bipolar: "folate reduces homocysteine (a mood destabilizer elevated in bipolar disorder); vitamin C supports dopamine-norepinephrine conversion",
       ptsd: "folate supports serotonin synthesis that is chronically suppressed in PTSD; serotonin helps regulate the fear response",
+      npd: "kiwi's direct serotonin content plus folate-enabled synthesis supports the emotional regulation circuits disrupted during narcissistic injury and interpersonal reactivity",
+      hpd: "direct serotonin from kiwi plus folate-enabled production stabilize the serotonin system whose instability drives emotional intensity and impulsive attention-seeking in HPD",
+      aspd: "serotonin directly from kiwi and via folate-enabled synthesis supports aggression modulation circuits; low serotonin is consistently linked to impulsive antisocial behavior",
+      ppd: "kiwi's direct serotonin content calms overactive amygdala threat-detection circuits, while folate enables continued serotonin synthesis to reduce paranoid hypervigilance",
+      spd: "folate activates both serotonin and dopamine synthesis pathways, addressing the dual neurotransmitter deficits underlying emotional flatness and social withdrawal in SPD",
       default: "rare direct serotonin content combined with folate for serotonin synthesis support",
     }
   },
@@ -3793,6 +4014,11 @@ const INGREDIENT_SCIENCE = {
       bipolar: "omega-3 is the most evidenced supplement in bipolar disorder for reducing depressive episodes; walnuts are the best plant-based source",
       ptsd: "melatonin in walnuts supports healthy sleep architecture, which is severely disrupted in PTSD; omega-3s reduce amygdala hyperreactivity",
       ocd: "omega-3s reduce the neuroinflammation in cortico-striatal circuits implicated in OCD",
+      npd: "omega-3s improve membrane fluidity in prefrontal empathy circuits, while polyphenols boost BDNF for the neural plasticity needed to strengthen self-other processing in NPD",
+      hpd: "omega-3s reduce inflammatory cytokines that destabilize serotonin signaling, while melatonin supports the sleep architecture often disrupted by emotional intensity in HPD",
+      aspd: "ellagitannins reduce neuroinflammation in prefrontal impulse-control regions, while omega-3s support serotonin receptor sensitivity for aggression modulation",
+      ppd: "omega-3s lower the chronic neuroinflammation that amplifies amygdala paranoid threat detection, while melatonin supports sleep disrupted by hypervigilant stress circuitry",
+      spd: "omega-3s support BDNF-driven plasticity in underactive social cognition circuits, while melatonin regulates sleep-wake cycles disrupted by dopaminergic dysregulation in SPD",
       default: "highest omega-3 nut, reducing neuroinflammation; melatonin supports healthy sleep cycles",
     }
   },
@@ -3804,6 +4030,11 @@ const INGREDIENT_SCIENCE = {
       adhd: "magnesium is a cofactor for dopamine synthesis; vitamin E protects the dopaminergic neurons in the prefrontal cortex",
       bipolar: "magnesium has lithium-like properties and reduces neural excitability; vitamin E protects against oxidative stress during mood episodes",
       depression: "magnesium deficiency produces depressive symptoms; riboflavin activates B6, which is required for serotonin production",
+      npd: "magnesium calms prefrontal circuits during narcissistic reactivity, while vitamin E protects the neural membranes in empathy and self-other processing regions from oxidative damage",
+      hpd: "magnesium's GABA receptor activation reduces the neural excitability driving emotional intensity and impulsive behavior, while vitamin E protects neurons from chronic emotional stress",
+      aspd: "magnesium is a cofactor for serotonin synthesis needed for aggression modulation, while vitamin E protects prefrontal impulse-control neurons from oxidative damage",
+      ppd: "magnesium acts on GABA receptors to directly calm overactive amygdala threat-detection circuits, while vitamin E protects neurons from the oxidative stress of chronic hypervigilance",
+      spd: "magnesium supports dopamine synthesis to counter motivational deficits, while L-carnitine supports mitochondrial energy production in underactive social cognition circuits",
       default: "magnesium supports GABA calm and dopamine production; vitamin E protects brain cell membranes from oxidative damage",
     }
   },
@@ -3816,6 +4047,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "magnesium activates GABA receptors; niacin reduces the kynurenine metabolites that are found at elevated levels in anxiety disorders",
       ptsd: "tryptophan raises serotonin that is chronically depleted in PTSD; magnesium reduces HPA axis hyperreactivity",
       ocd: "the tryptophan-to-serotonin pathway (enabled by niacin) directly feeds the neurotransmitter system most targeted in OCD treatment",
+      npd: "niacin ensures tryptophan converts to serotonin rather than neurotoxic kynurenine, stabilizing the emotional regulation circuits disrupted during narcissistic injury",
+      hpd: "magnesium's GABA activation calms neural excitability driving emotional intensity, while niacin-enabled serotonin production reduces impulsive attention-seeking behavior in HPD",
+      aspd: "tryptophan-to-serotonin conversion (enabled by niacin) directly supports aggression modulation, while magnesium calms prefrontal impulse-control circuits impaired in ASPD",
+      ppd: "magnesium activates GABA receptors to calm overactive amygdala threat detection, while tryptophan-derived serotonin reduces the hypervigilant suspicion characteristic of PPD",
+      spd: "tryptophan provides serotonin for social cognition circuits, while magnesium supports dopamine synthesis to counter the motivational deficits and anhedonia of SPD",
       default: "niacin ensures tryptophan converts to serotonin; magnesium supports GABA and dopamine systems",
     }
   },
@@ -3827,6 +4063,11 @@ const INGREDIENT_SCIENCE = {
       depression: "omega-3 ALA begins the conversion to EPA and DHA; complete protein delivers tryptophan for serotonin synthesis",
       adhd: "omega-3s improve dopamine receptor sensitivity; soluble fiber stabilizes blood sugar, preventing the focus-disrupting crashes",
       bipolar: "omega-3 is the most evidenced nutritional intervention in bipolar disorder; complete protein ensures amino acid availability for neurotransmitter synthesis",
+      npd: "omega-3s improve prefrontal membrane fluidity for healthier empathy circuit function, while complete protein delivers tryptophan for the serotonin stability needed during narcissistic reactivity",
+      hpd: "omega-3s reduce inflammatory cytokines that destabilize emotional regulation, while calcium supports the inhibitory GABA system to calm attention-seeking impulsivity in HPD",
+      aspd: "omega-3s support serotonin receptor sensitivity for aggression modulation, while complete protein provides amino acid precursors for prefrontal impulse-control neurotransmitters",
+      ppd: "omega-3s reduce the neuroinflammation amplifying paranoid amygdala activation, while calcium supports GABA-mediated calming of overactive threat-detection circuits",
+      spd: "complete protein delivers tryptophan and tyrosine for dual serotonin-dopamine synthesis, addressing the neurotransmitter deficits underlying emotional flatness and social withdrawal in SPD",
       default: "highest omega-3 seed plus complete protein for neurotransmitter precursor amino acids",
     }
   },
@@ -3837,6 +4078,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "GLA reduces the prostaglandins that drive anxiety-related neuroinflammation; the balanced omega ratio counteracts the pro-inflammatory excess omega-6 in most diets",
       depression: "all essential amino acids include tryptophan and tyrosine for serotonin and dopamine; GLA-derived anti-inflammatory compounds reduce depression-linked neuroinflammation",
       adhd: "omega-3 from hemp improves dopamine receptor function; complete protein supplies all neurotransmitter precursor amino acids",
+      npd: "GLA reduces neuroinflammation in prefrontal empathy circuits, while complete protein delivers tyrosine and tryptophan for dopamine and serotonin stability during narcissistic reactivity",
+      hpd: "GLA's anti-inflammatory properties calm the neuroinflammation destabilizing emotional regulation, while balanced omega ratios support serotonin receptor function to reduce impulsivity in HPD",
+      aspd: "GLA reduces prostaglandins driving neuroinflammation in prefrontal impulse-control regions, while complete protein supports serotonin synthesis for aggression modulation",
+      ppd: "GLA-derived anti-inflammatory compounds reduce the neuroinflammation amplifying paranoid threat perception, while tryptophan from complete protein supports calming serotonin production",
+      spd: "complete protein provides all essential amino acids for dopamine and serotonin synthesis, addressing the dual neurotransmitter deficits driving anhedonia and social withdrawal in SPD",
       default: "complete protein plus ideal omega fatty acid ratio for anti-inflammatory brain support",
     }
   },
@@ -3851,6 +4097,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "the carb + tryptophan combination in quinoa is more effective at raising serotonin than tryptophan alone; magnesium activates GABA receptors",
       bipolar: "complete protein plus slow carbs maintain steady amino acid levels for neurotransmitter production, preventing the peaks and troughs that trigger mood cycling",
       schizophrenia: "magnesium supports NMDA glutamate receptor regulation, a key system dysregulated in schizophrenia",
+      npd: "complete protein delivers tyrosine for dopamine reward system normalization and tryptophan for serotonin-based emotional regulation during narcissistic injury and interpersonal stress",
+      hpd: "slow carbs help tryptophan cross the blood-brain barrier for serotonin synthesis, reducing emotional intensity while magnesium activates GABA receptors to calm impulsivity in HPD",
+      aspd: "iron in quinoa supports dopamine synthesis in prefrontal impulse-control circuits, while tryptophan + slow carbs raise serotonin for aggression modulation",
+      ppd: "magnesium activates GABA receptors to calm overactive amygdala threat detection, while the carb-tryptophan combination maximizes serotonin delivery to reduce paranoid hypervigilance",
+      spd: "complete protein provides tyrosine and tryptophan for dual dopamine-serotonin synthesis, while slow carbs ensure sustained energy for underactive prefrontal social processing in SPD",
       default: "complete plant protein with slow-release carbs; optimally delivers tryptophan and tyrosine to the brain for serotonin and dopamine production",
     }
   },
@@ -3862,6 +4113,11 @@ const INGREDIENT_SCIENCE = {
       ocd: "inositol modulates serotonin receptors and has shown effectiveness in OCD trials comparable to some SSRIs at high doses",
       depression: "magnesium and B vitamins support serotonin synthesis; the slow carbs raise tryptophan availability at the blood-brain barrier",
       bipolar: "steady glucose from brown rice prevents the blood sugar instability that triggers mood cycling; B1 supports neuronal energy metabolism",
+      npd: "GABA from brown rice calms prefrontal circuits during narcissistic reactivity, while inositol modulates serotonin receptors for emotional regulation during interpersonal stress",
+      hpd: "GABA directly reduces the neural excitability driving emotional intensity and attention-seeking behavior, while steady glucose prevents the crashes that amplify impulsivity in HPD",
+      aspd: "GABA supports inhibitory signaling in prefrontal impulse-control circuits, while inositol modulates serotonin receptors to support aggression modulation in ASPD",
+      ppd: "GABA in brown rice directly calms the overactive amygdala threat-detection system, while magnesium reduces the neural excitability that amplifies paranoid interpretations",
+      spd: "thiamine supports mitochondrial energy production in underactive social cognition circuits, while inositol modulates serotonin receptors to counter emotional flatness in SPD",
       default: "inositol modulates serotonin receptors; slow carbs stabilize blood sugar and support tryptophan brain delivery",
     }
   },
@@ -3873,6 +4129,11 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "folate reduces neurotoxic homocysteine; zinc supports dopamine and glutamate regulation both dysregulated in schizophrenia",
       anxiety: "prebiotic fiber feeds gut Lactobacillus that produce GABA; folate supports serotonin synthesis",
       bipolar: "zinc has mood-stabilizing properties and is commonly depleted in bipolar disorder; folate reduces homocysteine",
+      npd: "folate enables serotonin production for emotional stability during narcissistic injury, while zinc supports dopamine synthesis to normalize the dysregulated reward system in NPD",
+      hpd: "prebiotic fiber feeds gut bacteria that produce GABA, calming the neural excitability behind emotional intensity, while folate supports serotonin stability to reduce impulsivity in HPD",
+      aspd: "zinc is a cofactor for serotonin synthesis needed for aggression modulation, while iron supports dopamine production in prefrontal impulse-control circuits impaired in ASPD",
+      ppd: "prebiotic fiber feeds gut bacteria producing GABA to calm overactive amygdala threat detection, while folate supports serotonin synthesis to reduce paranoid hypervigilance",
+      spd: "iron and zinc support dopamine synthesis to counter underactive motivation and reward circuits, while folate enables serotonin production for social cognition in SPD",
       default: "folate for serotonin synthesis, prebiotic fiber for gut-brain GABA production",
     }
   },
@@ -3884,6 +4145,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "choline supports acetylcholine, which has calming effects on the amygdala; magnesium reduces NMDA over-excitation",
       adhd: "choline supports working memory (acetylcholine dependent); B6 supports dopamine synthesis",
       ocd: "B6 + folate provide cofactors for serotonin production; choline supports prefrontal cortex function needed for impulse override",
+      npd: "choline builds acetylcholine in prefrontal empathy circuits, while tryptophan + B6 + folate provide the complete serotonin pathway for emotional regulation during narcissistic reactivity",
+      hpd: "magnesium calms GABA receptors to reduce emotional intensity, while B6 and folate enable serotonin synthesis to counter the impulsive attention-seeking driven by serotonin instability in HPD",
+      aspd: "choline supports acetylcholine in empathy and impulse-control circuits, while tryptophan + B6 provide the serotonin synthesis pathway needed for aggression modulation in ASPD",
+      ppd: "choline supports prefrontal acetylcholine pathways that override amygdala false alarms, while magnesium activates GABA receptors to calm paranoid threat-detection circuits",
+      spd: "choline builds acetylcholine for social cognition circuits, while tryptophan and B6 support dopamine and serotonin synthesis to counter motivational deficits and anhedonia in SPD",
       default: "choline, tryptophan, B6, and folate together cover all the major neurotransmitter synthesis pathways",
     }
   },
@@ -3899,6 +4165,11 @@ const INGREDIENT_SCIENCE = {
       ocd: "emerging research shows gut dysbiosis in OCD; probiotics restore the microbiome balance that supports serotonin availability",
       bipolar: "B12 in yogurt protects myelin and prevents the homocysteine elevation that worsens mood cycling",
       autism: "gut microbiome dysbiosis is consistently found in autism; probiotics from yogurt support the gut-brain communication axis",
+      npd: "probiotics produce gut serotonin and GABA that stabilize the emotional regulation circuits disrupted during narcissistic injury and interpersonal reactivity",
+      hpd: "Lactobacillus produces GABA in the gut to calm the neural excitability driving emotional intensity, while tryptophan supports serotonin stability to reduce impulsivity in HPD",
+      aspd: "gut-produced serotonin from probiotics supports aggression modulation circuits, while calcium enables the inhibitory neural signaling needed for impulse control in ASPD",
+      ppd: "Lactobacillus in yogurt produces GABA that directly calms overactive amygdala threat-detection circuits, while B12 maintains myelin in prefrontal override pathways",
+      spd: "probiotics support gut serotonin production for social cognition circuits, while tryptophan provides precursors for both serotonin and dopamine to counter anhedonia in SPD",
       default: "probiotics produce gut serotonin and GABA; tryptophan and B12 support brain neurotransmitter health",
     }
   },
@@ -3910,6 +4181,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "Lactobacillus species in Greek yogurt reduce cortisol and increase GABA production in clinical studies; calcium supports neural inhibitory signaling",
       adhd: "protein concentration ensures sustained amino acid delivery for neurotransmitter synthesis throughout the morning",
       bipolar: "stable protein digestion prevents the amino acid spikes and troughs that can contribute to neurotransmitter instability",
+      npd: "concentrated tryptophan raises serotonin for emotional regulation during narcissistic reactivity, while probiotics support the gut-brain serotonin axis for stable empathy circuit function",
+      hpd: "Lactobacillus probiotics produce GABA to calm emotional intensity, while high tryptophan concentration supports serotonin synthesis to reduce attention-seeking impulsivity in HPD",
+      aspd: "concentrated tryptophan from Greek yogurt's high protein directly supports serotonin synthesis for aggression modulation in prefrontal-amygdala circuits impaired in ASPD",
+      ppd: "probiotics produce gut GABA that calms overactive amygdala threat detection, while calcium supports inhibitory neural signaling to reduce paranoid hypervigilance",
+      spd: "high-concentration tryptophan supports serotonin for social cognition, while sustained amino acid delivery from protein fuels dopamine synthesis in underactive reward circuits of SPD",
       default: "high tryptophan for serotonin plus probiotics for gut-brain serotonin axis support",
     }
   },
@@ -3924,6 +4200,11 @@ const INGREDIENT_SCIENCE = {
       anxiety: "magnesium in dark chocolate acts on GABA receptors; flavanols reduce the cortisol response to stress in multiple clinical trials",
       bipolar: "magnesium has mood-stabilizing properties; flavanols protect neurons during the oxidative stress of mood episodes",
       ptsd: "PEA triggers endorphin release and reduces amygdala reactivity; magnesium reduces HPA axis hyperreactivity",
+      npd: "PEA triggers dopamine release to normalize the dysregulated reward system in NPD, while magnesium calms prefrontal circuits during narcissistic injury and emotional reactivity",
+      hpd: "magnesium's GABA receptor activation reduces the neural excitability driving emotional intensity, while epicatechin improves prefrontal blood flow for better impulse control in HPD",
+      aspd: "epicatechin improves cerebral blood flow to prefrontal impulse-control regions, while magnesium supports GABA-mediated inhibitory signaling needed for behavioral restraint in ASPD",
+      ppd: "magnesium activates GABA receptors to calm overactive amygdala threat-detection circuits, while flavanols reduce the cortisol response fueling paranoid hypervigilance",
+      spd: "PEA triggers dopamine and endorphin release in underactive reward circuits, directly countering the anhedonia and motivational deficits characteristic of SPD",
       default: "epicatechin improves cerebral blood flow, PEA boosts dopamine, and magnesium supports GABA calm",
     }
   },
@@ -3936,6 +4217,11 @@ const INGREDIENT_SCIENCE = {
       adhd: "zinc is a dopamine cofactor shown to be low in ADHD; oleic acid supports myelin health in prefrontal pathways",
       bipolar: "zinc and magnesium together support mood-stabilizing neurotransmitter systems; oleic acid supports neuronal membrane health",
       ocd: "folate directly supports serotonin synthesis, the neurotransmitter system most targeted in OCD",
+      npd: "zinc from tahini supports dopamine reward system normalization, while folate from chickpeas enables serotonin synthesis for emotional regulation during narcissistic reactivity",
+      hpd: "magnesium from tahini activates GABA receptors to calm emotional intensity, while oleic acid triggers calming OEA release to reduce impulsive attention-seeking behavior in HPD",
+      aspd: "zinc is a cofactor for serotonin synthesis needed for aggression modulation, while magnesium supports GABA-mediated inhibitory signaling in prefrontal impulse-control circuits",
+      ppd: "magnesium activates GABA receptors to calm overactive amygdala threat detection, while oleic acid triggers OEA release that reduces the cortisol driving paranoid hypervigilance",
+      spd: "zinc supports dopamine synthesis to counter motivational deficits, while tryptophan + folate provide the serotonin pathway needed for social cognition circuit activation in SPD",
       default: "folate + tryptophan for serotonin, magnesium + zinc for GABA and dopamine support",
     }
   },
@@ -4003,15 +4289,15 @@ function buildMealExplanation(meal, conditionIds) {
     ptsd:          `This is a great meal for PTSD because it works to lower the chronically elevated cortisol baseline, rebuild the serotonin and dopamine that trauma depletes, and support hippocampal repair.`,
     did:           `This is a great meal for DID because it provides stable, consistent brain fuel that supports grounding and prevents the blood sugar swings that can increase dissociation.`,
     bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar, one of the most direct dietary tools for reducing emotional reactivity, while delivering serotonin precursors and magnesium the nervous system needs.`,
-    npd:           `This is a great meal for brain health because it delivers complete protein, anti-inflammatory compounds, and B vitamins that support dopamine regulation, stress resilience, and cognitive function.`,
-    hpd:           `This is a great meal for brain health because its combination of protein, complex carbohydrates, and micronutrients supports steady neurotransmitter production, emotional regulation, and consistent brain energy.`,
-    aspd:          `This is a great meal for brain health because it provides amino acids, B vitamins, and anti-inflammatory nutrients that support healthy prefrontal cortex function and impulse regulation.`,
+    npd:           `This is a great meal for Narcissistic Personality Disorder because it targets the dopamine reward system and prefrontal cortex that NPD most affects, delivering omega-3s for emotional regulation, B vitamins for stress resilience, and steady protein to prevent the blood sugar crashes that amplify narcissistic reactivity.`,
+    hpd:           `This is a great meal for Histrionic Personality Disorder because it stabilizes the serotonin and dopamine systems that drive emotional intensity, providing tryptophan for mood regulation, complex carbohydrates for steady brain energy, and magnesium to calm the nervous system's overreactivity.`,
+    aspd:          `This is a great meal for Antisocial Personality Disorder because it delivers omega-3s and amino acids that support prefrontal cortex function and impulse control, B vitamins for serotonin production, and anti-inflammatory nutrients that reduce the neuroinflammation linked to reduced empathy circuits.`,
     ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly: OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins here are the exact building blocks serotonin synthesis requires.`,
     eating:        `This is a nourishing, balanced meal that provides complete nutrition: protein for brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability during recovery.`,
     phobia:        `This is a great meal for managing Phobias because it supports GABA production and cortisol regulation, the two neurological levers most directly involved in the physiological fear response.`,
     bfrb:          `This is a great meal for Body-Focused Repetitive Behaviors because it delivers magnesium and B vitamins that reduce the nervous system hyperarousal that BFRB urges are often driven by.`,
-    ppd:           `This is a great meal for brain health because its anti-inflammatory nutrients, B vitamins, and complete protein support neurochemical balance and stress regulation.`,
-    spd:           `This is a great meal for brain health because it delivers omega-3s, B vitamins, and complete protein that support dopamine regulation and cognitive function.`,
+    ppd:           `This is a great meal for Paranoid Personality Disorder because it targets the overactive threat-detection circuits PPD is driven by, delivering omega-3s to calm neuroinflammation, magnesium for GABA production, and B vitamins that support the prefrontal cortex's ability to override false alarm signals.`,
+    spd:           `This is a great meal for Schizoid Personality Disorder because it targets the underactive dopamine and motivation circuits that SPD affects most, delivering tyrosine for dopamine synthesis, omega-3s for neural membrane health, and B12 to protect the myelin sheaths that carry social and emotional signals.`,
     default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients: neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals.`,
   };
 
