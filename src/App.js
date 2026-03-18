@@ -6919,6 +6919,95 @@ function NeuroThriveApp() {
               <h2 style={S.sectionTitle}>Your Progress</h2>
               <p style={S.sectionSub}>Patterns in your mood and energy tell a story. Here's yours so far.</p>
 
+              {/* ── Weekly Recap Card ── */}
+              {(() => {
+                const now = new Date();
+                const weekDates = Array.from({ length: 7 }, (_, i) => {
+                  const d = new Date(now);
+                  d.setDate(d.getDate() - (6 - i));
+                  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+                });
+                const weekDayLabels = weekDates.map(dk => {
+                  const d = new Date(dk + "T00:00:00");
+                  return d.toLocaleDateString("en-US", { weekday:"short" });
+                });
+                const weekChecks = weekDates.map(dk => dailyChecks[dk] || null);
+
+                // Meals: count days with at least 1 meal checked
+                const mealDays = weekChecks.filter(c => c && c.meals && Object.values(c.meals).some(Boolean)).length;
+                // Total meals checked across week
+                const totalMeals = weekChecks.reduce((sum, c) => {
+                  if (!c || !c.meals) return sum;
+                  return sum + Object.values(c.meals).filter(Boolean).length;
+                }, 0);
+                // Exercise days
+                const exerciseDays = weekChecks.filter(c => c && c.exercise).length;
+                // Water average
+                const waterDays = weekChecks.filter(c => c && c.water > 0);
+                const avgWater = waterDays.length > 0 ? (waterDays.reduce((s, c) => s + (c.water || 0), 0) / waterDays.length).toFixed(1) : 0;
+                // Morning routine completion
+                const morningDays = weekChecks.filter(c => c && c.routine?.morning && c.routine.morning.some(Boolean)).length;
+                // Evening routine completion
+                const eveningDays = weekChecks.filter(c => c && c.routine?.evening && c.routine.evening.some(Boolean)).length;
+                // Journal days this week
+                const journalDays = weekDates.filter(dk => {
+                  const dateStr = new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                  return logs.some(l => l.date && l.date.includes(dateStr));
+                }).length;
+                // Brain score for each day
+                const weekScores = weekDates.map(dk => dailyChecks[dk] ? getBrainPoints(dk).pct : null);
+                const validScores = weekScores.filter(s => s !== null);
+                const avgScore = validScores.length > 0 ? Math.round(validScores.reduce((a, b) => a + b, 0) / validScores.length) : null;
+
+                const hasAnyData = weekChecks.some(c => c !== null);
+                if (!hasAnyData && total === 0) return null;
+
+                return (
+                  <div style={{ background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,200,120,0.06))", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"20px", padding:"22px 20px", marginBottom:"24px" }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
+                      <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700" }}>Weekly Recap</div>
+                      <div style={{ color:"#8890b8", fontSize:"11px" }}>{new Date(weekDates[0] + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" })} – {new Date(weekDates[6] + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" })}</div>
+                    </div>
+
+                    {/* Brain score mini chart */}
+                    {avgScore !== null && (
+                      <div style={{ marginBottom:"18px" }}>
+                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
+                          <span style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600" }}>Brain Score</span>
+                          <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700" }}>{avgScore}% avg</span>
+                        </div>
+                        <div style={{ display:"flex", gap:"4px", alignItems:"flex-end", height:"40px" }}>
+                          {weekScores.map((score, i) => (
+                            <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:"3px" }}>
+                              <div style={{ width:"100%", borderRadius:"4px 4px 0 0", background: score === null ? "rgba(110,120,200,0.1)" : score >= 70 ? "linear-gradient(180deg,#50c878,#40a868)" : score >= 40 ? "linear-gradient(180deg,#e8c87a,#d0a860)" : "linear-gradient(180deg,#e86060,#c04848)", height: score === null ? "4px" : `${Math.max(4, (score / 100) * 36)}px`, transition:"height 0.3s" }} />
+                              <span style={{ fontSize:"9px", color:"#6b7394" }}>{weekDayLabels[i]}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Weekly stats grid */}
+                    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"10px" }}>
+                      {[
+                        { label: "Meals", value: totalMeals, sub: `${mealDays}/7 days`, color: "#7b9fff" },
+                        { label: "Exercise", value: `${exerciseDays}/7`, sub: "days active", color: "#50c878" },
+                        { label: "Water", value: avgWater, sub: "avg glasses", color: "#60b0e0" },
+                        { label: "Morning", value: `${morningDays}/7`, sub: "routines", color: "#f0a830" },
+                        { label: "Evening", value: `${eveningDays}/7`, sub: "routines", color: "#5570f0" },
+                        { label: "Journal", value: `${journalDays}/7`, sub: "entries", color: "#ba68c8" },
+                      ].map((stat, i) => (
+                        <div key={i} style={{ background:"rgba(255,255,255,0.03)", borderRadius:"12px", padding:"10px 8px", textAlign:"center" }}>
+                          <div style={{ fontSize:"18px", fontWeight:"800", color: stat.color, marginBottom:"2px" }}>{stat.value}</div>
+                          <div style={{ fontSize:"9px", fontWeight:"700", textTransform:"uppercase", letterSpacing:"1px", color:"#8890b8", marginBottom:"1px" }}>{stat.label}</div>
+                          <div style={{ fontSize:"9px", color:"#6b7394" }}>{stat.sub}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
               {total === 0 ? (
                 <div style={{ ...S.card, textAlign:"center", padding:"48px 32px" }}>
                   <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
