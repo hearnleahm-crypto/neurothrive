@@ -1452,16 +1452,25 @@ const generateRecipe = (meal) => {
   let proteinIngredient = "";
   let proteinSteps = [];
   let proteinTime = 0;
-  if (hasAny("brisket")) { protein="brisket"; proteinIngredient="8 oz slow-cooked brisket, sliced"; proteinSteps=["Slice brisket against the grain into ¼-inch pieces.","Heat in a skillet over medium heat with 2 tbsp of the braising liquid, 3–4 minutes until warmed through."]; proteinTime=10; }
+  if (hasAny("brisket")) { protein="brisket"; if (has("pulled")) { proteinIngredient="8 oz slow-cooked brisket, shredded"; proteinSteps=["Using two forks, shred brisket into long, thin strands along the grain.","Heat in a skillet over medium heat with 2 tbsp BBQ sauce or braising liquid, tossing 3–4 minutes until warmed through and lightly caramelized."]; } else { proteinIngredient="8 oz slow-cooked brisket, sliced"; proteinSteps=["Slice brisket against the grain into ¼-inch pieces.","Heat in a skillet over medium heat with 2 tbsp of the braising liquid, 3–4 minutes until warmed through."]; } proteinTime=10; }
   else if (hasAny("bacon")) { protein="bacon"; proteinIngredient="4 strips thick-cut bacon"; proteinSteps=["Lay bacon strips in a cold skillet, then heat to medium.","Cook 4–5 minutes per side until crispy. Drain on paper towels."]; proteinTime=12; }
   else if (hasAny("sausage")) { protein="sausage"; proteinIngredient=has("chicken sausage")?"2 chicken sausage links":"2 pork sausage links"; proteinSteps=["Heat a skillet over medium heat with 1 tsp oil.","Cook sausage 4–5 minutes per side until golden brown and cooked through (165°F internal)."]; proteinTime=12; }
-  else if (hasAny("salmon")) { protein="salmon"; proteinIngredient="6 oz wild-caught salmon fillet, skin-on"; proteinSteps=["Pat salmon dry. Season flesh side with salt, pepper, and garlic powder.","Heat 1 tbsp oil in oven-safe skillet over medium-high. Sear skin-side down 4 minutes without moving.","Flip and cook 2–3 more minutes until salmon flakes easily at the thickest part.","Squeeze fresh lemon over before serving."]; proteinTime=15; }
+  else if (hasAny("salmon")) {
+    protein="salmon"; proteinIngredient="6 oz wild-caught salmon fillet, skin-on";
+    if (has("baked") || has("turmeric")) {
+      const seasonExtra = has("turmeric") ? ", 1 tsp turmeric, and ½ tsp grated fresh ginger" : "";
+      proteinSteps=["Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.","Pat salmon dry. Season with salt, pepper, garlic powder" + seasonExtra + ". Drizzle with olive oil.","Place skin-side down on baking sheet. Bake 14–16 minutes until salmon flakes easily.","Squeeze fresh lemon over before serving."]; proteinTime=20;
+    } else {
+      proteinSteps=["Pat salmon dry. Season flesh side with salt, pepper, and garlic powder.","Heat 1 tbsp oil in oven-safe skillet over medium-high. Sear skin-side down 4 minutes without moving.","Flip and cook 2–3 more minutes until salmon flakes easily at the thickest part.","Squeeze fresh lemon over before serving."]; proteinTime=15;
+    }
+  }
   else if (hasAny("tuna")) { protein="tuna"; proteinIngredient="5 oz canned wild tuna in water, drained"; proteinSteps=["Drain tuna thoroughly and flake into a bowl.","Season with lemon juice, salt, and pepper."]; proteinTime=2; }
   else if (hasAny("shrimp")) { protein="shrimp"; proteinIngredient="6 oz large shrimp, peeled and deveined"; proteinSteps=["Pat shrimp dry. Season with salt, pepper, garlic powder, and paprika.","Heat 1 tbsp oil in pan over medium-high. Cook shrimp 2 minutes per side; they're done when pink and curled."]; proteinTime=8; }
   else if (hasAny("steak","sirloin","ribeye","brisket")) { protein="steak"; proteinIngredient="6–8 oz sirloin steak, at room temperature"; proteinSteps=["Remove steak from fridge 20 minutes before cooking. Season generously with salt and pepper on both sides.","Heat skillet over high heat until smoking. Add 1 tsp oil and 1 tbsp butter.","Sear steak 3–4 minutes per side for medium-rare (135°F), 4–5 for medium (145°F).","Rest steak on a cutting board 5–7 minutes before slicing against the grain."]; proteinTime=20; }
   else if (hasAny("ground beef","beef meatloaf","meatloaf")) { protein="ground beef"; proteinIngredient="5 oz lean ground beef (90/10)"; proteinSteps=["Season ground beef with salt, pepper, garlic powder, and Worcestershire sauce.","Heat skillet over medium-high. Cook beef, breaking into small pieces, 7–8 minutes until browned. Drain excess fat."]; proteinTime=12; }
   else if (hasAny("ground turkey","turkey meatball")) { protein="ground turkey"; proteinIngredient="5 oz lean ground turkey"; proteinSteps=["Season ground turkey with salt, pepper, garlic powder, Italian herbs.","Cook in a skillet over medium heat, breaking apart, 8–9 minutes until cooked through (165°F)."]; proteinTime=12; }
   else if (has("turkey burger")) { protein="turkey burger"; proteinIngredient="5 oz lean ground turkey"; proteinSteps=["Mix ground turkey with salt, pepper, garlic powder, and a dash of Worcestershire sauce.","Form into a patty about ¾ inch thick. Press a slight indent in the center to prevent puffing.","Cook in an oiled skillet over medium-high heat, 5–6 minutes per side until internal temp reaches 165°F.","Rest 2 minutes before serving on a bun or alongside your sides."]; proteinTime=15; }
+  else if (hasAny("turkey") && hasAny("roll-up","roll up","wrap") && hasAny("cheese","apple","lettuce")) { protein="deli turkey"; proteinIngredient="4 oz sliced deli turkey"; proteinSteps=["Lay deli turkey slices flat."]; proteinTime=0; }
   else if (hasAny("turkey")) { protein="turkey"; proteinIngredient="5 oz turkey breast or turkey cutlet"; proteinSteps=["Season turkey with olive oil, salt, pepper, garlic powder.","Cook in a skillet over medium heat 5–6 minutes per side until internal temp reaches 165°F.","Rest 3 minutes before slicing."]; proteinTime=15; }
   else if (hasAny("pork chop","pork tenderloin","pork loin","pulled pork")) { protein="pork"; proteinIngredient=has("chop")?"1 bone-in pork chop (1 inch thick)":"5 oz pork tenderloin"; proteinSteps=["Season pork with salt, pepper, garlic powder, and a pinch of paprika.","Heat 1 tbsp oil in skillet over medium-high. Sear 4–5 minutes per side until golden brown.","Internal temperature should reach 145°F. Rest 3 minutes before serving."]; proteinTime=15; }
   else if (hasAny("lentil")) { protein="lentil"; proteinIngredient="½ cup red or green lentils, rinsed"; proteinSteps=["Combine lentils with 1½ cups water or broth in a saucepan.","Bring to boil, reduce to simmer, cook 20–25 minutes until tender. Season well."]; proteinTime=25; }
@@ -1473,7 +1482,17 @@ const generateRecipe = (meal) => {
   else if (has("tempeh")) { protein="tempeh"; proteinIngredient="6 oz tempeh, sliced or crumbled"; proteinSteps=[has("scramble") ? "Crumble tempeh into small pieces with your hands or a fork." : "Slice tempeh into ½-inch strips or cubes.","Season with soy sauce, garlic powder, and a pinch of smoked paprika.","Heat 1 tbsp oil in a skillet over medium-high. Cook 3–4 minutes per side until golden brown and crispy."]; proteinTime=12; }
   else if (has("tofu")) { protein="tofu"; proteinIngredient="6 oz extra-firm tofu, pressed and cubed"; proteinSteps=["Press tofu between paper towels for 10 minutes.","Cut into 1-inch cubes. Season with soy sauce, garlic, and oil.","Pan-fry over medium-high heat 3–4 minutes per side until golden and crispy."]; proteinTime=20; }
   else if (hasAny("egg")) { protein="egg"; proteinIngredient="3 large eggs"; proteinSteps=["Crack eggs into a bowl. Season with salt and pepper and whisk until uniform.","Heat butter in non-stick pan over medium-low.","Cook slowly, stirring constantly with a spatula for creamy scrambled eggs, or cook undisturbed for fried eggs."]; proteinTime=7; }
-  else if (hasAny("chicken")) { protein="chicken"; proteinIngredient=hasAny("thigh","thighs")?"2 bone-in chicken thighs":"1 boneless skinless chicken breast (6 oz)"; proteinSteps=["Pat chicken dry with paper towels; moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20; }
+  else if (hasAny("chicken")) {
+    protein="chicken";
+    const isThigh = hasAny("thigh","thighs");
+    proteinIngredient = isThigh ? "2 bone-in chicken thighs" : has("tender") ? "6 oz chicken tenderloins" : has("strip") ? "6 oz chicken breast, sliced into strips" : "1 boneless skinless chicken breast (6 oz)";
+    if (hasAny("baked","oven-roasted","oven roasted","herb-roasted","herb roasted")) {
+      const herbs = hasAny("herb","lemon herb") ? ", 1 tsp dried Italian herbs, and a squeeze of lemon" : "";
+      proteinSteps=["Preheat oven to 400°F (200°C).","Pat chicken dry. Season with salt, pepper, garlic powder, and olive oil" + herbs + ".","Place on a parchment-lined baking sheet." + (isThigh ? " Skin-side up." : ""),"Bake " + (isThigh ? "35–40 minutes" : has("tender") ? "15–18 minutes" : "22–25 minutes") + " until golden and internal temp reaches 165°F.","Rest 5 minutes before slicing or serving."]; proteinTime = isThigh ? 40 : 25;
+    } else {
+      proteinSteps=["Pat chicken dry with paper towels; moisture is the enemy of browning.","Season generously with salt, pepper, and garlic powder on all sides.","Heat 1 tbsp olive oil in a skillet over medium-high.","Cook breast: 6–7 minutes per side until golden (165°F). Cook thighs: 7–8 minutes per side.","Rest 5 minutes before slicing or serving."]; proteinTime=20;
+    }
+  }
   else if (hasAny("black bean")) { protein="black bean"; proteinIngredient="1 can (15 oz) black beans, drained and rinsed"; proteinSteps=["Drain and rinse black beans.","Heat in a saucepan with cumin, garlic powder, and a pinch of chili powder for 3–4 minutes until warmed through."]; proteinTime=5; }
   else if (hasAny("white bean")) { protein="white bean"; proteinIngredient="1 can (15 oz) white cannellini beans, drained and rinsed"; proteinSteps=["Drain and rinse white beans.","Add to soup or sauté with garlic and olive oil for 3–4 minutes until warmed through."]; proteinTime=5; }
   else if (hasAny("veggie","vegetable","butternut","sweet potato") && !hasAny("chicken","beef","turkey","pork","salmon","shrimp","egg")) { protein=null; proteinIngredient=""; proteinSteps=[]; proteinTime=0; }
@@ -1524,11 +1543,15 @@ const generateRecipe = (meal) => {
   const hasAvocado = has("avocado");
   const hasBeans = hasAny("black bean","white bean","bean");
   const hasCorn = has("corn");
+  const hasButternut = has("butternut");
   const hasKale = has("kale");
   const hasMushroom = has("mushroom");
   const hasPepper = hasAny("bell pepper","pepper");
   const hasBrusselsSprouts = hasAny("brussels sprout","brussels");
   const hasGreenBeans = hasAny("green bean","green beans");
+  const hasCauliflower = has("cauliflower");
+  const hasSnapPeas = hasAny("snap pea","snap peas","snow pea");
+  const hasBokChoy = hasAny("bok choy");
   const hasCornbread = has("cornbread");
   const hasTortilla = hasAny("tortilla","corn tortilla","flour tortilla");
   const hasBread = hasAny("bread","toast","sourdough","bun","roll","bagel","muffin","english muffin");
@@ -1545,6 +1568,12 @@ const generateRecipe = (meal) => {
   const hasTurmeric = has("turmeric");
   const hasWalnut = has("walnut");
   const hasAlmond = has("almond");
+  const hasRootVeg = hasAny("root vegetable","root vegetables","roasted root");
+  const hasTahini = has("tahini");
+  const hasBalsamic = has("balsamic") && !hasAny("blueberry balsamic","blueberry reduction");
+  const hasLemonDill = has("lemon") && has("dill");
+  const hasLettuce = hasAny("lettuce","blt","club");
+  const hasTomato = has("tomato") && !hasAny("tomato soup","tomato sauce","cherry tomato");
 
   // ── Build ingredients list ────────────────────────────────────────────────
   const ingredients = proteinIngredient ? [proteinIngredient] : [];
@@ -1565,11 +1594,18 @@ const generateRecipe = (meal) => {
   if (hasAvocado) ingredients.push("½ ripe avocado, sliced or mashed");
   if (hasBeans && protein !== "black bean" && protein !== "white bean") ingredients.push(has("white bean") ? "1 can white cannellini beans, drained" : "1 can black beans, drained and rinsed");
   if (hasCorn) ingredients.push(has("corn tortilla") ? "" : "1 cup corn kernels (fresh or frozen)");
+  if (hasButternut && !isSoup) ingredients.push("2 cups butternut squash, peeled and cubed");
   if (hasKale) ingredients.push("2 cups kale, stems removed, roughly torn");
   if (hasMushroom) ingredients.push(has("lion's mane") ? "4 oz lion's mane mushroom, torn into bite-sized pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms)" : "1 cup cremini mushrooms, sliced");
   if (hasPepper) ingredients.push("1 bell pepper (red or orange), sliced");
   if (hasBrusselsSprouts) ingredients.push("2 cups Brussels sprouts, halved");
   if (hasGreenBeans) ingredients.push("1 cup green beans, trimmed");
+  if (hasCauliflower) ingredients.push(has("mash") ? "1 medium head cauliflower, cut into florets" : "2 cups cauliflower florets");
+  if (hasSnapPeas) ingredients.push("1 cup sugar snap peas, trimmed");
+  if (hasBokChoy) ingredients.push("2 heads baby bok choy, halved lengthwise");
+  if (hasRootVeg) { ingredients.push("1 medium parsnip, peeled and cut into 1-inch pieces"); ingredients.push("2 medium carrots, peeled and cut into 1-inch pieces"); ingredients.push("1 medium turnip, peeled and cubed"); ingredients.push("1 tbsp fresh rosemary or thyme"); }
+  if (hasLettuce && !isCaesar && !isSalad) ingredients.push("2–3 leaves romaine or green leaf lettuce");
+  if (hasTomato && !isSoup && !isSalad) ingredients.push("2–3 slices ripe tomato");
   if (hasCheese && !hasFeta) ingredients.push("¼ cup shredded cheddar or Monterey Jack");
   if (hasFeta) ingredients.push("2 oz feta cheese, crumbled");
   if (hasWatermelon) ingredients.push("2 cups seedless watermelon, cubed");
@@ -1595,10 +1631,14 @@ const generateRecipe = (meal) => {
 
   // Sauces / extras by dish type
   if (isCaesar) { ingredients.push("3 tbsp Caesar dressing (store-bought or homemade)"); ingredients.push("2 tbsp Parmesan, shaved"); ingredients.push("Romaine lettuce, 3 cups, chopped"); }
-  if (isSalad && !isCaesar) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
+  if (isSalad && !isCaesar && hasBalsamic) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp balsamic vinegar (for vinaigrette)"); ingredients.push("½ tsp Dijon mustard"); ingredients.push("½ tsp honey"); }
+  else if (isSalad && !isCaesar) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
   if (isSoup || has("chili")) { ingredients.push(has("bone broth") ? "2½ cups bone broth" : "2½ cups low-sodium chicken or vegetable broth"); ingredients.push("1 garlic clove, minced"); ingredients.push("½ onion, diced"); }
   if (isCurry) { ingredients.push("1 can (14 oz) light coconut milk"); ingredients.push("2 tsp curry powder"); ingredients.push("1 tsp turmeric"); ingredients.push("½ onion, diced"); }
   if (isPasta && !isBolognese) { if (has("zucchini noodle") || has("zucchini noodles")) { ingredients.push("2 medium zucchini, spiralized or cut into noodle strips"); } else { ingredients.push("6 oz pasta (penne, spaghetti, or shape of choice)"); } if (has("marinara") || has("tomato sauce")) { ingredients.push("1 cup marinara or crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); } if (has("garlic bread")) { ingredients.push("2 slices bread or baguette"); ingredients.push("1 tbsp butter"); ingredients.push("1 clove garlic, minced"); } }
+  if (hasTahini && (isBowl || isSalad)) { ingredients.push("2 tbsp tahini"); ingredients.push("1 tbsp lemon juice"); ingredients.push("1 tbsp warm water"); ingredients.push("1 small clove garlic, minced"); }
+  if (hasLemonDill && !isSoup) { ingredients.push("2 tbsp fresh dill, chopped"); ingredients.push("1 tbsp lemon juice"); ingredients.push("1 tsp lemon zest"); ingredients.push("1 tbsp butter or olive oil"); }
+  if (isPasta && has("butter") && !has("marinara") && !has("tomato sauce")) { ingredients.push("2 tbsp unsalted butter"); ingredients.push("2 tbsp grated Parmesan cheese"); }
   if (isStirFry) { ingredients.push("2 tbsp low-sodium soy sauce or coconut aminos"); ingredients.push("1 tsp sesame oil"); ingredients.push("1 tsp fresh ginger, minced"); }
   if (isFajita) { ingredients.push("½ onion, sliced into strips"); ingredients.push("1 tsp cumin + ½ tsp chili powder"); ingredients.push("3 flour or corn tortillas, warmed"); }
   if (isEnchilada) { ingredients.push("½ cup red enchilada sauce"); ingredients.push("3 corn tortillas"); ingredients.push("¼ cup shredded Monterey Jack cheese"); }
@@ -2285,12 +2325,16 @@ const generateRecipe = (meal) => {
 
   // Energy balls / energy bites
   if (hasAny("energy ball","energy bite")) {
+    const ing = ["1 cup rolled oats","½ cup peanut butter (or almond butter)","⅓ cup honey","½ cup dark chocolate chips or dried fruit","1 tbsp chia seeds (optional)","Pinch of salt"];
+    if (hasTurmeric) ing.push("1 tsp ground turmeric","Pinch of black pepper (boosts curcumin absorption)");
+    if (has("ginger")) ing.push("½ tsp ground ginger");
+    if (has("coconut")) ing.push("¼ cup shredded coconut");
     return {
       serves: 8, time: "15 min",
-      ingredients: ["1 cup rolled oats","½ cup peanut butter (or almond butter)","⅓ cup honey","½ cup dark chocolate chips or dried fruit","1 tbsp chia seeds (optional)","Pinch of salt"],
-      steps: ["Combine oats, peanut butter, honey, and salt in a large bowl. Stir until a sticky dough forms.","Fold in chocolate chips or dried fruit and chia seeds.","Refrigerate mixture 10 minutes for easier handling.","Roll into 1-inch balls using slightly wet hands.","Store in an airtight container in the fridge for up to 1 week."],
-      tip: "Keep a batch in the fridge for the week; they're the perfect grab-and-go brain fuel.",
-      nutrition: ["Oats provide sustained energy via complex carbohydrates","Peanut butter provides healthy fats for myelin support","Honey provides quick glucose for immediate brain fuel","Chia seeds add omega-3 ALA for anti-inflammatory benefits"]
+      ingredients: ing,
+      steps: ["Combine oats, peanut butter, honey, and salt in a large bowl." + (hasTurmeric ? " Add turmeric and black pepper." : "") + (has("ginger") ? " Add ginger." : "") + " Stir until a sticky dough forms.","Fold in chocolate chips or dried fruit and chia seeds." + (has("coconut") ? " Add shredded coconut." : ""),"Refrigerate mixture 10 minutes for easier handling.","Roll into 1-inch balls using slightly wet hands." + (has("coconut") ? " Roll in extra coconut to coat." : ""),"Store in an airtight container in the fridge for up to 1 week."],
+      tip: hasTurmeric ? "Turmeric's curcumin is fat-soluble; the peanut butter in these balls helps your body absorb it. The black pepper increases absorption by up to 2,000%." : "Keep a batch in the fridge for the week; they're the perfect grab-and-go brain fuel.",
+      nutrition: hasTurmeric ? ["Curcumin from turmeric crosses the blood-brain barrier and reduces neuroinflammation","Ginger contains gingerol, which has neuroprotective properties","Oats provide sustained energy via complex carbohydrates","Peanut butter fat enhances curcumin absorption"] : ["Oats provide sustained energy via complex carbohydrates","Peanut butter provides healthy fats for myelin support","Honey provides quick glucose for immediate brain fuel","Chia seeds add omega-3 ALA for anti-inflammatory benefits"]
     };
   }
 
@@ -2414,6 +2458,140 @@ const generateRecipe = (meal) => {
       tip: "A splash of pasta cooking water in the cheese sauce makes it silkier; the starch acts as an emulsifier.",
       nutrition: ["Calcium from cheese supports neural signaling","Tryptophan from dairy supports serotonin production","Complex carbs from pasta provide sustained brain energy","Protein from cheese supports neurotransmitter production"]
     };
+  }
+
+  // Turkey & Cheese Roll-Up (no-cook deli meal)
+  if (has("turkey") && hasAny("roll-up","roll up") && hasAny("cheese","apple")) {
+    const ing = ["4 oz sliced deli turkey (natural, low-sodium)","2 slices cheese (cheddar, Swiss, or provolone)"];
+    if (hasApple) ing.push("1 medium apple, cored and sliced");
+    if (has("lettuce")) ing.push("2–3 large lettuce leaves");
+    if (has("mustard")) ing.push("1 tsp Dijon mustard");
+    return { serves: 1, time: "5 min", ingredients: ing, steps: ["Lay turkey slices flat on a clean surface.","Place a cheese slice on each turkey slice." + (has("mustard") ? " Spread a thin layer of Dijon mustard." : ""),"Roll up tightly into cylinders.","Serve with apple slices on the side."], tip: "Choose deli turkey with no added nitrates or nitrites. Look for 'natural' or 'uncured' on the label.", nutrition: ["Turkey provides tryptophan, the highest of any common meat, for serotonin synthesis","Cheese adds calcium for neural signaling and tryptophan for mood support","Apple provides quercetin, a flavonoid that protects brain cells from oxidative damage","No-cook meals reduce mealtime barriers and support consistent nutrition intake"] };
+  }
+
+  // Butternut Squash Soup
+  if (has("butternut") && hasAny("soup")) {
+    const ing = ["1 medium butternut squash, peeled and cubed (about 4 cups)","2 cups vegetable or chicken broth","1 small onion, diced","2 cloves garlic, minced","1 tbsp olive oil","½ tsp ground nutmeg","½ tsp ground cinnamon","Salt and pepper to taste","2 tbsp cream or coconut cream (optional)"];
+    if (has("bread") || has("roll")) ing.push("1 slice crusty bread or whole grain roll");
+    return { serves: 2, time: "35 min", ingredients: ing, steps: ["Heat olive oil in a large pot over medium heat. Add onion and cook 4–5 minutes until translucent.","Add garlic, cook 30 seconds. Add cubed butternut squash and stir to coat.","Pour in broth. Add nutmeg, cinnamon, salt, and pepper. Bring to a boil.","Reduce heat and simmer 20–25 minutes until squash is very tender.","Blend with an immersion blender (or in batches in a regular blender) until smooth and velvety.","Stir in cream if using. Adjust seasoning.","Ladle into bowls and serve with crusty bread."], tip: "Roasting the squash before adding to the pot (425°F, 25 min) adds a caramelized depth of flavor if you have extra time.", nutrition: ["Butternut squash is rich in beta-carotene, which converts to vitamin A for brain cell protection","Nutmeg contains myristicin, which has mild mood-elevating properties","The slow carbs provide steady glucose for sustained brain energy","Warm soup activates the vagus nerve, promoting calm and parasympathetic tone"] };
+  }
+
+  // Bacon-Wrapped Chicken
+  if (has("bacon") && has("wrap") && has("chicken")) {
+    return { serves: 1, time: "35 min", ingredients: ["1 boneless skinless chicken breast (6 oz)","4 strips bacon","1 tsp garlic powder","½ tsp smoked paprika","Salt and pepper to taste","1 tbsp olive oil"], steps: ["Preheat oven to 400°F (200°C).","Season chicken breast with garlic powder, smoked paprika, salt, and pepper.","Wrap bacon strips around the chicken, overlapping slightly. Secure with toothpicks if needed.","Heat olive oil in an oven-safe skillet over medium-high. Sear the bacon-wrapped chicken 2 minutes per side to crisp the bacon.","Transfer skillet to the oven. Bake 18–20 minutes until chicken reaches 165°F and bacon is crispy.","Rest 5 minutes. Remove toothpicks before serving."], tip: "Partially cooking the bacon in a skillet first ensures it gets crispy all the way through rather than staying chewy.", nutrition: ["Chicken provides tryptophan and tyrosine for serotonin and dopamine synthesis","Bacon fat helps absorb fat-soluble vitamins A, D, E, and K","Smoked paprika contains capsanthin, which has antioxidant properties","Protein combination supports sustained amino acid delivery for neurotransmitter production"] };
+  }
+
+  // Lemon Butter Salmon
+  if (has("lemon butter") && has("salmon")) {
+    const ing = ["6 oz wild-caught salmon fillet, skin-on","2 tbsp butter","2 cloves garlic, minced","2 tbsp fresh lemon juice","1 tsp lemon zest","1 tbsp fresh parsley or dill, chopped","Salt and pepper to taste"];
+    if (hasRice) ing.push("1 cup cooked rice");
+    if (hasSnapPeas) ing.push("1 cup sugar snap peas, trimmed");
+    return { serves: 1, time: "20 min", ingredients: ing, steps: ["Pat salmon dry. Season with salt and pepper.","Heat 1 tbsp butter in a skillet over medium-high. Place salmon skin-side up and sear 4 minutes.","Flip and cook 3 more minutes until salmon flakes easily.","Remove salmon. Reduce heat to medium. Add remaining butter, garlic, lemon juice, and lemon zest to the pan.","Stir 1–2 minutes until butter is melted and sauce is fragrant. Add parsley or dill.",hasSnapPeas ? "Quickly toss snap peas in the pan for 1–2 minutes until bright green." : "","Spoon lemon butter sauce over the salmon and serve."].filter(Boolean), tip: "Add the lemon juice off the heat or on low heat; high heat makes lemon juice bitter.", nutrition: ["Salmon delivers EPA and DHA omega-3s for brain cell membrane fluidity","Butter provides butyrate, which supports gut-brain axis health","Lemon provides vitamin C for dopamine-to-norepinephrine conversion","Garlic contains allicin for neuroinflammation reduction"] };
+  }
+
+  // Teriyaki with edamame
+  if (isTeriyaki || (has("teriyaki") && hasAny("salmon","chicken"))) {
+    const ing = [proteinIngredient,"2 tbsp soy sauce or tamari","1 tbsp mirin or rice vinegar","1 tbsp honey","1 tsp sesame oil","1 clove garlic, minced","1 tsp fresh ginger, grated","1 tsp cornstarch mixed with 1 tbsp water"];
+    if (hasRice) ing.push("1 cup cooked rice");
+    if (has("edamame")) ing.push("½ cup shelled edamame");
+    if (hasBroccoli) ing.push("2 cups broccoli florets");
+    return { serves: 1, time: "20 min", ingredients: ing, steps: ["Whisk together soy sauce, mirin, honey, garlic, ginger, and sesame oil in a small bowl.",`Cook ${protein || "protein"}: ` + proteinSteps[proteinSteps.length - 2],"In the last 2 minutes, pour teriyaki sauce into the pan. Add cornstarch slurry and stir until sauce thickens and glazes the protein.",has("edamame") ? "Microwave or boil edamame 3 minutes until bright green and tender." : "",hasBroccoli ? "Steam broccoli 4–5 minutes until tender-crisp." : "","Serve protein with sauce drizzled over rice, with vegetables alongside."].filter(Boolean), tip: "Real teriyaki sauce is just soy sauce, mirin, and sugar reduced into a glaze. The cornstarch shortcut gives you the same glossy result in 2 minutes.", nutrition: ["The protein provides amino acid precursors for neurotransmitter synthesis","Ginger contains gingerol, which reduces neuroinflammation","Edamame delivers complete plant protein and folate for serotonin synthesis","Soy sauce fermentation produces bioactive peptides that support brain function"] };
+  }
+
+  // Steak Skewers
+  if (hasAny("skewer","kebab","kabob")) {
+    const ing = [proteinIngredient || "6–8 oz sirloin steak, cut into 1-inch cubes","1 bell pepper, cut into 1-inch pieces","1 small red onion, cut into wedges","1 small zucchini, sliced into rounds","2 tbsp olive oil","1 tsp garlic powder","1 tsp paprika","Salt and pepper to taste","Wooden or metal skewers"];
+    if (hasRice) ing.push("1 cup cooked rice");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["If using wooden skewers, soak in water 30 minutes to prevent burning.","Cut protein into 1-inch cubes. Season with garlic powder, paprika, salt, and pepper.","Cut vegetables into similar-sized pieces.","Thread protein and vegetables alternately onto skewers.","Brush with olive oil.","Grill or broil 4–5 minutes per side (8–10 minutes total) until protein is cooked and vegetables are charred.","Serve over rice if using."], tip: "Cut all pieces the same size so everything cooks evenly. Alternate protein and vegetables for the best heat distribution.", nutrition: ["Grilling at high heat produces char compounds that should be eaten in moderation","Bell peppers provide more vitamin C per calorie than oranges, supporting norepinephrine synthesis","The protein delivers tyrosine and tryptophan for dopamine and serotonin","Olive oil provides oleic acid for healthy brain cell membranes"] };
+  }
+
+  // Walnut-Crusted Salmon
+  if (has("walnut") && has("crust") && has("salmon")) {
+    const ing = ["6 oz wild-caught salmon fillet, skin-on","¼ cup walnuts, finely chopped","2 tbsp panko breadcrumbs","1 tbsp Dijon mustard","1 tbsp honey","1 tsp lemon zest","Salt and black pepper to taste"];
+    if (hasAsparagus) ing.push("1 bunch asparagus, trimmed","1 tbsp olive oil");
+    if (hasBroccoli) ing.push("2 cups broccoli florets","1 tbsp olive oil");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.","Mix chopped walnuts, panko, lemon zest, salt, and pepper in a small bowl.","Pat salmon dry. Place skin-side down on the baking sheet.","Spread Dijon mustard and honey evenly over the top of the salmon.","Press the walnut mixture firmly onto the mustard layer, creating an even crust.","Bake 14–16 minutes until the crust is golden and salmon flakes easily.",hasAsparagus ? "Toss asparagus with olive oil, salt, and pepper. Add to the baking sheet for the last 10 minutes." : "",hasBroccoli ? "Toss broccoli with olive oil and salt. Roast alongside salmon for the last 12 minutes." : ""].filter(Boolean), tip: "Pressing the walnut crust firmly onto the mustard is key; the mustard acts as glue and adds flavor. Don't skip the Dijon.", nutrition: ["Walnuts provide ALA omega-3s and ellagitannins that reduce neuroinflammation","Salmon delivers EPA and DHA for brain cell membrane health","Dijon mustard contains turmeric (curcumin) for anti-inflammatory benefits","The omega-3 combination from walnuts and salmon is one of the most potent brain-health pairings"] };
+  }
+
+  // Sushi Bowl
+  if (has("sushi") && has("bowl")) {
+    const ing = ["1 cup sushi rice or short-grain white rice","1 tbsp rice vinegar","1 tsp sugar","½ tsp salt","1 tbsp soy sauce","1 tsp sesame oil","1 tsp sesame seeds","½ sheet nori seaweed, cut into strips"];
+    if (protein === "salmon") ing.unshift("6 oz sushi-grade salmon, sliced (or regular salmon, cooked)");
+    else if (proteinIngredient) ing.unshift(proteinIngredient);
+    if (has("edamame")) ing.push("½ cup shelled edamame");
+    if (hasAvocado) ing.push("½ ripe avocado, sliced");
+    if (has("cucumber")) ing.push("½ cucumber, sliced thin");
+    else ing.push("½ cucumber, sliced thin");
+    ing.push("Pickled ginger and wasabi (optional)");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Cook rice according to package directions. While still hot, gently fold in rice vinegar, sugar, and salt. Fan the rice as you mix to cool it and give it a glossy sheen.","Let sushi rice cool to room temperature (don't refrigerate; it becomes hard).","If using raw sushi-grade salmon, slice against the grain into ¼-inch pieces. If cooking, sear in a hot pan 2 minutes per side.","Build your bowl: spread sushi rice as the base.","Arrange salmon, avocado, cucumber, and edamame on top in sections.","Drizzle with soy sauce and sesame oil. Sprinkle with sesame seeds and nori strips.","Serve with pickled ginger and wasabi on the side."], tip: "The key to good sushi rice is seasoning it while it's still hot and fanning it as you fold; this creates the sticky, glossy texture.", nutrition: ["Salmon provides EPA and DHA omega-3s for brain cell membranes","Nori seaweed is rich in iodine for thyroid and brain function","Edamame delivers complete plant protein and folate for serotonin synthesis","Rice vinegar supports gut pH for optimal nutrient absorption"] };
+  }
+
+  // Chicken Nuggets
+  if (has("nugget")) {
+    const ing = ["1 boneless skinless chicken breast (6 oz), cut into 1-inch pieces","½ cup panko breadcrumbs","¼ cup all-purpose flour","1 egg, beaten","½ tsp garlic powder","½ tsp paprika","Salt and pepper to taste","Cooking spray or 1 tbsp olive oil"];
+    if (hasRice) ing.push("1 cup cooked rice");
+    if (hasCorn) ing.push("1 cup corn kernels");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Preheat oven to 425°F (220°C). Line a baking sheet with parchment paper and spray lightly with cooking spray.","Set up a breading station: flour + salt + pepper in one bowl, beaten egg in another, panko + garlic powder + paprika in a third.","Dip each chicken piece in flour (shake off excess), then egg, then press into panko mixture to coat all sides.","Place breaded pieces on the baking sheet with space between them. Spray tops lightly with cooking spray.","Bake 12–15 minutes, flipping halfway, until golden brown and chicken reaches 165°F.","Serve with your sides. Ketchup or honey mustard for dipping."], tip: "Panko breadcrumbs stay crispier than regular breadcrumbs because their flaky texture traps less moisture during baking.", nutrition: ["Chicken provides tyrosine for dopamine and tryptophan for serotonin","Baking instead of frying reduces inflammatory oils","Panko coating provides a satisfying crunch with familiar comfort food texture","Familiar textures reduce mealtime stress and support consistent nutrition intake"] };
+  }
+
+  // BBQ Chicken
+  if (has("bbq") && has("chicken")) {
+    const ing = ["1 boneless skinless chicken breast (6 oz)","3 tbsp BBQ sauce (store-bought or homemade)","Salt, pepper, and garlic powder to taste"];
+    if (hasTortilla || has("tortilla")) ing.push("3 corn tortillas, warmed");
+    if (has("coleslaw")) { ing.push("1 cup shredded cabbage","1 tbsp mayonnaise","1 tsp apple cider vinegar","Pinch of sugar, salt, and pepper"); }
+    if (hasCorn) ing.push("1 cup corn kernels");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Season chicken with salt, pepper, and garlic powder on both sides.","Heat 1 tbsp oil in a skillet over medium-high. Cook chicken 6–7 minutes per side until golden and cooked through (165°F).","In the last 2 minutes of cooking, brush BBQ sauce on both sides and let it caramelize slightly.","Rest chicken 5 minutes, then slice or shred.",has("coleslaw") ? "Mix shredded cabbage with mayonnaise, apple cider vinegar, sugar, salt, and pepper for quick coleslaw." : "",has("tortilla") ? "Warm tortillas in a dry skillet 30 seconds per side. Fill with BBQ chicken, coleslaw, and corn." : "Serve BBQ chicken with your sides."].filter(Boolean), tip: "Brushing the BBQ sauce on at the end prevents it from burning; the sugars in BBQ sauce caramelize quickly.", nutrition: ["Chicken delivers tryptophan and tyrosine for serotonin and dopamine synthesis","Cabbage in coleslaw provides sulforaphane for brain antioxidant defense","Apple cider vinegar supports gut pH for optimal nutrient absorption","Corn provides lutein for neuroprotection"] };
+  }
+
+  // Sardine Toast / Sardine with specific toppings
+  if (has("sardine") && has("toast") && hasAny("tomato","onion","caper")) {
+    const ing = ["1 can (4 oz) sardines, drained","2 slices whole grain bread, toasted"];
+    if (has("tomato")) ing.push("1 medium tomato, sliced or diced");
+    if (has("onion")) ing.push("¼ red onion, thinly sliced");
+    if (has("caper")) ing.push("1 tbsp capers, drained");
+    ing.push("1 tbsp extra virgin olive oil","Fresh lemon juice","Flaky sea salt and black pepper");
+    return { serves: 1, time: "8 min", ingredients: ing, steps: ["Toast bread until golden and crispy.","Drain sardines and arrange on toast.","Top with tomato slices, red onion rings, and capers.","Drizzle with olive oil and squeeze fresh lemon juice over the top.","Season with flaky salt and cracked pepper."], tip: "Canned sardines with bones are actually preferable; the bones are soft and edible, providing a significant calcium boost for neural signaling.", nutrition: ["Sardines provide EPA and DHA omega-3s plus calcium and vitamin D","Whole grain bread delivers B vitamins and steady glucose for brain energy","Capers are rich in quercetin, a potent anti-inflammatory flavonoid","Tomatoes provide lycopene for neuroprotection"] };
+  }
+
+  // Sardine Pasta with specific toppings
+  if (has("sardine") && has("pasta") && hasAny("tomato","cherry","caper")) {
+    return { serves: 1, time: "20 min", ingredients: ["6 oz spaghetti or linguine","1 can (4 oz) sardines, drained","1 cup cherry tomatoes, halved","1 tbsp capers, drained","3 cloves garlic, sliced thin","¼ tsp red pepper flakes","2 tbsp extra virgin olive oil","Fresh lemon juice","2 tbsp fresh parsley, chopped","Salt and pepper to taste"], steps: ["Cook pasta in salted boiling water according to package directions. Reserve ½ cup pasta water before draining.","While pasta cooks, heat olive oil in a large skillet over medium heat. Add sliced garlic and cook 1 minute until golden (not brown).","Add cherry tomatoes and a pinch of salt. Cook 3–4 minutes until they burst and release juice.","Add capers and red pepper flakes. Stir 30 seconds.","Add drained sardines, breaking them gently into large chunks with a spoon.","Toss in the drained pasta. Add a splash of pasta water to create a light sauce that coats everything.","Finish with fresh lemon juice and parsley. Season with salt and pepper."], tip: "Sardine pasta is a classic Italian pantry meal. The key is not breaking the sardines up too much; large chunks give better texture than mush.", nutrition: ["Sardines deliver EPA/DHA omega-3s, calcium, and vitamin D for brain health","Cherry tomatoes provide lycopene that crosses the blood-brain barrier","Garlic contains allicin, which reduces neuroinflammation","Capers are one of the richest food sources of quercetin, a neuroprotective flavonoid"] };
+  }
+
+  // Blueberry Reduction/Glaze dishes
+  if (hasAny("blueberry reduction","blueberry balsamic","blueberry glaze")) {
+    const ing = [proteinIngredient || "6–8 oz sirloin steak","1 cup fresh blueberries","2 tbsp balsamic vinegar","1 tbsp honey","1 tsp butter","Pinch of salt"];
+    if (hasAsparagus) ing.push("1 bunch asparagus, trimmed","1 tbsp olive oil");
+    if (hasRice) ing.push("1 cup cooked rice");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: [...proteinSteps,"While protein rests, make the sauce: combine blueberries, balsamic vinegar, honey, and a pinch of salt in a small saucepan over medium heat.","Simmer 8–10 minutes, stirring occasionally, until blueberries burst and sauce thickens to a syrupy consistency.","Remove from heat and stir in butter for glossy richness.","Spoon the blueberry reduction over the sliced protein.",hasAsparagus ? "Roast asparagus at 425°F with olive oil and salt for 10–12 minutes. Serve alongside." : ""].filter(Boolean), tip: "The sauce should coat the back of a spoon when it's ready. If it gets too thick, add a splash of water.", nutrition: ["Blueberry anthocyanins cross the blood-brain barrier and boost BDNF","Balsamic vinegar contains polyphenols that support gut-brain health","The protein provides amino acid precursors for neurotransmitter synthesis","This combination of antioxidants and protein is ideal for brain recovery and repair"] };
+  }
+
+  // Cauliflower Mash
+  if (has("cauliflower") && has("mash")) {
+    // Let it fall through to generic assembly but add cauliflower ingredients
+  }
+
+  // Roast Chicken with Cornbread Stuffing
+  if (has("cornbread") && has("stuffing")) {
+    const ing = ["2 bone-in chicken thighs or 1 whole chicken leg quarter","2 cups crumbled cornbread (store-bought or day-old homemade)","½ cup chicken broth","1 stalk celery, diced","½ small onion, diced","1 tbsp butter","½ tsp dried sage","½ tsp dried thyme","Salt and pepper to taste"];
+    return { serves: 2, time: "50 min", ingredients: ing, steps: ["Preheat oven to 375°F (190°C).","Season chicken pieces with salt, pepper, and garlic powder. Place in a baking dish.","Roast chicken 25 minutes while you prepare the stuffing.","Melt butter in a skillet. Sauté celery and onion 4 minutes until soft. Add sage and thyme.","In a bowl, combine crumbled cornbread, sautéed vegetables, and enough chicken broth to moisten (it should hold together loosely).","Spoon stuffing around the chicken in the baking dish.","Return to oven and bake 20 more minutes until chicken reaches 165°F and stuffing is golden on top.","Let rest 5 minutes before serving."], tip: "Day-old cornbread makes the best stuffing because it's drier and absorbs the broth without turning mushy.", nutrition: ["Chicken provides tryptophan and tyrosine for serotonin and dopamine synthesis","Cornbread delivers complex carbohydrates for sustained brain energy","Sage contains rosmarinic acid, which has memory-enhancing properties","Celery and onion provide prebiotic fiber for gut-brain axis health"] };
+  }
+
+  // Ground Beef Casserole / Noodle Casserole
+  if (isCasserole && hasAny("ground beef","beef","noodle","bacon","potato")) {
+    const ing = [];
+    if (has("ground beef") || (has("beef") && has("noodle"))) { ing.push("8 oz lean ground beef","6 oz egg noodles","1 can (10.5 oz) cream of mushroom soup","½ cup sour cream","1 cup shredded cheddar cheese","½ onion, diced","Salt, pepper, and garlic powder"); }
+    else if (has("bacon") && hasPotato && hasBroccoli) { ing.push("4 strips bacon, diced","3 medium potatoes, diced","2 cups broccoli florets","1 cup shredded cheddar cheese","½ cup sour cream","½ cup chicken broth","½ onion, diced","Salt, pepper, and garlic powder"); }
+    else { ing.push("1 lb protein of choice","2 cups mixed vegetables","1 cup shredded cheese","½ cup broth or cream sauce","Salt and pepper"); }
+    return { serves: 3, time: "45 min", ingredients: ing, steps: ["Preheat oven to 375°F (190°C). Grease a 9×13 baking dish.",has("noodle") ? "Cook noodles according to package directions, drain, and set aside." : "",has("ground beef") || has("beef") ? "Brown ground beef in a skillet over medium-high heat 7–8 minutes. Drain fat." : "",has("bacon") ? "Cook bacon in a skillet until crispy. Remove bacon, keep 1 tbsp fat in pan. Sauté onion and potatoes 5 minutes." : "",has("noodle") ? "Mix cooked noodles, beef, cream of mushroom soup, sour cream, and half the cheese in a bowl." : "Combine cooked ingredients with sauce/cream and half the cheese.","Transfer to the prepared baking dish. Top with remaining cheese.","Bake 25–30 minutes until bubbly and golden on top.","Let stand 5 minutes before serving."].filter(Boolean), tip: "Casseroles taste even better the next day; the flavors meld overnight. Great for meal prep.", nutrition: ["Complete protein supports neurotransmitter synthesis","Cheese provides calcium and tryptophan for neural signaling and serotonin","Complex carbohydrates from noodles/potatoes fuel steady brain energy","Comfort food structure reduces mealtime stress and supports consistent eating"] };
+  }
+
+  // Chicken Thighs with Cherry Tomato Sauce
+  if (has("cherry tomato") && has("sauce")) {
+    const ing = [hasAny("thigh","thighs") ? "2 bone-in chicken thighs" : "1 boneless skinless chicken breast (6 oz)","2 cups cherry tomatoes","3 cloves garlic, smashed","2 tbsp olive oil","½ tsp dried oregano","Fresh basil leaves","Salt and pepper to taste"];
+    if (hasQuinoa) ing.push("½ cup dry quinoa, rinsed","1 cup water or broth");
+    if (hasRice) ing.push("1 cup cooked rice");
+    return { serves: 1, time: "30 min", ingredients: ing, steps: ["Season chicken with salt, pepper, and oregano.","Heat olive oil in an oven-safe skillet over medium-high. Sear chicken 4–5 minutes per side until golden.","Add cherry tomatoes and smashed garlic around the chicken.","Transfer skillet to a 400°F oven. Roast 15 minutes until tomatoes burst and chicken reaches 165°F.","The tomatoes will collapse into a rustic sauce. Stir them gently with a spoon.","Top with fresh basil and serve over quinoa or rice."], tip: "Cherry tomatoes make a better pan sauce than regular tomatoes because their higher sugar content caramelizes beautifully in the oven.", nutrition: ["Cherry tomatoes provide lycopene, a powerful brain-protective antioxidant","Chicken delivers tryptophan and tyrosine for serotonin and dopamine","Garlic contains allicin for reducing neuroinflammation","Basil provides apigenin, which supports GABA activity and calm focus"] };
   }
 
   // Miso-Glazed dishes (must come before generic miso soup)
@@ -2556,6 +2734,11 @@ const generateRecipe = (meal) => {
   if (hasSpinach) { prepSteps.push("Rinse spinach thoroughly. Heat 1 tsp oil in a skillet, add spinach, and wilt over medium heat 1–2 minutes with a pinch of garlic. Season with salt."); }
   if (hasBrusselsSprouts) { prepSteps.push("Halve Brussels sprouts. Toss with 1 tbsp olive oil, salt, and pepper. Roast cut-side down at 425°F for 20–25 minutes until caramelized and tender."); }
   if (hasGreenBeans) { prepSteps.push(has("butter") ? "Trim green beans. Blanch in boiling salted water 3–4 minutes until bright green. Drain and toss with 1 tbsp butter, salt, and pepper." : "Trim green beans. Steam or blanch in boiling salted water 4–5 minutes until bright green and tender-crisp. Season with salt and a squeeze of lemon."); }
+  if (hasCauliflower) { prepSteps.push(has("mash") ? "Cut cauliflower into florets. Steam or boil 10–12 minutes until very tender. Drain well. Mash with 1 tbsp butter, a splash of milk, salt, and pepper until smooth and creamy." : "Toss cauliflower florets with 1 tbsp olive oil, salt, and garlic powder. Roast at 425°F for 20–25 minutes until golden brown and tender."); }
+  if (hasSnapPeas) { prepSteps.push("Trim snap peas. Stir-fry in 1 tsp sesame oil over high heat for 2–3 minutes until bright green and still crisp. Season with a pinch of salt."); }
+  if (hasBokChoy) { prepSteps.push("Halve bok choy lengthwise. Heat 1 tsp oil in a skillet over medium-high. Sear cut-side down 2 minutes until charred. Flip, add 1 tbsp soy sauce and 2 tbsp water, cover and steam 2 minutes."); }
+  if (hasButternut && !isSoup) { prepSteps.push("Preheat oven to 400°F. Toss cubed butternut squash with 1 tbsp olive oil, salt, pepper, and a pinch of cinnamon. Roast 25–30 minutes, tossing halfway, until caramelized and fork-tender."); totalTime = Math.max(totalTime, 35); }
+  if (hasRootVeg) { prepSteps.push("Preheat oven to 425°F. Toss parsnips, carrots, and turnip with 2 tbsp olive oil, rosemary (or thyme), salt, and pepper. Spread in a single layer on a baking sheet. Roast 30–35 minutes, tossing halfway, until caramelized and fork-tender."); totalTime = Math.max(totalTime, 40); }
 
   // Add all prepSteps
   steps.push(...prepSteps);
@@ -2601,20 +2784,22 @@ const generateRecipe = (meal) => {
     steps.push("Lay a tortilla flat in a dry skillet over medium heat. Add protein and cheese to one half.");
     steps.push("Fold over and press lightly. Cook 2–3 minutes per side until golden and cheese is fully melted.");
     steps.push("Let rest 1 minute before cutting into wedges; this keeps the filling together.");
+  } else if (isStirFry) {
+    steps.push("Heat wok or large skillet over highest heat until smoking; high heat is what makes stir-fry taste right.");
+    steps.push("Cook vegetables first (2–3 min), then push to sides. Add protein in center.");
+    steps.push("Add soy sauce, sesame oil, and ginger. Toss everything together 1–2 minutes.");
+    steps.push("Serve immediately over rice or quinoa. Stir-fry waits for no one.");
   } else if (isPasta) {
     steps.push("Cook pasta in salted boiling water according to package directions until al dente. Reserve ½ cup pasta water before draining.");
-    if (has("marinara") || has("tomato sauce")) {
+    if (has("butter") && !has("marinara") && !has("tomato sauce") && !has("bolognese")) {
+      steps.push("While pasta is hot, toss with 2 tbsp butter, a splash of pasta water, and a generous pinch of salt. Stir until butter melts into a silky coating.");
+    } else if (has("marinara") || has("tomato sauce")) {
       steps.push("While pasta cooks, heat 1 tbsp olive oil in a pan. Add garlic and cook 30 seconds. Add crushed tomatoes or marinara sauce and simmer 10 minutes.");
     }
     steps.push("Add cooked protein to the sauce and stir to combine.");
     steps.push("Toss drained pasta with sauce, adding pasta water as needed for silkiness. Serve immediately.");
     if (has("garlic bread")) steps.push("For garlic bread: spread butter mixed with minced garlic on bread halves, broil 2–3 minutes until golden.");
     totalTime = 25;
-  } else if (isStirFry) {
-    steps.push("Heat wok or large skillet over highest heat until smoking; high heat is what makes stir-fry taste right.");
-    steps.push("Cook vegetables first (2–3 min), then push to sides. Add protein in center.");
-    steps.push("Add soy sauce, sesame oil, and ginger. Toss everything together 1–2 minutes.");
-    steps.push("Serve immediately over rice or quinoa. Stir-fry waits for no one.");
   } else if (isOmelette) {
     steps.push("Beat eggs vigorously with salt and pepper; proper aeration makes a fluffy omelette.");
     steps.push("Heat butter in an 8-inch non-stick pan over medium-low. Pour in eggs.");
@@ -2675,6 +2860,15 @@ const generateRecipe = (meal) => {
   }
 
   // Finish steps
+  if (hasLemonDill && !isSoup) {
+    finishSteps.push("Make the lemon-dill sauce: melt butter (or warm olive oil) in a small pan, add lemon juice, lemon zest, and chopped dill. Stir 30 seconds. Spoon over the protein.");
+  }
+  if (hasTahini && (isBowl || isSalad)) {
+    finishSteps.push("Whisk tahini with lemon juice, warm water, and minced garlic until smooth and pourable. Drizzle generously over the bowl.");
+  }
+  if (hasBalsamic && isSalad) {
+    finishSteps.push("Whisk olive oil, balsamic vinegar, Dijon mustard, and honey into a smooth vinaigrette. Drizzle over salad and toss gently.");
+  }
   if (hasWatermelon || hasMango || hasBanana || hasApple || hasBerry) {
     finishSteps.push("Prepare fresh fruit just before serving; it's the bright, refreshing counterpoint to the savory elements.");
   }
