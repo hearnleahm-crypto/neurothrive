@@ -59,6 +59,7 @@ const DIET_TYPES = [
 // Allergen restrictions: these define what you DON'T eat (exclusion-based)
 const DIETARY_RESTRICTIONS = [
   // Proteins
+  { id: "red_meat_free", label: "Red Meat-Free", emoji: "🥩" },
   { id: "chicken_free", label: "Chicken-Free", emoji: "🐔" },
   { id: "turkey_free", label: "Turkey-Free", emoji: "🦃" },
   { id: "pork_free", label: "Pork-Free", emoji: "🚫" },
@@ -851,6 +852,7 @@ const DIET_EXCLUSIONS = {
   peach_free: ["peach"],
   banana_free: ["banana"],
   tofu_free: ["tofu"],
+  red_meat_free: ["beef"],
 };
 
 const getCuisine = (name) => {
@@ -881,6 +883,7 @@ const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
     if (excludedTags.has("strawberry") && /strawberr/.test(n)) return false;
     if (excludedTags.has("blueberry") && /blueberr/.test(n)) return false;
     if (excludedTags.has("tofu") && /tofu|tempeh/.test(n)) return false;
+    if (excludedTags.has("beef") && /steak|beef|sirloin|ribeye|brisket|burger|meatloaf|oxtail/.test(n)) return false;
     if (!(m.conditions.includes(conditionId) || m.conditions.includes("default"))) return false;
     // Cuisine filtering
     if (selectedCuisines && selectedCuisines.length > 0) {
