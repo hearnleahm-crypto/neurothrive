@@ -7459,10 +7459,13 @@ function NeuroThriveApp() {
               </button>
             </div>
 
-            <details style={{ marginTop:"8px" }}>
-              <summary style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", cursor:"pointer", padding:"12px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.15)", background:"rgba(255,255,255,0.02)", listStyle:"none", WebkitAppearance:"none" }}>
-                <span style={{ color:"#8890b8", fontSize:"13px", fontWeight:"600" }}>Customize dietary preferences</span>
-                <span style={{ color:"#6b7394", fontSize:"11px" }}>allergies, diet type, food preferences, calories</span>
+            <details style={{ marginTop:"0" }}>
+              <summary style={{ display:"block", cursor:"pointer", listStyle:"none", WebkitAppearance:"none" }}>
+                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border:"1px solid rgba(107,143,255,0.2)", textAlign:"center" }}>
+                  <div style={{ fontSize:"28px", marginBottom:"10px" }}>🎛️</div>
+                  <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h2>
+                  <p style={{ color:"#a0b8ff", fontSize:"13px", lineHeight:1.6, maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets to build a fully personalized menu.</p>
+                </div>
               </summary>
 
               <div style={{ marginTop:"20px" }}>
