@@ -7484,24 +7484,32 @@ function NeuroThriveApp() {
             {showCustomize && <div style={{ marginTop:"20px" }}>
                 <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
                 <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
-                <div style={S.grid}>
-                  {DIET_TYPES.map(d => (
-                    <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
-                      <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
-                    </div>
-                  ))}
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
+                  {DIET_TYPES.map(d => {
+                    const sel = selectedDiet.includes(d.id);
+                    return (
+                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? "1.5px solid #50c878" : "1px solid rgba(110,120,200,0.15)", background: sel ? "rgba(80,200,120,0.08)" : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background: sel ? "rgba(80,200,120,0.25)" : "rgba(80,200,120,0.12)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{d.emoji}</span>
+                        <span style={{ color: sel ? "#50c878" : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <div style={{ height:"24px" }} />
 
                 <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
                 <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
-                <div style={S.grid}>
-                  {DIETARY_RESTRICTIONS.map(d => (
-                    <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
-                      <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
-                    </div>
-                  ))}
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
+                  {DIETARY_RESTRICTIONS.map(d => {
+                    const sel = selectedDiet.includes(d.id);
+                    return (
+                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? "1.5px solid #e05070" : "1px solid rgba(110,120,200,0.15)", background: sel ? "rgba(224,80,112,0.08)" : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.12)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{d.emoji}</span>
+                        <span style={{ color: sel ? "#e05070" : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {selectedDiet.length > 0 && (() => {
@@ -7536,7 +7544,7 @@ function NeuroThriveApp() {
                     const catRgb = FOOD_PREF_RGB[f.cat] || "123,159,255";
                     return (
                       <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? `1.5px solid ${catColor}` : "1px solid rgba(110,120,200,0.15)", background: sel ? `rgba(${catRgb},0.08)` : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background:`rgba(${catRgb},${sel ? 0.25 : 0.12})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{f.emoji}</span>
+                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background:`rgba(${catRgb},${sel ? 0.3 : 0.15})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{f.emoji}</span>
                         <span style={{ color: sel ? catColor : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{f.label}</span>
                       </div>
                     );
