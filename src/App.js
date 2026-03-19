@@ -7459,94 +7459,98 @@ function NeuroThriveApp() {
               </button>
             </div>
 
-            <div style={{ display:"flex", alignItems:"center", gap:"14px", marginBottom:"24px" }}>
-              <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)" }} />
-              <span style={{ color:"#6b7394", fontSize:"12px", fontWeight:"600", letterSpacing:"1px" }}>OR CUSTOMIZE YOUR PLAN</span>
-              <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)" }} />
-            </div>
+            <details style={{ marginTop:"8px" }}>
+              <summary style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", cursor:"pointer", padding:"12px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.15)", background:"rgba(255,255,255,0.02)", listStyle:"none", WebkitAppearance:"none" }}>
+                <span style={{ color:"#8890b8", fontSize:"13px", fontWeight:"600" }}>Customize dietary preferences</span>
+                <span style={{ color:"#6b7394", fontSize:"11px" }}>allergies, diet type, food preferences, calories</span>
+              </summary>
 
-            <h2 style={S.sectionTitle}>Dietary needs & restrictions</h2>
-            <p style={S.sectionSub}>Select everything that applies; your menu will be personalized to match your lifestyle and avoid anything that doesn't work for you.</p>
-
-            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
-            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
-            <div style={S.grid}>
-              {DIET_TYPES.map(d => (
-                <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
-                  <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
+              <div style={{ marginTop:"20px" }}>
+                <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
+                <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
+                <div style={S.grid}>
+                  {DIET_TYPES.map(d => (
+                    <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
+                      <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div style={{ height:"24px" }} />
+                <div style={{ height:"24px" }} />
 
-            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
-            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
-            <div style={S.grid}>
-              {DIETARY_RESTRICTIONS.map(d => (
-                <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
-                  <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
+                <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
+                <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
+                <div style={S.grid}>
+                  {DIETARY_RESTRICTIONS.map(d => (
+                    <div key={d.id} style={S.chip(selectedDiet.includes(d.id))} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)}>
+                      <span style={{ fontSize:"17px" }}>{d.emoji}</span><span>{d.label}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {selectedDiet.length > 0 && (() => {
-              const dietTypeIds = new Set(DIET_TYPES.map(d => d.id));
-              const selectedTypes = selectedDiet.filter(d => dietTypeIds.has(d));
-              const selectedRestrictions = selectedDiet.filter(d => !dietTypeIds.has(d));
-              return (
-                <div style={{ ...S.warningBanner, marginBottom:"20px", marginTop:"20px" }}>
-                  {selectedTypes.length > 0 && <div style={{ marginBottom: selectedRestrictions.length > 0 ? "6px" : 0 }}>✓ Diet: {selectedTypes.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")}; your menu will follow {selectedTypes.length === 1 ? "this style" : "these styles"}.</div>}
-                  {selectedRestrictions.length > 0 && <div>✓ Excluded: {selectedRestrictions.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")}; meals with these ingredients will be removed.</div>}
+                {selectedDiet.length > 0 && (() => {
+                  const dietTypeIds = new Set(DIET_TYPES.map(d => d.id));
+                  const selectedTypes = selectedDiet.filter(d => dietTypeIds.has(d));
+                  const selectedRestrictions = selectedDiet.filter(d => !dietTypeIds.has(d));
+                  return (
+                    <div style={{ ...S.warningBanner, marginBottom:"20px", marginTop:"20px" }}>
+                      {selectedTypes.length > 0 && <div style={{ marginBottom: selectedRestrictions.length > 0 ? "6px" : 0 }}>✓ Diet: {selectedTypes.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")}; your menu will follow {selectedTypes.length === 1 ? "this style" : "these styles"}.</div>}
+                      {selectedRestrictions.length > 0 && <div>✓ Excluded: {selectedRestrictions.map(d => DIETARY.find(x=>x.id===d)?.label).join(", ")}; meals with these ingredients will be removed.</div>}
+                    </div>
+                  );
+                })()}
+                {(selectedDiet.includes("halal") || selectedDiet.includes("kosher")) && (
+                  <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"20px" }}>
+                    <div style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.7 }}>
+                      {selectedDiet.includes("kosher") && <span>✡️ <strong>Kosher:</strong> Pork, shellfish, and meat-dairy combinations are excluded. </span>}
+                      {selectedDiet.includes("halal") && <span>☪️ <strong>Halal:</strong> Pork and shellfish are excluded. </span>}
+                      <span style={{ color:"#8890b8" }}>Note: Meals use standard grocery ingredients. Please source certified {selectedDiet.includes("halal") && selectedDiet.includes("kosher") ? "halal/kosher" : selectedDiet.includes("halal") ? "halal" : "kosher"} products according to your observance level.</span>
+                    </div>
+                  </div>
+                )}
+
+                <div style={S.divider} />
+
+                <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
+                <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
+                <div style={S.grid}>
+                  {FOOD_PREFS.map(f => (
+                    <div key={f.id} style={S.chip(selectedFoodPrefs.includes(f.id))} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)}>
+                      <span style={{ fontSize:"17px" }}>{f.emoji}</span><span>{f.label}</span>
+                    </div>
+                  ))}
                 </div>
-              );
-            })()}
-            {(selectedDiet.includes("halal") || selectedDiet.includes("kosher")) && (
-              <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"20px" }}>
-                <div style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.7 }}>
-                  {selectedDiet.includes("kosher") && <span>✡️ <strong>Kosher:</strong> Pork, shellfish, and meat-dairy combinations are excluded. </span>}
-                  {selectedDiet.includes("halal") && <span>☪️ <strong>Halal:</strong> Pork and shellfish are excluded. </span>}
-                  <span style={{ color:"#8890b8" }}>Note: Meals use standard grocery ingredients. Please source certified {selectedDiet.includes("halal") && selectedDiet.includes("kosher") ? "halal/kosher" : selectedDiet.includes("halal") ? "halal" : "kosher"} products according to your observance level.</span>
+
+                <div style={S.divider} />
+
+                <h2 style={{ ...S.sectionTitle, fontSize:"22px" }}>Daily calorie target</h2>
+                <p style={S.sectionSub}>Choose the range that fits your goals. Higher targets add a second snack and heartier portions.</p>
+                <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
+                  {[
+                    { id:"1200", label:"1,200–1,500", sub:"Lower calorie", desc:"Lighter meals, one snack" },
+                    { id:"1500", label:"1,500–2,000", sub:"Moderate", desc:"Balanced meals, one snack" },
+                    { id:"2000", label:"2,000–2,500", sub:"Higher calorie", desc:"Heartier meals, two snacks" },
+                  ].map(opt => (
+                    <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{ flex:1, padding:"18px 14px", borderRadius:"16px", border: calorieTarget===opt.id ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.1)", background: calorieTarget===opt.id ? "rgba(80,112,240,0.12)" : "rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s" }}>
+                      <div style={{ fontSize:"16px", fontWeight:"700", color: calorieTarget===opt.id ? "#a0b8ff" : "#7888b8", marginBottom:"4px" }}>{opt.label}</div>
+                      <div style={{ fontSize:"11px", fontWeight:"600", color: calorieTarget===opt.id ? "#5570f0" : "#6b7394", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"4px" }}>{opt.sub}</div>
+                      <div style={{ fontSize:"11px", color:"#6b7394" }}>{opt.desc}</div>
+                    </button>
+                  ))}
+                </div>
+
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                  <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
+                  {menu30 && menu30.length > 0
+                    ? <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(true, false); }}>Update My Plan →</button>
+                    : <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(false, false); }}>Build My 30-Day Menu →</button>
+                  }
                 </div>
               </div>
-            )}
+            </details>
 
-            <div style={S.divider} />
-
-            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
-            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
-            <div style={S.grid}>
-              {FOOD_PREFS.map(f => (
-                <div key={f.id} style={S.chip(selectedFoodPrefs.includes(f.id))} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)}>
-                  <span style={{ fontSize:"17px" }}>{f.emoji}</span><span>{f.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div style={S.divider} />
-
-            <h2 style={{ ...S.sectionTitle, fontSize:"22px" }}>Daily calorie target</h2>
-            <p style={S.sectionSub}>Choose the range that fits your goals. Higher targets add a second snack and heartier portions.</p>
-            <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
-              {[
-                { id:"1200", label:"1,200–1,500", sub:"Lower calorie", desc:"Lighter meals, one snack" },
-                { id:"1500", label:"1,500–2,000", sub:"Moderate", desc:"Balanced meals, one snack" },
-                { id:"2000", label:"2,000–2,500", sub:"Higher calorie", desc:"Heartier meals, two snacks" },
-              ].map(opt => (
-                <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{ flex:1, padding:"18px 14px", borderRadius:"16px", border: calorieTarget===opt.id ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.1)", background: calorieTarget===opt.id ? "rgba(80,112,240,0.12)" : "rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s" }}>
-                  <div style={{ fontSize:"16px", fontWeight:"700", color: calorieTarget===opt.id ? "#a0b8ff" : "#7888b8", marginBottom:"4px" }}>{opt.label}</div>
-                  <div style={{ fontSize:"11px", fontWeight:"600", color: calorieTarget===opt.id ? "#5570f0" : "#6b7394", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"4px" }}>{opt.sub}</div>
-                  <div style={{ fontSize:"11px", color:"#6b7394" }}>{opt.desc}</div>
-                </button>
-              ))}
-            </div>
-
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <div style={{ marginTop:"16px" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
-              {menu30 && menu30.length > 0
-                ? <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(true, false); }}>Update My Plan →</button>
-                : <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(false, false); }}>Build My 30-Day Menu →</button>
-              }
             </div>
           </div>
         )}
