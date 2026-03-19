@@ -5500,18 +5500,27 @@ function NeuroThriveApp() {
     setList(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
-  const buildMenu = () => {
+  const buildMenu = (isUpdate) => {
     const condition = selectedConditions[0] || "default";
     const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs, favoriteMeals);
     setMenu30(days);
-    setPlanCycle(1);
-    setCycleStartDate(new Date().toISOString());
-    setSelectedWeek(0);
-    setSelectedDayIdx(0);
-    setDailyChecks({});
-    setAltMeal({}); setSwapHistory({});
-    setRoutineQPage("intro");
-    setStep(13);
+    if (isUpdate) {
+      // Updating existing plan — keep cycle, clear swaps, go to meal plan
+      setSelectedWeek(0);
+      setSelectedDayIdx(0);
+      setAltMeal({}); setSwapHistory({});
+      setStep(4);
+    } else {
+      // First-time onboarding
+      setPlanCycle(1);
+      setCycleStartDate(new Date().toISOString());
+      setSelectedWeek(0);
+      setSelectedDayIdx(0);
+      setDailyChecks({});
+      setAltMeal({}); setSwapHistory({});
+      setRoutineQPage("intro");
+      setStep(13);
+    }
   };
 
   // ── Grocery List Generator ──────────────────────────────────────────────────
@@ -6988,7 +6997,10 @@ function NeuroThriveApp() {
 
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
-              <button style={S.btn} onClick={buildMenu}>Build My 30-Day Menu →</button>
+              {menu30 && menu30.length > 0
+                ? <button style={S.btn} onClick={() => buildMenu(true)}>Update My Plan →</button>
+                : <button style={S.btn} onClick={() => buildMenu(false)}>Build My 30-Day Menu →</button>
+              }
             </div>
           </div>
         )}
