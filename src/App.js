@@ -114,41 +114,42 @@ const CUISINE_TYPES = [
   { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜" },
 ];
 
+const FOOD_PREF_COLORS = { protein:"#e87070", seafood:"#50a0dc", fruit:"#ba68c8", veggie:"#50c878", grain:"#e8c87a", legume:"#c89860", combo:"#7b9fff" };
 const FOOD_PREFS = [
   // Proteins
-  { id: "chicken", label: "Chicken", emoji: "🍗" },
-  { id: "turkey", label: "Turkey", emoji: "🦃" },
-  { id: "red_meat", label: "Red Meat", emoji: "🥩" },
-  { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓" },
-  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟" },
-  { id: "tofu", label: "Tofu & Tempeh", emoji: "🫘" },
-  { id: "eggs", label: "Eggs", emoji: "🥚" },
-  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀" },
+  { id: "chicken", label: "Chicken", emoji: "🍗", cat: "protein" },
+  { id: "turkey", label: "Turkey", emoji: "🦃", cat: "protein" },
+  { id: "red_meat", label: "Red Meat", emoji: "🥩", cat: "protein" },
+  { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓", cat: "protein" },
+  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟", cat: "seafood" },
+  { id: "tofu", label: "Tofu & Tempeh", emoji: "🫘", cat: "protein" },
+  { id: "eggs", label: "Eggs", emoji: "🥚", cat: "protein" },
+  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀", cat: "protein" },
   // Fruits
-  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐" },
-  { id: "strawberries", label: "Strawberries", emoji: "🍓" },
-  { id: "blueberries", label: "Blueberries", emoji: "🫐" },
-  { id: "bananas", label: "Bananas", emoji: "🟡" },
-  { id: "cherries", label: "Cherries", emoji: "🍒" },
-  { id: "peaches", label: "Peaches", emoji: "🍑" },
-  { id: "avocado", label: "Avocado", emoji: "🥑" },
+  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐", cat: "fruit" },
+  { id: "strawberries", label: "Strawberries", emoji: "🍓", cat: "fruit" },
+  { id: "blueberries", label: "Blueberries", emoji: "🫐", cat: "fruit" },
+  { id: "bananas", label: "Bananas", emoji: "🟡", cat: "fruit" },
+  { id: "cherries", label: "Cherries", emoji: "🍒", cat: "fruit" },
+  { id: "peaches", label: "Peaches", emoji: "🍑", cat: "fruit" },
+  { id: "avocado", label: "Avocado", emoji: "🥑", cat: "fruit" },
   // Veggies & starches
-  { id: "salads", label: "Salads", emoji: "🥗" },
-  { id: "sweet_potato", label: "Sweet Potatoes", emoji: "🍠" },
-  { id: "potatoes", label: "Potatoes", emoji: "🥔" },
+  { id: "salads", label: "Salads", emoji: "🥗", cat: "veggie" },
+  { id: "sweet_potato", label: "Sweet Potatoes", emoji: "🍠", cat: "veggie" },
+  { id: "potatoes", label: "Potatoes", emoji: "🥔", cat: "veggie" },
   // Grains
-  { id: "rice", label: "Rice", emoji: "🍚" },
-  { id: "oatmeal", label: "Oatmeal", emoji: "🥣" },
-  { id: "pasta", label: "Pasta", emoji: "🍝" },
-  { id: "quinoa", label: "Quinoa", emoji: "🌾" },
+  { id: "rice", label: "Rice", emoji: "🍚", cat: "grain" },
+  { id: "oatmeal", label: "Oatmeal", emoji: "🥣", cat: "grain" },
+  { id: "pasta", label: "Pasta", emoji: "🍝", cat: "grain" },
+  { id: "quinoa", label: "Quinoa", emoji: "🌾", cat: "grain" },
   // Legumes & nuts
-  { id: "lentils", label: "Lentils", emoji: "🫘" },
-  { id: "beans", label: "Beans", emoji: "🫛" },
-  { id: "chickpeas", label: "Chickpeas & Hummus", emoji: "🧆" },
-  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜" },
+  { id: "lentils", label: "Lentils", emoji: "🫘", cat: "legume" },
+  { id: "beans", label: "Beans", emoji: "🫛", cat: "legume" },
+  { id: "chickpeas", label: "Chickpeas & Hummus", emoji: "🧆", cat: "legume" },
+  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜", cat: "legume" },
   // Meals & combos
-  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣" },
-  { id: "soups_stews", label: "Soups & Stews", emoji: "🍲" },
+  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣", cat: "combo" },
+  { id: "soups_stews", label: "Soups & Stews", emoji: "🍲", cat: "combo" },
 ];
 
 const FOOD_PREF_PATTERNS = {
@@ -7527,12 +7528,17 @@ function NeuroThriveApp() {
 
                 <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
                 <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
-                <div style={S.grid}>
-                  {FOOD_PREFS.map(f => (
-                    <div key={f.id} style={S.chip(selectedFoodPrefs.includes(f.id))} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)}>
-                      <span style={{ fontSize:"17px" }}>{f.emoji}</span><span>{f.label}</span>
-                    </div>
-                  ))}
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
+                  {FOOD_PREFS.map(f => {
+                    const sel = selectedFoodPrefs.includes(f.id);
+                    const catColor = FOOD_PREF_COLORS[f.cat] || "#7b9fff";
+                    return (
+                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? `1.5px solid ${catColor}` : "1px solid rgba(110,120,200,0.15)", background: sel ? `${catColor}10` : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"24px", height:"24px", borderRadius:"8px", background: sel ? `${catColor}25` : "rgba(255,255,255,0.05)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{f.emoji}</span>
+                        <span style={{ color: sel ? catColor : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{f.label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <div style={S.divider} />
