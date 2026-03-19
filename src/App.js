@@ -7437,34 +7437,46 @@ function NeuroThriveApp() {
         {/* STEP 3: DIET */}
         {step === 3 && (
           <div>
-            {/* Cuisine Preferences — first so brain-optimized can use them */}
-            <h2 style={S.sectionTitle}>What cuisines do you enjoy?</h2>
-            <p style={S.sectionSub}>Select the cuisines you love. Universal meals like salads, bowls, and smoothies are always included. Leave blank to include all cuisines.</p>
-            <div style={S.grid}>
-              {CUISINE_TYPES.map(c => (
-                <div key={c.id} style={S.chip(selectedCuisines.includes(c.id))} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)}>
-                  <span style={{ fontSize:"17px" }}>{c.emoji}</span><span>{c.label}</span>
-                </div>
-              ))}
+            {/* Step 1: Cuisines */}
+            <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"8px" }}>
+              <span style={{ width:"28px", height:"28px", borderRadius:"50%", background:"rgba(107,143,255,0.15)", color:"#7b9fff", fontSize:"13px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>1</span>
+              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
+            </div>
+            <p style={{ color:"#6b7394", fontSize:"13px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"38px" }}>Select the cuisines you love. Leave blank to include all.</p>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px", marginBottom:"28px" }}>
+              {CUISINE_TYPES.map(c => {
+                const sel = selectedCuisines.includes(c.id);
+                return (
+                  <div key={c.id} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"12px 16px", borderRadius:"12px", border: sel ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.15)", background: sel ? "rgba(80,112,240,0.1)" : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
+                    <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: sel ? "#7b9fff" : "#6b7394", flexShrink:0 }} />
+                    <span style={{ color: sel ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: sel ? "700" : "500" }}>{c.label}</span>
+                  </div>
+                );
+              })}
             </div>
 
-            <div style={{ height:"24px" }} />
-
-            {/* Brain-Optimized Quick Start */}
-            <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(107,143,255,0.08))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"24px", textAlign:"center" }}>
-              <div style={{ fontSize:"28px", marginBottom:"10px" }}>🧠</div>
-              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h2>
-              <p style={{ color:"#a0c8b0", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Skip dietary restrictions and build the best possible menu for your brain chemistry using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.{selectedCuisines.length > 0 ? "" : " Select cuisines above first, or all cuisines will be included."}</p>
-              <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,200,120,0.3)" }}>
-                Build Brain-Optimized Menu →
-              </button>
+            {/* Step 2: Choose path */}
+            <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
+              <span style={{ width:"28px", height:"28px", borderRadius:"50%", background:"rgba(107,143,255,0.15)", color:"#7b9fff", fontSize:"13px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>2</span>
+              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
             </div>
 
-            <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border: showCustomize ? "1px solid rgba(107,143,255,0.35)" : "1px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s" }}>
-              <div style={{ fontSize:"28px", marginBottom:"10px" }}>🎛️</div>
-              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h2>
-              <p style={{ color:"#a0b8ff", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets to build a fully personalized menu.</p>
-              <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)" }}>{showCustomize ? "Hide Options ↑" : "Customize My Plan →"}</span>
+            <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
+              {/* Brain-Optimized */}
+              <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(107,143,255,0.04))", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
+                <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
+                <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, marginBottom:"16px", maxWidth:"320px", marginLeft:"auto", marginRight:"auto" }}>No dietary restrictions. We build the best possible menu using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
+                <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"13px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,200,120,0.3)" }}>
+                  Build Brain-Optimized Menu →
+                </button>
+              </div>
+
+              {/* Customize */}
+              <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.35)" : "1px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s" }}>
+                <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
+                <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, marginBottom:"16px", maxWidth:"320px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
+                <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"13px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)" }}>{showCustomize ? "Hide Options ↑" : "Customize My Plan →"}</span>
+              </div>
             </div>
 
             {showCustomize && <div style={{ marginTop:"20px" }}>
