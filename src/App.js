@@ -1623,7 +1623,7 @@ const generateRecipe = (meal) => {
   if (hasTortilla && !isBurrito && !isTaco) ingredients.push("2 corn or flour tortillas (6-inch)");
   if (isBurrito) ingredients.push("1 large (10-inch) flour or whole wheat burrito tortilla");
   if (isTaco) ingredients.push("3 corn tortillas (6-inch), warmed");
-  if (hasBread && !isBurrito && !isTaco) ingredients.push(has("sourdough") ? "2 slices sourdough bread" : has("bagel") ? "1 whole grain bagel, halved" : has("english muffin") ? "1 whole grain English muffin, split" : "2 slices whole grain bread");
+  if (hasBread && !isBurrito && !isTaco) ingredients.push(has("sourdough") ? "2 slices sourdough bread" : has("bagel") ? "1 whole grain bagel, halved" : has("english muffin") ? "1 whole grain English muffin, split" : (isSoup || has("crusty")) ? "2 thick slices crusty bread (sourdough or French)" : "2 slices whole grain bread");
 
   // Seasonings & oils (always included)
   ingredients.push("1–2 tbsp olive oil or avocado oil");
@@ -2775,6 +2775,7 @@ const generateRecipe = (meal) => {
     steps.push("Add protein and cook until browned. Add all vegetables and stir.");
     steps.push("Pour in broth. Add spices, beans, or other ingredients. Bring to boil.");
     steps.push("Reduce heat and simmer uncovered 20–25 minutes until flavors meld. Taste and adjust seasoning.");
+    if (hasBread) steps.push("Slice crusty bread and warm in a 375°F oven for 5–7 minutes until the crust is crispy and the inside is soft. Serve alongside the soup for dipping.");
     totalTime = 35;
   } else if (isFajita) {
     steps.push("Cook onion and bell peppers in the same pan as protein, over high heat, 4–5 minutes until lightly charred.");
