@@ -115,6 +115,7 @@ const CUISINE_TYPES = [
 ];
 
 const FOOD_PREF_COLORS = { protein:"#e87070", seafood:"#50a0dc", fruit:"#ba68c8", veggie:"#50c878", grain:"#e8c87a", legume:"#c89860", combo:"#7b9fff" };
+const FOOD_PREF_RGB = { protein:"232,112,112", seafood:"80,160,220", fruit:"186,104,200", veggie:"80,200,120", grain:"232,200,122", legume:"200,152,96", combo:"123,159,255" };
 const FOOD_PREFS = [
   // Proteins
   { id: "chicken", label: "Chicken", emoji: "🍗", cat: "protein" },
@@ -7532,9 +7533,10 @@ function NeuroThriveApp() {
                   {FOOD_PREFS.map(f => {
                     const sel = selectedFoodPrefs.includes(f.id);
                     const catColor = FOOD_PREF_COLORS[f.cat] || "#7b9fff";
+                    const catRgb = FOOD_PREF_RGB[f.cat] || "123,159,255";
                     return (
-                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? `1.5px solid ${catColor}` : "1px solid rgba(110,120,200,0.15)", background: sel ? `${catColor}10` : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"24px", height:"24px", borderRadius:"8px", background: sel ? `${catColor}25` : "rgba(255,255,255,0.05)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{f.emoji}</span>
+                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? `1.5px solid ${catColor}` : "1px solid rgba(110,120,200,0.15)", background: sel ? `rgba(${catRgb},0.08)` : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background:`rgba(${catRgb},${sel ? 0.25 : 0.12})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{f.emoji}</span>
                         <span style={{ color: sel ? catColor : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{f.label}</span>
                       </div>
                     );
