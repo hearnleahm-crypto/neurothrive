@@ -5381,6 +5381,7 @@ function NeuroThriveApp() {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedFoodPrefs, setSelectedFoodPrefs] = useState([]);
   const [brainOptimized, setBrainOptimized] = useState(false);
+  const [showCustomize, setShowCustomize] = useState(false);
   const [calorieTarget, setCalorieTarget] = useState("1500");
   const [menu30, setMenu30] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(0);
@@ -7459,17 +7460,14 @@ function NeuroThriveApp() {
               </button>
             </div>
 
-            <details style={{ marginTop:"0" }}>
-              <summary style={{ display:"block", cursor:"pointer", listStyle:"none", WebkitAppearance:"none" }}>
-                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border:"1px solid rgba(107,143,255,0.2)", textAlign:"center" }}>
-                  <div style={{ fontSize:"28px", marginBottom:"10px" }}>🎛️</div>
-                  <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h2>
-                  <p style={{ color:"#a0b8ff", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets to build a fully personalized menu.</p>
-                  <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)" }}>Customize My Plan →</span>
-                </div>
-              </summary>
+            <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border: showCustomize ? "1px solid rgba(107,143,255,0.35)" : "1px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s" }}>
+              <div style={{ fontSize:"28px", marginBottom:"10px" }}>🎛️</div>
+              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h2>
+              <p style={{ color:"#a0b8ff", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets to build a fully personalized menu.</p>
+              <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)" }}>{showCustomize ? "Hide Options ↑" : "Customize My Plan →"}</span>
+            </div>
 
-              <div style={{ marginTop:"20px" }}>
+            {showCustomize && <div style={{ marginTop:"20px" }}>
                 <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
                 <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
                 <div style={S.grid}>
@@ -7550,8 +7548,7 @@ function NeuroThriveApp() {
                     : <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(false, false); }}>Build My 30-Day Menu →</button>
                   }
                 </div>
-              </div>
-            </details>
+            </div>}
 
             <div style={{ marginTop:"16px" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
