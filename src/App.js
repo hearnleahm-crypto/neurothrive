@@ -107,6 +107,9 @@ const CUISINE_TYPES = [
   { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
   { id: "indian_curry", label: "Indian & Curry", emoji: "🍛" },
   { id: "italian", label: "Italian", emoji: "🍝" },
+  { id: "caribbean_soul", label: "Caribbean & Soul Food", emoji: "🫘" },
+  { id: "african", label: "African", emoji: "🍲" },
+  { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜" },
 ];
 
 const FOOD_PREFS = [
@@ -341,6 +344,21 @@ const ALL_MEALS = {
     { name: "Salmon & Egg Scramble with Whole Grain Toast & Avocado", tags: ["fish","egg","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","bpd","neuro_core","default"] },
     { name: "Chicken & Sweet Potato Breakfast Hash with Fried Eggs", tags: ["chicken","meat","egg"], conditions: ["adhd","depression","bipolar","ptsd","did","default"] },
     { name: "Ground Beef & Egg Breakfast Bowl with Rice & Salsa", tags: ["meat","egg","rice"], conditions: ["adhd","bipolar","schizophrenia","default"] },
+    // Caribbean & Soul Food breakfasts
+    { name: "Ackee & Saltfish Scramble with Fried Plantain & Callaloo", tags: ["egg","fish","meat"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Cornmeal Porridge with Cinnamon, Banana & Honey", tags: ["gluten","banana"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    { name: "Sweet Potato & Black-Eyed Pea Hash with Fried Eggs", tags: ["egg","legume","bean"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Plantain & Egg Scramble with Avocado & Hot Sauce", tags: ["egg"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
+    { name: "Grits with Sautéed Shrimp, Spinach & Garlic", tags: ["shellfish","garlic"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Smothered Turkey Sausage & Egg Skillet with Sweet Potato", tags: ["meat","egg","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // African breakfasts
+    { name: "Moroccan Spiced Oatmeal with Dates, Almonds & Cinnamon", tags: ["oats","gluten","nuts"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","default"] },
+    { name: "Shakshuka with Harissa, Spinach & Crusty Bread", tags: ["egg","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Groundnut Porridge with Banana & Honey", tags: ["nuts","banana"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    // Southeast Asian breakfasts
+    { name: "Vietnamese Egg Omelette with Fresh Herbs & Rice", tags: ["egg","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
+    { name: "Thai Coconut Rice Porridge with Chicken & Ginger", tags: ["chicken","meat","rice","coconut"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","default"] },
+    { name: "Congee with Soft-Boiled Egg, Ginger & Scallions", tags: ["egg","rice"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","autism","default"] },
   ],
   lunch: [
     { name: "Grilled Chicken Breast with Watermelon & Feta Salad", tags: ["chicken","dairy","meat"], conditions: ["adhd","default"] },
@@ -470,6 +488,26 @@ const ALL_MEALS = {
     { name: "Chicken & Potato Soup with Fresh Herbs", tags: ["chicken","meat","potato"], conditions: ["anxiety","depression","ptsd","ocd","eating","did","default"] },
     { name: "Grilled Chicken Plate with Roasted Potatoes & Side Salad", tags: ["chicken","meat","potato"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Turkey & Potato Hash Bowl with Avocado", tags: ["meat","potato","turkey"], conditions: ["adhd","depression","bipolar","ptsd","bpd","default"] },
+    // Caribbean & Soul Food lunches
+    { name: "Jerk Chicken Bowl with Rice & Peas and Mango Salsa", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Caribbean Black Bean Soup with Plantain & Avocado", tags: ["legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Blackened Salmon Salad with Cajun Spices & Sweet Potato", tags: ["fish"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
+    { name: "Collard Green & Turkey Wrap with Black-Eyed Peas", tags: ["meat","legume","bean","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Cajun Shrimp & Quinoa Bowl with Roasted Bell Peppers", tags: ["shellfish","quinoa","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Smothered Chicken with Brown Rice & Collard Greens", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Jamaican Curry Chicken with Rice & Steamed Cabbage", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","default"] },
+    // African lunches
+    { name: "West African Groundnut Stew with Chicken & Brown Rice", tags: ["chicken","meat","rice","nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Ethiopian Lentil Stew (Misir Wat) with Brown Rice", tags: ["legume","lentil","rice"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Moroccan Chickpea & Sweet Potato Tagine", tags: ["legume","chickpea"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Nigerian Suya-Spiced Chicken Salad with Peanuts", tags: ["chicken","meat","nuts"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Senegalese Peanut Stew with Sweet Potato & Spinach", tags: ["nuts"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Southeast Asian lunches
+    { name: "Thai Chicken Satay Bowl with Peanut Sauce & Brown Rice", tags: ["chicken","meat","rice","nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Vietnamese Banh Mi Bowl with Grilled Chicken & Pickled Veggies", tags: ["chicken","meat"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Pho-Inspired Chicken Noodle Soup with Fresh Herbs", tags: ["chicken","meat","gluten"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    { name: "Thai Larb Chicken Lettuce Wraps with Mint & Lime", tags: ["chicken","meat","citrus"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Lemongrass Chicken Rice Bowl with Cucumber & Herbs", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
   ],
   dinner: [
     { name: "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side", tags: ["meat"], conditions: ["adhd","default"] },
@@ -614,6 +652,28 @@ const ALL_MEALS = {
     { name: "Loaded Baked Potato with Ground Turkey & Steamed Broccoli", tags: ["meat","potato","dairy","turkey"], conditions: ["adhd","depression","bipolar","ptsd","did","default"] },
     { name: "Shepherd's Pie with Ground Turkey & Mashed Potato Topping", tags: ["meat","potato","turkey"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","bpd","did","eating","default"] },
     { name: "Crispy Baked Potato Wedges with Grilled Chicken & Salad", tags: ["chicken","meat","potato"], conditions: ["adhd","anxiety","ocd","autism","bpd","default"] },
+    // Caribbean & Soul Food dinners
+    { name: "Jerk Chicken Thighs with Rice & Peas and Steamed Callaloo", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Cajun Blackened Catfish with Collard Greens & Brown Rice", tags: ["fish","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
+    { name: "Oxtail Stew with Butter Beans & Brown Rice", tags: ["meat","legume","bean","rice"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
+    { name: "Gumbo with Chicken, Shrimp & Brown Rice", tags: ["chicken","meat","shellfish","rice"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Jambalaya with Chicken Sausage, Shrimp & Brown Rice", tags: ["chicken","meat","shellfish","rice"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Blackened Salmon with Cajun Sweet Potato Mash & Green Beans", tags: ["fish"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
+    { name: "Caribbean Curry Goat with Rice & Peas", tags: ["meat","rice"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
+    { name: "Smothered Turkey Chops with Mashed Sweet Potato & Collard Greens", tags: ["meat","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // African dinners
+    { name: "Nigerian Egusi Stew with Spinach & Brown Rice", tags: ["rice","seed"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Ethiopian Doro Wat (Chicken Stew) with Brown Rice", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "West African Jollof Rice with Grilled Chicken & Plantain", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Moroccan Salmon Tagine with Chickpeas & Sweet Potato", tags: ["fish","legume","chickpea"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
+    { name: "Ghanaian Groundnut Soup with Chicken & Brown Rice", tags: ["chicken","meat","rice","nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Southeast Asian dinners
+    { name: "Thai Green Curry with Chicken, Basil & Jasmine Rice", tags: ["chicken","meat","rice","coconut"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Pad Thai with Shrimp, Peanuts & Lime", tags: ["shellfish","nuts","citrus"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Vietnamese Lemongrass Chicken with Rice & Bok Choy", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Tom Kha Gai (Thai Coconut Chicken Soup) with Rice", tags: ["chicken","meat","rice","coconut"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    { name: "Thai Basil Chicken Stir-Fry with Jasmine Rice", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Massaman Curry with Beef, Potatoes & Peanuts", tags: ["meat","potato","nuts","coconut"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
   ],
   snacks: [
     { name: "Apple Slices + Sliced Deli Turkey Roll-Ups", tags: ["meat","turkey"], conditions: ["adhd","default"] },
@@ -724,6 +784,16 @@ const ALL_MEALS = {
     { name: "Turmeric & Ginger Energy Balls", tags: ["nuts","oats","gluten"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Kombucha & Mixed Nuts", tags: ["nuts"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Miso Soup Cup with Seaweed", tags: ["soy"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","autism","neuro_core","default"] },
+    // Caribbean & Soul Food snacks
+    { name: "Baked Plantain Chips with Guacamole", tags: [], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Sweet Potato Bites with Cinnamon & Honey", tags: [], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    { name: "Black-Eyed Pea Hummus with Veggie Sticks", tags: ["legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // African snacks
+    { name: "Roasted Chickpeas with Berbere Spice", tags: ["legume","chickpea"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Dates Stuffed with Almond Butter", tags: ["nuts"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    // Southeast Asian snacks
+    { name: "Thai Peanut Dipping Sauce with Fresh Veggies", tags: ["nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Mango & Coconut Chia Pudding", tags: ["seed","coconut"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","neuro_core","default"] },
   ],
 };
 
@@ -781,6 +851,9 @@ const getCuisine = (name) => {
   if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|pad thai|bibimbap/.test(n)) return "asian";
   if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
   if (/mediterranean|tahini|falafel|hummus.*pita|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh/.test(n)) return "mediterranean";
+  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|jollof|gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|soul food|smothered|hoppin|black[- ]eyed pea|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean_soul";
+  if (/injera|berbere|doro\s*wat|kitfo|egusi|suya|fufu|groundnut|peanut\s*stew|west african|east african|ethiopian|nigerian|ghanaian|senegalese|moroccan.*tagine|harissa|ras\s*el\s*hanout|shakshuka.*harissa/.test(n)) return "african";
+  if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) return "southeast_asian";
   if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie/.test(n)) return "american";
   if (/pasta|marinara|pesto|parmesan|risotto|bruschetta|caprese|bolognese|alfredo|lasagna|ravioli|primavera/.test(n)) return "italian";
   return "general";
@@ -1606,6 +1679,8 @@ const generateRecipe = (meal) => {
   const hasMangoSalsa = has("mango salsa") || has("mango") && has("salsa");
   const hasPineappleSalsa = has("pineapple salsa") || has("pineapple") && has("salsa");
   const hasBlueberrySalsa = has("blueberry salsa") || has("blueberry") && has("salsa");
+  const hasPlantain = has("plantain");
+  const hasCollardGreens = hasAny("collard","collard greens","callaloo");
   const hasGenericVeggies = hasAny("roasted veggies","roasted vegetables","steamed veggies","steamed vegetables","mixed veggies","mixed vegetables") && !hasBroccoli && !hasAsparagus && !hasPepper && !hasBrusselsSprouts && !hasGreenBeans && !hasCauliflower && !hasZucchini;
 
   // ── Build ingredients list ────────────────────────────────────────────────
@@ -1636,6 +1711,8 @@ const generateRecipe = (meal) => {
   if (hasCauliflower) ingredients.push(has("mash") ? "1 medium head cauliflower, cut into florets" : "2 cups cauliflower florets");
   if (hasSnapPeas) ingredients.push("1 cup sugar snap peas, trimmed");
   if (hasBokChoy) ingredients.push("2 heads baby bok choy, halved lengthwise");
+  if (hasPlantain) ingredients.push("1 ripe plantain, peeled and sliced diagonally ½-inch thick");
+  if (hasCollardGreens) ingredients.push("1 bunch collard greens or callaloo, stems removed, roughly chopped");
   if (hasZucchini) ingredients.push("1 medium zucchini, sliced into ½-inch rounds or cubed");
   if (hasCucumber) ingredients.push("½ cucumber, sliced or diced");
   if (hasArugula && !isSalad) ingredients.push("1 cup fresh arugula");
@@ -2781,6 +2858,121 @@ const generateRecipe = (meal) => {
     return { serves: 2, time: "50 min", ingredients: ["1 lb lean ground beef (90/10)","½ cup breadcrumbs","1 egg","¼ cup milk","1 small onion, finely diced","2 cloves garlic, minced","1 tbsp Worcestershire sauce","1 tsp dried thyme","Salt and pepper to taste","3 tbsp ketchup","1 tbsp brown sugar","1 tsp mustard"], steps: ["Preheat oven to 375°F (190°C). Line a baking sheet with parchment paper.","Soak breadcrumbs in milk for 2 minutes.","Combine ground beef, soaked breadcrumbs, egg, onion, garlic, Worcestershire sauce, thyme, salt, and pepper. Mix gently.","Shape into a loaf on the prepared baking sheet (about 8×4 inches).","Mix ketchup, brown sugar, and mustard. Spread over the top of the loaf.","Bake 35–40 minutes until internal temperature reaches 160°F.","Rest 10 minutes before slicing."], tip: "The milk-soaked breadcrumbs (called a panade) are the secret to tender, juicy meatloaf.", nutrition: ["Lean beef provides heme iron critical for dopamine synthesis","B12 supports myelin formation and healthy nerve conduction","Complete amino acid profile supports neurotransmitter production","Onion and garlic contain quercetin, which reduces neuroinflammation"] };
   }
 
+  // ── Caribbean, Soul Food & African dedicated recipes ─────────────────────
+
+  // Jerk Chicken
+  if (has("jerk") && hasAny("chicken")) {
+    const ing = [hasAny("thigh","thighs") ? "4 bone-in chicken thighs" : "2 boneless skinless chicken breasts","2 tbsp jerk seasoning paste or dry rub","1 tbsp allspice","1 tsp scotch bonnet or habanero hot sauce (to taste)","1 tbsp soy sauce","1 tbsp lime juice","2 cloves garlic, minced","1 tbsp fresh thyme or 1 tsp dried"];
+    if (hasRice) ing.push("1 cup long-grain rice","1 can (14 oz) coconut milk","1 can (15 oz) kidney beans or pigeon peas, drained","2 scallions, chopped","1 tsp thyme");
+    if (has("callaloo") || has("spinach")) ing.push("2 cups callaloo or spinach");
+    if (has("mango salsa") || hasMango) ing.push("1 cup mango, diced","2 tbsp red onion, diced","1 tbsp cilantro","1 tbsp lime juice");
+    if (has("plantain")) ing.push("1 ripe plantain, sliced diagonally");
+    return { serves: 2, time: "40 min", ingredients: ing, steps: ["Combine jerk seasoning, allspice, hot sauce, soy sauce, lime juice, garlic, and thyme into a paste.","Score chicken with shallow cuts. Rub marinade generously into all surfaces. Marinate 15+ minutes (overnight is best).",hasRice ? "Rice & Peas: Combine rice, coconut milk (plus enough water to make 2 cups total liquid), drained beans, scallions, and thyme in a pot. Bring to boil, reduce to low, cover and cook 20 minutes." : "","Grill or bake chicken: Grill over medium-high heat 6–7 minutes per side, OR bake at 400°F for 25–30 minutes until charred and 165°F internal.","Let chicken rest 5 minutes before serving.",has("plantain") ? "Fry plantain slices in 1 tbsp oil over medium heat, 2–3 minutes per side until golden and caramelized." : "",has("mango salsa") || hasMango ? "Toss diced mango with red onion, cilantro, and lime juice for a fresh salsa." : ""].filter(Boolean), tip: "Authentic jerk gets its flavor from allspice (pimento) and scotch bonnet peppers. The longer you marinate, the deeper the flavor penetrates.", nutrition: ["Allspice contains eugenol, a potent anti-inflammatory compound","Scotch bonnet capsaicin triggers endorphin release and improves circulation","Coconut milk provides MCTs that the brain can use as quick fuel","Kidney beans deliver folate and fiber for gut-brain axis support"] };
+  }
+
+  // Gumbo
+  if (has("gumbo")) {
+    return { serves: 3, time: "50 min", ingredients: ["1 boneless skinless chicken breast, diced","6 oz shrimp, peeled and deveined","2 cups okra, sliced (fresh or frozen)","1 can (14 oz) diced tomatoes","3 cups chicken broth","2 tbsp olive oil or butter","2 tbsp flour (for roux)","1 small onion, diced","1 stalk celery, diced","1 green bell pepper, diced","3 cloves garlic, minced","1 tsp Cajun seasoning","½ tsp smoked paprika","1 bay leaf","1 cup cooked brown rice","Hot sauce to taste"], steps: ["Make the roux: Heat oil in a heavy pot over medium heat. Add flour and stir constantly 8–10 minutes until it turns deep golden brown (the color of peanut butter). This is the soul of gumbo.","Add the 'holy trinity': onion, celery, and bell pepper. Stir 5 minutes until soft.","Add garlic, Cajun seasoning, and paprika. Stir 30 seconds.","Add diced chicken and cook 3–4 minutes until lightly browned.","Pour in broth and diced tomatoes. Add bay leaf and okra. Bring to a boil.","Reduce to a simmer and cook 25 minutes, stirring occasionally.","Add shrimp in the last 5 minutes; they cook fast. Remove bay leaf.","Ladle over rice in bowls. Finish with hot sauce to taste."], tip: "The roux is everything in gumbo. Don't rush it — low and slow turns raw flour into a nutty, rich base. If it burns, start over.", nutrition: ["Okra provides soluble fiber that feeds beneficial gut bacteria","Shrimp delivers selenium and astaxanthin for brain protection","The holy trinity (onion, celery, pepper) provides quercetin and luteolin for neuroprotection","Cajun spices contain capsaicin that increases blood flow to the brain"] };
+  }
+
+  // Jambalaya
+  if (has("jambalaya")) {
+    return { serves: 3, time: "40 min", ingredients: ["2 chicken sausage links, sliced into rounds","6 oz shrimp, peeled and deveined","1 cup long-grain rice","1 can (14 oz) diced tomatoes","2 cups chicken broth","1 small onion, diced","1 stalk celery, diced","1 green bell pepper, diced","3 cloves garlic, minced","1 tsp Cajun seasoning","½ tsp smoked paprika","½ tsp dried thyme","1 bay leaf","1 tbsp olive oil","Hot sauce to taste"], steps: ["Heat oil in a large pot or Dutch oven over medium-high. Brown sausage rounds 3–4 minutes. Remove and set aside.","In the same pot, sauté onion, celery, and bell pepper 4–5 minutes. Add garlic, cook 30 seconds.","Stir in Cajun seasoning, paprika, and thyme.","Add rice and stir 1 minute to toast slightly.","Pour in broth, diced tomatoes, and bay leaf. Bring to a boil.","Reduce heat to low, cover, and cook 20 minutes until rice is tender and liquid is absorbed.","Return sausage to pot. Add shrimp on top, cover, and cook 5 more minutes until shrimp are pink.","Fluff with a fork, remove bay leaf, and serve with hot sauce."], tip: "Don't stir the rice while it cooks — let it absorb the liquid undisturbed for the best texture.", nutrition: ["One-pot cooking preserves all water-soluble B vitamins in the broth","Tomatoes provide lycopene that crosses the blood-brain barrier","Shrimp delivers omega-3s and selenium for brain protection","The holy trinity vegetables provide neuroprotective flavonoids"] };
+  }
+
+  // Blackened fish (salmon, catfish)
+  if (has("blackened") && hasAny("salmon","catfish","fish")) {
+    const fishType = has("catfish") ? "catfish" : "salmon";
+    const ing = [fishType === "catfish" ? "6 oz catfish fillet" : "6 oz wild-caught salmon fillet","1 tbsp Cajun/blackening seasoning (paprika, cayenne, garlic powder, onion powder, thyme, oregano)","1 tbsp butter","1 tbsp olive oil"];
+    if (has("collard")) ing.push("1 bunch collard greens, stems removed, roughly chopped","2 cloves garlic, minced","1 tbsp apple cider vinegar","Pinch of red pepper flakes");
+    if (has("sweet potato") && has("mash")) ing.push("1 large sweet potato, peeled and cubed","1 tbsp butter","Pinch of cinnamon");
+    if (hasRice) ing.push("1 cup cooked brown rice");
+    if (hasGreenBeans) ing.push("1 cup green beans, trimmed");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Pat fish completely dry. Press blackening seasoning firmly onto both sides.","Heat a cast iron skillet over high heat until it just starts to smoke.","Add butter and oil. Lay fish in the skillet — it should sizzle aggressively.","Cook 3–4 minutes per side until a dark, spicy crust forms and fish flakes easily.",has("collard") ? "For collard greens: Heat 1 tbsp oil in a pot. Add garlic and red pepper flakes, cook 30 seconds. Add collards with ¼ cup water. Cover and cook 12–15 minutes until tender. Finish with apple cider vinegar." : "",has("mash") ? "Boil sweet potato cubes 15 minutes until tender. Mash with butter, cinnamon, salt, and a splash of milk." : "","Plate fish over greens and starch. Finish with a squeeze of lemon."].filter(Boolean), tip: "A smoking-hot cast iron skillet is non-negotiable for blackening. The high heat creates the signature charred spice crust without overcooking the fish.", nutrition: ["Cajun spices contain capsaicin that boosts endorphins and brain circulation","Collard greens are rich in folate, vitamin K, and calcium for neural health","Sweet potato provides beta-carotene and B6 for mood regulation",fishType === "salmon" ? "Salmon delivers EPA/DHA omega-3s for brain structure and anti-inflammation" : "Catfish provides lean protein and B12 for nerve health"] };
+  }
+
+  // Oxtail Stew
+  if (has("oxtail")) {
+    return { serves: 3, time: "3 hrs", ingredients: ["1.5 lbs oxtail pieces","1 can (15 oz) butter beans or lima beans, drained","2 cups beef broth","1 can (14 oz) diced tomatoes","1 onion, diced","3 cloves garlic, minced","2 sprigs fresh thyme","2 scallions, chopped","1 tbsp soy sauce","1 tsp allspice","1 tbsp browning sauce (optional)","2 tbsp oil","Salt and pepper to taste","1 cup cooked brown rice"], steps: ["Season oxtail with salt, pepper, allspice, and soy sauce. Let marinate 30 minutes.","Heat oil in a heavy pot or Dutch oven over medium-high. Brown oxtail pieces 3–4 minutes per side until deeply seared. Work in batches.","Remove oxtail. Sauté onion 4 minutes, add garlic, cook 30 seconds.","Return oxtail to pot. Add broth, diced tomatoes, thyme, and browning sauce.","Bring to a boil, then reduce to a very low simmer. Cover and cook 2.5–3 hours until meat is fall-off-the-bone tender.","Add butter beans in the last 20 minutes.","Skim any excess fat. Adjust seasoning. Serve over rice with scallions on top."], tip: "Oxtail needs low and slow cooking — don't rush it. The collagen breaks down into gelatin, creating that rich, silky sauce.", nutrition: ["Oxtail is rich in collagen and glycine, which support brain repair and calm the nervous system","Butter beans provide folate and magnesium for mood regulation","Allspice contains eugenol, a potent anti-inflammatory","Slow-cooked bone-in meat releases minerals including zinc and iron for neurotransmitter synthesis"] };
+  }
+
+  // Curry Goat
+  if (hasAny("curry goat","goat curry")) {
+    return { serves: 3, time: "2 hrs", ingredients: ["1.5 lbs goat meat, cut into chunks","2 tbsp curry powder","1 tsp allspice","1 tsp cumin","1 can (14 oz) coconut milk","1 large potato, peeled and cubed","1 onion, diced","4 cloves garlic, minced","1 tbsp fresh ginger, grated","2 scallions, chopped","2 sprigs fresh thyme","1 scotch bonnet pepper, whole (do not cut)","2 tbsp oil","Salt and pepper to taste","1 cup cooked rice"], steps: ["Season goat meat with curry powder, allspice, cumin, salt, pepper, garlic, and thyme. Marinate 1 hour (overnight is best).","Heat oil in a heavy pot over medium-high. Brown goat pieces 3–4 minutes per side.","Add onion and ginger, cook 3 minutes.","Pour in coconut milk and enough water to just cover the meat.","Add whole scotch bonnet (do not pierce it — it adds flavor without too much heat).","Bring to a boil, reduce to low simmer, cover, and cook 1.5 hours until meat is tender.","Add potatoes in the last 30 minutes. Remove scotch bonnet before serving.","Serve over rice with scallions on top."], tip: "Keep the scotch bonnet whole — it infuses flavor without making the dish unbearably hot. Piercing it releases all the heat.", nutrition: ["Goat meat is leaner than beef and rich in iron and B12 for neurotransmitter synthesis","Curry powder contains turmeric (curcumin) which crosses the blood-brain barrier","Coconut milk provides MCTs the brain can use directly for energy","Ginger contains gingerols that reduce neuroinflammation"] };
+  }
+
+  // West African Groundnut/Peanut Stew
+  if (hasAny("groundnut","peanut stew","peanut soup") && !has("satay")) {
+    const ing = ["½ cup natural peanut butter (smooth)","1 can (14 oz) diced tomatoes","2 cups chicken or vegetable broth","1 sweet potato, peeled and cubed","1 onion, diced","3 cloves garlic, minced","1 tbsp fresh ginger, grated","1 tsp cumin","½ tsp cayenne pepper","2 cups fresh spinach or kale","Salt to taste"];
+    if (has("chicken")) ing.unshift("1 boneless skinless chicken breast, cubed");
+    ing.push("1 cup cooked brown rice");
+    return { serves: 2, time: "35 min", ingredients: ing, steps: ["Heat 1 tbsp oil in a pot over medium heat. If using chicken, brown the cubes 4–5 minutes. Remove and set aside.","Sauté onion 4 minutes. Add garlic, ginger, cumin, and cayenne. Cook 1 minute.","Add diced tomatoes and sweet potato cubes. Stir to combine.","Pour in broth. Bring to a boil, then reduce to a simmer. Cook 15 minutes until sweet potato is tender.","Stir in peanut butter until fully dissolved into the stew.","Return chicken if using. Add spinach and stir until wilted, about 2 minutes.","Season with salt. Serve over brown rice."], tip: "Use natural peanut butter without added sugar for the most authentic flavor. The oil separation is normal — stir it in.", nutrition: ["Peanuts provide niacin (B3) which supports brain energy metabolism","Sweet potato delivers beta-carotene for neuroprotection","Ginger and garlic contain anti-inflammatory compounds that protect neural tissue","Spinach adds folate critical for serotonin synthesis"] };
+  }
+
+  // Jollof Rice
+  if (has("jollof")) {
+    const ing = ["1½ cups long-grain rice, rinsed","1 can (14 oz) crushed tomatoes","1 red bell pepper, roughly chopped","1 small onion, roughly chopped","2 cloves garlic","1 tsp fresh ginger","1 cup chicken broth","2 tbsp tomato paste","1 tsp curry powder","½ tsp smoked paprika","½ tsp dried thyme","1 bay leaf","2 tbsp vegetable oil","Salt and cayenne to taste"];
+    if (has("chicken")) ing.push("2 bone-in chicken thighs or 1 chicken breast");
+    if (has("plantain")) ing.push("1 ripe plantain, sliced");
+    return { serves: 3, time: "45 min", ingredients: ing, steps: ["Blend tomatoes, red bell pepper, half the onion, garlic, and ginger into a smooth paste.","Dice remaining onion. Heat oil in a heavy pot over medium. Sauté diced onion 3 minutes.","Add tomato paste and stir 2 minutes until darkened.","Pour in the blended tomato mixture. Cook 10–12 minutes, stirring often, until oil rises to the surface and sauce reduces.",has("chicken") ? "While sauce cooks, season chicken with salt and spices. Bake at 400°F for 25 minutes or pan-sear until golden." : "","Add rice, broth, curry powder, paprika, thyme, bay leaf, salt, and cayenne. Stir well.","Bring to a boil, then reduce heat to the lowest setting. Cover tightly (use foil under the lid to seal).","Cook 30 minutes without opening the lid. The steam does all the work.","Fluff with a fork. Remove bay leaf. Serve with chicken on top.",has("plantain") ? "Fry plantain slices 2–3 minutes per side until golden. Serve alongside." : ""].filter(Boolean), tip: "The key to great jollof rice is patience: let the tomato base cook down until the oil separates before adding rice, and never lift the lid while it steams.", nutrition: ["Tomatoes provide lycopene, a powerful brain-protective antioxidant","Bell peppers are one of the richest sources of vitamin C for neurotransmitter synthesis","Curry powder contains turmeric for anti-inflammatory brain support","Long-grain rice provides steady glucose for sustained brain energy"] };
+  }
+
+  // Ethiopian Doro Wat / Misir Wat
+  if (hasAny("doro wat","misir wat","ethiopian")) {
+    const isLentil = has("lentil") || has("misir");
+    const ing = isLentil ? ["1 cup red lentils, rinsed","2 cups water or vegetable broth"] : ["4 bone-in chicken drumsticks or thighs","4 hard-boiled eggs, peeled"];
+    ing.push("2 large onions, finely diced","3 cloves garlic, minced","1 tbsp fresh ginger, grated","2 tbsp berbere spice blend","2 tbsp niter kibbeh (spiced butter) or regular butter","1 tbsp tomato paste","Salt to taste","1 cup cooked brown rice (or injera if available)");
+    return { serves: 2, time: isLentil ? "30 min" : "50 min", ingredients: ing, steps: ["Dry-sauté onions in a heavy pot over medium heat for 10–12 minutes, stirring often, until deeply caramelized and reduced by half. This is the foundation — don't rush it.","Add butter, garlic, and ginger. Cook 2 minutes.","Stir in berbere spice and tomato paste. Cook 3 minutes until fragrant and oil begins to separate.",isLentil ? "Add lentils and water. Bring to a boil, reduce to a simmer, and cook 20–25 minutes until lentils are soft and stew is thick." : "Score chicken pieces with shallow cuts. Add to the pot and coat with sauce. Add ½ cup water.","Cover and simmer " + (isLentil ? "" : "30–35 minutes until chicken is tender and cooked through."),isLentil ? "" : "Nestle peeled hard-boiled eggs into the stew for the last 10 minutes to absorb flavor.","Season with salt. Serve over rice or with injera for scooping."].filter(Boolean), tip: "The caramelized onions are the secret to Ethiopian cooking. Cook them until they're dark golden — this takes real patience but creates incredible depth of flavor.", nutrition: ["Berbere spice contains turmeric, fenugreek, and cardamom — all anti-inflammatory","Slow-cooked onions release quercetin, a powerful neuroprotective flavonoid",isLentil ? "Red lentils provide folate and iron for serotonin and dopamine synthesis" : "Chicken provides tryptophan and tyrosine for neurotransmitter production","Ginger contains gingerols that reduce neuroinflammation and improve circulation"] };
+  }
+
+  // ── Southeast Asian dedicated recipes ───────────────────────────────────
+
+  // Pad Thai
+  if (has("pad thai")) {
+    const ing = ["6 oz rice noodles (pad thai noodles)","2 tbsp tamarind paste","1 tbsp fish sauce","1 tbsp soy sauce","1 tbsp brown sugar or palm sugar","1 tbsp lime juice","2 eggs, beaten","2 cloves garlic, minced","¼ cup roasted peanuts, chopped","1 cup bean sprouts","2 scallions, sliced","1 lime, cut into wedges","2 tbsp vegetable oil","Fresh cilantro for garnish"];
+    if (protein === "shrimp") ing.push("6 oz shrimp, peeled and deveined");
+    else if (protein === "chicken") ing.push("1 boneless skinless chicken breast, thinly sliced");
+    else if (protein === "tofu") ing.push("6 oz extra-firm tofu, cubed and pressed");
+    return { serves: 1, time: "20 min", ingredients: ing, steps: ["Soak rice noodles in warm water 15–20 minutes until pliable but not soft. Drain.","Mix the sauce: combine tamarind paste, fish sauce, soy sauce, sugar, and lime juice. Stir until sugar dissolves.","Heat oil in a wok over high heat until smoking.",protein && protein !== "egg" ? `Add ${protein} and stir-fry 2–3 minutes until cooked. Push to the side.` : "","Pour beaten eggs into the wok. Scramble 30 seconds until just set.","Add drained noodles and the sauce. Toss with tongs 2–3 minutes until noodles absorb the sauce.","Add bean sprouts and scallions. Toss 30 seconds — they should stay crunchy.","Plate immediately. Top with crushed peanuts, cilantro, and lime wedges."].filter(Boolean), tip: "The wok must be smoking hot before anything goes in. Pad thai is a 5-minute dish once you start cooking — have everything prepped and within reach.", nutrition: ["Tamarind provides tartaric acid and polyphenols that support digestive health","Peanuts deliver niacin (B3) for brain energy metabolism","Eggs provide choline for memory and acetylcholine production","Bean sprouts contain folate and vitamin C for neurotransmitter synthesis"] };
+  }
+
+  // Tom Kha Gai (Thai Coconut Chicken Soup)
+  if (hasAny("tom kha","coconut chicken soup","coconut soup")) {
+    return { serves: 2, time: "25 min", ingredients: ["1 boneless skinless chicken breast, thinly sliced","1 can (14 oz) coconut milk","1 cup chicken broth","3 slices galangal or fresh ginger","2 stalks lemongrass, cut into 2-inch pieces and bruised","4 kaffir lime leaves (or zest of 1 lime)","1 cup mushrooms, sliced","1 tbsp fish sauce","1 tbsp lime juice","1 tsp chili paste or ½ tsp red pepper flakes","Fresh cilantro for garnish","1 cup cooked jasmine rice"], steps: ["In a pot, combine coconut milk and chicken broth. Add galangal, lemongrass, and kaffir lime leaves.","Bring to a gentle simmer over medium heat. Cook 5 minutes to infuse the aromatics.","Add sliced chicken and mushrooms. Simmer 8–10 minutes until chicken is cooked through.","Remove from heat. Stir in fish sauce, lime juice, and chili paste.","Remove the lemongrass pieces and galangal (they're not meant to be eaten).","Ladle into bowls over rice. Garnish with fresh cilantro."], tip: "Don't boil coconut milk aggressively — it can separate. A gentle simmer keeps the broth silky and creamy.", nutrition: ["Coconut milk provides MCTs that the brain can use as quick fuel","Galangal contains galangin, a flavonoid with neuroprotective properties","Lemongrass has citral, which reduces anxiety and has calming effects","Mushrooms provide ergothioneine, a unique antioxidant that concentrates in brain tissue"] };
+  }
+
+  // Thai Green/Red Curry
+  if (hasAny("green curry","red curry","massaman")) {
+    const curryType = has("massaman") ? "massaman" : has("green") ? "green" : "red";
+    const ing = ["1 can (14 oz) coconut milk","2–3 tbsp " + curryType + " curry paste","1 tbsp fish sauce","1 tsp brown sugar","1 cup Thai basil or regular basil leaves"];
+    if (protein === "chicken") ing.unshift("1 boneless skinless chicken breast, sliced");
+    else if (protein === "shrimp") ing.unshift("6 oz shrimp, peeled");
+    else if (proteinIngredient) ing.unshift(proteinIngredient);
+    if (curryType === "massaman") { ing.push("1 medium potato, cubed","2 tbsp roasted peanuts"); }
+    else { ing.push("1 cup mixed vegetables (bamboo shoots, bell pepper, zucchini)"); }
+    ing.push("1 cup cooked jasmine rice");
+    return { serves: 2, time: "25 min", ingredients: ing, steps: ["Scoop the thick cream from the top of the coconut milk into a hot wok or pot. Cook 2–3 minutes until it begins to separate and sizzle.","Add curry paste to the coconut cream. Fry 2 minutes until very fragrant — this blooms the spices.",protein ? `Add ${protein} and cook 3–4 minutes until mostly done.` : "","Pour in the remaining coconut milk. Add fish sauce and sugar. Stir to combine.",curryType === "massaman" ? "Add potato cubes. Simmer 15 minutes until potatoes are tender." : "Add vegetables. Simmer 5–7 minutes until tender-crisp.","Tear basil leaves and stir in just before serving.",curryType === "massaman" ? "Garnish with crushed peanuts." : "","Serve over jasmine rice."].filter(Boolean), tip: "Frying the curry paste in coconut cream before adding liquid is the key technique — it concentrates and deepens the flavor.", nutrition: ["Coconut milk provides MCTs for quick brain energy","Thai basil contains ursolic acid, which has neuroprotective properties","Curry paste spices (galangal, lemongrass, turmeric) are potent anti-inflammatories",curryType === "massaman" ? "Peanuts deliver niacin for brain energy metabolism" : "Bell peppers provide vitamin C for neurotransmitter synthesis"] };
+  }
+
+  // Vietnamese Pho
+  if (has("pho")) {
+    return { serves: 2, time: "30 min", ingredients: ["1 boneless skinless chicken breast","6 cups chicken broth (ideally bone broth)","6 oz rice noodles (banh pho)","1 cinnamon stick","2 star anise","3 slices fresh ginger","1 tbsp fish sauce","1 tsp sugar","Fresh herb plate: Thai basil, cilantro, mint","Bean sprouts, 1 cup","1 lime, quartered","Sriracha and hoisin sauce for serving","2 scallions, sliced"], steps: ["Bring broth to a simmer in a large pot. Add cinnamon stick, star anise, and ginger slices. Simmer 15 minutes to build flavor.","Add whole chicken breast to the broth. Poach 12–15 minutes until cooked through (165°F).","While chicken poaches, soak rice noodles in hot water 10 minutes until pliable. Drain.","Remove chicken and shred with two forks. Strain broth to remove aromatics.","Season broth with fish sauce and sugar. Taste and adjust.","Divide noodles between bowls. Top with shredded chicken. Ladle hot broth over everything.","Serve with the herb plate, bean sprouts, lime wedges, sriracha, and hoisin on the side."], tip: "The broth is everything in pho. Using bone broth adds collagen and depth. The aromatics (star anise, cinnamon, ginger) should be fragrant but not overpowering.", nutrition: ["Bone broth provides glycine and collagen for brain repair and calm","Star anise contains shikimic acid with antiviral and anti-inflammatory properties","Ginger reduces neuroinflammation and improves circulation","Fresh herbs provide diverse polyphenols that protect brain tissue"] };
+  }
+
+  // Thai Satay
+  if (has("satay")) {
+    const ing = ["1 boneless skinless chicken breast, sliced into strips","2 tbsp soy sauce","1 tsp curry powder","1 tsp turmeric","1 tbsp coconut milk","Wooden skewers (soaked in water)"];
+    ing.push("Peanut sauce: ¼ cup peanut butter, 2 tbsp soy sauce, 1 tbsp lime juice, 1 tsp sriracha, 1 tbsp warm water");
+    if (hasRice) ing.push("1 cup cooked brown or jasmine rice");
+    if (hasCucumber) ing.push("½ cucumber, sliced");
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Marinate chicken strips in soy sauce, curry powder, turmeric, and coconut milk for 15+ minutes.","Thread chicken onto soaked wooden skewers.","Grill or broil skewers 3–4 minutes per side until charred and cooked through (165°F).","Make peanut sauce: whisk peanut butter, soy sauce, lime juice, sriracha, and warm water until smooth.","Serve skewers over rice with peanut sauce for dipping and cucumber on the side."], tip: "Soaking wooden skewers prevents them from burning. The coconut milk in the marinade tenderizes the chicken and helps the spices stick.", nutrition: ["Peanut butter provides niacin (B3) for brain energy and tryptophan for serotonin","Turmeric delivers curcumin that crosses the blood-brain barrier","Chicken provides complete protein for neurotransmitter synthesis","Coconut milk MCTs provide quick fuel for the brain"] };
+  }
+
+  // Banh Mi Bowl
+  if (hasAny("banh mi")) {
+    return { serves: 1, time: "25 min", ingredients: [protein === "chicken" ? "1 boneless skinless chicken breast" : proteinIngredient || "6 oz protein of choice","2 tbsp soy sauce","1 tbsp fish sauce","1 tsp sriracha or chili garlic sauce","1 tbsp lime juice","1 cup pickled vegetables (shredded carrots and daikon in rice vinegar)","½ cucumber, sliced thin","¼ cup fresh cilantro","Fresh jalapeño slices","1 cup cooked jasmine or brown rice"], steps: ["Marinate protein in soy sauce, fish sauce, and sriracha for 10 minutes.","Cook protein: grill or pan-sear until done (165°F for chicken).","Quick pickle: toss shredded carrots and daikon with rice vinegar, a pinch of sugar, and salt. Let sit 10 minutes.","Build the bowl: rice base, sliced protein on top, pickled veggies, cucumber, jalapeño, and cilantro.","Drizzle with lime juice and extra sriracha to taste."], tip: "The magic of banh mi is the contrast: warm savory protein against cool, tangy pickled vegetables. Keep the pickles crisp.", nutrition: ["Pickled vegetables provide probiotics for gut-brain axis health","Cilantro helps chelate heavy metals and contains linalool for anxiety reduction","Fish sauce provides glutamate, an important excitatory neurotransmitter precursor","Carrots deliver beta-carotene for brain cell protection"] };
+  }
+
   // Now build steps intelligently
   const prepSteps = [];
   const cookSteps = [];
@@ -2810,6 +3002,8 @@ const generateRecipe = (meal) => {
   if (hasSnapPeas) { prepSteps.push("Trim snap peas. Stir-fry in 1 tsp sesame oil over high heat for 2–3 minutes until bright green and still crisp. Season with a pinch of salt."); }
   if (hasBokChoy) { prepSteps.push("Halve bok choy lengthwise. Heat 1 tsp oil in a skillet over medium-high. Sear cut-side down 2 minutes until charred. Flip, add 1 tbsp soy sauce and 2 tbsp water, cover and steam 2 minutes."); }
   if (hasButternut && !isSoup) { prepSteps.push("Preheat oven to 400°F. Toss cubed butternut squash with 1 tbsp olive oil, salt, pepper, and a pinch of cinnamon. Roast 25–30 minutes, tossing halfway, until caramelized and fork-tender."); totalTime = Math.max(totalTime, 35); }
+  if (hasPlantain) { prepSteps.push("Peel plantain and slice diagonally into ½-inch pieces. Heat 2 tbsp oil in a skillet over medium heat. Fry 2–3 minutes per side until golden brown and caramelized. Drain on paper towels and sprinkle with salt."); }
+  if (hasCollardGreens) { prepSteps.push("Remove tough stems from collard greens and roughly chop. Heat 1 tbsp oil in a pot over medium heat. Add 2 minced garlic cloves and a pinch of red pepper flakes, cook 30 seconds. Add greens with ¼ cup water or broth. Cover and cook 12–15 minutes until tender. Finish with 1 tbsp apple cider vinegar, salt, and pepper."); totalTime = Math.max(totalTime, 20); }
   if (hasZucchini) { prepSteps.push(has("roasted") || has("roast") ? "Slice zucchini into ½-inch rounds. Toss with 1 tbsp olive oil, salt, pepper, and garlic powder. Roast at 425°F for 15–20 minutes until golden and tender." : "Slice zucchini into ½-inch rounds. Heat 1 tbsp olive oil in a skillet over medium-high. Sauté 3–4 minutes per side until golden. Season with salt and pepper."); }
   if (hasGenericVeggies) { prepSteps.push(has("steam") ? "Cut vegetables into similar-sized pieces. Steam over boiling water 5–7 minutes until tender-crisp. Season with salt, pepper, and a drizzle of olive oil." : "Preheat oven to 425°F. Cut vegetables into similar-sized pieces. Toss with olive oil, salt, pepper, and garlic powder. Spread in a single layer on a baking sheet. Roast 20–25 minutes, tossing halfway, until caramelized."); totalTime = Math.max(totalTime, 30); }
   if (hasRootVeg) { prepSteps.push("Preheat oven to 425°F. Toss parsnips, carrots, and turnip with 2 tbsp olive oil, rosemary (or thyme), salt, and pepper. Spread in a single layer on a baking sheet. Roast 30–35 minutes, tossing halfway, until caramelized and fork-tender."); totalTime = Math.max(totalTime, 40); }
