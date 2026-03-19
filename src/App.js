@@ -7436,11 +7436,24 @@ function NeuroThriveApp() {
         {/* STEP 3: DIET */}
         {step === 3 && (
           <div>
+            {/* Cuisine Preferences — first so brain-optimized can use them */}
+            <h2 style={S.sectionTitle}>What cuisines do you enjoy?</h2>
+            <p style={S.sectionSub}>Select the cuisines you love. Universal meals like salads, bowls, and smoothies are always included. Leave blank to include all cuisines.</p>
+            <div style={S.grid}>
+              {CUISINE_TYPES.map(c => (
+                <div key={c.id} style={S.chip(selectedCuisines.includes(c.id))} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)}>
+                  <span style={{ fontSize:"17px" }}>{c.emoji}</span><span>{c.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ height:"24px" }} />
+
             {/* Brain-Optimized Quick Start */}
             <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(107,143,255,0.08))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"24px", textAlign:"center" }}>
               <div style={{ fontSize:"28px", marginBottom:"10px" }}>🧠</div>
               <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h2>
-              <p style={{ color:"#a0c8b0", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Skip dietary restrictions and build the best possible menu for your brain chemistry using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.{selectedCuisines.length > 0 ? " Your cuisine preferences will still be applied." : " Pick your cuisine preferences below first, or we'll include all cuisines."}</p>
+              <p style={{ color:"#a0c8b0", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Skip dietary restrictions and build the best possible menu for your brain chemistry using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.{selectedCuisines.length > 0 ? "" : " Select cuisines above first, or all cuisines will be included."}</p>
               <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,200,120,0.3)" }}>
                 Build Brain-Optimized Menu →
               </button>
@@ -7448,7 +7461,7 @@ function NeuroThriveApp() {
 
             <div style={{ display:"flex", alignItems:"center", gap:"14px", marginBottom:"24px" }}>
               <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)" }} />
-              <span style={{ color:"#6b7394", fontSize:"12px", fontWeight:"600", letterSpacing:"1px" }}>OR CUSTOMIZE</span>
+              <span style={{ color:"#6b7394", fontSize:"12px", fontWeight:"600", letterSpacing:"1px" }}>OR CUSTOMIZE YOUR PLAN</span>
               <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)" }} />
             </div>
 
@@ -7497,18 +7510,6 @@ function NeuroThriveApp() {
                 </div>
               </div>
             )}
-
-            <div style={S.divider} />
-
-            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Cuisine Preferences</h3>
-            <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select the cuisines you enjoy. Universal meals like salads, bowls, and smoothies are always included. Leave blank to include all cuisines.</p>
-            <div style={S.grid}>
-              {CUISINE_TYPES.map(c => (
-                <div key={c.id} style={S.chip(selectedCuisines.includes(c.id))} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)}>
-                  <span style={{ fontSize:"17px" }}>{c.emoji}</span><span>{c.label}</span>
-                </div>
-              ))}
-            </div>
 
             <div style={S.divider} />
 
