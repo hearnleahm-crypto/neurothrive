@@ -7464,7 +7464,8 @@ function NeuroThriveApp() {
                 <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border:"1px solid rgba(107,143,255,0.2)", textAlign:"center" }}>
                   <div style={{ fontSize:"28px", marginBottom:"10px" }}>🎛️</div>
                   <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h2>
-                  <p style={{ color:"#a0b8ff", fontSize:"13px", lineHeight:1.6, maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets to build a fully personalized menu.</p>
+                  <p style={{ color:"#a0b8ff", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets to build a fully personalized menu.</p>
+                  <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)" }}>Customize My Plan →</span>
                 </div>
               </summary>
 
