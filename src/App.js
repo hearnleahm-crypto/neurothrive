@@ -959,7 +959,19 @@ const getMealWeight = (name) => {
 
 // Bias pools based on calorie target + food preferences
 // Duplicates preferred meals so they appear more often after shuffle
-const biasPool = (pool, calTarget, foodPrefs, favorites) => {
+const biasPool = (pool, calTarget, foodPrefs, favorites, powerFoodKeywords) => {
+  // Brain-optimized: boost meals containing power food keywords
+  if (powerFoodKeywords && powerFoodKeywords.length > 0) {
+    const boosted = [];
+    for (const m of pool) {
+      const lower = m.name.toLowerCase();
+      const hits = powerFoodKeywords.filter(k => lower.includes(k)).length;
+      if (hits >= 2) { boosted.push(m, m, m, m); }       // 2+ power foods: 4×
+      else if (hits === 1) { boosted.push(m, m, m); }     // 1 power food: 3×
+      else { boosted.push(m); }                             // no match: keep once
+    }
+    pool = boosted;
+  }
   // Food preference biasing: duplicate meals that match user's preferred ingredients
   let biased = [];
   if (foodPrefs && foodPrefs.length > 0) {
@@ -996,11 +1008,11 @@ const biasPool = (pool, calTarget, foodPrefs, favorites) => {
   return biased;
 };
 
-const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, foodPrefs, favorites) => {
-  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
-  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
-  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
-  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites);
+const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, foodPrefs, favorites, powerFoodKeywords) => {
+  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
   const addSecondSnack = calTarget === "2000";
 
   const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
@@ -5368,6 +5380,7 @@ function NeuroThriveApp() {
   const [selectedDiet, setSelectedDiet] = useState([]);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedFoodPrefs, setSelectedFoodPrefs] = useState([]);
+  const [brainOptimized, setBrainOptimized] = useState(false);
   const [calorieTarget, setCalorieTarget] = useState("1500");
   const [menu30, setMenu30] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(0);
@@ -5483,6 +5496,7 @@ function NeuroThriveApp() {
           if (data.selected_cuisines) setSelectedCuisines(data.selected_cuisines);
           if (data.food_prefs) setSelectedFoodPrefs(data.food_prefs);
           if (data.calorie_target) setCalorieTarget(data.calorie_target);
+          if (data.brain_optimized) setBrainOptimized(data.brain_optimized);
           if (data.menu30) setMenu30(data.menu30);
           if (data.logs) setLogs(data.logs);
           if (data.plan_cycle) setPlanCycle(data.plan_cycle);
@@ -5631,6 +5645,7 @@ function NeuroThriveApp() {
           selected_diet: selectedDiet,
           selected_cuisines: selectedCuisines,
           food_prefs: selectedFoodPrefs,
+          brain_optimized: brainOptimized,
           calorie_target: calorieTarget,
           menu30,
           logs,
@@ -5664,7 +5679,7 @@ function NeuroThriveApp() {
       } catch(e) { console.error("Save failed:", e); }
     }, 800);
     return () => clearTimeout(timer);
-  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, selectedFoodPrefs, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, favoriteMeals, exerciseTimePref, dataLoaded, hydratedFlag, user]);
+  }, [selectedGender, selectedConditions, selectedDiet, selectedCuisines, selectedFoodPrefs, calorieTarget, menu30, logs, planCycle, cycleStartDate, step, remindersEnabled, reminderTimes, reminderActive, dailyChecks, onboardingDone, cycleSyncEnabled, lastPeriodDate, cycleLength, routinePrefs, personalRoutine, favoriteMeals, exerciseTimePref, brainOptimized, dataLoaded, hydratedFlag, user]);
 
   // ── Feature tour trigger (shows once at start of onboarding) ────────────────
   useEffect(() => {
@@ -5991,9 +6006,30 @@ function NeuroThriveApp() {
     setList(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
-  const buildMenu = (isUpdate) => {
+  const buildMenu = (isUpdate, forceOptimized) => {
+    const optimized = forceOptimized != null ? forceOptimized : brainOptimized;
     const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs, favoriteMeals);
+    // Build power food keywords from BRAIN_DIET_GUIDE when brain-optimized
+    let powerFoodKeywords = null;
+    if (optimized) {
+      const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+      const keywords = new Set();
+      condIds.forEach(id => {
+        const guide = BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default;
+        guide.powerFoods.forEach(f => {
+          // Extract searchable keywords from food names
+          f.food.toLowerCase().replace(/\(.*?\)/g, "").split(/[,&\/]/).forEach(part => {
+            const w = part.trim().replace(/^(wild|grass-fed|tart|dark)\s+/i, "").replace(/\s*\+$/, "");
+            if (w.length > 2) keywords.add(w);
+          });
+        });
+      });
+      powerFoodKeywords = [...keywords];
+    }
+    const dietFilters = optimized ? [] : selectedDiet;
+    const cuisineFilters = optimized ? [] : selectedCuisines;
+    const foodPrefFilters = optimized ? [] : selectedFoodPrefs;
+    const days = build30DayMenu(condition, dietFilters, calorieTarget, cuisineFilters, foodPrefFilters, favoriteMeals, powerFoodKeywords);
     setMenu30(days);
     if (isUpdate) {
       // Updating existing plan — keep cycle, clear swaps, go to meal plan
@@ -7400,6 +7436,22 @@ function NeuroThriveApp() {
         {/* STEP 3: DIET */}
         {step === 3 && (
           <div>
+            {/* Brain-Optimized Quick Start */}
+            <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(107,143,255,0.08))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"24px", textAlign:"center" }}>
+              <div style={{ fontSize:"28px", marginBottom:"10px" }}>🧠</div>
+              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h2>
+              <p style={{ color:"#a0c8b0", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>No restrictions, no filters. We'll build the best possible menu for your brain chemistry using the top neuroscience-backed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
+              <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,200,120,0.3)" }}>
+                Build Brain-Optimized Menu →
+              </button>
+            </div>
+
+            <div style={{ display:"flex", alignItems:"center", gap:"14px", marginBottom:"24px" }}>
+              <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)" }} />
+              <span style={{ color:"#6b7394", fontSize:"12px", fontWeight:"600", letterSpacing:"1px" }}>OR CUSTOMIZE</span>
+              <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)" }} />
+            </div>
+
             <h2 style={S.sectionTitle}>Dietary needs & restrictions</h2>
             <p style={S.sectionSub}>Select everything that applies; your menu will be personalized to match your lifestyle and avoid anything that doesn't work for you.</p>
 
@@ -7491,8 +7543,8 @@ function NeuroThriveApp() {
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
               {menu30 && menu30.length > 0
-                ? <button style={S.btn} onClick={() => buildMenu(true)}>Update My Plan →</button>
-                : <button style={S.btn} onClick={() => buildMenu(false)}>Build My 30-Day Menu →</button>
+                ? <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(true, false); }}>Update My Plan →</button>
+                : <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(false, false); }}>Build My 30-Day Menu →</button>
               }
             </div>
           </div>
@@ -7597,6 +7649,17 @@ function NeuroThriveApp() {
               <div style={{ ...S.card, marginBottom:"18px" }}>
                 <div style={S.mealLabel}>Optimised for</div>
                 {(CONDITION_FOCUS[selectedConditions[0]] || CONDITION_FOCUS.default).map(f => <span key={f} style={S.tag}>{f}</span>)}
+              </div>
+            )}
+
+            {isPremium && brainOptimized && (
+              <div style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(80,200,120,0.04))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"12px", display:"flex", alignItems:"center", gap:"12px" }}>
+                <span style={{ fontSize:"16px" }}>🧠</span>
+                <div style={{ flex:1 }}>
+                  <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700" }}>Brain-Optimized Menu</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No restrictions — built for your brain chemistry</div>
+                </div>
+                <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"8px", border:"1px solid rgba(110,120,200,0.2)", background:"transparent", color:"#8890b8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
               </div>
             )}
 
@@ -10221,6 +10284,13 @@ function NeuroThriveApp() {
               <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginTop:"20px", marginBottom:"20px" }}>
                 <p style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6, margin:0 }}>This guide is informed by neuroscience research on nutrition and brain chemistry. It is not a substitute for professional medical advice. Always consult your doctor before making significant dietary changes.</p>
               </div>
+
+              {!brainOptimized && (
+                <div onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ padding:"16px 20px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(80,200,120,0.04))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"20px", cursor:"pointer", textAlign:"center" }}>
+                  <div style={{ color:"#50c878", fontSize:"14px", fontWeight:"700", marginBottom:"4px" }}>Build this menu for me</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px" }}>Generate a brain-optimized 30-day menu based on these recommendations</div>
+                </div>
+              )}
 
               <div style={{ display:"flex", justifyContent:"space-between" }}>
                 <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← 30-Day Menu</button>
