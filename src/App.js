@@ -5142,27 +5142,21 @@ function buildMealExplanation(meal, conditionIds) {
     default: { label: "your mental health", systems: "key neurotransmitters", region: "multiple brain regions", functions: "cognitive function, mood regulation, and brain health", depletions: "essential brain nutrients", mechanism: "nutritional gaps impair neurotransmitter production" },
   };
 
-  // 4 intro templates — meal name hash selects which one, so different meals get different intros
   const mealHash = meal.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const cNeuro = COND_NEURO[primaryId] || COND_NEURO.default;
 
-  // Get top nutrient highlights from actual ingredients
-  const topNutrients = ingredients.slice(0, 3).map(k => {
-    const d = INGREDIENT_SCIENCE[k];
-    return d ? d.nutrient.split(',')[0].trim() : null;
+  // Build ingredient-driven intro from the ACTUAL nutrients in this specific meal
+  const ingredientName = (key) => key === "sweetpotato" ? "sweet potato" : key === "brownrice" ? "brown rice" : key === "chiaseeds" ? "chia seeds" : key === "hempseeds" ? "hemp seeds" : key === "greekyogurt" ? "Greek yogurt" : key === "darkchocolate" ? "dark chocolate" : key === "peanutbutter" ? "peanut butter" : key === "pumpkinseeds" ? "pumpkin seeds" : key;
+
+  const topIng = ingredients.slice(0, 4).map(key => {
+    const data = INGREDIENT_SCIENCE[key];
+    if (!data) return null;
+    const nutrients = data.nutrient.split(',').map(s => s.trim().replace(/^and\s+/, ''));
+    const nutrient = nutrients[(mealHash + ingredients.indexOf(key)) % nutrients.length] || nutrients[0];
+    return { name: ingredientName(key), nutrient, fullNutrient: nutrients[0], general: data.what_it_does };
   }).filter(Boolean);
-  const nutrientPhrase = topNutrients.length >= 2
-    ? topNutrients.slice(0, 2).join(' and ')
-    : topNutrients[0] || cNeuro.depletions;
 
-  const introTemplates = [
-    `${meal} delivers ${nutrientPhrase} that your ${cNeuro.label} brain specifically needs for ${cNeuro.functions}. In ${cNeuro.label}, ${cNeuro.mechanism} — and each ingredient here works to counter that. Here's the breakdown:`,
-    `Your ${cNeuro.label} brain has higher demands for ${cNeuro.depletions} because ${cNeuro.mechanism}. ${meal} addresses those deficits directly, supporting ${cNeuro.systems} signaling in the ${cNeuro.region}. Here's how:`,
-    `In ${cNeuro.label}, ${cNeuro.mechanism}, which disrupts ${cNeuro.functions}. ${meal} provides targeted nutritional support — ${nutrientPhrase} — that your ${cNeuro.region} can use to restore ${cNeuro.systems} balance:`,
-    `The ${cNeuro.functions} challenges in ${cNeuro.label} are driven by ${cNeuro.systems} dysregulation in the ${cNeuro.region}. ${meal} was built to fill those nutritional gaps with ${nutrientPhrase} and other bioavailable nutrients your brain can use immediately:`,
-  ];
-
-  // Build intro
+  // Build intro from actual ingredients — general descriptions here, condition-specific in bullets
   let intro = "";
   if (activeIds.length > 1) {
     const multiIntros = activeIds.map(id => {
@@ -5170,8 +5164,14 @@ function buildMealExplanation(meal, conditionIds) {
       return `${cn.label}: ${cn.mechanism}, which disrupts ${cn.functions}. This meal delivers ${cn.depletions} to support ${cn.systems} signaling.`;
     });
     intro = `${meal} was chosen specifically for your combination of ${condString}.\n\n` + multiIntros.join("\n");
+  } else if (topIng.length >= 3) {
+    intro = `${meal} combines ${topIng[0].fullNutrient} from the ${topIng[0].name}, ${topIng[1].nutrient} from the ${topIng[1].name}, and ${topIng[2].nutrient} from the ${topIng[2].name}. The ${topIng[0].name} ${topIng[0].general}, while the ${topIng[1].name} ${topIng[1].general}. Here's what each ingredient does for ${cNeuro.label} specifically:`;
+  } else if (topIng.length === 2) {
+    intro = `${meal} pairs ${topIng[0].fullNutrient} from ${topIng[0].name} with ${topIng[1].nutrient} from ${topIng[1].name}. The ${topIng[0].name} ${topIng[0].general}, and the ${topIng[1].name} ${topIng[1].general}. Here's how each ingredient supports your ${cNeuro.label} brain:`;
+  } else if (topIng.length === 1) {
+    intro = `${meal} delivers ${topIng[0].fullNutrient} from the ${topIng[0].name}, which ${topIng[0].general}. Here's why this matters for ${cNeuro.label}:`;
   } else {
-    intro = introTemplates[mealHash % introTemplates.length];
+    intro = `${meal} provides targeted nutrition for ${cNeuro.label}, supporting ${cNeuro.functions} through ${cNeuro.systems} regulation in the ${cNeuro.region}. Here's the breakdown:`;
   }
 
   if (ingredients.length === 0) {
