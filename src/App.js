@@ -4399,7 +4399,7 @@ const INGREDIENT_SCIENCE = {
     what_it_does: "anthocyanins cross the blood-brain barrier and directly deposit in the hippocampus, where they increase BDNF (brain growth factor) and improve neural plasticity",
     conditions: {
       depression: "BDNF (brain-derived neurotrophic factor) is severely reduced in depression and directly reversed by antidepressant treatment; blueberries boost BDNF nutritionally",
-      adhd: "cerebral blood flow improvements from anthocyanins directly benefit the prefrontal cortex; ptero-stilbene has been shown to improve working memory",
+      adhd: "cerebral blood flow improvements from anthocyanins directly benefit the prefrontal cortex; pterostilbene has been shown to improve working memory",
       bipolar: "BDNF is suppressed during depressive episodes in bipolar disorder; blueberries provide a nutritional BDNF boost alongside mood stabilizers",
       schizophrenia: "anthocyanins protect dopamine neurons in the striatum; resveratrol has anti-inflammatory effects on microglial cells",
       ptsd: "BDNF is critical for fear extinction and hippocampal recovery from trauma; blueberries are one of the best dietary BDNF boosters available",
@@ -5077,7 +5077,7 @@ const INGREDIENT_KEYWORDS = [
   ["corn", "corn"], ["cornbread", "corn"],
   ["catfish", "cod"], ["tilapia", "cod"], ["white fish", "cod"], ["mahi", "cod"],
   ["collard", "kale"], ["callaloo", "kale"], ["bok choy", "kale"],
-  ["oxtail", "beef"], ["brisket", "beef"], ["ground beef", "beef"],
+  ["oxtail", "beef"], ["ground beef", "beef"],
   ["curry", "turmeric"], ["miso", "kimchi"], ["sauerkraut", "kimchi"],
   ["grits", "corn"], ["okra", "peppers"],
   ["pea", "beans"], ["lentil", "lentils"],
@@ -5129,16 +5129,16 @@ function buildMealExplanation(meal, conditionIds) {
     autism: { label: "Autism Spectrum", systems: "serotonin, GABA, and gut-brain signaling", region: "gut-brain axis and sensory circuits", functions: "sensory processing, emotional regulation, and gut health", depletions: "B6, magnesium, and probiotics", mechanism: "gut microbiome disruption affects brain neurotransmitter production" },
     ptsd: { label: "PTSD", systems: "cortisol, serotonin, and norepinephrine", region: "hippocampus and amygdala", functions: "stress recovery, memory processing, and hyperarousal reduction", depletions: "vitamin C, omega-3s, and magnesium", mechanism: "chronic cortisol elevation shrinks the hippocampus and depletes calming neurotransmitters" },
     did: { label: "DID", systems: "cortisol, GABA, and serotonin", region: "hippocampus and integration circuits", functions: "grounding, memory integration, and stress regulation", depletions: "B vitamins, magnesium, and steady glucose", mechanism: "blood sugar instability and cortisol spikes increase dissociative vulnerability" },
-    bpd: { label: "BPD", systems: "serotonin and oxytocin", region: "amygdala and prefrontal cortex", functions: "emotional regulation, interpersonal stability, and impulse control", depletions: "omega-3s, magnesium, and tryptophan", mechanism: "the emotional brain reacts faster than the rational brain can moderate" },
-    npd: { label: "NPD", systems: "dopamine and oxytocin", region: "prefrontal empathy circuits", functions: "emotional processing, self-regulation, and empathy", depletions: "omega-3s, B vitamins, and magnesium", mechanism: "dopamine reward sensitivity is elevated while empathy circuits are underactive" },
-    hpd: { label: "HPD", systems: "serotonin and dopamine", region: "reward and emotional intensity circuits", functions: "emotional modulation, impulse regulation, and stable mood", depletions: "tryptophan, magnesium, and omega-3s", mechanism: "serotonin fluctuations amplify emotional intensity and reward-seeking" },
-    aspd: { label: "ASPD", systems: "serotonin and prefrontal signaling", region: "prefrontal cortex and amygdala", functions: "impulse control, consequence evaluation, and empathy", depletions: "omega-3s, zinc, and B vitamins", mechanism: "prefrontal cortex underactivity reduces impulse control and consequence evaluation" },
+    bpd: { label: "Borderline Personality Disorder", systems: "serotonin and oxytocin", region: "amygdala and prefrontal cortex", functions: "emotional regulation, interpersonal stability, and impulse control", depletions: "omega-3s, magnesium, and tryptophan", mechanism: "the emotional brain reacts faster than the rational brain can moderate" },
+    npd: { label: "Narcissistic Personality Disorder", systems: "dopamine and oxytocin", region: "prefrontal empathy circuits", functions: "emotional processing, self-regulation, and empathy", depletions: "omega-3s, B vitamins, and magnesium", mechanism: "dopamine reward sensitivity is elevated while empathy circuits are underactive" },
+    hpd: { label: "Histrionic Personality Disorder", systems: "serotonin and dopamine", region: "reward and emotional intensity circuits", functions: "emotional modulation, impulse regulation, and stable mood", depletions: "tryptophan, magnesium, and omega-3s", mechanism: "serotonin fluctuations amplify emotional intensity and reward-seeking" },
+    aspd: { label: "Antisocial Personality Disorder", systems: "serotonin and prefrontal cortex", region: "prefrontal cortex and amygdala", functions: "impulse control, consequence evaluation, and empathy", depletions: "omega-3s, zinc, and B vitamins", mechanism: "prefrontal cortex underactivity reduces impulse control and consequence evaluation" },
     ocd: { label: "OCD", systems: "serotonin and glutamate", region: "cortico-striatal-thalamic circuits", functions: "thought flexibility, compulsion resistance, and calm", depletions: "tryptophan, inositol, and B vitamins", mechanism: "serotonin deficiency locks the brain into repetitive thought-action loops" },
-    eating: { label: "recovery", systems: "all major neurotransmitters", region: "hypothalamus and reward circuits", functions: "metabolic repair, mood stability, and brain-body reconnection", depletions: "complete protein, healthy fats, and micronutrients", mechanism: "nutritional deficits disrupt every brain system simultaneously" },
+    eating: { label: "Eating Disorder Recovery", systems: "serotonin, dopamine, and GABA", region: "hypothalamus and reward circuits", functions: "metabolic repair, mood stability, and brain-body reconnection", depletions: "complete protein, healthy fats, and micronutrients", mechanism: "nutritional deficits disrupt every brain system simultaneously" },
     phobia: { label: "Phobias", systems: "GABA and cortisol", region: "amygdala and fear circuits", functions: "fear modulation, stress resilience, and nervous system balance", depletions: "magnesium, B vitamins, and tryptophan", mechanism: "the fear response fires disproportionately to the actual threat level" },
     bfrb: { label: "BFRBs", systems: "GABA, serotonin, and glutamate", region: "basal ganglia and motor circuits", functions: "urge regulation, nervous system calm, and impulse control", depletions: "magnesium, NAC precursors, and B vitamins", mechanism: "nervous system hyperarousal lowers the threshold for repetitive motor behaviors" },
-    ppd: { label: "PPD", systems: "GABA, serotonin, and cortisol", region: "amygdala threat-detection circuits", functions: "trust, accurate threat assessment, and nervous system calm", depletions: "omega-3s, magnesium, and vitamin D", mechanism: "the brain's alarm system fires on neutral stimuli as if they were threats" },
-    spd: { label: "SPD", systems: "dopamine, oxytocin, and BDNF", region: "reward and social cognition circuits", functions: "motivation, emotional awareness, and social engagement", depletions: "tyrosine, omega-3s, and B12", mechanism: "underactive reward circuits make social engagement feel effortful rather than rewarding" },
+    ppd: { label: "Paranoid Personality Disorder", systems: "GABA, serotonin, and cortisol", region: "amygdala threat-detection circuits", functions: "trust, accurate threat assessment, and nervous system calm", depletions: "omega-3s, magnesium, and vitamin D", mechanism: "the brain's alarm system fires on neutral stimuli as if they were threats" },
+    spd: { label: "Schizoid Personality Disorder", systems: "dopamine, oxytocin, and BDNF", region: "reward and social cognition circuits", functions: "motivation, emotional awareness, and social engagement", depletions: "tyrosine, omega-3s, and B12", mechanism: "underactive reward circuits make social engagement feel effortful rather than rewarding" },
     default: { label: "your mental health", systems: "key neurotransmitters", region: "multiple brain regions", functions: "cognitive function, mood regulation, and brain health", depletions: "essential brain nutrients", mechanism: "nutritional gaps impair neurotransmitter production" },
   };
 
@@ -5146,7 +5146,7 @@ function buildMealExplanation(meal, conditionIds) {
   const cNeuro = COND_NEURO[primaryId] || COND_NEURO.default;
 
   // Build ingredient-driven intro from the ACTUAL nutrients in this specific meal
-  const ingredientName = (key) => key === "sweetpotato" ? "sweet potato" : key === "brownrice" ? "brown rice" : key === "chiaseeds" ? "chia seeds" : key === "hempseeds" ? "hemp seeds" : key === "greekyogurt" ? "Greek yogurt" : key === "darkchocolate" ? "dark chocolate" : key === "peanutbutter" ? "peanut butter" : key === "pumpkinseeds" ? "pumpkin seeds" : key;
+  const ingredientName = (key) => ({ sweetpotato: "sweet potatoes", brownrice: "brown rice", chiaseeds: "chia seeds", hempseeds: "hemp seeds", greekyogurt: "Greek yogurt", darkchocolate: "dark chocolate", peanutbutter: "peanut butter", pumpkinseeds: "pumpkin seeds", banana: "bananas", mango: "mangoes", apple: "apples", tomato: "tomatoes", carrot: "carrots", potato: "potatoes", plantain: "plantains", beans: "legumes", lemon: "citrus" }[key] || key);
 
   const topIng = ingredients.slice(0, 4).map(key => {
     const data = INGREDIENT_SCIENCE[key];
@@ -5156,7 +5156,7 @@ function buildMealExplanation(meal, conditionIds) {
     return { name: ingredientName(key), nutrient, fullNutrient: nutrients[0], general: data.what_it_does };
   }).filter(Boolean);
 
-  // Build intro from actual ingredients — general descriptions here, condition-specific in bullets
+  // Build intro — name ingredients + nutrients briefly, let bullets carry the detail
   let intro = "";
   if (activeIds.length > 1) {
     const multiIntros = activeIds.map(id => {
@@ -5165,17 +5165,17 @@ function buildMealExplanation(meal, conditionIds) {
     });
     intro = `${meal} was chosen specifically for your combination of ${condString}.\n\n` + multiIntros.join("\n");
   } else if (topIng.length >= 3) {
-    intro = `${meal} combines ${topIng[0].fullNutrient} from the ${topIng[0].name}, ${topIng[1].nutrient} from the ${topIng[1].name}, and ${topIng[2].nutrient} from the ${topIng[2].name}. The ${topIng[0].name} ${topIng[0].general}, while the ${topIng[1].name} ${topIng[1].general}. Here's what each ingredient does for ${cNeuro.label} specifically:`;
+    intro = `${meal} combines ${topIng[0].fullNutrient} from ${topIng[0].name}, ${topIng[1].nutrient} from ${topIng[1].name}, and ${topIng[2].nutrient} from ${topIng[2].name}. Each targets a different pathway that ${cNeuro.label} affects — here's what each ingredient does for your brain:`;
   } else if (topIng.length === 2) {
-    intro = `${meal} pairs ${topIng[0].fullNutrient} from ${topIng[0].name} with ${topIng[1].nutrient} from ${topIng[1].name}. The ${topIng[0].name} ${topIng[0].general}, and the ${topIng[1].name} ${topIng[1].general}. Here's how each ingredient supports your ${cNeuro.label} brain:`;
+    intro = `${meal} pairs ${topIng[0].fullNutrient} from ${topIng[0].name} with ${topIng[1].nutrient} from ${topIng[1].name}, targeting the ${cNeuro.systems} pathways that ${cNeuro.label} affects most. Here's the breakdown:`;
   } else if (topIng.length === 1) {
-    intro = `${meal} delivers ${topIng[0].fullNutrient} from the ${topIng[0].name}, which ${topIng[0].general}. Here's why this matters for ${cNeuro.label}:`;
+    intro = `${meal} delivers ${topIng[0].fullNutrient} from ${topIng[0].name}, which your brain uses for ${cNeuro.functions}. Here's how this meal helps with ${cNeuro.label}:`;
   } else {
-    intro = `${meal} provides targeted nutrition for ${cNeuro.label}, supporting ${cNeuro.functions} through ${cNeuro.systems} regulation in the ${cNeuro.region}. Here's the breakdown:`;
+    intro = `${meal} provides targeted nutrition for ${cNeuro.label}, supporting ${cNeuro.functions} by nourishing the ${cNeuro.systems} pathways.`;
   }
 
   if (ingredients.length === 0) {
-    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind; you're nourishing yourself with intention.`;
+    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind — you're nourishing yourself with intention.`;
   }
 
   // For each ingredient, if multiple conditions show the most relevant note
@@ -5183,13 +5183,16 @@ function buildMealExplanation(meal, conditionIds) {
     const data = INGREDIENT_SCIENCE[key];
     if (!data) return null;
 
-    const name = key === "sweetpotato" ? "Sweet potato"
+    const name = key === "sweetpotato" ? "Sweet potatoes"
       : key === "brownrice" ? "Brown rice"
       : key === "chiaseeds" ? "Chia seeds"
       : key === "hempseeds" ? "Hemp seeds"
       : key === "greekyogurt" ? "Greek yogurt"
       : key === "darkchocolate" ? "Dark chocolate"
       : key === "peanutbutter" ? "Peanut butter"
+      : key === "pumpkinseeds" ? "Pumpkin seeds"
+      : key === "beans" ? "Legumes"
+      : key === "cod" ? "White fish"
       : key.charAt(0).toUpperCase() + key.slice(1);
 
     if (activeIds.length > 1) {
@@ -5203,12 +5206,12 @@ function buildMealExplanation(meal, conditionIds) {
         });
       if (condNotes.length === 0) {
         const fallback = data.conditions["default"] || data.what_it_does;
-        return `• ${name}: contains ${data.nutrient}. ${fallback.charAt(0).toUpperCase() + fallback.slice(1)}.`;
+        return `• ${name}: rich in ${data.nutrient}. ${fallback.charAt(0).toUpperCase() + fallback.slice(1)}.`;
       }
-      return `• ${name}: contains ${data.nutrient}.\n${condNotes.join("\n")}`;
+      return `• ${name}: rich in ${data.nutrient}.\n${condNotes.join("\n")}`;
     } else {
       const condNote = data.conditions[primaryId] || data.conditions["default"] || data.what_it_does;
-      return `• ${name}: contains ${data.nutrient}. ${condNote.charAt(0).toUpperCase() + condNote.slice(1)}.`;
+      return `• ${name}: rich in ${data.nutrient}. ${condNote.charAt(0).toUpperCase() + condNote.slice(1)}.`;
     }
   }).filter(Boolean);
 
