@@ -7761,7 +7761,7 @@ function NeuroThriveApp() {
 
             <div style={{ display:"flex", gap:"12px", justifyContent:"flex-end" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Adjust Filters</button>
-              <button style={S.btnAccent} onClick={() => setStep(8)}>Log Today's Mood →</button>
+              <button style={S.btnAccent} onClick={() => setStep(12)}>Today's Checklist →</button>
             </div>
             <p style={{ color:"#5a6080", fontSize:"10px", textAlign:"center", marginTop:"20px", lineHeight:1.6 }}>Always verify ingredients if you have severe allergies. Dietary filters remove tagged items but cannot guarantee every ingredient in a recipe.</p>
           </div>
