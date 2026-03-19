@@ -9,6 +9,7 @@ import { EXTRA_ONBOARDING } from "./extraOnboarding";
 import { ROUTINE_QUESTIONS, ROUTINE_STEP_LIBRARY, generateRoutine } from "./routineData";
 import { NS_CATEGORIES, NS_TOOLS } from "./nervousSystemData";
 import { SCIENTIFIC_REFERENCES } from "./referencesData";
+import { BRAIN_DIET_GUIDE } from "./brainDietGuideData";
 const DID_YOU_KNOW = { ..._DID_YOU_KNOW, ...EXTRA_DID_YOU_KNOW, ...EXTRA_DID_YOU_KNOW_2 };
 const ONBOARDING_INSIGHTS = { ..._ONBOARDING_INSIGHTS, ...EXTRA_ONBOARDING };
 
@@ -7078,7 +7079,7 @@ function NeuroThriveApp() {
         </div>
         {isPremium && step > 3 && (
           <div style={{ position:"relative", flexShrink:0 }}>
-            <button style={S.navTab([6,7,8,9,10,14,15,16,17,18].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
+            <button style={S.navTab([6,7,8,9,10,14,15,16,17,18,19].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
             {showMoreMenu && (
               <>
                 <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
@@ -7101,6 +7102,7 @@ function NeuroThriveApp() {
                     { label:"Nervous System", s:14 },
                     { label:"Grocery List",  s:15 },
                     { label:"Meal Prep",     s:18 },
+                    { label:"Diet Guide",    s:19 },
                     { label:"Favorites",     s:16 },
                   ].map(({ label, s }) => (
                     <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); if(s===14){setNsCategory(null);setNsTool(null);} if(s===15){setGroceryWeek(selectedWeek);setGroceryChecked({});} if(s===18){setMealPrepWeek(selectedWeek);setMealPrepChecked({});} }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
@@ -7595,6 +7597,17 @@ function NeuroThriveApp() {
               <div style={{ ...S.card, marginBottom:"18px" }}>
                 <div style={S.mealLabel}>Optimised for</div>
                 {(CONDITION_FOCUS[selectedConditions[0]] || CONDITION_FOCUS.default).map(f => <span key={f} style={S.tag}>{f}</span>)}
+              </div>
+            )}
+
+            {isPremium && (
+              <div onClick={() => setStep(19)} style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(123,159,255,0.04))", border:"1px solid rgba(107,143,255,0.15)", marginBottom:"18px", cursor:"pointer", display:"flex", alignItems:"center", gap:"12px" }}>
+                <span style={{ fontSize:"18px" }}>🧬</span>
+                <div style={{ flex:1 }}>
+                  <div style={{ color:"#a0b8ff", fontSize:"13px", fontWeight:"700" }}>Brain Diet Guide</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>See the optimal diet for your brain type</div>
+                </div>
+                <span style={{ color:"#7b9fff", fontSize:"14px" }}>→</span>
               </div>
             )}
 
@@ -8877,10 +8890,15 @@ function NeuroThriveApp() {
 
               {/* Section B: Today's Meals */}
               <div style={sectionDivider} />
-              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); setGroceryChecked({}); setStep(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
+              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); setGroceryChecked({}); setStep(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"10px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
                 <span style={{ fontSize:"16px" }}>🛒</span>
                 <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
                 <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
+              </div>
+              <div onClick={() => setStep(19)} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"16px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
+                <span style={{ fontSize:"16px" }}>🧬</span>
+                <span style={{ color:"#a0b8ff", fontSize:"13px", fontWeight:"600" }}>Brain Diet Guide — your optimal diet by condition</span>
+                <span style={{ marginLeft:"auto", color:"#7b9fff", fontSize:"14px" }}>→</span>
               </div>
               <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
@@ -9983,6 +10001,99 @@ function NeuroThriveApp() {
               <div style={{ display:"flex", justifyContent:"space-between" }}>
                 <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Menu</button>
                 <button style={S.btn} onClick={() => { setGroceryWeek(mealPrepWeek); setGroceryChecked({}); setStep(15); }}>Grocery List →</button>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* ── STEP 19: BRAIN DIET GUIDE ────────────────────────────────────── */}
+        {step === 19 && isPremium && (() => {
+          const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+          const guides = condIds.map(id => BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default);
+          return (
+            <div>
+              <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(107,143,255,0.12)", color:"#7b9fff", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>Brain Diet Guide</div>
+              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"6px" }}>Your Optimal Brain Diet</h2>
+              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6, marginBottom:"24px" }}>Science-informed nutritional guidance personalized for your brain type. These are the foods and patterns that target the specific neurotransmitter systems your conditions affect.</p>
+
+              {guides.map((guide, gi) => (
+                <div key={condIds[gi]} style={{ marginBottom: gi < guides.length - 1 ? "32px" : "0" }}>
+                  {guides.length > 1 && (
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
+                      <span style={{ fontSize:"20px" }}>{guide.emoji}</span>
+                      <h3 style={{ fontSize:"18px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>{guide.label}</h3>
+                    </div>
+                  )}
+
+                  {/* Summary */}
+                  <div style={{ ...S.card, padding:"18px 20px", marginBottom:"16px", borderLeft:"3px solid #7b9fff" }}>
+                    {guides.length <= 1 && <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}><span style={{ fontSize:"18px" }}>{guide.emoji}</span><span style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"700" }}>{guide.label}</span></div>}
+                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:0 }}>{guide.summary}</p>
+                  </div>
+
+                  {/* Priority Nutrients */}
+                  <div style={{ marginBottom:"16px" }}>
+                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Priority Nutrients</div>
+                    {guide.priorityNutrients.map((n, i) => (
+                      <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px" }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px" }}>
+                          <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#7b9fff", flexShrink:0 }} />
+                          <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{n.name}</span>
+                        </div>
+                        <p style={{ color:"#a0a8d0", fontSize:"12px", lineHeight:1.6, margin:"0 0 6px 14px" }}>{n.role}</p>
+                        <p style={{ color:"#6b7394", fontSize:"11px", margin:"0 0 0 14px" }}>Top sources: {n.topSources}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Power Foods */}
+                  <div style={{ marginBottom:"16px" }}>
+                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#50c878", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Power Foods</div>
+                    {guide.powerFoods.map((f, i) => (
+                      <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft:"3px solid rgba(80,200,120,0.3)" }}>
+                        <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>{f.food}</div>
+                        <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.why}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Foods to Minimize */}
+                  <div style={{ marginBottom:"16px" }}>
+                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#e05070", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Foods to Minimize</div>
+                    {guide.foodsToMinimize.map((f, i) => (
+                      <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft:"3px solid rgba(224,80,112,0.3)" }}>
+                        <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>{f.food}</div>
+                        <p style={{ color:"#c8a0a0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.why}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Meal Pattern */}
+                  <div style={{ ...S.card, padding:"18px 20px", marginBottom:"8px", background:"linear-gradient(135deg, rgba(232,200,122,0.06), rgba(232,200,122,0.02))", borderLeft:"3px solid rgba(232,200,122,0.4)" }}>
+                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#e8c87a", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"12px" }}>Ideal Meal Pattern</div>
+                    <div style={{ display:"grid", gap:"10px" }}>
+                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Frequency: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.frequency}</span></div>
+                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Macro Split: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.macroSplit}</span></div>
+                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Timing: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.timing}</span></div>
+                      <div style={{ marginTop:"4px", padding:"10px 14px", borderRadius:"10px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.12)" }}>
+                        <span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Key Rule: </span><span style={{ color:"#d4c8a0", fontSize:"12px", lineHeight:1.6 }}>{guide.mealPattern.keyRule}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {gi < guides.length - 1 && (
+                    <div style={{ height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)", margin:"28px 0" }} />
+                  )}
+                </div>
+              ))}
+
+              <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginTop:"20px", marginBottom:"20px" }}>
+                <p style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6, margin:0 }}>This guide is informed by neuroscience research on nutrition and brain chemistry. It is not a substitute for professional medical advice. Always consult your doctor before making significant dietary changes.</p>
+              </div>
+
+              <div style={{ display:"flex", justifyContent:"space-between" }}>
+                <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← 30-Day Menu</button>
+                <button style={S.btn} onClick={() => setStep(12)}>Today's Checklist →</button>
               </div>
             </div>
           );
