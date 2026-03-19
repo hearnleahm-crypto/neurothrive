@@ -6805,10 +6805,11 @@ function NeuroThriveApp() {
     const exerciseMaxBP = 10;
     const exerciseBP = exerciseDone ? 10 : 0;
 
-    // Water: 5 BP for 6+ glasses
+    // Water: 5 BP for 75%+ of goal
     const waterCount = checks.water || 0;
+    const waterGoal = checks.waterGoal || 8;
     const waterMaxBP = 5;
-    const waterBP = waterCount >= 6 ? 5 : 0;
+    const waterBP = waterCount >= Math.ceil(waterGoal * 0.75) ? 5 : 0;
 
     // Journal: 5 BP + 2 bonus for positive mood
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
@@ -9128,31 +9129,62 @@ function NeuroThriveApp() {
               <div style={sectionDivider} />
               <div style={sectionHeader("Hydration")}>Hydration</div>
               <div style={{ ...S.card, padding:"18px 20px", marginBottom:"16px" }}>
+                {(() => {
+                  const waterGoal = todayChecks.waterGoal || 8;
+                  const bpThreshold = Math.ceil(waterGoal * 0.75);
+                  return (<>
                 <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"12px" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                     <span style={{ fontSize:"20px" }}>💧</span>
                     <div>
-                      <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{todayChecks.water || 0}/8 glasses</div>
-                      <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>{(todayChecks.water || 0) >= 6 ? "Great hydration! +5 BP" : "Drink 6+ glasses for +5 BP"}</div>
+                      <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{todayChecks.water || 0}/{waterGoal} glasses <span style={{ color:"#6b7394", fontSize:"11px", fontWeight:"400" }}>(8oz each)</span></div>
+                      <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>{(todayChecks.water || 0) >= bpThreshold ? "Great hydration! +5 BP" : `Drink ${bpThreshold}+ glasses for +5 BP`}</div>
                     </div>
                   </div>
                 </div>
-                <div style={{ display:"flex", gap:"8px", justifyContent:"center", marginBottom:"12px" }}>
-                  {[1,2,3,4,5,6,7,8].map(n => {
+                <div style={{ display:"flex", gap:"6px", justifyContent:"center", flexWrap:"wrap", marginBottom:"12px" }}>
+                  {Array.from({ length: waterGoal }, (_, i) => i + 1).map(n => {
                     const filled = (todayChecks.water || 0) >= n;
                     return (
                       <button key={n} onClick={() => {
                         const current = todayChecks.water || 0;
                         const newVal = current === n ? n - 1 : n;
                         updateTodayChecks(prev => ({ ...prev, water: newVal }));
-                      }} style={{ width:"34px", height:"34px", borderRadius:"50%", border: filled ? "2px solid #60b0e0" : "2px solid rgba(110,120,200,0.2)", background: filled ? "rgba(96,176,224,0.15)" : "rgba(255,255,255,0.02)", color: filled ? "#60b0e0" : "#4a5070", fontSize:"14px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s", display:"flex", alignItems:"center", justifyContent:"center" }}>{n}</button>
+                      }} style={{ width:"32px", height:"32px", borderRadius:"50%", border: filled ? "2px solid #60b0e0" : "2px solid rgba(110,120,200,0.2)", background: filled ? "rgba(96,176,224,0.15)" : "rgba(255,255,255,0.02)", color: filled ? "#60b0e0" : "#4a5070", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s", display:"flex", alignItems:"center", justifyContent:"center" }}>{n}</button>
                     );
                   })}
                 </div>
-                <div style={{ height:"4px", borderRadius:"4px", background:"rgba(96,176,224,0.12)", overflow:"hidden" }}>
-                  <div style={{ height:"4px", borderRadius:"4px", background:"linear-gradient(90deg,#60b0e0,#4090c0)", width:`${Math.min(((todayChecks.water || 0) / 8) * 100, 100)}%`, transition:"width 0.3s" }} />
+                <div style={{ height:"4px", borderRadius:"4px", background:"rgba(96,176,224,0.12)", overflow:"hidden", marginBottom:"12px" }}>
+                  <div style={{ height:"4px", borderRadius:"4px", background:"linear-gradient(90deg,#60b0e0,#4090c0)", width:`${Math.min(((todayChecks.water || 0) / waterGoal) * 100, 100)}%`, transition:"width 0.3s" }} />
                 </div>
-                <p style={{ color:"#6b7394", fontSize:"11px", margin:"10px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water — even mild dehydration impairs focus and mood.</p>
+                {/* Personalized water calculator */}
+                <details style={{ marginBottom:"4px" }}>
+                  <summary style={{ color:"#60b0e0", fontSize:"11px", cursor:"pointer", fontWeight:"600", letterSpacing:"0.5px" }}>Calculate your personal water goal</summary>
+                  <div style={{ marginTop:"10px", padding:"12px", borderRadius:"12px", background:"rgba(96,176,224,0.06)", border:"1px solid rgba(96,176,224,0.15)" }}>
+                    <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"8px" }}>Enter your body weight to calculate how much water your brain and body need daily:</div>
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
+                      <input type="number" placeholder="Weight" style={{ width:"80px", padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(255,255,255,0.04)", color:"#eef0ff", fontSize:"14px", fontFamily:"inherit", outline:"none" }} id="water-calc-weight" />
+                      <select id="water-calc-unit" style={{ padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(255,255,255,0.04)", color:"#eef0ff", fontSize:"13px", fontFamily:"inherit", outline:"none" }}>
+                        <option value="lbs" style={{ background:"#141830" }}>lbs</option>
+                        <option value="kg" style={{ background:"#141830" }}>kg</option>
+                      </select>
+                      <button onClick={() => {
+                        const w = parseFloat(document.getElementById("water-calc-weight")?.value);
+                        const unit = document.getElementById("water-calc-unit")?.value;
+                        if (!w || w < 50) return;
+                        const lbs = unit === "kg" ? w * 2.205 : w;
+                        const ozPerDay = Math.round(lbs / 2);
+                        const glasses = Math.round(ozPerDay / 8);
+                        const clamped = Math.max(6, Math.min(glasses, 16));
+                        updateTodayChecks(prev => ({ ...prev, waterGoal: clamped }));
+                      }} style={{ padding:"8px 14px", borderRadius:"10px", background:"#60b0e0", color:"#fff", border:"none", fontSize:"12px", fontWeight:"700", cursor:"pointer", whiteSpace:"nowrap" }}>Set Goal</button>
+                    </div>
+                    <div style={{ color:"#6b7394", fontSize:"10px", lineHeight:1.5 }}>Formula: body weight ÷ 2 = daily oz ÷ 8 = glasses. Active people or those in hot climates may need more.</div>
+                  </div>
+                </details>
+                <p style={{ color:"#6b7394", fontSize:"11px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water — even mild dehydration impairs focus and mood.</p>
+                </>);
+                })()}
               </div>
 
               {/* Section F: Evening Routine */}
