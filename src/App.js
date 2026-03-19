@@ -1568,12 +1568,45 @@ const generateRecipe = (meal) => {
   const hasTurmeric = has("turmeric");
   const hasWalnut = has("walnut");
   const hasAlmond = has("almond");
+  const hasPecan = has("pecan");
+  const hasPumpkinSeed = hasAny("pumpkin seed","pumpkin seeds");
+  const hasSunflowerSeed = hasAny("sunflower seed","sunflower seeds");
+  const hasCoconutFlakes = hasAny("coconut flake","coconut flakes","shredded coconut");
   const hasRootVeg = hasAny("root vegetable","root vegetables","roasted root");
   const hasTahini = has("tahini");
   const hasBalsamic = has("balsamic") && !hasAny("blueberry balsamic","blueberry reduction");
   const hasLemonDill = has("lemon") && has("dill");
   const hasLettuce = hasAny("lettuce","blt","club");
   const hasTomato = has("tomato") && !hasAny("tomato soup","tomato sauce","cherry tomato");
+  const hasPeach = hasAny("peach","peaches","nectarine","nectarines");
+  const hasPineapple = has("pineapple");
+  const hasPapaya = has("papaya");
+  const hasCantaloupe = has("cantaloupe");
+  const hasHoneydew = hasAny("honeydew","honey dew");
+  const hasGrapes = hasAny("grape","grapes") && !has("grapefruit");
+  const hasKiwi = has("kiwi");
+  const hasCherry = hasAny("cherry","cherries") && !has("cherry tomato");
+  const hasOrange = has("orange") && !has("orange juice") && !has("oj");
+  const hasCranberry = hasAny("cranberry","cranberries");
+  const hasZucchini = has("zucchini") && !has("zucchini noodle") && !has("zucchini noodles");
+  const hasCucumber = has("cucumber");
+  const hasArugula = has("arugula");
+  const hasMicrogreens = has("microgreens");
+  const hasGuacamole = has("guacamole");
+  const hasSalsa = has("salsa") && !hasAny("mango salsa","pineapple salsa","blueberry salsa");
+  const hasMint = has("mint") && !has("mint chocolate");
+  const hasLimeGarnish = has("lime") && !hasAny("lime sauce","key lime");
+  const hasColeslaw = has("coleslaw");
+  const hasCreamCheese = hasAny("cream cheese");
+  const hasCapers = has("caper") && !has("sardine");
+  const hasHorseradish = has("horseradish");
+  const hasOJ = hasAny("oj","orange juice");
+  const hasPickledOnion = hasAny("pickled onion","pickled red onion");
+  const hasCilantro = has("cilantro") && !hasAny("taco","fajita","burrito");
+  const hasMangoSalsa = has("mango salsa") || has("mango") && has("salsa");
+  const hasPineappleSalsa = has("pineapple salsa") || has("pineapple") && has("salsa");
+  const hasBlueberrySalsa = has("blueberry salsa") || has("blueberry") && has("salsa");
+  const hasGenericVeggies = hasAny("roasted veggies","roasted vegetables","steamed veggies","steamed vegetables","mixed veggies","mixed vegetables") && !hasBroccoli && !hasAsparagus && !hasPepper && !hasBrusselsSprouts && !hasGreenBeans && !hasCauliflower && !hasZucchini;
 
   // ── Build ingredients list ────────────────────────────────────────────────
   const ingredients = proteinIngredient ? [proteinIngredient] : [];
@@ -1603,7 +1636,12 @@ const generateRecipe = (meal) => {
   if (hasCauliflower) ingredients.push(has("mash") ? "1 medium head cauliflower, cut into florets" : "2 cups cauliflower florets");
   if (hasSnapPeas) ingredients.push("1 cup sugar snap peas, trimmed");
   if (hasBokChoy) ingredients.push("2 heads baby bok choy, halved lengthwise");
+  if (hasZucchini) ingredients.push("1 medium zucchini, sliced into ½-inch rounds or cubed");
+  if (hasCucumber) ingredients.push("½ cucumber, sliced or diced");
+  if (hasArugula && !isSalad) ingredients.push("1 cup fresh arugula");
+  if (hasMicrogreens) ingredients.push("¼ cup microgreens");
   if (hasRootVeg) { ingredients.push("1 medium parsnip, peeled and cut into 1-inch pieces"); ingredients.push("2 medium carrots, peeled and cut into 1-inch pieces"); ingredients.push("1 medium turnip, peeled and cubed"); ingredients.push("1 tbsp fresh rosemary or thyme"); }
+  if (hasGenericVeggies) { ingredients.push("1 cup mixed vegetables (bell pepper, zucchini, onion, carrots)"); ingredients.push("1 tbsp olive oil for roasting/steaming"); }
   if (hasLettuce && !isCaesar && !isSalad) ingredients.push("2–3 leaves romaine or green leaf lettuce");
   if (hasTomato && !isSoup && !isSalad) ingredients.push("2–3 slices ripe tomato");
   if (hasCheese && !hasFeta) ingredients.push("¼ cup shredded cheddar or Monterey Jack");
@@ -1614,12 +1652,26 @@ const generateRecipe = (meal) => {
   if (hasBlueberry) ingredients.push("½ cup fresh or frozen blueberries");
   else if (hasBerry) ingredients.push("½ cup mixed berries (strawberries, raspberries, blueberries)");
   if (hasPomegranate) ingredients.push("¼ cup pomegranate arils (seeds)");
+  if (hasPeach) ingredients.push(has("grilled") ? "1 ripe peach, halved and pitted" : "1 ripe peach, sliced");
+  if (hasPineapple && !hasPineappleSalsa) ingredients.push(has("grilled") || has("roasted") ? "4 pineapple rings (½-inch thick)" : "1 cup fresh pineapple chunks");
+  if (hasPapaya) ingredients.push("1 cup fresh papaya, diced");
+  if (hasCantaloupe) ingredients.push("1 cup cantaloupe, cubed");
+  if (hasHoneydew) ingredients.push("1 cup honeydew melon, cubed");
+  if (hasGrapes) ingredients.push("1 cup grapes, halved if large");
+  if (hasKiwi) ingredients.push("1 kiwi, peeled and sliced");
+  if (hasCherry) ingredients.push("½ cup fresh cherries, pitted");
+  if (hasOrange) ingredients.push("1 orange, peeled and segmented");
+  if (hasCranberry) ingredients.push("2 tbsp dried cranberries");
   if (hasKimchi) ingredients.push("½ cup fermented kimchi");
   if (hasTurmeric) ingredients.push("1 tsp ground turmeric");
   if (hasTurmeric) ingredients.push("Pinch of black pepper (boosts curcumin absorption)");
   if (hasApple) ingredients.push("1 medium apple, cored and sliced");
   if (hasWalnut) ingredients.push("2 tbsp raw walnuts, roughly chopped");
   if (hasAlmond) ingredients.push("2 tbsp raw almonds or almond butter");
+  if (hasPecan) ingredients.push("2 tbsp pecans, roughly chopped");
+  if (hasPumpkinSeed) ingredients.push("2 tbsp pumpkin seeds (pepitas)");
+  if (hasSunflowerSeed) ingredients.push("2 tbsp sunflower seeds");
+  if (hasCoconutFlakes) ingredients.push("2 tbsp unsweetened coconut flakes");
   if (hasTortilla && !isBurrito && !isTaco) ingredients.push("2 corn or flour tortillas (6-inch)");
   if (isBurrito) ingredients.push("1 large (10-inch) flour or whole wheat burrito tortilla");
   if (isTaco) ingredients.push("3 corn tortillas (6-inch), warmed");
@@ -1631,8 +1683,8 @@ const generateRecipe = (meal) => {
 
   // Sauces / extras by dish type
   if (isCaesar) { ingredients.push("3 tbsp Caesar dressing (store-bought or homemade)"); ingredients.push("2 tbsp Parmesan, shaved"); ingredients.push("Romaine lettuce, 3 cups, chopped"); }
-  if (isSalad && !isCaesar && hasBalsamic) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp balsamic vinegar (for vinaigrette)"); ingredients.push("½ tsp Dijon mustard"); ingredients.push("½ tsp honey"); }
-  else if (isSalad && !isCaesar) { ingredients.push("3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
+  if (isSalad && !isCaesar && hasBalsamic) { ingredients.push(hasArugula ? "3 cups fresh arugula" : "3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp balsamic vinegar (for vinaigrette)"); ingredients.push("½ tsp Dijon mustard"); ingredients.push("½ tsp honey"); }
+  else if (isSalad && !isCaesar) { ingredients.push(hasArugula ? "3 cups fresh arugula" : "3 cups mixed greens or romaine"); ingredients.push("2 tbsp olive oil + 1 tbsp lemon juice (for dressing)"); }
   if (isSoup || has("chili")) { ingredients.push(has("bone broth") ? "2½ cups bone broth" : "2½ cups low-sodium chicken or vegetable broth"); ingredients.push("1 garlic clove, minced"); ingredients.push("½ onion, diced"); }
   if (isCurry) { ingredients.push("1 can (14 oz) light coconut milk"); ingredients.push("2 tsp curry powder"); ingredients.push("1 tsp turmeric"); ingredients.push("½ onion, diced"); }
   if (isPasta && !isBolognese) { if (has("zucchini noodle") || has("zucchini noodles")) { ingredients.push("2 medium zucchini, spiralized or cut into noodle strips"); } else { ingredients.push("6 oz pasta (penne, spaghetti, or shape of choice)"); } if (has("marinara") || has("tomato sauce")) { ingredients.push("1 cup marinara or crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); } if (has("garlic bread")) { ingredients.push("2 slices bread or baguette"); ingredients.push("1 tbsp butter"); ingredients.push("1 clove garlic, minced"); } }
@@ -1644,6 +1696,20 @@ const generateRecipe = (meal) => {
   if (isEnchilada) { ingredients.push("½ cup red enchilada sauce"); ingredients.push("3 corn tortillas"); ingredients.push("¼ cup shredded Monterey Jack cheese"); }
   if (isTeriyaki) { ingredients.push("3 tbsp soy sauce or tamari"); ingredients.push("1 tbsp mirin or rice vinegar"); ingredients.push("1 tbsp honey"); ingredients.push("1 tsp cornstarch + 1 tbsp water (slurry)"); ingredients.push("1 tsp fresh ginger, grated"); }
   if (isGlazed && hasPomegranate) { ingredients.push("½ cup pomegranate juice"); ingredients.push("2 tbsp honey"); ingredients.push("1 tbsp balsamic vinegar"); }
+  if (hasGuacamole) { ingredients.push("1 ripe avocado"); ingredients.push("1 tbsp lime juice"); ingredients.push("2 tbsp diced red onion"); ingredients.push("1 tbsp fresh cilantro, chopped"); ingredients.push("Pinch of salt"); }
+  if (hasMangoSalsa) { ingredients.push("1 cup fresh mango, finely diced"); ingredients.push("2 tbsp red onion, finely diced"); ingredients.push("1 tbsp fresh cilantro, chopped"); ingredients.push("1 tbsp lime juice"); ingredients.push("½ small jalapeño, seeded and minced (optional)"); }
+  if (hasPineappleSalsa) { ingredients.push("1 cup fresh pineapple, finely diced"); ingredients.push("2 tbsp red onion, finely diced"); ingredients.push("1 tbsp fresh cilantro, chopped"); ingredients.push("1 tbsp lime juice"); ingredients.push("½ small jalapeño, seeded and minced (optional)"); }
+  if (hasBlueberrySalsa) { ingredients.push("½ cup fresh blueberries"); ingredients.push("2 tbsp red onion, finely diced"); ingredients.push("1 tbsp fresh cilantro, chopped"); ingredients.push("1 tbsp lime juice"); ingredients.push("½ small jalapeño, seeded and minced (optional)"); }
+  if (hasSalsa) ingredients.push("3 tbsp fresh salsa or pico de gallo");
+  if (hasColeslaw) { ingredients.push("2 cups shredded cabbage (green or mixed)"); ingredients.push("2 tbsp mayonnaise"); ingredients.push("1 tbsp apple cider vinegar"); ingredients.push("½ tsp sugar"); ingredients.push("Salt and pepper to taste"); }
+  if (hasCreamCheese) ingredients.push("2 tbsp cream cheese, softened");
+  if (hasCapers) ingredients.push("1 tbsp capers, drained");
+  if (hasHorseradish) ingredients.push("1 tbsp prepared horseradish");
+  if (hasOJ) ingredients.push("1 glass (8 oz) fresh-squeezed orange juice");
+  if (hasPickledOnion) { ingredients.push("¼ red onion, thinly sliced"); ingredients.push("¼ cup apple cider vinegar"); ingredients.push("1 tsp sugar"); }
+  if (hasCilantro) ingredients.push("2 tbsp fresh cilantro, chopped");
+  if (hasMint) ingredients.push("6–8 fresh mint leaves");
+  if (hasLimeGarnish) ingredients.push("1 lime, cut into wedges");
   if (isBolognese) { ingredients.push("1 can (14 oz) crushed tomatoes"); ingredients.push("2 cloves garlic, minced"); ingredients.push("½ onion, finely diced"); ingredients.push("1 tbsp tomato paste"); ingredients.push("1 tsp dried Italian herbs"); ingredients.push("8 oz brown rice pasta or whole grain pasta"); }
 
   // Quinoa porridge
@@ -1761,8 +1827,14 @@ const generateRecipe = (meal) => {
     if (hasBlueberry) oatIng.push("½ cup blueberries");
     else if (hasBerry) oatIng.push("½ cup mixed berries");
     if (hasPomegranate) oatIng.push("¼ cup pomegranate arils");
+    if (hasPeach) oatIng.push("1 ripe peach, sliced");
+    if (hasApple) oatIng.push("1 medium apple, diced");
     if (hasWalnut) oatIng.push("2 tbsp raw walnuts, chopped");
+    else if (hasPecan) oatIng.push("2 tbsp pecans, chopped");
     else if (has("pistachio")) oatIng.push("2 tbsp shelled pistachios");
+    if (hasPumpkinSeed) oatIng.push("2 tbsp pumpkin seeds (pepitas)");
+    if (hasSunflowerSeed) oatIng.push("2 tbsp sunflower seeds");
+    if (hasCoconutFlakes) oatIng.push("1 tbsp coconut flakes");
     if (has("flax")) oatIng.push("1 tbsp ground flaxseed");
     oatIng.push("1 tbsp honey or pure maple syrup","½ tsp ground cinnamon","Pinch of sea salt");
     return {
@@ -2738,7 +2810,14 @@ const generateRecipe = (meal) => {
   if (hasSnapPeas) { prepSteps.push("Trim snap peas. Stir-fry in 1 tsp sesame oil over high heat for 2–3 minutes until bright green and still crisp. Season with a pinch of salt."); }
   if (hasBokChoy) { prepSteps.push("Halve bok choy lengthwise. Heat 1 tsp oil in a skillet over medium-high. Sear cut-side down 2 minutes until charred. Flip, add 1 tbsp soy sauce and 2 tbsp water, cover and steam 2 minutes."); }
   if (hasButternut && !isSoup) { prepSteps.push("Preheat oven to 400°F. Toss cubed butternut squash with 1 tbsp olive oil, salt, pepper, and a pinch of cinnamon. Roast 25–30 minutes, tossing halfway, until caramelized and fork-tender."); totalTime = Math.max(totalTime, 35); }
+  if (hasZucchini) { prepSteps.push(has("roasted") || has("roast") ? "Slice zucchini into ½-inch rounds. Toss with 1 tbsp olive oil, salt, pepper, and garlic powder. Roast at 425°F for 15–20 minutes until golden and tender." : "Slice zucchini into ½-inch rounds. Heat 1 tbsp olive oil in a skillet over medium-high. Sauté 3–4 minutes per side until golden. Season with salt and pepper."); }
+  if (hasGenericVeggies) { prepSteps.push(has("steam") ? "Cut vegetables into similar-sized pieces. Steam over boiling water 5–7 minutes until tender-crisp. Season with salt, pepper, and a drizzle of olive oil." : "Preheat oven to 425°F. Cut vegetables into similar-sized pieces. Toss with olive oil, salt, pepper, and garlic powder. Spread in a single layer on a baking sheet. Roast 20–25 minutes, tossing halfway, until caramelized."); totalTime = Math.max(totalTime, 30); }
   if (hasRootVeg) { prepSteps.push("Preheat oven to 425°F. Toss parsnips, carrots, and turnip with 2 tbsp olive oil, rosemary (or thyme), salt, and pepper. Spread in a single layer on a baking sheet. Roast 30–35 minutes, tossing halfway, until caramelized and fork-tender."); totalTime = Math.max(totalTime, 40); }
+  if (hasColeslaw) { prepSteps.push("In a bowl, mix shredded cabbage with mayonnaise, apple cider vinegar, sugar, salt, and pepper. Toss until evenly coated. Refrigerate while you prepare the rest of the meal."); }
+  if (hasPickledOnion) { prepSteps.push("Slice red onion into thin rings. Place in a jar with apple cider vinegar, sugar, and a pinch of salt. Let sit at least 15 minutes (longer is better). Drain before serving."); }
+  if (hasGuacamole) { prepSteps.push("Halve avocado and scoop flesh into a bowl. Mash with a fork to desired consistency. Stir in lime juice, diced red onion, cilantro, and salt. Taste and adjust."); }
+  if (hasMangoSalsa || hasPineappleSalsa || hasBlueberrySalsa) { prepSteps.push("Combine diced fruit with red onion, cilantro, lime juice, and jalapeño (if using) in a bowl. Gently toss and let sit 10 minutes for flavors to meld."); }
+  if (hasPeach && has("grilled")) { prepSteps.push("Brush peach halves lightly with oil. Grill cut-side down over medium-high heat 3–4 minutes until grill marks form and flesh softens. Slice into wedges."); }
 
   // Add all prepSteps
   steps.push(...prepSteps);
@@ -2870,9 +2949,13 @@ const generateRecipe = (meal) => {
   if (hasBalsamic && isSalad) {
     finishSteps.push("Whisk olive oil, balsamic vinegar, Dijon mustard, and honey into a smooth vinaigrette. Drizzle over salad and toss gently.");
   }
-  if (hasWatermelon || hasMango || hasBanana || hasApple || hasBerry) {
+  if (hasWatermelon || hasMango || hasBanana || hasApple || hasBerry || hasPeach || hasPineapple || hasPapaya || hasCantaloupe || hasHoneydew || hasGrapes || hasKiwi || hasCherry || hasOrange) {
     finishSteps.push("Prepare fresh fruit just before serving; it's the bright, refreshing counterpoint to the savory elements.");
   }
+  if (hasCreamCheese) { finishSteps.push("Spread cream cheese evenly on toast or bagel before adding other toppings."); }
+  if (hasHorseradish) { finishSteps.push("Spread horseradish on bread or serve on the side for a sharp, sinus-clearing kick."); }
+  if (hasMint) { finishSteps.push("Tear fresh mint leaves and scatter over the dish just before serving for a bright, aromatic finish."); }
+  if (hasCoconutFlakes) { finishSteps.push("Toast coconut flakes in a dry skillet over medium heat 2–3 minutes, stirring constantly, until golden. Sprinkle over the top."); }
   finishSteps.push("Plate and finish with a squeeze of fresh lemon or lime to brighten all the flavors.");
   steps.push(...finishSteps);
 
