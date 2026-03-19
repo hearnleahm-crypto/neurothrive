@@ -6027,7 +6027,7 @@ function NeuroThriveApp() {
       powerFoodKeywords = [...keywords];
     }
     const dietFilters = optimized ? [] : selectedDiet;
-    const cuisineFilters = optimized ? [] : selectedCuisines;
+    const cuisineFilters = selectedCuisines; // always respect cuisine preferences
     const foodPrefFilters = optimized ? [] : selectedFoodPrefs;
     const days = build30DayMenu(condition, dietFilters, calorieTarget, cuisineFilters, foodPrefFilters, favoriteMeals, powerFoodKeywords);
     setMenu30(days);
@@ -7440,7 +7440,7 @@ function NeuroThriveApp() {
             <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(107,143,255,0.08))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"24px", textAlign:"center" }}>
               <div style={{ fontSize:"28px", marginBottom:"10px" }}>🧠</div>
               <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h2>
-              <p style={{ color:"#a0c8b0", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>No restrictions, no filters. We'll build the best possible menu for your brain chemistry using the top neuroscience-backed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
+              <p style={{ color:"#a0c8b0", fontSize:"13px", lineHeight:1.6, marginBottom:"16px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Skip dietary restrictions and build the best possible menu for your brain chemistry using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.{selectedCuisines.length > 0 ? " Your cuisine preferences will still be applied." : " Pick your cuisine preferences below first, or we'll include all cuisines."}</p>
               <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"14px 32px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,200,120,0.3)" }}>
                 Build Brain-Optimized Menu →
               </button>
@@ -7657,7 +7657,7 @@ function NeuroThriveApp() {
                 <span style={{ fontSize:"16px" }}>🧠</span>
                 <div style={{ flex:1 }}>
                   <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700" }}>Brain-Optimized Menu</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No restrictions — built for your brain chemistry</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No dietary restrictions — built for your brain chemistry</div>
                 </div>
                 <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"8px", border:"1px solid rgba(110,120,200,0.2)", background:"transparent", color:"#8890b8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
               </div>
