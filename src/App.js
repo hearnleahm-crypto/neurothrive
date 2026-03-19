@@ -855,12 +855,12 @@ const getCuisine = (name) => {
   if (/taco|burrito|enchilada|fajita|quesadilla|pico de gallo|salsa verde|chipotle|churro/.test(n)) return "mexican_latin";
   if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|pad thai|bibimbap/.test(n)) return "asian";
   if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
-  if (/mediterranean|tahini|falafel|hummus.*pita|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh/.test(n)) return "mediterranean";
+  if (/mediterranean|tahini|falafel|hummus|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh|lemon.*herb|herb.*roasted|lentil.*soup|chickpea.*salad|chickpea.*spinach|roasted.*veggie.*quinoa|quinoa.*salad|white bean.*kale|lentil.*veggie|anti[- ]inflam/.test(n)) return "mediterranean";
   if (/gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|smothered|hoppin|black[- ]eyed pea|grits/.test(n)) return "southern_cajun";
   if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean";
   if (/injera|berbere|doro\s*wat|kitfo|egusi|suya|fufu|groundnut|peanut\s*stew|west african|east african|ethiopian|nigerian|ghanaian|senegalese|moroccan.*tagine|harissa|ras\s*el\s*hanout|shakshuka.*harissa/.test(n)) return "african";
   if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) return "southeast_asian";
-  if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie/.test(n)) return "american";
+  if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie|grilled\s+chicken(?!.*tikka|.*teriyaki|.*satay|.*jerk)|baked\s+chicken|roasted\s+chicken|chicken\s+breast|chicken\s+thigh|chicken\s+tender|turkey\s+burger|turkey\s+meatball|sirloin|steak(?!.*teriyaki)|pork\s+chop|pork\s+tenderloin|mashed\s+potato|sweet\s+potato\s+fries|loaded\s+sweet|baked\s+salmon(?!.*teriyaki)|grilled\s+salmon(?!.*teriyaki)|salmon\s+with|cod\s+with|tuna\s+melt|chicken\s+soup|chicken.*sandwich|turkey.*wrap|turkey.*sandwich|sheet\s+pan|skillet\s+dinner|one[- ]pan|protein\s+bowl|grain\s+bowl|power\s+bowl|chicken.*rice(?!.*fried)|chicken.*potato|chicken.*broccoli|steak.*potato|beef.*broccoli(?!.*stir)|honey.*glazed|lemon.*chicken(?!.*mediterranean)|garlic.*chicken(?!.*tikka)|herb.*chicken|ranch|buffalo\s+chicken|chicken\s+caesar|cobb|chef\s+salad|waldorf/.test(n)) return "american";
   if (/pasta|marinara|pesto|parmesan|risotto|bruschetta|caprese|bolognese|alfredo|lasagna|ravioli|primavera/.test(n)) return "italian";
   return "general";
 };
@@ -879,13 +879,27 @@ const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
     if (excludedTags.has("blueberry") && /blueberr/.test(n)) return false;
     if (excludedTags.has("tofu") && /tofu|tempeh/.test(n)) return false;
     if (!(m.conditions.includes(conditionId) || m.conditions.includes("default"))) return false;
-    // Cuisine filtering: keep "general" meals always, filter specific cuisines
+    // Cuisine filtering
     if (selectedCuisines && selectedCuisines.length > 0) {
       const cuisine = getCuisine(m.name);
-      if (cuisine !== "general" && !selectedCuisines.includes(cuisine)) return false;
+      if (cuisine === "general") return true; // keep general, will be trimmed below
+      if (!selectedCuisines.includes(cuisine)) return false;
     }
     return true;
   });
+  // When cuisines are selected, limit "general" meals to ~20% of the pool
+  if (selectedCuisines && selectedCuisines.length > 0) {
+    const selected = filtered.filter(m => {
+      const c = getCuisine(m.name);
+      return c !== "general";
+    });
+    const general = filtered.filter(m => getCuisine(m.name) === "general");
+    // Keep enough general meals to fill gaps but not overwhelm
+    const maxGeneral = Math.max(5, Math.ceil(selected.length * 0.25));
+    const shuffledGeneral = general.sort(() => Math.random() - 0.5).slice(0, maxGeneral);
+    return [...selected, ...shuffledGeneral];
+  }
+  return filtered;
 };
 
 const shuffle = (arr) => {
@@ -4703,6 +4717,329 @@ const INGREDIENT_SCIENCE = {
       default: "folate + tryptophan for serotonin, magnesium + zinc for GABA and dopamine support",
     }
   },
+  // ── Additional ingredients (covers new cuisines + common missing items) ──
+  rice: {
+    nutrient: "manganese, B vitamins (B1, B3, B6), magnesium, and complex carbohydrates",
+    what_it_does: "provides steady glucose to the brain, which consumes 25% of the body's total glucose supply, and delivers B vitamins essential for neurotransmitter synthesis",
+    conditions: {
+      adhd: "ADHD brains have higher glucose demands; rice provides sustained energy without the crashes that spike impulsivity and scatter focus",
+      anxiety: "steady carbohydrate delivery raises brain tryptophan availability, directly increasing serotonin synthesis to counter anxiety",
+      depression: "B1 (thiamine) in rice is essential for glucose metabolism in brain cells; depression is linked to impaired brain energy production",
+      bipolar: "consistent glucose from rice prevents the blood sugar swings that trigger mood cycling; manganese supports mitochondrial antioxidant defense",
+      schizophrenia: "B3 (niacin) in rice supports NAD+ production for cellular energy; niacin deficiency causes psychosis-like symptoms",
+      ptsd: "steady glucose lowers cortisol reactivity; the traumatized brain is especially vulnerable to energy crashes that trigger hyperarousal",
+      ocd: "complex carbs increase brain serotonin availability more effectively than simple sugars, supporting the serotonin pathway OCD treatment targets",
+      ppd: "stable blood sugar prevents the cortisol spikes that paranoid brains misinterpret as confirmation of external threats",
+      spd: "B vitamins in rice support dopamine and serotonin synthesis, countering the neurotransmitter deficits that drive motivational flatness",
+      default: "complex carbohydrates fuel the brain's enormous energy demands and support neurotransmitter production",
+    }
+  },
+  potato: {
+    nutrient: "potassium, vitamin B6, vitamin C, and resistant starch",
+    what_it_does: "delivers the highest potassium density of any common food, supporting nerve signal transmission and blood-brain barrier health",
+    conditions: {
+      adhd: "vitamin B6 is the rate-limiting cofactor in dopamine synthesis; potatoes deliver more B6 per serving than most foods, directly fueling the neurotransmitter ADHD brains need most",
+      anxiety: "potassium regulates nerve excitability; low potassium causes anxiety-like symptoms because neurons fire too easily without it",
+      depression: "B6 is required for converting 5-HTP to serotonin; without adequate B6, your brain cannot complete serotonin synthesis regardless of tryptophan intake",
+      bipolar: "resistant starch feeds gut bacteria that produce short-chain fatty acids, which cross the blood-brain barrier and reduce neuroinflammation linked to mood episodes",
+      ptsd: "vitamin C in potatoes accelerates cortisol clearance; the adrenal glands contain the highest vitamin C concentration of any organ",
+      bpd: "B6 supports both serotonin and GABA synthesis, two systems directly involved in emotional regulation and impulse control",
+      ppd: "potassium helps regulate the overactive fight-or-flight nervous system response that drives paranoid hypervigilance",
+      default: "B6 supports neurotransmitter synthesis, potassium supports nerve function, and resistant starch feeds brain-protective gut bacteria",
+    }
+  },
+  tomato: {
+    nutrient: "lycopene, vitamin C, potassium, and folate",
+    what_it_does: "lycopene is one of the most potent fat-soluble antioxidants, crossing the blood-brain barrier to protect neurons from oxidative damage",
+    conditions: {
+      adhd: "lycopene protects dopamine-producing neurons from oxidative stress; ADHD brains have higher oxidative damage in dopaminergic pathways",
+      anxiety: "vitamin C lowers cortisol levels within hours of consumption; folate supports the methylation cycle that produces calming neurotransmitters",
+      depression: "low folate is one of the strongest nutritional predictors of depression; tomatoes provide folate in a highly bioavailable form",
+      schizophrenia: "lycopene reduces oxidative stress markers that are significantly elevated in schizophrenia, protecting vulnerable neural circuits",
+      ppd: "folate breaks down homocysteine, a neurotoxic amino acid elevated in paranoid individuals that damages blood vessels serving the prefrontal cortex",
+      default: "lycopene crosses the blood-brain barrier to reduce oxidative stress, while folate supports neurotransmitter methylation",
+    }
+  },
+  garlic: {
+    nutrient: "allicin, selenium, vitamin B6, and manganese",
+    what_it_does: "allicin is a powerful anti-inflammatory and antioxidant that increases blood flow to the brain and supports glutathione production, the brain's master antioxidant",
+    conditions: {
+      adhd: "allicin boosts cerebral blood flow to the prefrontal cortex, the exact region responsible for attention and impulse control that ADHD underactivates",
+      anxiety: "selenium deficiency is linked to increased anxiety; garlic provides selenium in a form that supports glutathione production in the brain",
+      depression: "allicin reduces neuroinflammation (IL-6, TNF-alpha) that drives treatment-resistant depression; anti-inflammatory diets show equal efficacy to SSRIs in some trials",
+      schizophrenia: "garlic's antioxidant compounds combat the elevated oxidative stress found in schizophrenia, protecting dopamine receptor integrity",
+      ppd: "allicin reduces the inflammatory markers (IL-6, TNF-alpha) that amplify paranoid threat-detection circuits when elevated",
+      default: "allicin increases cerebral blood flow and reduces neuroinflammation, supporting overall brain function",
+    }
+  },
+  ginger: {
+    nutrient: "gingerol, shogaol, and anti-inflammatory terpenes",
+    what_it_does: "gingerol crosses the blood-brain barrier and reduces neuroinflammation by blocking the COX-2 and NF-kB inflammatory pathways that damage neurons",
+    conditions: {
+      adhd: "neuroinflammation impairs dopamine signaling; gingerol's anti-inflammatory action helps restore dopamine receptor sensitivity in ADHD brains",
+      anxiety: "ginger modulates serotonin receptors (5-HT1A) in a similar mechanism to anti-anxiety medications, reducing anxious behavior in clinical studies",
+      depression: "ginger inhibits the inflammatory cascade that suppresses BDNF production; restoring BDNF is key to building new neural pathways out of depressive patterns",
+      bipolar: "anti-inflammatory compounds in ginger reduce the neuroinflammation spikes that precede and worsen both manic and depressive episodes",
+      ptsd: "ginger calms the vagus nerve and reduces gut inflammation that sends alarm signals to the brain, lowering baseline hyperarousal",
+      default: "gingerol crosses the blood-brain barrier to reduce neuroinflammation and support serotonin receptor function",
+    }
+  },
+  turmeric: {
+    nutrient: "curcumin, turmerone, and anti-inflammatory polyphenols",
+    what_it_does: "curcumin is one of the most studied brain-protective compounds: it increases BDNF, reduces neuroinflammation, and boosts serotonin and dopamine levels",
+    conditions: {
+      adhd: "curcumin increases BDNF, which strengthens prefrontal cortex connections needed for sustained attention and working memory",
+      anxiety: "curcumin modulates the HPA axis stress response system, reducing cortisol output and calming the chronic stress loop that fuels anxiety",
+      depression: "meta-analyses show curcumin is as effective as fluoxetine for mild-to-moderate depression; it raises both serotonin and dopamine simultaneously",
+      bipolar: "curcumin's dual action on serotonin and dopamine makes it uniquely suited for bipolar disorder, where both systems cycle between extremes",
+      schizophrenia: "curcumin reduces the oxidative stress and neuroinflammation that are hallmark neurological features of schizophrenia",
+      ptsd: "curcumin restores BDNF levels that chronic cortisol exposure depletes, supporting hippocampal repair and trauma memory processing",
+      ocd: "curcumin raises serotonin levels through MAO inhibition, targeting the exact neurotransmitter system that OCD medications work on",
+      ppd: "curcumin reduces the chronic neuroinflammation that keeps amygdala threat-detection circuits overactive in paranoid thinking",
+      spd: "curcumin boosts both dopamine and BDNF, counteracting the motivational deficits and reduced neural plasticity characteristic of SPD",
+      default: "curcumin raises BDNF, reduces neuroinflammation, and supports both serotonin and dopamine production",
+    }
+  },
+  coconut: {
+    nutrient: "medium-chain triglycerides (MCTs), lauric acid, and potassium",
+    what_it_does: "MCTs bypass normal fat digestion and convert directly to ketones in the liver, providing an alternative energy source the brain can use immediately",
+    conditions: {
+      adhd: "MCTs provide rapid brain fuel that doesn't depend on the glucose metabolism ADHD brains struggle with, supporting sustained focus between meals",
+      anxiety: "lauric acid has antimicrobial properties that support gut microbiome health; gut inflammation is a direct driver of anxiety through the vagus nerve",
+      depression: "ketones from MCTs provide energy to neurons even when glucose metabolism is impaired, which occurs in depression-related brain fog",
+      bipolar: "MCT-derived ketones stabilize neuronal membrane potential, reducing the excitability that contributes to manic episodes",
+      schizophrenia: "ketogenic pathways provide alternative brain fuel and reduce oxidative stress in neural circuits disrupted by schizophrenia",
+      default: "MCTs provide rapid alternative brain fuel and lauric acid supports gut-brain axis health",
+    }
+  },
+  pork: {
+    nutrient: "thiamine (B1), B12, zinc, selenium, and complete protein",
+    what_it_does: "contains the highest thiamine content of any common meat; thiamine is essential for glucose metabolism in every brain cell and for acetylcholine production",
+    conditions: {
+      adhd: "thiamine is essential for glucose metabolism in the prefrontal cortex; ADHD brains have unusually high glucose demands and benefit from B1 support",
+      anxiety: "B1 deficiency causes anxiety and irritability as its first symptom; pork provides more B1 per serving than any other common protein",
+      depression: "B12 and thiamine both support the methylation cycle that produces SAMe, one of the most effective natural antidepressant compounds",
+      bipolar: "selenium in pork supports thyroid function, which directly regulates mood; thyroid dysfunction mimics and worsens bipolar cycling",
+      ptsd: "zinc supports hippocampal repair and neuroplasticity; the hippocampus shrinks under chronic PTSD cortisol exposure and needs zinc to recover",
+      default: "thiamine fuels brain glucose metabolism, B12 supports nerve health, and zinc enables neurotransmitter synthesis",
+    }
+  },
+  shrimp: {
+    nutrient: "astaxanthin, selenium, vitamin B12, iodine, and omega-3 fatty acids",
+    what_it_does: "astaxanthin is the most powerful carotenoid antioxidant, 6,000× stronger than vitamin C, crossing the blood-brain barrier to protect neurons directly",
+    conditions: {
+      adhd: "astaxanthin protects dopamine neurons from oxidative damage while omega-3s improve dopamine receptor sensitivity in the prefrontal cortex",
+      anxiety: "selenium supports glutathione production (the brain's master antioxidant) and thyroid function; both are commonly disrupted in anxiety",
+      depression: "B12 is required for SAMe production, one of the most effective natural antidepressants; shrimp delivers B12 in highly absorbable form",
+      schizophrenia: "astaxanthin's exceptional antioxidant power targets the elevated oxidative stress that damages neural circuits in schizophrenia",
+      ptsd: "iodine supports thyroid hormone production, which regulates the metabolic rate of every brain cell; thyroid disruption worsens PTSD symptoms",
+      default: "astaxanthin provides exceptional brain antioxidant protection while B12 and omega-3s support neurotransmitter production",
+    }
+  },
+  tuna: {
+    nutrient: "omega-3 DHA and EPA, vitamin D, selenium, and B12",
+    what_it_does: "one of the richest sources of preformed DHA, the omega-3 that makes up 97% of the brain's omega-3 content and is essential for neural membrane fluidity",
+    conditions: {
+      adhd: "DHA increases dopamine receptor density in the prefrontal cortex; EPA reduces the neuroinflammation that impairs executive function in ADHD",
+      anxiety: "omega-3s reduce inflammatory cytokines (IL-6, TNF-alpha) that activate the brain's threat-detection circuits and perpetuate chronic anxiety",
+      depression: "EPA is as effective as antidepressants for mild-to-moderate depression in multiple meta-analyses; tuna is one of the richest EPA sources",
+      bipolar: "omega-3 supplementation reduces bipolar depressive episodes by 50% in some trials; tuna provides both EPA and DHA in therapeutic ratios",
+      schizophrenia: "vitamin D receptors are concentrated in brain regions affected by schizophrenia; tuna provides vitamin D alongside neuroprotective omega-3s",
+      ptsd: "DHA rebuilds hippocampal neural membranes damaged by chronic cortisol; the hippocampus is the brain region most affected by PTSD",
+      default: "DHA maintains neural membrane health, EPA reduces neuroinflammation, and vitamin D supports brain receptor function",
+    }
+  },
+  cod: {
+    nutrient: "lean complete protein, iodine, B12, phosphorus, and selenium",
+    what_it_does: "provides high-quality protein for neurotransmitter synthesis with minimal inflammatory fats, plus iodine that most people are deficient in",
+    conditions: {
+      adhd: "lean protein delivers tyrosine and phenylalanine for dopamine synthesis without the inflammatory saturated fats that impair prefrontal function",
+      anxiety: "iodine supports thyroid function, which directly controls brain metabolic rate; subclinical hypothyroidism mimics and amplifies anxiety symptoms",
+      depression: "B12 deficiency is found in up to 30% of depressed individuals; cod delivers B12 plus the protein needed to synthesize serotonin and dopamine",
+      bipolar: "phosphorus is essential for ATP production in neurons; bipolar mood shifts correlate with disrupted cellular energy metabolism",
+      default: "lean protein for neurotransmitter synthesis, iodine for thyroid-brain axis health, and B12 for nerve function",
+    }
+  },
+  sardines: {
+    nutrient: "omega-3 EPA and DHA, calcium (from bones), vitamin D, B12, and CoQ10",
+    what_it_does: "one of the most nutrient-dense brain foods: small fish bioaccumulate fewer toxins while delivering therapeutic levels of omega-3s, vitamin D, and B12",
+    conditions: {
+      adhd: "sardines provide the highest omega-3 to mercury ratio of any fish; EPA directly increases dopamine receptor sensitivity needed for focus",
+      anxiety: "vitamin D deficiency is found in up to 80% of anxiety patients; sardines deliver vitamin D alongside omega-3s that calm inflammatory anxiety pathways",
+      depression: "sardines provide the triple combination of EPA, vitamin D, and B12 that depression depletes; all three are independently linked to depression severity",
+      schizophrenia: "CoQ10 in sardines supports mitochondrial function in neurons; mitochondrial dysfunction is a core feature of schizophrenia",
+      aspd: "omega-3s from sardines improve prefrontal cortex membrane fluidity needed for impulse control and consequence evaluation",
+      ppd: "omega-3 EPA modulates anterior cingulate cortex activity, reducing the exhausting conflict-monitoring loop that drives paranoid scanning",
+      spd: "DHA and vitamin D together support dopamine production in the substantia nigra, the brain's main motivation center",
+      default: "omega-3s, vitamin D, and B12 in a low-toxin package that supports brain health across multiple systems",
+    }
+  },
+  tofu: {
+    nutrient: "isoflavones, complete plant protein, calcium, iron, and magnesium",
+    what_it_does: "isoflavones cross the blood-brain barrier and act as neuroprotective antioxidants, while plant protein provides all essential amino acids for neurotransmitter synthesis",
+    conditions: {
+      adhd: "tofu provides tyrosine for dopamine synthesis plus magnesium that ADHD brains commonly lack; plant protein digests more steadily than animal protein",
+      anxiety: "isoflavones have anxiolytic properties, modulating GABA-A receptors similarly to anti-anxiety compounds; magnesium further supports GABA production",
+      depression: "iron in tofu is essential for the enzyme that converts tryptophan to serotonin; iron deficiency causes depression even before anemia develops",
+      schizophrenia: "isoflavones reduce oxidative stress while providing the amino acids needed for balanced dopamine and glutamate signaling",
+      default: "isoflavones provide neuroprotection while plant protein delivers amino acids for neurotransmitter synthesis",
+    }
+  },
+  beans: {
+    nutrient: "folate, magnesium, fiber, plant protein, iron, and resistant starch",
+    what_it_does: "delivers more folate per serving than almost any food; folate is the single most important nutrient for the methylation cycle that produces neurotransmitters",
+    conditions: {
+      adhd: "folate drives the methylation cycle that converts tyrosine to dopamine; iron in beans removes the bottleneck in dopamine synthesis enzymes",
+      anxiety: "magnesium in beans activates GABA receptors directly; resistant starch feeds gut bacteria that produce anxiety-reducing short-chain fatty acids",
+      depression: "folate deficiency is the strongest nutritional predictor of depression; beans deliver folate plus the iron needed for serotonin enzyme function",
+      bipolar: "magnesium has lithium-like mood-stabilizing properties; beans provide both magnesium and the B vitamins needed for neurotransmitter balance",
+      ocd: "folate is a required cofactor for serotonin synthesis; OCD severity correlates directly with folate levels in clinical studies",
+      bpd: "magnesium supports GABA production for emotional regulation; resistant starch stabilizes blood sugar to prevent reactive mood swings",
+      ppd: "folate and B6 break down homocysteine, the neurotoxic amino acid that damages prefrontal circuits needed for rational threat assessment",
+      default: "folate drives neurotransmitter methylation, magnesium supports GABA, and fiber feeds brain-protective gut bacteria",
+    }
+  },
+  peppers: {
+    nutrient: "vitamin C (more than oranges), vitamin A, capsaicin, and lutein",
+    what_it_does: "bell peppers contain 3× more vitamin C than oranges; vitamin C is concentrated in the adrenal glands and is essential for norepinephrine and dopamine synthesis",
+    conditions: {
+      adhd: "vitamin C is a cofactor for dopamine-beta-hydroxylase, the enzyme that converts dopamine to norepinephrine; both neurotransmitters are deficient in ADHD",
+      anxiety: "vitamin C directly lowers cortisol levels; a single high dose reduces cortisol by up to 25% within hours in clinical studies",
+      depression: "vitamin C is required for the synthesis of serotonin, dopamine, and norepinephrine; deficiency impairs all three mood-regulating systems simultaneously",
+      ptsd: "the adrenal glands use massive amounts of vitamin C during stress; chronic PTSD hyperarousal depletes adrenal vitamin C stores faster than diet can replace",
+      ppd: "vitamin C accelerates cortisol metabolism, helping clear the cortisol backlog that chronic hypervigilance creates and amplifies paranoid ideation",
+      default: "vitamin C supports neurotransmitter synthesis, cortisol regulation, and brain antioxidant defense",
+    }
+  },
+  pumpkinseeds: {
+    nutrient: "zinc, magnesium, tryptophan, iron, and copper",
+    what_it_does: "one of the few foods that delivers zinc, magnesium, tryptophan, and iron together; this combination covers the entire serotonin and dopamine synthesis pathway",
+    conditions: {
+      adhd: "zinc is a dopamine transporter cofactor shown to be significantly low in ADHD; pumpkin seeds deliver zinc alongside the magnesium that modulates dopamine release",
+      anxiety: "tryptophan converts directly to serotonin, while magnesium activates GABA receptors; this dual action addresses the two main neurochemical pathways in anxiety",
+      depression: "the zinc + tryptophan + iron combination covers the entire serotonin synthesis pathway: iron activates the enzyme, tryptophan is the precursor, and zinc activates the receptor",
+      bipolar: "magnesium has natural mood-stabilizing properties while zinc supports dopamine regulation; both are commonly depleted in bipolar disorder",
+      ocd: "tryptophan is the direct serotonin precursor OCD treatment depends on; zinc enhances serotonin receptor sensitivity, amplifying the effect",
+      bfrb: "magnesium reduces neuronal hyperexcitability that drives repetitive behaviors, while zinc supports the GABA system that helps resist urges",
+      ppd: "zinc and magnesium together calm the overactive threat-detection circuits; tryptophan provides serotonin for interpersonal trust and safety",
+      spd: "iron and zinc remove bottlenecks in dopamine synthesis, directly supporting the motivation circuits that SPD underactivates",
+      default: "zinc, magnesium, tryptophan, and iron together cover the full neurotransmitter synthesis pathway",
+    }
+  },
+  plantain: {
+    nutrient: "vitamin B6, potassium, magnesium, vitamin C, and resistant starch",
+    what_it_does: "delivers more vitamin B6 than bananas plus resistant starch that feeds brain-protective gut bacteria; B6 is the master cofactor for neurotransmitter synthesis",
+    conditions: {
+      adhd: "B6 is the rate-limiting cofactor for both dopamine and norepinephrine synthesis; plantains deliver more B6 per serving than most fruits",
+      anxiety: "B6 converts glutamate (excitatory) to GABA (calming); without enough B6, your brain stays stuck in an overexcited, anxious state",
+      depression: "B6 is required for serotonin synthesis and is commonly depleted by stress, oral contraceptives, and poor diet",
+      bipolar: "potassium and magnesium together stabilize neuronal membrane potential, reducing the excitability that triggers mood cycling",
+      ptsd: "resistant starch feeds gut bacteria that produce short-chain fatty acids, which reduce neuroinflammation and lower baseline cortisol",
+      ppd: "B6 supports GABA production to calm threat-detection circuits, while magnesium modulates the norepinephrine release that keeps hypervigilance active",
+      spd: "B6 is essential for dopamine synthesis; plantain delivers more B6 per serving than most fruits, directly supporting motivation circuits",
+      default: "B6 supports neurotransmitter synthesis across all pathways while resistant starch supports gut-brain axis health",
+    }
+  },
+  kimchi: {
+    nutrient: "Lactobacillus probiotics, vitamin K2, B vitamins, and anti-inflammatory compounds",
+    what_it_does: "fermented foods like kimchi deliver live bacteria that colonize the gut and produce neurotransmitters directly; 95% of serotonin is made in the gut",
+    conditions: {
+      adhd: "gut bacteria produce dopamine precursors that cross the blood-brain barrier; fermented foods improve the gut-brain signaling ADHD disrupts",
+      anxiety: "Lactobacillus strains in kimchi reduce cortisol and anxiety in randomized controlled trials; the gut-brain axis is a primary anxiety pathway",
+      depression: "gut bacteria produce 95% of the body's serotonin; kimchi's probiotics restore the microbial diversity that depression depletes",
+      bipolar: "fermented foods reduce gut inflammation that sends alarm signals through the vagus nerve, destabilizing mood regulation systems",
+      schizophrenia: "gut microbiome disruption is increasingly linked to schizophrenia; probiotics reduce inflammatory markers associated with symptom severity",
+      ptsd: "vagal tone improvement from probiotic foods helps shift the nervous system from sympathetic (fight-flight) to parasympathetic (rest-digest)",
+      ppd: "gut inflammation sends alarm signals through the vagus nerve that paranoid brains amplify into perceived threats; probiotics quiet these signals",
+      default: "live probiotics support the gut-brain axis where 95% of serotonin and 50% of dopamine precursors are produced",
+    }
+  },
+  kefir: {
+    nutrient: "probiotics (30+ strains), calcium, B12, tryptophan, and vitamin K2",
+    what_it_does: "contains 3× more probiotic diversity than yogurt, supporting the gut microbiome that manufactures neurotransmitters and regulates brain inflammation",
+    conditions: {
+      adhd: "diverse gut bacteria produce short-chain fatty acids that reduce the neuroinflammation impairing prefrontal cortex function in ADHD",
+      anxiety: "kefir's probiotic diversity has been shown to reduce cortisol and anxiety scores in clinical trials by improving vagus nerve signaling",
+      depression: "tryptophan in kefir plus the probiotic bacteria that convert it to serotonin create a complete mood-support system in a single food",
+      bipolar: "gut microbiome health directly influences mood stability; kefir's 30+ probiotic strains support the microbial diversity bipolar medication often depletes",
+      autism: "gut microbiome interventions show some of the strongest results in autism research; kefir provides diverse strains that support gut-brain communication",
+      default: "diverse probiotics support gut-brain axis neurotransmitter production and reduce neuroinflammation",
+    }
+  },
+  lemon: {
+    nutrient: "vitamin C, flavonoids (hesperidin, naringenin), citric acid, and potassium",
+    what_it_does: "vitamin C is concentrated in the brain at 10× blood levels and is essential for synthesizing dopamine, norepinephrine, and serotonin",
+    conditions: {
+      adhd: "vitamin C is a direct cofactor for the enzyme that converts dopamine to norepinephrine; both neurotransmitters are central to ADHD treatment",
+      anxiety: "flavonoids in citrus have anxiolytic properties, modulating GABA-A receptors; vitamin C also lowers cortisol within hours of consumption",
+      depression: "vitamin C is required for the hydroxylation of tryptophan to 5-HTP, the rate-limiting step in serotonin synthesis",
+      ptsd: "the adrenal glands contain the highest vitamin C concentration of any organ; chronic stress depletes stores faster than most diets can replace",
+      ppd: "vitamin C accelerates cortisol clearance, helping break the cortisol accumulation cycle that fuels paranoid hypervigilance",
+      default: "vitamin C supports neurotransmitter synthesis, cortisol regulation, and flavonoids provide neuroprotection",
+    }
+  },
+  dates: {
+    nutrient: "potassium, magnesium, B6, iron, fiber, and natural sugars",
+    what_it_does: "one of the most mineral-dense fruits; delivers the magnesium-B6-iron combination that covers multiple neurotransmitter synthesis pathways simultaneously",
+    conditions: {
+      adhd: "iron and B6 together remove the two biggest bottlenecks in dopamine synthesis; dates deliver both in a quickly absorbed form",
+      anxiety: "magnesium activates GABA receptors for calm while potassium regulates nerve excitability; both minerals are commonly depleted by chronic stress",
+      depression: "B6 and iron are both required for serotonin enzyme function; dates provide a concentrated source of both alongside natural sugars for quick brain energy",
+      ocd: "magnesium reduces glutamate excitotoxicity in the cortico-striatal circuits that drive OCD compulsions",
+      default: "mineral-dense fruit that supports neurotransmitter synthesis through magnesium, B6, and iron delivery",
+    }
+  },
+  apple: {
+    nutrient: "quercetin, pectin fiber, vitamin C, and polyphenols",
+    what_it_does: "quercetin is a powerful anti-inflammatory flavonoid that crosses the blood-brain barrier and reduces neuroinflammation while supporting BDNF production",
+    conditions: {
+      adhd: "quercetin reduces neuroinflammation in the prefrontal cortex while pectin fiber feeds gut bacteria that produce dopamine precursors",
+      anxiety: "quercetin has been shown to reduce anxiety-like behavior in studies by modulating the GABAergic system and reducing inflammatory cytokines",
+      depression: "apple polyphenols increase BDNF production, supporting the neuroplasticity needed to build new, less depressive neural pathways",
+      default: "quercetin provides neuroprotection, pectin feeds brain-supportive gut bacteria, and polyphenols reduce oxidative stress",
+    }
+  },
+  pomegranate: {
+    nutrient: "punicalagins, ellagic acid, vitamin C, potassium, and polyphenols",
+    what_it_does: "punicalagins are uniquely powerful polyphenols that reduce neuroinflammation and have been shown to improve memory and neural connectivity in clinical trials",
+    conditions: {
+      adhd: "punicalagins reduce oxidative stress in the prefrontal cortex while improving cerebral blood flow needed for sustained attention",
+      anxiety: "pomegranate polyphenols reduce cortisol and inflammatory markers; high-polyphenol diets correlate with lower anxiety scores in population studies",
+      depression: "ellagic acid increases BDNF production and reduces neuroinflammation, two mechanisms central to both depression treatment and prevention",
+      default: "punicalagins provide exceptional neuroprotection while polyphenols support brain blood flow and reduce neuroinflammation",
+    }
+  },
+  cabbage: {
+    nutrient: "vitamin C, vitamin K, glutamine, sulforaphane, and fiber",
+    what_it_does: "glutamine is the precursor to both glutamate (excitatory) and GABA (inhibitory), giving your brain the raw material to balance its excitation and calm systems",
+    conditions: {
+      anxiety: "glutamine converts to GABA in the brain, directly increasing the calming neurotransmitter that anxiety depletes",
+      depression: "sulforaphane activates the Nrf2 pathway, the master switch for antioxidant defense that protects serotonin-producing neurons",
+      schizophrenia: "sulforaphane has shown promise in clinical trials for schizophrenia, reducing oxidative stress and glutamate excitotoxicity",
+      autism: "sulforaphane is one of the most studied dietary compounds in autism; clinical trials show improvements in social interaction and communication",
+      default: "glutamine supports neurotransmitter balance while sulforaphane activates the brain's master antioxidant defense system",
+    }
+  },
+  carrot: {
+    nutrient: "beta-carotene, lutein, vitamin A, fiber, and polyacetylenes",
+    what_it_does: "beta-carotene converts to vitamin A, which is essential for synaptic plasticity and long-term potentiation, the cellular basis of learning and memory",
+    conditions: {
+      adhd: "vitamin A supports synaptic plasticity in the prefrontal cortex, the brain region responsible for the working memory and attention ADHD impairs",
+      anxiety: "beta-carotene is a potent antioxidant that reduces oxidative stress in the amygdala, calming the brain's threat-detection system",
+      depression: "lutein accumulates in the brain and correlates with higher cognitive function and lower depression scores in population studies",
+      default: "beta-carotene supports synaptic plasticity and vision, lutein protects neural tissue, and fiber supports gut-brain health",
+    }
+  },
+  corn: {
+    nutrient: "thiamine (B1), folate, lutein, zeaxanthin, and fiber",
+    what_it_does: "provides thiamine essential for brain glucose metabolism and lutein that protects neural tissue from oxidative damage",
+    conditions: {
+      adhd: "thiamine is required for glucose metabolism in the prefrontal cortex; ADHD brains have higher energy demands and burn through B1 faster",
+      depression: "folate from corn supports the methylation cycle that produces SAMe, one of the most effective natural mood-elevating compounds",
+      bipolar: "steady glucose from corn's complex carbs prevents the blood sugar instability that triggers mood cycling",
+      default: "thiamine supports brain energy metabolism while lutein and zeaxanthin protect neurons from oxidative stress",
+    }
+  },
 };
 
 // ── Ingredient keyword matcher ──────────────────────────────────────────────
@@ -4715,16 +5052,41 @@ const INGREDIENT_KEYWORDS = [
   ["berr", "berries"],
   ["chicken", "chicken"], ["turkey", "turkey"], ["salmon", "salmon"],
   ["steak", "steak"], ["sirloin", "steak"], ["ribeye", "steak"], ["beef", "beef"],
-  ["egg", "eggs"],
+  ["egg", "eggs"], ["pork", "pork"], ["shrimp", "shrimp"],
+  ["tuna", "tuna"], ["cod ", "cod"], ["sardine", "sardines"], ["mackerel", "sardines"],
+  ["tofu", "tofu"], ["tempeh", "tofu"],
   ["spinach", "spinach"], ["broccoli", "broccoli"], ["asparagus", "asparagus"],
   ["sweet potato", "sweetpotato"], ["sweetpotato", "sweetpotato"],
   ["mushroom", "mushrooms"], ["avocado", "avocado"], ["kale", "kale"],
   ["walnut", "walnuts"], ["almond", "almonds"], ["peanut butter", "peanutbutter"],
   ["chia", "chiaseeds"], ["hemp seed", "hempseeds"],
-  ["quinoa", "quinoa"], ["brown rice", "brownrice"],
+  ["pumpkin seed", "pumpkinseeds"],
+  ["quinoa", "quinoa"], ["brown rice", "brownrice"], ["rice", "rice"],
+  ["potato", "potato"],
   ["lentil", "lentils"], ["chickpea", "chickpeas"],
-  ["yogurt", "yogurt"], ["greek yogurt", "greekyogurt"],
+  ["black bean", "beans"], ["white bean", "beans"], ["bean", "beans"],
+  ["yogurt", "yogurt"], ["greek yogurt", "greekyogurt"], ["kefir", "kefir"],
   ["dark chocolate", "darkchocolate"], ["hummus", "hummus"],
+  ["tomato", "tomato"], ["garlic", "garlic"], ["ginger", "ginger"],
+  ["turmeric", "turmeric"], ["coconut", "coconut"],
+  ["pepper", "peppers"], ["bell pepper", "peppers"],
+  ["plantain", "plantain"], ["kimchi", "kimchi"],
+  ["lemon", "lemon"], ["lime", "lemon"],
+  ["pomegranate", "pomegranate"], ["date", "dates"],
+  ["apple", "apple"], ["cabbage", "cabbage"], ["carrot", "carrot"],
+  ["corn", "corn"], ["cornbread", "corn"],
+  ["catfish", "cod"], ["tilapia", "cod"], ["white fish", "cod"], ["mahi", "cod"],
+  ["collard", "kale"], ["callaloo", "kale"], ["bok choy", "kale"],
+  ["oxtail", "beef"], ["brisket", "beef"], ["ground beef", "beef"],
+  ["curry", "turmeric"], ["miso", "kimchi"], ["sauerkraut", "kimchi"],
+  ["grits", "corn"], ["okra", "peppers"],
+  ["pea", "beans"], ["lentil", "lentils"],
+  ["cashew", "almonds"], ["pecan", "walnuts"], ["pistachio", "almonds"],
+  ["noodle", "rice"], ["pasta", "rice"],
+  ["orange", "lemon"], ["grapefruit", "lemon"], ["citrus", "lemon"],
+  ["cherry", "berries"], ["cranberr", "berries"], ["raspberr", "berries"],
+  ["brussels sprout", "broccoli"], ["cauliflower", "broccoli"],
+  ["cucumber", "peppers"], ["zucchini", "peppers"],
 ];
 
 function parseIngredients(mealName) {
@@ -4757,36 +5119,59 @@ function buildMealExplanation(meal, conditionIds) {
 
   const ingredients = parseIngredients(meal);
 
-  const intros = {
-    adhd:          `This is a great meal for ADHD because it directly targets the dopamine and norepinephrine systems that ADHD affects most, providing steady brain energy, neurotransmitter precursors, and the nutrients focus and impulse control depend on.`,
-    anxiety:       `This is a great meal for Anxiety because each ingredient works to calm the nervous system from the inside out: lowering cortisol, supporting GABA production, and reducing the neuroinflammation that keeps the brain in a heightened threat state.`,
-    depression:    `This is a great meal for Depression because it delivers the specific nutrients (serotonin precursors, B vitamins, anti-inflammatory compounds, and BDNF boosters) that depression depletes and that antidepressant treatment depends on.`,
-    bipolar:       `This is a great meal for Bipolar Disorder because it stabilizes blood glucose (a key mood cycling trigger), provides omega-3s and magnesium for neurological stability, and delivers the neurotransmitter precursors both mood phases require.`,
-    schizophrenia: `This is a great meal for Schizophrenia because it targets dopamine pathway regulation, oxidative stress, and neuroinflammation, the three most documented neurological features of schizophrenia, through whole food sources your body uses directly.`,
-    autism:        `This is a great meal for Autism Spectrum because it supports the gut-brain axis, provides B6 for neurotransmitter synthesis, and delivers omega-3s for brain cell membrane health, all in sensory-friendly forms.`,
-    ptsd:          `This is a great meal for PTSD because it works to lower the chronically elevated cortisol baseline, rebuild the serotonin and dopamine that trauma depletes, and support hippocampal repair.`,
-    did:           `This is a great meal for DID because it provides stable, consistent brain fuel that supports grounding and prevents the blood sugar swings that can increase dissociation.`,
-    bpd:           `This is a great meal for Borderline Personality Disorder because it stabilizes blood sugar, one of the most direct dietary tools for reducing emotional reactivity, while delivering serotonin precursors and magnesium the nervous system needs.`,
-    npd:           `This is a great meal for Narcissistic Personality Disorder because it targets the dopamine reward system and prefrontal cortex that NPD most affects, delivering omega-3s for emotional regulation, B vitamins for stress resilience, and steady protein to prevent the blood sugar crashes that amplify narcissistic reactivity.`,
-    hpd:           `This is a great meal for Histrionic Personality Disorder because it stabilizes the serotonin and dopamine systems that drive emotional intensity, providing tryptophan for mood regulation, complex carbohydrates for steady brain energy, and magnesium to calm the nervous system's overreactivity.`,
-    aspd:          `This is a great meal for Antisocial Personality Disorder because it delivers omega-3s and amino acids that support prefrontal cortex function and impulse control, B vitamins for serotonin production, and anti-inflammatory nutrients that reduce the neuroinflammation linked to reduced empathy circuits.`,
-    ocd:           `This is a great meal for OCD because it feeds the serotonin pathway directly: OCD is fundamentally a serotonin-dysregulation disorder, and the tryptophan, folate, and B vitamins here are the exact building blocks serotonin synthesis requires.`,
-    eating:        `This is a nourishing, balanced meal that provides complete nutrition: protein for brain repair, complex carbohydrates for steady energy, and micronutrients that support mood stability during recovery.`,
-    phobia:        `This is a great meal for managing Phobias because it supports GABA production and cortisol regulation, the two neurological levers most directly involved in the physiological fear response.`,
-    bfrb:          `This is a great meal for Body-Focused Repetitive Behaviors because it delivers magnesium and B vitamins that reduce the nervous system hyperarousal that BFRB urges are often driven by.`,
-    ppd:           `This is a great meal for Paranoid Personality Disorder because it targets the overactive threat-detection circuits PPD is driven by, delivering omega-3s to calm neuroinflammation, magnesium for GABA production, and B vitamins that support the prefrontal cortex's ability to override false alarm signals.`,
-    spd:           `This is a great meal for Schizoid Personality Disorder because it targets the underactive dopamine and motivation circuits that SPD affects most, delivering tyrosine for dopamine synthesis, omega-3s for neural membrane health, and B12 to protect the myelin sheaths that carry social and emotional signals.`,
-    default:       `This meal was specifically chosen for your mental health plan because each ingredient delivers targeted nutrients: neurotransmitter precursors, anti-inflammatory compounds, and brain-essential vitamins and minerals.`,
+  // ── Condition-specific neuro data for dynamic intros ──
+  const COND_NEURO = {
+    adhd: { label: "ADHD", systems: "dopamine and norepinephrine", region: "prefrontal cortex", functions: "focus, impulse control, and executive function", depletions: "tyrosine, iron, zinc, and B vitamins", mechanism: "neurotransmitter turnover is faster than average" },
+    anxiety: { label: "Anxiety", systems: "GABA and serotonin", region: "amygdala", functions: "nervous system calm, stress resilience, and cortisol regulation", depletions: "magnesium, tryptophan, and B vitamins", mechanism: "the threat-detection system stays activated even when safe" },
+    depression: { label: "Depression", systems: "serotonin, dopamine, and BDNF", region: "hippocampus and prefrontal cortex", functions: "mood regulation, motivation, and neuroplasticity", depletions: "tryptophan, omega-3s, folate, and vitamin D", mechanism: "neuroinflammation suppresses neurotransmitter production" },
+    bipolar: { label: "Bipolar Disorder", systems: "glutamate, GABA, and circadian signaling", region: "limbic system", functions: "mood stability, energy regulation, and emotional balance", depletions: "omega-3s, magnesium, and lithium-mimetic minerals", mechanism: "neuronal excitability fluctuates between extremes" },
+    schizophrenia: { label: "Schizophrenia", systems: "dopamine, glutamate, and GABA", region: "mesolimbic and mesocortical pathways", functions: "cognitive clarity, reality processing, and emotional regulation", depletions: "omega-3s, antioxidants, and B vitamins", mechanism: "oxidative stress and neuroinflammation damage neural circuits" },
+    autism: { label: "Autism Spectrum", systems: "serotonin, GABA, and gut-brain signaling", region: "gut-brain axis and sensory circuits", functions: "sensory processing, emotional regulation, and gut health", depletions: "B6, magnesium, and probiotics", mechanism: "gut microbiome disruption affects brain neurotransmitter production" },
+    ptsd: { label: "PTSD", systems: "cortisol, serotonin, and norepinephrine", region: "hippocampus and amygdala", functions: "stress recovery, memory processing, and hyperarousal reduction", depletions: "vitamin C, omega-3s, and magnesium", mechanism: "chronic cortisol elevation shrinks the hippocampus and depletes calming neurotransmitters" },
+    did: { label: "DID", systems: "cortisol, GABA, and serotonin", region: "hippocampus and integration circuits", functions: "grounding, memory integration, and stress regulation", depletions: "B vitamins, magnesium, and steady glucose", mechanism: "blood sugar instability and cortisol spikes increase dissociative vulnerability" },
+    bpd: { label: "BPD", systems: "serotonin and oxytocin", region: "amygdala and prefrontal cortex", functions: "emotional regulation, interpersonal stability, and impulse control", depletions: "omega-3s, magnesium, and tryptophan", mechanism: "the emotional brain reacts faster than the rational brain can moderate" },
+    npd: { label: "NPD", systems: "dopamine and oxytocin", region: "prefrontal empathy circuits", functions: "emotional processing, self-regulation, and empathy", depletions: "omega-3s, B vitamins, and magnesium", mechanism: "dopamine reward sensitivity is elevated while empathy circuits are underactive" },
+    hpd: { label: "HPD", systems: "serotonin and dopamine", region: "reward and emotional intensity circuits", functions: "emotional modulation, impulse regulation, and stable mood", depletions: "tryptophan, magnesium, and omega-3s", mechanism: "serotonin fluctuations amplify emotional intensity and reward-seeking" },
+    aspd: { label: "ASPD", systems: "serotonin and prefrontal signaling", region: "prefrontal cortex and amygdala", functions: "impulse control, consequence evaluation, and empathy", depletions: "omega-3s, zinc, and B vitamins", mechanism: "prefrontal cortex underactivity reduces impulse control and consequence evaluation" },
+    ocd: { label: "OCD", systems: "serotonin and glutamate", region: "cortico-striatal-thalamic circuits", functions: "thought flexibility, compulsion resistance, and calm", depletions: "tryptophan, inositol, and B vitamins", mechanism: "serotonin deficiency locks the brain into repetitive thought-action loops" },
+    eating: { label: "recovery", systems: "all major neurotransmitters", region: "hypothalamus and reward circuits", functions: "metabolic repair, mood stability, and brain-body reconnection", depletions: "complete protein, healthy fats, and micronutrients", mechanism: "nutritional deficits disrupt every brain system simultaneously" },
+    phobia: { label: "Phobias", systems: "GABA and cortisol", region: "amygdala and fear circuits", functions: "fear modulation, stress resilience, and nervous system balance", depletions: "magnesium, B vitamins, and tryptophan", mechanism: "the fear response fires disproportionately to the actual threat level" },
+    bfrb: { label: "BFRBs", systems: "GABA, serotonin, and glutamate", region: "basal ganglia and motor circuits", functions: "urge regulation, nervous system calm, and impulse control", depletions: "magnesium, NAC precursors, and B vitamins", mechanism: "nervous system hyperarousal lowers the threshold for repetitive motor behaviors" },
+    ppd: { label: "PPD", systems: "GABA, serotonin, and cortisol", region: "amygdala threat-detection circuits", functions: "trust, accurate threat assessment, and nervous system calm", depletions: "omega-3s, magnesium, and vitamin D", mechanism: "the brain's alarm system fires on neutral stimuli as if they were threats" },
+    spd: { label: "SPD", systems: "dopamine, oxytocin, and BDNF", region: "reward and social cognition circuits", functions: "motivation, emotional awareness, and social engagement", depletions: "tyrosine, omega-3s, and B12", mechanism: "underactive reward circuits make social engagement feel effortful rather than rewarding" },
+    default: { label: "your mental health", systems: "key neurotransmitters", region: "multiple brain regions", functions: "cognitive function, mood regulation, and brain health", depletions: "essential brain nutrients", mechanism: "nutritional gaps impair neurotransmitter production" },
   };
 
-  // Build intro: if multiple conditions, name them all up front
+  // 4 intro templates — meal name hash selects which one, so different meals get different intros
+  const mealHash = meal.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  const cNeuro = COND_NEURO[primaryId] || COND_NEURO.default;
+
+  // Get top nutrient highlights from actual ingredients
+  const topNutrients = ingredients.slice(0, 3).map(k => {
+    const d = INGREDIENT_SCIENCE[k];
+    return d ? d.nutrient.split(',')[0].trim() : null;
+  }).filter(Boolean);
+  const nutrientPhrase = topNutrients.length >= 2
+    ? topNutrients.slice(0, 2).join(' and ')
+    : topNutrients[0] || cNeuro.depletions;
+
+  const introTemplates = [
+    `${meal} delivers ${nutrientPhrase} that your ${cNeuro.label} brain specifically needs for ${cNeuro.functions}. In ${cNeuro.label}, ${cNeuro.mechanism} — and each ingredient here works to counter that. Here's the breakdown:`,
+    `Your ${cNeuro.label} brain has higher demands for ${cNeuro.depletions} because ${cNeuro.mechanism}. ${meal} addresses those deficits directly, supporting ${cNeuro.systems} signaling in the ${cNeuro.region}. Here's how:`,
+    `In ${cNeuro.label}, ${cNeuro.mechanism}, which disrupts ${cNeuro.functions}. ${meal} provides targeted nutritional support — ${nutrientPhrase} — that your ${cNeuro.region} can use to restore ${cNeuro.systems} balance:`,
+    `The ${cNeuro.functions} challenges in ${cNeuro.label} are driven by ${cNeuro.systems} dysregulation in the ${cNeuro.region}. ${meal} was built to fill those nutritional gaps with ${nutrientPhrase} and other bioavailable nutrients your brain can use immediately:`,
+  ];
+
+  // Build intro
   let intro = "";
   if (activeIds.length > 1) {
-    const introLines = activeIds.map(id => intros[id] || intros.default);
-    intro = `This meal was chosen specifically for your combination of ${condString}.\n\n` +
-      introLines.map((line, i) => `${condLabels[i]}: ${line.replace(/^This is a great meal for [^b][^e][^c]*because /i, "").charAt(0).toUpperCase() + line.replace(/^This is a great meal for [^b][^e][^c]*because /i, "").slice(1)}`).join("\n");
+    const multiIntros = activeIds.map(id => {
+      const cn = COND_NEURO[id] || COND_NEURO.default;
+      return `${cn.label}: ${cn.mechanism}, which disrupts ${cn.functions}. This meal delivers ${cn.depletions} to support ${cn.systems} signaling.`;
+    });
+    intro = `${meal} was chosen specifically for your combination of ${condString}.\n\n` + multiIntros.join("\n");
   } else {
-    intro = intros[primaryId] || intros.default;
+    intro = introTemplates[mealHash % introTemplates.length];
   }
 
   if (ingredients.length === 0) {
@@ -4827,23 +5212,128 @@ function buildMealExplanation(meal, conditionIds) {
     }
   }).filter(Boolean);
 
-  const closings = {
-    adhd:          "Every bite here is working to support your focus, emotional regulation, and dopamine system; your brain deserves this kind of care.",
-    anxiety:       "This combination works together to calm your nervous system from the inside out; you're feeding your calm.",
-    depression:    "Each ingredient here is chosen to gently lift the neurotransmitter systems that depression suppresses; you're doing something real for yourself by eating this.",
-    bipolar:       "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished; stability on the plate supports stability in the mind.",
-    schizophrenia: "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain; this is targeted nourishment.",
-    autism:        "This meal is designed to support your gut-brain connection, sensory processing, and neurotransmitter health in a way your body can use.",
-    ptsd:          "This meal is quietly working to lower your cortisol baseline and support the serotonin systems that trauma suppresses; small acts of nourishment matter.",
-    ocd:           "The serotonin support in this meal is real and direct; you're feeding the exact system that OCD challenges most.",
-    bpd:           "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation; this meal provides both.",
-    did:           "Consistent, nourishing meals help ground and stabilize; this one was built to support your brain's need for steady fuel and neurotransmitter balance.",
-    default:       "You're nourishing your brain with intention; every ingredient here was chosen with your mental health in mind.",
+  // Dynamic closings — rotate by meal hash
+  const closingTemplates = {
+    adhd: [
+      "Every bite here is working to support your focus, emotional regulation, and dopamine system — your brain deserves this kind of targeted care.",
+      "This isn't just food; it's fuel specifically matched to what your ADHD brain burns through fastest. You're replenishing what matters.",
+      "Your prefrontal cortex is doing overtime every day. This meal gives it the raw materials to keep going.",
+      "Nutrition can't replace ADHD treatment, but it removes the nutritional barriers that make focus and regulation harder than they need to be.",
+    ],
+    anxiety: [
+      "This combination works together to calm your nervous system from the inside out — you're feeding your calm.",
+      "Anxiety tells your brain everything is a threat. This meal gives your brain the chemistry to disagree.",
+      "Your nervous system is working hard to protect you. This meal helps it stand down when the coast is clear.",
+      "GABA, serotonin, and cortisol regulation start with nutrition. This meal covers all three.",
+    ],
+    depression: [
+      "Each ingredient here gently lifts the neurotransmitter systems depression suppresses — you're doing something real for yourself.",
+      "Depression makes everything harder, including eating well. This meal does the heavy lifting so your brain chemistry doesn't have to.",
+      "Serotonin, BDNF, and anti-inflammatory support aren't abstract concepts — they're what these specific foods deliver to your specific brain.",
+      "Your brain is capable of producing the chemicals it needs. This meal removes the nutritional barriers in its way.",
+    ],
+    bipolar: [
+      "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished — stability on the plate supports stability in the mind.",
+      "Mood stability starts with metabolic stability. Every ingredient here is working to keep your brain's energy and chemistry consistent.",
+      "Your brain cycles between states. This meal provides the nutritional anchors — magnesium, omega-3s, steady glucose — that support balance.",
+      "Bipolar disorder is metabolically demanding. This meal meets those demands with the specific nutrients your brain is burning through.",
+    ],
+    schizophrenia: [
+      "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain — this is targeted nourishment.",
+      "Oxidative stress and neuroinflammation are measurable in schizophrenia. The antioxidants and omega-3s in this meal directly counter both.",
+      "Your brain has specific vulnerabilities. This meal addresses them with nutrients that clinical research has linked to better outcomes.",
+      "The neuroprotective compounds in this meal work at the cellular level, supporting the neural circuits that matter most for your condition.",
+    ],
+    autism: [
+      "This meal supports your gut-brain connection, sensory processing, and neurotransmitter health in forms your body can actually use.",
+      "Gut health and brain health are deeply connected. This meal nurtures both systems simultaneously.",
+      "Your brain processes the world uniquely. This meal provides the nutritional support that unique processing requires.",
+      "The gut-brain axis drives more of your brain's neurotransmitter production than most people realize. This meal feeds that system.",
+    ],
+    ptsd: [
+      "This meal quietly lowers your cortisol baseline and supports the serotonin systems trauma suppresses — small acts of nourishment matter.",
+      "Your stress response has been in overdrive. This meal gives your adrenal system and hippocampus the nutrients they need to recover.",
+      "Trauma changes brain chemistry. This meal provides the specific building blocks your brain needs to restore what was depleted.",
+      "Healing isn't just psychological — it's metabolic. This meal supports the biological recovery your brain is working on.",
+    ],
+    ocd: [
+      "The serotonin support in this meal is real and direct — you're feeding the exact neurotransmitter system OCD challenges most.",
+      "OCD creates a neurochemical tug-of-war. This meal gives the serotonin side more ammunition.",
+      "Your brain's compulsion circuits are hungry for serotonin. This meal delivers the precursors and cofactors those circuits need.",
+      "Serotonin synthesis requires specific nutrients in specific combinations. This meal provides them intentionally, not by accident.",
+    ],
+    bpd: [
+      "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation — this meal provides both.",
+      "Your emotional brain moves fast. This meal supports the prefrontal systems that help your rational brain keep pace.",
+      "Emotional regulation is partly a nutrition problem. This meal addresses the biochemical side so you can focus on the psychological side.",
+      "Magnesium, omega-3s, and tryptophan aren't just nutrients — they're the building blocks of the emotional stability your brain is working toward.",
+    ],
+    did: [
+      "Consistent, nourishing meals help ground and stabilize — this one was built to support your brain's need for steady fuel.",
+      "Grounding starts at the cellular level. This meal provides the steady glucose and neurotransmitter support your brain relies on.",
+      "Your brain works hardest when it's managing complexity. This meal makes sure it has the fuel and cofactors to do that work.",
+      "Nutritional consistency supports neurological consistency. Every ingredient here is working to keep your brain on stable ground.",
+    ],
+    npd: [
+      "This meal supports the prefrontal cortex empathy circuits and dopamine regulation that your brain needs most.",
+      "Emotional regulation requires neurochemistry. This meal provides the omega-3s, B vitamins, and amino acids those circuits depend on.",
+      "Your brain's reward and empathy systems have specific nutritional needs. This meal meets them with targeted, bioavailable nutrients.",
+      "Self-regulation is metabolically expensive. This meal ensures your brain has the fuel to sustain it.",
+    ],
+    hpd: [
+      "This meal calms the serotonin and dopamine fluctuations that drive emotional intensity — steady chemistry supports steady emotions.",
+      "Your brain's emotional circuits are highly active. This meal provides the nutrients that help modulate intensity without suppressing feeling.",
+      "Emotional expression and emotional regulation both need the same neurochemical fuel. This meal supplies it.",
+      "Steady amino acids, magnesium, and omega-3s give your brain the stability to feel deeply without being overwhelmed.",
+    ],
+    aspd: [
+      "This meal supports the prefrontal impulse control and serotonin production your brain depends on for measured decision-making.",
+      "Impulse control is partly a nutritional challenge. This meal provides the specific building blocks your prefrontal cortex needs.",
+      "Your brain's executive function circuits have above-average nutritional demands. This meal is designed to meet them.",
+      "Omega-3s, zinc, and B vitamins aren't optional for your brain — they're essential infrastructure for the circuits you rely on most.",
+    ],
+    eating: [
+      "This is nourishment without judgment — complete nutrition that supports your brain and body during recovery.",
+      "Every ingredient here was chosen to heal, not to restrict. Your brain needs this fuel to regulate mood, energy, and metabolism.",
+      "Recovery is biological as much as psychological. This meal provides the nutrition your brain needs to do both.",
+      "You deserve to eat well and feel good about it. This meal is designed to support your recovery from the nutritional foundation up.",
+    ],
+    phobia: [
+      "This meal supports GABA production and cortisol regulation — the two neurological systems most directly involved in your fear response.",
+      "Your fear circuits fire harder than they need to. This meal gives your brain the chemistry to dial them back.",
+      "GABA is your brain's natural brake pedal on fear. The magnesium and amino acids here help produce more of it.",
+      "Cortisol regulation and GABA production start with nutrition. This meal addresses both pathways.",
+    ],
+    bfrb: [
+      "Magnesium and B vitamins reduce the nervous system hyperarousal that BFRB urges are driven by — this meal delivers both.",
+      "Your brain's urge circuits are partly a chemistry problem. This meal provides the calming nutrients those circuits are missing.",
+      "GABA support and glutamate balance help raise the threshold for repetitive behaviors. This meal targets both.",
+      "The nutrients here work at the basal ganglia level, where BFRB urges originate. You're feeding calm to the right circuits.",
+    ],
+    ppd: [
+      "This meal calms the overactive threat-detection circuits driving your vigilance — you're feeding your brain's ability to feel safe.",
+      "Your alarm system is overbuilt. This meal gives your prefrontal cortex the nutrition to override false alarms.",
+      "Trust starts with neurochemistry. The omega-3s, magnesium, and GABA support here help your brain distinguish real threats from noise.",
+      "Paranoid thinking is exhausting because your brain is working overtime. This meal replenishes what that constant scanning depletes.",
+    ],
+    spd: [
+      "This meal targets the underactive dopamine and motivation circuits that make engagement feel like so much effort.",
+      "Your brain's reward system needs specific fuel. This meal provides the tyrosine, omega-3s, and B vitamins it's been missing.",
+      "Motivation is neurochemical. This meal delivers the raw materials your dopamine and BDNF systems need to function.",
+      "You don't have to force motivation — you have to fuel it. This meal addresses the nutritional side of that equation.",
+    ],
+    default: [
+      "You're nourishing your brain with intention — every ingredient here was chosen with your mental health in mind.",
+      "This meal provides targeted nutrition for the specific brain systems your plan is designed to support.",
+      "Every ingredient here serves a neurological purpose. You're not just eating — you're investing in your brain health.",
+      "Nutrition is the foundation of brain chemistry. This meal builds that foundation with precision.",
+    ],
   };
 
+  const closingArr = closingTemplates[primaryId] || closingTemplates.default;
   const closing = activeIds.length > 1
-    ? `You're managing ${condString}; this meal works across all of them, and every ingredient was placed here with your full picture in mind.`
-    : (closings[primaryId] || closings.default);
+    ? `You're managing ${condString} — this meal works across all of them, and every ingredient was placed here with your full picture in mind.`
+    : closingArr[(mealHash + 1) % closingArr.length];
 
   return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + closing;
 }
