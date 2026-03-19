@@ -5053,8 +5053,8 @@ const INGREDIENT_KEYWORDS = [
   ["chicken", "chicken"], ["turkey", "turkey"], ["salmon", "salmon"],
   ["steak", "steak"], ["sirloin", "steak"], ["ribeye", "steak"], ["beef", "beef"],
   ["egg", "eggs"], ["pork", "pork"], ["shrimp", "shrimp"],
-  ["tuna", "tuna"], ["cod ", "cod"], ["sardine", "sardines"], ["mackerel", "sardines"],
-  ["tofu", "tofu"], ["tempeh", "tofu"],
+  ["tuna", "tuna"], ["cod ", "cod"], ["sardine", "sardines"], ["mackerel", "sardines", "mackerel"],
+  ["tofu", "tofu"], ["tempeh", "tofu", "tempeh"],
   ["spinach", "spinach"], ["broccoli", "broccoli"], ["asparagus", "asparagus"],
   ["sweet potato", "sweetpotato"], ["sweetpotato", "sweetpotato"],
   ["mushroom", "mushrooms"], ["avocado", "avocado"], ["kale", "kale"],
@@ -5075,18 +5075,18 @@ const INGREDIENT_KEYWORDS = [
   ["pomegranate", "pomegranate"], ["date", "dates"],
   ["apple", "apple"], ["cabbage", "cabbage"], ["carrot", "carrot"],
   ["corn", "corn"], ["cornbread", "corn"],
-  ["catfish", "cod"], ["tilapia", "cod"], ["white fish", "cod"], ["mahi", "cod"],
-  ["collard", "kale"], ["callaloo", "kale"], ["bok choy", "kale"],
-  ["oxtail", "beef"], ["ground beef", "beef"],
-  ["curry", "turmeric"], ["miso", "kimchi"], ["sauerkraut", "kimchi"],
-  ["grits", "corn"], ["okra", "peppers"],
-  ["pea", "beans"], ["lentil", "lentils"],
-  ["cashew", "almonds"], ["pecan", "walnuts"], ["pistachio", "almonds"],
-  ["noodle", "rice"], ["pasta", "rice"],
-  ["orange", "lemon"], ["grapefruit", "lemon"], ["citrus", "lemon"],
-  ["cherry", "berries"], ["cranberr", "berries"], ["raspberr", "berries"],
-  ["brussels sprout", "broccoli"], ["cauliflower", "broccoli"],
-  ["cucumber", "peppers"], ["zucchini", "peppers"],
+  ["catfish", "cod", "catfish"], ["tilapia", "cod", "tilapia"], ["white fish", "cod"], ["mahi", "cod", "mahi mahi"],
+  ["collard", "kale", "collard greens"], ["callaloo", "kale", "callaloo"], ["bok choy", "kale", "bok choy"],
+  ["oxtail", "beef", "oxtail"], ["ground beef", "beef"],
+  ["curry", "turmeric", "curry spices"], ["miso", "kimchi", "miso"], ["sauerkraut", "kimchi", "sauerkraut"],
+  ["grits", "corn", "grits"], ["okra", "peppers", "okra"],
+  ["pea", "beans", "peas"], ["lentil", "lentils"],
+  ["cashew", "almonds", "cashews"], ["pecan", "walnuts", "pecans"], ["pistachio", "almonds", "pistachios"],
+  ["noodle", "rice", "noodles"], ["pasta", "rice", "pasta"],
+  ["orange", "lemon", "oranges"], ["grapefruit", "lemon", "grapefruit"], ["citrus", "lemon"],
+  ["cherry", "berries", "cherries"], ["cranberr", "berries", "cranberries"], ["raspberr", "berries", "raspberries"],
+  ["brussels sprout", "broccoli", "Brussels sprouts"], ["cauliflower", "broccoli", "cauliflower"],
+  ["cucumber", "peppers", "cucumber"], ["zucchini", "peppers", "zucchini"],
 ];
 
 function parseIngredients(mealName) {
@@ -5095,9 +5095,9 @@ function parseIngredients(mealName) {
   const seen = new Set();
   // Prioritize multi-word matches first (e.g. "sweet potato" before "potato")
   const sorted = [...INGREDIENT_KEYWORDS].sort((a, b) => b[0].length - a[0].length);
-  for (const [keyword, key] of sorted) {
+  for (const [keyword, key, display] of sorted) {
     if (lower.includes(keyword) && !seen.has(key)) {
-      found.push(key);
+      found.push({ key, display: display || key });
       seen.add(key);
     }
   }
@@ -5146,14 +5146,15 @@ function buildMealExplanation(meal, conditionIds) {
   const cNeuro = COND_NEURO[primaryId] || COND_NEURO.default;
 
   // Build ingredient-driven intro from the ACTUAL nutrients in this specific meal
-  const ingredientName = (key) => ({ sweetpotato: "sweet potatoes", brownrice: "brown rice", chiaseeds: "chia seeds", hempseeds: "hemp seeds", greekyogurt: "Greek yogurt", darkchocolate: "dark chocolate", peanutbutter: "peanut butter", pumpkinseeds: "pumpkin seeds", banana: "bananas", mango: "mangoes", apple: "apples", tomato: "tomatoes", carrot: "carrots", potato: "potatoes", plantain: "plantains", beans: "legumes", lemon: "citrus" }[key] || key);
+  // Use display name from keyword match (e.g. "mackerel" not "sardines" for mackerel meals)
+  const displayName = (d) => ({ sweetpotato: "sweet potatoes", brownrice: "brown rice", chiaseeds: "chia seeds", hempseeds: "hemp seeds", greekyogurt: "Greek yogurt", darkchocolate: "dark chocolate", peanutbutter: "peanut butter", pumpkinseeds: "pumpkin seeds", banana: "bananas", mango: "mangoes", apple: "apples", tomato: "tomatoes", carrot: "carrots", potato: "potatoes", plantain: "plantains", beans: "legumes", lemon: "citrus" }[d] || d);
 
-  const topIng = ingredients.slice(0, 4).map(key => {
-    const data = INGREDIENT_SCIENCE[key];
+  const topIng = ingredients.slice(0, 4).map((ing, idx) => {
+    const data = INGREDIENT_SCIENCE[ing.key];
     if (!data) return null;
     const nutrients = data.nutrient.split(',').map(s => s.trim().replace(/^and\s+/, ''));
-    const nutrient = nutrients[(mealHash + ingredients.indexOf(key)) % nutrients.length] || nutrients[0];
-    return { name: ingredientName(key), nutrient, fullNutrient: nutrients[0], general: data.what_it_does };
+    const nutrient = nutrients[(mealHash + idx) % nutrients.length] || nutrients[0];
+    return { name: displayName(ing.display), nutrient, fullNutrient: nutrients[0] };
   }).filter(Boolean);
 
   // Build intro — name ingredients + nutrients briefly, let bullets carry the detail
@@ -5179,21 +5180,11 @@ function buildMealExplanation(meal, conditionIds) {
   }
 
   // For each ingredient, if multiple conditions show the most relevant note
-  const bullets = ingredients.map(key => {
-    const data = INGREDIENT_SCIENCE[key];
+  const bullets = ingredients.map(ing => {
+    const data = INGREDIENT_SCIENCE[ing.key];
     if (!data) return null;
 
-    const name = key === "sweetpotato" ? "Sweet potatoes"
-      : key === "brownrice" ? "Brown rice"
-      : key === "chiaseeds" ? "Chia seeds"
-      : key === "hempseeds" ? "Hemp seeds"
-      : key === "greekyogurt" ? "Greek yogurt"
-      : key === "darkchocolate" ? "Dark chocolate"
-      : key === "peanutbutter" ? "Peanut butter"
-      : key === "pumpkinseeds" ? "Pumpkin seeds"
-      : key === "beans" ? "Legumes"
-      : key === "cod" ? "White fish"
-      : key.charAt(0).toUpperCase() + key.slice(1);
+    const name = displayName(ing.display).charAt(0).toUpperCase() + displayName(ing.display).slice(1);
 
     if (activeIds.length > 1) {
       // Show a note for each condition that has a specific entry
