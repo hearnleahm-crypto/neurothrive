@@ -10010,68 +10010,203 @@ function NeuroThriveApp() {
         {step === 19 && isPremium && (() => {
           const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
           const guides = condIds.map(id => BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default);
+          const multi = guides.length > 1;
+          const condColors = ["#7b9fff","#50c878","#ba68c8","#e8c87a","#e05070","#60d0d0"];
+          const condLabels = guides.map(g => g.label);
+          const condEmojis = guides.map(g => g.emoji);
+
+          // Merge nutrients: deduplicate by normalized name, tag with conditions
+          const mergedNutrients = [];
+          const nutrientMap = {};
+          guides.forEach((g, gi) => {
+            g.priorityNutrients.forEach(n => {
+              const nKey = n.name.toLowerCase().replace(/[^a-z0-9]/g,"");
+              if (!nutrientMap[nKey]) {
+                nutrientMap[nKey] = { name: n.name, roles: [], sources: new Set(), conds: [] };
+                mergedNutrients.push(nutrientMap[nKey]);
+              }
+              nutrientMap[nKey].roles.push({ condIdx: gi, role: n.role });
+              nutrientMap[nKey].conds.push(gi);
+              n.topSources.split(",").forEach(s => nutrientMap[nKey].sources.add(s.trim()));
+            });
+          });
+
+          // Merge power foods: deduplicate, combine why per condition
+          const mergedPower = [];
+          const powerMap = {};
+          guides.forEach((g, gi) => {
+            g.powerFoods.forEach(f => {
+              const fKey = f.food.toLowerCase().replace(/[^a-z0-9]/g,"");
+              if (!powerMap[fKey]) {
+                powerMap[fKey] = { food: f.food, whys: [], conds: [] };
+                mergedPower.push(powerMap[fKey]);
+              }
+              powerMap[fKey].whys.push({ condIdx: gi, why: f.why });
+              if (!powerMap[fKey].conds.includes(gi)) powerMap[fKey].conds.push(gi);
+            });
+          });
+          // Sort: foods that help ALL conditions first, then by number of conditions desc
+          mergedPower.sort((a, b) => b.conds.length - a.conds.length);
+
+          // Merge foods to minimize
+          const mergedAvoid = [];
+          const avoidMap = {};
+          guides.forEach((g, gi) => {
+            g.foodsToMinimize.forEach(f => {
+              const fKey = f.food.toLowerCase().replace(/[^a-z0-9]/g,"");
+              if (!avoidMap[fKey]) {
+                avoidMap[fKey] = { food: f.food, whys: [], conds: [] };
+                mergedAvoid.push(avoidMap[fKey]);
+              }
+              avoidMap[fKey].whys.push({ condIdx: gi, why: f.why });
+              if (!avoidMap[fKey].conds.includes(gi)) avoidMap[fKey].conds.push(gi);
+            });
+          });
+          mergedAvoid.sort((a, b) => b.conds.length - a.conds.length);
+
+          const CondBadge = ({ ci }) => (
+            <span style={{ display:"inline-block", padding:"2px 7px", borderRadius:"8px", background:`${condColors[ci % condColors.length]}18`, color: condColors[ci % condColors.length], fontSize:"9px", fontWeight:"700", letterSpacing:"0.5px" }}>{condLabels[ci]}</span>
+          );
+
+          const AllBadge = () => (
+            <span style={{ display:"inline-block", padding:"2px 7px", borderRadius:"8px", background:"rgba(80,200,120,0.15)", color:"#50c878", fontSize:"9px", fontWeight:"700", letterSpacing:"0.5px" }}>All Conditions</span>
+          );
+
           return (
             <div>
               <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(107,143,255,0.12)", color:"#7b9fff", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>Brain Diet Guide</div>
-              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"6px" }}>Your Optimal Brain Diet</h2>
-              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6, marginBottom:"24px" }}>Science-informed nutritional guidance personalized for your brain type. These are the foods and patterns that target the specific neurotransmitter systems your conditions affect.</p>
+              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"6px" }}>
+                {multi ? "Your Integrated Brain Diet" : "Your Optimal Brain Diet"}
+              </h2>
+              {multi && (
+                <div style={{ display:"flex", flexWrap:"wrap", gap:"6px", marginBottom:"12px" }}>
+                  {guides.map((g, i) => (
+                    <span key={i} style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"10px", background:`${condColors[i % condColors.length]}12`, border:`1px solid ${condColors[i % condColors.length]}30` }}>
+                      <span style={{ fontSize:"13px" }}>{g.emoji}</span>
+                      <span style={{ color: condColors[i % condColors.length], fontSize:"12px", fontWeight:"700" }}>{g.label}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
+              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6, marginBottom:"20px" }}>
+                {multi
+                  ? `This guide merges the optimal nutritional strategies for ${condLabels.join(" and ")} into one integrated plan. Foods that benefit multiple conditions are prioritized — they give your brain the most value per bite.`
+                  : "Science-informed nutritional guidance personalized for your brain type. These are the foods and patterns that target the specific neurotransmitter systems your condition affects."
+                }
+              </p>
 
+              {/* Condition Summaries */}
               {guides.map((guide, gi) => (
-                <div key={condIds[gi]} style={{ marginBottom: gi < guides.length - 1 ? "32px" : "0" }}>
-                  {guides.length > 1 && (
-                    <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
-                      <span style={{ fontSize:"20px" }}>{guide.emoji}</span>
-                      <h3 style={{ fontSize:"18px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>{guide.label}</h3>
-                    </div>
-                  )}
-
-                  {/* Summary */}
-                  <div style={{ ...S.card, padding:"18px 20px", marginBottom:"16px", borderLeft:"3px solid #7b9fff" }}>
-                    {guides.length <= 1 && <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}><span style={{ fontSize:"18px" }}>{guide.emoji}</span><span style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"700" }}>{guide.label}</span></div>}
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:0 }}>{guide.summary}</p>
+                <div key={condIds[gi]} style={{ ...S.card, padding:"16px 18px", marginBottom:"10px", borderLeft:`3px solid ${condColors[gi % condColors.length]}` }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
+                    <span style={{ fontSize:"16px" }}>{guide.emoji}</span>
+                    <span style={{ color: condColors[gi % condColors.length], fontSize:"14px", fontWeight:"700" }}>{guide.label}</span>
                   </div>
+                  <p style={{ color:"#c8ccf0", fontSize:"12px", lineHeight:1.7, margin:0 }}>{guide.summary}</p>
+                </div>
+              ))}
 
-                  {/* Priority Nutrients */}
-                  <div style={{ marginBottom:"16px" }}>
-                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Priority Nutrients</div>
-                    {guide.priorityNutrients.map((n, i) => (
-                      <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px" }}>
-                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px" }}>
-                          <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#7b9fff", flexShrink:0 }} />
-                          <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{n.name}</span>
+              <div style={{ height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.15), transparent)", margin:"20px 0" }} />
+
+              {/* Merged Priority Nutrients */}
+              <div style={{ marginBottom:"16px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Priority Nutrients</div>
+                {multi && <p style={{ color:"#6b7394", fontSize:"11px", marginBottom:"12px", padding:"0 4px" }}>Nutrients are ranked by how many of your conditions they support. Shared nutrients give your brain the highest return.</p>}
+                {mergedNutrients.sort((a,b) => b.conds.length - a.conds.length).map((n, i) => (
+                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", border: multi && n.conds.length === guides.length ? "1px solid rgba(80,200,120,0.2)" : undefined, background: multi && n.conds.length === guides.length ? "rgba(80,200,120,0.04)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px", flexWrap:"wrap" }}>
+                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: n.conds.length === guides.length ? "#50c878" : "#7b9fff", flexShrink:0 }} />
+                      <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{n.name}</span>
+                      {multi && (
+                        <div style={{ display:"flex", gap:"4px", marginLeft:"auto", flexWrap:"wrap" }}>
+                          {n.conds.length === guides.length ? <AllBadge /> : n.conds.map(ci => <CondBadge key={ci} ci={ci} />)}
                         </div>
-                        <p style={{ color:"#a0a8d0", fontSize:"12px", lineHeight:1.6, margin:"0 0 6px 14px" }}>{n.role}</p>
-                        <p style={{ color:"#6b7394", fontSize:"11px", margin:"0 0 0 14px" }}>Top sources: {n.topSources}</p>
-                      </div>
-                    ))}
+                      )}
+                    </div>
+                    {n.roles.length === 1 || !multi ? (
+                      <p style={{ color:"#a0a8d0", fontSize:"12px", lineHeight:1.6, margin:"0 0 6px 14px" }}>{n.roles[0].role}</p>
+                    ) : (
+                      n.roles.map((r, ri) => (
+                        <div key={ri} style={{ margin:"0 0 4px 14px", display:"flex", gap:"6px", alignItems:"flex-start" }}>
+                          <span style={{ color: condColors[r.condIdx % condColors.length], fontSize:"10px", fontWeight:"700", minWidth:"fit-content", marginTop:"2px" }}>{condLabels[r.condIdx]}:</span>
+                          <span style={{ color:"#a0a8d0", fontSize:"12px", lineHeight:1.5 }}>{r.role}</span>
+                        </div>
+                      ))
+                    )}
+                    <p style={{ color:"#6b7394", fontSize:"11px", margin:"4px 0 0 14px" }}>Top sources: {[...n.sources].slice(0, 6).join(", ")}</p>
                   </div>
+                ))}
+              </div>
 
-                  {/* Power Foods */}
-                  <div style={{ marginBottom:"16px" }}>
-                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#50c878", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Power Foods</div>
-                    {guide.powerFoods.map((f, i) => (
-                      <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft:"3px solid rgba(80,200,120,0.3)" }}>
-                        <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>{f.food}</div>
-                        <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.why}</p>
-                      </div>
-                    ))}
+              {/* Merged Power Foods */}
+              <div style={{ marginBottom:"16px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"700", color:"#50c878", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Power Foods</div>
+                {multi && <p style={{ color:"#6b7394", fontSize:"11px", marginBottom:"12px", padding:"0 4px" }}>Foods that benefit all your conditions are highlighted and listed first.</p>}
+                {mergedPower.map((f, i) => (
+                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft: multi && f.conds.length === guides.length ? "3px solid #50c878" : "3px solid rgba(80,200,120,0.3)", background: multi && f.conds.length === guides.length ? "rgba(80,200,120,0.04)" : undefined }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px", flexWrap:"wrap" }}>
+                      <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{f.food}</span>
+                      {multi && (
+                        <div style={{ display:"flex", gap:"4px", marginLeft:"auto", flexWrap:"wrap" }}>
+                          {f.conds.length === guides.length ? <AllBadge /> : f.conds.map(ci => <CondBadge key={ci} ci={ci} />)}
+                        </div>
+                      )}
+                    </div>
+                    {f.whys.length === 1 || !multi ? (
+                      <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.whys[0].why}</p>
+                    ) : (
+                      f.whys.map((w, wi) => (
+                        <div key={wi} style={{ margin: wi > 0 ? "4px 0 0 0" : 0, display:"flex", gap:"6px", alignItems:"flex-start" }}>
+                          <span style={{ color: condColors[w.condIdx % condColors.length], fontSize:"10px", fontWeight:"700", minWidth:"fit-content", marginTop:"2px" }}>{condLabels[w.condIdx]}:</span>
+                          <span style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.5 }}>{w.why}</span>
+                        </div>
+                      ))
+                    )}
                   </div>
+                ))}
+              </div>
 
-                  {/* Foods to Minimize */}
-                  <div style={{ marginBottom:"16px" }}>
-                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#e05070", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Foods to Minimize</div>
-                    {guide.foodsToMinimize.map((f, i) => (
-                      <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft:"3px solid rgba(224,80,112,0.3)" }}>
-                        <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>{f.food}</div>
-                        <p style={{ color:"#c8a0a0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.why}</p>
-                      </div>
-                    ))}
+              {/* Merged Foods to Minimize */}
+              <div style={{ marginBottom:"16px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"700", color:"#e05070", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Foods to Minimize</div>
+                {mergedAvoid.map((f, i) => (
+                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft:"3px solid rgba(224,80,112,0.3)" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px", flexWrap:"wrap" }}>
+                      <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{f.food}</span>
+                      {multi && (
+                        <div style={{ display:"flex", gap:"4px", marginLeft:"auto", flexWrap:"wrap" }}>
+                          {f.conds.length === guides.length ? <AllBadge /> : f.conds.map(ci => <CondBadge key={ci} ci={ci} />)}
+                        </div>
+                      )}
+                    </div>
+                    {f.whys.length === 1 || !multi ? (
+                      <p style={{ color:"#c8a0a0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.whys[0].why}</p>
+                    ) : (
+                      f.whys.map((w, wi) => (
+                        <div key={wi} style={{ margin: wi > 0 ? "4px 0 0 0" : 0, display:"flex", gap:"6px", alignItems:"flex-start" }}>
+                          <span style={{ color: condColors[w.condIdx % condColors.length], fontSize:"10px", fontWeight:"700", minWidth:"fit-content", marginTop:"2px" }}>{condLabels[w.condIdx]}:</span>
+                          <span style={{ color:"#c8a0a0", fontSize:"12px", lineHeight:1.5 }}>{w.why}</span>
+                        </div>
+                      ))
+                    )}
                   </div>
+                ))}
+              </div>
 
-                  {/* Meal Pattern */}
-                  <div style={{ ...S.card, padding:"18px 20px", marginBottom:"8px", background:"linear-gradient(135deg, rgba(232,200,122,0.06), rgba(232,200,122,0.02))", borderLeft:"3px solid rgba(232,200,122,0.4)" }}>
-                    <div style={{ fontSize:"11px", fontWeight:"700", color:"#e8c87a", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"12px" }}>Ideal Meal Pattern</div>
-                    <div style={{ display:"grid", gap:"10px" }}>
+              {/* Meal Patterns - show each condition's pattern */}
+              <div style={{ marginBottom:"16px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"700", color:"#e8c87a", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>
+                  {multi ? "Meal Patterns by Condition" : "Ideal Meal Pattern"}
+                </div>
+                {guides.map((guide, gi) => (
+                  <div key={condIds[gi]} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px", background:"linear-gradient(135deg, rgba(232,200,122,0.06), rgba(232,200,122,0.02))", borderLeft:`3px solid ${multi ? condColors[gi % condColors.length] : "rgba(232,200,122,0.4)"}` }}>
+                    {multi && (
+                      <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"10px" }}>
+                        <span style={{ fontSize:"14px" }}>{guide.emoji}</span>
+                        <span style={{ color: condColors[gi % condColors.length], fontSize:"12px", fontWeight:"700" }}>{guide.label}</span>
+                      </div>
+                    )}
+                    <div style={{ display:"grid", gap:"8px" }}>
                       <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Frequency: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.frequency}</span></div>
                       <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Macro Split: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.macroSplit}</span></div>
                       <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Timing: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.timing}</span></div>
@@ -10080,12 +10215,8 @@ function NeuroThriveApp() {
                       </div>
                     </div>
                   </div>
-
-                  {gi < guides.length - 1 && (
-                    <div style={{ height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.2), transparent)", margin:"28px 0" }} />
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
 
               <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginTop:"20px", marginBottom:"20px" }}>
                 <p style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6, margin:0 }}>This guide is informed by neuroscience research on nutrition and brain chemistry. It is not a substitute for professional medical advice. Always consult your doctor before making significant dietary changes.</p>
