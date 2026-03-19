@@ -107,7 +107,8 @@ const CUISINE_TYPES = [
   { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
   { id: "indian_curry", label: "Indian & Curry", emoji: "🍛" },
   { id: "italian", label: "Italian", emoji: "🍝" },
-  { id: "caribbean_soul", label: "Caribbean & Soul Food", emoji: "🫘" },
+  { id: "southern_cajun", label: "Southern & Cajun", emoji: "🫘" },
+  { id: "caribbean", label: "Caribbean", emoji: "🥥" },
   { id: "african", label: "African", emoji: "🍲" },
   { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜" },
 ];
@@ -344,13 +345,14 @@ const ALL_MEALS = {
     { name: "Salmon & Egg Scramble with Whole Grain Toast & Avocado", tags: ["fish","egg","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","bpd","neuro_core","default"] },
     { name: "Chicken & Sweet Potato Breakfast Hash with Fried Eggs", tags: ["chicken","meat","egg"], conditions: ["adhd","depression","bipolar","ptsd","did","default"] },
     { name: "Ground Beef & Egg Breakfast Bowl with Rice & Salsa", tags: ["meat","egg","rice"], conditions: ["adhd","bipolar","schizophrenia","default"] },
-    // Caribbean & Soul Food breakfasts
-    { name: "Ackee & Saltfish Scramble with Fried Plantain & Callaloo", tags: ["egg","fish","meat"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
-    { name: "Cornmeal Porridge with Cinnamon, Banana & Honey", tags: ["gluten","banana"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    // Southern & Cajun breakfasts
     { name: "Sweet Potato & Black-Eyed Pea Hash with Fried Eggs", tags: ["egg","legume","bean"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
-    { name: "Plantain & Egg Scramble with Avocado & Hot Sauce", tags: ["egg"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
     { name: "Grits with Sautéed Shrimp, Spinach & Garlic", tags: ["shellfish","garlic"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
     { name: "Smothered Turkey Sausage & Egg Skillet with Sweet Potato", tags: ["meat","egg","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Caribbean breakfasts
+    { name: "Ackee & Saltfish Scramble with Fried Plantain & Callaloo", tags: ["egg","fish","meat"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
+    { name: "Cornmeal Porridge with Cinnamon, Banana & Honey", tags: ["gluten","banana"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
+    { name: "Plantain & Egg Scramble with Avocado & Hot Sauce", tags: ["egg"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
     // African breakfasts
     { name: "Moroccan Spiced Oatmeal with Dates, Almonds & Cinnamon", tags: ["oats","gluten","nuts"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","default"] },
     { name: "Shakshuka with Harissa, Spinach & Crusty Bread", tags: ["egg","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
@@ -488,13 +490,14 @@ const ALL_MEALS = {
     { name: "Chicken & Potato Soup with Fresh Herbs", tags: ["chicken","meat","potato"], conditions: ["anxiety","depression","ptsd","ocd","eating","did","default"] },
     { name: "Grilled Chicken Plate with Roasted Potatoes & Side Salad", tags: ["chicken","meat","potato"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Turkey & Potato Hash Bowl with Avocado", tags: ["meat","potato","turkey"], conditions: ["adhd","depression","bipolar","ptsd","bpd","default"] },
-    // Caribbean & Soul Food lunches
-    { name: "Jerk Chicken Bowl with Rice & Peas and Mango Salsa", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
-    { name: "Caribbean Black Bean Soup with Plantain & Avocado", tags: ["legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Southern & Cajun lunches
     { name: "Blackened Salmon Salad with Cajun Spices & Sweet Potato", tags: ["fish"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Collard Green & Turkey Wrap with Black-Eyed Peas", tags: ["meat","legume","bean","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Cajun Shrimp & Quinoa Bowl with Roasted Bell Peppers", tags: ["shellfish","quinoa","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
     { name: "Smothered Chicken with Brown Rice & Collard Greens", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Caribbean lunches
+    { name: "Jerk Chicken Bowl with Rice & Peas and Mango Salsa", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Caribbean Black Bean Soup with Plantain & Avocado", tags: ["legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Jamaican Curry Chicken with Rice & Steamed Cabbage", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","default"] },
     // African lunches
     { name: "West African Groundnut Stew with Chicken & Brown Rice", tags: ["chicken","meat","rice","nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
@@ -652,15 +655,16 @@ const ALL_MEALS = {
     { name: "Loaded Baked Potato with Ground Turkey & Steamed Broccoli", tags: ["meat","potato","dairy","turkey"], conditions: ["adhd","depression","bipolar","ptsd","did","default"] },
     { name: "Shepherd's Pie with Ground Turkey & Mashed Potato Topping", tags: ["meat","potato","turkey"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","bpd","did","eating","default"] },
     { name: "Crispy Baked Potato Wedges with Grilled Chicken & Salad", tags: ["chicken","meat","potato"], conditions: ["adhd","anxiety","ocd","autism","bpd","default"] },
-    // Caribbean & Soul Food dinners
-    { name: "Jerk Chicken Thighs with Rice & Peas and Steamed Callaloo", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Southern & Cajun dinners
     { name: "Cajun Blackened Catfish with Collard Greens & Brown Rice", tags: ["fish","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
-    { name: "Oxtail Stew with Butter Beans & Brown Rice", tags: ["meat","legume","bean","rice"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
     { name: "Gumbo with Chicken, Shrimp & Brown Rice", tags: ["chicken","meat","shellfish","rice"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
     { name: "Jambalaya with Chicken Sausage, Shrimp & Brown Rice", tags: ["chicken","meat","shellfish","rice"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
     { name: "Blackened Salmon with Cajun Sweet Potato Mash & Green Beans", tags: ["fish"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
-    { name: "Caribbean Curry Goat with Rice & Peas", tags: ["meat","rice"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
     { name: "Smothered Turkey Chops with Mashed Sweet Potato & Collard Greens", tags: ["meat","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Caribbean dinners
+    { name: "Jerk Chicken Thighs with Rice & Peas and Steamed Callaloo", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Oxtail Stew with Butter Beans & Brown Rice", tags: ["meat","legume","bean","rice"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
+    { name: "Caribbean Curry Goat with Rice & Peas", tags: ["meat","rice"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
     // African dinners
     { name: "Nigerian Egusi Stew with Spinach & Brown Rice", tags: ["rice","seed"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Ethiopian Doro Wat (Chicken Stew) with Brown Rice", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
@@ -784,10 +788,11 @@ const ALL_MEALS = {
     { name: "Turmeric & Ginger Energy Balls", tags: ["nuts","oats","gluten"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Kombucha & Mixed Nuts", tags: ["nuts"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
     { name: "Miso Soup Cup with Seaweed", tags: ["soy"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","autism","neuro_core","default"] },
-    // Caribbean & Soul Food snacks
-    { name: "Baked Plantain Chips with Guacamole", tags: [], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Southern & Cajun snacks
     { name: "Sweet Potato Bites with Cinnamon & Honey", tags: [], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
     { name: "Black-Eyed Pea Hummus with Veggie Sticks", tags: ["legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Caribbean snacks
+    { name: "Baked Plantain Chips with Guacamole", tags: [], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
     // African snacks
     { name: "Roasted Chickpeas with Berbere Spice", tags: ["legume","chickpea"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Dates Stuffed with Almond Butter", tags: ["nuts"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
@@ -851,7 +856,8 @@ const getCuisine = (name) => {
   if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|pad thai|bibimbap/.test(n)) return "asian";
   if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
   if (/mediterranean|tahini|falafel|hummus.*pita|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh/.test(n)) return "mediterranean";
-  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|jollof|gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|soul food|smothered|hoppin|black[- ]eyed pea|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean_soul";
+  if (/gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|smothered|hoppin|black[- ]eyed pea|grits/.test(n)) return "southern_cajun";
+  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean";
   if (/injera|berbere|doro\s*wat|kitfo|egusi|suya|fufu|groundnut|peanut\s*stew|west african|east african|ethiopian|nigerian|ghanaian|senegalese|moroccan.*tagine|harissa|ras\s*el\s*hanout|shakshuka.*harissa/.test(n)) return "african";
   if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) return "southeast_asian";
   if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie/.test(n)) return "american";
@@ -2858,7 +2864,7 @@ const generateRecipe = (meal) => {
     return { serves: 2, time: "50 min", ingredients: ["1 lb lean ground beef (90/10)","½ cup breadcrumbs","1 egg","¼ cup milk","1 small onion, finely diced","2 cloves garlic, minced","1 tbsp Worcestershire sauce","1 tsp dried thyme","Salt and pepper to taste","3 tbsp ketchup","1 tbsp brown sugar","1 tsp mustard"], steps: ["Preheat oven to 375°F (190°C). Line a baking sheet with parchment paper.","Soak breadcrumbs in milk for 2 minutes.","Combine ground beef, soaked breadcrumbs, egg, onion, garlic, Worcestershire sauce, thyme, salt, and pepper. Mix gently.","Shape into a loaf on the prepared baking sheet (about 8×4 inches).","Mix ketchup, brown sugar, and mustard. Spread over the top of the loaf.","Bake 35–40 minutes until internal temperature reaches 160°F.","Rest 10 minutes before slicing."], tip: "The milk-soaked breadcrumbs (called a panade) are the secret to tender, juicy meatloaf.", nutrition: ["Lean beef provides heme iron critical for dopamine synthesis","B12 supports myelin formation and healthy nerve conduction","Complete amino acid profile supports neurotransmitter production","Onion and garlic contain quercetin, which reduces neuroinflammation"] };
   }
 
-  // ── Caribbean, Soul Food & African dedicated recipes ─────────────────────
+  // ── Southern, Cajun, Caribbean & African dedicated recipes ───────────────
 
   // Jerk Chicken
   if (has("jerk") && hasAny("chicken")) {
