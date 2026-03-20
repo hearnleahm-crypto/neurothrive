@@ -6039,6 +6039,7 @@ function NeuroThriveApp() {
   const [tourStep, setTourStep] = useState(0);
   const [onboardingDone, setOnboardingDone] = useState(false);
   const [showBrainExplainer, setShowBrainExplainer] = useState(false);
+  const [brainExplainerTab, setBrainExplainerTab] = useState(null);
   const [moodInsight, setMoodInsight] = useState(null);
   const [routinePrefs, setRoutinePrefs] = useState(null);
   const [personalRoutine, setPersonalRoutine] = useState(null);
@@ -11227,16 +11228,31 @@ function NeuroThriveApp() {
 
       {/* ── Brain Explainer Modal ── */}
       {showBrainExplainer && (() => {
-        const condKey = selectedConditions.includes("neuro_core") ? "neuro_core" : (selectedConditions[0] || "default");
-        const brain = BRAIN_ON_CONDITION[condKey] || BRAIN_ON_CONDITION.default;
+        const condKeys = selectedConditions.filter(c => BRAIN_ON_CONDITION[c]);
+        if (condKeys.length === 0) condKeys.push("default");
+        const activeBrainTab = condKeys.includes(brainExplainerTab) ? brainExplainerTab : condKeys[0];
+        const brain = BRAIN_ON_CONDITION[activeBrainTab] || BRAIN_ON_CONDITION.default;
         if (!brain) return null;
         return (
           <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, overflowY:"auto", padding:"24px", backdropFilter:"blur(12px)" }}>
             <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"24px" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: condKeys.length > 1 ? "16px" : "24px" }}>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", margin:0 }}>{brain.emoji} {brain.title}</h2>
                 <button onClick={() => setShowBrainExplainer(false)} style={{ background:"rgba(110,120,200,0.15)", border:"none", color:"#8890b8", fontSize:"18px", width:"36px", height:"36px", borderRadius:"50%", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
               </div>
+
+              {condKeys.length > 1 && (
+                <div style={{ display:"flex", gap:"6px", flexWrap:"wrap", marginBottom:"20px" }}>
+                  {condKeys.map(ck => {
+                    const b = BRAIN_ON_CONDITION[ck];
+                    const isActive = ck === activeBrainTab;
+                    return (
+                      <button key={ck} onClick={() => setBrainExplainerTab(ck)} style={{ padding:"7px 14px", borderRadius:"12px", border: isActive ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: isActive ? "rgba(85,112,240,0.15)" : "transparent", color: isActive ? "#a0b8ff" : "#6b7394", fontSize:"12px", fontWeight: isActive ? "700" : "500", cursor:"pointer", transition:"all 0.15s" }}>{b ? b.emoji : "🧠"} {b ? b.title.replace("Your Brain on ","") : ck}</button>
+                    );
+                  })}
+                </div>
+              )}
+
               <p style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.8, marginBottom:"24px" }}>{brain.overview}</p>
 
               <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"14px" }}>Neurotransmitter Profile</div>
