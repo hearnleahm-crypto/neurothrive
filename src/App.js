@@ -7971,6 +7971,11 @@ function NeuroThriveApp() {
                 }}>
                   Skip for Now
                 </button>
+                <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px", marginTop:"8px", color:"#7b9fff", borderColor:"rgba(107,143,255,0.3)" }} onClick={() => {
+                  syncMenuToToday(); setStep(4);
+                }}>
+                  Take Me to My 30-Day Menu →
+                </button>
                 <p style={{ color:"#6b7394", fontSize:"11px", marginTop:"12px", lineHeight:1.5 }}>You can always build your routine later from the More menu.</p>
               </div>
             );
