@@ -7942,10 +7942,11 @@ function NeuroThriveApp() {
                   Build My Routine →
                 </button>
                 <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px" }} onClick={() => {
-                  prevStep !== null ? goBack() : setStep(menu30 ? 12 : 4);
+                  prevStep !== null ? goBack() : setStep(12);
                 }}>
                   Skip for Now
                 </button>
+                <p style={{ color:"#6b7394", fontSize:"11px", marginTop:"12px", lineHeight:1.5 }}>You can always build your routine later from the More menu.</p>
               </div>
             );
           }
@@ -7992,7 +7993,7 @@ function NeuroThriveApp() {
                   <button style={S.btnOutline} onClick={() => setRoutineQPage("evening")}>← Edit Answers</button>
                   <button style={hasSteps ? S.btn : { ...S.btn, opacity:0.4, cursor:"default" }} onClick={() => {
                     if (!hasSteps) return;
-                    setStep(menu30 ? 12 : 4);
+                    prevStep !== null ? goBack() : setStep(12);
                   }}>Lock In My Routine →</button>
                 </div>
               </div>
@@ -9523,8 +9524,8 @@ function NeuroThriveApp() {
               )}
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-                <button style={S.btnOutline} onClick={() => prevStep !== null ? goBack() : setStep(12)}>← Back</button>
-                <button style={S.btn} onClick={() => navigateTo(4)}>View Meal Plan →</button>
+                <button style={S.btnOutline} onClick={goBack}>← Back</button>
+                <button style={S.btn} onClick={() => navigateTo(12)}>Today's Checklist →</button>
               </div>
             </div>
           );
@@ -9644,7 +9645,10 @@ function NeuroThriveApp() {
                   </div>
                 );
               })()}
-              <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
+              <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
+                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Full Menu →</span>
+              </div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
                 Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
               </div>
@@ -10046,11 +10050,22 @@ function NeuroThriveApp() {
                       );
                     })}
 
-                    {bp.pct >= 70 && (
+                    {bp.pct >= 70 && bp.pct < 100 && (
                       <div style={{ marginTop:"16px", padding:"12px", borderRadius:"12px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
                         <div style={{ fontSize:"13px", fontWeight:"700", color:"#50c878" }}>
-                          {bp.pct >= 90 ? "Your brain is thriving today. Every choice you made matters." : "Strong day for your brain. You're building real neural change."}
+                          {bp.pct >= 90 ? "Almost there — just a few more items to finish your day." : "Strong day for your brain. You're building real neural change."}
                         </div>
+                      </div>
+                    )}
+
+                    {bp.pct >= 100 && (
+                      <div style={{ marginTop:"16px", padding:"20px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(107,143,255,0.08))", border:"1.5px solid rgba(80,200,120,0.3)", textAlign:"center" }}>
+                        <div style={{ fontSize:"28px", marginBottom:"8px" }}>✨</div>
+                        <div style={{ fontSize:"16px", fontWeight:"700", color:"#50c878", marginBottom:"6px" }}>Day Complete</div>
+                        <div style={{ fontSize:"13px", color:"#a0c8b0", lineHeight:1.6, marginBottom:"4px" }}>
+                          You nourished your brain, moved your body, and checked in with yourself. That's real change.
+                        </div>
+                        {streak > 1 && <div style={{ fontSize:"12px", color:"#e8c87a", fontWeight:"600", marginTop:"8px" }}>{streak}-day streak — your brain is building new patterns.</div>}
                       </div>
                     )}
 
@@ -10199,10 +10214,27 @@ function NeuroThriveApp() {
                 );
               })()}
 
-              <div style={{ display:"flex", gap:"10px", justifyContent:"center", marginTop:"48px" }}>
-                <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>View Full Menu →</button>
-                {!remindersEnabled && <button style={S.btnOutline} onClick={() => setStep(7)}>Set Reminders</button>}
-              </div>
+              {/* Bottom section: adapts to completion state */}
+              {(() => {
+                const bp2 = getBrainPoints(todayKey);
+                const isDone = bp2.pct >= 100;
+                return isDone ? (
+                  <div style={{ textAlign:"center", marginTop:"48px", padding:"24px 20px", borderRadius:"20px", background:"rgba(107,143,255,0.04)", border:"1px solid rgba(107,143,255,0.1)" }}>
+                    <div style={{ fontSize:"14px", color:"#8890b8", lineHeight:1.7, marginBottom:"16px" }}>
+                      You've done everything you can for your brain today.<br/>Rest well — tomorrow is a new day to thrive.
+                    </div>
+                    <div style={{ display:"flex", gap:"10px", justifyContent:"center", flexWrap:"wrap" }}>
+                      <button style={S.btnOutline} onClick={() => navigateTo(11)}>View Progress →</button>
+                      <button style={S.btnOutline} onClick={() => { syncMenuToToday(); navigateTo(4); }}>Browse Menu</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display:"flex", gap:"10px", justifyContent:"center", marginTop:"48px", flexWrap:"wrap" }}>
+                    <button style={S.btn} onClick={() => { syncMenuToToday(); navigateTo(4); }}>View Full Menu →</button>
+                    {!remindersEnabled && <button style={S.btnOutline} onClick={() => navigateTo(7)}>Set Reminders</button>}
+                  </div>
+                );
+              })()}
             </div>
           );
         })()}
