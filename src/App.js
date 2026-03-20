@@ -9997,6 +9997,32 @@ function NeuroThriveApp() {
                 );
               })}
 
+              {/* Complete My Day Button */}
+              {(() => {
+                const bp2 = getBrainPoints(todayKey);
+                const isDayComplete = todayChecks.dayComplete;
+                if (isDayComplete) return (
+                  <div style={{ textAlign:"center", padding:"28px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(107,143,255,0.06))", border:"1.5px solid rgba(80,200,120,0.25)", marginBottom:"8px" }}>
+                    <div style={{ fontSize:"32px", marginBottom:"10px" }}>✨</div>
+                    <div style={{ fontSize:"18px", fontWeight:"700", color:"#50c878", marginBottom:"6px" }}>Day {daysElapsed} Complete</div>
+                    <div style={{ fontSize:"13px", color:"#a0c8b0", lineHeight:1.7 }}>
+                      You scored {bp2.pct}% today. Every choice you made is strengthening your brain.
+                    </div>
+                    <div style={{ fontSize:"12px", color:"#6b7394", marginTop:"10px" }}>Tomorrow's checklist resets at midnight.</div>
+                  </div>
+                );
+                return bp2.pct >= 30 ? (
+                  <div style={{ textAlign:"center", marginTop:"8px", marginBottom:"8px" }}>
+                    <button onClick={() => {
+                      updateTodayChecks(prev => ({ ...prev, dayComplete: true }));
+                    }} style={{ width:"100%", padding:"16px 20px", borderRadius:"16px", border:"1.5px solid rgba(80,200,120,0.3)", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(107,143,255,0.06))", color:"#50c878", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px" }}>
+                      Complete My Day
+                    </button>
+                    <div style={{ fontSize:"11px", color:"#6b7394", marginTop:"8px" }}>Lock in your progress for Day {daysElapsed}</div>
+                  </div>
+                ) : null;
+              })()}
+
               {/* Section G: Daily Brain Scorecard */}
               <div style={sectionDivider} />
               {(() => {
@@ -10217,7 +10243,7 @@ function NeuroThriveApp() {
               {/* Bottom section: adapts to completion state */}
               {(() => {
                 const bp2 = getBrainPoints(todayKey);
-                const isDone = bp2.pct >= 100;
+                const isDone = bp2.pct >= 100 || todayChecks.dayComplete;
                 return isDone ? (
                   <div style={{ textAlign:"center", marginTop:"48px", padding:"24px 20px", borderRadius:"20px", background:"rgba(107,143,255,0.04)", border:"1px solid rgba(107,143,255,0.1)" }}>
                     <div style={{ fontSize:"14px", color:"#8890b8", lineHeight:1.7, marginBottom:"16px" }}>
