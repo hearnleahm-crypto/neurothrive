@@ -9553,9 +9553,28 @@ function NeuroThriveApp() {
                 </>
               )}
 
-              <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
+              {/* Quick Actions */}
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px", marginTop:"32px" }}>
+                <div onClick={() => navigateTo(8)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", cursor:"pointer" }}>
+                  <div style={{ color:"#d4a0e8", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Journal</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>Log today's mood and energy</div>
+                </div>
+                <div onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.15)", cursor:"pointer" }}>
+                  <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>30-Day Menu</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>Browse meals and recipes</div>
+                </div>
+                <div onClick={() => navigateTo(10)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(240,168,48,0.06)", border:"1px solid rgba(240,168,48,0.15)", cursor:"pointer" }}>
+                  <div style={{ color:"#f0a830", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Routine</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>View your daily routine</div>
+                </div>
+                <div onClick={() => navigateTo(12)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", cursor:"pointer" }}>
+                  <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Today</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>Back to your checklist</div>
+                </div>
+              </div>
+
+              <div style={{ textAlign:"center", marginTop:"16px" }}>
                 <button style={S.btnOutline} onClick={goBack}>← Back</button>
-                <button style={S.btn} onClick={() => navigateTo(12)}>Today's Checklist →</button>
               </div>
             </div>
           );
