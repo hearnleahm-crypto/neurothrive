@@ -6000,6 +6000,8 @@ function NeuroThriveApp() {
   const [altMeal, setAltMeal] = useState({});
   const [expandedGenderNote, setExpandedGenderNote] = useState(null);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [moreMenuGroup, setMoreMenuGroup] = useState(null);
+  const [prevStep, setPrevStep] = useState(null);
   const [planCycle, setPlanCycle] = useState(1);
   const [cycleStartDate, setCycleStartDate] = useState(null);
   const [showCycleComplete, setShowCycleComplete] = useState(false);
@@ -6358,6 +6360,27 @@ function NeuroThriveApp() {
       else setShowPaywall(true);
     } else {
       setStep(nextStep);
+    }
+  };
+
+  const navigateTo = (targetStep) => {
+    setPrevStep(step);
+    if (targetStep === 14) { setNsCategory(null); setNsTool(null); }
+    if (targetStep === 15) { setGroceryWeek(selectedWeek); setGroceryChecked({}); }
+    if (targetStep === 18) { setMealPrepWeek(selectedWeek); setMealPrepChecked({}); }
+    if (targetStep === 9) { setToolkitState(null); setToolkitCategory(null); }
+    if (targetStep === 13) { setRoutineQPage(personalRoutine ? "morning" : "intro"); }
+    setStep(targetStep);
+  };
+
+  const goBack = () => {
+    if (prevStep !== null) {
+      const target = prevStep;
+      setPrevStep(null);
+      if (target === 4) syncMenuToToday();
+      setStep(target);
+    } else {
+      setStep(12); // Default fallback: Today's Checklist
     }
   };
 
@@ -7697,14 +7720,14 @@ function NeuroThriveApp() {
           <span>Neuro<span style={{ color:"#7b9fff" }}>Thrive</span></span>
         </div>
         <div className="nav-tabs-scroll" style={S.navTabs}>
-          {step > 0 && step <= 3 && [
+          {step > 0 && step <= 3 && prevStep === null && [
             { label:"Gender",       s:1 },
             { label:"Conditions",   s:2 },
             { label:"Diet",         s:3 },
           ].map(({ label, s }) => (
             <button key={label} style={S.navTab(step===s)} onClick={() => handleStepForward(s)}>{label}</button>
           ))}
-          {step > 3 && (
+          {(step > 3 || (step <= 3 && prevStep !== null)) && (
             <>
               <button style={S.navTab(step===4)} onClick={() => { syncMenuToToday(); setStep(4); }}>30-Day Menu</button>
               {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today's Checklist</button>}
@@ -7712,50 +7735,57 @@ function NeuroThriveApp() {
             </>
           )}
         </div>
-        {isPremium && step > 3 && (
+        {isPremium && (step > 3 || prevStep !== null) && (
           <div style={{ position:"relative", flexShrink:0 }}>
-            <button style={S.navTab([6,7,8,9,10,14,15,16,17,18,19].includes(step))} onClick={() => setShowMoreMenu(p => !p)}>More ▾</button>
-            {showMoreMenu && (
+            <button style={S.navTab([1,3,6,7,8,9,10,13,14,15,16,17,18,19].includes(step))} onClick={() => { setShowMoreMenu(p => !p); setMoreMenuGroup(null); }}>More ▾</button>
+            {showMoreMenu && (() => {
+              const groups = [
+                { key:"profile", label:"Profile", items:[{ label:"Edit Profile", s:1 }, { label:"Adjust Diet", s:3 }, { label:"Rebuild Routine", s:13 }] },
+                { key:"journal", label:"Journal", items:[{ label:"Journal", s:8 }] },
+                { key:"routine", label:"Routine", items:[{ label:"Daily Routine", s:10 }, { label:"Exercise", s:17 }] },
+                { key:"brain",   label:"Brain Tools", items:[{ label:"Toolkit", s:9 }, { label:"Nervous System", s:14 }] },
+                { key:"meals",   label:"Meal Planning", items:[{ label:"Grocery List", s:15 }, { label:"Meal Prep", s:18 }, { label:"Favorites", s:16 }] },
+                { key:"learn",   label:"Learn", items:[{ label:"Supplements", s:6 }, { label:"Diet Guide", s:19 }, { label:"Reminders", s:7 }] },
+              ];
+              const activeGroup = groups.find(g => g.items.some(i => i.s === step));
+              return (
               <>
-                <div onClick={() => setShowMoreMenu(false)} style={{ position:"fixed", inset:0, zIndex:199 }} />
-                <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"160px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)" }}>
-                  {[
-                    { label:"Profile",     s:1 },
-                    { label:"Adjust Diet Plan", s:3 },
-                  ].map(({ label, s }) => (
-                    <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
-                  ))}
-                  <button onClick={() => { setRoutineQPage(personalRoutine ? "morning" : "intro"); setStep(13); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===13 ? "rgba(107,143,255,0.12)" : "transparent", color: step===13 ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===13 ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Rebuild Routine</button>
+                <div onClick={() => { setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ position:"fixed", inset:0, zIndex:199 }} />
+                <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"200px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)", maxHeight:"70vh", overflowY:"auto" }}>
+                  {groups.map(g => {
+                    const isActive = activeGroup && activeGroup.key === g.key;
+                    const isExpanded = moreMenuGroup === g.key;
+                    const isSingle = g.items.length === 1;
+                    return (
+                      <div key={g.key}>
+                        <button onClick={() => {
+                          if (isSingle) { navigateTo(g.items[0].s); setShowMoreMenu(false); setMoreMenuGroup(null); }
+                          else setMoreMenuGroup(isExpanded ? null : g.key);
+                        }} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: isActive ? "rgba(107,143,255,0.08)" : "transparent", color: isActive ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: isActive ? "600" : "500", cursor:"pointer", textAlign:"left" }}>
+                          <span>{g.label}</span>
+                          {!isSingle && <span style={{ fontSize:"10px", color:"#6b7394", transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)", transition:"transform 0.2s" }}>▼</span>}
+                        </button>
+                        {isExpanded && !isSingle && g.items.map(item => (
+                          <button key={item.s} onClick={() => { navigateTo(item.s); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"8px 14px 8px 28px", borderRadius:"8px", border:"none", background: step===item.s ? "rgba(107,143,255,0.12)" : "transparent", color: step===item.s ? "#a0b8ff" : "#6b7394", fontSize:"12px", fontWeight: step===item.s ? "600" : "400", cursor:"pointer", textAlign:"left" }}>{item.label}</button>
+                        ))}
+                      </div>
+                    );
+                  })}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
-                  {[
-                    { label:"Journal",     s:8 },
-                    { label:"Routine",     s:10 },
-                    { label:"Exercise",    s:17 },
-                    { label:"Supplements", s:6 },
-                    { label:"Reminders",   s:7 },
-                    { label:"Toolkit",     s:9 },
-                    { label:"Nervous System", s:14 },
-                    { label:"Grocery List",  s:15 },
-                    { label:"Meal Prep",     s:18 },
-                    { label:"Diet Guide",    s:19 },
-                    { label:"Favorites",     s:16 },
-                  ].map(({ label, s }) => (
-                    <button key={s} onClick={() => { setStep(s); setShowMoreMenu(false); if(s===14){setNsCategory(null);setNsTool(null);} if(s===15){setGroceryWeek(selectedWeek);setGroceryChecked({});} if(s===18){setMealPrepWeek(selectedWeek);setMealPrepChecked({});} }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: step===s ? "rgba(107,143,255,0.12)" : "transparent", color: step===s ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: step===s ? "600" : "500", cursor:"pointer", textAlign:"left" }}>{label}</button>
-                  ))}
-                  <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
-                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
+                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
                 </div>
               </>
-            )}
+              );
+            })()}
           </div>
         )}
         <button onClick={handleLogout} style={{ marginLeft:"8px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#8890b8", fontSize:"11px", fontWeight:"600", cursor:"pointer", letterSpacing:"0.5px", flexShrink:0 }}>Sign Out</button>
       </nav>
 
       <div style={S.main}>
-        {step > 0 && step < 9 && (
+        {step >= 1 && step <= 3 && (
           <div style={{ display:"flex", justifyContent:"center", gap:"6px", marginBottom:"36px" }}>
-            {[1,2,3,4,5,6,7].map(s => <div key={s} style={S.dot(step===s, step>s)} />)}
+            {[1,2,3].map(s => <div key={s} style={S.dot(step===s, step>s)} />)}
           </div>
         )}
 
@@ -7864,7 +7894,7 @@ function NeuroThriveApp() {
               </div>
             )}
             <div style={{ display:"flex", justifyContent:"space-between" }}>
-              <button style={S.btnOutline} onClick={() => setStep(0)}>← Back</button>
+              <button style={S.btnOutline} onClick={() => prevStep !== null ? goBack() : setStep(0)}>← Back</button>
               <button style={selectedGender ? S.btn : {...S.btn, opacity:0.5}} onClick={() => { if(selectedGender) setStep(2); }}>Continue →</button>
             </div>
           </div>
@@ -7887,7 +7917,8 @@ function NeuroThriveApp() {
               ))}
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-              <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "Select at least one, or continue"}</span>
+              <button style={S.btnOutline} onClick={() => setStep(1)}>← Back</button>
+              <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : ""}</span>
               <button style={S.btn} onClick={() => setStep(3)}>Continue →</button>
             </div>
           </div>
@@ -7911,7 +7942,7 @@ function NeuroThriveApp() {
                   Build My Routine →
                 </button>
                 <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px" }} onClick={() => {
-                  setStep(menu30 ? 12 : 4);
+                  prevStep !== null ? goBack() : setStep(menu30 ? 12 : 4);
                 }}>
                   Skip for Now
                 </button>
@@ -8166,7 +8197,7 @@ function NeuroThriveApp() {
                 </div>
 
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                  <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
+                  <button style={S.btnOutline} onClick={() => prevStep !== null ? goBack() : setStep(2)}>← Back</button>
                   {menu30 && menu30.length > 0
                     ? <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(true, false); }}>Update My Plan →</button>
                     : <button style={S.btn} onClick={() => { setBrainOptimized(false); buildMenu(false, false); }}>Build My 30-Day Menu →</button>
@@ -8175,7 +8206,7 @@ function NeuroThriveApp() {
             </div>}
 
             <div style={{ marginTop:"16px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(2)}>← Back</button>
+              <button style={S.btnOutline} onClick={() => prevStep !== null ? goBack() : setStep(2)}>← Back</button>
             </div>
           </div>
         )}
@@ -8254,8 +8285,8 @@ function NeuroThriveApp() {
                 <p style={S.sectionSub}>Tap any meal to see why each ingredient is on your plan, or get the recipe.</p>
               </div>
               <div style={{ display:"flex", gap:"8px" }}>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => { setGroceryWeek(selectedWeek); setGroceryChecked({}); setStep(15); }}>🛒 Grocery List</button>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => { setMealPrepWeek(selectedWeek); setMealPrepChecked({}); setStep(18); }}>Meal Prep</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(15)}>🛒 Grocery List</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(18)}>Meal Prep</button>
                 <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
               </div>
             </div>
@@ -8294,7 +8325,7 @@ function NeuroThriveApp() {
             )}
 
             {isPremium && (
-              <div onClick={() => setStep(19)} style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(123,159,255,0.04))", border:"1px solid rgba(107,143,255,0.15)", marginBottom:"18px", cursor:"pointer", display:"flex", alignItems:"center", gap:"12px" }}>
+              <div onClick={() => navigateTo(19)} style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(123,159,255,0.04))", border:"1px solid rgba(107,143,255,0.15)", marginBottom:"18px", cursor:"pointer", display:"flex", alignItems:"center", gap:"12px" }}>
                 <span style={{ fontSize:"18px" }}>🧬</span>
                 <div style={{ flex:1 }}>
                   <div style={{ color:"#a0b8ff", fontSize:"13px", fontWeight:"700" }}>Brain Diet Guide</div>
@@ -8468,7 +8499,7 @@ function NeuroThriveApp() {
 
             <div style={{ display:"flex", gap:"12px", justifyContent:"flex-end" }}>
               <button style={S.btnOutline} onClick={() => setStep(2)}>← Adjust Filters</button>
-              <button style={S.btnAccent} onClick={() => setStep(12)}>Today's Checklist →</button>
+              <button style={S.btnAccent} onClick={() => navigateTo(12)}>Today's Checklist →</button>
             </div>
             <p style={{ color:"#5a6080", fontSize:"10px", textAlign:"center", marginTop:"20px", lineHeight:1.6 }}>Always verify ingredients if you have severe allergies. Dietary filters remove tagged items but cannot guarantee every ingredient in a recipe.</p>
           </div>
@@ -8611,19 +8642,19 @@ function NeuroThriveApp() {
               </div>
             )}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"18px" }}>
-              <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Menu</button>
-              <button style={S.btn} onClick={() => setStep(10)}>Routine →</button>
+              <button style={S.btnOutline} onClick={goBack}>← Back</button>
+              <button style={S.btn} onClick={() => navigateTo(10)}>Routine →</button>
             </div>
             {logs.length > 0 && (
               <div style={{ textAlign:"center", marginTop:"12px" }}>
-                <button style={{ ...S.btnOutline, fontSize:"13px", padding:"10px 22px" }} onClick={() => setStep(11)}>View Progress Dashboard →</button>
+                <button style={{ ...S.btnOutline, fontSize:"13px", padding:"10px 22px" }} onClick={() => navigateTo(11)}>View Progress Dashboard →</button>
               </div>
             )}
           </div>
         )}
 
         {/* STEP 5: Redirect to Reminders (affirmations merged) */}
-        {step === 5 && isPremium && (() => { setStep(7); return null; })()}
+        {/* Step 5 removed — was a ghost redirect */}
 
         {/* STEP 6: SUPPLEMENTS */}
         {step === 6 && isPremium && (
@@ -8733,8 +8764,8 @@ function NeuroThriveApp() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:"24px", flexWrap:"wrap", gap:"12px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(10)}>← Routine</button>
-              <button style={S.btnAccent} onClick={() => setStep(7)}>Set Meal Reminders →</button>
+              <button style={S.btnOutline} onClick={goBack}>← Back</button>
+              <button style={S.btnAccent} onClick={() => navigateTo(7)}>Set Meal Reminders →</button>
             </div>
           </div>
         )}
@@ -8852,7 +8883,7 @@ function NeuroThriveApp() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(6)}>← Supplements</button>
+              <button style={S.btnOutline} onClick={goBack}>← Back</button>
               <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
                 {reminderSaved && <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500" }}>✓ Reminders saved!</span>}
                 <button style={S.btnAccent} onClick={saveReminders}>Save Reminders ✓</button>
@@ -9019,7 +9050,7 @@ function NeuroThriveApp() {
 
                     const renderExerciseLink = () => (
                       <div style={{ marginTop:"8px" }}>
-                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"12px", fontWeight:"600", padding:0 }}>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"12px", fontWeight:"600", padding:0 }}>
                           See all exercises →
                         </button>
                       </div>
@@ -9062,8 +9093,8 @@ function NeuroThriveApp() {
               );
             })()}
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-              <button style={S.btnOutline} onClick={() => setStep(9)}>← Brain Toolkit</button>
-              <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>Back to Menu →</button>
+              <button style={S.btnOutline} onClick={goBack}>← Back</button>
+              <button style={S.btn} onClick={() => navigateTo(12)}>Today's Checklist →</button>
             </div>
           </div>
         )}
@@ -9233,7 +9264,7 @@ function NeuroThriveApp() {
                   <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
                   <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
                   <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal & Symptom Tracker on your Checklist; after a few days, your progress charts will appear here.</div>
-                  <button style={S.btnAccent} onClick={() => setStep(12)}>Open Checklist →</button>
+                  <button style={S.btnAccent} onClick={() => navigateTo(12)}>Open Checklist →</button>
                 </div>
               ) : (
                 <>
@@ -9492,8 +9523,8 @@ function NeuroThriveApp() {
               )}
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-                <button style={S.btnOutline} onClick={() => setStep(12)}>← Checklist</button>
-                <button style={S.btn} onClick={() => { syncMenuToToday(); setStep(4); }}>View Meal Plan →</button>
+                <button style={S.btnOutline} onClick={() => prevStep !== null ? goBack() : setStep(12)}>← Back</button>
+                <button style={S.btn} onClick={() => navigateTo(4)}>View Meal Plan →</button>
               </div>
             </div>
           );
@@ -9583,7 +9614,7 @@ function NeuroThriveApp() {
 
               {/* Section B: Today's Meals */}
               <div style={sectionDivider} />
-              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); setGroceryChecked({}); setStep(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"10px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
+              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); navigateTo(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"10px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
                 <span style={{ fontSize:"16px" }}>🛒</span>
                 <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
                 <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
@@ -9602,7 +9633,7 @@ function NeuroThriveApp() {
                   <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #7b9fff", background:"linear-gradient(135deg, rgba(107,143,255,0.06), rgba(107,143,255,0.02))" }}>
                     <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px" }}>
                       <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
-                      <span onClick={() => setStep(19)} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer" }}>Full Guide →</span>
+                      <span onClick={() => navigateTo(19)} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer" }}>Full Guide →</span>
                     </div>
                     <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"6px" }}>
                       <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#7b9fff" }} />
@@ -9716,7 +9747,7 @@ function NeuroThriveApp() {
                     {isExpanded && isExStep && (
                       <div style={{ marginTop:"8px", marginLeft:"56px" }}>
                         <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -9765,7 +9796,7 @@ function NeuroThriveApp() {
                     })}
                   </div>
                 )}
-                <button onClick={() => setStep(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
+                <button onClick={() => navigateTo(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
               </div>
 
               {/* Section D: Journal & Symptom Tracker */}
@@ -9799,7 +9830,7 @@ function NeuroThriveApp() {
                           })}
                         </div>
                       )}
-                      <button onClick={() => setStep(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Open full journal →</button>
+                      <button onClick={() => navigateTo(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Open full journal →</button>
                     </div>
                   ) : (
                     <div>
@@ -9955,7 +9986,7 @@ function NeuroThriveApp() {
                     {isExpanded && isExStep && (
                       <div style={{ marginTop:"8px", marginLeft:"56px" }}>
                         <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => setStep(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -10293,8 +10324,8 @@ function NeuroThriveApp() {
             })()}
 
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-              <button style={S.btnOutline} onClick={() => { setNsCategory(null); setNsTool(null); setStep(9); }}>← Brain Toolkit</button>
-              <button style={S.btn} onClick={() => { setNsCategory(null); setNsTool(null); setStep(10); }}>Daily Routine →</button>
+              <button style={S.btnOutline} onClick={() => { setNsCategory(null); setNsTool(null); goBack(); }}>← Back</button>
+              <button style={S.btn} onClick={() => { setNsCategory(null); setNsTool(null); navigateTo(10); }}>Daily Routine →</button>
             </div>
           </div>
           );
@@ -10404,8 +10435,8 @@ function NeuroThriveApp() {
             )}
 
             <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-              <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Back to Menu</button>
-              <button style={S.btn} onClick={() => { setGroceryChecked({}); }}>Clear All ↺</button>
+              <button style={S.btnOutline} onClick={goBack}>← Back</button>
+              <button style={S.btn} onClick={() => navigateTo(18)}>Meal Prep →</button>
             </div>
           </div>
           );
@@ -10428,7 +10459,7 @@ function NeuroThriveApp() {
                 <div style={{ fontSize:"48px", marginBottom:"16px" }}>🤍</div>
                 <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7 }}>No favorites yet!</p>
                 <p style={{ color:"#6b7394", fontSize:"13px", lineHeight:1.6 }}>Browse your 30-Day Menu or Today's Checklist and tap the heart icon next to any meal to save it here.</p>
-                <button style={{ ...S.btn, marginTop:"20px" }} onClick={() => { syncMenuToToday(); setStep(4); }}>Browse Menu →</button>
+                <button style={{ ...S.btn, marginTop:"20px" }} onClick={() => navigateTo(4)}>Browse Menu →</button>
               </div>
             )}
 
@@ -10464,7 +10495,7 @@ function NeuroThriveApp() {
 
             {favoriteMeals.length > 0 && (
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-                <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Back to Menu</button>
+                <button style={S.btnOutline} onClick={goBack}>← Back</button>
                 <button style={{ ...S.btnOutline, color:"#e85050", borderColor:"rgba(232,80,80,0.3)" }} onClick={() => { if(window.confirm("Remove all favorites?")) setFavoriteMeals([]); }}>Clear All</button>
               </div>
             )}
@@ -10559,8 +10590,8 @@ function NeuroThriveApp() {
               )}
 
               <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
-                <button style={S.btnOutline} onClick={() => setStep(10)}>← Routine</button>
-                <button style={S.btn} onClick={() => setStep(12)}>Today's Checklist →</button>
+                <button style={S.btnOutline} onClick={goBack}>← Back</button>
+                <button style={S.btn} onClick={() => navigateTo(12)}>Today's Checklist →</button>
               </div>
             </div>
           );
@@ -10573,7 +10604,7 @@ function NeuroThriveApp() {
             <div>
               <h2 style={S.sectionTitle}>Meal Prep Mode</h2>
               <p style={S.sectionSub}>Generate your meal plan first to unlock prep mode.</p>
-              <button style={S.btnAccent} onClick={() => setStep(2)}>← Back to Setup</button>
+              <button style={S.btnAccent} onClick={goBack}>← Back</button>
             </div>
           );
           const checkedCount = Object.values(mealPrepChecked).filter(Boolean).length;
@@ -10712,8 +10743,8 @@ function NeuroThriveApp() {
               </div>
 
               <div style={{ display:"flex", justifyContent:"space-between" }}>
-                <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← Menu</button>
-                <button style={S.btn} onClick={() => { setGroceryWeek(mealPrepWeek); setGroceryChecked({}); setStep(15); }}>Grocery List →</button>
+                <button style={S.btnOutline} onClick={goBack}>← Back</button>
+                <button style={S.btn} onClick={() => navigateTo(15)}>Grocery List →</button>
               </div>
             </div>
           );
@@ -10943,8 +10974,8 @@ function NeuroThriveApp() {
               )}
 
               <div style={{ display:"flex", justifyContent:"space-between" }}>
-                <button style={S.btnOutline} onClick={() => { syncMenuToToday(); setStep(4); }}>← 30-Day Menu</button>
-                <button style={S.btn} onClick={() => setStep(12)}>Today's Checklist →</button>
+                <button style={S.btnOutline} onClick={goBack}>← Back</button>
+                <button style={S.btn} onClick={() => navigateTo(12)}>Today's Checklist →</button>
               </div>
             </div>
           );
