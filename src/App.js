@@ -9585,7 +9585,7 @@ function NeuroThriveApp() {
           return (
             <div style={{ animation:"fadeUp 0.5s ease both" }}>
               <h2 style={S.sectionTitle}>{greeting}</h2>
-              <p style={S.sectionSub}>Day {daysElapsed} of your brain nutrition journey</p>
+              <p style={S.sectionSub}>{new Date().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" })} · Day {daysElapsed} of your brain nutrition journey</p>
 
               {/* Section A: Progress Banner */}
               <div style={{ marginBottom:"20px" }}>
@@ -9672,7 +9672,7 @@ function NeuroThriveApp() {
               })()}
               <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
-                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Full Menu →</span>
+                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#7b9fff", fontSize:"11px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Browse All 30 Days →</span>
               </div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
                 Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
@@ -9738,6 +9738,19 @@ function NeuroThriveApp() {
                 );
               })}
               {!todayDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
+
+              {todayDay && (
+                <div onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"12px 16px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", cursor:"pointer", marginTop:"6px" }}>
+                  <div style={{ width:"36px", height:"36px", borderRadius:"10px", background:"rgba(107,143,255,0.1)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                    <span style={{ fontSize:"16px" }}>📋</span>
+                  </div>
+                  <div style={{ flex:1 }}>
+                    <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600" }}>View Full 30-Day Menu</div>
+                    <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>Browse upcoming meals, swap dishes, and see recipes</div>
+                  </div>
+                  <span style={{ color:"#7b9fff", fontSize:"14px" }}>→</span>
+                </div>
+              )}
 
               {/* Section C: Morning Routine */}
               <div style={sectionDivider} />
