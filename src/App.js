@@ -7737,9 +7737,26 @@ function NeuroThriveApp() {
           ))}
           {(step > 3 || (step <= 3 && prevStep !== null)) && (
             <>
-              <button style={S.navTab(step===4)} onClick={() => { syncMenuToToday(); setStep(4); }}>30-Day Menu</button>
-              {isPremium && <button style={S.navTab(step===12)} onClick={() => setStep(12)}>Today's Checklist</button>}
-              {isPremium && <button style={S.navTab(step===11)} onClick={() => setStep(11)}>Progress</button>}
+              {isPremium && (() => {
+                const todayBP = dailyChecks[todayKey] ? getBrainPoints(todayKey) : { pct: 0 };
+                const pct = todayBP.pct;
+                const dotColor = pct >= 100 ? "#50c878" : pct >= 50 ? "#e8c87a" : "#6b7394";
+                return (
+                  <button style={{ ...S.navTab(step===12), display:"inline-flex", alignItems:"center", gap:"5px" }} onClick={() => setStep(12)}>
+                    <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: dotColor, flexShrink:0 }} />
+                    Today
+                  </button>
+                );
+              })()}
+              <button style={S.navTab(step===4)} onClick={() => { syncMenuToToday(); setStep(4); }}>Menu</button>
+              {isPremium && (() => {
+                const streak = getCompletionStreak();
+                return (
+                  <button style={{ ...S.navTab(step===11), display:"inline-flex", alignItems:"center", gap:"5px" }} onClick={() => setStep(11)}>
+                    Progress{streak > 0 && <span style={{ fontSize:"10px", color:"#e8c87a", fontWeight:"700" }}>{streak}d</span>}
+                  </button>
+                );
+              })()}
             </>
           )}
         </div>
