@@ -8995,11 +8995,42 @@ function NeuroThriveApp() {
                 <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
                 <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
               </div>
-              <div onClick={() => setStep(19)} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"16px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
-                <span style={{ fontSize:"16px" }}>🧬</span>
-                <span style={{ color:"#a0b8ff", fontSize:"13px", fontWeight:"600" }}>Brain Diet Guide — your optimal diet by condition</span>
-                <span style={{ marginLeft:"auto", color:"#7b9fff", fontSize:"14px" }}>→</span>
-              </div>
+              {/* Daily Brain Nutrition Insight */}
+              {(() => {
+                const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+                const allNutrients = [];
+                const allPower = [];
+                condIds.forEach(id => {
+                  const g = BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default;
+                  g.priorityNutrients.forEach(n => { if (!allNutrients.find(x => x.name === n.name)) allNutrients.push(n); });
+                  g.powerFoods.forEach(f => { if (!allPower.find(x => x.food === f.food)) allPower.push(f); });
+                });
+                const dayNum = todayDayIdx || 0;
+                const nutrient = allNutrients[dayNum % allNutrients.length];
+                const powerFood = allPower[dayNum % allPower.length];
+                return (
+                  <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #7b9fff", background:"linear-gradient(135deg, rgba(107,143,255,0.06), rgba(107,143,255,0.02))" }}>
+                    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"12px" }}>
+                      <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition</div>
+                      <span onClick={() => setStep(19)} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer" }}>Full Guide →</span>
+                    </div>
+                    <div style={{ marginBottom:"10px" }}>
+                      <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"4px" }}>
+                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#7b9fff" }} />
+                        <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{nutrient.name}</span>
+                      </div>
+                      <p style={{ color:"#a0a8d0", fontSize:"11px", lineHeight:1.5, margin:"0 0 0 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
+                    </div>
+                    <div>
+                      <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"4px" }}>
+                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#50c878" }} />
+                        <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{powerFood.food}</span>
+                      </div>
+                      <p style={{ color:"#a0c8b0", fontSize:"11px", lineHeight:1.5, margin:"0 0 0 11px" }}>{powerFood.why.split(";")[0].trim()}</p>
+                    </div>
+                  </div>
+                );
+              })()}
               <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
               <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
                 Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
