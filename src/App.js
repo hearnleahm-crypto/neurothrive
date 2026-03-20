@@ -7446,14 +7446,24 @@ function NeuroThriveApp() {
       if (meals[key]) mealBP += maxPts;
     });
 
-    // Morning routine: 3 BP per step
+    // Morning routine: 3 BP per step (exercise steps use checks.exercise instead of array index)
     const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
       : (selectedConditions[0] && DAILY_ROUTINES[selectedConditions[0]]) ? selectedConditions[0] : "default";
     const routine = getAdjustedRoutine(personalRoutine || DAILY_ROUTINES[condKey] || DAILY_ROUTINES.default, exerciseTimePref);
     const morningSteps = routine?.morning || [];
     const eveningSteps = routine?.evening || [];
-    const morningChecked = Math.min((checks.routine?.morning || []).filter(Boolean).length, morningSteps.length);
-    const eveningChecked = Math.min((checks.routine?.evening || []).filter(Boolean).length, eveningSteps.length);
+    const morningArr = checks.routine?.morning || [];
+    const eveningArr = checks.routine?.evening || [];
+    let morningChecked = 0;
+    morningSteps.forEach((s, i) => {
+      const isEx = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
+      if (isEx ? !!checks.exercise : !!morningArr[i]) morningChecked++;
+    });
+    let eveningChecked = 0;
+    eveningSteps.forEach((s, i) => {
+      const isEx = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
+      if (isEx ? !!checks.exercise : !!eveningArr[i]) eveningChecked++;
+    });
     const morningBP = morningChecked * 3;
     const morningMaxBP = morningSteps.length * 3;
     const eveningBP = eveningChecked * 3;
@@ -9715,7 +9725,7 @@ function NeuroThriveApp() {
               {/* Section C: Morning Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{morningChecks.filter(Boolean).length}/{routine.morning.length} done</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{routine.morning.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (morningChecks[i] ? 1 : 0)), 0)}/{routine.morning.length} done</div>
               {routine.morning.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!morningChecks[i];
@@ -9954,7 +9964,7 @@ function NeuroThriveApp() {
               {/* Section F: Evening Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Evening Routine")}>Evening Routine</div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{eveningChecks.filter(Boolean).length}/{routine.evening.length} done</div>
+              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{routine.evening.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (eveningChecks[i] ? 1 : 0)), 0)}/{routine.evening.length} done</div>
               {routine.evening.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!eveningChecks[i];
