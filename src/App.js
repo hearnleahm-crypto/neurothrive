@@ -3758,7 +3758,7 @@ const ENERGY_EMOJIS = [
   { emoji: "😴", label: "Tired", val: 2 },
   { emoji: "🔋", label: "Okay", val: 3 },
   { emoji: "⚡", label: "Energized", val: 4 },
-  { emoji: "🚀", label: "Vibrant", val: 5 },
+  { emoji: "🔥", label: "Vibrant", val: 5 },
 ];
 
 const GENERAL_SYMPTOMS = [
@@ -6291,7 +6291,7 @@ function NeuroThriveApp() {
   }, [step, dataLoaded, onboardingDone]);
 
   const TOUR_SLIDES = [
-    { emoji: "🎉", title: "Welcome to NeuroThrive!", desc: "Before we build your plan, here's a quick look at everything NeuroThrive will create for you." },
+    { emoji: "🧠", title: "Welcome to NeuroThrive!", desc: "Before we build your plan, here's a quick look at everything NeuroThrive will create for you." },
     { emoji: "🍽️", title: "30-Day Meal Plan", desc: "A personalized menu of brain-boosting meals tailored to your condition. Every recipe includes the science behind why it was chosen for you." },
     { emoji: "☀️", title: "Daily Routines & Exercise", desc: "Morning and evening routines built for your brain, plus condition-specific exercise recommendations inspired by neuroscience research." },
     { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel, powerful data for understanding your brain." },
@@ -6301,7 +6301,7 @@ function NeuroThriveApp() {
     { emoji: "❤️", title: "Recipe Favorites", desc: "Heart the meals you love and build your personal collection. Access recipes and brain scores for your favorites anytime." },
     { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
-    { emoji: "🚀", title: "Let's build your plan!", desc: "We'll ask a few quick questions about your conditions, diet, and routine, then generate everything personalized to your brain." },
+    { emoji: "✨", title: "Let's build your plan!", desc: "We'll ask a few quick questions about your conditions, diet, and routine, then generate everything personalized to your brain." },
   ];
 
   const finishTour = () => {
@@ -8252,7 +8252,7 @@ function NeuroThriveApp() {
               <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.6, marginBottom:"8px" }}>You've completed 30 days of nourishing your mind and body. That's something to be genuinely proud of.</p>
               <p style={{ color:"#7b9fff", fontSize:"14px", marginBottom:"28px", fontStyle:"italic" }}>Your new Cycle {planCycle+1} menu is ready: fresh meals, same personalisation.</p>
               <div style={{ display:"flex", gap:"12px", justifyContent:"center", flexWrap:"wrap" }}>
-                <button onClick={startNewCycle} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"14px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Start Cycle {planCycle+1} 🌱</button>
+                <button onClick={startNewCycle} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"14px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Start Cycle {planCycle+1}</button>
                 <button onClick={() => setShowCycleComplete(false)} style={{ background:"transparent", color:"#8890b8", border:"1px solid rgba(110,120,200,0.3)", padding:"14px 24px", borderRadius:"50px", fontSize:"14px", cursor:"pointer" }}>Stay on This Menu</button>
               </div>
             </div>
@@ -8297,7 +8297,7 @@ function NeuroThriveApp() {
                 {tourStep < TOUR_SLIDES.length - 1 ? (
                   <button onClick={() => setTourStep(t => t + 1)} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Next →</button>
                 ) : (
-                  <button onClick={finishTour} style={{ background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Let's Go! 🚀</button>
+                  <button onClick={finishTour} style={{ background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{marginLeft:"6px",verticalAlign:"middle",marginTop:"-2px"}}><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="12" y1="2" x2="12" y2="7" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="12" y1="17" x2="12" y2="22" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="2" y1="12" x2="7" y2="12" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="17" y1="12" x2="22" y2="12" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="4.9" y1="4.9" x2="8.1" y2="8.1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><line x1="15.9" y1="15.9" x2="19.1" y2="19.1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><line x1="4.9" y1="19.1" x2="8.1" y2="15.9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><line x1="15.9" y1="8.1" x2="19.1" y2="4.9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="2" r="1.5" fill="#fff"/><circle cx="12" cy="22" r="1.5" fill="#fff"/><circle cx="2" cy="12" r="1.5" fill="#fff"/><circle cx="22" cy="12" r="1.5" fill="#fff"/><circle cx="4.9" cy="4.9" r="1.2" fill="#fff"/><circle cx="19.1" cy="19.1" r="1.2" fill="#fff"/><circle cx="4.9" cy="19.1" r="1.2" fill="#fff"/><circle cx="19.1" cy="4.9" r="1.2" fill="#fff"/></svg></button>
                 )}
               </div>
               <button onClick={finishTour} style={{ marginTop:"16px", background:"none", border:"none", color:"#6b7394", fontSize:"13px", cursor:"pointer", textDecoration:"underline", padding:"8px 16px" }}>Skip tour</button>
@@ -8317,7 +8317,7 @@ function NeuroThriveApp() {
                 <p style={S.sectionSub}>Tap any meal to see why each ingredient is on your plan, or get the recipe.</p>
               </div>
               <div style={{ display:"flex", gap:"8px" }}>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(15)}>🛒 Grocery List</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(15)}>Grocery List</button>
                 <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(18)}>Meal Prep</button>
                 <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
               </div>
@@ -8616,7 +8616,7 @@ function NeuroThriveApp() {
               <button
                 style={{ background:(todayMood && todayEnergy)?"linear-gradient(135deg,#5570f0,#4060e0)":"rgba(110,120,200,0.15)", color:(todayMood && todayEnergy)?"#fff":"#8890b8", border:"none", padding:"14px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:(todayMood && todayEnergy)?"pointer":"default", width:"100%", transition:"all 0.2s" }}
                 onClick={saveLog}
-              >{(todayMood && todayEnergy) ? "Save Today's Log ✓" : "Select mood & energy to save"}</button>
+              >{(todayMood && todayEnergy) ? "Save Today's Log" : "Select mood & energy to save"}</button>
             </div>
             {logs.length > 0 && (
               <>
@@ -8918,7 +8918,7 @@ function NeuroThriveApp() {
               <button style={S.btnOutline} onClick={goBack}>← Back</button>
               <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
                 {reminderSaved && <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500" }}>✓ Reminders saved!</span>}
-                <button style={S.btnAccent} onClick={saveReminders}>Save Reminders ✓</button>
+                <button style={S.btnAccent} onClick={saveReminders}>Save Reminders</button>
               </div>
             </div>
           </div>
@@ -9190,7 +9190,7 @@ function NeuroThriveApp() {
           const energyLabel = (v) => {
             if (!v || v === " - ") return " - ";
             const f = parseFloat(v);
-            if (f >= 4.5) return "Vibrant 🚀";
+            if (f >= 4.5) return "Vibrant 🔥";
             if (f >= 3.5) return "Energized ⚡";
             if (f >= 2.5) return "Okay 🔋";
             if (f >= 1.5) return "Tired 😴";
