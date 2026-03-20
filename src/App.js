@@ -6297,7 +6297,7 @@ function NeuroThriveApp() {
     { emoji: "📓", title: "Mood Journal", desc: "Track your mood and energy daily. Over time, you'll see patterns between what you eat and how you feel, powerful data for your wellness journey." },
     { emoji: "🌿", title: "Supplement Guide", desc: "Evidence-based supplement recommendations personalized to your condition, with the science behind each one." },
     { emoji: "🧠", title: "Brain Toolkit", desc: "2,250+ coping strategies organised by category: grounding, breathing, CBT reframes, and more. Your on-demand mental health toolbox." },
-    { emoji: "🫁", title: "Nervous System Toolkit", desc: "Regulate your nervous system with science-backed tools: vagal toning, somatic grounding, sensory resets, and emergency techniques personalized to your condition." },
+    { emoji: "🫁", title: "Nervous System Toolkit", desc: "Regulate your nervous system with science-informed tools: vagal toning, somatic grounding, sensory resets, and emergency techniques personalized to your condition." },
     { emoji: "❤️", title: "Recipe Favorites", desc: "Heart the meals you love and build your personal collection. Access recipes and brain scores for your favorites anytime." },
     { emoji: "✨", title: "Reminders & Affirmations", desc: "Meal reminders to keep you nourished, plus condition-specific affirmations grounded in neuroplasticity research." },
     { emoji: "📊", title: "Progress Dashboard", desc: "Track your daily completion, meal adherence, mood trends, and streaks. Seeing your consistency builds motivation and momentum." },
