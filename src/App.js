@@ -858,13 +858,14 @@ const DIET_EXCLUSIONS = {
 const getCuisine = (name) => {
   const n = name.toLowerCase();
   if (/taco|burrito|enchilada|fajita|quesadilla|pico de gallo|salsa verde|chipotle|churro/.test(n)) return "mexican_latin";
-  if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|pad thai|bibimbap/.test(n)) return "asian";
+  if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|bibimbap/.test(n)) return "asian";
+  // Caribbean & Southeast Asian must check before indian_curry so "curry goat", "green curry" etc. aren't misclassified
+  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean";
+  if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) return "southeast_asian";
   if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
   if (/mediterranean|tahini|falafel|hummus|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh|lemon.*herb|herb.*roasted|lentil.*soup|chickpea.*salad|chickpea.*spinach|roasted.*veggie.*quinoa|quinoa.*salad|white bean.*kale|lentil.*veggie|anti[- ]inflam/.test(n)) return "mediterranean";
   if (/gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|smothered|hoppin|black[- ]eyed pea|grits/.test(n)) return "southern_cajun";
-  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean";
   if (/injera|berbere|doro\s*wat|kitfo|egusi|suya|fufu|groundnut|peanut\s*stew|west african|east african|ethiopian|nigerian|ghanaian|senegalese|moroccan.*tagine|harissa|ras\s*el\s*hanout|shakshuka.*harissa/.test(n)) return "african";
-  if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) return "southeast_asian";
   if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie|grilled\s+chicken(?!.*tikka|.*teriyaki|.*satay|.*jerk)|baked\s+chicken|roasted\s+chicken|chicken\s+breast|chicken\s+thigh|chicken\s+tender|turkey\s+burger|turkey\s+meatball|sirloin|steak(?!.*teriyaki)|pork\s+chop|pork\s+tenderloin|mashed\s+potato|sweet\s+potato\s+fries|loaded\s+sweet|baked\s+salmon(?!.*teriyaki)|grilled\s+salmon(?!.*teriyaki)|salmon\s+with|cod\s+with|tuna\s+melt|chicken\s+soup|chicken.*sandwich|turkey.*wrap|turkey.*sandwich|sheet\s+pan|skillet\s+dinner|one[- ]pan|protein\s+bowl|grain\s+bowl|power\s+bowl|chicken.*rice(?!.*fried)|chicken.*potato|chicken.*broccoli|steak.*potato|beef.*broccoli(?!.*stir)|honey.*glazed|lemon.*chicken(?!.*mediterranean)|garlic.*chicken(?!.*tikka)|herb.*chicken|ranch|buffalo\s+chicken|chicken\s+caesar|cobb|chef\s+salad|waldorf/.test(n)) return "american";
   if (/pasta|marinara|pesto|parmesan|risotto|bruschetta|caprese|bolognese|alfredo|lasagna|ravioli|primavera/.test(n)) return "italian";
   return "general";
@@ -875,7 +876,7 @@ const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
   selectedDiet.forEach(d => { (DIET_EXCLUSIONS[d] || []).forEach(t => excludedTags.add(t)); });
   const isKosher = selectedDiet.includes("kosher");
   const conditionId = condition || "default";
-  return meals.filter(m => {
+  const filtered = meals.filter(m => {
     if (m.tags.some(t => excludedTags.has(t))) return false;
     if (isKosher && m.tags.includes("meat") && m.tags.includes("dairy")) return false;
     // Name-based exclusions for items without explicit tags
