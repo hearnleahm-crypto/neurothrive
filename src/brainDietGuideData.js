@@ -7,48 +7,48 @@ export const BRAIN_DIET_GUIDE = {
     emoji: "⚡",
     summary: "ADHD brains burn through dopamine and norepinephrine faster than average. Your diet should prioritize dopamine precursors (tyrosine, phenylalanine), the cofactors that convert them (iron, B6, zinc), and the omega-3 fats that build and maintain prefrontal cortex cell membranes.",
     priorityNutrients: [
-      { name: "Tyrosine", role: "Direct precursor to dopamine and norepinephrine — the two neurotransmitters ADHD brains are most deficient in", topSources: "chicken, salmon, eggs, turkey, almonds" },
+      { name: "Tyrosine", role: "Direct precursor to dopamine and norepinephrine – the two neurotransmitters ADHD brains are most deficient in", topSources: "chicken, salmon, eggs, turkey, almonds" },
       { name: "Omega-3 DHA & EPA", role: "DHA builds prefrontal cortex cell membranes; EPA increases dopamine receptor sensitivity and reduces neuroinflammation", topSources: "wild salmon, sardines, mackerel, walnuts, flaxseed" },
-      { name: "Iron", role: "Required for tyrosine hydroxylase, the enzyme that converts tyrosine to dopamine — the rate-limiting step in dopamine synthesis", topSources: "red meat, spinach, lentils, pumpkin seeds" },
+      { name: "Iron", role: "Required for tyrosine hydroxylase, the enzyme that converts tyrosine to dopamine. This is the rate-limiting step in dopamine synthesis", topSources: "red meat, spinach, lentils, pumpkin seeds" },
       { name: "Zinc", role: "Cofactor for dopamine transport and GABA synthesis; 95% of children with ADHD show low zinc in some studies", topSources: "beef, pumpkin seeds, chickpeas, cashews" },
       { name: "Magnesium", role: "Modulates dopamine release and reduces the neural hyperexcitability that drives impulsivity and restlessness", topSources: "dark leafy greens, almonds, avocado, dark chocolate" },
-      { name: "Vitamin B6", role: "Rate-limiting cofactor for both dopamine and norepinephrine synthesis — without B6, your brain cannot complete the conversion", topSources: "chicken, salmon, potatoes, bananas" },
+      { name: "Vitamin B6", role: "Rate-limiting cofactor for both dopamine and norepinephrine synthesis. Without B6, your brain cannot complete the conversion", topSources: "chicken, salmon, potatoes, bananas" },
     ],
     powerFoods: [
       { food: "Wild Salmon", why: "Highest bioavailable DHA + EPA; directly increases dopamine receptor density in the prefrontal cortex" },
-      { food: "Eggs", why: "Contain tyrosine, choline, B12, and vitamin D in one package — covers 4 ADHD-critical pathways simultaneously" },
+      { food: "Eggs", why: "Contain tyrosine, choline, B12, and vitamin D in one package. Covers 4 ADHD-critical pathways simultaneously" },
       { food: "Grass-Fed Beef", why: "Richest source of heme iron (3× more absorbable than plant iron) plus zinc and B12 for dopamine synthesis" },
       { food: "Blueberries", why: "Anthocyanins increase prefrontal cortex blood flow and improve working memory in controlled ADHD studies" },
-      { food: "Pumpkin Seeds", why: "One of the only foods delivering zinc, magnesium, tryptophan, and iron together — covers the entire dopamine pathway" },
-      { food: "Spinach", why: "Dense in folate, iron, and magnesium — three nutrients consistently found to be low in ADHD populations" },
+      { food: "Pumpkin Seeds", why: "One of the only foods delivering zinc, magnesium, tryptophan, and iron together. Covers the entire dopamine pathway" },
+      { food: "Spinach", why: "Dense in folate, iron, and magnesium – three nutrients consistently found to be low in ADHD populations" },
       { food: "Walnuts", why: "Richest plant source of ALA omega-3; also contain melatonin and polyphenols that reduce neuroinflammation" },
       { food: "Sweet Potatoes", why: "Complex carbs with a low glycemic index; provide sustained glucose to the prefrontal cortex without blood sugar spikes" },
       { food: "Turkey", why: "Highest tryptophan content of any meat; B6 and zinc for neurotransmitter synthesis" },
       { food: "Sardines", why: "Highest omega-3 to mercury ratio of any fish; also deliver vitamin D, B12, and calcium" },
       { food: "Dark Chocolate (70%+)", why: "Flavanols increase cerebral blood flow; PEA boosts dopamine; magnesium supports GABA" },
       { food: "Avocado", why: "Oleic acid supports myelin health in prefrontal pathways; potassium and folate for nerve function" },
-      { food: "Oranges", why: "Vitamin C is a cofactor for dopamine synthesis and enhances iron absorption — without vitamin C, plant-based iron is up to 6× less absorbable" },
+      { food: "Oranges", why: "Vitamin C is a cofactor for dopamine synthesis and enhances iron absorption. Without vitamin C, plant-based iron is up to 6× less absorbable" },
       { food: "Bananas", why: "Rich in vitamin B6, the rate-limiting cofactor for converting tyrosine to dopamine; also provide magnesium and resistant starch for sustained energy" },
       { food: "Pomegranate", why: "Punicalagins and ellagic acid increase cerebral blood flow to the prefrontal cortex by up to 30%; potent neuroprotective antioxidant" },
       { food: "Strawberries", why: "Fisetin improves long-term memory consolidation; vitamin C supports dopamine synthesis; anthocyanins reduce prefrontal neuroinflammation" },
-      { food: "Kiwi", why: "One of the highest vitamin C foods per gram; also contains serotonin and actinidain for gut health — gut-brain axis support for dopamine production" },
-      { food: "Cherries (tart)", why: "Natural source of melatonin for sleep regulation — sleep deprivation worsens ADHD symptoms by up to 50%; also rich in anti-inflammatory anthocyanins" },
+      { food: "Kiwi", why: "One of the highest vitamin C foods per gram; also contains serotonin and actinidain for gut health. Gut-brain axis support for dopamine production" },
+      { food: "Cherries (tart)", why: "Natural source of melatonin for sleep regulation. Sleep deprivation worsens ADHD symptoms by up to 50%. Also rich in anti-inflammatory anthocyanins" },
       { food: "Apples", why: "Quercetin protects dopaminergic neurons from oxidative damage; pectin fiber feeds gut bacteria that produce short-chain fatty acids supporting brain function" },
       { food: "Blackberries", why: "Among the highest antioxidant fruits; polyphenols improve executive function and reduce the oxidative stress elevated in ADHD brains" },
     ],
     foodsToMinimize: [
-      { food: "Refined sugar & candy", why: "Spikes dopamine rapidly then crashes it — this rollercoaster worsens impulsivity and creates a cycle of craving that mimics ADHD medication rebound" },
+      { food: "Refined sugar & candy", why: "Spikes dopamine rapidly then crashes it. This rollercoaster worsens impulsivity and creates a cycle of craving that mimics ADHD medication rebound" },
       { food: "Artificial food dyes (Red 40, Yellow 5/6)", why: "Multiple controlled studies show synthetic dyes worsen ADHD symptoms by disrupting dopamine signaling; banned or warning-labeled in the EU" },
       { food: "Highly processed foods", why: "Contain inflammatory seed oils, preservatives, and additives that increase neuroinflammation in the prefrontal cortex" },
-      { food: "Sugary breakfast cereals", why: "Cause rapid glucose spikes and crashes within 2 hours — the worst way to start the day for an ADHD brain that needs stable fuel" },
-      { food: "Excessive caffeine", why: "While moderate caffeine can help focus, excess caffeine depletes magnesium and disrupts sleep — both worsen ADHD significantly" },
-      { food: "Soda & energy drinks", why: "Combine sugar, caffeine, and artificial colors — three ADHD-aggravating ingredients in one beverage" },
+      { food: "Sugary breakfast cereals", why: "Cause rapid glucose spikes and crashes within 2 hours. The worst way to start the day for an ADHD brain that needs stable fuel" },
+      { food: "Excessive caffeine", why: "While moderate caffeine can help focus, excess caffeine depletes magnesium and disrupts sleep. Both worsen ADHD significantly" },
+      { food: "Soda & energy drinks", why: "Combine sugar, caffeine, and artificial colors – three ADHD-aggravating ingredients in one beverage" },
       { food: "Simple carbs without protein", why: "White bread, crackers, or pasta eaten alone cause blood sugar spikes that ADHD brains are especially vulnerable to" },
     ],
     mealPattern: {
       frequency: "3 meals + 1–2 protein-rich snacks",
       macroSplit: "30% protein, 40% complex carbs, 30% healthy fats",
-      timing: "Protein-heavy breakfast within 1 hour of waking — the prefrontal cortex needs tyrosine immediately after overnight depletion",
+      timing: "Protein-heavy breakfast within 1 hour of waking. The prefrontal cortex needs tyrosine immediately after overnight depletion",
       keyRule: "Never eat carbs alone. Pair every carb with protein or healthy fat to prevent the glucose crashes your dopamine system is uniquely vulnerable to."
     }
   },
@@ -58,8 +58,8 @@ export const BRAIN_DIET_GUIDE = {
     emoji: "🌿",
     summary: "Anxiety involves an overactive amygdala and depleted GABA/serotonin systems. Your diet should prioritize calming nutrients (magnesium, tryptophan, B vitamins), anti-inflammatory foods that quiet neuroinflammation, and gut-supporting foods since 95% of serotonin is made in the gut.",
     priorityNutrients: [
-      { name: "Magnesium", role: "Directly activates GABA-A receptors — the brain's primary calming system; found to be low in up to 75% of anxious individuals", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
-      { name: "Tryptophan", role: "The sole precursor to serotonin — your brain cannot produce serotonin without dietary tryptophan", topSources: "turkey, eggs, salmon, pumpkin seeds, yogurt" },
+      { name: "Magnesium", role: "Directly activates GABA-A receptors – the brain's primary calming system. Found to be low in up to 75% of anxious individuals", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
+      { name: "Tryptophan", role: "The sole precursor to serotonin. Your brain cannot produce serotonin without dietary tryptophan", topSources: "turkey, eggs, salmon, pumpkin seeds, yogurt" },
       { name: "Omega-3 EPA", role: "Reduces inflammatory cytokines (IL-6, TNF-alpha) that activate the brain's threat-detection circuits", topSources: "salmon, sardines, mackerel, walnuts" },
       { name: "B Vitamins (B6, B12, Folate)", role: "Required cofactors for serotonin and GABA synthesis; B vitamin deficiency directly increases anxiety severity", topSources: "eggs, leafy greens, legumes, salmon" },
       { name: "Vitamin D", role: "Activates serotonin gene expression; deficiency found in up to 80% of anxiety patients", topSources: "salmon, sardines, eggs, fortified foods" },
@@ -69,9 +69,9 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Wild Salmon", why: "EPA directly reduces inflammatory cytokines that activate the amygdala; also provides vitamin D for serotonin gene expression" },
       { food: "Yogurt / Kefir", why: "Probiotic strains (L. rhamnosus) reduce cortisol by up to 20% in clinical trials through vagus nerve signaling" },
       { food: "Dark Leafy Greens", why: "Densest dietary source of magnesium; also provide folate for serotonin synthesis and fiber for gut health" },
-      { food: "Eggs", why: "Contain tryptophan, choline, B12, and vitamin D — four anxiety-critical nutrients in one food" },
+      { food: "Eggs", why: "Contain tryptophan, choline, B12, and vitamin D – four anxiety-critical nutrients in one food" },
       { food: "Turkey", why: "Highest tryptophan content of any common protein; tryptophan is the sole precursor to serotonin" },
-      { food: "Pumpkin Seeds", why: "Deliver magnesium, zinc, and tryptophan together — the complete GABA and serotonin support package" },
+      { food: "Pumpkin Seeds", why: "Deliver magnesium, zinc, and tryptophan together – the complete GABA and serotonin support package" },
       { food: "Blueberries", why: "Anthocyanins and vitamin C reduce cortisol; high-antioxidant diets correlate with lower anxiety scores" },
       { food: "Chamomile Tea", why: "Apigenin binds GABA-A receptors with a similar mechanism to anti-anxiety medications" },
       { food: "Avocado", why: "B vitamins, magnesium, and potassium in one food; oleic acid triggers calming OEA release" },
@@ -79,13 +79,13 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Sweet Potatoes", why: "Complex carbs raise brain tryptophan levels more effectively than protein alone; also provide B6 for serotonin synthesis" },
       { food: "Kimchi / Sauerkraut", why: "Fermented foods improve vagal tone and gut-brain signaling, reducing the inflammatory signals that trigger anxiety" },
       { food: "Oranges", why: "Vitamin C reduces cortisol by up to 25% in stress studies; hesperidin calms the nervous system and supports adrenal recovery" },
-      { food: "Bananas", why: "B6 is required for GABA synthesis — the brain's main calming neurotransmitter; potassium helps regulate heart rate during anxious episodes" },
-      { food: "Kiwi", why: "Contains natural serotonin; two kiwis before bed improved sleep onset by 35% in clinical studies — critical since sleep deprivation amplifies anxiety" },
+      { food: "Bananas", why: "B6 is required for GABA synthesis – the brain's main calming neurotransmitter. Potassium helps regulate heart rate during anxious episodes" },
+      { food: "Kiwi", why: "Contains natural serotonin; two kiwis before bed improved sleep onset by 35% in clinical studies. Critical since sleep deprivation amplifies anxiety" },
       { food: "Cherries (tart)", why: "Natural melatonin source that supports sleep quality; anthocyanins reduce the neuroinflammation that keeps the amygdala on high alert" },
       { food: "Dark Chocolate (70%+)", why: "Flavanols lower cortisol and increase calming serotonin; magnesium activates GABA receptors" },
     ],
     foodsToMinimize: [
-      { food: "Caffeine (excessive)", why: "Blocks adenosine receptors and stimulates cortisol/adrenaline release — directly activates the same fight-or-flight pathways anxiety already overuses" },
+      { food: "Caffeine (excessive)", why: "Blocks adenosine receptors and stimulates cortisol/adrenaline release. Directly activates the same fight-or-flight pathways anxiety already overuses" },
       { food: "Alcohol", why: "Depletes GABA receptors over time; the 'calm' feeling is borrowed from tomorrow's anxiety (rebound anxiety is neurologically inevitable)" },
       { food: "Refined sugar", why: "Causes cortisol spikes during blood sugar crashes; the body interprets low glucose as a threat, triggering the exact anxiety cascade" },
       { food: "Highly processed foods", why: "Inflammatory seed oils and additives increase systemic inflammation that crosses the blood-brain barrier and activates threat circuits" },
@@ -96,7 +96,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 calming snacks (no skipping meals)",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Complex carbs in the evening to boost serotonin before sleep; avoid caffeine after noon",
-      keyRule: "Never let blood sugar crash. Every crash triggers cortisol and adrenaline — the exact hormones your anxious brain overproduces. Eat every 3–4 hours."
+      keyRule: "Never let blood sugar crash. Every crash triggers cortisol and adrenaline – the exact hormones your anxious brain overproduces. Eat every 3–4 hours."
     }
   },
 
@@ -136,7 +136,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 balanced meals + 1 afternoon snack",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Complex carbs with dinner to boost serotonin for sleep; omega-3 rich lunch to sustain afternoon mood",
-      keyRule: "Prioritize the Mediterranean diet pattern — it has the strongest evidence base of any dietary intervention for depression, reducing risk by up to 33% in clinical trials."
+      keyRule: "Prioritize the Mediterranean diet pattern. It has the strongest evidence base of any dietary intervention for depression, reducing risk by up to 33% in clinical trials."
     }
   },
 
@@ -155,7 +155,7 @@ export const BRAIN_DIET_GUIDE = {
     powerFoods: [
       { food: "Wild Salmon", why: "EPA + DHA in therapeutic ratios; the most studied dietary intervention for bipolar depressive episodes" },
       { food: "Sardines", why: "Omega-3s, CoQ10, vitamin D, and calcium in one food; low mercury makes daily consumption safe" },
-      { food: "Eggs", why: "Choline for acetylcholine, B12, vitamin D, and cysteine for glutathione — covers multiple bipolar-critical pathways" },
+      { food: "Eggs", why: "Choline for acetylcholine, B12, vitamin D, and cysteine for glutathione. Covers multiple bipolar-critical pathways" },
       { food: "Dark Leafy Greens", why: "Magnesium (lithium-like stabilizer), folate for methylation, and fiber for gut-brain axis health" },
       { food: "Sweet Potatoes", why: "Low glycemic index complex carbs; glucose instability is a documented mood cycling trigger in bipolar disorder" },
       { food: "Avocado", why: "Magnesium, B vitamins, potassium, and healthy fats for sustained brain energy without glucose spikes" },
@@ -169,13 +169,13 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Alcohol", why: "Destabilizes mood, disrupts sleep architecture, interferes with mood stabilizer medications, and depletes B vitamins" },
       { food: "Refined sugar & simple carbs", why: "Glucose instability is one of the strongest dietary triggers for mood cycling; rapid spikes and crashes destabilize neuronal firing" },
       { food: "High-sodium processed foods", why: "Can affect lithium levels if taking medication; also increases inflammation and blood pressure" },
-      { food: "Energy drinks", why: "Combine caffeine, sugar, and stimulants — a triple trigger for manic episodes" },
+      { food: "Energy drinks", why: "Combine caffeine, sugar, and stimulants – a triple trigger for manic episodes" },
       { food: "Grapefruit", why: "Interferes with the metabolism of many bipolar medications (CYP3A4 inhibition); check with your doctor" },
     ],
     mealPattern: {
       frequency: "3 meals + 2 snacks at consistent times daily",
       macroSplit: "30% protein, 35% complex carbs, 35% healthy fats",
-      timing: "Eat at the same times every day — circadian rhythm consistency supports mood stability; avoid eating within 2 hours of bedtime",
+      timing: "Eat at the same times every day. Circadian rhythm consistency supports mood stability; avoid eating within 2 hours of bedtime",
       keyRule: "Consistency is your most powerful tool. Same meal times, same sleep times, same portion sizes. Your brain craves predictability even when your mood doesn't."
     }
   },
@@ -188,16 +188,16 @@ export const BRAIN_DIET_GUIDE = {
       { name: "Omega-3 DHA & EPA", role: "Restores neural membrane fluidity reduced by up to 30% in schizophrenia; EPA reduces the neuroinflammation that damages neural circuits", topSources: "salmon, sardines, mackerel, fish oil" },
       { name: "Antioxidants (Vitamin C, E, NAC precursors)", role: "Combat the significantly elevated oxidative stress that damages dopamine receptors and neural tissue in schizophrenia", topSources: "berries, citrus, peppers, nuts, eggs" },
       { name: "B Vitamins (B6, B12, Folate)", role: "Support methylation and homocysteine clearance; elevated homocysteine is neurotoxic and found in many schizophrenia patients", topSources: "eggs, leafy greens, salmon, beef" },
-      { name: "Zinc", role: "Cofactor for both dopamine and glutamate receptor regulation — the two neurotransmitter systems most disrupted in schizophrenia", topSources: "red meat, pumpkin seeds, lentils, chickpeas" },
+      { name: "Zinc", role: "Cofactor for both dopamine and glutamate receptor regulation – the two neurotransmitter systems most disrupted in schizophrenia", topSources: "red meat, pumpkin seeds, lentils, chickpeas" },
       { name: "Vitamin D", role: "Receptors are concentrated in brain regions affected by schizophrenia; prenatal deficiency is a known risk factor", topSources: "salmon, sardines, eggs, sunlight" },
       { name: "Niacin (B3)", role: "Supports NAD+ production for cellular energy; niacin deficiency causes psychosis-like symptoms; some evidence for therapeutic benefit", topSources: "chicken, turkey, salmon, brown rice" },
     ],
     powerFoods: [
       { food: "Wild Salmon", why: "DHA restores neural membrane fluidity; EPA reduces neuroinflammation; vitamin D supports affected brain regions" },
-      { food: "Eggs", why: "Choline, B12, vitamin D, selenium — four nutrients that combat oxidative stress and support neurotransmitter balance" },
+      { food: "Eggs", why: "Choline, B12, vitamin D, and selenium – four nutrients that combat oxidative stress and support neurotransmitter balance" },
       { food: "Berries (all types)", why: "Among the most potent dietary antioxidants; directly combat the elevated oxidative stress in schizophrenia" },
       { food: "Dark Leafy Greens", why: "Folate reduces neurotoxic homocysteine; vitamin C provides antioxidant defense; fiber supports gut-brain health" },
-      { food: "Sardines", why: "Omega-3s, CoQ10 for mitochondrial function, vitamin D, and B12 — exceptional nutrient density per serving" },
+      { food: "Sardines", why: "Omega-3s, CoQ10 for mitochondrial function, vitamin D, and B12. Exceptional nutrient density per serving" },
       { food: "Chicken & Turkey", why: "Niacin (B3) + tyrosine + tryptophan; complete amino acid profiles for balanced neurotransmitter production" },
       { food: "Sweet Potatoes", why: "Steady glucose for cognitive function; beta-carotene for antioxidant defense; B6 for neurotransmitter synthesis" },
       { food: "Pumpkin Seeds", why: "Zinc for dopamine and glutamate regulation plus magnesium for GABA support; two systems critical in schizophrenia" },
@@ -205,7 +205,7 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Broccoli & Cabbage", why: "Sulforaphane has shown promise in clinical trials for schizophrenia, activating the brain's master antioxidant pathway" },
     ],
     foodsToMinimize: [
-      { food: "Refined sugar", why: "Causes neuroinflammation and oxidative stress — both already elevated in schizophrenia; sugar worsens cognitive symptoms" },
+      { food: "Refined sugar", why: "Causes neuroinflammation and oxidative stress. Both are already elevated in schizophrenia, and sugar worsens cognitive symptoms" },
       { food: "Gluten (if sensitive)", why: "A subset of schizophrenia patients show anti-gliadin antibodies; gluten-free diets improve symptoms in this group specifically" },
       { food: "Excess saturated fat", why: "Increases inflammatory markers that worsen schizophrenia symptoms and may interfere with antipsychotic medication efficacy" },
       { food: "Alcohol & recreational drugs", why: "Worsen psychotic symptoms, interfere with medications, and deplete the antioxidants your brain desperately needs" },
@@ -216,14 +216,14 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 antioxidant-rich snacks",
       macroSplit: "30% protein, 35% complex carbs, 35% healthy fats",
       timing: "Regular meal schedule to support medication effectiveness; omega-3 rich fish at least 3× per week",
-      keyRule: "Antioxidant density is your dietary priority. Your brain generates more oxidative stress than average — every meal should include at least one high-antioxidant food (berries, leafy greens, colorful vegetables)."
+      keyRule: "Antioxidant density is your dietary priority. Your brain generates more oxidative stress than average. Every meal should include at least one high-antioxidant food (berries, leafy greens, colorful vegetables)."
     }
   },
 
   autism: {
     label: "Autism Spectrum",
     emoji: "🌈",
-    summary: "Autism involves gut-brain axis disruption, altered serotonin metabolism, and unique sensory processing needs. Your diet should prioritize gut health (since microbiome differences are one of the most consistent findings), anti-inflammatory nutrients, and B6/magnesium for neurotransmitter support — all in sensory-comfortable forms.",
+    summary: "Autism involves gut-brain axis disruption, altered serotonin metabolism, and unique sensory processing needs. Your diet should prioritize gut health (since microbiome differences are one of the most consistent findings), anti-inflammatory nutrients, and B6/magnesium for neurotransmitter support. All in sensory-comfortable forms.",
     priorityNutrients: [
       { name: "Probiotics & Prebiotics", role: "Gut microbiome differences are among the most replicated findings in autism; probiotics improve GI symptoms and may improve behavioral scores", topSources: "yogurt, kefir, fermented vegetables, fiber-rich foods" },
       { name: "Vitamin B6 + Magnesium", role: "The B6/Mg combination is one of the most studied nutritional interventions in autism; supports GABA production and reduces sensory sensitivity", topSources: "chicken, potatoes, bananas, almonds, spinach" },
@@ -255,7 +255,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 2 predictable snacks at consistent times",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Consistent meal schedule reduces anxiety around eating; introduce new foods alongside familiar favorites",
-      keyRule: "Gut health is your dietary foundation. Start with probiotics and fiber, then build out from familiar foods. Sensory comfort matters — a food your brain can tolerate is always better than an 'optimal' food you can't eat."
+      keyRule: "Gut health is your dietary foundation. Start with probiotics and fiber, then build out from familiar foods. Sensory comfort matters. A food your brain can tolerate is always better than an 'optimal' food you can't eat."
     }
   },
 
@@ -277,11 +277,11 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Eggs", why: "B5 for adrenal function, choline for memory circuits, tryptophan for serotonin, and vitamin D" },
       { food: "Turkey", why: "Highest tryptophan content of any meat; rebuilds the serotonin that chronic cortisol exposure depletes" },
       { food: "Dark Leafy Greens", why: "Magnesium to calm the nervous system, folate for serotonin synthesis, vitamin C for adrenal support" },
-      { food: "Blueberries", why: "Boost BDNF production to support hippocampal neurogenesis — growing new neurons to replace those lost to cortisol" },
+      { food: "Blueberries", why: "Boost BDNF production to support hippocampal neurogenesis. Grows new neurons to replace those lost to cortisol" },
       { food: "Avocado", why: "B5, magnesium, potassium, and healthy fats; a comprehensive adrenal and nervous system support food" },
-      { food: "Pumpkin Seeds", why: "Zinc for hippocampal repair, magnesium for GABA, tryptophan for serotonin — addresses three PTSD pathways simultaneously" },
+      { food: "Pumpkin Seeds", why: "Zinc for hippocampal repair, magnesium for GABA, tryptophan for serotonin. Addresses three PTSD pathways simultaneously" },
       { food: "Fermented Foods", why: "The vagus nerve carries gut signals to the brain; reducing gut inflammation through probiotics improves vagal tone and reduces hyperarousal" },
-      { food: "Dark Chocolate (70%+)", why: "Magnesium, flavanols for cerebral blood flow, and PEA for dopamine — a small daily dose supports recovery" },
+      { food: "Dark Chocolate (70%+)", why: "Magnesium, flavanols for cerebral blood flow, and PEA for dopamine. A small daily dose supports recovery" },
     ],
     foodsToMinimize: [
       { food: "Caffeine", why: "Stimulates the exact cortisol and adrenaline pathways PTSD already overactivates; worsens hyperarousal and sleep disruption" },
@@ -294,7 +294,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 2 calming snacks (never skip meals)",
       macroSplit: "25% protein, 40% complex carbs, 35% healthy fats",
       timing: "Tryptophan-rich dinner with complex carbs to support sleep; vitamin C-rich foods at breakfast to support morning cortisol clearance",
-      keyRule: "Stability and nourishment are healing acts. Never skip meals — every blood sugar crash triggers cortisol, and your body has had enough cortisol. Eating consistently tells your nervous system it's safe."
+      keyRule: "Stability and nourishment are healing acts. Never skip meals. Every blood sugar crash triggers cortisol, and your body has had enough cortisol. Eating consistently tells your nervous system it's safe."
     }
   },
 
@@ -303,11 +303,11 @@ export const BRAIN_DIET_GUIDE = {
     emoji: "🔄",
     summary: "OCD is fundamentally a serotonin-dysregulation disorder with glutamate excitotoxicity in the cortico-striatal circuits. Your diet should prioritize serotonin precursors and cofactors above all else, along with nutrients that reduce glutamate excitotoxicity and support thought flexibility.",
     priorityNutrients: [
-      { name: "Tryptophan", role: "The sole dietary precursor to serotonin — OCD is the condition most directly linked to serotonin deficiency; every OCD medication targets this pathway", topSources: "turkey, eggs, salmon, pumpkin seeds, yogurt" },
+      { name: "Tryptophan", role: "The sole dietary precursor to serotonin. OCD is the condition most directly linked to serotonin deficiency; every OCD medication targets this pathway", topSources: "turkey, eggs, salmon, pumpkin seeds, yogurt" },
       { name: "Folate (B9)", role: "Required cofactor for converting tryptophan to serotonin; OCD severity correlates directly with folate levels in clinical studies", topSources: "leafy greens, lentils, beans, asparagus" },
       { name: "Inositol", role: "Acts as a second messenger in serotonin receptor signaling; clinical trials show doses of 18g/day reduce OCD symptoms comparably to SSRIs", topSources: "citrus fruits, beans, whole grains, cantaloupe" },
       { name: "Magnesium", role: "Reduces glutamate excitotoxicity in the cortico-striatal-thalamic circuits that drive OCD compulsions", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
-      { name: "NAC precursors", role: "N-acetylcysteine modulates glutamate — the excitatory neurotransmitter that locks OCD circuits into repetitive loops", topSources: "chicken, turkey, eggs, garlic, onions" },
+      { name: "NAC precursors", role: "N-acetylcysteine modulates glutamate – the excitatory neurotransmitter that locks OCD circuits into repetitive loops", topSources: "chicken, turkey, eggs, garlic, onions" },
       { name: "Omega-3 EPA", role: "Reduces neuroinflammation in the cortico-striatal circuits involved in OCD; augments SSRI response", topSources: "salmon, sardines, mackerel, walnuts" },
     ],
     powerFoods: [
@@ -323,9 +323,9 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Broccoli", why: "Sulforaphane activates antioxidant defense; glutamine content supports GABA to counterbalance glutamate" },
     ],
     foodsToMinimize: [
-      { food: "Caffeine (excessive)", why: "Increases glutamate activity and anxiety — both exacerbate the compulsion-anxiety cycle at the core of OCD" },
+      { food: "Caffeine (excessive)", why: "Increases glutamate activity and anxiety. Both exacerbate the compulsion-anxiety cycle at the core of OCD" },
       { food: "Refined sugar", why: "Causes serotonin spikes then crashes; the crash phase can trigger intrusive thoughts and compulsive behavior" },
-      { food: "Alcohol", why: "Temporarily raises serotonin then severely depletes it — creating a rebound effect that worsens OCD for days" },
+      { food: "Alcohol", why: "Temporarily raises serotonin then severely depletes it. This creates a rebound effect that worsens OCD for days" },
       { food: "MSG & excess glutamate sources", why: "May increase glutamate excitotoxicity in the cortico-striatal circuits already overactive in OCD" },
       { food: "Highly processed foods", why: "Inflammatory compounds suppress serotonin production; artificial additives may disrupt the gut bacteria that produce serotonin precursors" },
     ],
@@ -333,27 +333,27 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1 tryptophan-rich evening snack",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Complex carbs with every meal to maximize brain tryptophan uptake; turkey or eggs at dinner to support serotonin production before sleep",
-      keyRule: "Serotonin is your dietary priority above all else. Every meal should include either a tryptophan source or a serotonin cofactor (folate, B6, inositol). Your brain is fighting for serotonin — feed it the building blocks."
+      keyRule: "Serotonin is your dietary priority above all else. Every meal should include either a tryptophan source or a serotonin cofactor (folate, B6, inositol). Your brain is fighting for serotonin. Feed it the building blocks."
     }
   },
 
   bpd: {
     label: "Borderline Personality Disorder",
     emoji: "🌊",
-    summary: "BPD involves amygdala hyperreactivity and prefrontal underactivity — the emotional brain fires faster than the rational brain can moderate. Your diet should stabilize blood sugar (the most direct dietary tool for reducing emotional reactivity), support serotonin for emotional regulation, and provide omega-3s for prefrontal function.",
+    summary: "BPD involves amygdala hyperreactivity and prefrontal underactivity. The emotional brain fires faster than the rational brain can moderate. Your diet should stabilize blood sugar (the most direct dietary tool for reducing emotional reactivity), support serotonin for emotional regulation, and provide omega-3s for prefrontal function.",
     priorityNutrients: [
       { name: "Omega-3 EPA & DHA", role: "Improve prefrontal cortex function needed to regulate the amygdala overreactivity that defines BPD emotional volatility", topSources: "salmon, sardines, mackerel, walnuts" },
       { name: "Magnesium", role: "Activates GABA receptors to reduce the neural excitability that drives impulsive emotional reactions", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
-      { name: "Tryptophan", role: "Serotonin is the neurotransmitter most directly involved in emotional regulation and impulse control — both core BPD challenges", topSources: "turkey, eggs, salmon, pumpkin seeds" },
+      { name: "Tryptophan", role: "Serotonin is the neurotransmitter most directly involved in emotional regulation and impulse control – both core BPD challenges", topSources: "turkey, eggs, salmon, pumpkin seeds" },
       { name: "Complex Carbohydrates", role: "Blood sugar instability amplifies emotional reactivity in BPD; complex carbs provide the steady glucose the amygdala needs to stay regulated", topSources: "sweet potatoes, quinoa, oats, brown rice" },
-      { name: "Vitamin B6", role: "Required for both serotonin and GABA synthesis — the two neurotransmitter systems most involved in emotional regulation", topSources: "chicken, salmon, potatoes, bananas" },
+      { name: "Vitamin B6", role: "Required for both serotonin and GABA synthesis – the two neurotransmitter systems most involved in emotional regulation", topSources: "chicken, salmon, potatoes, bananas" },
       { name: "Zinc", role: "Supports serotonin receptor function and BDNF production for building new, more regulated emotional response patterns", topSources: "red meat, pumpkin seeds, lentils, chickpeas" },
     ],
     powerFoods: [
       { food: "Wild Salmon", why: "EPA supports prefrontal cortex function; DHA maintains neural membrane health in the emotion regulation circuits" },
       { food: "Oatmeal", why: "Slow-release glucose prevents the blood sugar crashes that trigger BPD emotional reactivity; contains tryptophan and magnesium" },
-      { food: "Eggs", why: "Tryptophan, B12, choline, and vitamin D — four nutrients that support the amygdala-prefrontal connection" },
-      { food: "Sweet Potatoes", why: "Complex carbs with B6 — the carb/B6 combination is more effective at raising serotonin than either alone" },
+      { food: "Eggs", why: "Tryptophan, B12, choline, and vitamin D – four nutrients that support the amygdala-prefrontal connection" },
+      { food: "Sweet Potatoes", why: "Complex carbs with B6. The carb/B6 combination is more effective at raising serotonin than either alone" },
       { food: "Turkey", why: "Tryptophan for serotonin production to support the emotional regulation that BPD challenges most" },
       { food: "Dark Leafy Greens", why: "Magnesium for GABA, folate for serotonin; both systems directly regulate emotional reactivity" },
       { food: "Blueberries", why: "Anthocyanins increase BDNF, supporting the neuroplasticity needed to build new emotional regulation patterns" },
@@ -369,7 +369,7 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Ultra-processed foods", why: "Inflammatory compounds impair prefrontal cortex function, the exact brain region BPD needs working optimally" },
     ],
     mealPattern: {
-      frequency: "3 meals + 2 snacks — never skip meals",
+      frequency: "3 meals + 2 snacks. Never skip meals",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Eat every 3 hours to prevent blood sugar dips; protein at every meal to stabilize glucose",
       keyRule: "Blood sugar stability IS emotional stability for BPD. Every blood sugar crash amplifies amygdala reactivity. If you do one thing: never eat carbs without protein, and never skip a meal."
@@ -402,7 +402,7 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Refined sugar", why: "Blood sugar crashes increase dissociative vulnerability by starving the brain of its primary fuel" },
       { food: "Caffeine", why: "Stimulates the stress response system that can trigger dissociative episodes; worsens hyperarousal" },
       { food: "Alcohol", why: "Disrupts grounding, impairs memory formation, and depletes the B vitamins needed for stress resilience" },
-      { food: "Skipping meals", why: "The most direct dietary trigger for dissociative vulnerability — your brain needs consistent fuel to maintain integration" },
+      { food: "Skipping meals", why: "The most direct dietary trigger for dissociative vulnerability. Your brain needs consistent fuel to maintain integration" },
       { food: "Highly processed foods", why: "Cause blood sugar instability and lack the nutrients needed for stress recovery" },
     ],
     mealPattern: {
@@ -465,7 +465,7 @@ export const BRAIN_DIET_GUIDE = {
     powerFoods: [
       { food: "Turkey", why: "Highest tryptophan content; serotonin stability is the most direct path to emotional modulation in HPD" },
       { food: "Wild Salmon", why: "EPA reduces the neuroinflammation that destabilizes serotonin; DHA supports emotional processing circuits" },
-      { food: "Eggs", why: "Tryptophan, choline, B vitamins — supports serotonin and acetylcholine systems simultaneously" },
+      { food: "Eggs", why: "Tryptophan, choline, and B vitamins. Supports serotonin and acetylcholine systems simultaneously" },
       { food: "Oatmeal", why: "Slow-release carbs raise brain serotonin availability steadily rather than in spikes and crashes" },
       { food: "Dark Leafy Greens", why: "Magnesium for GABA production to calm emotional intensity; folate for serotonin synthesis" },
       { food: "Sweet Potatoes", why: "Complex carbs prevent the blood sugar crashes that intensify emotional volatility" },
@@ -500,7 +500,7 @@ export const BRAIN_DIET_GUIDE = {
     ],
     powerFoods: [
       { food: "Wild Salmon", why: "Omega-3 supplementation reduces aggression and impulsivity in multiple clinical trials; DHA supports prefrontal function" },
-      { food: "Eggs", why: "Tryptophan, choline, B12, and selenium — supports serotonin, prefrontal function, and antioxidant defense" },
+      { food: "Eggs", why: "Tryptophan, choline, B12, and selenium – supports serotonin, prefrontal function, and antioxidant defense" },
       { food: "Turkey", why: "Highest tryptophan content; directly supports the serotonin pathway most linked to aggression modulation" },
       { food: "Dark Leafy Greens", why: "Magnesium for GABA-mediated impulse control; folate for serotonin synthesis" },
       { food: "Pumpkin Seeds", why: "Zinc + magnesium + tryptophan; addresses all three neurotransmitter systems involved in impulse regulation" },
@@ -530,7 +530,7 @@ export const BRAIN_DIET_GUIDE = {
     priorityNutrients: [
       { name: "Complete Protein", role: "Protein malnutrition impairs every neurotransmitter system simultaneously; complete protein provides the amino acids your brain needs to restart normal function", topSources: "eggs, chicken, salmon, yogurt, lentils" },
       { name: "Healthy Fats", role: "The brain is 60% fat; fat restriction literally starves the brain of its building material, impairing mood, cognition, and hormone production", topSources: "avocado, salmon, nuts, olive oil, eggs" },
-      { name: "Zinc", role: "Commonly severely depleted in eating disorders; zinc deficiency impairs taste, appetite, and serotonin function — creating a cycle of further restriction", topSources: "red meat, pumpkin seeds, chickpeas, eggs" },
+      { name: "Zinc", role: "Commonly severely depleted in eating disorders; zinc deficiency impairs taste, appetite, and serotonin function. This creates a cycle of further restriction", topSources: "red meat, pumpkin seeds, chickpeas, eggs" },
       { name: "Iron", role: "Anemia is common in eating disorders; iron deficiency causes fatigue, brain fog, and depression even before clinical anemia develops", topSources: "red meat, spinach, lentils, fortified cereals" },
       { name: "B Vitamins", role: "Depleted by malnutrition; required for energy production, neurotransmitter synthesis, and the metabolic repair recovery demands", topSources: "eggs, salmon, leafy greens, whole grains" },
       { name: "Calcium & Vitamin D", role: "Bone density loss is a serious medical consequence of eating disorders; rebuilding requires consistent calcium and vitamin D", topSources: "yogurt, salmon, fortified foods, leafy greens" },
@@ -555,9 +555,9 @@ export const BRAIN_DIET_GUIDE = {
     ],
     mealPattern: {
       frequency: "3 full meals + 2–3 snacks (as directed by treatment team)",
-      macroSplit: "Balanced — all macros are needed; no food group should be restricted without medical reason",
+      macroSplit: "Balanced – all macros are needed; no food group should be restricted without medical reason",
       timing: "Follow your treatment team's meal plan; consistent meal times help rebuild hunger/fullness signaling",
-      keyRule: "All food is nourishment. Your brain cannot heal without adequate fuel from all food groups. Recovery is not about 'eating healthy' — it's about eating enough, consistently, without conditions."
+      keyRule: "All food is nourishment. Your brain cannot heal without adequate fuel from all food groups. Recovery is not about 'eating healthy'. It's about eating enough, consistently, without conditions."
     }
   },
 
@@ -566,7 +566,7 @@ export const BRAIN_DIET_GUIDE = {
     emoji: "🛡️",
     summary: "Phobias involve an overactive amygdala fear response and insufficient GABA inhibition. Your diet should prioritize GABA production (magnesium, B6), cortisol regulation (vitamin C, B5), and serotonin for overall anxiety and fear modulation.",
     priorityNutrients: [
-      { name: "Magnesium", role: "Directly activates GABA-A receptors — the brain's primary fear-inhibiting system; low magnesium leaves fear circuits without their brake pedal", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
+      { name: "Magnesium", role: "Directly activates GABA-A receptors – the brain's primary fear-inhibiting system; low magnesium leaves fear circuits without their brake pedal", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
       { name: "Vitamin B6", role: "Rate-limiting cofactor for converting glutamate (excitatory) to GABA (calming); without B6 your brain can't produce its own anti-fear chemical", topSources: "chicken, salmon, potatoes, bananas" },
       { name: "Tryptophan", role: "Serotonin modulates the fear response at the amygdala level; low serotonin amplifies phobic reactions", topSources: "turkey, eggs, salmon, pumpkin seeds" },
       { name: "Omega-3 EPA", role: "Reduces inflammatory cytokines that sensitize the amygdala fear circuits to lower thresholds", topSources: "salmon, sardines, mackerel, walnuts" },
@@ -610,13 +610,13 @@ export const BRAIN_DIET_GUIDE = {
       { name: "Zinc", role: "Supports GABA and serotonin receptor function; deficiency increases nervous system excitability", topSources: "red meat, pumpkin seeds, lentils, chickpeas" },
     ],
     powerFoods: [
-      { food: "Pumpkin Seeds", why: "Magnesium + zinc + tryptophan — addresses GABA, serotonin, and nervous system calm simultaneously" },
+      { food: "Pumpkin Seeds", why: "Magnesium + zinc + tryptophan. Addresses GABA, serotonin, and nervous system calm simultaneously" },
       { food: "Eggs", why: "Cysteine (NAC precursor) + B vitamins + tryptophan; targets the glutamate and serotonin pathways most involved in BFRBs" },
       { food: "Dark Leafy Greens", why: "Densest magnesium source; directly reduces the neuronal hyperexcitability driving repetitive urges" },
       { food: "Salmon", why: "EPA reduces basal ganglia neuroinflammation; omega-3s support impulse control circuits" },
       { food: "Turkey", why: "Tryptophan + cysteine; supports both serotonin and glutamate modulation pathways" },
       { food: "Dark Chocolate (70%+)", why: "Magnesium + flavanols; a small daily serving supports GABA production and reduces nervous system arousal" },
-      { food: "Garlic & Onions", why: "Rich in cysteine, the precursor to NAC — the most studied dietary compound for BFRB urge reduction" },
+      { food: "Garlic & Onions", why: "Rich in cysteine, the precursor to NAC – the most studied dietary compound for BFRB urge reduction" },
       { food: "Sweet Potatoes", why: "Complex carbs for steady serotonin; B6 for converting glutamate to GABA" },
     ],
     foodsToMinimize: [
@@ -641,7 +641,7 @@ export const BRAIN_DIET_GUIDE = {
     priorityNutrients: [
       { name: "Omega-3 EPA & DHA", role: "EPA calms the neuroinflammation amplifying threat circuits; DHA strengthens prefrontal cortex membrane fluidity for accurate threat assessment", topSources: "salmon, sardines, mackerel, walnuts" },
       { name: "Magnesium", role: "Directly activates GABA receptors to calm overactive amygdala threat detection; reduces cortisol-driven hypervigilance", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
-      { name: "Vitamin D", role: "Supports oxytocin synthesis and receptor sensitivity — gradually rebuilding your brain's capacity for interpersonal trust", topSources: "salmon, sardines, eggs, sunlight" },
+      { name: "Vitamin D", role: "Supports oxytocin synthesis and receptor sensitivity. Gradually rebuilds your brain's capacity for interpersonal trust", topSources: "salmon, sardines, eggs, sunlight" },
       { name: "Vitamin C", role: "Accelerates cortisol metabolism, breaking the cortisol accumulation cycle that fuels paranoid hypervigilance", topSources: "bell peppers, citrus, berries, broccoli" },
       { name: "B Vitamins (B12, Folate, B6)", role: "Break down homocysteine (elevated in paranoid individuals) that damages blood vessels serving the prefrontal cortex", topSources: "eggs, leafy greens, salmon, chicken" },
       { name: "Tryptophan", role: "Serotonin calms overactive amygdala fear circuitry and supports interpersonal trust", topSources: "turkey, eggs, salmon, pumpkin seeds" },
@@ -649,7 +649,7 @@ export const BRAIN_DIET_GUIDE = {
     powerFoods: [
       { food: "Wild Salmon", why: "EPA calms amygdala neuroinflammation; DHA strengthens prefrontal circuits that override false alarm signals" },
       { food: "Bell Peppers", why: "Highest vitamin C food; accelerates the cortisol clearance that paranoid hypervigilance prevents" },
-      { food: "Eggs", why: "Vitamin D for oxytocin, B12 for homocysteine clearance, tryptophan for serotonin — three trust-building pathways" },
+      { food: "Eggs", why: "Vitamin D for oxytocin, B12 for homocysteine clearance, tryptophan for serotonin – three trust-building pathways" },
       { food: "Dark Leafy Greens", why: "Magnesium to calm threat-detection circuits, folate to break down neurotoxic homocysteine" },
       { food: "Turkey", why: "Tryptophan-derived serotonin calms the overactive amygdala that generates paranoid threat assessments" },
       { food: "Blueberries", why: "Anthocyanins reduce neuroinflammation; vitamin C supports cortisol clearance" },
@@ -659,7 +659,7 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Sweet Potatoes", why: "Stable blood sugar prevents cortisol spikes that the paranoid brain misinterprets as confirmation of external threats" },
     ],
     foodsToMinimize: [
-      { food: "Caffeine", why: "Stimulates cortisol and adrenaline — the exact hormones that fuel paranoid hypervigilance and threat scanning" },
+      { food: "Caffeine", why: "Stimulates cortisol and adrenaline – the exact hormones that fuel paranoid hypervigilance and threat scanning" },
       { food: "Alcohol", why: "Temporary relaxation is followed by rebound anxiety and heightened suspicion the next day" },
       { food: "Refined sugar", why: "Blood sugar crashes trigger cortisol spikes that the paranoid brain interprets as confirmation of external threats" },
       { food: "Processed foods", why: "Inflammatory compounds amplify the neuroinflammation that keeps threat-detection circuits overactive" },
@@ -668,7 +668,7 @@ export const BRAIN_DIET_GUIDE = {
     mealPattern: {
       frequency: "3 meals + 2 calming snacks at consistent times",
       macroSplit: "25% protein, 40% complex carbs, 35% healthy fats",
-      timing: "Never skip meals — every blood sugar crash fuels the cortisol cycle; omega-3 rich fish at least 3× per week",
+      timing: "Never skip meals. Every blood sugar crash fuels the cortisol cycle; omega-3 rich fish at least 3× per week",
       keyRule: "Your brain's alarm system is overbuilt. Every meal should include at least one calming nutrient (magnesium, omega-3, tryptophan) to help the prefrontal cortex override the false alarms your amygdala generates."
     }
   },
@@ -678,9 +678,9 @@ export const BRAIN_DIET_GUIDE = {
     emoji: "🔋",
     summary: "SPD involves underactive dopamine reward circuits and reduced social motivation. Your diet should prioritize dopamine precursors and cofactors, omega-3s for neural membrane health in social cognition circuits, and BDNF boosters to support neuroplasticity in reward pathways.",
     priorityNutrients: [
-      { name: "Tyrosine", role: "Direct precursor to dopamine — the neurotransmitter most responsible for motivation, anticipatory pleasure, and goal-directed behavior", topSources: "chicken, salmon, eggs, beef, almonds" },
+      { name: "Tyrosine", role: "Direct precursor to dopamine – the neurotransmitter most responsible for motivation, anticipatory pleasure, and goal-directed behavior", topSources: "chicken, salmon, eggs, beef, almonds" },
       { name: "Omega-3 DHA", role: "Neural membrane fluidity in social cognition circuits is reduced in SPD; DHA is the primary structural fat needed to restore it", topSources: "salmon, sardines, mackerel, walnuts" },
-      { name: "Iron", role: "Required for tyrosine hydroxylase — the rate-limiting enzyme in dopamine synthesis; without iron, protein intake can't become dopamine", topSources: "red meat, spinach, lentils, pumpkin seeds" },
+      { name: "Iron", role: "Required for tyrosine hydroxylase – the rate-limiting enzyme in dopamine synthesis. Without iron, protein intake can't become dopamine", topSources: "red meat, spinach, lentils, pumpkin seeds" },
       { name: "Vitamin B12", role: "Protects myelin sheaths that carry social and emotional signals; deficiency slows the neural communication SPD already underutilizes", topSources: "salmon, beef, eggs, sardines" },
       { name: "Vitamin D", role: "Receptors concentrated in the substantia nigra (dopamine factory); deficiency associated with up to 30% less dopamine synthesis", topSources: "salmon, sardines, eggs, sunlight" },
       { name: "B6 & Folate", role: "B6 is the final cofactor in dopamine synthesis; folate drives the methylation cycle producing SAMe, which supports both dopamine and serotonin", topSources: "chicken, salmon, leafy greens, potatoes" },
@@ -690,10 +690,10 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Eggs", why: "Tyrosine + B12 + vitamin D + choline; choline drives acetylcholine production for arousal and engagement" },
       { food: "Grass-Fed Beef", why: "Richest heme iron source to unblock dopamine synthesis; also provides B12, zinc, and tyrosine" },
       { food: "Dark Leafy Greens", why: "Folate for SAMe production, magnesium for cellular energy, iron for dopamine enzyme function" },
-      { food: "Blueberries", why: "Boost BDNF production — the protein that builds new neural pathways in reward and social circuits" },
+      { food: "Blueberries", why: "Boost BDNF production – the protein that builds new neural pathways in reward and social circuits" },
       { food: "Dark Chocolate (70%+)", why: "PEA directly stimulates dopamine release; magnesium supports cellular energy in low-motivation states" },
       { food: "Chicken", why: "High tyrosine and B6 for dopamine synthesis; B3 (niacin) for NAD+ energy production" },
-      { food: "Sardines", why: "DHA + vitamin D + B12 — three nutrients that directly support the dopamine and social cognition systems SPD underactivates" },
+      { food: "Sardines", why: "DHA + vitamin D + B12 – three nutrients that directly support the dopamine and social cognition systems SPD underactivates" },
       { food: "Pumpkin Seeds", why: "Iron + zinc + magnesium; removes bottlenecks in dopamine synthesis and supports cellular energy" },
       { food: "Sweet Potatoes", why: "B6 for the final dopamine conversion step; complex carbs for the brain energy SPD brains need to engage" },
     ],
@@ -701,13 +701,13 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Refined sugar", why: "Causes dopamine spikes followed by crashes, worsening the already low dopamine baseline" },
       { food: "Ultra-processed foods", why: "Lack the tyrosine, iron, and B vitamins needed for dopamine synthesis; replace them with nutrient-dense alternatives" },
       { food: "Excessive alcohol", why: "Further suppresses the dopamine system and reduces motivation and social engagement" },
-      { food: "Low-protein diets", why: "Without adequate protein, your brain cannot access tyrosine — no tyrosine means no dopamine, regardless of other nutrients" },
+      { food: "Low-protein diets", why: "Without adequate protein, your brain cannot access tyrosine. No tyrosine means no dopamine, regardless of other nutrients" },
     ],
     mealPattern: {
       frequency: "3 protein-rich meals + 1–2 energy-boosting snacks",
       macroSplit: "35% protein, 35% complex carbs, 30% healthy fats",
       timing: "High-protein breakfast to kickstart dopamine production; never go more than 4 hours without eating",
-      keyRule: "Protein is your most important macronutrient. Every meal must include a tyrosine-rich protein source — your brain literally cannot produce motivation without it. Prioritize eggs, salmon, chicken, and beef."
+      keyRule: "Protein is your most important macronutrient. Every meal must include a tyrosine-rich protein source. Your brain literally cannot produce motivation without it. Prioritize eggs, salmon, chicken, and beef."
     }
   },
 
@@ -746,7 +746,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 brain-boosting snacks",
       macroSplit: "25% protein, 40% complex carbs, 35% healthy fats",
       timing: "Omega-3 rich meals at least 3× per week; diverse colorful foods daily for antioxidant breadth",
-      keyRule: "Follow the Mediterranean diet pattern — it has the strongest evidence base of any dietary pattern for brain health, reducing cognitive decline risk by up to 35% in long-term studies."
+      keyRule: "Follow the Mediterranean diet pattern. It has the strongest evidence base of any dietary pattern for brain health, reducing cognitive decline risk by up to 35% in long-term studies."
     }
   },
 
@@ -755,7 +755,7 @@ export const BRAIN_DIET_GUIDE = {
     emoji: "🧠",
     summary: "A brain-optimized diet prioritizes omega-3 fats, antioxidants, B vitamins, and gut health. These nutrients support neurotransmitter production, reduce neuroinflammation, and maintain the cognitive function that underpins mental health.",
     priorityNutrients: [
-      { name: "Omega-3 DHA & EPA", role: "DHA is the primary structural fat in the brain; EPA reduces neuroinflammation — together they support every cognitive function", topSources: "salmon, sardines, mackerel, walnuts" },
+      { name: "Omega-3 DHA & EPA", role: "DHA is the primary structural fat in the brain; EPA reduces neuroinflammation. Together they support every cognitive function", topSources: "salmon, sardines, mackerel, walnuts" },
       { name: "Magnesium", role: "Cofactor for 600+ enzymatic reactions including neurotransmitter synthesis and GABA receptor activation", topSources: "dark leafy greens, pumpkin seeds, almonds, dark chocolate" },
       { name: "B Vitamins (B6, B12, Folate)", role: "Drive the methylation cycle that produces serotonin, dopamine, and norepinephrine", topSources: "eggs, salmon, leafy greens, chicken" },
       { name: "Antioxidants", role: "The brain generates more oxidative stress per gram than any other organ; antioxidants protect neurons", topSources: "berries, dark chocolate, colorful vegetables" },
@@ -763,10 +763,10 @@ export const BRAIN_DIET_GUIDE = {
       { name: "Vitamin D", role: "Activates serotonin gene expression and supports neuroprotection", topSources: "salmon, sardines, eggs, sunlight" },
     ],
     powerFoods: [
-      { food: "Wild Salmon", why: "DHA, EPA, vitamin D, and B12 — the single most brain-beneficial food available" },
+      { food: "Wild Salmon", why: "DHA, EPA, vitamin D, and B12 – the single most brain-beneficial food available" },
       { food: "Blueberries", why: "The most potent dietary antioxidant; improves memory and cerebral blood flow" },
       { food: "Eggs", why: "13 essential nutrients including choline; the most complete single food for brain health" },
-      { food: "Dark Leafy Greens", why: "Folate, magnesium, vitamin K — every nutrient has independent brain protection evidence" },
+      { food: "Dark Leafy Greens", why: "Folate, magnesium, and vitamin K. Every nutrient has independent brain protection evidence" },
       { food: "Walnuts", why: "The only nut with omega-3s plus melatonin and neuroprotective polyphenols" },
       { food: "Avocado", why: "Oleic acid for myelin, B vitamins, and lutein for brain tissue protection" },
       { food: "Turmeric", why: "Curcumin crosses the blood-brain barrier and boosts BDNF" },
@@ -782,7 +782,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 brain-boosting snacks",
       macroSplit: "25% protein, 40% complex carbs, 35% healthy fats",
       timing: "Omega-3 rich meals 3× per week; diverse colorful foods daily",
-      keyRule: "Follow the Mediterranean diet pattern — the strongest evidence base of any dietary approach for brain health."
+      keyRule: "Follow the Mediterranean diet pattern. It has the strongest evidence base of any dietary approach for brain health."
     }
   },
 };

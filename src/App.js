@@ -2363,7 +2363,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "25 min",
       ingredients: ["4 oz lion's mane mushroom, torn into bite-sized pieces (or 1 tsp lion's mane powder + 1 cup cremini mushrooms)","1 boneless skinless chicken breast (6 oz), sliced thin","1 cup cooked rice","1 tbsp soy sauce or tamari","1 tsp sesame oil","1 clove garlic, minced","1 tsp fresh ginger, grated","1 tbsp olive oil or avocado oil","1 cup mixed vegetables (broccoli, bell pepper, snap peas)","Salt and pepper to taste"],
       steps: ["Heat olive oil in a wok or large skillet over high heat.","Season chicken slices with salt and pepper. Stir-fry 4–5 minutes until cooked through. Remove and set aside.","Add lion's mane pieces to the hot pan. Sear 2–3 minutes per side until golden. Remove and set aside.","Add vegetables, garlic, and ginger to the pan. Stir-fry 3–4 minutes until crisp-tender.","Return chicken and lion's mane to the pan. Add soy sauce and sesame oil. Toss to combine.","Serve over cooked rice."],
-      tip: "Lion's mane has a lobster-like texture when seared properly. Don't crowd the pan — let each piece make full contact with the hot surface for the best flavor and texture.",
+      tip: "Lion's mane has a lobster-like texture when seared properly. Don't crowd the pan. Let each piece make full contact with the hot surface for the best flavor and texture.",
       nutrition: ["Lion's mane stimulates nerve growth factor (NGF) for neuroplasticity","Chicken provides tyrosine for dopamine synthesis","Ginger and garlic are potent anti-inflammatory compounds","Sesame oil contains sesamol, which protects against oxidative brain damage"]
     };
   }
@@ -2374,7 +2374,7 @@ const generateRecipe = (meal) => {
       serves: 1, time: "12 min",
       ingredients: ["3 large eggs","3 oz lion's mane mushroom, torn into small pieces (or 1 tsp lion's mane powder + ½ cup cremini mushrooms)","1 tbsp butter","1 tbsp fresh herbs (chives, parsley, or thyme)","Salt and black pepper to taste","Optional: 1 slice whole grain toast"],
       steps: ["Melt half the butter in a non-stick skillet over medium-high heat.","Add lion's mane pieces and sear 2–3 minutes until golden. Season with salt and set aside.","Reduce heat to medium-low. Add remaining butter to the pan.","Crack eggs into a bowl, season with salt and pepper, and whisk.","Pour eggs into the pan. Stir slowly with a spatula, forming soft curds.","When eggs are still slightly wet, fold in the seared lion's mane and fresh herbs.","Serve immediately; residual heat will finish cooking the eggs."],
-      tip: "Lion's mane pairs beautifully with eggs because both support brain health — eggs provide choline for acetylcholine production, while lion's mane boosts NGF for nerve repair.",
+      tip: "Lion's mane pairs beautifully with eggs because both support brain health. Eggs provide choline for acetylcholine production, while lion's mane boosts NGF for nerve repair.",
       nutrition: ["Lion's mane stimulates NGF for brain cell growth and repair","Eggs provide choline, the precursor to acetylcholine (memory neurotransmitter)","Butter contains butyrate, which supports gut-brain axis health","Fresh herbs add polyphenols that reduce neuroinflammation"]
     };
   }
@@ -2911,12 +2911,12 @@ const generateRecipe = (meal) => {
 
   // Gumbo
   if (has("gumbo")) {
-    return { serves: 3, time: "50 min", ingredients: ["1 boneless skinless chicken breast, diced","6 oz shrimp, peeled and deveined","2 cups okra, sliced (fresh or frozen)","1 can (14 oz) diced tomatoes","3 cups chicken broth","2 tbsp olive oil or butter","2 tbsp flour (for roux)","1 small onion, diced","1 stalk celery, diced","1 green bell pepper, diced","3 cloves garlic, minced","1 tsp Cajun seasoning","½ tsp smoked paprika","1 bay leaf","1 cup cooked brown rice","Hot sauce to taste"], steps: ["Make the roux: Heat oil in a heavy pot over medium heat. Add flour and stir constantly 8–10 minutes until it turns deep golden brown (the color of peanut butter). This is the soul of gumbo.","Add the 'holy trinity': onion, celery, and bell pepper. Stir 5 minutes until soft.","Add garlic, Cajun seasoning, and paprika. Stir 30 seconds.","Add diced chicken and cook 3–4 minutes until lightly browned.","Pour in broth and diced tomatoes. Add bay leaf and okra. Bring to a boil.","Reduce to a simmer and cook 25 minutes, stirring occasionally.","Add shrimp in the last 5 minutes; they cook fast. Remove bay leaf.","Ladle over rice in bowls. Finish with hot sauce to taste."], tip: "The roux is everything in gumbo. Don't rush it — low and slow turns raw flour into a nutty, rich base. If it burns, start over.", nutrition: ["Okra provides soluble fiber that feeds beneficial gut bacteria","Shrimp delivers selenium and astaxanthin for brain protection","The holy trinity (onion, celery, pepper) provides quercetin and luteolin for neuroprotection","Cajun spices contain capsaicin that increases blood flow to the brain"] };
+    return { serves: 3, time: "50 min", ingredients: ["1 boneless skinless chicken breast, diced","6 oz shrimp, peeled and deveined","2 cups okra, sliced (fresh or frozen)","1 can (14 oz) diced tomatoes","3 cups chicken broth","2 tbsp olive oil or butter","2 tbsp flour (for roux)","1 small onion, diced","1 stalk celery, diced","1 green bell pepper, diced","3 cloves garlic, minced","1 tsp Cajun seasoning","½ tsp smoked paprika","1 bay leaf","1 cup cooked brown rice","Hot sauce to taste"], steps: ["Make the roux: Heat oil in a heavy pot over medium heat. Add flour and stir constantly 8–10 minutes until it turns deep golden brown (the color of peanut butter). This is the soul of gumbo.","Add the 'holy trinity': onion, celery, and bell pepper. Stir 5 minutes until soft.","Add garlic, Cajun seasoning, and paprika. Stir 30 seconds.","Add diced chicken and cook 3–4 minutes until lightly browned.","Pour in broth and diced tomatoes. Add bay leaf and okra. Bring to a boil.","Reduce to a simmer and cook 25 minutes, stirring occasionally.","Add shrimp in the last 5 minutes; they cook fast. Remove bay leaf.","Ladle over rice in bowls. Finish with hot sauce to taste."], tip: "The roux is everything in gumbo. Don't rush it. Low and slow turns raw flour into a nutty, rich base. If it burns, start over.", nutrition: ["Okra provides soluble fiber that feeds beneficial gut bacteria","Shrimp delivers selenium and astaxanthin for brain protection","The holy trinity (onion, celery, pepper) provides quercetin and luteolin for neuroprotection","Cajun spices contain capsaicin that increases blood flow to the brain"] };
   }
 
   // Jambalaya
   if (has("jambalaya")) {
-    return { serves: 3, time: "40 min", ingredients: ["2 chicken sausage links, sliced into rounds","6 oz shrimp, peeled and deveined","1 cup long-grain rice","1 can (14 oz) diced tomatoes","2 cups chicken broth","1 small onion, diced","1 stalk celery, diced","1 green bell pepper, diced","3 cloves garlic, minced","1 tsp Cajun seasoning","½ tsp smoked paprika","½ tsp dried thyme","1 bay leaf","1 tbsp olive oil","Hot sauce to taste"], steps: ["Heat oil in a large pot or Dutch oven over medium-high. Brown sausage rounds 3–4 minutes. Remove and set aside.","In the same pot, sauté onion, celery, and bell pepper 4–5 minutes. Add garlic, cook 30 seconds.","Stir in Cajun seasoning, paprika, and thyme.","Add rice and stir 1 minute to toast slightly.","Pour in broth, diced tomatoes, and bay leaf. Bring to a boil.","Reduce heat to low, cover, and cook 20 minutes until rice is tender and liquid is absorbed.","Return sausage to pot. Add shrimp on top, cover, and cook 5 more minutes until shrimp are pink.","Fluff with a fork, remove bay leaf, and serve with hot sauce."], tip: "Don't stir the rice while it cooks — let it absorb the liquid undisturbed for the best texture.", nutrition: ["One-pot cooking preserves all water-soluble B vitamins in the broth","Tomatoes provide lycopene that crosses the blood-brain barrier","Shrimp delivers omega-3s and selenium for brain protection","The holy trinity vegetables provide neuroprotective flavonoids"] };
+    return { serves: 3, time: "40 min", ingredients: ["2 chicken sausage links, sliced into rounds","6 oz shrimp, peeled and deveined","1 cup long-grain rice","1 can (14 oz) diced tomatoes","2 cups chicken broth","1 small onion, diced","1 stalk celery, diced","1 green bell pepper, diced","3 cloves garlic, minced","1 tsp Cajun seasoning","½ tsp smoked paprika","½ tsp dried thyme","1 bay leaf","1 tbsp olive oil","Hot sauce to taste"], steps: ["Heat oil in a large pot or Dutch oven over medium-high. Brown sausage rounds 3–4 minutes. Remove and set aside.","In the same pot, sauté onion, celery, and bell pepper 4–5 minutes. Add garlic, cook 30 seconds.","Stir in Cajun seasoning, paprika, and thyme.","Add rice and stir 1 minute to toast slightly.","Pour in broth, diced tomatoes, and bay leaf. Bring to a boil.","Reduce heat to low, cover, and cook 20 minutes until rice is tender and liquid is absorbed.","Return sausage to pot. Add shrimp on top, cover, and cook 5 more minutes until shrimp are pink.","Fluff with a fork, remove bay leaf, and serve with hot sauce."], tip: "Don't stir the rice while it cooks. Let it absorb the liquid undisturbed for the best texture.", nutrition: ["One-pot cooking preserves all water-soluble B vitamins in the broth","Tomatoes provide lycopene that crosses the blood-brain barrier","Shrimp delivers omega-3s and selenium for brain protection","The holy trinity vegetables provide neuroprotective flavonoids"] };
   }
 
   // Blackened fish (salmon, catfish)
@@ -2927,17 +2927,17 @@ const generateRecipe = (meal) => {
     if (has("sweet potato") && has("mash")) ing.push("1 large sweet potato, peeled and cubed","1 tbsp butter","Pinch of cinnamon");
     if (hasRice) ing.push("1 cup cooked brown rice");
     if (hasGreenBeans) ing.push("1 cup green beans, trimmed");
-    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Pat fish completely dry. Press blackening seasoning firmly onto both sides.","Heat a cast iron skillet over high heat until it just starts to smoke.","Add butter and oil. Lay fish in the skillet — it should sizzle aggressively.","Cook 3–4 minutes per side until a dark, spicy crust forms and fish flakes easily.",has("collard") ? "For collard greens: Heat 1 tbsp oil in a pot. Add garlic and red pepper flakes, cook 30 seconds. Add collards with ¼ cup water. Cover and cook 12–15 minutes until tender. Finish with apple cider vinegar." : "",has("mash") ? "Boil sweet potato cubes 15 minutes until tender. Mash with butter, cinnamon, salt, and a splash of milk." : "","Plate fish over greens and starch. Finish with a squeeze of lemon."].filter(Boolean), tip: "A smoking-hot cast iron skillet is non-negotiable for blackening. The high heat creates the signature charred spice crust without overcooking the fish.", nutrition: ["Cajun spices contain capsaicin that boosts endorphins and brain circulation","Collard greens are rich in folate, vitamin K, and calcium for neural health","Sweet potato provides beta-carotene and B6 for mood regulation",fishType === "salmon" ? "Salmon delivers EPA/DHA omega-3s for brain structure and anti-inflammation" : "Catfish provides lean protein and B12 for nerve health"] };
+    return { serves: 1, time: "25 min", ingredients: ing, steps: ["Pat fish completely dry. Press blackening seasoning firmly onto both sides.","Heat a cast iron skillet over high heat until it just starts to smoke.","Add butter and oil. Lay fish in the skillet. It should sizzle aggressively.","Cook 3–4 minutes per side until a dark, spicy crust forms and fish flakes easily.",has("collard") ? "For collard greens: Heat 1 tbsp oil in a pot. Add garlic and red pepper flakes, cook 30 seconds. Add collards with ¼ cup water. Cover and cook 12–15 minutes until tender. Finish with apple cider vinegar." : "",has("mash") ? "Boil sweet potato cubes 15 minutes until tender. Mash with butter, cinnamon, salt, and a splash of milk." : "","Plate fish over greens and starch. Finish with a squeeze of lemon."].filter(Boolean), tip: "A smoking-hot cast iron skillet is non-negotiable for blackening. The high heat creates the signature charred spice crust without overcooking the fish.", nutrition: ["Cajun spices contain capsaicin that boosts endorphins and brain circulation","Collard greens are rich in folate, vitamin K, and calcium for neural health","Sweet potato provides beta-carotene and B6 for mood regulation",fishType === "salmon" ? "Salmon delivers EPA/DHA omega-3s for brain structure and anti-inflammation" : "Catfish provides lean protein and B12 for nerve health"] };
   }
 
   // Oxtail Stew
   if (has("oxtail")) {
-    return { serves: 3, time: "3 hrs", ingredients: ["1.5 lbs oxtail pieces","1 can (15 oz) butter beans or lima beans, drained","2 cups beef broth","1 can (14 oz) diced tomatoes","1 onion, diced","3 cloves garlic, minced","2 sprigs fresh thyme","2 scallions, chopped","1 tbsp soy sauce","1 tsp allspice","1 tbsp browning sauce (optional)","2 tbsp oil","Salt and pepper to taste","1 cup cooked brown rice"], steps: ["Season oxtail with salt, pepper, allspice, and soy sauce. Let marinate 30 minutes.","Heat oil in a heavy pot or Dutch oven over medium-high. Brown oxtail pieces 3–4 minutes per side until deeply seared. Work in batches.","Remove oxtail. Sauté onion 4 minutes, add garlic, cook 30 seconds.","Return oxtail to pot. Add broth, diced tomatoes, thyme, and browning sauce.","Bring to a boil, then reduce to a very low simmer. Cover and cook 2.5–3 hours until meat is fall-off-the-bone tender.","Add butter beans in the last 20 minutes.","Skim any excess fat. Adjust seasoning. Serve over rice with scallions on top."], tip: "Oxtail needs low and slow cooking — don't rush it. The collagen breaks down into gelatin, creating that rich, silky sauce.", nutrition: ["Oxtail is rich in collagen and glycine, which support brain repair and calm the nervous system","Butter beans provide folate and magnesium for mood regulation","Allspice contains eugenol, a potent anti-inflammatory","Slow-cooked bone-in meat releases minerals including zinc and iron for neurotransmitter synthesis"] };
+    return { serves: 3, time: "3 hrs", ingredients: ["1.5 lbs oxtail pieces","1 can (15 oz) butter beans or lima beans, drained","2 cups beef broth","1 can (14 oz) diced tomatoes","1 onion, diced","3 cloves garlic, minced","2 sprigs fresh thyme","2 scallions, chopped","1 tbsp soy sauce","1 tsp allspice","1 tbsp browning sauce (optional)","2 tbsp oil","Salt and pepper to taste","1 cup cooked brown rice"], steps: ["Season oxtail with salt, pepper, allspice, and soy sauce. Let marinate 30 minutes.","Heat oil in a heavy pot or Dutch oven over medium-high. Brown oxtail pieces 3–4 minutes per side until deeply seared. Work in batches.","Remove oxtail. Sauté onion 4 minutes, add garlic, cook 30 seconds.","Return oxtail to pot. Add broth, diced tomatoes, thyme, and browning sauce.","Bring to a boil, then reduce to a very low simmer. Cover and cook 2.5–3 hours until meat is fall-off-the-bone tender.","Add butter beans in the last 20 minutes.","Skim any excess fat. Adjust seasoning. Serve over rice with scallions on top."], tip: "Oxtail needs low and slow cooking. Don't rush it. The collagen breaks down into gelatin, creating that rich, silky sauce.", nutrition: ["Oxtail is rich in collagen and glycine, which support brain repair and calm the nervous system","Butter beans provide folate and magnesium for mood regulation","Allspice contains eugenol, a potent anti-inflammatory","Slow-cooked bone-in meat releases minerals including zinc and iron for neurotransmitter synthesis"] };
   }
 
   // Curry Goat
   if (hasAny("curry goat","goat curry")) {
-    return { serves: 3, time: "2 hrs", ingredients: ["1.5 lbs goat meat, cut into chunks","2 tbsp curry powder","1 tsp allspice","1 tsp cumin","1 can (14 oz) coconut milk","1 large potato, peeled and cubed","1 onion, diced","4 cloves garlic, minced","1 tbsp fresh ginger, grated","2 scallions, chopped","2 sprigs fresh thyme","1 scotch bonnet pepper, whole (do not cut)","2 tbsp oil","Salt and pepper to taste","1 cup cooked rice"], steps: ["Season goat meat with curry powder, allspice, cumin, salt, pepper, garlic, and thyme. Marinate 1 hour (overnight is best).","Heat oil in a heavy pot over medium-high. Brown goat pieces 3–4 minutes per side.","Add onion and ginger, cook 3 minutes.","Pour in coconut milk and enough water to just cover the meat.","Add whole scotch bonnet (do not pierce it — it adds flavor without too much heat).","Bring to a boil, reduce to low simmer, cover, and cook 1.5 hours until meat is tender.","Add potatoes in the last 30 minutes. Remove scotch bonnet before serving.","Serve over rice with scallions on top."], tip: "Keep the scotch bonnet whole — it infuses flavor without making the dish unbearably hot. Piercing it releases all the heat.", nutrition: ["Goat meat is leaner than beef and rich in iron and B12 for neurotransmitter synthesis","Curry powder contains turmeric (curcumin) which crosses the blood-brain barrier","Coconut milk provides MCTs the brain can use directly for energy","Ginger contains gingerols that reduce neuroinflammation"] };
+    return { serves: 3, time: "2 hrs", ingredients: ["1.5 lbs goat meat, cut into chunks","2 tbsp curry powder","1 tsp allspice","1 tsp cumin","1 can (14 oz) coconut milk","1 large potato, peeled and cubed","1 onion, diced","4 cloves garlic, minced","1 tbsp fresh ginger, grated","2 scallions, chopped","2 sprigs fresh thyme","1 scotch bonnet pepper, whole (do not cut)","2 tbsp oil","Salt and pepper to taste","1 cup cooked rice"], steps: ["Season goat meat with curry powder, allspice, cumin, salt, pepper, garlic, and thyme. Marinate 1 hour (overnight is best).","Heat oil in a heavy pot over medium-high. Brown goat pieces 3–4 minutes per side.","Add onion and ginger, cook 3 minutes.","Pour in coconut milk and enough water to just cover the meat.","Add whole scotch bonnet (do not pierce it. It adds flavor without too much heat).","Bring to a boil, reduce to low simmer, cover, and cook 1.5 hours until meat is tender.","Add potatoes in the last 30 minutes. Remove scotch bonnet before serving.","Serve over rice with scallions on top."], tip: "Keep the scotch bonnet whole. It infuses flavor without making the dish unbearably hot. Piercing it releases all the heat.", nutrition: ["Goat meat is leaner than beef and rich in iron and B12 for neurotransmitter synthesis","Curry powder contains turmeric (curcumin) which crosses the blood-brain barrier","Coconut milk provides MCTs the brain can use directly for energy","Ginger contains gingerols that reduce neuroinflammation"] };
   }
 
   // West African Groundnut/Peanut Stew
@@ -2945,7 +2945,7 @@ const generateRecipe = (meal) => {
     const ing = ["½ cup natural peanut butter (smooth)","1 can (14 oz) diced tomatoes","2 cups chicken or vegetable broth","1 sweet potato, peeled and cubed","1 onion, diced","3 cloves garlic, minced","1 tbsp fresh ginger, grated","1 tsp cumin","½ tsp cayenne pepper","2 cups fresh spinach or kale","Salt to taste"];
     if (has("chicken")) ing.unshift("1 boneless skinless chicken breast, cubed");
     ing.push("1 cup cooked brown rice");
-    return { serves: 2, time: "35 min", ingredients: ing, steps: ["Heat 1 tbsp oil in a pot over medium heat. If using chicken, brown the cubes 4–5 minutes. Remove and set aside.","Sauté onion 4 minutes. Add garlic, ginger, cumin, and cayenne. Cook 1 minute.","Add diced tomatoes and sweet potato cubes. Stir to combine.","Pour in broth. Bring to a boil, then reduce to a simmer. Cook 15 minutes until sweet potato is tender.","Stir in peanut butter until fully dissolved into the stew.","Return chicken if using. Add spinach and stir until wilted, about 2 minutes.","Season with salt. Serve over brown rice."], tip: "Use natural peanut butter without added sugar for the most authentic flavor. The oil separation is normal — stir it in.", nutrition: ["Peanuts provide niacin (B3) which supports brain energy metabolism","Sweet potato delivers beta-carotene for neuroprotection","Ginger and garlic contain anti-inflammatory compounds that protect neural tissue","Spinach adds folate critical for serotonin synthesis"] };
+    return { serves: 2, time: "35 min", ingredients: ing, steps: ["Heat 1 tbsp oil in a pot over medium heat. If using chicken, brown the cubes 4–5 minutes. Remove and set aside.","Sauté onion 4 minutes. Add garlic, ginger, cumin, and cayenne. Cook 1 minute.","Add diced tomatoes and sweet potato cubes. Stir to combine.","Pour in broth. Bring to a boil, then reduce to a simmer. Cook 15 minutes until sweet potato is tender.","Stir in peanut butter until fully dissolved into the stew.","Return chicken if using. Add spinach and stir until wilted, about 2 minutes.","Season with salt. Serve over brown rice."], tip: "Use natural peanut butter without added sugar for the most authentic flavor. The oil separation is normal. Stir it in.", nutrition: ["Peanuts provide niacin (B3) which supports brain energy metabolism","Sweet potato delivers beta-carotene for neuroprotection","Ginger and garlic contain anti-inflammatory compounds that protect neural tissue","Spinach adds folate critical for serotonin synthesis"] };
   }
 
   // Jollof Rice
@@ -2961,7 +2961,7 @@ const generateRecipe = (meal) => {
     const isLentil = has("lentil") || has("misir");
     const ing = isLentil ? ["1 cup red lentils, rinsed","2 cups water or vegetable broth"] : ["4 bone-in chicken drumsticks or thighs","4 hard-boiled eggs, peeled"];
     ing.push("2 large onions, finely diced","3 cloves garlic, minced","1 tbsp fresh ginger, grated","2 tbsp berbere spice blend","2 tbsp niter kibbeh (spiced butter) or regular butter","1 tbsp tomato paste","Salt to taste","1 cup cooked brown rice (or injera if available)");
-    return { serves: 2, time: isLentil ? "30 min" : "50 min", ingredients: ing, steps: ["Dry-sauté onions in a heavy pot over medium heat for 10–12 minutes, stirring often, until deeply caramelized and reduced by half. This is the foundation — don't rush it.","Add butter, garlic, and ginger. Cook 2 minutes.","Stir in berbere spice and tomato paste. Cook 3 minutes until fragrant and oil begins to separate.",isLentil ? "Add lentils and water. Bring to a boil, reduce to a simmer, and cook 20–25 minutes until lentils are soft and stew is thick." : "Score chicken pieces with shallow cuts. Add to the pot and coat with sauce. Add ½ cup water.","Cover and simmer " + (isLentil ? "" : "30–35 minutes until chicken is tender and cooked through."),isLentil ? "" : "Nestle peeled hard-boiled eggs into the stew for the last 10 minutes to absorb flavor.","Season with salt. Serve over rice or with injera for scooping."].filter(Boolean), tip: "The caramelized onions are the secret to Ethiopian cooking. Cook them until they're dark golden — this takes real patience but creates incredible depth of flavor.", nutrition: ["Berbere spice contains turmeric, fenugreek, and cardamom — all anti-inflammatory","Slow-cooked onions release quercetin, a powerful neuroprotective flavonoid",isLentil ? "Red lentils provide folate and iron for serotonin and dopamine synthesis" : "Chicken provides tryptophan and tyrosine for neurotransmitter production","Ginger contains gingerols that reduce neuroinflammation and improve circulation"] };
+    return { serves: 2, time: isLentil ? "30 min" : "50 min", ingredients: ing, steps: ["Dry-sauté onions in a heavy pot over medium heat for 10–12 minutes, stirring often, until deeply caramelized and reduced by half. This is the foundation. Don't rush it.","Add butter, garlic, and ginger. Cook 2 minutes.","Stir in berbere spice and tomato paste. Cook 3 minutes until fragrant and oil begins to separate.",isLentil ? "Add lentils and water. Bring to a boil, reduce to a simmer, and cook 20–25 minutes until lentils are soft and stew is thick." : "Score chicken pieces with shallow cuts. Add to the pot and coat with sauce. Add ½ cup water.","Cover and simmer " + (isLentil ? "" : "30–35 minutes until chicken is tender and cooked through."),isLentil ? "" : "Nestle peeled hard-boiled eggs into the stew for the last 10 minutes to absorb flavor.","Season with salt. Serve over rice or with injera for scooping."].filter(Boolean), tip: "The caramelized onions are the secret to Ethiopian cooking. Cook them until they're dark golden. This takes real patience but creates incredible depth of flavor.", nutrition: ["Berbere spice contains turmeric, fenugreek, and cardamom, all anti-inflammatory","Slow-cooked onions release quercetin, a powerful neuroprotective flavonoid",isLentil ? "Red lentils provide folate and iron for serotonin and dopamine synthesis" : "Chicken provides tryptophan and tyrosine for neurotransmitter production","Ginger contains gingerols that reduce neuroinflammation and improve circulation"] };
   }
 
   // ── Southeast Asian dedicated recipes ───────────────────────────────────
@@ -2972,12 +2972,12 @@ const generateRecipe = (meal) => {
     if (protein === "shrimp") ing.push("6 oz shrimp, peeled and deveined");
     else if (protein === "chicken") ing.push("1 boneless skinless chicken breast, thinly sliced");
     else if (protein === "tofu") ing.push("6 oz extra-firm tofu, cubed and pressed");
-    return { serves: 1, time: "20 min", ingredients: ing, steps: ["Soak rice noodles in warm water 15–20 minutes until pliable but not soft. Drain.","Mix the sauce: combine tamarind paste, fish sauce, soy sauce, sugar, and lime juice. Stir until sugar dissolves.","Heat oil in a wok over high heat until smoking.",protein && protein !== "egg" ? `Add ${protein} and stir-fry 2–3 minutes until cooked. Push to the side.` : "","Pour beaten eggs into the wok. Scramble 30 seconds until just set.","Add drained noodles and the sauce. Toss with tongs 2–3 minutes until noodles absorb the sauce.","Add bean sprouts and scallions. Toss 30 seconds — they should stay crunchy.","Plate immediately. Top with crushed peanuts, cilantro, and lime wedges."].filter(Boolean), tip: "The wok must be smoking hot before anything goes in. Pad thai is a 5-minute dish once you start cooking — have everything prepped and within reach.", nutrition: ["Tamarind provides tartaric acid and polyphenols that support digestive health","Peanuts deliver niacin (B3) for brain energy metabolism","Eggs provide choline for memory and acetylcholine production","Bean sprouts contain folate and vitamin C for neurotransmitter synthesis"] };
+    return { serves: 1, time: "20 min", ingredients: ing, steps: ["Soak rice noodles in warm water 15–20 minutes until pliable but not soft. Drain.","Mix the sauce: combine tamarind paste, fish sauce, soy sauce, sugar, and lime juice. Stir until sugar dissolves.","Heat oil in a wok over high heat until smoking.",protein && protein !== "egg" ? `Add ${protein} and stir-fry 2–3 minutes until cooked. Push to the side.` : "","Pour beaten eggs into the wok. Scramble 30 seconds until just set.","Add drained noodles and the sauce. Toss with tongs 2–3 minutes until noodles absorb the sauce.","Add bean sprouts and scallions. Toss 30 seconds. They should stay crunchy.","Plate immediately. Top with crushed peanuts, cilantro, and lime wedges."].filter(Boolean), tip: "The wok must be smoking hot before anything goes in. Pad thai is a 5-minute dish once you start cooking. Have everything prepped and within reach.", nutrition: ["Tamarind provides tartaric acid and polyphenols that support digestive health","Peanuts deliver niacin (B3) for brain energy metabolism","Eggs provide choline for memory and acetylcholine production","Bean sprouts contain folate and vitamin C for neurotransmitter synthesis"] };
   }
 
   // Tom Kha Gai (Thai Coconut Chicken Soup)
   if (hasAny("tom kha","coconut chicken soup","coconut soup")) {
-    return { serves: 2, time: "25 min", ingredients: ["1 boneless skinless chicken breast, thinly sliced","1 can (14 oz) coconut milk","1 cup chicken broth","3 slices galangal or fresh ginger","2 stalks lemongrass, cut into 2-inch pieces and bruised","4 kaffir lime leaves (or zest of 1 lime)","1 cup mushrooms, sliced","1 tbsp fish sauce","1 tbsp lime juice","1 tsp chili paste or ½ tsp red pepper flakes","Fresh cilantro for garnish","1 cup cooked jasmine rice"], steps: ["In a pot, combine coconut milk and chicken broth. Add galangal, lemongrass, and kaffir lime leaves.","Bring to a gentle simmer over medium heat. Cook 5 minutes to infuse the aromatics.","Add sliced chicken and mushrooms. Simmer 8–10 minutes until chicken is cooked through.","Remove from heat. Stir in fish sauce, lime juice, and chili paste.","Remove the lemongrass pieces and galangal (they're not meant to be eaten).","Ladle into bowls over rice. Garnish with fresh cilantro."], tip: "Don't boil coconut milk aggressively — it can separate. A gentle simmer keeps the broth silky and creamy.", nutrition: ["Coconut milk provides MCTs that the brain can use as quick fuel","Galangal contains galangin, a flavonoid with neuroprotective properties","Lemongrass has citral, which reduces anxiety and has calming effects","Mushrooms provide ergothioneine, a unique antioxidant that concentrates in brain tissue"] };
+    return { serves: 2, time: "25 min", ingredients: ["1 boneless skinless chicken breast, thinly sliced","1 can (14 oz) coconut milk","1 cup chicken broth","3 slices galangal or fresh ginger","2 stalks lemongrass, cut into 2-inch pieces and bruised","4 kaffir lime leaves (or zest of 1 lime)","1 cup mushrooms, sliced","1 tbsp fish sauce","1 tbsp lime juice","1 tsp chili paste or ½ tsp red pepper flakes","Fresh cilantro for garnish","1 cup cooked jasmine rice"], steps: ["In a pot, combine coconut milk and chicken broth. Add galangal, lemongrass, and kaffir lime leaves.","Bring to a gentle simmer over medium heat. Cook 5 minutes to infuse the aromatics.","Add sliced chicken and mushrooms. Simmer 8–10 minutes until chicken is cooked through.","Remove from heat. Stir in fish sauce, lime juice, and chili paste.","Remove the lemongrass pieces and galangal (they're not meant to be eaten).","Ladle into bowls over rice. Garnish with fresh cilantro."], tip: "Don't boil coconut milk aggressively. It can separate. A gentle simmer keeps the broth silky and creamy.", nutrition: ["Coconut milk provides MCTs that the brain can use as quick fuel","Galangal contains galangin, a flavonoid with neuroprotective properties","Lemongrass has citral, which reduces anxiety and has calming effects","Mushrooms provide ergothioneine, a unique antioxidant that concentrates in brain tissue"] };
   }
 
   // Thai Green/Red Curry
@@ -2990,7 +2990,7 @@ const generateRecipe = (meal) => {
     if (curryType === "massaman") { ing.push("1 medium potato, cubed","2 tbsp roasted peanuts"); }
     else { ing.push("1 cup mixed vegetables (bamboo shoots, bell pepper, zucchini)"); }
     ing.push("1 cup cooked jasmine rice");
-    return { serves: 2, time: "25 min", ingredients: ing, steps: ["Scoop the thick cream from the top of the coconut milk into a hot wok or pot. Cook 2–3 minutes until it begins to separate and sizzle.","Add curry paste to the coconut cream. Fry 2 minutes until very fragrant — this blooms the spices.",protein ? `Add ${protein} and cook 3–4 minutes until mostly done.` : "","Pour in the remaining coconut milk. Add fish sauce and sugar. Stir to combine.",curryType === "massaman" ? "Add potato cubes. Simmer 15 minutes until potatoes are tender." : "Add vegetables. Simmer 5–7 minutes until tender-crisp.","Tear basil leaves and stir in just before serving.",curryType === "massaman" ? "Garnish with crushed peanuts." : "","Serve over jasmine rice."].filter(Boolean), tip: "Frying the curry paste in coconut cream before adding liquid is the key technique — it concentrates and deepens the flavor.", nutrition: ["Coconut milk provides MCTs for quick brain energy","Thai basil contains ursolic acid, which has neuroprotective properties","Curry paste spices (galangal, lemongrass, turmeric) are potent anti-inflammatories",curryType === "massaman" ? "Peanuts deliver niacin for brain energy metabolism" : "Bell peppers provide vitamin C for neurotransmitter synthesis"] };
+    return { serves: 2, time: "25 min", ingredients: ing, steps: ["Scoop the thick cream from the top of the coconut milk into a hot wok or pot. Cook 2–3 minutes until it begins to separate and sizzle.","Add curry paste to the coconut cream. Fry 2 minutes until very fragrant. This blooms the spices.",protein ? `Add ${protein} and cook 3–4 minutes until mostly done.` : "","Pour in the remaining coconut milk. Add fish sauce and sugar. Stir to combine.",curryType === "massaman" ? "Add potato cubes. Simmer 15 minutes until potatoes are tender." : "Add vegetables. Simmer 5–7 minutes until tender-crisp.","Tear basil leaves and stir in just before serving.",curryType === "massaman" ? "Garnish with crushed peanuts." : "","Serve over jasmine rice."].filter(Boolean), tip: "Frying the curry paste in coconut cream before adding liquid is the key technique. It concentrates and deepens the flavor.", nutrition: ["Coconut milk provides MCTs for quick brain energy","Thai basil contains ursolic acid, which has neuroprotective properties","Curry paste spices (galangal, lemongrass, turmeric) are potent anti-inflammatories",curryType === "massaman" ? "Peanuts deliver niacin for brain energy metabolism" : "Bell peppers provide vitamin C for neurotransmitter synthesis"] };
   }
 
   // Vietnamese Pho
@@ -5778,7 +5778,7 @@ function buildMealExplanation(meal, conditionIds) {
     });
     intro = `${meal} was chosen specifically for your combination of ${condString}.\n\n` + multiIntros.join("\n");
   } else if (topIng.length >= 3) {
-    intro = `${meal} combines ${topIng[0].fullNutrient} from ${topIng[0].name}, ${topIng[1].nutrient} from ${topIng[1].name}, and ${topIng[2].nutrient} from ${topIng[2].name}. Each targets a different pathway that ${cNeuro.label} affects — here's what each ingredient does for your brain:`;
+    intro = `${meal} combines ${topIng[0].fullNutrient} from ${topIng[0].name}, ${topIng[1].nutrient} from ${topIng[1].name}, and ${topIng[2].nutrient} from ${topIng[2].name}. Each targets a different pathway that ${cNeuro.label} affects. Here's what each ingredient does for your brain:`;
   } else if (topIng.length === 2) {
     intro = `${meal} pairs ${topIng[0].fullNutrient} from ${topIng[0].name} with ${topIng[1].nutrient} from ${topIng[1].name}, targeting the ${cNeuro.systems} pathways that ${cNeuro.label} affects most. Here's the breakdown:`;
   } else if (topIng.length === 1) {
@@ -5788,7 +5788,7 @@ function buildMealExplanation(meal, conditionIds) {
   }
 
   if (ingredients.length === 0) {
-    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind — you're nourishing yourself with intention.`;
+    return `${intro}\n\nEvery food on this plan was chosen with your neurological needs in mind. You're nourishing yourself with intention.`;
   }
 
   // For each ingredient, if multiple conditions show the most relevant note
@@ -5821,31 +5821,31 @@ function buildMealExplanation(meal, conditionIds) {
   // Dynamic closings — rotate by meal hash
   const closingTemplates = {
     adhd: [
-      "Every bite here is working to support your focus, emotional regulation, and dopamine system — your brain deserves this kind of targeted care.",
+      "Every bite here is working to support your focus, emotional regulation, and dopamine system. Your brain deserves this kind of targeted care.",
       "This isn't just food; it's fuel specifically matched to what your ADHD brain burns through fastest. You're replenishing what matters.",
       "Your prefrontal cortex is doing overtime every day. This meal gives it the raw materials to keep going.",
       "Nutrition can't replace ADHD treatment, but it removes the nutritional barriers that make focus and regulation harder than they need to be.",
     ],
     anxiety: [
-      "This combination works together to calm your nervous system from the inside out — you're feeding your calm.",
+      "This combination works together to calm your nervous system from the inside out. You're feeding your calm.",
       "Anxiety tells your brain everything is a threat. This meal gives your brain the chemistry to disagree.",
       "Your nervous system is working hard to protect you. This meal helps it stand down when the coast is clear.",
       "GABA, serotonin, and cortisol regulation start with nutrition. This meal covers all three.",
     ],
     depression: [
-      "Each ingredient here gently lifts the neurotransmitter systems depression suppresses — you're doing something real for yourself.",
+      "Each ingredient here gently lifts the neurotransmitter systems depression suppresses. You're doing something real for yourself.",
       "Depression makes everything harder, including eating well. This meal does the heavy lifting so your brain chemistry doesn't have to.",
-      "Serotonin, BDNF, and anti-inflammatory support aren't abstract concepts — they're what these specific foods deliver to your specific brain.",
+      "Serotonin, BDNF, and anti-inflammatory support aren't abstract concepts. They're what these specific foods deliver to your specific brain.",
       "Your brain is capable of producing the chemicals it needs. This meal removes the nutritional barriers in its way.",
     ],
     bipolar: [
-      "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished — stability on the plate supports stability in the mind.",
+      "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished. Stability on the plate supports stability in the mind.",
       "Mood stability starts with metabolic stability. Every ingredient here is working to keep your brain's energy and chemistry consistent.",
-      "Your brain cycles between states. This meal provides the nutritional anchors — magnesium, omega-3s, steady glucose — that support balance.",
+      "Your brain cycles between states. This meal provides the nutritional anchors – magnesium, omega-3s, steady glucose – that support balance.",
       "Bipolar disorder is metabolically demanding. This meal meets those demands with the specific nutrients your brain is burning through.",
     ],
     schizophrenia: [
-      "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain — this is targeted nourishment.",
+      "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain. This is targeted nourishment.",
       "Oxidative stress and neuroinflammation are measurable in schizophrenia. The antioxidants and omega-3s in this meal directly counter both.",
       "Your brain has specific vulnerabilities. This meal addresses them with nutrients that clinical research has linked to better outcomes.",
       "The neuroprotective compounds in this meal work at the cellular level, supporting the neural circuits that matter most for your condition.",
@@ -5857,25 +5857,25 @@ function buildMealExplanation(meal, conditionIds) {
       "The gut-brain axis drives more of your brain's neurotransmitter production than most people realize. This meal feeds that system.",
     ],
     ptsd: [
-      "This meal quietly lowers your cortisol baseline and supports the serotonin systems trauma suppresses — small acts of nourishment matter.",
+      "This meal quietly lowers your cortisol baseline and supports the serotonin systems trauma suppresses. Small acts of nourishment matter.",
       "Your stress response has been in overdrive. This meal gives your adrenal system and hippocampus the nutrients they need to recover.",
       "Trauma changes brain chemistry. This meal provides the specific building blocks your brain needs to restore what was depleted.",
-      "Healing isn't just psychological — it's metabolic. This meal supports the biological recovery your brain is working on.",
+      "Healing isn't just psychological. It's metabolic. This meal supports the biological recovery your brain is working on.",
     ],
     ocd: [
-      "The serotonin support in this meal is real and direct — you're feeding the exact neurotransmitter system OCD challenges most.",
+      "The serotonin support in this meal is real and direct. You're feeding the exact neurotransmitter system OCD challenges most.",
       "OCD creates a neurochemical tug-of-war. This meal gives the serotonin side more ammunition.",
       "Your brain's compulsion circuits are hungry for serotonin. This meal delivers the precursors and cofactors those circuits need.",
       "Serotonin synthesis requires specific nutrients in specific combinations. This meal provides them intentionally, not by accident.",
     ],
     bpd: [
-      "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation — this meal provides both.",
+      "Steady blood sugar and serotonin support are two of the most accessible tools for emotional regulation. This meal provides both.",
       "Your emotional brain moves fast. This meal supports the prefrontal systems that help your rational brain keep pace.",
       "Emotional regulation is partly a nutrition problem. This meal addresses the biochemical side so you can focus on the psychological side.",
-      "Magnesium, omega-3s, and tryptophan aren't just nutrients — they're the building blocks of the emotional stability your brain is working toward.",
+      "Magnesium, omega-3s, and tryptophan aren't just nutrients. They're the building blocks of the emotional stability your brain is working toward.",
     ],
     did: [
-      "Consistent, nourishing meals help ground and stabilize — this one was built to support your brain's need for steady fuel.",
+      "Consistent, nourishing meals help ground and stabilize. This one was built to support your brain's need for steady fuel.",
       "Grounding starts at the cellular level. This meal provides the steady glucose and neurotransmitter support your brain relies on.",
       "Your brain works hardest when it's managing complexity. This meal makes sure it has the fuel and cofactors to do that work.",
       "Nutritional consistency supports neurological consistency. Every ingredient here is working to keep your brain on stable ground.",
@@ -5887,7 +5887,7 @@ function buildMealExplanation(meal, conditionIds) {
       "Self-regulation is metabolically expensive. This meal ensures your brain has the fuel to sustain it.",
     ],
     hpd: [
-      "This meal calms the serotonin and dopamine fluctuations that drive emotional intensity — steady chemistry supports steady emotions.",
+      "This meal calms the serotonin and dopamine fluctuations that drive emotional intensity. Steady chemistry supports steady emotions.",
       "Your brain's emotional circuits are highly active. This meal provides the nutrients that help modulate intensity without suppressing feeling.",
       "Emotional expression and emotional regulation both need the same neurochemical fuel. This meal supplies it.",
       "Steady amino acids, magnesium, and omega-3s give your brain the stability to feel deeply without being overwhelmed.",
@@ -5896,28 +5896,28 @@ function buildMealExplanation(meal, conditionIds) {
       "This meal supports the prefrontal impulse control and serotonin production your brain depends on for measured decision-making.",
       "Impulse control is partly a nutritional challenge. This meal provides the specific building blocks your prefrontal cortex needs.",
       "Your brain's executive function circuits have above-average nutritional demands. This meal is designed to meet them.",
-      "Omega-3s, zinc, and B vitamins aren't optional for your brain — they're essential infrastructure for the circuits you rely on most.",
+      "Omega-3s, zinc, and B vitamins aren't optional for your brain. They're essential infrastructure for the circuits you rely on most.",
     ],
     eating: [
-      "This is nourishment without judgment — complete nutrition that supports your brain and body during recovery.",
+      "This is nourishment without judgment. Complete nutrition that supports your brain and body during recovery.",
       "Every ingredient here was chosen to heal, not to restrict. Your brain needs this fuel to regulate mood, energy, and metabolism.",
       "Recovery is biological as much as psychological. This meal provides the nutrition your brain needs to do both.",
       "You deserve to eat well and feel good about it. This meal is designed to support your recovery from the nutritional foundation up.",
     ],
     phobia: [
-      "This meal supports GABA production and cortisol regulation — the two neurological systems most directly involved in your fear response.",
+      "This meal supports GABA production and cortisol regulation. These are the two neurological systems most directly involved in your fear response.",
       "Your fear circuits fire harder than they need to. This meal gives your brain the chemistry to dial them back.",
       "GABA is your brain's natural brake pedal on fear. The magnesium and amino acids here help produce more of it.",
       "Cortisol regulation and GABA production start with nutrition. This meal addresses both pathways.",
     ],
     bfrb: [
-      "Magnesium and B vitamins reduce the nervous system hyperarousal that BFRB urges are driven by — this meal delivers both.",
+      "Magnesium and B vitamins reduce the nervous system hyperarousal that BFRB urges are driven by. This meal delivers both.",
       "Your brain's urge circuits are partly a chemistry problem. This meal provides the calming nutrients those circuits are missing.",
       "GABA support and glutamate balance help raise the threshold for repetitive behaviors. This meal targets both.",
       "The nutrients here work at the basal ganglia level, where BFRB urges originate. You're feeding calm to the right circuits.",
     ],
     ppd: [
-      "This meal calms the overactive threat-detection circuits driving your vigilance — you're feeding your brain's ability to feel safe.",
+      "This meal calms the overactive threat-detection circuits driving your vigilance. You're feeding your brain's ability to feel safe.",
       "Your alarm system is overbuilt. This meal gives your prefrontal cortex the nutrition to override false alarms.",
       "Trust starts with neurochemistry. The omega-3s, magnesium, and GABA support here help your brain distinguish real threats from noise.",
       "Paranoid thinking is exhausting because your brain is working overtime. This meal replenishes what that constant scanning depletes.",
@@ -5926,19 +5926,19 @@ function buildMealExplanation(meal, conditionIds) {
       "This meal targets the underactive dopamine and motivation circuits that make engagement feel like so much effort.",
       "Your brain's reward system needs specific fuel. This meal provides the tyrosine, omega-3s, and B vitamins it's been missing.",
       "Motivation is neurochemical. This meal delivers the raw materials your dopamine and BDNF systems need to function.",
-      "You don't have to force motivation — you have to fuel it. This meal addresses the nutritional side of that equation.",
+      "You don't have to force motivation. You have to fuel it. This meal addresses the nutritional side of that equation.",
     ],
     default: [
-      "You're nourishing your brain with intention — every ingredient here was chosen with your mental health in mind.",
+      "You're nourishing your brain with intention. Every ingredient here was chosen with your mental health in mind.",
       "This meal provides targeted nutrition for the specific brain systems your plan is designed to support.",
-      "Every ingredient here serves a neurological purpose. You're not just eating — you're investing in your brain health.",
+      "Every ingredient here serves a neurological purpose. You're not just eating. You're investing in your brain health.",
       "Nutrition is the foundation of brain chemistry. This meal builds that foundation with precision.",
     ],
   };
 
   const closingArr = closingTemplates[primaryId] || closingTemplates.default;
   const closing = activeIds.length > 1
-    ? `You're managing ${condString} — this meal works across all of them, and every ingredient was placed here with your full picture in mind.`
+    ? `You're managing ${condString}. This meal works across all of them, and every ingredient was placed here with your full picture in mind.`
     : closingArr[(mealHash + 1) % closingArr.length];
 
   return intro + "\n\n" + bullets.join("\n\n") + "\n\n" + closing;
@@ -7357,7 +7357,7 @@ function NeuroThriveApp() {
     if (eIdx !== -1) { exStep = evening.splice(eIdx, 1)[0]; }
     // If no workout step found, create a default one
     if (!exStep) {
-      exStep = { title: timePref === "morning" ? "Morning Workout" : "Evening Workout", desc: "Move your body for brain-boosting benefits — any exercise that feels good to you.", time: "15+ min", isWorkout: true };
+      exStep = { title: timePref === "morning" ? "Morning Workout" : "Evening Workout", desc: "Move your body for brain-boosting benefits. Any exercise that feels good to you.", time: "15+ min", isWorkout: true };
     } else {
       exStep = { ...exStep, title: timePref === "morning" ? "Morning Workout" : "Evening Workout", isWorkout: true };
     }
@@ -8350,7 +8350,7 @@ function NeuroThriveApp() {
                 <span style={{ fontSize:"16px" }}>🧠</span>
                 <div style={{ flex:1 }}>
                   <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700" }}>Brain-Optimized Menu</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No dietary restrictions — built for your brain chemistry</div>
+                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No dietary restrictions – built for your brain chemistry</div>
                 </div>
                 <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"8px", border:"1px solid rgba(110,120,200,0.2)", background:"transparent", color:"#8890b8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
               </div>
@@ -9874,7 +9874,7 @@ function NeuroThriveApp() {
                     {hasJournal ? <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span> : <span style={{ width:"24px", height:"24px", borderRadius:"7px", border:"1.5px solid rgba(186,104,200,0.4)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }} />}
                     <div>
                       <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>Journal & Symptom Tracker</div>
-                      <div style={{ color: hasJournal ? "#8890b8" : "#ba68c8", fontSize:"11px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today — tap to view" : "Log mood & energy for +5 Brain Points"}</div>
+                      <div style={{ color: hasJournal ? "#8890b8" : "#ba68c8", fontSize:"11px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today – tap to view" : "Log mood & energy for +5 Brain Points"}</div>
                     </div>
                   </div>
                   <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"600" }}>▾</span>
@@ -10011,7 +10011,7 @@ function NeuroThriveApp() {
                     <div style={{ color:"#6b7394", fontSize:"10px", lineHeight:1.5 }}>Formula: body weight ÷ 2 = daily oz ÷ 8 = glasses. Active people or those in hot climates may need more.</div>
                   </div>
                 </details>
-                <p style={{ color:"#6b7394", fontSize:"11px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water — even mild dehydration impairs focus and mood.</p>
+                <p style={{ color:"#6b7394", fontSize:"11px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water. Even mild dehydration impairs focus and mood.</p>
                 </>);
                 })()}
               </div>
@@ -10143,7 +10143,7 @@ function NeuroThriveApp() {
                     {bp.pct >= 70 && bp.pct < 100 && (
                       <div style={{ marginTop:"16px", padding:"12px", borderRadius:"12px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
                         <div style={{ fontSize:"13px", fontWeight:"700", color:"#50c878" }}>
-                          {bp.pct >= 90 ? "Almost there — just a few more items to finish your day." : "Strong day for your brain. You're building real neural change."}
+                          {bp.pct >= 90 ? "Almost there. Just a few more items to finish your day." : "Strong day for your brain. You're building real neural change."}
                         </div>
                       </div>
                     )}
@@ -10155,7 +10155,7 @@ function NeuroThriveApp() {
                         <div style={{ fontSize:"13px", color:"#a0c8b0", lineHeight:1.6, marginBottom:"4px" }}>
                           You nourished your brain, moved your body, and checked in with yourself. That's real change.
                         </div>
-                        {streak > 1 && <div style={{ fontSize:"12px", color:"#e8c87a", fontWeight:"600", marginTop:"8px" }}>{streak}-day streak — your brain is building new patterns.</div>}
+                        {streak > 1 && <div style={{ fontSize:"12px", color:"#e8c87a", fontWeight:"600", marginTop:"8px" }}>{streak}-day streak. Your brain is building new patterns.</div>}
                       </div>
                     )}
 
@@ -10311,7 +10311,7 @@ function NeuroThriveApp() {
                 return isDone ? (
                   <div style={{ textAlign:"center", marginTop:"48px", padding:"24px 20px", borderRadius:"20px", background:"rgba(107,143,255,0.04)", border:"1px solid rgba(107,143,255,0.1)" }}>
                     <div style={{ fontSize:"14px", color:"#8890b8", lineHeight:1.7, marginBottom:"16px" }}>
-                      You've done everything you can for your brain today.<br/>Rest well — tomorrow is a new day to thrive.
+                      You've done everything you can for your brain today.<br/>Rest well. Tomorrow is a new day to thrive.
                     </div>
                     <div style={{ display:"flex", gap:"10px", justifyContent:"center", flexWrap:"wrap" }}>
                       <button style={S.btnOutline} onClick={() => navigateTo(11)}>View Progress →</button>
@@ -10956,7 +10956,7 @@ function NeuroThriveApp() {
               )}
               <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6, marginBottom:"20px" }}>
                 {multi
-                  ? `This guide merges the optimal nutritional strategies for ${condLabels.join(" and ")} into one integrated plan. Foods that benefit multiple conditions are prioritized — they give your brain the most value per bite.`
+                  ? `This guide merges the optimal nutritional strategies for ${condLabels.join(" and ")} into one integrated plan. Foods that benefit multiple conditions are prioritized. They give your brain the most value per bite.`
                   : "Science-informed nutritional guidance personalized for your brain type. These are the foods and patterns that target the specific neurotransmitter systems your condition affects."
                 }
               </p>
