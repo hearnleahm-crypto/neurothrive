@@ -529,7 +529,7 @@ export const BRAIN_DIET_GUIDE = {
     summary: "Eating disorder recovery requires rebuilding depleted nutritional stores without triggering restriction or shame. Your diet should prioritize complete, balanced nutrition, rebuilding the gut microbiome, and restoring the brain's ability to accurately read hunger and fullness signals.",
     priorityNutrients: [
       { name: "Complete Protein", role: "Protein malnutrition impairs every neurotransmitter system simultaneously; complete protein provides the amino acids your brain needs to restart normal function", topSources: "eggs, chicken, salmon, yogurt, lentils" },
-      { name: "Healthy Fats", role: "The brain is 60% fat; fat restriction literally starves the brain of its building material, impairing mood, cognition, and hormone production", topSources: "avocado, salmon, nuts, olive oil, eggs" },
+      { name: "Healthy Fats", role: "The brain is 60% fat; fat restriction deprives the brain of its building material, impairing mood, cognition, and hormone production", topSources: "avocado, salmon, nuts, olive oil, eggs" },
       { name: "Zinc", role: "Commonly severely depleted in eating disorders; zinc deficiency impairs taste, appetite, and serotonin function. This creates a cycle of further restriction", topSources: "red meat, pumpkin seeds, chickpeas, eggs" },
       { name: "Iron", role: "Anemia is common in eating disorders; iron deficiency causes fatigue, brain fog, and depression even before clinical anemia develops", topSources: "red meat, spinach, lentils, fortified cereals" },
       { name: "B Vitamins", role: "Depleted by malnutrition; required for energy production, neurotransmitter synthesis, and the metabolic repair recovery demands", topSources: "eggs, salmon, leafy greens, whole grains" },
@@ -707,7 +707,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 protein-rich meals + 1–2 energy-boosting snacks",
       macroSplit: "35% protein, 35% complex carbs, 30% healthy fats",
       timing: "High-protein breakfast to kickstart dopamine production; never go more than 4 hours without eating",
-      keyRule: "Protein is your most important macronutrient. Every meal must include a tyrosine-rich protein source. Your brain literally cannot produce motivation without it. Prioritize eggs, salmon, chicken, and beef."
+      keyRule: "Protein is your most important macronutrient. Every meal must include a tyrosine-rich protein source. Your brain cannot produce motivation without it. Prioritize eggs, salmon, chicken, and beef."
     }
   },
 
