@@ -7748,7 +7748,7 @@ function NeuroThriveApp() {
                   </button>
                 );
               })()}
-              <button style={S.navTab(step===4)} onClick={() => { syncMenuToToday(); setStep(4); }}>Menu</button>
+              <button style={S.navTab(step===4)} onClick={() => { syncMenuToToday(); setStep(4); }}>30-Day Menu</button>
               {isPremium && (() => {
                 const streak = getCompletionStreak();
                 return (
