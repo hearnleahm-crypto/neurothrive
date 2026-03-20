@@ -4042,6 +4042,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "stabilizing blood sugar lowers baseline cortisol, reducing the hyperarousal and startle response that define PTSD",
       ocd: "complex carbs gradually raise serotonin levels; serotonin is the neurotransmitter most directly involved in OCD symptom severity",
       bpd: "steady energy prevents the rapid mood shifts that are amplified by blood sugar instability in borderline personality disorder",
+      spd: "the prefrontal cortex consumes 25% of brain glucose; oatmeal's sustained energy delivery keeps the social cognition circuits that SPD underactivates from shutting down due to fuel shortage",
       default: "complex carbs provide sustained glucose for neurotransmitter synthesis, energy, and cognitive function throughout the morning",
     }
   },
@@ -4107,6 +4108,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "anthocyanins protect dopamine neurons from oxidative damage; dopamine system integrity is central to schizophrenia symptom management",
       ptsd: "polyphenols reduce amygdala hyperreactivity, the brain region responsible for the exaggerated fear response in PTSD",
       ocd: "BDNF boost from polyphenols supports neuroplasticity, helping the brain form new, less compulsive neural pathways",
+      spd: "berry polyphenols increase BDNF production, supporting the neuroplasticity needed to rebuild social cognition circuits that withdraw from disuse in SPD",
       default: "anthocyanins reduce neuroinflammation and polyphenols boost BDNF, supporting brain cell health and cognitive function",
     }
   },
@@ -4763,6 +4765,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "vitamin C in potatoes accelerates cortisol clearance; the adrenal glands contain the highest vitamin C concentration of any organ",
       bpd: "B6 supports both serotonin and GABA synthesis, two systems directly involved in emotional regulation and impulse control",
       ppd: "potassium helps regulate the overactive fight-or-flight nervous system response that drives paranoid hypervigilance",
+      spd: "B6 is the rate-limiting cofactor for dopamine synthesis; potatoes deliver more B6 per serving than most foods, directly fueling the motivation circuits SPD underactivates",
       default: "B6 supports neurotransmitter synthesis, potassium supports nerve function, and resistant starch feeds brain-protective gut bacteria",
     }
   },
@@ -4775,6 +4778,7 @@ const INGREDIENT_SCIENCE = {
       depression: "low folate is one of the strongest nutritional predictors of depression; tomatoes provide folate in a highly bioavailable form",
       schizophrenia: "lycopene reduces oxidative stress markers that are significantly elevated in schizophrenia, protecting vulnerable neural circuits",
       ppd: "folate breaks down homocysteine, a neurotoxic amino acid elevated in paranoid individuals that damages blood vessels serving the prefrontal cortex",
+      spd: "lycopene protects dopamine-producing neurons from oxidative damage while folate drives the methylation cycle that produces dopamine and serotonin for motivation and emotional awareness",
       default: "lycopene crosses the blood-brain barrier to reduce oxidative stress, while folate supports neurotransmitter methylation",
     }
   },
@@ -4787,6 +4791,7 @@ const INGREDIENT_SCIENCE = {
       depression: "allicin reduces neuroinflammation (IL-6, TNF-alpha) that drives treatment-resistant depression; anti-inflammatory diets show equal efficacy to SSRIs in some trials",
       schizophrenia: "garlic's antioxidant compounds combat the elevated oxidative stress found in schizophrenia, protecting dopamine receptor integrity",
       ppd: "allicin reduces the inflammatory markers (IL-6, TNF-alpha) that amplify paranoid threat-detection circuits when elevated",
+      spd: "allicin boosts cerebral blood flow to the prefrontal cortex, increasing energy delivery to the social cognition and motivation circuits that SPD chronically underactivates",
       default: "allicin increases cerebral blood flow and reduces neuroinflammation, supporting overall brain function",
     }
   },
@@ -4799,6 +4804,7 @@ const INGREDIENT_SCIENCE = {
       depression: "ginger inhibits the inflammatory cascade that suppresses BDNF production; restoring BDNF is key to building new neural pathways out of depressive patterns",
       bipolar: "anti-inflammatory compounds in ginger reduce the neuroinflammation spikes that precede and worsen both manic and depressive episodes",
       ptsd: "ginger calms the vagus nerve and reduces gut inflammation that sends alarm signals to the brain, lowering baseline hyperarousal",
+      spd: "gingerol reduces the low-grade neuroinflammation that blunts dopamine signaling in the reward system, contributing to the motivational deficit and social indifference in SPD",
       default: "gingerol crosses the blood-brain barrier to reduce neuroinflammation and support serotonin receptor function",
     }
   },
@@ -4827,6 +4833,7 @@ const INGREDIENT_SCIENCE = {
       depression: "ketones from MCTs provide energy to neurons even when glucose metabolism is impaired, which occurs in depression-related brain fog",
       bipolar: "MCT-derived ketones stabilize neuronal membrane potential, reducing the excitability that contributes to manic episodes",
       schizophrenia: "ketogenic pathways provide alternative brain fuel and reduce oxidative stress in neural circuits disrupted by schizophrenia",
+      spd: "MCTs provide rapid alternative energy to the metabolically expensive social cognition circuits that SPD underactivates; when resources are scarce, these circuits shut down first",
       default: "MCTs provide rapid alternative brain fuel and lauric acid supports gut-brain axis health",
     }
   },
@@ -4839,6 +4846,7 @@ const INGREDIENT_SCIENCE = {
       depression: "B12 and thiamine both support the methylation cycle that produces SAMe, one of the most effective natural antidepressant compounds",
       bipolar: "selenium in pork supports thyroid function, which directly regulates mood; thyroid dysfunction mimics and worsens bipolar cycling",
       ptsd: "zinc supports hippocampal repair and neuroplasticity; the hippocampus shrinks under chronic PTSD cortisol exposure and needs zinc to recover",
+      spd: "thiamine fuels glucose metabolism in the prefrontal cortex where social planning occurs; B12 maintains the myelin insulating dopamine and oxytocin pathways needed for motivation and connection",
       default: "thiamine fuels brain glucose metabolism, B12 supports nerve health, and zinc enables neurotransmitter synthesis",
     }
   },
@@ -4851,6 +4859,7 @@ const INGREDIENT_SCIENCE = {
       depression: "B12 is required for SAMe production, one of the most effective natural antidepressants; shrimp delivers B12 in highly absorbable form",
       schizophrenia: "astaxanthin's exceptional antioxidant power targets the elevated oxidative stress that damages neural circuits in schizophrenia",
       ptsd: "iodine supports thyroid hormone production, which regulates the metabolic rate of every brain cell; thyroid disruption worsens PTSD symptoms",
+      spd: "astaxanthin protects dopamine neurons from oxidative damage while omega-3s restore membrane fluidity in reward circuits, improving the dopamine receptor sensitivity SPD reduces",
       default: "astaxanthin provides exceptional brain antioxidant protection while B12 and omega-3s support neurotransmitter production",
     }
   },
@@ -4864,6 +4873,7 @@ const INGREDIENT_SCIENCE = {
       bipolar: "omega-3 supplementation reduces bipolar depressive episodes by 50% in some trials; tuna provides both EPA and DHA in therapeutic ratios",
       schizophrenia: "vitamin D receptors are concentrated in brain regions affected by schizophrenia; tuna provides vitamin D alongside neuroprotective omega-3s",
       ptsd: "DHA rebuilds hippocampal neural membranes damaged by chronic cortisol; the hippocampus is the brain region most affected by PTSD",
+      spd: "DHA restores neural membrane fluidity in reward circuits while vitamin D supports dopamine production in the substantia nigra, the brain's main motivation center that SPD underactivates",
       default: "DHA maintains neural membrane health, EPA reduces neuroinflammation, and vitamin D supports brain receptor function",
     }
   },
@@ -4875,6 +4885,7 @@ const INGREDIENT_SCIENCE = {
       anxiety: "iodine supports thyroid function, which directly controls brain metabolic rate; subclinical hypothyroidism mimics and amplifies anxiety symptoms",
       depression: "B12 deficiency is found in up to 30% of depressed individuals; cod delivers B12 plus the protein needed to synthesize serotonin and dopamine",
       bipolar: "phosphorus is essential for ATP production in neurons; bipolar mood shifts correlate with disrupted cellular energy metabolism",
+      spd: "lean protein delivers tyrosine for dopamine synthesis without inflammatory fats; B12 maintains myelin in the social cognition pathways that SPD underutilizes; iodine supports the thyroid-driven metabolic energy every neuron needs",
       default: "lean protein for neurotransmitter synthesis, iodine for thyroid-brain axis health, and B12 for nerve function",
     }
   },
@@ -4900,6 +4911,7 @@ const INGREDIENT_SCIENCE = {
       anxiety: "isoflavones have anxiolytic properties, modulating GABA-A receptors similarly to anti-anxiety compounds; magnesium further supports GABA production",
       depression: "iron in tofu is essential for the enzyme that converts tryptophan to serotonin; iron deficiency causes depression even before anemia develops",
       schizophrenia: "isoflavones reduce oxidative stress while providing the amino acids needed for balanced dopamine and glutamate signaling",
+      spd: "tofu provides tyrosine for dopamine synthesis plus magnesium that supports the reward circuitry SPD underactivates; isoflavones protect the dopamine neurons in the mesocortical pathway",
       default: "isoflavones provide neuroprotection while plant protein delivers amino acids for neurotransmitter synthesis",
     }
   },
@@ -4914,6 +4926,7 @@ const INGREDIENT_SCIENCE = {
       ocd: "folate is a required cofactor for serotonin synthesis; OCD severity correlates directly with folate levels in clinical studies",
       bpd: "magnesium supports GABA production for emotional regulation; resistant starch stabilizes blood sugar to prevent reactive mood swings",
       ppd: "folate and B6 break down homocysteine, the neurotoxic amino acid that damages prefrontal circuits needed for rational threat assessment",
+      spd: "folate drives the methylation cycle that produces dopamine and serotonin; iron removes the enzymatic bottleneck in dopamine synthesis that leaves SPD reward circuits understaffed",
       default: "folate drives neurotransmitter methylation, magnesium supports GABA, and fiber feeds brain-protective gut bacteria",
     }
   },
@@ -4926,6 +4939,7 @@ const INGREDIENT_SCIENCE = {
       depression: "vitamin C is required for the synthesis of serotonin, dopamine, and norepinephrine; deficiency impairs all three mood-regulating systems simultaneously",
       ptsd: "the adrenal glands use massive amounts of vitamin C during stress; chronic PTSD hyperarousal depletes adrenal vitamin C stores faster than diet can replace",
       ppd: "vitamin C accelerates cortisol metabolism, helping clear the cortisol backlog that chronic hypervigilance creates and amplifies paranoid ideation",
+      spd: "vitamin C is a direct cofactor for dopamine and norepinephrine synthesis; the adrenal glands and brain concentrate vitamin C at 10× blood levels to fuel the motivation pathways SPD needs most",
       default: "vitamin C supports neurotransmitter synthesis, cortisol regulation, and brain antioxidant defense",
     }
   },
@@ -4969,6 +4983,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "gut microbiome disruption is increasingly linked to schizophrenia; probiotics reduce inflammatory markers associated with symptom severity",
       ptsd: "vagal tone improvement from probiotic foods helps shift the nervous system from sympathetic (fight-flight) to parasympathetic (rest-digest)",
       ppd: "gut inflammation sends alarm signals through the vagus nerve that paranoid brains amplify into perceived threats; probiotics quiet these signals",
+      spd: "gut bacteria produce 50% of the body's dopamine precursors; kimchi's probiotics restore microbial diversity that supports the dopamine and serotonin systems SPD depends on for motivation and emotional awareness",
       default: "live probiotics support the gut-brain axis where 95% of serotonin and 50% of dopamine precursors are produced",
     }
   },
@@ -4981,6 +4996,7 @@ const INGREDIENT_SCIENCE = {
       depression: "tryptophan in kefir plus the probiotic bacteria that convert it to serotonin create a complete mood-support system in a single food",
       bipolar: "gut microbiome health directly influences mood stability; kefir's 30+ probiotic strains support the microbial diversity bipolar medication often depletes",
       autism: "gut microbiome interventions show some of the strongest results in autism research; kefir provides diverse strains that support gut-brain communication",
+      spd: "kefir's 30+ probiotic strains restore gut microbial diversity that produces serotonin and dopamine precursors; low-grade gut inflammation dampens the reward signaling SPD already reduces",
       default: "diverse probiotics support gut-brain axis neurotransmitter production and reduce neuroinflammation",
     }
   },
@@ -4993,6 +5009,7 @@ const INGREDIENT_SCIENCE = {
       depression: "vitamin C is required for the hydroxylation of tryptophan to 5-HTP, the rate-limiting step in serotonin synthesis",
       ptsd: "the adrenal glands contain the highest vitamin C concentration of any organ; chronic stress depletes stores faster than most diets can replace",
       ppd: "vitamin C accelerates cortisol clearance, helping break the cortisol accumulation cycle that fuels paranoid hypervigilance",
+      spd: "vitamin C is essential for synthesizing dopamine and norepinephrine, the neurotransmitters that drive motivation and arousal; citrus flavonoids also support BDNF production for social circuit plasticity",
       default: "vitamin C supports neurotransmitter synthesis, cortisol regulation, and flavonoids provide neuroprotection",
     }
   },
@@ -5004,6 +5021,7 @@ const INGREDIENT_SCIENCE = {
       anxiety: "magnesium activates GABA receptors for calm while potassium regulates nerve excitability; both minerals are commonly depleted by chronic stress",
       depression: "B6 and iron are both required for serotonin enzyme function; dates provide a concentrated source of both alongside natural sugars for quick brain energy",
       ocd: "magnesium reduces glutamate excitotoxicity in the cortico-striatal circuits that drive OCD compulsions",
+      spd: "iron and B6 together remove the two biggest bottlenecks in dopamine synthesis; magnesium supports the 600+ enzymatic reactions including ATP production that every neuron, especially underactive reward circuits, depends on",
       default: "mineral-dense fruit that supports neurotransmitter synthesis through magnesium, B6, and iron delivery",
     }
   },
@@ -5014,6 +5032,7 @@ const INGREDIENT_SCIENCE = {
       adhd: "quercetin reduces neuroinflammation in the prefrontal cortex while pectin fiber feeds gut bacteria that produce dopamine precursors",
       anxiety: "quercetin has been shown to reduce anxiety-like behavior in studies by modulating the GABAergic system and reducing inflammatory cytokines",
       depression: "apple polyphenols increase BDNF production, supporting the neuroplasticity needed to build new, less depressive neural pathways",
+      spd: "quercetin reduces neuroinflammation that blunts dopamine signaling in the reward system; apple polyphenols boost BDNF to support plasticity in the social cognition circuits SPD underuses",
       default: "quercetin provides neuroprotection, pectin feeds brain-supportive gut bacteria, and polyphenols reduce oxidative stress",
     }
   },
@@ -5024,6 +5043,7 @@ const INGREDIENT_SCIENCE = {
       adhd: "punicalagins reduce oxidative stress in the prefrontal cortex while improving cerebral blood flow needed for sustained attention",
       anxiety: "pomegranate polyphenols reduce cortisol and inflammatory markers; high-polyphenol diets correlate with lower anxiety scores in population studies",
       depression: "ellagic acid increases BDNF production and reduces neuroinflammation, two mechanisms central to both depression treatment and prevention",
+      spd: "punicalagins increase cerebral blood flow to the prefrontal cortex where social planning occurs; ellagic acid boosts BDNF to support the neural plasticity needed to counter dendritic pruning from social withdrawal",
       default: "punicalagins provide exceptional neuroprotection while polyphenols support brain blood flow and reduce neuroinflammation",
     }
   },
@@ -5035,6 +5055,7 @@ const INGREDIENT_SCIENCE = {
       depression: "sulforaphane activates the Nrf2 pathway, the master switch for antioxidant defense that protects serotonin-producing neurons",
       schizophrenia: "sulforaphane has shown promise in clinical trials for schizophrenia, reducing oxidative stress and glutamate excitotoxicity",
       autism: "sulforaphane is one of the most studied dietary compounds in autism; clinical trials show improvements in social interaction and communication",
+      spd: "glutamine is the precursor to both glutamate and GABA, restoring the excitatory/inhibitory balance needed for emotional awareness; sulforaphane protects the dopamine neurons that drive motivation",
       default: "glutamine supports neurotransmitter balance while sulforaphane activates the brain's master antioxidant defense system",
     }
   },
@@ -5045,6 +5066,7 @@ const INGREDIENT_SCIENCE = {
       adhd: "vitamin A supports synaptic plasticity in the prefrontal cortex, the brain region responsible for the working memory and attention ADHD impairs",
       anxiety: "beta-carotene is a potent antioxidant that reduces oxidative stress in the amygdala, calming the brain's threat-detection system",
       depression: "lutein accumulates in the brain and correlates with higher cognitive function and lower depression scores in population studies",
+      spd: "vitamin A supports synaptic plasticity in the social cognition circuits that SPD underutilizes; without adequate plasticity, the brain loses neural connections it isn't using for social processing",
       default: "beta-carotene supports synaptic plasticity and vision, lutein protects neural tissue, and fiber supports gut-brain health",
     }
   },
@@ -5055,6 +5077,7 @@ const INGREDIENT_SCIENCE = {
       adhd: "thiamine is required for glucose metabolism in the prefrontal cortex; ADHD brains have higher energy demands and burn through B1 faster",
       depression: "folate from corn supports the methylation cycle that produces SAMe, one of the most effective natural mood-elevating compounds",
       bipolar: "steady glucose from corn's complex carbs prevents the blood sugar instability that triggers mood cycling",
+      spd: "thiamine is essential for glucose metabolism in every brain cell; the prefrontal social processing circuits that SPD underactivates are among the first to lose power when brain energy drops",
       default: "thiamine supports brain energy metabolism while lutein and zeaxanthin protect neurons from oxidative stress",
     }
   },
@@ -8995,59 +9018,28 @@ function NeuroThriveApp() {
                 <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
                 <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
               </div>
-              {/* Daily Brain Nutrition Insight */}
+              {/* Daily Brain Nutrition Tip — cycles through priority nutrients */}
               {(() => {
                 const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
                 const allNutrients = [];
-                const allPower = [];
                 condIds.forEach(id => {
                   const g = BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default;
                   g.priorityNutrients.forEach(n => { if (!allNutrients.find(x => x.name === n.name)) allNutrients.push(n); });
-                  g.powerFoods.forEach(f => { if (!allPower.find(x => x.food === f.food)) allPower.push(f); });
                 });
                 const dayNum = todayDayIdx || 0;
                 const nutrient = allNutrients[dayNum % allNutrients.length];
-                // Cross-reference power foods with today's actual meals
-                const todayMealNames = todayDay ? ["breakfast","lunch","dinner","snacks","snacks2"]
-                  .map(k => { const alt = altMeal[`${todayGlobalIdx}_${k}`]; return alt || todayDay[k]; })
-                  .filter(Boolean).map(m => m.toLowerCase()) : [];
-                const matchedPower = allPower.filter(f => {
-                  const rawWords = f.food.toLowerCase().replace(/\(.*?\)/g,"").split(/[,&\/]/)
-                    .map(w => w.trim().replace(/^(wild|grass-fed|tart|dark|leafy)\s+/i,""));
-                  const keywords = [];
-                  rawWords.forEach(w => {
-                    if (w.length < 3) return;
-                    keywords.push(w);
-                    if (w.endsWith("ies")) keywords.push(w.slice(0,-3)+"y");
-                    else if (w.endsWith("es")) keywords.push(w.slice(0,-2));
-                    else if (w.endsWith("s")) keywords.push(w.slice(0,-1));
-                  });
-                  return keywords.some(kw => todayMealNames.some(meal => meal.includes(kw)));
-                });
-                const powerFood = matchedPower.length > 0
-                  ? matchedPower[dayNum % matchedPower.length]
-                  : allPower[dayNum % allPower.length];
-                const isInMenu = matchedPower.length > 0;
                 return (
                   <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #7b9fff", background:"linear-gradient(135deg, rgba(107,143,255,0.06), rgba(107,143,255,0.02))" }}>
-                    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"12px" }}>
+                    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px" }}>
                       <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
                       <span onClick={() => setStep(19)} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer" }}>Full Guide →</span>
                     </div>
-                    <div style={{ marginBottom:"10px" }}>
-                      <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"4px" }}>
-                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#7b9fff" }} />
-                        <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{nutrient.name}</span>
-                      </div>
-                      <p style={{ color:"#a0a8d0", fontSize:"11px", lineHeight:1.5, margin:"0 0 0 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
+                    <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"6px" }}>
+                      <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#7b9fff" }} />
+                      <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{nutrient.name}</span>
                     </div>
-                    <div>
-                      <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"4px" }}>
-                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#50c878" }} />
-                        <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{isInMenu ? "In today's meals: " : "Power food: "}{powerFood.food}</span>
-                      </div>
-                      <p style={{ color:"#a0c8b0", fontSize:"11px", lineHeight:1.5, margin:"0 0 0 11px" }}>{powerFood.why.split(";")[0].trim()}</p>
-                    </div>
+                    <p style={{ color:"#a0a8d0", fontSize:"11px", lineHeight:1.5, margin:"0 0 8px 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
+                    <p style={{ color:"#6b7394", fontSize:"10px", lineHeight:1.4, margin:"0 0 0 11px" }}>Top sources: {nutrient.topSources}</p>
                   </div>
                 );
               })()}
