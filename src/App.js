@@ -3590,7 +3590,7 @@ const AFFIRMATIONS = [
   { text: "Your hunger cues are valid, even when they feel confusing.", author: "NeuroThrive" },
   { text: "Taking care of your body is one of the kindest things you can do for your mind.", author: "NeuroThrive" },
   { text: "You deserve hot meals, good water, and time to eat without guilt.", author: "NeuroThrive" },
-  { text: "Your brain needs fuel. Feeding it is not indulgence. It is maintenance.", author: "NeuroThrive" },
+  { text: "Feeding yourself is not indulgence. It is maintenance for the most complex organ in your body.", author: "NeuroThrive" },
   { text: "There is no 'earning' your food. You deserve to eat simply because you are alive.", author: "NeuroThrive" },
   { text: "Nourishment is not a reward. It is a right.", author: "NeuroThrive" },
   { text: "Be as gentle with your body as you would be with someone you love.", author: "NeuroThrive" },
@@ -3630,7 +3630,7 @@ const AFFIRMATIONS = [
   { text: "Managing a mental health condition is a full-time job most people can't see.", author: "NeuroThrive" },
   { text: "You don't have to explain your struggles to deserve support.", author: "NeuroThrive" },
   { text: "The fact that you keep trying in spite of everything is astonishing.", author: "NeuroThrive" },
-  { text: "Your brain works differently. That is not a flaw in you. It is a feature of you.", author: "NeuroThrive" },
+  { text: "A differently wired mind is not a flaw in you. It is a feature of you.", author: "NeuroThrive" },
   { text: "You are not defined by what your brain does to you in your hardest moments.", author: "NeuroThrive" },
 
   // ── Hope & Future ────────────────────────────────────────────────────────
@@ -5822,7 +5822,7 @@ function buildMealExplanation(meal, conditionIds) {
   const closingTemplates = {
     adhd: [
       "Every bite here is working to support your focus, emotional regulation, and dopamine system. Your brain deserves this kind of targeted care.",
-      "This isn't just food; it's fuel specifically matched to what your ADHD brain burns through fastest. You're replenishing what matters.",
+      "Every ingredient here is fuel specifically matched to what your ADHD brain burns through fastest. You're replenishing what matters.",
       "Your prefrontal cortex is doing overtime every day. This meal gives it the raw materials to keep going.",
       "Nutrition can't replace ADHD treatment, but it removes the nutritional barriers that make focus and regulation harder than they need to be.",
     ],
@@ -5836,24 +5836,24 @@ function buildMealExplanation(meal, conditionIds) {
       "Each ingredient here gently lifts the neurotransmitter systems depression suppresses. You're doing something real for yourself.",
       "Depression makes everything harder, including eating well. This meal does the heavy lifting so your brain chemistry doesn't have to.",
       "Serotonin, BDNF, and anti-inflammatory support aren't abstract concepts. They're what these specific foods deliver to your specific brain.",
-      "Your brain is capable of producing the chemicals it needs. This meal removes the nutritional barriers in its way.",
+      "The neurochemical machinery is already in place. This meal removes the nutritional barriers standing in its way.",
     ],
     bipolar: [
       "This meal was built to keep your blood sugar steady and your neurotransmitter systems nourished. Stability on the plate supports stability in the mind.",
       "Mood stability starts with metabolic stability. Every ingredient here is working to keep your brain's energy and chemistry consistent.",
-      "Your brain cycles between states. This meal provides the nutritional anchors – magnesium, omega-3s, steady glucose – that support balance.",
+      "Mood regulation depends on metabolic consistency. This meal provides the nutritional anchors – magnesium, omega-3s, steady glucose – that support balance.",
       "Bipolar disorder is metabolically demanding. This meal meets those demands with the specific nutrients your brain is burning through.",
     ],
     schizophrenia: [
       "Every ingredient here reduces neuroinflammation and supports the neurotransmitter systems most relevant to your brain. This is targeted nourishment.",
       "Oxidative stress and neuroinflammation are measurable in schizophrenia. The antioxidants and omega-3s in this meal directly counter both.",
-      "Your brain has specific vulnerabilities. This meal addresses them with nutrients that clinical research has linked to better outcomes.",
+      "The dopamine and glutamate systems have specific vulnerabilities. This meal addresses them with nutrients that clinical research has linked to better outcomes.",
       "The neuroprotective compounds in this meal work at the cellular level, supporting the neural circuits that matter most for your condition.",
     ],
     autism: [
       "This meal supports your gut-brain connection, sensory processing, and neurotransmitter health in forms your body can actually use.",
       "Gut health and brain health are deeply connected. This meal nurtures both systems simultaneously.",
-      "Your brain processes the world uniquely. This meal provides the nutritional support that unique processing requires.",
+      "Sensory processing and gut-brain signaling work differently in autism. This meal provides the nutritional support that unique processing requires.",
       "The gut-brain axis drives more of your brain's neurotransmitter production than most people realize. This meal feeds that system.",
     ],
     ptsd: [
@@ -5877,7 +5877,7 @@ function buildMealExplanation(meal, conditionIds) {
     did: [
       "Consistent, nourishing meals help ground and stabilize. This one was built to support your brain's need for steady fuel.",
       "Grounding starts at the cellular level. This meal provides the steady glucose and neurotransmitter support your brain relies on.",
-      "Your brain works hardest when it's managing complexity. This meal makes sure it has the fuel and cofactors to do that work.",
+      "Managing complexity is metabolically demanding. This meal makes sure you have the fuel and cofactors to do that work.",
       "Nutritional consistency supports neurological consistency. Every ingredient here is working to keep your brain on stable ground.",
     ],
     npd: [
@@ -8895,7 +8895,7 @@ function NeuroThriveApp() {
                 schizophrenia: { emoji:"🌙", label:"Schizophrenia", tip:"Antipsychotic medications can alter hunger and fullness signals. Regular meal reminders help ensure consistent nutrition that supports medication effectiveness and reduces metabolic side effects." },
                 autism: { emoji:"💫", label:"Autism", tip:"Sensory sensitivities and hyperfocus can make mealtimes easy to forget or avoid. Predictable meal reminders support the consistent routine that the autistic nervous system thrives on." },
                 eating_disorder: { emoji:"💙", label:"Eating Disorder Recovery", tip:"Reminders in recovery aren't about restriction; they're about structure and self-compassion. Consistent eating times help re-regulate hunger hormones like ghrelin and leptin that restriction disrupts." },
-                default: { emoji:"🧠", label:"Brain Health", tip:"Your brain consumes 20% of your body's energy. Consistent meal timing ensures a steady supply of glucose and nutrients to support mood, focus, and emotional regulation throughout the day." },
+                default: { emoji:"🧠", label:"Brain Health", tip:"The brain consumes 20% of total body energy. Consistent meal timing ensures a steady supply of glucose and nutrients to support mood, focus, and emotional regulation throughout the day." },
               };
               const condKeys = selectedConditions.length > 0
                 ? selectedConditions.map(id => SUPPLEMENT_CONDITION_MAP[id] || "default")

@@ -49,7 +49,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 protein-rich snacks",
       macroSplit: "30% protein, 40% complex carbs, 30% healthy fats",
       timing: "Protein-heavy breakfast within 1 hour of waking. The prefrontal cortex needs tyrosine immediately after overnight depletion",
-      keyRule: "Never eat carbs alone. Pair every carb with protein or healthy fat to prevent the glucose crashes your dopamine system is uniquely vulnerable to."
+      keyRule: "Always pair carbs with protein or healthy fat. This prevents the glucose crashes your dopamine system is uniquely vulnerable to."
     }
   },
 
@@ -96,7 +96,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 calming snacks (no skipping meals)",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Complex carbs in the evening to boost serotonin before sleep; avoid caffeine after noon",
-      keyRule: "Never let blood sugar crash. Every crash triggers cortisol and adrenaline – the exact hormones your anxious brain overproduces. Eat every 3–4 hours."
+      keyRule: "Blood sugar stability is everything. Every crash triggers cortisol and adrenaline \u2013 the exact hormones your anxious brain overproduces. Eating every 3\u20134 hours keeps levels steady."
     }
   },
 
@@ -216,7 +216,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 antioxidant-rich snacks",
       macroSplit: "30% protein, 35% complex carbs, 35% healthy fats",
       timing: "Regular meal schedule to support medication effectiveness; omega-3 rich fish at least 3× per week",
-      keyRule: "Antioxidant density is your dietary priority. Your brain generates more oxidative stress than average. Every meal should include at least one high-antioxidant food (berries, leafy greens, colorful vegetables)."
+      keyRule: "Antioxidant density is your dietary priority. The metabolic demands of schizophrenia generate more oxidative stress than average. Aim to include at least one high-antioxidant food per meal (berries, leafy greens, colorful vegetables)."
     }
   },
 
@@ -294,7 +294,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 2 calming snacks (never skip meals)",
       macroSplit: "25% protein, 40% complex carbs, 35% healthy fats",
       timing: "Tryptophan-rich dinner with complex carbs to support sleep; vitamin C-rich foods at breakfast to support morning cortisol clearance",
-      keyRule: "Stability and nourishment are healing acts. Never skip meals. Every blood sugar crash triggers cortisol, and your body has had enough cortisol. Eating consistently tells your nervous system it's safe."
+      keyRule: "Stability and nourishment are healing acts. Consistent meals matter deeply here \u2013 every blood sugar crash triggers cortisol, and your body has had enough cortisol. Eating regularly tells your nervous system it's safe."
     }
   },
 
@@ -333,7 +333,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1 tryptophan-rich evening snack",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Complex carbs with every meal to maximize brain tryptophan uptake; turkey or eggs at dinner to support serotonin production before sleep",
-      keyRule: "Serotonin is your dietary priority above all else. Every meal should include either a tryptophan source or a serotonin cofactor (folate, B6, inositol). Your brain is fighting for serotonin. Feed it the building blocks."
+      keyRule: "Serotonin is your dietary priority above all else. Aim to include either a tryptophan source or a serotonin cofactor (folate, B6, inositol) with each meal. The serotonin system is fighting for resources \u2013 these are the building blocks."
     }
   },
 
@@ -372,7 +372,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 2 snacks. Never skip meals",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Eat every 3 hours to prevent blood sugar dips; protein at every meal to stabilize glucose",
-      keyRule: "Blood sugar stability IS emotional stability for BPD. Every blood sugar crash amplifies amygdala reactivity. If you do one thing: never eat carbs without protein, and never skip a meal."
+      keyRule: "Blood sugar stability IS emotional stability for BPD. Every blood sugar crash amplifies amygdala reactivity. The single most impactful habit: always pair carbs with protein, and eat at consistent times."
     }
   },
 
@@ -402,7 +402,7 @@ export const BRAIN_DIET_GUIDE = {
       { food: "Refined sugar", why: "Blood sugar crashes increase dissociative vulnerability by starving the brain of its primary fuel" },
       { food: "Caffeine", why: "Stimulates the stress response system that can trigger dissociative episodes; worsens hyperarousal" },
       { food: "Alcohol", why: "Disrupts grounding, impairs memory formation, and depletes the B vitamins needed for stress resilience" },
-      { food: "Skipping meals", why: "The most direct dietary trigger for dissociative vulnerability. Your brain needs consistent fuel to maintain integration" },
+      { food: "Skipping meals", why: "The most direct dietary trigger for dissociative vulnerability. Consistent fuel is essential to maintain integration" },
       { food: "Highly processed foods", why: "Cause blood sugar instability and lack the nutrients needed for stress recovery" },
     ],
     mealPattern: {
@@ -593,7 +593,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 1–2 calming snacks",
       macroSplit: "25% protein, 45% complex carbs, 30% healthy fats",
       timing: "Magnesium-rich snack before exposure situations; complex carbs in the evening for serotonin and sleep",
-      keyRule: "GABA is your brain's natural anti-fear chemical. Every meal should include at least one GABA-supporting food (leafy greens, pumpkin seeds, almonds) to keep your fear circuits' brake pedal functional."
+      keyRule: "GABA is your brain's natural anti-fear chemical. Aim to include at least one GABA-supporting food per meal (leafy greens, pumpkin seeds, almonds) to keep your fear circuits' brake pedal functional."
     }
   },
 
@@ -669,7 +669,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 meals + 2 calming snacks at consistent times",
       macroSplit: "25% protein, 40% complex carbs, 35% healthy fats",
       timing: "Never skip meals. Every blood sugar crash fuels the cortisol cycle; omega-3 rich fish at least 3× per week",
-      keyRule: "Your brain's alarm system is overbuilt. Every meal should include at least one calming nutrient (magnesium, omega-3, tryptophan) to help the prefrontal cortex override the false alarms your amygdala generates."
+      keyRule: "Your brain's alarm system is overbuilt. Aim to include at least one calming nutrient per meal (magnesium, omega-3, tryptophan) to help the prefrontal cortex override the false alarms your amygdala generates."
     }
   },
 
@@ -707,7 +707,7 @@ export const BRAIN_DIET_GUIDE = {
       frequency: "3 protein-rich meals + 1–2 energy-boosting snacks",
       macroSplit: "35% protein, 35% complex carbs, 30% healthy fats",
       timing: "High-protein breakfast to kickstart dopamine production; never go more than 4 hours without eating",
-      keyRule: "Protein is your most important macronutrient. Every meal must include a tyrosine-rich protein source. Your brain cannot produce motivation without it. Prioritize eggs, salmon, chicken, and beef."
+      keyRule: "Protein is your most important macronutrient. Focus on including a tyrosine-rich protein source with each meal \u2013 your brain cannot produce motivation without it. Eggs, salmon, chicken, and beef are your best options."
     }
   },
 
