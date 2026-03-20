@@ -9012,9 +9012,17 @@ function NeuroThriveApp() {
                   .map(k => { const alt = altMeal[`${todayGlobalIdx}_${k}`]; return alt || todayDay[k]; })
                   .filter(Boolean).map(m => m.toLowerCase()) : [];
                 const matchedPower = allPower.filter(f => {
-                  const keywords = f.food.toLowerCase().replace(/\(.*?\)/g,"").split(/[,&\/]/)
-                    .map(w => w.trim().replace(/^(wild|grass-fed|tart|dark)\s+/i,"").replace(/s$/,""));
-                  return keywords.some(kw => kw.length > 2 && todayMealNames.some(meal => meal.includes(kw)));
+                  const rawWords = f.food.toLowerCase().replace(/\(.*?\)/g,"").split(/[,&\/]/)
+                    .map(w => w.trim().replace(/^(wild|grass-fed|tart|dark|leafy)\s+/i,""));
+                  const keywords = [];
+                  rawWords.forEach(w => {
+                    if (w.length < 3) return;
+                    keywords.push(w);
+                    if (w.endsWith("ies")) keywords.push(w.slice(0,-3)+"y");
+                    else if (w.endsWith("es")) keywords.push(w.slice(0,-2));
+                    else if (w.endsWith("s")) keywords.push(w.slice(0,-1));
+                  });
+                  return keywords.some(kw => todayMealNames.some(meal => meal.includes(kw)));
                 });
                 const powerFood = matchedPower.length > 0
                   ? matchedPower[dayNum % matchedPower.length]
