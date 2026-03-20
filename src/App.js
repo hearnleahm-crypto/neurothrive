@@ -9007,11 +9007,23 @@ function NeuroThriveApp() {
                 });
                 const dayNum = todayDayIdx || 0;
                 const nutrient = allNutrients[dayNum % allNutrients.length];
-                const powerFood = allPower[dayNum % allPower.length];
+                // Cross-reference power foods with today's actual meals
+                const todayMealNames = todayDay ? ["breakfast","lunch","dinner","snacks","snacks2"]
+                  .map(k => { const alt = altMeal[`${todayGlobalIdx}_${k}`]; return alt || todayDay[k]; })
+                  .filter(Boolean).map(m => m.toLowerCase()) : [];
+                const matchedPower = allPower.filter(f => {
+                  const keywords = f.food.toLowerCase().replace(/\(.*?\)/g,"").split(/[,&\/]/)
+                    .map(w => w.trim().replace(/^(wild|grass-fed|tart|dark)\s+/i,"").replace(/s$/,""));
+                  return keywords.some(kw => kw.length > 2 && todayMealNames.some(meal => meal.includes(kw)));
+                });
+                const powerFood = matchedPower.length > 0
+                  ? matchedPower[dayNum % matchedPower.length]
+                  : allPower[dayNum % allPower.length];
+                const isInMenu = matchedPower.length > 0;
                 return (
                   <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #7b9fff", background:"linear-gradient(135deg, rgba(107,143,255,0.06), rgba(107,143,255,0.02))" }}>
                     <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"12px" }}>
-                      <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition</div>
+                      <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
                       <span onClick={() => setStep(19)} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer" }}>Full Guide →</span>
                     </div>
                     <div style={{ marginBottom:"10px" }}>
@@ -9024,7 +9036,7 @@ function NeuroThriveApp() {
                     <div>
                       <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"4px" }}>
                         <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#50c878" }} />
-                        <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{powerFood.food}</span>
+                        <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{isInMenu ? "In today's meals: " : "Power food: "}{powerFood.food}</span>
                       </div>
                       <p style={{ color:"#a0c8b0", fontSize:"11px", lineHeight:1.5, margin:"0 0 0 11px" }}>{powerFood.why.split(";")[0].trim()}</p>
                     </div>
