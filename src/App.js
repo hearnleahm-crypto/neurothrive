@@ -4043,6 +4043,7 @@ const INGREDIENT_SCIENCE = {
       ocd: "complex carbs gradually raise serotonin levels; serotonin is the neurotransmitter most directly involved in OCD symptom severity",
       bpd: "steady energy prevents the rapid mood shifts that are amplified by blood sugar instability in borderline personality disorder",
       spd: "the prefrontal cortex consumes 25% of brain glucose; oatmeal's sustained energy delivery keeps the social cognition circuits that SPD underactivates from shutting down due to fuel shortage",
+      aspd: "steady glucose prevents the blood sugar crashes that spike impulsivity; B vitamins support the prefrontal cortex executive function circuits responsible for impulse control and consequence evaluation",
       default: "complex carbs provide sustained glucose for neurotransmitter synthesis, energy, and cognitive function throughout the morning",
     }
   },
@@ -4109,6 +4110,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "polyphenols reduce amygdala hyperreactivity, the brain region responsible for the exaggerated fear response in PTSD",
       ocd: "BDNF boost from polyphenols supports neuroplasticity, helping the brain form new, less compulsive neural pathways",
       spd: "berry polyphenols increase BDNF production, supporting the neuroplasticity needed to rebuild social cognition circuits that withdraw from disuse in SPD",
+      aspd: "anthocyanins reduce oxidative stress in the prefrontal cortex and amygdala, supporting the impulse control and empathy circuits that ASPD underactivates; BDNF boost aids neuroplasticity in these regions",
       default: "anthocyanins reduce neuroinflammation and polyphenols boost BDNF, supporting brain cell health and cognitive function",
     }
   },
@@ -4751,6 +4753,7 @@ const INGREDIENT_SCIENCE = {
       ocd: "complex carbs increase brain serotonin availability more effectively than simple sugars, supporting the serotonin pathway OCD treatment targets",
       ppd: "stable blood sugar prevents the cortisol spikes that paranoid brains misinterpret as confirmation of external threats",
       spd: "B vitamins in rice support dopamine and serotonin synthesis, countering the neurotransmitter deficits that drive motivational flatness",
+      aspd: "steady glucose prevents impulsive reactivity from blood sugar crashes; B3 (niacin) supports NAD+ production for the prefrontal cortex neurons responsible for consequence evaluation",
       default: "complex carbohydrates fuel the brain's enormous energy demands and support neurotransmitter production",
     }
   },
@@ -4766,6 +4769,7 @@ const INGREDIENT_SCIENCE = {
       bpd: "B6 supports both serotonin and GABA synthesis, two systems directly involved in emotional regulation and impulse control",
       ppd: "potassium helps regulate the overactive fight-or-flight nervous system response that drives paranoid hypervigilance",
       spd: "B6 is the rate-limiting cofactor for dopamine synthesis; potatoes deliver more B6 per serving than most foods, directly fueling the motivation circuits SPD underactivates",
+      aspd: "B6 is a critical cofactor for serotonin synthesis, the neurotransmitter most directly linked to aggression modulation; potassium stabilizes the neural excitability that drives impulsive behavior",
       default: "B6 supports neurotransmitter synthesis, potassium supports nerve function, and resistant starch feeds brain-protective gut bacteria",
     }
   },
@@ -4779,6 +4783,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "lycopene reduces oxidative stress markers that are significantly elevated in schizophrenia, protecting vulnerable neural circuits",
       ppd: "folate breaks down homocysteine, a neurotoxic amino acid elevated in paranoid individuals that damages blood vessels serving the prefrontal cortex",
       spd: "lycopene protects dopamine-producing neurons from oxidative damage while folate drives the methylation cycle that produces dopamine and serotonin for motivation and emotional awareness",
+      aspd: "folate drives the methylation cycle that produces serotonin, the neurotransmitter most directly linked to impulse control and aggression modulation in the prefrontal-amygdala circuit",
       default: "lycopene crosses the blood-brain barrier to reduce oxidative stress, while folate supports neurotransmitter methylation",
     }
   },
@@ -4792,6 +4797,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "garlic's antioxidant compounds combat the elevated oxidative stress found in schizophrenia, protecting dopamine receptor integrity",
       ppd: "allicin reduces the inflammatory markers (IL-6, TNF-alpha) that amplify paranoid threat-detection circuits when elevated",
       spd: "allicin boosts cerebral blood flow to the prefrontal cortex, increasing energy delivery to the social cognition and motivation circuits that SPD chronically underactivates",
+      aspd: "allicin increases blood flow to the prefrontal cortex, the region responsible for impulse control and consequence evaluation that is underactive in ASPD; selenium supports serotonin receptor function",
       default: "allicin increases cerebral blood flow and reduces neuroinflammation, supporting overall brain function",
     }
   },
@@ -4805,6 +4811,7 @@ const INGREDIENT_SCIENCE = {
       bipolar: "anti-inflammatory compounds in ginger reduce the neuroinflammation spikes that precede and worsen both manic and depressive episodes",
       ptsd: "ginger calms the vagus nerve and reduces gut inflammation that sends alarm signals to the brain, lowering baseline hyperarousal",
       spd: "gingerol reduces the low-grade neuroinflammation that blunts dopamine signaling in the reward system, contributing to the motivational deficit and social indifference in SPD",
+      aspd: "ginger modulates serotonin receptors (5-HT1A) that directly influence aggression and impulse control; gingerol reduces neuroinflammation in the prefrontal regions governing consequence evaluation",
       default: "gingerol crosses the blood-brain barrier to reduce neuroinflammation and support serotonin receptor function",
     }
   },
@@ -4821,6 +4828,7 @@ const INGREDIENT_SCIENCE = {
       ocd: "curcumin raises serotonin levels through MAO inhibition, targeting the exact neurotransmitter system that OCD medications work on",
       ppd: "curcumin reduces the chronic neuroinflammation that keeps amygdala threat-detection circuits overactive in paranoid thinking",
       spd: "curcumin boosts both dopamine and BDNF, counteracting the motivational deficits and reduced neural plasticity characteristic of SPD",
+      aspd: "curcumin raises serotonin through MAO inhibition, directly supporting the neurotransmitter most linked to impulse control; BDNF boost strengthens prefrontal-amygdala connections needed for empathy",
       default: "curcumin raises BDNF, reduces neuroinflammation, and supports both serotonin and dopamine production",
     }
   },
@@ -4834,6 +4842,7 @@ const INGREDIENT_SCIENCE = {
       bipolar: "MCT-derived ketones stabilize neuronal membrane potential, reducing the excitability that contributes to manic episodes",
       schizophrenia: "ketogenic pathways provide alternative brain fuel and reduce oxidative stress in neural circuits disrupted by schizophrenia",
       spd: "MCTs provide rapid alternative energy to the metabolically expensive social cognition circuits that SPD underactivates; when resources are scarce, these circuits shut down first",
+      aspd: "MCTs provide rapid fuel to the prefrontal cortex, which has the highest energy demands of any brain region and is responsible for the impulse control and consequence evaluation ASPD impairs",
       default: "MCTs provide rapid alternative brain fuel and lauric acid supports gut-brain axis health",
     }
   },
@@ -4847,6 +4856,7 @@ const INGREDIENT_SCIENCE = {
       bipolar: "selenium in pork supports thyroid function, which directly regulates mood; thyroid dysfunction mimics and worsens bipolar cycling",
       ptsd: "zinc supports hippocampal repair and neuroplasticity; the hippocampus shrinks under chronic PTSD cortisol exposure and needs zinc to recover",
       spd: "thiamine fuels glucose metabolism in the prefrontal cortex where social planning occurs; B12 maintains the myelin insulating dopamine and oxytocin pathways needed for motivation and connection",
+      aspd: "zinc supports serotonin synthesis needed for aggression modulation; B12 maintains the myelin insulating prefrontal impulse-control circuits; thiamine fuels the glucose metabolism these circuits demand",
       default: "thiamine fuels brain glucose metabolism, B12 supports nerve health, and zinc enables neurotransmitter synthesis",
     }
   },
@@ -4860,6 +4870,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "astaxanthin's exceptional antioxidant power targets the elevated oxidative stress that damages neural circuits in schizophrenia",
       ptsd: "iodine supports thyroid hormone production, which regulates the metabolic rate of every brain cell; thyroid disruption worsens PTSD symptoms",
       spd: "astaxanthin protects dopamine neurons from oxidative damage while omega-3s restore membrane fluidity in reward circuits, improving the dopamine receptor sensitivity SPD reduces",
+      aspd: "omega-3s improve prefrontal cortex membrane fluidity for better impulse control signaling; astaxanthin protects serotonin neurons from the oxidative damage that impairs aggression regulation",
       default: "astaxanthin provides exceptional brain antioxidant protection while B12 and omega-3s support neurotransmitter production",
     }
   },
@@ -4874,6 +4885,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "vitamin D receptors are concentrated in brain regions affected by schizophrenia; tuna provides vitamin D alongside neuroprotective omega-3s",
       ptsd: "DHA rebuilds hippocampal neural membranes damaged by chronic cortisol; the hippocampus is the brain region most affected by PTSD",
       spd: "DHA restores neural membrane fluidity in reward circuits while vitamin D supports dopamine production in the substantia nigra, the brain's main motivation center that SPD underactivates",
+      aspd: "EPA reduces the inflammatory cytokines that impair prefrontal cortex function; DHA improves membrane fluidity in the serotonin and empathy circuits that ASPD underactivates",
       default: "DHA maintains neural membrane health, EPA reduces neuroinflammation, and vitamin D supports brain receptor function",
     }
   },
@@ -4886,6 +4898,7 @@ const INGREDIENT_SCIENCE = {
       depression: "B12 deficiency is found in up to 30% of depressed individuals; cod delivers B12 plus the protein needed to synthesize serotonin and dopamine",
       bipolar: "phosphorus is essential for ATP production in neurons; bipolar mood shifts correlate with disrupted cellular energy metabolism",
       spd: "lean protein delivers tyrosine for dopamine synthesis without inflammatory fats; B12 maintains myelin in the social cognition pathways that SPD underutilizes; iodine supports the thyroid-driven metabolic energy every neuron needs",
+      aspd: "lean protein delivers tryptophan for serotonin synthesis without inflammatory fats that impair prefrontal function; B12 maintains myelin in the impulse-control circuits ASPD depends on most",
       default: "lean protein for neurotransmitter synthesis, iodine for thyroid-brain axis health, and B12 for nerve function",
     }
   },
@@ -4912,6 +4925,7 @@ const INGREDIENT_SCIENCE = {
       depression: "iron in tofu is essential for the enzyme that converts tryptophan to serotonin; iron deficiency causes depression even before anemia develops",
       schizophrenia: "isoflavones reduce oxidative stress while providing the amino acids needed for balanced dopamine and glutamate signaling",
       spd: "tofu provides tyrosine for dopamine synthesis plus magnesium that supports the reward circuitry SPD underactivates; isoflavones protect the dopamine neurons in the mesocortical pathway",
+      aspd: "magnesium activates GABA receptors to reduce neural excitability that drives impulsive behavior; isoflavones protect serotonin neurons in the prefrontal cortex needed for consequence evaluation",
       default: "isoflavones provide neuroprotection while plant protein delivers amino acids for neurotransmitter synthesis",
     }
   },
@@ -4927,6 +4941,7 @@ const INGREDIENT_SCIENCE = {
       bpd: "magnesium supports GABA production for emotional regulation; resistant starch stabilizes blood sugar to prevent reactive mood swings",
       ppd: "folate and B6 break down homocysteine, the neurotoxic amino acid that damages prefrontal circuits needed for rational threat assessment",
       spd: "folate drives the methylation cycle that produces dopamine and serotonin; iron removes the enzymatic bottleneck in dopamine synthesis that leaves SPD reward circuits understaffed",
+      aspd: "folate drives the methylation cycle that produces serotonin for aggression modulation; magnesium activates GABA receptors that reduce the neural excitability underlying impulsive behavior",
       default: "folate drives neurotransmitter methylation, magnesium supports GABA, and fiber feeds brain-protective gut bacteria",
     }
   },
@@ -4940,6 +4955,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "the adrenal glands use massive amounts of vitamin C during stress; chronic PTSD hyperarousal depletes adrenal vitamin C stores faster than diet can replace",
       ppd: "vitamin C accelerates cortisol metabolism, helping clear the cortisol backlog that chronic hypervigilance creates and amplifies paranoid ideation",
       spd: "vitamin C is a direct cofactor for dopamine and norepinephrine synthesis; the adrenal glands and brain concentrate vitamin C at 10× blood levels to fuel the motivation pathways SPD needs most",
+      aspd: "vitamin C is a cofactor for serotonin and norepinephrine synthesis, both neurotransmitters that modulate impulsivity; capsaicin stimulates endorphin release that supports healthy reward processing",
       default: "vitamin C supports neurotransmitter synthesis, cortisol regulation, and brain antioxidant defense",
     }
   },
@@ -4955,6 +4971,7 @@ const INGREDIENT_SCIENCE = {
       bfrb: "magnesium reduces neuronal hyperexcitability that drives repetitive behaviors, while zinc supports the GABA system that helps resist urges",
       ppd: "zinc and magnesium together calm the overactive threat-detection circuits; tryptophan provides serotonin for interpersonal trust and safety",
       spd: "iron and zinc remove bottlenecks in dopamine synthesis, directly supporting the motivation circuits that SPD underactivates",
+      aspd: "zinc is a dopamine transporter cofactor that supports healthy reward processing; tryptophan provides the serotonin precursor most directly linked to aggression modulation and impulse control",
       default: "zinc, magnesium, tryptophan, and iron together cover the full neurotransmitter synthesis pathway",
     }
   },
@@ -4969,6 +4986,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "resistant starch feeds gut bacteria that produce short-chain fatty acids, which reduce neuroinflammation and lower baseline cortisol",
       ppd: "B6 supports GABA production to calm threat-detection circuits, while magnesium modulates the norepinephrine release that keeps hypervigilance active",
       spd: "B6 is essential for dopamine synthesis; plantain delivers more B6 per serving than most fruits, directly supporting motivation circuits",
+      aspd: "B6 converts glutamate (excitatory) to GABA (calming), reducing the neural overexcitability that drives impulsive behavior; potassium stabilizes nerve signaling in impulse-control circuits",
       default: "B6 supports neurotransmitter synthesis across all pathways while resistant starch supports gut-brain axis health",
     }
   },
@@ -4984,6 +5002,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "vagal tone improvement from probiotic foods helps shift the nervous system from sympathetic (fight-flight) to parasympathetic (rest-digest)",
       ppd: "gut inflammation sends alarm signals through the vagus nerve that paranoid brains amplify into perceived threats; probiotics quiet these signals",
       spd: "gut bacteria produce 50% of the body's dopamine precursors; kimchi's probiotics restore microbial diversity that supports the dopamine and serotonin systems SPD depends on for motivation and emotional awareness",
+      aspd: "gut bacteria produce 95% of the body's serotonin; kimchi's probiotics restore the microbial environment needed for serotonin production that directly modulates aggression and impulse control",
       default: "live probiotics support the gut-brain axis where 95% of serotonin and 50% of dopamine precursors are produced",
     }
   },
@@ -4997,6 +5016,7 @@ const INGREDIENT_SCIENCE = {
       bipolar: "gut microbiome health directly influences mood stability; kefir's 30+ probiotic strains support the microbial diversity bipolar medication often depletes",
       autism: "gut microbiome interventions show some of the strongest results in autism research; kefir provides diverse strains that support gut-brain communication",
       spd: "kefir's 30+ probiotic strains restore gut microbial diversity that produces serotonin and dopamine precursors; low-grade gut inflammation dampens the reward signaling SPD already reduces",
+      aspd: "kefir's diverse probiotics restore gut serotonin production; tryptophan provides the raw material while healthy gut flora ensure efficient conversion to the serotonin that governs impulse control",
       default: "diverse probiotics support gut-brain axis neurotransmitter production and reduce neuroinflammation",
     }
   },
@@ -5010,6 +5030,7 @@ const INGREDIENT_SCIENCE = {
       ptsd: "the adrenal glands contain the highest vitamin C concentration of any organ; chronic stress depletes stores faster than most diets can replace",
       ppd: "vitamin C accelerates cortisol clearance, helping break the cortisol accumulation cycle that fuels paranoid hypervigilance",
       spd: "vitamin C is essential for synthesizing dopamine and norepinephrine, the neurotransmitters that drive motivation and arousal; citrus flavonoids also support BDNF production for social circuit plasticity",
+      aspd: "vitamin C is a direct cofactor for serotonin and norepinephrine synthesis; citrus flavonoids modulate GABA-A receptors, supporting the calming neurotransmission that reduces impulsive reactivity",
       default: "vitamin C supports neurotransmitter synthesis, cortisol regulation, and flavonoids provide neuroprotection",
     }
   },
@@ -5022,6 +5043,7 @@ const INGREDIENT_SCIENCE = {
       depression: "B6 and iron are both required for serotonin enzyme function; dates provide a concentrated source of both alongside natural sugars for quick brain energy",
       ocd: "magnesium reduces glutamate excitotoxicity in the cortico-striatal circuits that drive OCD compulsions",
       spd: "iron and B6 together remove the two biggest bottlenecks in dopamine synthesis; magnesium supports the 600+ enzymatic reactions including ATP production that every neuron, especially underactive reward circuits, depends on",
+      aspd: "magnesium activates GABA receptors to calm neural excitability; B6 and iron are cofactors for serotonin synthesis, the neurotransmitter most directly linked to impulse control and aggression regulation",
       default: "mineral-dense fruit that supports neurotransmitter synthesis through magnesium, B6, and iron delivery",
     }
   },
@@ -5033,6 +5055,7 @@ const INGREDIENT_SCIENCE = {
       anxiety: "quercetin has been shown to reduce anxiety-like behavior in studies by modulating the GABAergic system and reducing inflammatory cytokines",
       depression: "apple polyphenols increase BDNF production, supporting the neuroplasticity needed to build new, less depressive neural pathways",
       spd: "quercetin reduces neuroinflammation that blunts dopamine signaling in the reward system; apple polyphenols boost BDNF to support plasticity in the social cognition circuits SPD underuses",
+      aspd: "quercetin reduces neuroinflammation in the prefrontal cortex, supporting the executive function circuits that govern impulse control; pectin feeds gut bacteria that produce serotonin precursors",
       default: "quercetin provides neuroprotection, pectin feeds brain-supportive gut bacteria, and polyphenols reduce oxidative stress",
     }
   },
@@ -5044,6 +5067,7 @@ const INGREDIENT_SCIENCE = {
       anxiety: "pomegranate polyphenols reduce cortisol and inflammatory markers; high-polyphenol diets correlate with lower anxiety scores in population studies",
       depression: "ellagic acid increases BDNF production and reduces neuroinflammation, two mechanisms central to both depression treatment and prevention",
       spd: "punicalagins increase cerebral blood flow to the prefrontal cortex where social planning occurs; ellagic acid boosts BDNF to support the neural plasticity needed to counter dendritic pruning from social withdrawal",
+      aspd: "punicalagins increase cerebral blood flow to the prefrontal cortex, improving the oxygen and glucose delivery that impulse-control circuits demand; polyphenols reduce the oxidative stress impairing empathy regions",
       default: "punicalagins provide exceptional neuroprotection while polyphenols support brain blood flow and reduce neuroinflammation",
     }
   },
@@ -5056,6 +5080,7 @@ const INGREDIENT_SCIENCE = {
       schizophrenia: "sulforaphane has shown promise in clinical trials for schizophrenia, reducing oxidative stress and glutamate excitotoxicity",
       autism: "sulforaphane is one of the most studied dietary compounds in autism; clinical trials show improvements in social interaction and communication",
       spd: "glutamine is the precursor to both glutamate and GABA, restoring the excitatory/inhibitory balance needed for emotional awareness; sulforaphane protects the dopamine neurons that drive motivation",
+      aspd: "glutamine converts to GABA, the brain's primary inhibitory neurotransmitter that puts the brakes on impulsive behavior; sulforaphane reduces oxidative stress in the prefrontal empathy circuits",
       default: "glutamine supports neurotransmitter balance while sulforaphane activates the brain's master antioxidant defense system",
     }
   },
@@ -5067,6 +5092,7 @@ const INGREDIENT_SCIENCE = {
       anxiety: "beta-carotene is a potent antioxidant that reduces oxidative stress in the amygdala, calming the brain's threat-detection system",
       depression: "lutein accumulates in the brain and correlates with higher cognitive function and lower depression scores in population studies",
       spd: "vitamin A supports synaptic plasticity in the social cognition circuits that SPD underutilizes; without adequate plasticity, the brain loses neural connections it isn't using for social processing",
+      aspd: "vitamin A supports synaptic plasticity in the prefrontal-amygdala circuit responsible for empathy and consequence evaluation; beta-carotene protects these neurons from oxidative damage",
       default: "beta-carotene supports synaptic plasticity and vision, lutein protects neural tissue, and fiber supports gut-brain health",
     }
   },
@@ -5078,6 +5104,7 @@ const INGREDIENT_SCIENCE = {
       depression: "folate from corn supports the methylation cycle that produces SAMe, one of the most effective natural mood-elevating compounds",
       bipolar: "steady glucose from corn's complex carbs prevents the blood sugar instability that triggers mood cycling",
       spd: "thiamine is essential for glucose metabolism in every brain cell; the prefrontal social processing circuits that SPD underactivates are among the first to lose power when brain energy drops",
+      aspd: "thiamine fuels glucose metabolism in the prefrontal cortex, the most energy-demanding brain region and the one most responsible for the impulse control and planning that ASPD impairs",
       default: "thiamine supports brain energy metabolism while lutein and zeaxanthin protect neurons from oxidative stress",
     }
   },
