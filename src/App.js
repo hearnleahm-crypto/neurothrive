@@ -7470,12 +7470,10 @@ function NeuroThriveApp() {
     const waterMaxBP = 5;
     const waterBP = waterCount >= Math.ceil(waterGoal * 0.75) ? 5 : 0;
 
-    // Journal: 5 BP + 2 bonus for positive mood
+    // Journal: 5 BP for logging mood & energy
     const hasJournal = logs.some(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
-    const journalLog = logs.find(l => l.date && l.date.includes(new Date(dk + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
-    let journalBP = hasJournal ? 5 : 0;
-    if (journalLog && journalLog.mood >= 3) journalBP += 2;
-    const journalMaxBP = 7;
+    const journalBP = hasJournal ? 5 : 0;
+    const journalMaxBP = 5;
 
     const max = mealMaxBP + morningMaxBP + eveningMaxBP + exerciseMaxBP + waterMaxBP + journalMaxBP;
     const total = Math.min(mealBP + morningBP + eveningBP + exerciseBP + waterBP + journalBP, max);
@@ -9805,13 +9803,13 @@ function NeuroThriveApp() {
 
               {/* Section D: Journal & Symptom Tracker */}
               <div style={sectionDivider} />
-              <details style={{ marginBottom:"16px" }}>
-                <summary style={{ listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", borderRadius:"16px", background: hasJournal ? "rgba(80,200,120,0.04)" : "rgba(186,104,200,0.04)", border: hasJournal ? "1px solid rgba(80,200,120,0.2)" : "1px solid rgba(186,104,200,0.15)" }}>
+              <details open={!hasJournal} style={{ marginBottom:"16px" }}>
+                <summary style={{ listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", borderRadius:"16px", background: hasJournal ? "rgba(80,200,120,0.04)" : "rgba(186,104,200,0.06)", border: hasJournal ? "1px solid rgba(80,200,120,0.2)" : "1.5px solid rgba(186,104,200,0.25)" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-                    {hasJournal && <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span>}
+                    {hasJournal ? <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span> : <span style={{ width:"24px", height:"24px", borderRadius:"7px", border:"1.5px solid rgba(186,104,200,0.4)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }} />}
                     <div>
                       <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>Journal & Symptom Tracker</div>
-                      <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>{hasJournal ? "Logged today — tap to view" : "Log mood, energy, and symptoms"}</div>
+                      <div style={{ color: hasJournal ? "#8890b8" : "#ba68c8", fontSize:"11px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today — tap to view" : "Log mood & energy for +5 Brain Points"}</div>
                     </div>
                   </div>
                   <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"600" }}>▾</span>
@@ -10034,7 +10032,8 @@ function NeuroThriveApp() {
                   { label: "Morning Routine", bp: bp.categories.morning, max: bp.maxCats.morning, dot: "#f0a830", desc: "Morning steps completed" },
                   { label: "Evening Routine", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5570f0", desc: "Evening steps completed" },
                   { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, dot: "#50c878", desc: "Movement for BDNF & dopamine" },
-                  { label: "Self-Awareness", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8", desc: "Journal & mood tracking" },
+                  { label: "Hydration", bp: bp.categories.water, max: bp.maxCats.water, dot: "#60b0e0", desc: "75%+ of daily water goal" },
+                  { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8", desc: "Log mood & energy" },
                 ];
                 const r2 = 38, circ2 = 2 * Math.PI * r2;
                 const off2 = circ2 - (bp.pct / 100) * circ2;
