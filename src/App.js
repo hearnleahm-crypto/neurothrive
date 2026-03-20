@@ -5953,7 +5953,7 @@ class ErrorBoundary extends React.Component {
         <h2>Something went wrong</h2>
         <pre style={{ whiteSpace:"pre-wrap", fontSize:"13px", color:"#e8c87a" }}>{this.state.error.toString()}</pre>
         <pre style={{ whiteSpace:"pre-wrap", fontSize:"11px", color:"#8890b8", marginTop:"12px" }}>{this.state.error.stack}</pre>
-        <button onClick={() => this.setState({ error: null })} style={{ marginTop:"20px", padding:"10px 20px", background:"#5570f0", color:"#fff", border:"none", borderRadius:"8px", cursor:"pointer" }}>Try Again</button>
+        <button onClick={() => this.setState({ error: null })} style={{ marginTop:"20px", padding:"10px 20px", background:"#5570f0", color:"#fff", border:"none", borderRadius:"12px", cursor:"pointer" }}>Try Again</button>
       </div>
     );
     return this.props.children;
@@ -7599,7 +7599,7 @@ function NeuroThriveApp() {
     nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.08)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
     logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
     navTabs: { display:"flex", gap:"1px", overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none", flexShrink:1, minWidth:0 },
-    navTab: (a) => ({ padding:"7px 14px", borderRadius:"8px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
+    navTab: (a) => ({ padding:"7px 14px", borderRadius:"12px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
     main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px" },
     hero: { textAlign:"center", padding:"80px 20px 60px" },
     heroEyebrow: { display:"inline-block", fontSize:"10px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.12)", padding:"7px 18px", borderRadius:"24px", marginBottom:"32px" },
@@ -7609,7 +7609,7 @@ function NeuroThriveApp() {
     btn: { background:"rgba(107,143,255,0.08)", color:"#a0b8ff", border:"1px solid rgba(107,143,255,0.2)", padding:"13px 28px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"600", letterSpacing:"0.01em", cursor:"pointer", backdropFilter:"blur(8px)" },
     btnOutline: { background:"rgba(255,255,255,0.02)", color:"#8898c8", border:"1px solid rgba(107,143,255,0.18)", padding:"12px 24px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"500", cursor:"pointer", backdropFilter:"blur(8px)" },
     btnAccent: { background:"linear-gradient(135deg,#5570f0 0%,#3d58e0 100%)", color:"#fff", border:"none", padding:"14px 34px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"600", cursor:"pointer", boxShadow:"0 4px 20px rgba(85,112,240,0.35), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15)", letterSpacing:"0.01em" },
-    btnSm: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"8px", color:"#7888b8", padding:"6px 13px", cursor:"pointer", fontSize:"12px", fontWeight:"500" },
+    btnSm: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"12px", color:"#7888b8", padding:"6px 13px", cursor:"pointer", fontSize:"12px", fontWeight:"500" },
     sectionTitle: { fontSize:"26px", color:"#f0f2ff", marginBottom:"6px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
     sectionSub: { fontSize:"14px", color:"#6b7ba8", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
     grid: { display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px", marginBottom:"32px" },
@@ -7787,18 +7787,18 @@ function NeuroThriveApp() {
                         <button onClick={() => {
                           if (isSingle) { navigateTo(g.items[0].s); setShowMoreMenu(false); setMoreMenuGroup(null); }
                           else setMoreMenuGroup(isExpanded ? null : g.key);
-                        }} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: isActive ? "rgba(107,143,255,0.08)" : "transparent", color: isActive ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: isActive ? "600" : "500", cursor:"pointer", textAlign:"left" }}>
+                        }} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%", padding:"10px 14px", borderRadius:"12px", border:"none", background: isActive ? "rgba(107,143,255,0.08)" : "transparent", color: isActive ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: isActive ? "600" : "500", cursor:"pointer", textAlign:"left" }}>
                           <span>{g.label}</span>
                           {!isSingle && <span style={{ fontSize:"10px", color:"#6b7394", transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)", transition:"transform 0.2s" }}>▼</span>}
                         </button>
                         {isExpanded && !isSingle && g.items.map(item => (
-                          <button key={item.s} onClick={() => { navigateTo(item.s); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"8px 14px 8px 28px", borderRadius:"8px", border:"none", background: step===item.s ? "rgba(107,143,255,0.12)" : "transparent", color: step===item.s ? "#a0b8ff" : "#6b7394", fontSize:"12px", fontWeight: step===item.s ? "600" : "400", cursor:"pointer", textAlign:"left" }}>{item.label}</button>
+                          <button key={item.s} onClick={() => { navigateTo(item.s); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"8px 14px 8px 28px", borderRadius:"12px", border:"none", background: step===item.s ? "rgba(107,143,255,0.12)" : "transparent", color: step===item.s ? "#a0b8ff" : "#6b7394", fontSize:"12px", fontWeight: step===item.s ? "600" : "400", cursor:"pointer", textAlign:"left" }}>{item.label}</button>
                         ))}
                       </div>
                     );
                   })}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
-                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"10px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
+                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"12px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
                 </div>
               </>
               );
@@ -8266,7 +8266,7 @@ function NeuroThriveApp() {
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
             <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready; subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", width:"100%", maxWidth:"380px" }}>
-              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#6b8fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#7b9fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
                 {checkoutLoading === "annual" ? "Loading..." : "Get Annual: $59.99/yr (save 50%)"}
               </button>
               <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#c8d0ff", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
@@ -8352,7 +8352,7 @@ function NeuroThriveApp() {
                   <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700" }}>Brain-Optimized Menu</div>
                   <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No dietary restrictions – built for your brain chemistry</div>
                 </div>
-                <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"8px", border:"1px solid rgba(110,120,200,0.2)", background:"transparent", color:"#8890b8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
+                <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"12px", border:"1px solid rgba(110,120,200,0.2)", background:"transparent", color:"#8890b8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
               </div>
             )}
 
