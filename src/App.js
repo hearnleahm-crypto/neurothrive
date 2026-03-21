@@ -42,116 +42,116 @@ const MENTAL_CONDITIONS = [
 
 // Diet types: these define what you DO eat (inclusion-based)
 const DIET_TYPES = [
-  { id: "vegan", label: "Vegan", emoji: "🌱" },
-  { id: "vegetarian", label: "Vegetarian", emoji: "🥦" },
-  { id: "pescatarian", label: "Pescatarian", emoji: "🐟" },
-  { id: "keto", label: "Keto", emoji: "🥑" },
-  { id: "paleo", label: "Paleo", emoji: "🦴" },
-  { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
-  { id: "anti_inflammatory", label: "Anti-Inflammatory", emoji: "🔥" },
-  { id: "low_fodmap", label: "Low FODMAP", emoji: "🍃" },
-  { id: "halal", label: "Halal", emoji: "✅" },
-  { id: "kosher", label: "Kosher", emoji: "✅" },
-  { id: "low_sugar", label: "Low Sugar", emoji: "🍬" },
-  { id: "low_sodium", label: "Low Sodium", emoji: "🧂" },
+  { id: "vegan", label: "Vegan", emoji: "🌱", mono: "VG", color: "#50c878" },
+  { id: "vegetarian", label: "Vegetarian", emoji: "🥦", mono: "VT", color: "#60b870" },
+  { id: "pescatarian", label: "Pescatarian", emoji: "🐟", mono: "PS", color: "#50a0dc" },
+  { id: "keto", label: "Keto", emoji: "🥑", mono: "KT", color: "#80b850" },
+  { id: "paleo", label: "Paleo", emoji: "🦴", mono: "PL", color: "#c89860" },
+  { id: "mediterranean", label: "Mediterranean", emoji: "🫒", mono: "MD", color: "#50b8a0" },
+  { id: "anti_inflammatory", label: "Anti-Inflammatory", emoji: "🔥", mono: "AI", color: "#e08850" },
+  { id: "low_fodmap", label: "Low FODMAP", emoji: "🍃", mono: "LF", color: "#70c0a0" },
+  { id: "halal", label: "Halal", emoji: "🍖", mono: "HL", color: "#50a878" },
+  { id: "kosher", label: "Kosher", emoji: "🫓", mono: "KS", color: "#50a878" },
+  { id: "low_sugar", label: "Low Sugar", emoji: "🍬", mono: "LS", color: "#a0c060" },
+  { id: "low_sodium", label: "Low Sodium", emoji: "🧂", mono: "LN", color: "#70b8a0" },
 ];
 
 // Allergen restrictions: these define what you DON'T eat (exclusion-based)
 const DIETARY_RESTRICTIONS = [
   // Proteins
-  { id: "red_meat_free", label: "Red Meat-Free", emoji: "🥩" },
-  { id: "chicken_free", label: "Chicken-Free", emoji: "🐔" },
-  { id: "turkey_free", label: "Turkey-Free", emoji: "🦃" },
-  { id: "pork_free", label: "Pork-Free", emoji: "🚫" },
-  { id: "fish_free", label: "Fish-Free", emoji: "🐟" },
-  { id: "sardine_free", label: "Sardine-Free", emoji: "🐠" },
-  { id: "shellfish_free", label: "Shellfish-Free", emoji: "🦐" },
-  { id: "tofu_free", label: "Tofu-Free", emoji: "🚫" },
-  { id: "egg_free", label: "Egg-Free", emoji: "🥚" },
-  { id: "dairy_free", label: "Dairy-Free", emoji: "🥛" },
+  { id: "red_meat_free", label: "Red Meat-Free", emoji: "🥩", mono: "RM" },
+  { id: "chicken_free", label: "Chicken-Free", emoji: "🐔", mono: "CK" },
+  { id: "turkey_free", label: "Turkey-Free", emoji: "🦃", mono: "TK" },
+  { id: "pork_free", label: "Pork-Free", emoji: "🚫", mono: "PK" },
+  { id: "fish_free", label: "Fish-Free", emoji: "🐟", mono: "FH" },
+  { id: "sardine_free", label: "Sardine-Free", emoji: "🐠", mono: "SD" },
+  { id: "shellfish_free", label: "Shellfish-Free", emoji: "🦐", mono: "SF" },
+  { id: "tofu_free", label: "Tofu-Free", emoji: "🚫", mono: "TF" },
+  { id: "egg_free", label: "Egg-Free", emoji: "🥚", mono: "EG" },
+  { id: "dairy_free", label: "Dairy-Free", emoji: "🥛", mono: "DR" },
   // Fruits
-  { id: "citrus_free", label: "Citrus-Free", emoji: "🍋" },
-  { id: "banana_free", label: "Banana-Free", emoji: "🟡" },
-  { id: "strawberry_free", label: "Strawberry-Free", emoji: "🍓" },
-  { id: "blueberry_free", label: "Blueberry-Free", emoji: "🫐" },
-  { id: "cherry_free", label: "Cherry-Free", emoji: "🍒" },
-  { id: "peach_free", label: "Peach-Free", emoji: "🍑" },
-  { id: "coconut_free", label: "Coconut-Free", emoji: "🥥" },
+  { id: "citrus_free", label: "Citrus-Free", emoji: "🍋", mono: "CT" },
+  { id: "banana_free", label: "Banana-Free", emoji: "🟡", mono: "BN" },
+  { id: "strawberry_free", label: "Strawberry-Free", emoji: "🍓", mono: "SB" },
+  { id: "blueberry_free", label: "Blueberry-Free", emoji: "🫐", mono: "BB" },
+  { id: "cherry_free", label: "Cherry-Free", emoji: "🍒", mono: "CH" },
+  { id: "peach_free", label: "Peach-Free", emoji: "🍑", mono: "PC" },
+  { id: "coconut_free", label: "Coconut-Free", emoji: "🥥", mono: "CC" },
   // Veggies & starches
-  { id: "onion_free", label: "Onion-Free", emoji: "🧅" },
-  { id: "garlic_free", label: "Garlic-Free", emoji: "🧄" },
-  { id: "mushroom_free", label: "Mushroom-Free", emoji: "🍄" },
-  { id: "nightshade_free", label: "Nightshade-Free", emoji: "🍅" },
-  { id: "potato_free", label: "Potato-Free", emoji: "🥔" },
-  { id: "corn_free", label: "Corn-Free", emoji: "🌽" },
+  { id: "onion_free", label: "Onion-Free", emoji: "🧅", mono: "ON" },
+  { id: "garlic_free", label: "Garlic-Free", emoji: "🧄", mono: "GR" },
+  { id: "mushroom_free", label: "Mushroom-Free", emoji: "🍄", mono: "MR" },
+  { id: "nightshade_free", label: "Nightshade-Free", emoji: "🍅", mono: "NS" },
+  { id: "potato_free", label: "Potato-Free", emoji: "🥔", mono: "PT" },
+  { id: "corn_free", label: "Corn-Free", emoji: "🌽", mono: "CN" },
   // Grains
-  { id: "gluten_free", label: "Gluten-Free", emoji: "🌾" },
-  { id: "rice_free", label: "Rice-Free", emoji: "🌾" },
-  { id: "oat_free", label: "Oat-Free", emoji: "🥣" },
-  { id: "quinoa_free", label: "Quinoa-Free", emoji: "🌾" },
+  { id: "gluten_free", label: "Gluten-Free", emoji: "🌾", mono: "GL" },
+  { id: "rice_free", label: "Rice-Free", emoji: "🌾", mono: "RC" },
+  { id: "oat_free", label: "Oat-Free", emoji: "🥣", mono: "OT" },
+  { id: "quinoa_free", label: "Quinoa-Free", emoji: "🌾", mono: "QN" },
   // Legumes & nuts
-  { id: "legume_free", label: "Legume-Free", emoji: "🫛" },
-  { id: "lentil_free", label: "Lentil-Free", emoji: "🫘" },
-  { id: "bean_free", label: "Bean-Free", emoji: "🫛" },
-  { id: "chickpea_free", label: "Chickpea-Free", emoji: "🧆" },
-  { id: "soy_free", label: "Soy-Free", emoji: "🫘" },
-  { id: "nut_free", label: "Nut-Free", emoji: "🥜" },
-  { id: "seed_free", label: "Seed-Free", emoji: "🌻" },
+  { id: "legume_free", label: "Legume-Free", emoji: "🫛", mono: "LG" },
+  { id: "lentil_free", label: "Lentil-Free", emoji: "🫘", mono: "LT" },
+  { id: "bean_free", label: "Bean-Free", emoji: "🫛", mono: "BN" },
+  { id: "chickpea_free", label: "Chickpea-Free", emoji: "🧆", mono: "CP" },
+  { id: "soy_free", label: "Soy-Free", emoji: "🫘", mono: "SY" },
+  { id: "nut_free", label: "Nut-Free", emoji: "🥜", mono: "NT" },
+  { id: "seed_free", label: "Seed-Free", emoji: "🌻", mono: "SE" },
 ];
 
 // Combined for backward compatibility
 const DIETARY = [...DIET_TYPES, ...DIETARY_RESTRICTIONS];
 
 const CUISINE_TYPES = [
-  { id: "american", label: "American & Comfort", emoji: "🍔" },
-  { id: "mexican_latin", label: "Mexican & Latin", emoji: "🌮" },
-  { id: "asian", label: "Asian", emoji: "🥢" },
-  { id: "mediterranean", label: "Mediterranean", emoji: "🫒" },
-  { id: "indian_curry", label: "Indian & Curry", emoji: "🍛" },
-  { id: "italian", label: "Italian", emoji: "🍝" },
-  { id: "southern_cajun", label: "Southern & Cajun", emoji: "🫘" },
-  { id: "caribbean", label: "Caribbean", emoji: "🥥" },
-  { id: "african", label: "African", emoji: "🍲" },
-  { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜" },
+  { id: "american", label: "American & Comfort", emoji: "🍔", mono: "AC", color: "#e8a050" },
+  { id: "mexican_latin", label: "Mexican & Latin", emoji: "🌮", mono: "ML", color: "#e07060" },
+  { id: "asian", label: "Asian", emoji: "🥢", mono: "AS", color: "#e0c060" },
+  { id: "mediterranean", label: "Mediterranean", emoji: "🫒", mono: "MD", color: "#50b8a0" },
+  { id: "indian_curry", label: "Indian & Curry", emoji: "🍛", mono: "IC", color: "#d08850" },
+  { id: "italian", label: "Italian", emoji: "🍝", mono: "IT", color: "#d06060" },
+  { id: "southern_cajun", label: "Southern & Cajun", emoji: "🫘", mono: "SC", color: "#c09060" },
+  { id: "caribbean", label: "Caribbean", emoji: "🥥", mono: "CB", color: "#50b8c8" },
+  { id: "african", label: "African", emoji: "🍲", mono: "AF", color: "#c87850" },
+  { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜", mono: "SE", color: "#60c080" },
 ];
 
 const FOOD_PREF_COLORS = { protein:"#e87070", seafood:"#50a0dc", fruit:"#ba68c8", veggie:"#50c878", grain:"#e8c87a", legume:"#c89860", combo:"#7b9fff" };
 const FOOD_PREF_RGB = { protein:"232,112,112", seafood:"80,160,220", fruit:"186,104,200", veggie:"80,200,120", grain:"232,200,122", legume:"200,152,96", combo:"123,159,255" };
 const FOOD_PREFS = [
   // Proteins
-  { id: "chicken", label: "Chicken", emoji: "🍗", cat: "protein" },
-  { id: "turkey", label: "Turkey", emoji: "🦃", cat: "protein" },
-  { id: "red_meat", label: "Red Meat", emoji: "🥩", cat: "protein" },
-  { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓", cat: "protein" },
-  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟", cat: "seafood" },
-  { id: "tofu", label: "Tofu & Tempeh", emoji: "🫘", cat: "protein" },
-  { id: "eggs", label: "Eggs", emoji: "🥚", cat: "protein" },
-  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀", cat: "protein" },
+  { id: "chicken", label: "Chicken", emoji: "🍗", cat: "protein", mono: "CK" },
+  { id: "turkey", label: "Turkey", emoji: "🦃", cat: "protein", mono: "TK" },
+  { id: "red_meat", label: "Red Meat", emoji: "🥩", cat: "protein", mono: "RM" },
+  { id: "bacon_pork", label: "Bacon & Pork", emoji: "🥓", cat: "protein", mono: "BP" },
+  { id: "salmon_fish", label: "Salmon & Fish", emoji: "🐟", cat: "seafood", mono: "SF" },
+  { id: "tofu", label: "Tofu & Tempeh", emoji: "🫘", cat: "protein", mono: "TF" },
+  { id: "eggs", label: "Eggs", emoji: "🥚", cat: "protein", mono: "EG" },
+  { id: "greek_yogurt", label: "Greek Yogurt", emoji: "🧀", cat: "protein", mono: "GY" },
   // Fruits
-  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐", cat: "fruit" },
-  { id: "strawberries", label: "Strawberries", emoji: "🍓", cat: "fruit" },
-  { id: "blueberries", label: "Blueberries", emoji: "🫐", cat: "fruit" },
-  { id: "bananas", label: "Bananas", emoji: "🟡", cat: "fruit" },
-  { id: "cherries", label: "Cherries", emoji: "🍒", cat: "fruit" },
-  { id: "peaches", label: "Peaches", emoji: "🍑", cat: "fruit" },
-  { id: "avocado", label: "Avocado", emoji: "🥑", cat: "fruit" },
+  { id: "fruit_berries", label: "Fresh Fruit & Berries", emoji: "🫐", cat: "fruit", mono: "FB" },
+  { id: "strawberries", label: "Strawberries", emoji: "🍓", cat: "fruit", mono: "SB" },
+  { id: "blueberries", label: "Blueberries", emoji: "🫐", cat: "fruit", mono: "BB" },
+  { id: "bananas", label: "Bananas", emoji: "🟡", cat: "fruit", mono: "BN" },
+  { id: "cherries", label: "Cherries", emoji: "🍒", cat: "fruit", mono: "CH" },
+  { id: "peaches", label: "Peaches", emoji: "🍑", cat: "fruit", mono: "PC" },
+  { id: "avocado", label: "Avocado", emoji: "🥑", cat: "fruit", mono: "AV" },
   // Veggies & starches
-  { id: "salads", label: "Salads", emoji: "🥗", cat: "veggie" },
-  { id: "sweet_potato", label: "Sweet Potatoes", emoji: "🍠", cat: "veggie" },
-  { id: "potatoes", label: "Potatoes", emoji: "🥔", cat: "veggie" },
+  { id: "salads", label: "Salads", emoji: "🥗", cat: "veggie", mono: "SL" },
+  { id: "sweet_potato", label: "Sweet Potatoes", emoji: "🍠", cat: "veggie", mono: "SP" },
+  { id: "potatoes", label: "Potatoes", emoji: "🥔", cat: "veggie", mono: "PT" },
   // Grains
-  { id: "rice", label: "Rice", emoji: "🍚", cat: "grain" },
-  { id: "oatmeal", label: "Oatmeal", emoji: "🥣", cat: "grain" },
-  { id: "pasta", label: "Pasta", emoji: "🍝", cat: "grain" },
-  { id: "quinoa", label: "Quinoa", emoji: "🌾", cat: "grain" },
+  { id: "rice", label: "Rice", emoji: "🍚", cat: "grain", mono: "RC" },
+  { id: "oatmeal", label: "Oatmeal", emoji: "🥣", cat: "grain", mono: "OT" },
+  { id: "pasta", label: "Pasta", emoji: "🍝", cat: "grain", mono: "PA" },
+  { id: "quinoa", label: "Quinoa", emoji: "🌾", cat: "grain", mono: "QN" },
   // Legumes & nuts
-  { id: "lentils", label: "Lentils", emoji: "🫘", cat: "legume" },
-  { id: "beans", label: "Beans", emoji: "🫛", cat: "legume" },
-  { id: "chickpeas", label: "Chickpeas & Hummus", emoji: "🧆", cat: "legume" },
-  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜", cat: "legume" },
+  { id: "lentils", label: "Lentils", emoji: "🫘", cat: "legume", mono: "LT" },
+  { id: "beans", label: "Beans", emoji: "🫛", cat: "legume", mono: "BN" },
+  { id: "chickpeas", label: "Chickpeas & Hummus", emoji: "🧆", cat: "legume", mono: "CP" },
+  { id: "nuts_seeds", label: "Nuts & Seeds", emoji: "🥜", cat: "legume", mono: "NS" },
   // Meals & combos
-  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣", cat: "combo" },
-  { id: "soups_stews", label: "Soups & Stews", emoji: "🍲", cat: "combo" },
+  { id: "smoothies_bowls", label: "Smoothies & Bowls", emoji: "🥣", cat: "combo", mono: "SM" },
+  { id: "soups_stews", label: "Soups & Stews", emoji: "🍲", cat: "combo", mono: "SS" },
 ];
 
 const FOOD_PREF_PATTERNS = {
@@ -196,26 +196,26 @@ const getFoodPrefScore = (name, prefs) => {
 
 const ALL_MEALS = {
   breakfast: [
-    { name: "Grilled Chicken Sausage with Sliced Mango & Strawberries", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Chicken Sausage Patties with Sliced Peaches & Honeydew", tags: ["chicken","meat","peach"], conditions: ["adhd","default"] },
-    { name: "Ground Turkey Bowl with Sautéed Spinach & Sliced Kiwi", tags: ["meat","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
-    { name: "Steak & Egg Scramble with Sliced Cantaloupe & Grapes", tags: ["egg","meat"], conditions: ["adhd","default"] },
-    { name: "Turkey Sausage Patties with Sliced Mango & Pineapple", tags: ["meat","turkey"], conditions: ["adhd","default"] },
-    { name: "Grilled Chicken with Watermelon & Blueberry Bowl", tags: ["chicken","meat"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
-    { name: "Steak Strips with Roasted Sweet Potato & Fresh Strawberry Side", tags: ["meat"], conditions: ["adhd","default"] },
-    { name: "Smoked Chicken with Sliced Papaya & Pineapple", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Beef & Veggie Scramble with Fresh Mango Slices", tags: ["meat"], conditions: ["adhd","default"] },
-    { name: "Turkey & Spinach Sauté with Sliced Peaches & Raspberries", tags: ["meat","turkey","peach"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
-    { name: "Chicken & Sweet Potato Hash with Blueberry & Banana Side", tags: ["chicken","meat","banana"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
-    { name: "Ground Beef Breakfast Bowl with Cherries & Orange Slices", tags: ["meat","citrus","cherry"], conditions: ["adhd","default"] },
-    { name: "Chicken Sausage with Sliced Nectarine & Mixed Berries", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Turkey Patties with Sliced Kiwi, Mango & Pineapple Bowl", tags: ["meat","turkey"], conditions: ["adhd","default"] },
-    { name: "Sirloin Strips with Watermelon, Mint & Lime Side", tags: ["meat","citrus"], conditions: ["adhd","default"] },
-    { name: "Chicken Thigh with Grilled Pineapple & Coconut Flakes", tags: ["chicken","meat","coconut"], conditions: ["adhd","default"] },
-    { name: "Ground Turkey with Papaya, Lime & Blueberry Bowl", tags: ["meat","citrus","turkey"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
-    { name: "Steak & Veggie Hash with Fresh Peach & Raspberry Side", tags: ["meat","peach"], conditions: ["adhd","default"] },
-    { name: "Chicken Sausage with Sliced Plum & Honeydew Melon", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Turkey Sauté with Strawberry, Banana & Sunflower Seeds", tags: ["meat","seed","turkey","banana"], conditions: ["adhd","depression","anxiety","bipolar","ocd","neuro_core","default"] },
+    { name: "Grilled Chicken Sausage, Sliced Mango & Strawberries", tags: ["chicken","meat"], conditions: ["adhd","default"] },
+    { name: "Chicken Sausage Patties, Sliced Peaches & Honeydew", tags: ["chicken","meat","peach"], conditions: ["adhd","default"] },
+    { name: "Ground Turkey & Sautéed Spinach Bowl, Sliced Kiwi", tags: ["meat","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
+    { name: "Steak & Egg Scramble, Sliced Cantaloupe & Grapes", tags: ["egg","meat"], conditions: ["adhd","default"] },
+    { name: "Turkey Sausage Patties, Sliced Mango & Pineapple", tags: ["meat","turkey"], conditions: ["adhd","default"] },
+    { name: "Grilled Chicken, Watermelon & Blueberry Bowl", tags: ["chicken","meat"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
+    { name: "Steak Strips & Roasted Sweet Potato, Fresh Strawberries", tags: ["meat"], conditions: ["adhd","default"] },
+    { name: "Smoked Chicken, Sliced Papaya & Pineapple", tags: ["chicken","meat"], conditions: ["adhd","default"] },
+    { name: "Beef & Veggie Scramble, Fresh Mango Slices", tags: ["meat"], conditions: ["adhd","default"] },
+    { name: "Turkey & Spinach Sauté, Sliced Peaches & Raspberries", tags: ["meat","turkey","peach"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
+    { name: "Chicken & Sweet Potato Hash, Blueberries & Banana", tags: ["chicken","meat","banana"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
+    { name: "Ground Beef Breakfast Bowl, Cherries & Orange Slices", tags: ["meat","citrus","cherry"], conditions: ["adhd","default"] },
+    { name: "Chicken Sausage, Sliced Nectarine & Mixed Berries", tags: ["chicken","meat"], conditions: ["adhd","default"] },
+    { name: "Turkey Patties, Kiwi, Mango & Pineapple Bowl", tags: ["meat","turkey"], conditions: ["adhd","default"] },
+    { name: "Sirloin Strips, Watermelon, Mint & Lime", tags: ["meat","citrus"], conditions: ["adhd","default"] },
+    { name: "Chicken Thigh, Grilled Pineapple & Coconut Flakes", tags: ["chicken","meat","coconut"], conditions: ["adhd","default"] },
+    { name: "Ground Turkey, Papaya, Lime & Blueberry Bowl", tags: ["meat","citrus","turkey"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
+    { name: "Steak & Veggie Hash, Fresh Peach & Raspberries", tags: ["meat","peach"], conditions: ["adhd","default"] },
+    { name: "Chicken Sausage, Sliced Plum & Honeydew Melon", tags: ["chicken","meat"], conditions: ["adhd","default"] },
+    { name: "Turkey Sauté, Strawberries, Banana & Sunflower Seeds", tags: ["meat","seed","turkey","banana"], conditions: ["adhd","depression","anxiety","bipolar","ocd","neuro_core","default"] },
     { name: "Banana Oatmeal with Honey & Cinnamon", tags: ["gluten","oats","banana"], conditions: ["anxiety","eating","phobia","hpd","default"] },
     { name: "Avocado & Egg Toast on Sourdough", tags: ["egg","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
     { name: "Blueberry Greek Yogurt Parfait", tags: ["dairy"], conditions: ["anxiety","phobia","neuro_core","bfrb","default"] },
@@ -365,22 +365,28 @@ const ALL_MEALS = {
     { name: "Vietnamese Egg Omelette with Fresh Herbs & Rice", tags: ["egg","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
     { name: "Thai Coconut Rice Porridge with Chicken & Ginger", tags: ["chicken","meat","rice","coconut"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","default"] },
     { name: "Congee with Soft-Boiled Egg, Ginger & Scallions", tags: ["egg","rice"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","autism","default"] },
+    // Italian breakfasts
+    { name: "Spinach & Mozzarella Frittata with Cherry Tomatoes", tags: ["egg","dairy","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","schizophrenia","neuro_core","default"] },
+    { name: "Ricotta Toast with Blueberries, Honey & Walnuts", tags: ["dairy","gluten","nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Egg & Prosciutto Breakfast Wrap with Arugula", tags: ["egg","meat","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","default"] },
+    { name: "Polenta Bowl with Soft Eggs, Parmesan & Sautéed Greens", tags: ["egg","dairy","corn"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","default"] },
+    { name: "Caprese Egg Cups with Fresh Basil & Olive Oil", tags: ["egg","dairy","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
   ],
   lunch: [
-    { name: "Grilled Chicken Breast with Watermelon & Feta Salad", tags: ["chicken","dairy","meat"], conditions: ["adhd","default"] },
+    { name: "Grilled Chicken Breast, Watermelon & Feta Salad", tags: ["chicken","dairy","meat"], conditions: ["adhd","default"] },
     { name: "Turkey Lettuce Wraps with Pineapple Salsa", tags: ["meat","turkey"], conditions: ["adhd","default"] },
-    { name: "Beef & Veggie Stir-Fry with Orange Slices on the Side", tags: ["meat","citrus"], conditions: ["adhd","default"] },
+    { name: "Beef & Veggie Stir-Fry, Orange Slices on the Side", tags: ["meat","citrus"], conditions: ["adhd","default"] },
     { name: "Grilled Chicken Salad with Strawberries & Balsamic Vinaigrette", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Turkey & Avocado Wrap with a Side of Sliced Mango", tags: ["meat","gluten","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Turkey & Avocado Wrap, Sliced Mango on the Side", tags: ["meat","gluten","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
     { name: "Ground Beef Taco Bowl with Fresh Pico de Gallo & Mango Salsa", tags: ["meat"], conditions: ["adhd","default"] },
     { name: "Grilled Chicken Caesar Salad with Mandarin Oranges", tags: ["chicken","meat","dairy","citrus"], conditions: ["adhd","default"] },
-    { name: "Steak & Arugula Salad with Sliced Peaches & Lemon Dressing", tags: ["meat","peach"], conditions: ["adhd","default"] },
+    { name: "Steak & Arugula Salad, Sliced Peaches & Lemon Dressing", tags: ["meat","peach"], conditions: ["adhd","default"] },
     { name: "Chicken & Mango Rice Bowl", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","bipolar","anxiety","ocd","default"] },
     { name: "Turkey & Strawberry Spinach Salad with Balsamic", tags: ["meat","turkey"], conditions: ["adhd","default"] },
     { name: "Beef Lettuce Tacos with Pineapple Salsa & Lime", tags: ["meat"], conditions: ["adhd","default"] },
-    { name: "Chicken Thigh Bowl with Blueberry & Cucumber Salad", tags: ["chicken","meat"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
-    { name: "Turkey & Avocado Bowl with Sliced Kiwi on the Side", tags: ["meat","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
-    { name: "Grilled Chicken Sandwich with Sliced Peach & Arugula", tags: ["chicken","meat","gluten","peach"], conditions: ["adhd","default"] },
+    { name: "Chicken Thigh Bowl, Blueberry & Cucumber Salad", tags: ["chicken","meat"], conditions: ["adhd","depression","anxiety","ptsd","schizophrenia","neuro_core","default"] },
+    { name: "Turkey & Avocado Bowl, Sliced Kiwi on the Side", tags: ["meat","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Grilled Chicken & Arugula Sandwich, Sliced Peach", tags: ["chicken","meat","gluten","peach"], conditions: ["adhd","default"] },
     { name: "Grilled Chicken & Spinach Salad", tags: ["chicken","meat"], conditions: ["anxiety","default"] },
     { name: "Turkey & Veggie Soup with Whole Grain Roll", tags: ["meat","gluten","turkey"], conditions: ["anxiety","default"] },
     { name: "Grilled Chicken Wrap with Avocado & Lettuce", tags: ["chicken","meat","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
@@ -422,11 +428,11 @@ const ALL_MEALS = {
     { name: "Turkey & Avocado Wrap with Side Salad", tags: ["meat","gluten","turkey"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
     { name: "Grilled Chicken Strips with Mac & Cheese", tags: ["chicken","meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Plain Turkey Sandwich on Whole Grain Bread", tags: ["meat","gluten","turkey"], conditions: ["autism","eating","default"] },
-    { name: "Buttered Pasta with Mild Chicken", tags: ["chicken","meat","gluten","dairy"], conditions: ["autism","default"] },
+    { name: "Buttered Pasta with Seasoned Chicken", tags: ["chicken","meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Chicken Nuggets with Plain Rice & Corn", tags: ["chicken","meat","corn","gluten"], conditions: ["autism","default"] },
     { name: "Grilled Cheese Sandwich with Plain Chicken Soup", tags: ["chicken","meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Turkey & Cheese Roll-Up with Apple Slices", tags: ["meat","dairy","turkey"], conditions: ["autism","default"] },
-    { name: "Plain Pasta with Mild Tomato Sauce & Chicken", tags: ["chicken","meat","gluten"], conditions: ["autism","default"] },
+    { name: "Pasta with Simple Tomato Sauce & Chicken", tags: ["chicken","meat","gluten"], conditions: ["autism","default"] },
     // ── Hearty lunches: sandwiches, wraps, tortillas, brisket, bacon, corn ──
     { name: "Smoked Brisket Sandwich on Whole Grain Bread with Coleslaw", tags: ["meat","gluten"], conditions: ["adhd","depression","default"] },
     { name: "Brisket Tacos on Corn Tortillas with Pickled Onion & Cilantro", tags: ["meat","corn","onion"], conditions: ["adhd","depression","default"] },
@@ -463,7 +469,7 @@ const ALL_MEALS = {
     { name: "Grilled Salmon Sandwich on Whole Grain Bread", tags: ["fish","gluten"], conditions: ["depression","anxiety","ptsd","bipolar","ocd","schizophrenia","neuro_core","default"] },
     { name: "Sweet Potato & Turkey Chili", tags: ["meat","turkey"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
     { name: "Rice Bowl with Roasted Veggies & Tahini Drizzle", tags: ["rice","seed"], conditions: ["anxiety","depression","bipolar","ocd","bpd","ptsd","default"] },
-    { name: "Salmon & Quinoa Power Bowl with Pomegranate", tags: ["fish","quinoa"], conditions: ["depression","anxiety","ptsd","bipolar","ocd","schizophrenia","neuro_core","npd","aspd","default"] },
+    { name: "Salmon & Quinoa Power Bowl, Pomegranate", tags: ["fish","quinoa"], conditions: ["depression","anxiety","ptsd","bipolar","ocd","schizophrenia","neuro_core","npd","aspd","default"] },
     { name: "Lentil Soup with Spinach & Rice", tags: ["legume","lentil","rice"], conditions: ["depression","anxiety","ocd","ptsd","aspd","spd","bfrb","default"] },
     { name: "Chicken & Lentil Rice Bowl", tags: ["chicken","meat","legume","lentil","rice"], conditions: ["bipolar","schizophrenia","ocd","default"] },
     { name: "Roasted Sweet Potato & Kale Salad with Pomegranate Seeds", tags: ["seed"], conditions: ["ptsd","depression","schizophrenia","ppd","spd","bfrb","default"] },
@@ -500,7 +506,7 @@ const ALL_MEALS = {
     { name: "Cajun Shrimp & Quinoa Bowl with Roasted Bell Peppers", tags: ["shellfish","quinoa","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
     { name: "Smothered Chicken with Brown Rice & Collard Greens", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
     // Caribbean lunches
-    { name: "Jerk Chicken Bowl with Rice & Peas and Mango Salsa", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    { name: "Jerk Chicken Bowl with Rice & Peas, Mango Salsa", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Caribbean Black Bean Soup with Plantain & Avocado", tags: ["legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Jamaican Curry Chicken with Rice & Steamed Cabbage", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","default"] },
     // African lunches
@@ -515,22 +521,33 @@ const ALL_MEALS = {
     { name: "Pho-Inspired Chicken Noodle Soup with Fresh Herbs", tags: ["chicken","meat","gluten"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
     { name: "Thai Larb Chicken Lettuce Wraps with Mint & Lime", tags: ["chicken","meat","citrus"], conditions: ["adhd","depression","anxiety","bipolar","default"] },
     { name: "Lemongrass Chicken Rice Bowl with Cucumber & Herbs", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
+    // Italian lunches
+    { name: "Pesto Chicken Wrap with Mozzarella & Sun-Dried Tomatoes", tags: ["chicken","meat","dairy","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Caprese Salad with Fresh Mozzarella, Tomato & Basil", tags: ["dairy","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","schizophrenia","neuro_core","npd","hpd","ppd","spd","default"] },
+    { name: "Minestrone Soup with Cannellini Beans & Parmesan", tags: ["legume","bean","dairy","nightshade"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","eating","default"] },
+    { name: "Chicken Penne with Roasted Garlic & Spinach", tags: ["chicken","meat","gluten","garlic"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Grilled Chicken Bruschetta Salad with Balsamic Drizzle", tags: ["chicken","meat","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Turkey & Ricotta Stuffed Bell Peppers with Marinara", tags: ["turkey","meat","dairy","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Fettuccine with Grilled Chicken, Broccoli & Olive Oil", tags: ["chicken","meat","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Salmon Orzo Salad with Lemon, Dill & Arugula", tags: ["fish","gluten","citrus"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","npd","ppd","spd","default"] },
+    { name: "Italian Tuna & White Bean Salad with Red Onion", tags: ["fish","legume","bean","onion"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Spaghetti with Turkey Meatballs & Roasted Vegetables", tags: ["turkey","meat","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
   ],
   dinner: [
-    { name: "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side", tags: ["meat"], conditions: ["adhd","default"] },
-    { name: "Baked Chicken Thighs with Roasted Pineapple & Quinoa", tags: ["chicken","meat","quinoa"], conditions: ["adhd","default"] },
-    { name: "Sirloin Steak with Grilled Peaches & Asparagus", tags: ["meat","peach"], conditions: ["adhd","default"] },
+    { name: "Pan-Seared Steak & Roasted Sweet Potato, Fresh Blueberries", tags: ["meat"], conditions: ["adhd","default"] },
+    { name: "Baked Chicken Thighs & Quinoa, Roasted Pineapple", tags: ["chicken","meat","quinoa"], conditions: ["adhd","default"] },
+    { name: "Sirloin Steak & Asparagus, Grilled Peaches", tags: ["meat","peach"], conditions: ["adhd","default"] },
     { name: "Grilled Chicken Thighs with Blueberry Balsamic Glaze & Roasted Veggies", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Ribeye Steak with Roasted Broccoli & Mango Salsa", tags: ["meat"], conditions: ["adhd","default"] },
+    { name: "Ribeye Steak & Roasted Broccoli, Mango Salsa", tags: ["meat"], conditions: ["adhd","default"] },
     { name: "Chicken Thighs with Cherry Tomato Sauce & Quinoa", tags: ["chicken","meat","quinoa"], conditions: ["adhd","default"] },
-    { name: "Beef & Mango Stir-Fry with Rice", tags: ["meat","rice"], conditions: ["adhd","depression","bipolar","anxiety","ocd","default"] },
+    { name: "Beef Stir-Fry with Mango & Rice", tags: ["meat","rice"], conditions: ["adhd","depression","bipolar","anxiety","ocd","default"] },
     { name: "Grilled Chicken with Peach & Arugula Salad", tags: ["chicken","meat","peach"], conditions: ["adhd","default"] },
-    { name: "Turkey Meatballs with Zucchini Noodles & Strawberry Caprese Side", tags: ["meat","dairy","turkey"], conditions: ["adhd","default"] },
-    { name: "Steak Tacos with Pineapple Salsa & Avocado", tags: ["meat"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
-    { name: "Baked Chicken Breast with Watermelon & Cucumber Side Salad", tags: ["chicken","meat"], conditions: ["adhd","default"] },
-    { name: "Ground Beef Bowl with Roasted Sweet Potato & Sliced Kiwi Side", tags: ["meat"], conditions: ["adhd","default"] },
+    { name: "Turkey Meatballs & Zucchini Noodles, Strawberry Caprese", tags: ["meat","dairy","turkey"], conditions: ["adhd","default"] },
+    { name: "Steak Tacos & Avocado, Pineapple Salsa", tags: ["meat"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Baked Chicken Breast, Watermelon & Cucumber Side Salad", tags: ["chicken","meat"], conditions: ["adhd","default"] },
+    { name: "Ground Beef & Roasted Sweet Potato Bowl, Sliced Kiwi", tags: ["meat"], conditions: ["adhd","default"] },
     { name: "Grilled Turkey Patties with Grilled Peach & Spinach Salad", tags: ["meat","turkey","peach"], conditions: ["adhd","default"] },
-    { name: "Chicken Thigh with Roasted Pineapple, Peppers & Rice", tags: ["chicken","meat","rice","nightshade"], conditions: ["adhd","depression","bipolar","anxiety","ocd","default"] },
+    { name: "Chicken Thigh with Peppers & Rice, Roasted Pineapple", tags: ["chicken","meat","rice","nightshade"], conditions: ["adhd","depression","bipolar","anxiety","ocd","default"] },
     { name: "Sirloin with Blueberry Reduction Sauce & Roasted Asparagus", tags: ["meat"], conditions: ["adhd","default"] },
     { name: "Baked Chicken Breast with Roasted Veggies", tags: ["chicken","meat"], conditions: ["anxiety","default"] },
     { name: "Lean Ground Turkey Taco Bowls", tags: ["meat","turkey"], conditions: ["anxiety","default"] },
@@ -574,9 +591,9 @@ const ALL_MEALS = {
     { name: "Grilled Steak with Roasted Potatoes & Asparagus", tags: ["meat","potato"], conditions: ["ocd","default"] },
     { name: "Baked Chicken Thighs with Rice & Broccoli", tags: ["chicken","meat"], conditions: ["ocd","default"] },
     { name: "Baked Chicken Tenders with Rice & Corn", tags: ["chicken","meat","corn"], conditions: ["autism","default"] },
-    { name: "Mild Beef Meatballs with Pasta & Butter", tags: ["meat","gluten","dairy"], conditions: ["autism","default"] },
+    { name: "Beef Meatballs with Buttered Pasta", tags: ["meat","gluten","dairy"], conditions: ["autism","default"] },
     { name: "Ground Beef & Noodle Casserole", tags: ["meat","gluten"], conditions: ["autism","default"] },
-    { name: "Mild Chicken Stir-Fry with Plain Noodles", tags: ["chicken","meat","gluten"], conditions: ["autism","default"] },
+    { name: "Chicken Stir-Fry with Buttered Noodles", tags: ["chicken","meat","gluten"], conditions: ["autism","default"] },
     { name: "Baked Chicken Breast with Corn & Mashed Potatoes", tags: ["chicken","meat","corn","dairy","potato"], conditions: ["autism","default"] },
     { name: "Grilled Salmon with Asparagus & Quinoa", tags: ["fish","quinoa"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","npd","phobia","ppd","spd","default"] },
     { name: "Baked Salmon with Mashed Sweet Potato & Green Beans", tags: ["fish","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","ppd","hpd","phobia","npd","spd","default"] },
@@ -614,14 +631,14 @@ const ALL_MEALS = {
     { name: "Salmon & Sweet Potato Sheet Pan Dinner", tags: ["fish"], conditions: ["depression","anxiety","ptsd","bipolar","ocd","adhd","schizophrenia","neuro_core","npd","hpd","ppd","default"] },
     { name: "Lentil Bolognese over Rice Pasta", tags: ["legume","lentil","gluten"], conditions: ["depression","anxiety","ocd","bipolar","default"] },
     { name: "Turkey Meatballs with Rice & Steamed Broccoli", tags: ["meat","rice","turkey"], conditions: ["adhd","bipolar","schizophrenia","did","default"] },
-    { name: "Baked Salmon with Blueberry Salsa & Rice", tags: ["fish"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","bfrb","default"] },
+    { name: "Baked Salmon & Rice, Blueberry Salsa", tags: ["fish"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","bfrb","default"] },
     { name: "Roasted Chicken Thighs with Sweet Potato Mash & Kale", tags: ["chicken","meat"], conditions: ["adhd","depression","schizophrenia","ptsd","npd","aspd","spd","ppd","default"] },
     { name: "Rice & Veggie Bowl with Grilled Tofu", tags: ["rice","soy"], conditions: ["anxiety","depression","ocd","default"] },
     { name: "Pomegranate-Glazed Chicken with Roasted Sweet Potato", tags: ["chicken","meat"], conditions: ["ptsd","depression","schizophrenia","adhd","default"] },
     { name: "Lentil & Vegetable Stew with Crusty Bread", tags: ["legume","lentil","gluten"], conditions: ["depression","anxiety","ptsd","ocd","bipolar","aspd","bfrb","spd","default"] },
     { name: "Baked Salmon with Garlic Mashed Sweet Potato", tags: ["fish","garlic"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","bpd","neuro_core","ppd","phobia","default"] },
     { name: "Ground Turkey & Sweet Potato Skillet with Rice", tags: ["meat","rice","turkey"], conditions: ["adhd","bipolar","schizophrenia","default"] },
-    { name: "Chicken & Quinoa Bowl with Pomegranate & Spinach", tags: ["chicken","meat","quinoa"], conditions: ["ptsd","depression","schizophrenia","default"] },
+    { name: "Chicken & Quinoa Bowl with Spinach, Pomegranate", tags: ["chicken","meat","quinoa"], conditions: ["ptsd","depression","schizophrenia","default"] },
     { name: "Rice Bowl with Grilled Chicken & Roasted Veggies", tags: ["chicken","meat","rice"], conditions: ["bipolar","ocd","did","bpd","default"] },
     { name: "Salmon Teriyaki with Rice & Steamed Edamame", tags: ["fish","rice","soy","legume","bean"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","npd","spd","default"] },
     { name: "Stuffed Sweet Potatoes with Ground Turkey & Cheese", tags: ["meat","dairy","turkey"], conditions: ["adhd","depression","did","default"] },
@@ -682,6 +699,22 @@ const ALL_MEALS = {
     { name: "Tom Kha Gai (Thai Coconut Chicken Soup) with Rice", tags: ["chicken","meat","rice","coconut"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","eating","default"] },
     { name: "Thai Basil Chicken Stir-Fry with Jasmine Rice", tags: ["chicken","meat","rice"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Massaman Curry with Beef, Potatoes & Peanuts", tags: ["meat","potato","nuts","coconut"], conditions: ["adhd","depression","bipolar","ptsd","default"] },
+    // Italian dinners
+    { name: "Chicken Parmesan with Marinara & Roasted Broccoli", tags: ["chicken","meat","dairy","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Lasagna with Turkey, Spinach & Ricotta", tags: ["turkey","meat","dairy","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Shrimp Linguine with Garlic, Lemon & Fresh Parsley", tags: ["shellfish","gluten","garlic","citrus"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Baked Salmon with Pesto, Asparagus & Roasted Potatoes", tags: ["fish","potato"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","npd","ppd","spd","default"] },
+    { name: "Chicken Cacciatore with Bell Peppers & Polenta", tags: ["chicken","meat","nightshade","corn"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Spaghetti Bolognese with Ground Turkey & Side Salad", tags: ["turkey","meat","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Chicken Piccata with Capers, Lemon & Sautéed Spinach", tags: ["chicken","meat","citrus"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Beef Ossobuco with Gremolata & Mashed Sweet Potato", tags: ["meat","citrus"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Rigatoni with Sausage, Kale & White Beans", tags: ["meat","gluten","legume","bean"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Gnocchi with Brown Butter, Sage & Roasted Butternut Squash", tags: ["gluten","dairy"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Penne Arrabiata with Grilled Chicken & Zucchini", tags: ["chicken","meat","gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Ravioli with Spinach & Ricotta in Sage Butter Sauce", tags: ["dairy","gluten","egg"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Grilled Salmon with Risotto & Roasted Asparagus", tags: ["fish","dairy"], conditions: ["depression","anxiety","bipolar","ptsd","ocd","schizophrenia","neuro_core","npd","ppd","spd","default"] },
+    { name: "Chicken Marsala with Mushrooms & Garlic Mashed Potatoes", tags: ["chicken","meat","mushroom","garlic","potato"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Tortellini Soup with Chicken, Spinach & Tomatoes", tags: ["chicken","meat","gluten","dairy","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","eating","neuro_core","default"] },
   ],
   snacks: [
     { name: "Apple Slices + Sliced Deli Turkey Roll-Ups", tags: ["meat","turkey"], conditions: ["adhd","default"] },
@@ -803,6 +836,12 @@ const ALL_MEALS = {
     // Southeast Asian snacks
     { name: "Thai Peanut Dipping Sauce with Fresh Veggies", tags: ["nuts"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","default"] },
     { name: "Mango & Coconut Chia Pudding", tags: ["seed","coconut"], conditions: ["anxiety","depression","bipolar","ptsd","ocd","neuro_core","default"] },
+    // Italian snacks
+    { name: "Bruschetta with Diced Tomatoes, Basil & Olive Oil", tags: ["gluten","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Prosciutto-Wrapped Mozzarella with Fresh Figs", tags: ["meat","dairy"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
+    { name: "Antipasto Plate with Olives, Peppers & Mozzarella", tags: ["dairy","nightshade"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","schizophrenia","neuro_core","npd","ppd","spd","default"] },
+    { name: "Ricotta & Blueberry Toast with Honey Drizzle", tags: ["dairy","gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","neuro_core","default"] },
+    { name: "Focaccia Crisps with Rosemary & Sea Salt", tags: ["gluten"], conditions: ["adhd","depression","anxiety","bipolar","ptsd","ocd","bpd","neuro_core","default"] },
   ],
 };
 
@@ -855,27 +894,214 @@ const DIET_EXCLUSIONS = {
   red_meat_free: ["beef"],
 };
 
-const getCuisine = (name) => {
-  const n = name.toLowerCase();
-  if (/taco|burrito|enchilada|fajita|quesadilla|pico de gallo|salsa verde|chipotle|churro/.test(n)) return "mexican_latin";
-  if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|bibimbap/.test(n)) return "asian";
-  // Caribbean & Southeast Asian must check before indian_curry so "curry goat", "green curry" etc. aren't misclassified
-  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) return "caribbean";
-  if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) return "southeast_asian";
-  if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) return "indian_curry";
-  if (/mediterranean|tahini|falafel|hummus|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh|lemon.*herb|herb.*roasted|lentil.*soup|chickpea.*salad|chickpea.*spinach|roasted.*veggie.*quinoa|quinoa.*salad|white bean.*kale|lentil.*veggie|anti[- ]inflam/.test(n)) return "mediterranean";
-  if (/gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|smothered|hoppin|black[- ]eyed pea|grits/.test(n)) return "southern_cajun";
-  if (/injera|berbere|doro\s*wat|kitfo|egusi|suya|fufu|groundnut|peanut\s*stew|west african|east african|ethiopian|nigerian|ghanaian|senegalese|moroccan.*tagine|harissa|ras\s*el\s*hanout|shakshuka.*harissa/.test(n)) return "african";
-  if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie|grilled\s+chicken(?!.*tikka|.*teriyaki|.*satay|.*jerk)|baked\s+chicken|roasted\s+chicken|chicken\s+breast|chicken\s+thigh|chicken\s+tender|turkey\s+burger|turkey\s+meatball|sirloin|steak(?!.*teriyaki)|pork\s+chop|pork\s+tenderloin|mashed\s+potato|sweet\s+potato\s+fries|loaded\s+sweet|baked\s+salmon(?!.*teriyaki)|grilled\s+salmon(?!.*teriyaki)|salmon\s+with|cod\s+with|tuna\s+melt|chicken\s+soup|chicken.*sandwich|turkey.*wrap|turkey.*sandwich|sheet\s+pan|skillet\s+dinner|one[- ]pan|protein\s+bowl|grain\s+bowl|power\s+bowl|chicken.*rice(?!.*fried)|chicken.*potato|chicken.*broccoli|steak.*potato|beef.*broccoli(?!.*stir)|honey.*glazed|lemon.*chicken(?!.*mediterranean)|garlic.*chicken(?!.*tikka)|herb.*chicken|ranch|buffalo\s+chicken|chicken\s+caesar|cobb|chef\s+salad|waldorf/.test(n)) return "american";
-  if (/pasta|marinara|pesto|parmesan|risotto|bruschetta|caprese|bolognese|alfredo|lasagna|ravioli|primavera/.test(n)) return "italian";
-  return "general";
+const SAFETY_DIETS = new Set([
+  'nut_free','shellfish_free','egg_free','dairy_free','soy_free',
+  'gluten_free','fish_free','pork_free','halal','kosher',
+  'corn_free','nightshade_free','coconut_free','seed_free',
+  'legume_free','citrus_free','oat_free','sardine_free',
+  'onion_free','garlic_free','mushroom_free','potato_free',
+  'quinoa_free','chicken_free','turkey_free','lentil_free',
+  'bean_free','chickpea_free','strawberry_free','blueberry_free',
+  'cherry_free','peach_free','banana_free','tofu_free','red_meat_free',
+  'rice_free'
+]);
+
+const CONDITION_FALLBACKS = {
+  phobia: ['anxiety','ptsd'],
+  aspd: ['bpd','npd'],
+  hpd: ['bpd','npd'],
+  spd: ['schizophrenia','depression'],
+  bfrb: ['ocd','anxiety'],
+  ppd: ['anxiety','ptsd'],
+  did: ['ptsd','bpd'],
+  eating: ['anxiety','depression'],
 };
 
-const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
+const CONDITION_MEAL_RULES = {
+  adhd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|tuna|cod|fish/i, min: 3, slot: 'any' },
+      { pattern: /egg|omelette|scramble|frittata/i, min: 5, slot: 'breakfast' },
+      { pattern: /spinach|kale|greens|chard/i, min: 4, slot: 'any' },
+      { pattern: /blueberr|berry|berries/i, min: 3, slot: 'any' },
+    ],
+  },
+  depression: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /spinach|kale|greens|chard/i, min: 4, slot: 'any' },
+      { pattern: /turmeric/i, min: 2, slot: 'any' },
+      { pattern: /yogurt|kefir|kimchi|fermented|miso/i, min: 3, slot: 'any' },
+      { pattern: /walnut|flax|chia/i, min: 2, slot: 'any' },
+    ],
+  },
+  anxiety: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /yogurt|kefir|kimchi|fermented/i, min: 4, slot: 'any' },
+      { pattern: /oat|oatmeal/i, min: 3, slot: 'breakfast' },
+      { pattern: /spinach|kale|greens/i, min: 3, slot: 'any' },
+    ],
+  },
+  bipolar: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 4, slot: 'any' },
+      { pattern: /sweet potato/i, min: 3, slot: 'any' },
+      { pattern: /egg|omelette|scramble|frittata/i, min: 4, slot: 'breakfast' },
+      { pattern: /quinoa/i, min: 2, slot: 'any' },
+    ],
+  },
+  ptsd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /bell pepper|pepper/i, min: 3, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /blueberr|berry|berries/i, min: 3, slot: 'any' },
+      { pattern: /avocado/i, min: 2, slot: 'any' },
+    ],
+  },
+  ocd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /spinach|kale|greens/i, min: 4, slot: 'any' },
+      { pattern: /turkey/i, min: 2, slot: 'any' },
+      { pattern: /walnut|pumpkin seed/i, min: 2, slot: 'any' },
+    ],
+  },
+  schizophrenia: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 4, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /spinach|kale|greens/i, min: 4, slot: 'any' },
+      { pattern: /walnut/i, min: 2, slot: 'any' },
+    ],
+  },
+  bpd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /sweet potato/i, min: 2, slot: 'any' },
+      { pattern: /yogurt|kefir|fermented/i, min: 2, slot: 'any' },
+    ],
+  },
+  npd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /pumpkin seed/i, min: 3, slot: 'any' },
+      { pattern: /spinach|kale|greens/i, min: 3, slot: 'any' },
+      { pattern: /oat|oatmeal/i, min: 3, slot: 'breakfast' },
+    ],
+  },
+  hpd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /yogurt|kefir|fermented/i, min: 3, slot: 'any' },
+      { pattern: /spinach|kale|greens/i, min: 3, slot: 'any' },
+    ],
+  },
+  aspd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 4, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /quinoa/i, min: 2, slot: 'any' },
+    ],
+  },
+  autism: {
+    weeklySlots: [
+      { pattern: /egg|omelette|scramble/i, min: 4, slot: 'breakfast' },
+      { pattern: /chicken/i, min: 4, slot: 'any' },
+      { pattern: /rice/i, min: 3, slot: 'any' },
+    ],
+  },
+  eating: {
+    weeklySlots: [
+      { pattern: /egg|omelette|scramble/i, min: 3, slot: 'breakfast' },
+      { pattern: /chicken/i, min: 3, slot: 'any' },
+      { pattern: /banana|apple|fruit/i, min: 3, slot: 'any' },
+    ],
+  },
+  did: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /sweet potato|potato/i, min: 3, slot: 'any' },
+    ],
+  },
+  phobia: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /spinach|kale|greens/i, min: 3, slot: 'any' },
+      { pattern: /avocado/i, min: 2, slot: 'any' },
+    ],
+  },
+  bfrb: {
+    weeklySlots: [
+      { pattern: /egg|omelette|scramble/i, min: 4, slot: 'breakfast' },
+      { pattern: /broccoli|brussels/i, min: 3, slot: 'any' },
+      { pattern: /blueberr|berry|berries/i, min: 3, slot: 'any' },
+    ],
+  },
+  ppd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /kimchi|fermented|yogurt|kefir/i, min: 3, slot: 'any' },
+      { pattern: /pumpkin seed/i, min: 2, slot: 'any' },
+    ],
+  },
+  spd: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 3, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /spinach|kale|greens/i, min: 3, slot: 'any' },
+    ],
+  },
+  neuro_core: {
+    weeklySlots: [
+      { pattern: /salmon|sardine|mackerel|fish/i, min: 4, slot: 'any' },
+      { pattern: /egg/i, min: 4, slot: 'breakfast' },
+      { pattern: /spinach|kale|greens/i, min: 4, slot: 'any' },
+      { pattern: /blueberr|berry|berries/i, min: 3, slot: 'any' },
+      { pattern: /walnut|flax|chia/i, min: 2, slot: 'any' },
+    ],
+  },
+};
+
+const getCuisine = (name) => {
+  const n = name.toLowerCase();
+  const tags = [];
+  if (/taco|burrito|enchilada|fajita|quesadilla|pico de gallo|salsa verde|chipotle|churro/.test(n)) tags.push("mexican_latin");
+  if (/stir[- ]fry|teriyaki|miso|kimchi|bok choy|congee|sushi|edamame|sesame.*ginger|poke|udon|ramen|wonton|dumpling|bibimbap/.test(n)) tags.push("asian");
+  if (/jerk\b|jamaican|caribbean|plantain|callaloo|ackee|oxtail|rice\s*&?\s*peas|scotch bonnet|curry goat/.test(n)) tags.push("caribbean");
+  if (/pad thai|pho\b|banh\s*mi|satay|laksa|tom\s*yum|tom\s*kha|larb|thai\b|vietnamese|lemongrass|galangal|fish\s*sauce|coconut.*lime.*chicken|green\s*curry|red\s*curry|massaman|rendang/.test(n)) tags.push("southeast_asian");
+  if (/curry|tikka|masala|tandoori|dal\b|samosa|naan|chana|paneer|biryani|turmeric.*coconut/.test(n)) tags.push("indian_curry");
+  if (/mediterranean|tahini|falafel|hummus|sardine.*lemon|greek(?!.*yogurt)|shakshuka|tzatziki|tabbouleh|lemon.*herb|herb.*roasted|lentil.*soup|chickpea.*salad|chickpea.*spinach|roasted.*veggie.*quinoa|quinoa.*salad|white bean.*kale|lentil.*veggie|anti[- ]inflam/.test(n)) tags.push("mediterranean");
+  if (/gumbo|jambalaya|collard|cornbread.*catfish|blackened\b|cajun|creole|smothered|hoppin|black[- ]eyed pea|grits/.test(n)) tags.push("southern_cajun");
+  if (/injera|berbere|doro\s*wat|kitfo|egusi|suya|fufu|groundnut|peanut\s*stew|west african|east african|ethiopian|nigerian|ghanaian|senegalese|moroccan.*tagine|harissa|ras\s*el\s*hanout|shakshuka.*harissa/.test(n)) tags.push("african");
+  if (/italian|pasta|marinara|pesto|parmesan|risotto|bruschetta|caprese|bolognese|alfredo|lasagna|ravioli|primavera|fettuccine|spaghetti|penne|linguine|rigatoni|ziti|gnocchi|tortellini|carbonara|orzo|polenta|focaccia|cioppino|minestrone|prosciutto|pancetta|mozzarella|ricotta|pappardelle|farfalle|arancini|ossobuco|cacciatore|piccata|marsala|arrabiata|aglio|puttanesca|antipasto|frittata|cannellini/.test(n)) tags.push("italian");
+  // Only tag as american if no other specific cuisine was already matched
+  // (prevents "Jamaican Curry Chicken with Rice" from also matching american via broad patterns like chicken.*rice)
+  if (tags.length === 0) {
+    if (/brisket|blt\b|mac\s*[&n]\s*cheese|meatloaf|casserole|club sandwich|cornbread|burger|nugget|pulled|bbq|bacon.*cheese|corn\s*dog|hot\s*dog|pot pie|grilled\s+chicken|baked\s+chicken|roasted\s+chicken|chicken\s+breast|chicken\s+thigh|chicken\s+tender|turkey\s+burger|turkey\s+meatball|sirloin|steak|pork\s+chop|pork\s+tenderloin|mashed\s+potato|sweet\s+potato\s+fries|loaded\s+sweet|baked\s+salmon|grilled\s+salmon|salmon\s+with|cod\s+with|tuna\s+melt|chicken\s+soup|chicken.*sandwich|turkey.*wrap|turkey.*sandwich|sheet\s+pan|skillet\s+dinner|one[- ]pan|protein\s+bowl|grain\s+bowl|power\s+bowl|chicken.*rice|chicken.*potato|chicken.*broccoli|steak.*potato|beef.*broccoli|honey.*glazed|lemon.*chicken|garlic.*chicken|herb.*chicken|ranch|buffalo\s+chicken|chicken\s+caesar|cobb|chef\s+salad|waldorf/.test(n)) tags.push("american");
+  }
+  // Common American breakfast items that would otherwise fall to "general"
+  if (/scramble|omelette|omelet|egg\s*(toast|wrap|burrito|muffin|cup|bowl|bake)|pancake|waffle|french\s*toast|bacon\s*&?\s*egg|sausage.*egg|hash\s*brown|breakfast\s*(bowl|skillet|burrito|wrap|hash)|overnight\s*oat|oatmeal|granola|yogurt\s*parfait|smoothie\s*bowl|avocado.*toast|toast.*avocado/.test(n) && !tags.length) tags.push("american");
+  return tags.length > 0 ? tags : ["general"];
+};
+
+const filterMeals = (meals, selectedDiet, conditionIds, selectedCuisines) => {
   const excludedTags = new Set();
   selectedDiet.forEach(d => { (DIET_EXCLUSIONS[d] || []).forEach(t => excludedTags.add(t)); });
   const isKosher = selectedDiet.includes("kosher");
-  const conditionId = condition || "default";
+  // Normalize conditionIds to array
+  const conds = Array.isArray(conditionIds) ? conditionIds : [conditionIds || "default"];
+  // Expand with fallback conditions for under-covered conditions
+  const expandedConds = new Set(conds);
+  const fallbackConds = new Set();
+  conds.forEach(c => {
+    if (CONDITION_FALLBACKS[c]) {
+      CONDITION_FALLBACKS[c].forEach(fb => { if (!expandedConds.has(fb)) fallbackConds.add(fb); });
+    }
+  });
   const filtered = meals.filter(m => {
     if (m.tags.some(t => excludedTags.has(t))) return false;
     if (isKosher && m.tags.includes("meat") && m.tags.includes("dairy")) return false;
@@ -885,12 +1111,21 @@ const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
     if (excludedTags.has("blueberry") && /blueberr/.test(n)) return false;
     if (excludedTags.has("tofu") && /tofu|tempeh/.test(n)) return false;
     if (excludedTags.has("beef") && /steak|beef|sirloin|ribeye|brisket|burger|meatloaf|oxtail/.test(n)) return false;
-    if (!(m.conditions.includes(conditionId) || m.conditions.includes("default"))) return false;
+    // Condition scoring
+    const matchCount = conds.filter(id => m.conditions.includes(id)).length;
+    const hasFallback = fallbackConds.size > 0 && [...fallbackConds].some(fb => m.conditions.includes(fb));
+    const hasDefault = m.conditions.includes("default");
+    if (matchCount === 0 && !hasFallback && !hasDefault) return false;
+    // Score: 3 = multi-condition match, 2 = single condition match, 1.5 = fallback match, 1 = default only
+    if (matchCount >= 2) m._condScore = 3;
+    else if (matchCount === 1) m._condScore = 2;
+    else if (hasFallback) m._condScore = 1.5;
+    else m._condScore = 1;
     // Cuisine filtering
     if (selectedCuisines && selectedCuisines.length > 0) {
-      const cuisine = getCuisine(m.name);
-      if (cuisine === "general") return true; // keep general, will be trimmed below
-      if (!selectedCuisines.includes(cuisine)) return false;
+      const cuisines = getCuisine(m.name);
+      if (cuisines.includes("general")) return true; // keep general, will be trimmed below
+      if (!cuisines.some(c => selectedCuisines.includes(c))) return false;
     }
     return true;
   });
@@ -898,9 +1133,9 @@ const filterMeals = (meals, selectedDiet, condition, selectedCuisines) => {
   if (selectedCuisines && selectedCuisines.length > 0) {
     const selected = filtered.filter(m => {
       const c = getCuisine(m.name);
-      return c !== "general";
+      return !c.includes("general");
     });
-    const general = filtered.filter(m => getCuisine(m.name) === "general");
+    const general = filtered.filter(m => getCuisine(m.name).includes("general"));
     // Keep enough general meals to fill gaps but not overwhelm
     const maxGeneral = Math.max(5, Math.ceil(selected.length * 0.25));
     const shuffledGeneral = general.sort(() => Math.random() - 0.5).slice(0, maxGeneral);
@@ -919,7 +1154,7 @@ const shuffle = (arr) => {
 };
 
 const DAY1_MEALS = {
-  adhd:        { breakfast: "Grilled Chicken Sausage with Sliced Mango & Strawberries", lunch: "Grilled Chicken Breast with Watermelon & Feta Salad", dinner: "Sirloin Steak with Grilled Peaches & Asparagus", snacks: "Cherries + Beef Jerky" },
+  adhd:        { breakfast: "Grilled Chicken Sausage, Sliced Mango & Strawberries", lunch: "Grilled Chicken Breast, Watermelon & Feta Salad", dinner: "Sirloin Steak & Asparagus, Grilled Peaches", snacks: "Cherries + Beef Jerky" },
   anxiety:     { breakfast: "Banana Oatmeal with Honey & Cinnamon", lunch: "Grilled Chicken & Spinach Salad", dinner: "Baked Chicken Breast with Roasted Veggies", snacks: "Greek Yogurt with Honey & Berries" },
   depression:  { breakfast: "Spinach & Mushroom Omelette with Toast", lunch: "Grilled Chicken Caesar Salad", dinner: "Lemon Herb Chicken with Rice Pilaf", snacks: "Dark Chocolate & Strawberries" },
   bipolar:     { breakfast: "Oatmeal with Flaxseed, Berries & Honey", lunch: "Grilled Chicken & Rice Bowl", dinner: "Grilled Steak with Roasted Potatoes & Broccoli", snacks: "Apple & Peanut Butter" },
@@ -966,15 +1201,26 @@ const getMealWeight = (name) => {
 // Bias pools based on calorie target + food preferences
 // Duplicates preferred meals so they appear more often after shuffle
 const biasPool = (pool, calTarget, foodPrefs, favorites, powerFoodKeywords) => {
-  // Brain-optimized: boost meals containing power food keywords
+  // Stage 4: Condition tiering — condition-specific meals dominate the pool
+  let tiered = [];
+  for (const m of pool) {
+    const score = m._condScore || 1;
+    if (score >= 3) { tiered.push(m, m, m, m, m, m); }      // multi-condition: 6×
+    else if (score === 2) { tiered.push(m, m, m, m, m); }    // single condition: 5×
+    else if (score === 1.5) { tiered.push(m, m, m); }         // fallback: 3×
+    else { tiered.push(m); }                                    // default only: 1×
+  }
+  pool = tiered;
+
+  // Brain-optimized: boost meals containing power food keywords (reduced multipliers)
   if (powerFoodKeywords && powerFoodKeywords.length > 0) {
     const boosted = [];
     for (const m of pool) {
       const lower = m.name.toLowerCase();
       const hits = powerFoodKeywords.filter(k => lower.includes(k)).length;
-      if (hits >= 2) { boosted.push(m, m, m, m); }       // 2+ power foods: 4×
-      else if (hits === 1) { boosted.push(m, m, m); }     // 1 power food: 3×
-      else { boosted.push(m); }                             // no match: keep once
+      if (hits >= 2) { boosted.push(m, m, m); }       // 2+ power foods: 3× (was 4×)
+      else if (hits === 1) { boosted.push(m, m); }     // 1 power food: 2× (was 3×)
+      else { boosted.push(m); }                         // no match: keep once
     }
     pool = boosted;
   }
@@ -1014,42 +1260,63 @@ const biasPool = (pool, calTarget, foodPrefs, favorites, powerFoodKeywords) => {
   return biased;
 };
 
-const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, foodPrefs, favorites, powerFoodKeywords) => {
-  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
-  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
-  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
-  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, condition, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+const build30DayMenu = (conditionIds, selectedDiet, calTarget, selectedCuisines, foodPrefs, favorites, powerFoodKeywords) => {
+  // Normalize conditionIds to array for multi-condition support
+  const conds = Array.isArray(conditionIds) ? conditionIds : [conditionIds || "default"];
+  const primaryCondition = conds[0] || "default";
+
+  const breakfastPool = biasPool(filterMeals(ALL_MEALS.breakfast, selectedDiet, conds, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+  const lunchPool = biasPool(filterMeals(ALL_MEALS.lunch, selectedDiet, conds, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+  const dinnerPool = biasPool(filterMeals(ALL_MEALS.dinner, selectedDiet, conds, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
+  const snackPool = biasPool(filterMeals(ALL_MEALS.snacks, selectedDiet, conds, selectedCuisines), calTarget, foodPrefs, favorites, powerFoodKeywords);
   const addSecondSnack = calTarget === "2000";
 
-  const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
-  const splitPool = (pool) => ({ early: pool.filter(m => !isLentil(m.name)), any: pool });
-  const bSplit = splitPool(breakfastPool);
-  const lSplit = splitPool(lunchPool);
-  const dSplit = splitPool(dinnerPool);
-  const sSplit = splitPool(snackPool);
-
-  const pick = (pool, count) => {
-    const shuffled = shuffle(pool);
+  // Stage 3: pickNoRepeat — sliding window guarantees minimum gap between repeats
+  const pickNoRepeat = (pool, count, windowSize) => {
+    if (pool.length === 0) return Array(count).fill("fallback");
+    const win = Math.min(windowSize || 5, pool.length - 1);
+    const available = shuffle([...pool]);
     const results = [];
-    for (let i = 0; i < count; i++) results.push(shuffled[i % shuffled.length].name);
+    const recent = []; // sliding window of recent picks
+    for (let i = 0; i < count; i++) {
+      // Filter out recently picked meals
+      const recentSet = new Set(recent);
+      let candidates = available.filter(m => !recentSet.has(m.name));
+      if (candidates.length === 0) candidates = available; // graceful degradation
+      const idx = Math.floor(Math.random() * candidates.length);
+      const picked = candidates[idx];
+      results.push(picked.name);
+      recent.push(picked.name);
+      if (recent.length > win) recent.shift();
+    }
     return results;
   };
 
-  // Build raw arrays
-  const breakfastsEarly = pick(bSplit.early, 6);
-  const lunchesEarly = pick(lSplit.early, 6);
-  const dinnersEarly = pick(dSplit.early, 6);
-  const snacksEarly = pick(sSplit.early, 6);
-  const breakfastsLate = pick(bSplit.any, 23);
-  const lunchesLate = pick(lSplit.any, 23);
-  const dinnersLate = pick(dSplit.any, 23);
-  const snacksLate = pick(sSplit.any, 23);
+  const isLentil = (name) => LENTIL_KEYWORDS.some(k => name.includes(k));
 
-  const day1Base = DAY1_MEALS[condition] || DAY1_MEALS.default;
-  const d1b = breakfastPool.find(m => m.name === day1Base.breakfast)?.name || breakfastsEarly[0];
-  const d1l = lunchPool.find(m => m.name === day1Base.lunch)?.name || lunchesEarly[0];
-  const d1d = dinnerPool.find(m => m.name === day1Base.dinner)?.name || dinnersEarly[0];
-  const d1s = snackPool.find(m => m.name === day1Base.snacks)?.name || snacksEarly[0];
+  // Filter out lentil meals for first 7 days, then use full pool for rest
+  const earlyFilter = (pool) => pool.filter(m => !isLentil(m.name));
+
+  // Pick all 29 days per slot (Day 1 is hardcoded), split early/late for lentil rule
+  const breakfastsEarly = pickNoRepeat(earlyFilter(breakfastPool), 6, 5);
+  const lunchesEarly = pickNoRepeat(earlyFilter(lunchPool), 6, 5);
+  const dinnersEarly = pickNoRepeat(earlyFilter(dinnerPool), 6, 5);
+  const snacksEarly = pickNoRepeat(earlyFilter(snackPool), 6, 5);
+  const breakfastsLate = pickNoRepeat(breakfastPool, 23, 5);
+  const lunchesLate = pickNoRepeat(lunchPool, 23, 5);
+  const dinnersLate = pickNoRepeat(dinnerPool, 23, 5);
+  const snacksLate = pickNoRepeat(snackPool, 23, 5);
+
+  const day1Base = DAY1_MEALS[primaryCondition] || DAY1_MEALS.default;
+  // Safety check Day 1 meals against diet restrictions
+  const day1Safe = (mealName, pool) => {
+    if (pool.find(m => m.name === mealName)) return mealName;
+    return pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)].name : mealName;
+  };
+  const d1b = day1Safe(day1Base.breakfast, breakfastPool);
+  const d1l = day1Safe(day1Base.lunch, lunchPool);
+  const d1d = day1Safe(day1Base.dinner, dinnerPool);
+  const d1s = day1Safe(day1Base.snacks, snackPool);
 
   // Non-gluten fallback pickers
   const nonGlutenBreakfast = breakfastPool.filter(m => !isGlutenMeal(m.name));
@@ -1061,14 +1328,13 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, fo
   };
 
   // Build a second snack pool (shuffled differently so snack2 != snack1)
-  const snacks2Pool = shuffle(snackPool);
-  const snacks2Early = pick(snackPool, 6);
-  const snacks2Late = pick(snackPool, 23);
+  const snacks2Early = pickNoRepeat(snackPool, 6, 5);
+  const snacks2Late = pickNoRepeat(snackPool, 23, 5);
 
-  return Array.from({ length: 30 }, (_, i) => {
+  const days = Array.from({ length: 30 }, (_, i) => {
     if (i === 0) {
       const day1 = { day: 1, breakfast: d1b, lunch: d1l, dinner: d1d, snacks: d1s };
-      if (addSecondSnack) day1.snacks2 = snacks2Pool.length > 0 ? snacks2Pool[0 % snacks2Pool.length].name : d1s;
+      if (addSecondSnack) day1.snacks2 = snackPool.length > 0 ? snackPool[Math.floor(Math.random() * snackPool.length)].name : d1s;
       return day1;
     }
 
@@ -1111,6 +1377,105 @@ const build30DayMenu = (condition, selectedDiet, calTarget, selectedCuisines, fo
     }
     return dayObj;
   });
+
+  // Stage 5: Weekly nutrient rules post-processing
+  // Merge rules from all selected conditions
+  const mergedRules = [];
+  const ruleMap = new Map(); // pattern string -> { pattern, min, slot }
+  conds.forEach(c => {
+    const rules = CONDITION_MEAL_RULES[c];
+    if (!rules) return;
+    rules.weeklySlots.forEach(rule => {
+      const key = rule.pattern.source;
+      if (ruleMap.has(key)) {
+        const existing = ruleMap.get(key);
+        existing.min = Math.max(existing.min, rule.min);
+        if (rule.slot === 'any' || existing.slot === 'any') existing.slot = 'any';
+      } else {
+        ruleMap.set(key, { pattern: rule.pattern, min: rule.min, slot: rule.slot });
+      }
+    });
+  });
+  ruleMap.forEach(r => mergedRules.push(r));
+
+  // For each 7-day window, check if rules are met and swap if needed
+  if (mergedRules.length > 0) {
+    const slotKeys = ['breakfast', 'lunch', 'dinner', 'snacks'];
+    const poolMap = { breakfast: breakfastPool, lunch: lunchPool, dinner: dinnerPool, snacks: snackPool };
+
+    for (let weekStart = 0; weekStart < 30; weekStart += 7) {
+      const weekEnd = Math.min(weekStart + 7, 30);
+      for (const rule of mergedRules) {
+        // Count matches in this week
+        let matchCount = 0;
+        const slotsToCheck = rule.slot === 'breakfast' ? ['breakfast'] : slotKeys.slice(0, 3); // breakfast, lunch, dinner (not snacks unless 'any')
+        if (rule.slot === 'any') slotsToCheck.push('snacks');
+
+        for (let d = weekStart; d < weekEnd; d++) {
+          for (const sl of slotsToCheck) {
+            if (days[d][sl] && rule.pattern.test(days[d][sl])) { matchCount++; break; } // count per day
+          }
+        }
+
+        // If under minimum, try to swap in matching meals
+        if (matchCount < rule.min) {
+          const deficit = rule.min - matchCount;
+          const swapSlots = rule.slot === 'breakfast' ? ['breakfast'] : ['lunch', 'dinner'];
+          // Find candidate meals from pool that match the rule
+          const matchingPool = [];
+          for (const sl of swapSlots) {
+            (poolMap[sl] || []).forEach(m => {
+              if (rule.pattern.test(m.name)) matchingPool.push({ name: m.name, slot: sl, _condScore: m._condScore || 1 });
+            });
+          }
+          if (matchingPool.length === 0) continue;
+
+          // Find days in this week that don't already match, sorted by lowest condScore
+          const swappableDays = [];
+          for (let d = weekStart; d < weekEnd; d++) {
+            if (d === 0) continue; // don't touch Day 1
+            let dayMatches = false;
+            for (const sl of slotsToCheck) {
+              if (days[d][sl] && rule.pattern.test(days[d][sl])) { dayMatches = true; break; }
+            }
+            if (!dayMatches) {
+              // Find the weakest slot to swap
+              for (const sl of swapSlots) {
+                if (days[d][sl]) {
+                  const currentMeal = poolMap[sl].find(m => m.name === days[d][sl]);
+                  swappableDays.push({ day: d, slot: sl, score: currentMeal?._condScore || 1 });
+                }
+              }
+            }
+          }
+          // Sort by lowest score (swap worst meals first)
+          swappableDays.sort((a, b) => a.score - b.score);
+
+          // Perform swaps
+          const usedNames = new Set();
+          let swapped = 0;
+          for (const swap of swappableDays) {
+            if (swapped >= deficit) break;
+            // Pick a matching meal not recently used
+            const nearby = new Set();
+            for (let nd = Math.max(0, swap.day - 5); nd <= Math.min(29, swap.day + 5); nd++) {
+              if (nd !== swap.day) {
+                slotKeys.forEach(sl => { if (days[nd][sl]) nearby.add(days[nd][sl]); });
+              }
+            }
+            const candidate = matchingPool.find(m => !nearby.has(m.name) && !usedNames.has(m.name) && m.slot === swap.slot);
+            if (candidate) {
+              days[swap.day][swap.slot] = candidate.name;
+              usedNames.add(candidate.name);
+              swapped++;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return days;
 };
 
 // ── Calorie Estimator ────────────────────────────────────────────────────────
@@ -1228,10 +1593,10 @@ const CONDITION_FOCUS = {
 };
 
 const RECIPES = {
-  "Grilled Chicken Sausage with Sliced Mango & Strawberries": { serves: 1, time: "10 min", ingredients: ["2 chicken sausage links","1 cup fresh mango, sliced","1 cup strawberries, hulled & halved","1 tsp olive oil","Pinch of sea salt"], steps: ["Heat a grill pan or skillet over medium-high heat with olive oil.","Add chicken sausage links and cook 4–5 minutes per side until golden and cooked through.","While sausage cooks, slice mango and halve strawberries and arrange on your plate.","Slice cooked sausage on the diagonal and plate alongside the fruit.","Sprinkle a pinch of sea salt over the fruit to enhance sweetness."], tip: "Buy pre-cooked chicken sausage and just slice and warm; cuts prep to 3 minutes." },
+  "Grilled Chicken Sausage, Sliced Mango & Strawberries": { serves: 1, time: "10 min", ingredients: ["2 chicken sausage links","1 cup fresh mango, sliced","1 cup strawberries, hulled & halved","1 tsp olive oil","Pinch of sea salt"], steps: ["Heat a grill pan or skillet over medium-high heat with olive oil.","Add chicken sausage links and cook 4–5 minutes per side until golden and cooked through.","While sausage cooks, slice mango and halve strawberries and arrange on your plate.","Slice cooked sausage on the diagonal and plate alongside the fruit.","Sprinkle a pinch of sea salt over the fruit to enhance sweetness."], tip: "Buy pre-cooked chicken sausage and just slice and warm; cuts prep to 3 minutes." },
   "Banana Oatmeal with Honey & Cinnamon": { serves: 1, time: "8 min", ingredients: ["½ cup rolled oats","1 cup water or milk of choice","1 ripe banana, sliced","1 tbsp honey","½ tsp cinnamon","Pinch of salt"], steps: ["Bring water or milk to a boil in a small saucepan. Add oats and pinch of salt.","Reduce heat to medium and stir frequently for 3–5 minutes until thickened to your liking.","Pour into a bowl and top with sliced banana.","Drizzle honey over the top and dust generously with cinnamon.","Stir gently and eat while warm."], tip: "Use a very ripe banana; the natural sweetness means you need less honey." },
   "Spinach & Mushroom Omelette with Toast": { serves: 1, time: "12 min", ingredients: ["3 eggs","1 cup fresh spinach","½ cup mushrooms, sliced","1 tbsp butter","2 tbsp cheese (optional)","Salt & pepper","2 slices whole grain toast"], steps: ["Beat eggs with salt and pepper in a bowl.","Sauté mushrooms in butter over medium-high heat until golden, 3–4 minutes. Add spinach and wilt 1 minute.","Push vegetables to the side of the pan. Pour in eggs.","Once edges set, add cheese if using. Fold omelette over the filling.","Cook 1 more minute. Slide onto plate and serve with toast."], tip: "Don't overcook: an omelette should be just barely set inside, not rubbery." },
-  "Grilled Chicken Breast with Watermelon & Feta Salad": { serves: 1, time: "20 min", ingredients: ["1 chicken breast","2 cups watermelon, cubed","¼ cup feta cheese, crumbled","Handful fresh mint leaves","1 tbsp olive oil","Juice of ½ lime","Salt & pepper"], steps: ["Season chicken breast with salt, pepper, and olive oil.","Grill or cook in a pan over medium-high heat, 6–7 minutes per side until cooked through. Rest 5 minutes.","Cube watermelon and place in a bowl with crumbled feta and torn mint leaves.","Drizzle lime juice and a little olive oil over the salad.","Slice chicken and serve alongside or over the salad."], tip: "Let the chicken rest before slicing; it keeps all the juices in." },
+  "Grilled Chicken Breast, Watermelon & Feta Salad": { serves: 1, time: "20 min", ingredients: ["1 chicken breast","2 cups watermelon, cubed","¼ cup feta cheese, crumbled","Handful fresh mint leaves","1 tbsp olive oil","Juice of ½ lime","Salt & pepper"], steps: ["Season chicken breast with salt, pepper, and olive oil.","Grill or cook in a pan over medium-high heat, 6–7 minutes per side until cooked through. Rest 5 minutes.","Cube watermelon and place in a bowl with crumbled feta and torn mint leaves.","Drizzle lime juice and a little olive oil over the salad.","Slice chicken and serve alongside or over the salad."], tip: "Let the chicken rest before slicing; it keeps all the juices in." },
   "Oatmeal with Flaxseed, Berries & Honey": { serves: 1, time: "8 min", ingredients: ["½ cup rolled oats","1 cup water or almond milk","1 tbsp ground flaxseed","½ cup mixed berries (fresh or frozen)","1 tbsp honey","Pinch of cinnamon and salt"], steps: ["Cook oats in water or milk over medium heat, stirring, 4–5 minutes.","Stir in ground flaxseed during the last minute of cooking.","Pour into bowl. Top with berries.","Drizzle honey over top and add a pinch of cinnamon.","Let sit 1 minute for the berries to warm slightly if using frozen."], tip: "Ground flaxseed absorbs into the oatmeal invisibly; you get all the omega-3s without any taste change." },
   "Grilled Steak with Roasted Potatoes & Broccoli": { serves: 1, time: "35 min", ingredients: ["6–8 oz sirloin steak","2 medium potatoes, cubed","2 cups broccoli florets","2 tbsp olive oil","Salt, pepper, garlic powder","1 tsp butter","Fresh parsley"], steps: ["Preheat oven to 425°F. Toss potato cubes with 1 tbsp olive oil, salt, garlic powder.","Roast potatoes 15 minutes. Add broccoli tossed in remaining olive oil, roast another 15 minutes.","Season steak well with salt and pepper. Let sit at room temp 10 minutes.","Grill or pan-sear steak over high heat, 3–4 minutes per side for medium.","Rest steak 5 minutes. Slice against the grain. Serve with vegetables. Top with butter and parsley."], tip: "Slicing against the grain is the single biggest difference between tough and tender steak." },
   "Warm Oatmeal with Banana & Honey": { serves: 1, time: "7 min", ingredients: ["½ cup rolled oats","1 cup water or milk of choice","1 ripe banana","1 tbsp honey","Pinch of salt","Optional: pinch of nutmeg"], steps: ["Bring liquid to a gentle boil. Add oats and salt.","Cook over medium heat, stirring, 4–5 minutes until thick and creamy.","Slice banana into rounds.","Pour oatmeal into a warm bowl. Arrange banana slices on top.","Drizzle honey generously. Add nutmeg if using. Eat warm."], tip: "If your oats are too thick, stir in a splash of warm water or milk before serving." },
@@ -1241,22 +1606,22 @@ const RECIPES = {
   "Plain Scrambled Eggs with Toast": { serves: 1, time: "7 min", ingredients: ["3 eggs","1 tbsp butter","Salt to taste","2 slices bread, toasted","Optional: a little shredded cheese"], steps: ["Crack eggs into a bowl and whisk with a pinch of salt.","Melt butter in a non-stick pan over low heat.","Add eggs and stir constantly with a silicone spatula.","Cook very slowly, 3–4 minutes, until just set and creamy.","Remove from heat while slightly underdone. Toast will finish eating alongside.","Serve immediately on or beside toast."], tip: "Low heat, constant stirring, remove early. These three rules make perfect scrambled eggs every time." },
   "Dark Chocolate & Strawberries": { serves: 1, time: "5 min", ingredients: ["1 oz dark chocolate (70%+ cacao), broken into pieces","6–8 fresh strawberries, washed","Optional: pinch of sea salt flakes"], steps: ["Wash and dry strawberries; water prevents chocolate from sticking if dipping.","Break dark chocolate into pieces and arrange on a small plate.","Place strawberries alongside.","If you like, melt chocolate in a microwave 30 seconds at a time, stirring, and dip berries.","Finish with a tiny pinch of flaky sea salt on the chocolate; it amplifies the flavor dramatically."], tip: "Microwave chocolate in 15-second bursts after the first 30; it burns fast when nearly melted." },
   "Grilled Steak with Roasted Sweet Potato & Broccoli": { serves: 1, time: "35 min", ingredients: ["6–8 oz sirloin or strip steak","1 medium sweet potato, cubed","2 cups broccoli florets","2 tbsp olive oil","Salt, pepper, garlic powder","1 tsp butter"], steps: ["Preheat oven to 425°F. Toss sweet potato cubes with 1 tbsp olive oil, salt, garlic powder.","Roast sweet potato 15 minutes. Add broccoli with remaining olive oil, roast 15 more minutes.","Season steak generously with salt and pepper.","Heat a pan over high heat until very hot. Add butter.","Sear steak 3–4 minutes per side for medium. Rest 5 minutes before slicing.","Serve steak sliced against the grain alongside roasted vegetables."], tip: "Don't move the steak for the first 3 minutes; you want a proper crust to form." },
-  "Sirloin Steak with Grilled Peaches & Asparagus": { serves: 1, time: "25 min", ingredients: ["6-8 oz sirloin","1 peach, halved","1 bunch asparagus, trimmed","1 tbsp olive oil","Salt, pepper, balsamic glaze"], steps: ["Season steak. Sear in hot pan 3-4 min per side. Rest.","Grill peach halves cut-side down in same pan 3 min until caramelized.","Toss asparagus in oil, roast at 425F 10-12 min.","Serve steak with grilled peach and asparagus. Drizzle balsamic."], tip: "Grill marks on peaches add incredible depth; don't skip this step." },
+  "Sirloin Steak & Asparagus, Grilled Peaches": { serves: 1, time: "25 min", ingredients: ["6-8 oz sirloin","1 peach, halved","1 bunch asparagus, trimmed","1 tbsp olive oil","Salt, pepper, balsamic glaze"], steps: ["Season steak. Sear in hot pan 3-4 min per side. Rest.","Grill peach halves cut-side down in same pan 3 min until caramelized.","Toss asparagus in oil, roast at 425F 10-12 min.","Serve steak with grilled peach and asparagus. Drizzle balsamic."], tip: "Grill marks on peaches add incredible depth; don't skip this step." },
   "Baked Chicken Breast with Roasted Veggies": { serves: 1, time: "30 min", ingredients: ["1 chicken breast","2 cups mixed veggies: zucchini, bell pepper, onion, tomato","2 tbsp olive oil","Salt, pepper, garlic powder, Italian herbs"], steps: ["Preheat oven 425F. Toss veggies with oil and salt.","Rub chicken with remaining oil and seasonings.","Roast chicken and veggies together 22-25 min.","Rest chicken 5 min before serving."], tip: "Cut vegetables into similar sizes so they all cook evenly." },
   "Lemon Herb Chicken with Rice Pilaf": { serves: 1, time: "30 min", ingredients: ["1 chicken breast or 2 thighs","1 cup long grain white or jasmine rice","1¾ cup chicken broth","1 tbsp butter","Juice and zest of 1 lemon","2 garlic cloves, minced","Fresh or dried thyme, parsley","Salt & pepper, olive oil"], steps: ["For pilaf: melt butter in a saucepan, toast rice 2 minutes stirring. Add broth, bring to boil, reduce to low, cover 18 minutes.","Season chicken with lemon zest, garlic, thyme, salt, pepper, and olive oil. Marinate 10 minutes if possible.","Cook chicken in a pan over medium heat, 6–7 minutes per side until golden and cooked through.","Fluff rice with a fork. Stir in fresh parsley and lemon juice.","Serve chicken over pilaf with extra lemon squeezed on top."], tip: "Toasting the rice in butter before adding liquid is what makes pilaf taste restaurant-quality." },
   "Grilled Salmon with Asparagus & Quinoa": { serves: 1, time: "25 min", ingredients: ["6 oz salmon fillet","1 bunch asparagus, trimmed","1 cup cooked quinoa","1 tbsp olive oil","Juice of 1 lemon","Salt, pepper, garlic powder"], steps: ["Cook quinoa per package. Toss asparagus with oil, salt. Roast at 425F 12 min.","Season salmon with oil, garlic, salt, pepper. Pan-sear 4 min per side.","Serve over quinoa with asparagus. Squeeze lemon over everything."], tip: "Salmon is done when it flakes easily with a fork; don't wait for it to look fully opaque." },
 };
 
 const RECIPES_EXTENDED = {
-  "Chicken Sausage Patties with Sliced Peaches & Honeydew": { serves:1, time:"12 min", ingredients:["3 chicken sausage patties","1 ripe peach, sliced","1 cup honeydew melon, cubed","1 tsp olive oil","Pinch of cinnamon"], steps:["Heat olive oil in a skillet over medium heat.","Cook patties 4-5 min per side until golden.","Slice peach and cube honeydew while patties cook.","Dust fruit lightly with cinnamon.","Serve patties alongside the fruit."], tip:"Frozen peaches work great; thaw overnight in the fridge." },
-  "Ground Turkey Bowl with Sautéed Spinach & Sliced Kiwi": { serves:1, time:"15 min", ingredients:["4 oz ground turkey","2 cups fresh spinach","2 kiwis, peeled and sliced","1 garlic clove, minced","1 tbsp olive oil","Salt, pepper"], steps:["Heat oil, cook garlic 30 sec.","Add turkey, cook 6-7 min until browned. Season.","Push aside, wilt spinach 1-2 min.","Transfer to bowl and serve kiwi alongside."], tip:"Kiwi is best eaten raw; vitamin C is most potent uncooked." },
-  "Steak & Egg Scramble with Sliced Cantaloupe & Grapes": { serves:1, time:"15 min", ingredients:["4 oz sirloin, thinly sliced","3 eggs","1 cup cantaloupe, cubed","1/2 cup grapes","1 tbsp butter","Salt, pepper, garlic powder"], steps:["Season steak slices, sear in hot skillet 2-3 min. Set aside.","Reduce heat. Add butter, scramble eggs slowly.","Fold steak into eggs just before they set.","Serve with cantaloupe and grapes on the side."], tip:"Thin steak strips cook in seconds; don't walk away from the pan." },
+  "Chicken Sausage Patties, Sliced Peaches & Honeydew": { serves:1, time:"12 min", ingredients:["3 chicken sausage patties","1 ripe peach, sliced","1 cup honeydew melon, cubed","1 tsp olive oil","Pinch of cinnamon"], steps:["Heat olive oil in a skillet over medium heat.","Cook patties 4-5 min per side until golden.","Slice peach and cube honeydew while patties cook.","Dust fruit lightly with cinnamon.","Serve patties alongside the fruit."], tip:"Frozen peaches work great; thaw overnight in the fridge." },
+  "Ground Turkey & Sautéed Spinach Bowl, Sliced Kiwi": { serves:1, time:"15 min", ingredients:["4 oz ground turkey","2 cups fresh spinach","2 kiwis, peeled and sliced","1 garlic clove, minced","1 tbsp olive oil","Salt, pepper"], steps:["Heat oil, cook garlic 30 sec.","Add turkey, cook 6-7 min until browned. Season.","Push aside, wilt spinach 1-2 min.","Transfer to bowl and serve kiwi alongside."], tip:"Kiwi is best eaten raw; vitamin C is most potent uncooked." },
+  "Steak & Egg Scramble, Sliced Cantaloupe & Grapes": { serves:1, time:"15 min", ingredients:["4 oz sirloin, thinly sliced","3 eggs","1 cup cantaloupe, cubed","1/2 cup grapes","1 tbsp butter","Salt, pepper, garlic powder"], steps:["Season steak slices, sear in hot skillet 2-3 min. Set aside.","Reduce heat. Add butter, scramble eggs slowly.","Fold steak into eggs just before they set.","Serve with cantaloupe and grapes on the side."], tip:"Thin steak strips cook in seconds; don't walk away from the pan." },
   "Whole Grain Toast with Peanut Butter & Banana": { serves:1, time:"5 min", ingredients:["2 slices whole grain bread","2 tbsp peanut butter","1 banana, sliced"], steps:["Toast bread.","Spread peanut butter generously.","Top with banana slices."], tip:"Mash the banana into the peanut butter for a different but equally great texture." },
   "Scrambled Eggs & Avocado on Toast": { serves:1, time:"10 min", ingredients:["3 eggs","1/2 avocado","2 slices whole grain toast","1 tbsp butter","Salt, pepper, chili flakes"], steps:["Scramble eggs in butter over medium-low heat until creamy.","Toast bread.","Slice or mash avocado on toast.","Top with eggs, salt, pepper, and chili flakes."], tip:"Add avocado after the eggs; it oxidizes quickly when warm." },
-  "Pan-Seared Steak with Roasted Sweet Potato & Fresh Blueberry Side": { serves:1, time:"30 min", ingredients:["6-8 oz sirloin steak","1 medium sweet potato, cubed","1/2 cup fresh blueberries","1 tbsp olive oil","1 tsp butter","Salt, pepper, garlic powder"], steps:["Roast sweet potato at 425F 22-25 min with oil and garlic.","Pat steak dry, season generously with salt and pepper.","Heat pan until smoking. Add butter. Sear 3-4 min per side.","Rest steak 5 min before slicing.","Serve with sweet potato and fresh blueberries on the side."], tip:"The blueberries are eaten fresh; their antioxidants are most potent uncooked." },
-  "Baked Chicken Thighs with Roasted Pineapple & Quinoa": { serves:1, time:"35 min", ingredients:["2 chicken thighs, boneless","3 pineapple rings","1 cup cooked quinoa","1 tbsp olive oil","Salt, pepper, garlic powder, smoked paprika"], steps:["Season chicken with oil and spices. Roast at 425F 25-28 min.","Add pineapple rings to pan last 8 min until caramelized.","Serve over quinoa."], tip:"Caramelized pineapple in the pan absorbs the chicken juices: it's incredible." },
-  "Ribeye Steak with Roasted Broccoli & Mango Salsa": { serves:1, time:"25 min", ingredients:["6-8 oz ribeye","2 cups broccoli florets","1 mango, diced","1/4 red onion, diced","Juice of 1 lime","Cilantro","1 tbsp olive oil","Salt, pepper"], steps:["Roast broccoli at 425F with oil and salt 18-20 min.","Make mango salsa: mango, onion, lime, cilantro.","Season ribeye. Sear in smoking hot pan 3-4 min per side. Rest 5 min.","Serve ribeye with broccoli and mango salsa."], tip:"Ribeye has enough marbling to need nothing but salt, pepper, and a hot pan." },
-  "Steak Tacos with Pineapple Salsa & Avocado": { serves:1, time:"20 min", ingredients:["5 oz sirloin","3-4 small tortillas","1 cup pineapple, finely diced","1/4 onion, diced","Jalapeno, cilantro, lime","1 avocado, sliced","Salt, pepper, cumin"], steps:["Season steak with cumin, salt, pepper. Sear 3-4 min per side. Rest and slice thin.","Mix pineapple, onion, jalapeno, cilantro, lime for salsa.","Warm tortillas. Fill with steak, salsa, avocado."], tip:"Slice steak against the grain for the most tender taco filling." },
+  "Pan-Seared Steak & Roasted Sweet Potato, Fresh Blueberries": { serves:1, time:"30 min", ingredients:["6-8 oz sirloin steak","1 medium sweet potato, cubed","1/2 cup fresh blueberries","1 tbsp olive oil","1 tsp butter","Salt, pepper, garlic powder"], steps:["Roast sweet potato at 425F 22-25 min with oil and garlic.","Pat steak dry, season generously with salt and pepper.","Heat pan until smoking. Add butter. Sear 3-4 min per side.","Rest steak 5 min before slicing.","Serve with sweet potato and fresh blueberries on the side."], tip:"The blueberries are eaten fresh; their antioxidants are most potent uncooked." },
+  "Baked Chicken Thighs & Quinoa, Roasted Pineapple": { serves:1, time:"35 min", ingredients:["2 chicken thighs, boneless","3 pineapple rings","1 cup cooked quinoa","1 tbsp olive oil","Salt, pepper, garlic powder, smoked paprika"], steps:["Season chicken with oil and spices. Roast at 425F 25-28 min.","Add pineapple rings to pan last 8 min until caramelized.","Serve over quinoa."], tip:"Caramelized pineapple in the pan absorbs the chicken juices: it's incredible." },
+  "Ribeye Steak & Roasted Broccoli, Mango Salsa": { serves:1, time:"25 min", ingredients:["6-8 oz ribeye","2 cups broccoli florets","1 mango, diced","1/4 red onion, diced","Juice of 1 lime","Cilantro","1 tbsp olive oil","Salt, pepper"], steps:["Roast broccoli at 425F with oil and salt 18-20 min.","Make mango salsa: mango, onion, lime, cilantro.","Season ribeye. Sear in smoking hot pan 3-4 min per side. Rest 5 min.","Serve ribeye with broccoli and mango salsa."], tip:"Ribeye has enough marbling to need nothing but salt, pepper, and a hot pan." },
+  "Steak Tacos & Avocado, Pineapple Salsa": { serves:1, time:"20 min", ingredients:["5 oz sirloin","3-4 small tortillas","1 cup pineapple, finely diced","1/4 onion, diced","Jalapeno, cilantro, lime","1 avocado, sliced","Salt, pepper, cumin"], steps:["Season steak with cumin, salt, pepper. Sear 3-4 min per side. Rest and slice thin.","Mix pineapple, onion, jalapeno, cilantro, lime for salsa.","Warm tortillas. Fill with steak, salsa, avocado."], tip:"Slice steak against the grain for the most tender taco filling." },
   "Baked Chicken Tenders with Rice & Corn": { serves:1, time:"25 min", ingredients:["4–5 chicken tenders","½ cup breadcrumbs","1 egg, beaten","Salt, pepper, garlic powder","1 cup cooked white rice","½ cup corn (canned or frozen)","1 tbsp butter"], steps:["Preheat oven to 400°F. Line a baking sheet with parchment.","Season breadcrumbs with salt, pepper, and garlic powder.","Dip each tender in beaten egg, then press into breadcrumbs.","Place on baking sheet and bake 18–20 minutes, flipping halfway, until golden.","While tenders bake, cook rice per package. Warm corn with a little butter.","Serve tenders alongside rice and corn."], tip:"A wire rack on the baking sheet makes tenders crispy on both sides without flipping." },
   "Grilled Chicken & Spinach Salad": { serves:1, time:"20 min", ingredients:["1 chicken breast","3 cups baby spinach","1/2 cup cherry tomatoes, halved","1/4 red onion, sliced","2 tbsp olive oil","1 tbsp lemon juice","Salt and pepper"], steps:["Cook chicken 6-7 min per side. Rest and slice.","Toss spinach, tomatoes, onion with olive oil and lemon.","Top with sliced chicken."], tip:"Add pumpkin seeds for extra magnesium and crunch." },
   "Baked Salmon with Mashed Sweet Potato & Green Beans": { serves:1, time:"30 min", ingredients:["6 oz salmon fillet","1 large sweet potato, peeled and cubed","2 cups green beans","1 tbsp butter","Salt, pepper, garlic powder","Lemon juice"], steps:["Boil sweet potato until tender 15 min. Mash with butter and salt.","Season salmon and bake at 400F 12-15 min.","Steam green beans 4-5 min.","Serve salmon with sweet potato mash and green beans. Squeeze lemon."], tip:"Don't overcook salmon; it goes from perfect to dry very quickly at the 15-minute mark." },
@@ -2964,6 +3329,62 @@ const generateRecipe = (meal) => {
     return { serves: 2, time: isLentil ? "30 min" : "50 min", ingredients: ing, steps: ["Dry-sauté onions in a heavy pot over medium heat for 10–12 minutes, stirring often, until deeply caramelized and reduced by half. This is the foundation. Don't rush it.","Add butter, garlic, and ginger. Cook 2 minutes.","Stir in berbere spice and tomato paste. Cook 3 minutes until fragrant and oil begins to separate.",isLentil ? "Add lentils and water. Bring to a boil, reduce to a simmer, and cook 20–25 minutes until lentils are soft and stew is thick." : "Score chicken pieces with shallow cuts. Add to the pot and coat with sauce. Add ½ cup water.","Cover and simmer " + (isLentil ? "" : "30–35 minutes until chicken is tender and cooked through."),isLentil ? "" : "Nestle peeled hard-boiled eggs into the stew for the last 10 minutes to absorb flavor.","Season with salt. Serve over rice or with injera for scooping."].filter(Boolean), tip: "The caramelized onions are the secret to Ethiopian cooking. Cook them until they're dark golden. This takes real patience but creates incredible depth of flavor.", nutrition: ["Berbere spice contains turmeric, fenugreek, and cardamom, all anti-inflammatory","Slow-cooked onions release quercetin, a powerful neuroprotective flavonoid",isLentil ? "Red lentils provide folate and iron for serotonin and dopamine synthesis" : "Chicken provides tryptophan and tyrosine for neurotransmitter production","Ginger contains gingerols that reduce neuroinflammation and improve circulation"] };
   }
 
+  // ── Italian dedicated recipes ──────────────────────────────────────────
+
+  // Caprese Egg Cups
+  if (hasAny("caprese egg","caprese cup")) {
+    return { serves: 1, time: "20 min", ingredients: ["3 large eggs","4 oz fresh mozzarella, sliced or cubed","1 cup cherry tomatoes, halved","¼ cup fresh basil leaves, torn","1 tbsp extra virgin olive oil or cooking spray","Salt and freshly cracked black pepper","Optional: balsamic glaze for drizzle","Equipment: standard muffin tin (or 3 small oven-safe ramekins)"], steps: ["Preheat oven to 375°F. Generously grease 3 wells of a standard muffin tin with olive oil or cooking spray. The muffin tin acts as individual baking cups that hold the egg, cheese, and tomato together while they cook.","Place a slice or a few cubes of mozzarella at the bottom of each greased muffin well. This creates a melted cheese base.","Tuck 3–4 cherry tomato halves around the edges of each well, cut-side facing inward, pressing them gently against the sides.","Carefully crack one egg into the center of each well, on top of the cheese and between the tomatoes.","Season each cup with salt and pepper. Drizzle a few drops of olive oil over each egg.","Bake 12–15 minutes until the egg whites are fully set and opaque but the yolks still jiggle slightly when the pan is shaken.","Let cool in the tin for 2 minutes — this makes them easier to remove. Run a butter knife or small spatula around the edges of each cup to loosen.","Gently lift each egg cup out onto a plate. Top with torn fresh basil and a drizzle of balsamic glaze if desired."], tip: "The muffin tin is the secret — it holds everything in a neat, self-contained cup shape. Grease well so the egg doesn't stick. If you prefer fully set yolks, bake 2–3 extra minutes. Room-temperature eggs cook more evenly than cold ones.", nutrition: ["Eggs provide choline for acetylcholine production (memory & focus)","Tomatoes deliver lycopene, a powerful antioxidant that protects brain cells","Fresh mozzarella provides calcium and B12 for nerve signaling","Basil contains eugenol and linalool with calming, anti-anxiety effects"] };
+  }
+
+  // Egg & Prosciutto Breakfast Wrap
+  if (has("prosciutto") && hasAny("wrap","breakfast")) {
+    return { serves: 1, time: "12 min", ingredients: ["2 large eggs","2 oz thinly sliced prosciutto (about 4 slices)","1 large flour tortilla or whole wheat wrap","1 cup fresh arugula","1 tbsp extra virgin olive oil","1 tbsp cream cheese or goat cheese, softened (optional)","Salt and freshly cracked black pepper","Pinch of red pepper flakes (optional)"], steps: ["Crack eggs into a bowl, season with salt and pepper, and whisk until uniform.","Heat ½ tbsp olive oil in a non-stick skillet over medium heat.","Pour in the eggs and cook, gently stirring with a spatula, for 2–3 minutes until soft-scrambled with large, creamy curds. Remove from heat while still slightly wet — they'll finish cooking from residual heat.","Warm the tortilla in the same skillet for 20–30 seconds per side until pliable.","Lay the tortilla flat. If using cream cheese, spread it down the center.","Layer prosciutto slices across the center of the wrap, then top with the scrambled eggs.","Add a generous handful of fresh arugula on top. Drizzle with remaining olive oil and a pinch of red pepper flakes.","Fold the bottom edge up, then fold both sides in and roll tightly into a wrap. Slice in half on the diagonal."], tip: "Prosciutto is already salty, so go easy on salt in the eggs. The peppery arugula and rich prosciutto are a classic Italian pairing — don't skip the arugula, it makes the wrap.", nutrition: ["Eggs provide choline, the building block for acetylcholine (memory and focus)","Prosciutto delivers B12 and iron for nerve function and oxygen delivery to the brain","Arugula is rich in nitrates that improve blood flow to the brain","Olive oil provides oleocanthal with anti-inflammatory neuroprotective effects"] };
+  }
+
+  // Prosciutto-Wrapped Mozzarella (snack)
+  if (has("prosciutto") && has("mozzarella")) {
+    return { serves: 1, time: "5 min", ingredients: ["2 oz thinly sliced prosciutto (about 4 slices)","4 oz fresh mozzarella (ciliegine or sliced)","4 fresh figs, halved (or substitute dried figs or melon)","1 tsp extra virgin olive oil","Freshly cracked black pepper","Optional: honey drizzle or balsamic glaze"], steps: ["Tear or slice mozzarella into 4 equal pieces.","Wrap each piece of mozzarella with a slice of prosciutto, tucking the ends underneath.","Arrange the wraps on a plate with halved figs alongside.","Drizzle with olive oil and a crack of black pepper.","If desired, finish with a light drizzle of honey or balsamic glaze for sweetness."], tip: "Use fresh mozzarella at room temperature for the best flavor and texture. The saltiness of the prosciutto against the creamy cheese and sweet figs is a perfect balance.", nutrition: ["Prosciutto provides B12 and iron for neurotransmitter production","Fresh mozzarella delivers calcium and B12 for nerve signaling","Figs are rich in magnesium which supports GABA production and calm","Olive oil contains polyphenols that reduce neuroinflammation"] };
+  }
+
+  // Polenta Bowl
+  if (has("polenta") && !has("cacciatore")) {
+    return { serves: 1, time: "25 min", ingredients: ["½ cup coarse-ground polenta (cornmeal)","2 cups water","½ cup chicken or vegetable broth","2 large eggs","2 cups fresh greens (spinach, kale, or Swiss chard), roughly chopped","2 cloves garlic, minced","2 tbsp grated Parmesan, plus extra for serving","1 tbsp butter","1 tbsp extra virgin olive oil","Salt and freshly cracked black pepper","Pinch of nutmeg (optional)"], steps: ["Bring water and broth to a boil in a medium saucepan. Add a generous pinch of salt.","Slowly pour the polenta into the boiling liquid in a thin stream, whisking constantly to prevent lumps.","Reduce heat to low. Cook 15–18 minutes, stirring every few minutes, until the polenta is thick, creamy, and pulls away from the sides of the pot.","Stir in butter and Parmesan. Season with salt, pepper, and a pinch of nutmeg. Cover and set aside.","While the polenta cooks, heat olive oil in a skillet over medium heat. Add garlic and cook 30 seconds.","Add the greens and sauté 2–3 minutes until wilted and tender. Season with salt and pepper. Set aside.","In the same skillet, cook eggs to your preference — sunny-side up or over-easy, keeping the yolks runny.","Spoon the creamy polenta into a bowl. Top with the sautéed greens, then place the eggs on top. Finish with extra Parmesan and cracked pepper."], tip: "The broth mixed with water gives the polenta more flavor than water alone. Stir often to avoid lumps, and don't rush it — polenta needs time to get creamy. A runny egg yolk acts as a built-in sauce.", nutrition: ["Polenta provides slow-release complex carbohydrates for steady brain energy","Eggs deliver choline for acetylcholine production (memory and focus)","Dark leafy greens are rich in folate for serotonin and dopamine synthesis","Parmesan provides calcium and B12 for nerve signaling and myelin health"] };
+  }
+
+  // Spinach & Mozzarella Frittata
+  if (has("frittata")) {
+    return { serves: 2, time: "25 min", ingredients: ["6 large eggs","2 tbsp whole milk or cream","2 cups fresh baby spinach","4 oz fresh mozzarella, torn into small pieces","1 cup cherry tomatoes, halved","2 cloves garlic, minced","½ small onion, diced","1 tbsp extra virgin olive oil","1 tbsp butter","3 tbsp grated Parmesan","½ tsp dried oregano","¼ tsp red pepper flakes (optional)","Salt and freshly cracked black pepper","Fresh basil leaves for garnish"], steps: ["Position an oven rack 6 inches from the broiler element. Preheat the broiler to high.","In a medium bowl, whisk eggs with milk, 2 tbsp of the Parmesan, oregano, red pepper flakes, salt, and pepper until well combined and slightly frothy.","Heat olive oil and butter in a 10-inch oven-safe skillet (cast iron works best) over medium heat until the butter foams.","Add diced onion and cook 3–4 minutes until softened and translucent. Add garlic and cook 30 seconds until fragrant.","Add spinach in handfuls, stirring until each batch wilts down — about 2 minutes total. Season lightly with salt.","Arrange cherry tomato halves cut-side up across the spinach, spacing them evenly.","Pour the egg mixture evenly over the vegetables. Gently shake the pan to distribute. Do not stir.","Dot torn mozzarella pieces across the surface. Sprinkle the remaining 1 tbsp Parmesan over the top.","Cook undisturbed on the stovetop over medium-low heat for 6–7 minutes, until the edges are set and the center still jiggles slightly.","Transfer the skillet to the broiler. Broil 2–3 minutes until the top is puffed, golden, and the mozzarella is bubbling.","Remove from oven (handle will be hot — use a towel). Let rest 3 minutes in the pan.","Run a spatula around the edges and slide the frittata onto a cutting board. Top with torn fresh basil, slice into wedges, and serve."], tip: "Two keys to a perfect frittata: don't stir the eggs once they're in the pan, and use medium-low heat so the bottom doesn't brown before the center sets. The broiler finishes the top. Always use an oven-safe skillet — cast iron gives the best crust.", nutrition: ["Spinach provides folate essential for serotonin and dopamine synthesis","Eggs deliver choline, the building block for acetylcholine (memory and focus)","Cherry tomatoes provide lycopene that protects brain cells from oxidative damage","Mozzarella supplies calcium and B12 for nerve signaling and myelin production","Olive oil contains oleocanthal with anti-inflammatory effects similar to ibuprofen"] };
+  }
+
+  // Caprese Salad
+  if (has("caprese salad")) {
+    return { serves: 1, time: "10 min", ingredients: ["8 oz fresh mozzarella, sliced ¼-inch thick","2 large ripe tomatoes, sliced ¼-inch thick","¼ cup fresh basil leaves (whole)","2 tbsp extra virgin olive oil","1 tbsp balsamic glaze or aged balsamic vinegar","Flaky sea salt and cracked black pepper"], steps: ["Slice mozzarella and tomatoes to the same thickness — about ¼ inch.","Arrange alternating slices of tomato and mozzarella in a circle on a plate, overlapping slightly.","Tuck whole basil leaves between each pair of slices.","Drizzle generously with extra virgin olive oil and balsamic glaze.","Finish with flaky sea salt and cracked black pepper. Serve immediately at room temperature."], tip: "Caprese lives or dies by ingredient quality. Use the best mozzarella (burrata is even better), peak-season tomatoes, and real extra virgin olive oil.", nutrition: ["Fresh mozzarella provides calcium and B12 for nerve signaling","Tomatoes deliver lycopene, a fat-soluble antioxidant the brain absorbs better with olive oil","Basil contains eugenol with natural anti-anxiety properties","Extra virgin olive oil provides oleic acid that supports myelin sheath integrity"] };
+  }
+
+  // Chicken Parmesan
+  if (hasAny("chicken parmesan","chicken parm")) {
+    return { serves: 1, time: "30 min", ingredients: ["1 boneless skinless chicken breast, pounded to ½-inch thickness","⅓ cup whole wheat breadcrumbs or panko","2 tbsp grated Parmesan","1 egg, beaten","½ cup marinara sauce","¼ cup shredded mozzarella","1 tbsp olive oil","½ tsp garlic powder","½ tsp dried oregano","Salt and pepper","Side: roasted broccoli or side salad"], steps: ["Preheat oven to 400°F. Pound chicken breast to even ½-inch thickness for uniform cooking.","Mix breadcrumbs with Parmesan, garlic powder, oregano, salt, and pepper.","Dip chicken in beaten egg, then press into the breadcrumb mixture on both sides.","Heat olive oil in an oven-safe skillet over medium-high. Sear chicken 3 minutes per side until golden.","Spoon marinara sauce over the chicken. Top with shredded mozzarella.","Transfer skillet to oven. Bake 12–15 minutes until chicken reaches 165°F and cheese is bubbly.","Let rest 3 minutes before serving with roasted broccoli or salad."], tip: "Pounding the chicken to even thickness is the most important step. It ensures the center is cooked through without drying out the edges.", nutrition: ["Chicken provides lean protein and tryptophan for serotonin synthesis","Tomato marinara delivers lycopene for brain cell protection","Parmesan provides B12 and calcium for nerve function","Olive oil adds anti-inflammatory oleocanthal"] };
+  }
+
+  // Bruschetta
+  if (has("bruschetta")) {
+    return { serves: 1, time: "15 min", ingredients: ["4 slices crusty Italian bread or baguette, sliced ½-inch thick","2 cups ripe cherry or Roma tomatoes, diced small","2 cloves garlic (1 whole for rubbing, 1 minced for topping)","¼ cup fresh basil, chiffonade (thinly sliced)","2 tbsp extra virgin olive oil, plus more for brushing","1 tsp balsamic vinegar","Flaky sea salt and black pepper"], steps: ["Dice tomatoes and combine with minced garlic, basil, olive oil, and balsamic vinegar. Season with salt and pepper. Let marinate 10 minutes.","Toast or grill bread slices until golden and crispy on both sides.","While still warm, rub each slice with the cut side of a halved garlic clove. The rough toast surface acts as a grater.","Brush lightly with olive oil.","Spoon the tomato mixture generously onto each toast. Let some juices soak in.","Finish with a drizzle of olive oil and flaky salt. Serve immediately."], tip: "The bread must be toasted right before serving — soggy bruschetta is a sin. Rubbing raw garlic on hot toast is the secret to authentic flavor.", nutrition: ["Tomatoes provide lycopene, better absorbed with the olive oil fat","Garlic delivers allicin which improves cerebral blood flow","Basil contains linalool with calming, anti-anxiety properties","Olive oil provides polyphenols that reduce neuroinflammation"] };
+  }
+
+  // Risotto
+  if (has("risotto")) {
+    const ing = ["1 cup Arborio rice","4 cups warm chicken or vegetable broth","½ cup dry white wine (or extra broth)","1 small onion or 2 shallots, finely diced","2 tbsp butter","1 tbsp olive oil","½ cup grated Parmesan","Salt and pepper"];
+    if (has("mushroom")) ing.push("8 oz mixed mushrooms (cremini, shiitake), sliced","1 tbsp fresh thyme leaves");
+    if (has("asparagus")) ing.push("1 bunch asparagus, trimmed and cut into 1-inch pieces");
+    if (protein === "salmon" || has("salmon")) ing.push("1 salmon fillet (6 oz), skin-on");
+    return { serves: 2, time: "35 min", ingredients: ing, steps: ["Keep broth warm in a separate pot on low heat. This is essential — cold broth stops the cooking.",has("salmon") ? "Season salmon with salt and pepper. Pan-sear skin-side down 4 minutes, flip 3 minutes. Set aside and flake." : "",has("mushroom") ? "Sauté mushrooms in 1 tbsp butter over high heat until golden, about 5 minutes. Set aside." : "","Heat olive oil and 1 tbsp butter in a wide pan over medium heat. Sauté onion 3–4 minutes until translucent.","Add Arborio rice and stir 2 minutes until the edges become slightly translucent. This toasts the starch.","Pour in wine and stir until absorbed. This deglazes the pan and adds acidity.","Begin adding warm broth one ladle at a time, stirring frequently. Wait until each addition is mostly absorbed before adding the next. This takes 18–20 minutes.","When rice is creamy and al dente, remove from heat. Stir in remaining butter and Parmesan.",has("mushroom") ? "Fold in the sautéed mushrooms and thyme." : "",has("asparagus") ? "Add asparagus pieces in the last 5 minutes of cooking so they stay crisp-tender." : "",has("salmon") ? "Top each portion with flaked salmon." : "","Season with salt and pepper. Serve immediately — risotto waits for no one."].filter(Boolean), tip: "Risotto demands patience and constant attention. Stir frequently but not frantically, and never rush the broth additions. The starch release from Arborio rice is what creates the creamy texture.", nutrition: ["Parmesan provides B12 and calcium for nerve signaling","Warm broth provides easily absorbed minerals and amino acids","Olive oil and butter provide fats that support brain cell membrane integrity",has("mushroom") ? "Mushrooms provide ergothioneine, a unique brain-protective antioxidant" : "Arborio rice provides steady glucose for sustained brain energy"] };
+  }
+
+  // Minestrone
+  if (has("minestrone")) {
+    return { serves: 3, time: "35 min", ingredients: ["1 can (15 oz) cannellini beans, drained and rinsed","1 can (14 oz) diced tomatoes","4 cups vegetable or chicken broth","1 cup small pasta (ditalini or elbow)","1 medium zucchini, diced","2 carrots, diced","2 stalks celery, diced","1 small onion, diced","3 cloves garlic, minced","2 cups fresh spinach or kale","2 tbsp olive oil","1 tsp dried Italian herbs (oregano, basil, thyme)","Grated Parmesan for serving","Salt and pepper"], steps: ["Heat olive oil in a large pot over medium heat. Sauté onion, carrots, and celery 5 minutes until softened.","Add garlic and Italian herbs. Cook 1 minute until fragrant.","Pour in diced tomatoes and broth. Bring to a boil.","Add zucchini and cannellini beans. Reduce heat and simmer 10 minutes.","Add pasta and cook 8–10 minutes until al dente (pasta cooks right in the soup).","Stir in spinach the last 2 minutes until wilted.","Season with salt and pepper. Ladle into bowls and top with grated Parmesan and a drizzle of olive oil."], tip: "Add pasta near the end so it doesn't get mushy. If making ahead, cook pasta separately and add when reheating.", nutrition: ["Cannellini beans provide folate and iron for neurotransmitter synthesis","Spinach delivers magnesium for GABA production and calm","Tomatoes provide lycopene for brain cell protection","Diverse vegetables feed gut microbiome diversity for better brain signaling"] };
+  }
+
   // ── Southeast Asian dedicated recipes ───────────────────────────────────
 
   // Pad Thai
@@ -3005,6 +3426,26 @@ const generateRecipe = (meal) => {
     if (hasRice) ing.push("1 cup cooked brown or jasmine rice");
     if (hasCucumber) ing.push("½ cucumber, sliced");
     return { serves: 1, time: "25 min", ingredients: ing, steps: ["Marinate chicken strips in soy sauce, curry powder, turmeric, and coconut milk for 15+ minutes.","Thread chicken onto soaked wooden skewers.","Grill or broil skewers 3–4 minutes per side until charred and cooked through (165°F).","Make peanut sauce: whisk peanut butter, soy sauce, lime juice, sriracha, and warm water until smooth.","Serve skewers over rice with peanut sauce for dipping and cucumber on the side."], tip: "Soaking wooden skewers prevents them from burning. The coconut milk in the marinade tenderizes the chicken and helps the spices stick.", nutrition: ["Peanut butter provides niacin (B3) for brain energy and tryptophan for serotonin","Turmeric delivers curcumin that crosses the blood-brain barrier","Chicken provides complete protein for neurotransmitter synthesis","Coconut milk MCTs provide quick fuel for the brain"] };
+  }
+
+  // Thai Peanut Dipping Sauce with Veggies
+  if (hasAny("peanut dipping","peanut sauce with")) {
+    return { serves: 1, time: "10 min", ingredients: ["3 tbsp natural peanut butter (creamy)","1 tbsp soy sauce or tamari","1 tbsp lime juice","1 tsp sesame oil","1 tsp honey or maple syrup","1 tsp sriracha or chili garlic sauce","1 tbsp warm water (to thin)","1 small clove garlic, minced or grated","Dipping veggies: 1 cup sliced bell peppers, cucumber spears, carrot sticks, snap peas, and blanched broccoli florets"], steps: ["Whisk peanut butter, soy sauce, lime juice, sesame oil, honey, and sriracha in a bowl until smooth.","Add warm water one teaspoon at a time until the sauce reaches a creamy, dippable consistency.","Stir in minced garlic. Taste and adjust: more lime for tang, more sriracha for heat, more honey for sweetness.","Wash and cut vegetables into sticks and spears for easy dipping.","Transfer sauce to a small bowl and arrange vegetables around it on a plate."], tip: "Use natural peanut butter (just peanuts and salt) for the best flavor and nutrition. The sauce thickens as it sits — add a splash of water to loosen it back up.", nutrition: ["Peanuts provide niacin (B3) which supports brain energy metabolism","Sesame oil delivers vitamin E, a powerful antioxidant that protects brain cell membranes","Bell peppers provide more vitamin C than oranges, supporting neurotransmitter synthesis","Carrots deliver beta-carotene which converts to vitamin A for neuroplasticity"] };
+  }
+
+  // Thai Larb Chicken Lettuce Wraps
+  if (hasAny("larb","larb chicken")) {
+    return { serves: 1, time: "15 min", ingredients: ["8 oz ground chicken","1 tbsp fish sauce","1 tbsp lime juice","1 tsp chili flakes or 1 Thai chili, minced","1 shallot, thinly sliced","2 tbsp fresh mint leaves, torn","2 tbsp fresh cilantro, chopped","1 tbsp toasted rice powder (dry-toast rice in a pan, then grind)","1 scallion, sliced","6–8 butter lettuce or gem lettuce cups","Lime wedges for serving"], steps: ["Heat a skillet over medium-high heat. Add ground chicken, breaking it up with a spatula, and cook 5–6 minutes until cooked through and lightly browned.","Remove from heat and let cool slightly. The larb should be warm, not piping hot, so the herbs stay fresh.","Toss the cooked chicken with fish sauce, lime juice, chili flakes, sliced shallot, and scallion.","Add toasted rice powder and toss to coat. It adds a nutty crunch that's essential to larb.","Fold in torn mint and cilantro at the last moment.","Spoon the larb into lettuce cups and serve with extra lime wedges."], tip: "Toasted rice powder is the secret ingredient in Thai larb. Toast raw sticky or jasmine rice in a dry pan until deep golden, then grind in a mortar or spice grinder.", nutrition: ["Mint contains rosmarinic acid that reduces neuroinflammation","Lime juice provides vitamin C for dopamine and serotonin synthesis","Shallots deliver quercetin, a flavonoid that protects brain cells from oxidative stress","Lean chicken provides tryptophan for serotonin production"] };
+  }
+
+  // Lemongrass Chicken Rice Bowl
+  if (has("lemongrass")) {
+    return { serves: 1, time: "25 min", ingredients: ["1 boneless skinless chicken breast, sliced thin","1 stalk lemongrass, minced (use bottom 3 inches only)","2 cloves garlic, minced","1 tbsp fish sauce","1 tbsp soy sauce","1 tsp honey or brown sugar","1 tbsp vegetable oil","1 cup cooked jasmine rice","½ cucumber, sliced into half-moons","Fresh cilantro and mint for garnish","Lime wedges","Optional: pickled carrots and daikon"], steps: ["Mince the bottom 3 inches of the lemongrass stalk very finely. Discard the tough outer layers and top.","Marinate sliced chicken with lemongrass, garlic, fish sauce, soy sauce, and honey for 10–15 minutes.","Heat oil in a skillet over medium-high heat until shimmering.","Cook chicken 3–4 minutes per side until golden and caramelized. The sugars in the marinade should create a slight char.","Build the bowl: rice base, lemongrass chicken arranged on top, cucumber slices along the side.","Garnish with cilantro, mint, and a squeeze of lime."], tip: "Only use the bottom 3 inches of lemongrass — the tender, pale part. Slice it paper-thin so you don't get fibrous chunks in your dish.", nutrition: ["Lemongrass contains citral, which has calming effects on the nervous system","Cucumber provides silica for connective tissue and hydration for brain function","Fish sauce is rich in glutamate, an essential excitatory neurotransmitter","Jasmine rice provides steady glucose for sustained brain energy"] };
+  }
+
+  // Thai Basil Chicken Stir-Fry
+  if (hasAny("thai basil","basil chicken stir","basil stir-fry")) {
+    return { serves: 1, time: "15 min", ingredients: ["1 boneless skinless chicken breast, sliced thin","1 cup packed Thai basil leaves (or Italian basil)","3 cloves garlic, minced","2–3 Thai chilies, sliced (or 1 tsp chili flakes)","1 tbsp oyster sauce","1 tbsp soy sauce","1 tbsp fish sauce","1 tsp brown sugar","1 tbsp vegetable oil","1 cup cooked jasmine rice"], steps: ["Slice chicken breast thin against the grain. This ensures fast, even cooking.","Mix the sauce: combine oyster sauce, soy sauce, fish sauce, and brown sugar in a small bowl.","Heat oil in a wok or large skillet over high heat until smoking.","Add garlic and chilies. Stir-fry 15 seconds until fragrant but not burned.","Add chicken in a single layer. Sear without stirring for 1 minute, then stir-fry 3–4 minutes until cooked through.","Pour in the sauce. Toss to coat evenly, cooking 1 minute until slightly reduced.","Kill the heat. Toss in the Thai basil leaves and stir until just wilted — about 10 seconds.","Serve immediately over jasmine rice."], tip: "Thai basil wilts in seconds. Add it LAST, off the heat, so it stays vibrant green and aromatic. The residual heat is enough to wilt it perfectly.", nutrition: ["Thai basil contains ursolic acid with neuroprotective and anti-inflammatory properties","Garlic provides allicin which improves blood flow to the brain","Oyster sauce delivers zinc for neurotransmitter function","Chilies contain capsaicin which triggers endorphin release"] };
   }
 
   // Banh Mi Bowl
@@ -5965,6 +6406,10 @@ function NeuroThriveApp() {
   const [resumeStep, setResumeStep] = useState(null);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [legalPage, setLegalPage] = useState(null); // "terms" | "privacy" | "references" | null
+  const [recipeSearch, setRecipeSearch] = useState("");
+  const [recipeCat, setRecipeCat] = useState("all");
+  const [recipeCuisine, setRecipeCuisine] = useState("all");
+  const [expandedRecipe, setExpandedRecipe] = useState(null);
   const [refsExpanded, setRefsExpanded] = useState(null);
   const [isPremium, setIsPremium] = useState(false);
   const [subChecked, setSubChecked] = useState(false);
@@ -6613,8 +7058,25 @@ function NeuroThriveApp() {
   };
 
   const startNewCycle = () => {
-    const condition = selectedConditions[0] || "default";
-    const days = build30DayMenu(condition, selectedDiet, calorieTarget, selectedCuisines, selectedFoodPrefs, favoriteMeals);
+    const optimized = brainOptimized;
+    const conditionIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+    let powerFoodKeywords = null;
+    if (optimized) {
+      const keywords = new Set();
+      conditionIds.forEach(id => {
+        const guide = BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default;
+        guide.powerFoods.forEach(f => {
+          f.food.toLowerCase().replace(/\(.*?\)/g, "").split(/[,&\/]/).forEach(part => {
+            const w = part.trim().replace(/^(wild|grass-fed|tart|dark)\s+/i, "").replace(/\s*\+$/, "");
+            if (w.length > 2) keywords.add(w);
+          });
+        });
+      });
+      powerFoodKeywords = [...keywords];
+    }
+    const dietFilters = optimized ? selectedDiet.filter(d => SAFETY_DIETS.has(d)) : selectedDiet;
+    const foodPrefFilters = optimized ? [] : selectedFoodPrefs;
+    const days = build30DayMenu(conditionIds, dietFilters, calorieTarget, selectedCuisines, foodPrefFilters, favoriteMeals, powerFoodKeywords);
     setMenu30(days);
     setPlanCycle(c => c + 1);
     setCycleStartDate(new Date().toISOString());
@@ -6650,10 +7112,12 @@ function NeuroThriveApp() {
       });
       powerFoodKeywords = [...keywords];
     }
-    const dietFilters = optimized ? [] : selectedDiet;
+    const dietFilters = optimized ? selectedDiet.filter(d => SAFETY_DIETS.has(d)) : selectedDiet;
     const cuisineFilters = selectedCuisines; // always respect cuisine preferences
     const foodPrefFilters = optimized ? [] : selectedFoodPrefs;
-    const days = build30DayMenu(condition, dietFilters, calorieTarget, cuisineFilters, foodPrefFilters, favoriteMeals, powerFoodKeywords);
+    // Pass full conditions array for multi-condition support
+    const conditionIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
+    const days = build30DayMenu(conditionIds, dietFilters, calorieTarget, cuisineFilters, foodPrefFilters, favoriteMeals, powerFoodKeywords);
     setMenu30(days);
     if (isUpdate) {
       // Updating existing plan — keep cycle, clear swaps, go to meal plan
@@ -7596,36 +8060,36 @@ function NeuroThriveApp() {
   const globalDayIdx = selectedWeek*7+selectedDayIdx;
 
   const S = {
-    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#060a14 0%,#080e1c 50%,#060a14 100%)", fontFamily:"'Plus Jakarta Sans',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em" },
+    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#060a14 0%,#080e1c 50%,#060a14 100%)", fontFamily:"'Plus Jakarta Sans',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em", fontSize:"15px" },
     nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.08)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
     logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
     navTabs: { display:"flex", gap:"1px", overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none", flexShrink:1, minWidth:0 },
-    navTab: (a) => ({ padding:"7px 14px", borderRadius:"12px", border:"none", cursor:"pointer", fontSize:"11.5px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#6b7394", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
-    main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px" },
+    navTab: (a) => ({ padding:"8px 16px", borderRadius:"12px", border:"none", cursor:"pointer", fontSize:"13px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#7888b8", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
+    main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px", zoom:"1.1" },
     hero: { textAlign:"center", padding:"80px 20px 60px" },
-    heroEyebrow: { display:"inline-block", fontSize:"10px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.12)", padding:"7px 18px", borderRadius:"24px", marginBottom:"32px" },
+    heroEyebrow: { display:"inline-block", fontSize:"11px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.08)", border:"1px solid rgba(107,143,255,0.12)", padding:"8px 20px", borderRadius:"24px", marginBottom:"32px" },
     heroTitle: { fontSize:"56px", fontWeight:"800", color:"#f0f2ff", lineHeight:1.04, marginBottom:"22px", letterSpacing:"-2.5px" },
     heroAccent: { background:"linear-gradient(135deg,#7b9fff,#5570f0)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
-    heroSub: { fontSize:"16px", color:"#6b7ba8", maxWidth:"440px", margin:"0 auto 48px", lineHeight:1.75, fontWeight:"400", letterSpacing:"0.01em" },
-    btn: { background:"rgba(107,143,255,0.08)", color:"#a0b8ff", border:"1px solid rgba(107,143,255,0.2)", padding:"13px 28px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"600", letterSpacing:"0.01em", cursor:"pointer", backdropFilter:"blur(8px)" },
-    btnOutline: { background:"rgba(255,255,255,0.02)", color:"#8898c8", border:"1px solid rgba(107,143,255,0.18)", padding:"12px 24px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"500", cursor:"pointer", backdropFilter:"blur(8px)" },
-    btnAccent: { background:"linear-gradient(135deg,#5570f0 0%,#3d58e0 100%)", color:"#fff", border:"none", padding:"14px 34px", borderRadius:"50px", fontSize:"13.5px", fontWeight:"600", cursor:"pointer", boxShadow:"0 4px 20px rgba(85,112,240,0.35), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15)", letterSpacing:"0.01em" },
-    btnSm: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"12px", color:"#7888b8", padding:"6px 13px", cursor:"pointer", fontSize:"12px", fontWeight:"500" },
-    sectionTitle: { fontSize:"26px", color:"#f0f2ff", marginBottom:"6px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
-    sectionSub: { fontSize:"14px", color:"#6b7ba8", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
+    heroSub: { fontSize:"17px", color:"#8090c0", maxWidth:"440px", margin:"0 auto 48px", lineHeight:1.75, fontWeight:"400", letterSpacing:"0.01em" },
+    btn: { background:"rgba(107,143,255,0.08)", color:"#a0b8ff", border:"1px solid rgba(107,143,255,0.2)", padding:"14px 30px", borderRadius:"50px", fontSize:"15px", fontWeight:"600", letterSpacing:"0.01em", cursor:"pointer", backdropFilter:"blur(8px)" },
+    btnOutline: { background:"rgba(255,255,255,0.02)", color:"#8898c8", border:"1px solid rgba(107,143,255,0.18)", padding:"13px 26px", borderRadius:"50px", fontSize:"15px", fontWeight:"500", cursor:"pointer", backdropFilter:"blur(8px)" },
+    btnAccent: { background:"linear-gradient(135deg,#5570f0 0%,#3d58e0 100%)", color:"#fff", border:"none", padding:"15px 36px", borderRadius:"50px", fontSize:"15px", fontWeight:"600", cursor:"pointer", boxShadow:"0 4px 20px rgba(85,112,240,0.35), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15)", letterSpacing:"0.01em" },
+    btnSm: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"12px", color:"#8898c8", padding:"7px 15px", cursor:"pointer", fontSize:"13px", fontWeight:"500" },
+    sectionTitle: { fontSize:"28px", color:"#f0f2ff", marginBottom:"8px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
+    sectionSub: { fontSize:"15px", color:"#8090c0", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
     grid: { display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px", marginBottom:"32px" },
-    chip: (sel) => ({ padding:"12px 14px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", fontSize:"13px", fontWeight:sel?"600":"400", color:sel?"#a0b8ff":"#7888b8", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)" }),
-    card: { background:"rgba(255,255,255,0.025)", border:"1px solid rgba(107,143,255,0.08)", borderRadius:"18px", padding:"20px", marginBottom:"14px", backdropFilter:"blur(12px)", boxShadow:"0 2px 16px rgba(0,0,0,0.15), 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04)" },
-    mealLabel: { fontSize:"10px", textTransform:"uppercase", letterSpacing:"2.5px", color:"#5e78d0", marginBottom:"10px", fontWeight:"700" },
-    tag: { display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(80,112,240,0.1)", border:"1px solid rgba(80,112,240,0.15)", color:"#a0b8ff", fontSize:"11.5px", fontWeight:"500", marginRight:"6px", marginBottom:"6px" },
+    chip: (sel) => ({ padding:"13px 16px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", fontSize:"14px", fontWeight:sel?"600":"400", color:sel?"#a0b8ff":"#8898c8", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)" }),
+    card: { background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.1)", borderRadius:"18px", padding:"22px", marginBottom:"18px", backdropFilter:"blur(12px)", boxShadow:"0 2px 16px rgba(0,0,0,0.15), 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" },
+    mealLabel: { fontSize:"11px", textTransform:"uppercase", letterSpacing:"2.5px", color:"#6b88e0", marginBottom:"10px", fontWeight:"700" },
+    tag: { display:"inline-block", padding:"5px 14px", borderRadius:"20px", background:"rgba(80,112,240,0.1)", border:"1px solid rgba(80,112,240,0.15)", color:"#a0b8ff", fontSize:"13px", fontWeight:"500", marginRight:"6px", marginBottom:"6px" },
     divider: { height:"1px", background:"linear-gradient(90deg, transparent, rgba(107,143,255,0.12), transparent)", margin:"24px 0" },
     moodRow: { display:"flex", gap:"10px", flexWrap:"wrap", marginBottom:"20px" },
     moodBtn: (sel) => ({ flex:1, minWidth:"55px", padding:"12px 6px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", color:sel?"#a0b8ff":"#7888b8", fontWeight:sel?"600":"400" }),
-    textarea: { width:"100%", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.1)", borderRadius:"14px", color:"#e8ecff", fontFamily:"'Plus Jakarta Sans',system-ui,sans-serif", fontSize:"14px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
+    textarea: { width:"100%", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.1)", borderRadius:"14px", color:"#e8ecff", fontFamily:"'Plus Jakarta Sans',system-ui,sans-serif", fontSize:"15px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
     affirmCard: { textAlign:"center", padding:"56px 36px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"24px", marginBottom:"20px", position:"relative", overflow:"hidden", boxShadow:"0 4px 32px rgba(0,0,0,0.15)" },
-    successBanner: { background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.18)", borderRadius:"14px", padding:"14px 20px", color:"#70d890", fontSize:"13px", fontWeight:"600", textAlign:"center", marginBottom:"16px", backdropFilter:"blur(8px)" },
+    successBanner: { background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.18)", borderRadius:"14px", padding:"16px 22px", color:"#70d890", fontSize:"14px", fontWeight:"600", textAlign:"center", marginBottom:"16px", backdropFilter:"blur(8px)" },
     dot: (a,d) => ({ width:"6px", height:"6px", borderRadius:"50%", background:a?"#5570f0":d?"rgba(80,112,240,0.4)":"rgba(107,143,255,0.15)", transition:"all 0.3s" }),
-    warningBanner: { background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"14px", padding:"14px 20px", color:"#a0b8ff", fontSize:"13px", fontWeight:"500", marginBottom:"18px" },
+    warningBanner: { background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"14px", padding:"16px 22px", color:"#a0b8ff", fontSize:"14px", fontWeight:"500", marginBottom:"18px" },
   };
 
   const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","(unused)","Supplements","Reminders","Toolkit","Routine","Progress"];
@@ -7764,14 +8228,14 @@ function NeuroThriveApp() {
         </div>
         {isPremium && (step > 3 || prevStep !== null) && (
           <div style={{ position:"relative", flexShrink:0 }}>
-            <button style={S.navTab([1,3,6,7,8,9,10,13,14,15,16,17,18,19].includes(step))} onClick={() => { setShowMoreMenu(p => !p); setMoreMenuGroup(null); }}>More ▾</button>
+            <button style={S.navTab([1,3,6,7,8,9,10,13,14,15,16,17,18,19,20].includes(step))} onClick={() => { setShowMoreMenu(p => !p); setMoreMenuGroup(null); }}>More ▾</button>
             {showMoreMenu && (() => {
               const groups = [
                 { key:"profile", label:"Profile", items:[{ label:"Edit Profile", s:1 }, { label:"Adjust Diet", s:3 }, { label:"Rebuild Routine", s:13 }] },
                 { key:"journal", label:"Journal", items:[{ label:"Journal", s:8 }] },
                 { key:"routine", label:"Routine", items:[{ label:"Daily Routine", s:10 }, { label:"Exercise", s:17 }] },
                 { key:"brain",   label:"Brain Tools", items:[{ label:"Toolkit", s:9 }, { label:"Nervous System", s:14 }] },
-                { key:"meals",   label:"Meal Planning", items:[{ label:"Grocery List", s:15 }, { label:"Meal Prep", s:18 }, { label:"Favorites", s:16 }] },
+                { key:"meals",   label:"Meal Planning", items:[{ label:"Grocery List", s:15 }, { label:"Meal Prep", s:18 }, { label:"Favorites", s:16 }, { label:"Recipe Browser", s:20 }] },
                 { key:"learn",   label:"Learn", items:[{ label:"Supplements", s:6 }, { label:"Diet Guide", s:19 }, { label:"Reminders", s:7 }] },
               ];
               const activeGroup = groups.find(g => g.items.some(i => i.s === step));
@@ -8101,17 +8565,17 @@ function NeuroThriveApp() {
           <div>
             {/* Step 1: Cuisines */}
             <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"8px" }}>
-              <span style={{ width:"28px", height:"28px", borderRadius:"50%", background:"rgba(107,143,255,0.15)", color:"#7b9fff", fontSize:"13px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>1</span>
-              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
+              <span style={{ width:"30px", height:"30px", borderRadius:"50%", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(85,112,240,0.1))", color:"#7b9fff", fontSize:"14px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>1</span>
+              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
             </div>
-            <p style={{ color:"#6b7394", fontSize:"13px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"38px" }}>Select the cuisines you love. Leave blank to include all.</p>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px", marginBottom:"28px" }}>
+            <p style={{ color:"#8898c8", fontSize:"15px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"40px" }}>Select the cuisines you love. Leave blank to include all.</p>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px", marginBottom:"28px" }}>
               {CUISINE_TYPES.map(c => {
                 const sel = selectedCuisines.includes(c.id);
                 return (
-                  <div key={c.id} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"12px 16px", borderRadius:"12px", border: sel ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.15)", background: sel ? "rgba(80,112,240,0.1)" : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: sel ? "#7b9fff" : "#6b7394", flexShrink:0 }} />
-                    <span style={{ color: sel ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: sel ? "700" : "500" }}>{c.label}</span>
+                  <div key={c.id} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? `1.5px solid ${c.color}60` : "1px solid rgba(110,120,200,0.18)", background: sel ? `${c.color}14` : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
+                    <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? `${c.color}30` : "rgba(107,143,255,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{c.emoji}</span>
+                    <span style={{ color: sel ? c.color : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{c.label}</span>
                   </div>
                 );
               })}
@@ -8119,38 +8583,40 @@ function NeuroThriveApp() {
 
             {/* Step 2: Choose path */}
             <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
-              <span style={{ width:"28px", height:"28px", borderRadius:"50%", background:"rgba(107,143,255,0.15)", color:"#7b9fff", fontSize:"13px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>2</span>
-              <h2 style={{ fontSize:"20px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
+              <span style={{ width:"30px", height:"30px", borderRadius:"50%", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(85,112,240,0.1))", color:"#7b9fff", fontSize:"14px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>2</span>
+              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
             </div>
 
-            <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
+            <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
               {/* Brain-Optimized */}
-              <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(107,143,255,0.04))", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
-                <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
-                <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, marginBottom:"16px", maxWidth:"320px", marginLeft:"auto", marginRight:"auto" }}>No dietary restrictions. We build the best possible menu using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
-                <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"13px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,200,120,0.3)" }}>
+              <div style={{ padding:"28px 24px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(80,200,120,0.03))", border:"1.5px solid rgba(80,200,120,0.25)", textAlign:"center" }}>
+                <div style={{ fontSize:"32px", marginBottom:"10px" }}>🧠</div>
+                <h3 style={{ fontSize:"19px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"10px" }}>Optimize for My Brain</h3>
+                <p style={{ color:"#a0c8b0", fontSize:"15px", lineHeight:1.6, marginBottom:"18px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>No dietary restrictions. We build the best possible menu using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
+                <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"15px 32px", borderRadius:"50px", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 24px rgba(80,200,120,0.35)" }}>
                   Build Brain-Optimized Menu →
                 </button>
               </div>
 
               {/* Customize */}
-              <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.08), rgba(80,112,240,0.04))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.35)" : "1px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s" }}>
-                <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
-                <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, marginBottom:"16px", maxWidth:"320px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
-                <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"13px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)" }}>{showCustomize ? "Hide Options ↑" : "Customize My Plan →"}</span>
+              <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"28px 24px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(80,112,240,0.03))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s" }}>
+                <div style={{ fontSize:"32px", marginBottom:"10px" }}>⚙️</div>
+                <h3 style={{ fontSize:"19px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"10px" }}>Customize My Plan</h3>
+                <p style={{ color:"#a0b8ff", fontSize:"15px", lineHeight:1.6, marginBottom:"18px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
+                <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"15px 32px", borderRadius:"50px", fontSize:"15px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 24px rgba(80,112,240,0.35)" }}>{showCustomize ? "Hide Options ↑" : "Customize My Plan →"}</span>
               </div>
             </div>
 
             {showCustomize && <div style={{ marginTop:"20px" }}>
-                <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
-                <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
+                <h3 style={{ color:"#50c878", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
+                <p style={{ color:"#8898c8", fontSize:"15px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
                   {DIET_TYPES.map(d => {
                     const sel = selectedDiet.includes(d.id);
                     return (
-                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? "1.5px solid #50c878" : "1px solid rgba(110,120,200,0.15)", background: sel ? "rgba(80,200,120,0.08)" : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background: sel ? "rgba(80,200,120,0.25)" : "rgba(80,200,120,0.12)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{d.emoji}</span>
-                        <span style={{ color: sel ? "#50c878" : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
+                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? `1.5px solid ${d.color}60` : "1px solid rgba(110,120,200,0.18)", background: sel ? `${d.color}14` : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? `${d.color}30` : "rgba(80,200,120,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{d.emoji}</span>
+                        <span style={{ color: sel ? d.color : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
                       </div>
                     );
                   })}
@@ -8158,15 +8624,15 @@ function NeuroThriveApp() {
 
                 <div style={{ height:"24px" }} />
 
-                <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
-                <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
+                <h3 style={{ color:"#e05070", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
+                <p style={{ color:"#8898c8", fontSize:"15px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
                   {DIETARY_RESTRICTIONS.map(d => {
                     const sel = selectedDiet.includes(d.id);
                     return (
-                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? "1.5px solid #e05070" : "1px solid rgba(110,120,200,0.15)", background: sel ? "rgba(224,80,112,0.08)" : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.12)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{d.emoji}</span>
-                        <span style={{ color: sel ? "#e05070" : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
+                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? "1.5px solid rgba(224,80,112,0.5)" : "1px solid rgba(110,120,200,0.18)", background: sel ? "rgba(224,80,112,0.1)" : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{d.emoji}</span>
+                        <span style={{ color: sel ? "#e05070" : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
                       </div>
                     );
                   })}
@@ -8185,7 +8651,7 @@ function NeuroThriveApp() {
                 })()}
                 {(selectedDiet.includes("halal") || selectedDiet.includes("kosher")) && (
                   <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"20px" }}>
-                    <div style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.7 }}>
+                    <div style={{ color:"#a0b8ff", fontSize:"14px", lineHeight:1.7 }}>
                       {selectedDiet.includes("kosher") && <span>✡️ <strong>Kosher:</strong> Pork, shellfish, and meat-dairy combinations are excluded. </span>}
                       {selectedDiet.includes("halal") && <span>☪️ <strong>Halal:</strong> Pork and shellfish are excluded. </span>}
                       <span style={{ color:"#8890b8" }}>Note: Meals use standard grocery ingredients. Please source certified {selectedDiet.includes("halal") && selectedDiet.includes("kosher") ? "halal/kosher" : selectedDiet.includes("halal") ? "halal" : "kosher"} products according to your observance level.</span>
@@ -8195,17 +8661,17 @@ function NeuroThriveApp() {
 
                 <div style={S.divider} />
 
-                <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
-                <p style={{ color:"#6b7394", fontSize:"13px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
+                <h3 style={{ color:"#e8c87a", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
+                <p style={{ color:"#8898c8", fontSize:"15px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
                   {FOOD_PREFS.map(f => {
                     const sel = selectedFoodPrefs.includes(f.id);
                     const catColor = FOOD_PREF_COLORS[f.cat] || "#7b9fff";
                     const catRgb = FOOD_PREF_RGB[f.cat] || "123,159,255";
                     return (
-                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"10px", padding:"10px 14px", borderRadius:"12px", border: sel ? `1.5px solid ${catColor}` : "1px solid rgba(110,120,200,0.15)", background: sel ? `rgba(${catRgb},0.08)` : "rgba(255,255,255,0.02)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"26px", height:"26px", borderRadius:"8px", background:`rgba(${catRgb},${sel ? 0.3 : 0.15})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"13px", flexShrink:0 }}>{f.emoji}</span>
-                        <span style={{ color: sel ? catColor : "#8890b8", fontSize:"12px", fontWeight: sel ? "700" : "500" }}>{f.label}</span>
+                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? `1.5px solid ${catColor}60` : "1px solid rgba(110,120,200,0.18)", background: sel ? `rgba(${catRgb},0.1)` : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
+                        <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? `rgba(${catRgb},0.25)` : `rgba(${catRgb},0.08)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{f.emoji}</span>
+                        <span style={{ color: sel ? catColor : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{f.label}</span>
                       </div>
                     );
                   })}
@@ -8223,8 +8689,8 @@ function NeuroThriveApp() {
                   ].map(opt => (
                     <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{ flex:1, padding:"18px 14px", borderRadius:"16px", border: calorieTarget===opt.id ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.1)", background: calorieTarget===opt.id ? "rgba(80,112,240,0.12)" : "rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s" }}>
                       <div style={{ fontSize:"16px", fontWeight:"700", color: calorieTarget===opt.id ? "#a0b8ff" : "#7888b8", marginBottom:"4px" }}>{opt.label}</div>
-                      <div style={{ fontSize:"11px", fontWeight:"600", color: calorieTarget===opt.id ? "#5570f0" : "#6b7394", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"4px" }}>{opt.sub}</div>
-                      <div style={{ fontSize:"11px", color:"#6b7394" }}>{opt.desc}</div>
+                      <div style={{ fontSize:"12px", fontWeight:"600", color: calorieTarget===opt.id ? "#5570f0" : "#8898c8", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"4px" }}>{opt.sub}</div>
+                      <div style={{ fontSize:"12px", color:"#8898c8" }}>{opt.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -8247,7 +8713,7 @@ function NeuroThriveApp() {
         {/* CYCLE COMPLETE MODAL */}
         {showCycleComplete && (
           <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.7)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:200, padding:"20px" }}>
-            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.4)" }}>
+            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.4)", zoom:"1.1" }}>
               <div style={{ fontSize:"56px", marginBottom:"16px" }}>🌿</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px" }}>Cycle {planCycle} Complete</h2>
               <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.6, marginBottom:"8px" }}>You've completed 30 days of nourishing your mind and body. That's something to be genuinely proud of.</p>
@@ -8281,7 +8747,7 @@ function NeuroThriveApp() {
         {/* FEATURE TOUR OVERLAY */}
         {showTour && (
           <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px", backdropFilter:"blur(6px)", overflowY:"auto" }}>
-            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.5)", animation:"fadeUp 0.3s ease", position:"relative" }}>
+            <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.5)", animation:"fadeUp 0.3s ease", position:"relative", zoom:"1.1" }}>
               <div style={{ fontSize:"56px", marginBottom:"16px" }}>{TOUR_SLIDES[tourStep].emoji}</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px", letterSpacing:"0.5px" }}>{TOUR_SLIDES[tourStep].title}</h2>
               <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7, marginBottom:"28px", maxWidth:"360px", marginLeft:"auto", marginRight:"auto" }}>{TOUR_SLIDES[tourStep].desc}</p>
@@ -8470,7 +8936,7 @@ function NeuroThriveApp() {
                       {(() => { const gn = getGenderNote(activeMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginBottom:"12px" }}>
                           <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
-                          <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
+                          <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"11px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
                         </div>
                       );})()}
 
@@ -8541,7 +9007,7 @@ function NeuroThriveApp() {
         {/* STEP 4: JOURNAL */}
         {step === 8 && isPremium && (
           <div>
-            <h2 style={S.sectionTitle}>Daily Wellness Log</h2>
+            <h2 style={S.sectionTitle}>Journal & Symptom Tracker</h2>
             <p style={S.sectionSub}>Track how your body and mind feel. Over time, patterns emerge, and patterns become power.</p>
             <ProgressBanner context="journal" />
             {logSaved && <div style={S.successBanner}>✓ Today's log saved! Every entry matters.</div>}
@@ -8639,7 +9105,7 @@ function NeuroThriveApp() {
                           {symKeys.map(id => {
                             const il = INTENSITY_LEVELS.find(l => l.id === syms[id]) || INTENSITY_LEVELS[0];
                             const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
-                            return <span key={id} style={{ display:"inline-block", padding:"3px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"600", background:`${il.color}14`, border:`1px solid ${il.color}40`, color:il.color }}>{label}</span>;
+                            return <span key={id} style={{ display:"inline-block", padding:"4px 11px", borderRadius:"12px", fontSize:"11px", fontWeight:"600", background:`${il.color}14`, border:`1px solid ${il.color}40`, color:il.color }}>{label}</span>;
                           })}
                         </div>
                       )}
@@ -9600,7 +10066,7 @@ function NeuroThriveApp() {
           const eveningChecks = todayChecks.routine?.evening || [];
           const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
           const sectionDivider = { height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.15), transparent)", margin:"40px 0" };
-          const sectionHeader = (text) => ({ fontSize:"17px", color:"#eef0ff", fontWeight:"700", marginBottom:"16px", letterSpacing:"-0.3px", paddingBottom:"10px", borderBottom:"1px solid rgba(110,120,200,0.1)" });
+          const sectionHeader = (text) => ({ fontSize:"20px", color:"#eef0ff", fontWeight:"700", marginBottom:"16px", letterSpacing:"-0.3px", paddingBottom:"10px", borderBottom:"1px solid rgba(110,120,200,0.1)" });
           const hour = new Date().getHours();
           const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
           // Auto-sync to today's menu day based on daysElapsed
@@ -9627,9 +10093,9 @@ function NeuroThriveApp() {
                 if (!todayFact) return null;
                 return (
                   <div style={{ padding:"20px 20px 20px 22px", borderRadius:"16px", background:"rgba(107,143,255,0.05)", border:"none", borderLeft:"3px solid #7b9fff", marginBottom:"16px", marginTop:"16px" }}>
-                    <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
-                    <p style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.7, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
-                    <p style={{ color:"#a0b8ff", fontSize:"12px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{todayFact.connection}</p>
+                    <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
+                    <p style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.7, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
+                    <p style={{ color:"#a0b8ff", fontSize:"14px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{todayFact.connection}</p>
                   </div>
                 );
               })()}
@@ -9653,12 +10119,12 @@ function NeuroThriveApp() {
                   : insight.mealConnection;
                 return (
                   <div style={{ padding:"22px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
-                    <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Day {daysElapsed} Insight</div>
-                    <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 14px 0" }}>{insight.body}</p>
-                    <div style={{ padding:"12px 14px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.1)" }}>
-                      <div style={{ fontSize:"10px", color:"#50c878", fontWeight:"700", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"6px" }}>Meal Connection</div>
-                      <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{dynamicConnection}</p>
+                    <div style={{ fontSize:"12px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Day {daysElapsed} Insight</div>
+                    <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
+                    <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:"0 0 14px 0" }}>{insight.body}</p>
+                    <div style={{ padding:"14px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.1)" }}>
+                      <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"6px" }}>Meal Connection</div>
+                      <p style={{ color:"#a0c8b0", fontSize:"14px", lineHeight:1.6, margin:0 }}>{dynamicConnection}</p>
                     </div>
                   </div>
                 );
@@ -9668,7 +10134,7 @@ function NeuroThriveApp() {
               <div style={sectionDivider} />
               <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); navigateTo(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"10px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
                 <span style={{ fontSize:"16px" }}>🛒</span>
-                <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
+                <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
                 <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
               </div>
               {/* Daily Brain Nutrition Tip — cycles through priority nutrients */}
@@ -9684,23 +10150,23 @@ function NeuroThriveApp() {
                 return (
                   <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #7b9fff", background:"linear-gradient(135deg, rgba(107,143,255,0.06), rgba(107,143,255,0.02))" }}>
                     <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px" }}>
-                      <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
-                      <span onClick={() => navigateTo(19)} style={{ color:"#6b7394", fontSize:"10px", cursor:"pointer" }}>Full Guide →</span>
+                      <div style={{ fontSize:"11px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
+                      <span onClick={() => navigateTo(19)} style={{ color:"#7888b8", fontSize:"11px", cursor:"pointer" }}>Full Guide →</span>
                     </div>
                     <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"6px" }}>
                       <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#7b9fff" }} />
-                      <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{nutrient.name}</span>
+                      <span style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700" }}>{nutrient.name}</span>
                     </div>
-                    <p style={{ color:"#a0a8d0", fontSize:"11px", lineHeight:1.5, margin:"0 0 8px 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
-                    <p style={{ color:"#6b7394", fontSize:"10px", lineHeight:1.4, margin:"0 0 0 11px" }}>Top sources: {nutrient.topSources}</p>
+                    <p style={{ color:"#a0a8d0", fontSize:"14px", lineHeight:1.5, margin:"0 0 8px 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
+                    <p style={{ color:"#8898c8", fontSize:"13px", lineHeight:1.4, margin:"0 0 0 11px" }}>Top sources: {nutrient.topSources}</p>
                   </div>
                 );
               })()}
               <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
-                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#7b9fff", fontSize:"11px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Browse All 30 Days →</span>
+                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#7b9fff", fontSize:"13px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Browse All 30 Days →</span>
               </div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
+              <div style={{ color:"#8898c8", fontSize:"14px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
                 Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
               </div>
               {todayDay && [
@@ -9724,40 +10190,40 @@ function NeuroThriveApp() {
                         {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
                       </button>
                       <div style={{ flex:1, minWidth:0 }}>
-                        <div style={{ fontSize:"10px", color:"#8890b8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
-                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{activeMeal}</div>
+                        <div style={{ fontSize:"12px", color:"#8898c8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
+                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"16px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{activeMeal}</div>
                       </div>
                       <button onClick={(e) => { e.stopPropagation(); toggleFavorite(activeMeal); }} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"16px", flexShrink:0, transition:"transform 0.2s", transform: isFavorite(activeMeal) ? "scale(1.15)" : "scale(1)" }} title={isFavorite(activeMeal) ? "Remove from favorites" : "Add to favorites"}>{isFavorite(activeMeal) ? "❤️" : "🤍"}</button>
                     </div>
                     {/* Swapped indicator */}
                     {alt && (
                       <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"8px", marginLeft:"34px", padding:"5px 10px", borderRadius:"8px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)" }}>
-                        <span style={{ color:"#e8c87a", fontSize:"10px", fontWeight:"700" }}>Swapped</span>
-                        <span style={{ color:"#8890b8", fontSize:"10px" }}>from {originalMeal.length > 30 ? originalMeal.slice(0,30) + "…" : originalMeal}</span>
-                        <button onClick={() => { setAltMeal(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); setSwapHistory(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[key]; return { ...prev, meals: { ...prev.meals, [key]: false }, foodLog: newLog }; }); }} style={{ marginLeft:"auto", background:"none", border:"none", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer", padding:"2px 4px", textDecoration:"underline" }}>Undo</button>
+                        <span style={{ color:"#e8c87a", fontSize:"12px", fontWeight:"700" }}>Swapped</span>
+                        <span style={{ color:"#8898c8", fontSize:"12px" }}>from {originalMeal.length > 30 ? originalMeal.slice(0,30) + "…" : originalMeal}</span>
+                        <button onClick={() => { setAltMeal(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); setSwapHistory(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[key]; return { ...prev, meals: { ...prev.meals, [key]: false }, foodLog: newLog }; }); }} style={{ marginLeft:"auto", background:"none", border:"none", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", padding:"2px 4px", textDecoration:"underline" }}>Undo</button>
                       </div>
                     )}
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"10px", marginLeft:"34px", flexWrap:"wrap" }}>
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)" }}>
                         <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
-                        <span style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700" }}>{estimateCalories(activeMeal)}</span>
+                        <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"700" }}>{estimateCalories(activeMeal)}</span>
                       </div>
-                      <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"3px 8px", borderRadius:"16px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"5px 10px", borderRadius:"16px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.08)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
                         <span style={{ width:"5px", height:"5px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
-                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"10px", fontWeight:"700" }}>{bs.score}/5</span>
+                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"12px", fontWeight:"700" }}>{bs.score}/5</span>
                       </div>
-                      <button onClick={() => openExplain(activeMeal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
-                      <button onClick={() => openRecipe(activeMeal, label, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                      <button onClick={() => openExplain(activeMeal, label, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
+                      <button onClick={() => openRecipe(activeMeal, label, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       {(swapHistory[`${todayGlobalIdx}_${key}`]?.length > 0) && (
-                        <button onClick={() => swapGoBack(key, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(160,160,200,0.15)", background:"rgba(160,160,200,0.06)", color:"#a0a8c8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>← Previous</button>
+                        <button onClick={() => swapGoBack(key, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(160,160,200,0.15)", background:"rgba(160,160,200,0.06)", color:"#a0a8c8", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>← Previous</button>
                       )}
-                      <button onClick={() => getAltMeal(activeMeal, label, key, todayGlobalIdx)} style={{ padding:"3px 10px", borderRadius:"16px", border:"1px solid rgba(232,200,122,0.15)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>{alt ? "Swap Again" : "Swap"}</button>
+                      <button onClick={() => getAltMeal(activeMeal, label, key, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(232,200,122,0.15)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>{alt ? "Swap Again" : "Swap"}</button>
                     </div>
                     {/* Cycle / gender note */}
                     {(() => { const gn = getGenderNote(activeMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(todayGlobalIdx)); if (!gn) return null; return (
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginTop:"8px", marginLeft:"34px" }}>
                         <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
-                        <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"10px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
+                        <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"11px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
                       </div>
                     );})()}
                   </div>
@@ -9771,8 +10237,8 @@ function NeuroThriveApp() {
                     <span style={{ fontSize:"16px" }}>📋</span>
                   </div>
                   <div style={{ flex:1 }}>
-                    <div style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600" }}>View Full 30-Day Menu</div>
-                    <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>Browse upcoming meals, swap dishes, and see recipes</div>
+                    <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600" }}>View Full 30-Day Menu</div>
+                    <div style={{ color:"#8898c8", fontSize:"13px", marginTop:"2px" }}>Browse upcoming meals, swap dishes, and see recipes</div>
                   </div>
                   <span style={{ color:"#7b9fff", fontSize:"14px" }}>→</span>
                 </div>
@@ -9781,7 +10247,7 @@ function NeuroThriveApp() {
               {/* Section C: Morning Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{routine.morning.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (morningChecks[i] ? 1 : 0)), 0)}/{routine.morning.length} done</div>
+              <div style={{ color:"#8898c8", fontSize:"13px", marginBottom:"10px" }}>{routine.morning.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (morningChecks[i] ? 1 : 0)), 0)}/{routine.morning.length} done</div>
               {routine.morning.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!morningChecks[i];
@@ -9807,15 +10273,15 @@ function NeuroThriveApp() {
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min" : s.time}</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
+                        <div style={{ color:"#8898c8", fontSize:"13px" }}>{isExStep ? "15+ min" : s.time}</div>
                       </div>
                     </div>
-                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
                     {isExpanded && isExStep && (
                       <div style={{ marginTop:"8px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                        <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -9826,12 +10292,12 @@ function NeuroThriveApp() {
               <div style={sectionDivider} />
               <div style={sectionHeader("Exercise")}>Exercise</div>
               {(() => { const cp = (selectedGender === "female" && cycleSyncEnabled && lastPeriodDate) ? getCyclePhase(lastPeriodDate, cycleLength) : null; const cs = getCycleSuggestion(cp); return cs && cp ? (
-                <div style={{ padding:"12px 14px", borderRadius:"14px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"12px" }}>
+                <div style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(168,120,210,0.08)", border:"1px solid rgba(168,120,210,0.15)", marginBottom:"12px" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
                     <span style={{ fontSize:"18px" }}>{cs.emoji}</span>
                     <div>
-                      <div style={{ color:"#e8d0ff", fontSize:"12px", fontWeight:"700" }}>{cp.label}: Suggested Exercise: {cs.type}</div>
-                      <div style={{ color:"#b0a0d0", fontSize:"11px", lineHeight:1.6, marginTop:"3px" }}>{cs.why}</div>
+                      <div style={{ color:"#e8d0ff", fontSize:"14px", fontWeight:"700" }}>{cp.label}: Suggested Exercise: {cs.type}</div>
+                      <div style={{ color:"#b0a0d0", fontSize:"13px", lineHeight:1.6, marginTop:"3px" }}>{cs.why}</div>
                     </div>
                   </div>
                 </div>
@@ -9847,8 +10313,8 @@ function NeuroThriveApp() {
                   </button>
                   <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>🏃</div>
                   <div style={{ flex:1 }}>
-                    <div style={{ color: todayChecks.exercise ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", transition:"color 0.3s" }}>Exercise</div>
-                    <div style={{ color:"#8890b8", fontSize:"10px" }}>{todayChecks.exercise ? "Done for today" : "Any movement counts"}</div>
+                    <div style={{ color: todayChecks.exercise ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", transition:"color 0.3s" }}>Exercise</div>
+                    <div style={{ color:"#8898c8", fontSize:"13px" }}>{todayChecks.exercise ? "Done for today" : "Any movement counts"}</div>
                   </div>
                 </div>
                 {/* Show selected exercises as chips */}
@@ -9857,14 +10323,14 @@ function NeuroThriveApp() {
                     {Object.keys(todayChecks.exerciseOptions).filter(k => todayChecks.exerciseOptions[k]).map(title => {
                       const opt = exRoutine.options.find(o => o.title === title);
                       return (
-                        <span key={title} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"16px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", color:"#50c878", fontSize:"11px", fontWeight:"600" }}>
+                        <span key={title} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"5px 11px", borderRadius:"16px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
                           {opt ? opt.emoji : "🏃"} {title}
                         </span>
                       );
                     })}
                   </div>
                 )}
-                <button onClick={() => navigateTo(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
+                <button onClick={() => navigateTo(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
               </div>
 
               {/* Section D: Journal & Symptom Tracker */}
@@ -9875,7 +10341,7 @@ function NeuroThriveApp() {
                     {hasJournal ? <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span> : <span style={{ width:"24px", height:"24px", borderRadius:"7px", border:"1.5px solid rgba(186,104,200,0.4)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }} />}
                     <div>
                       <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>Journal & Symptom Tracker</div>
-                      <div style={{ color: hasJournal ? "#8890b8" : "#ba68c8", fontSize:"11px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today – tap to view" : "Log mood & energy for +5 Brain Points"}</div>
+                      <div style={{ color: hasJournal ? "#8898c8" : "#ba68c8", fontSize:"13px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today – tap to view" : "Log mood & energy for +5 Brain Points"}</div>
                     </div>
                   </div>
                   <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"600" }}>▾</span>
@@ -9887,23 +10353,23 @@ function NeuroThriveApp() {
                         <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Today's entry</span>
                         <span style={{ fontSize:"13px", color:"#8890b8" }}>{MOOD_EMOJIS.find(m=>m.val===logs[0]?.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===logs[0]?.energy)?.emoji}</span>
                       </div>
-                      {logs[0]?.note && <p style={{ color:"#a0a8e8", fontSize:"12px", margin:"0 0 8px 0", lineHeight:1.5 }}>{logs[0].note}</p>}
+                      {logs[0]?.note && <p style={{ color:"#a0a8e8", fontSize:"14px", margin:"0 0 8px 0", lineHeight:1.5 }}>{logs[0].note}</p>}
                       {logs[0]?.symptoms && Object.keys(logs[0].symptoms).length > 0 && (
                         <div style={{ display:"flex", flexWrap:"wrap", gap:"4px" }}>
                           {Object.entries(logs[0].symptoms).map(([id, level]) => {
                             const il = INTENSITY_LEVELS.find(l => l.id === level) || INTENSITY_LEVELS[0];
                             const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
                             const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
-                            return <span key={id} style={{ display:"inline-block", padding:"3px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"600", background:`${il.color}14`, border:`1px solid ${il.color}40`, color:il.color }}>{label}</span>;
+                            return <span key={id} style={{ display:"inline-block", padding:"4px 11px", borderRadius:"12px", fontSize:"11px", fontWeight:"600", background:`${il.color}14`, border:`1px solid ${il.color}40`, color:il.color }}>{label}</span>;
                           })}
                         </div>
                       )}
-                      <button onClick={() => navigateTo(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>Open full journal →</button>
+                      <button onClick={() => navigateTo(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>Open full journal →</button>
                     </div>
                   ) : (
                     <div>
                       <div style={{ marginBottom:"10px" }}>
-                        <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
+                        <div style={{ color:"#8898c8", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
                         <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
                           {MOOD_EMOJIS.map(mood => (
                             <button key={mood.val} onClick={() => setTodayMood(mood.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayMood===mood.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayMood===mood.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{mood.emoji}</button>
@@ -9911,7 +10377,7 @@ function NeuroThriveApp() {
                         </div>
                       </div>
                       <div style={{ marginBottom:"10px" }}>
-                        <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
+                        <div style={{ color:"#8898c8", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
                         <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
                           {ENERGY_EMOJIS.map(energy => (
                             <button key={energy.val} onClick={() => setTodayEnergy(energy.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayEnergy===energy.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayEnergy===energy.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{energy.emoji}</button>
@@ -9919,28 +10385,28 @@ function NeuroThriveApp() {
                         </div>
                       </div>
                       <div style={{ marginBottom:"10px" }}>
-                        <div style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600", marginBottom:"6px" }}>Symptoms</div>
+                        <div style={{ color:"#8898c8", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Symptoms</div>
                         <div style={{ display:"flex", flexWrap:"wrap", gap:"6px" }}>
                           {GENERAL_SYMPTOMS.map(s => (
-                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"6px 12px", borderRadius:"16px", fontSize:"11px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"16px", fontSize:"13px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#8898c8", transition:"all 0.15s" }}>{s.label}</button>
                           ))}
                           {selectedConditions.flatMap(c => CONDITION_SYMPTOMS[c] || []).filter((s, i, arr) => arr.findIndex(x => x.id === s.id) === i).map(s => (
-                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"6px 12px", borderRadius:"16px", fontSize:"11px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"16px", fontSize:"13px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.02)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#8898c8", transition:"all 0.15s" }}>{s.label}</button>
                           ))}
                         </div>
                       </div>
                       {Object.keys(todaySymptoms).length > 0 && (
                         <div style={{ background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"12px", padding:"12px 14px", marginBottom:"10px" }}>
-                          <div style={{ fontSize:"10px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Set Intensity</div>
+                          <div style={{ fontSize:"11px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Set Intensity</div>
                           {Object.entries(todaySymptoms).map(([id, level]) => {
                             const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
                             const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
                             return (
                               <div key={id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"6px" }}>
-                                <span style={{ color:"#d4a0e8", fontSize:"11px", fontWeight:"600", flex:"1" }}>{label}</span>
+                                <span style={{ color:"#d4a0e8", fontSize:"13px", fontWeight:"600", flex:"1" }}>{label}</span>
                                 <div style={{ display:"flex", gap:"4px" }}>
                                   {INTENSITY_LEVELS.map(il => (
-                                    <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"3px 10px", borderRadius:"12px", fontSize:"9px", fontWeight:"700", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(110,120,200,0.15)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#6b7394", transition:"all 0.15s" }}>{il.label}</button>
+                                    <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"4px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"700", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(110,120,200,0.15)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#7888b8", transition:"all 0.15s" }}>{il.label}</button>
                                   ))}
                                 </div>
                               </div>
@@ -9949,7 +10415,7 @@ function NeuroThriveApp() {
                         </div>
                       )}
                       <textarea style={{ ...S.textarea, minHeight:"60px" }} placeholder="Notes (optional)..." value={todayNote} onChange={e => setTodayNote(e.target.value)} />
-                      <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"10px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5570f0,#4060e0)" : "rgba(110,120,200,0.15)", color: (todayMood && todayEnergy) ? "#fff" : "#8890b8", fontSize:"12px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
+                      <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"12px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5570f0,#4060e0)" : "rgba(110,120,200,0.15)", color: (todayMood && todayEnergy) ? "#fff" : "#8898c8", fontSize:"14px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
                     </div>
                   )}
                 </div>
@@ -9967,8 +10433,8 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                     <span style={{ fontSize:"20px" }}>💧</span>
                     <div>
-                      <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{todayChecks.water || 0}/{waterGoal} glasses <span style={{ color:"#6b7394", fontSize:"11px", fontWeight:"400" }}>(8oz each)</span></div>
-                      <div style={{ color:"#8890b8", fontSize:"11px", marginTop:"2px" }}>{(todayChecks.water || 0) >= bpThreshold ? "Great hydration! +5 BP" : `Drink ${bpThreshold}+ glasses for +5 BP`}</div>
+                      <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700" }}>{todayChecks.water || 0}/{waterGoal} glasses <span style={{ color:"#8898c8", fontSize:"13px", fontWeight:"400" }}>(8oz each)</span></div>
+                      <div style={{ color:"#8898c8", fontSize:"13px", marginTop:"2px" }}>{(todayChecks.water || 0) >= bpThreshold ? "Great hydration! +5 BP" : `Drink ${bpThreshold}+ glasses for +5 BP`}</div>
                     </div>
                   </div>
                 </div>
@@ -9989,9 +10455,9 @@ function NeuroThriveApp() {
                 </div>
                 {/* Personalized water calculator */}
                 <details style={{ marginBottom:"4px" }}>
-                  <summary style={{ color:"#60b0e0", fontSize:"11px", cursor:"pointer", fontWeight:"600", letterSpacing:"0.5px" }}>Calculate your personal water goal</summary>
+                  <summary style={{ color:"#60b0e0", fontSize:"13px", cursor:"pointer", fontWeight:"600", letterSpacing:"0.5px" }}>Calculate your personal water goal</summary>
                   <div style={{ marginTop:"10px", padding:"12px", borderRadius:"12px", background:"rgba(96,176,224,0.06)", border:"1px solid rgba(96,176,224,0.15)" }}>
-                    <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"8px" }}>Enter your body weight to calculate how much water your brain and body need daily:</div>
+                    <div style={{ color:"#8898c8", fontSize:"13px", marginBottom:"8px" }}>Enter your body weight to calculate how much water your brain and body need daily:</div>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
                       <input type="number" placeholder="Weight" style={{ width:"80px", padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(255,255,255,0.04)", color:"#eef0ff", fontSize:"14px", fontFamily:"inherit", outline:"none" }} id="water-calc-weight" />
                       <select id="water-calc-unit" style={{ padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(255,255,255,0.04)", color:"#eef0ff", fontSize:"13px", fontFamily:"inherit", outline:"none" }}>
@@ -10007,12 +10473,12 @@ function NeuroThriveApp() {
                         const glasses = Math.round(ozPerDay / 8);
                         const clamped = Math.max(6, Math.min(glasses, 16));
                         updateTodayChecks(prev => ({ ...prev, waterGoal: clamped }));
-                      }} style={{ padding:"8px 14px", borderRadius:"10px", background:"#60b0e0", color:"#fff", border:"none", fontSize:"12px", fontWeight:"700", cursor:"pointer", whiteSpace:"nowrap" }}>Set Goal</button>
+                      }} style={{ padding:"8px 14px", borderRadius:"10px", background:"#60b0e0", color:"#fff", border:"none", fontSize:"13px", fontWeight:"700", cursor:"pointer", whiteSpace:"nowrap" }}>Set Goal</button>
                     </div>
-                    <div style={{ color:"#6b7394", fontSize:"10px", lineHeight:1.5 }}>Formula: body weight ÷ 2 = daily oz ÷ 8 = glasses. Active people or those in hot climates may need more.</div>
+                    <div style={{ color:"#8898c8", fontSize:"12px", lineHeight:1.5 }}>Formula: body weight ÷ 2 = daily oz ÷ 8 = glasses. Active people or those in hot climates may need more.</div>
                   </div>
                 </details>
-                <p style={{ color:"#6b7394", fontSize:"11px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water. Even mild dehydration impairs focus and mood.</p>
+                <p style={{ color:"#8898c8", fontSize:"13px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water. Even mild dehydration impairs focus and mood.</p>
                 </>);
                 })()}
               </div>
@@ -10020,7 +10486,7 @@ function NeuroThriveApp() {
               {/* Section F: Evening Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Evening Routine")}>Evening Routine</div>
-              <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"10px" }}>{routine.evening.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (eveningChecks[i] ? 1 : 0)), 0)}/{routine.evening.length} done</div>
+              <div style={{ color:"#8898c8", fontSize:"13px", marginBottom:"10px" }}>{routine.evening.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (eveningChecks[i] ? 1 : 0)), 0)}/{routine.evening.length} done</div>
               {routine.evening.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!eveningChecks[i];
@@ -10046,15 +10512,15 @@ function NeuroThriveApp() {
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`e${i}`]: !p[`e${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600" }}>{s.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"10px" }}>{isExStep ? "15+ min" : s.time}</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color:"#8898c8", fontSize:"13px" }}>{isExStep ? "15+ min" : s.time}</div>
                       </div>
                     </div>
-                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
                     {isExpanded && isExStep && (
                       <div style={{ marginTop:"8px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"11px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                        <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -10069,10 +10535,10 @@ function NeuroThriveApp() {
                   <div style={{ textAlign:"center", padding:"28px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(107,143,255,0.06))", border:"1.5px solid rgba(80,200,120,0.25)", marginBottom:"8px" }}>
                     <div style={{ fontSize:"32px", marginBottom:"10px" }}>✨</div>
                     <div style={{ fontSize:"18px", fontWeight:"700", color:"#50c878", marginBottom:"6px" }}>Day {daysElapsed} Complete</div>
-                    <div style={{ fontSize:"13px", color:"#a0c8b0", lineHeight:1.7 }}>
+                    <div style={{ fontSize:"14px", color:"#a0c8b0", lineHeight:1.7 }}>
                       You scored {bp2.pct}% today. Every choice you made is strengthening your brain.
                     </div>
-                    <div style={{ fontSize:"12px", color:"#6b7394", marginTop:"10px" }}>Tomorrow's checklist resets at midnight.</div>
+                    <div style={{ fontSize:"13px", color:"#7888b8", marginTop:"10px" }}>Tomorrow's checklist resets at midnight.</div>
                   </div>
                 );
                 return bp2.pct >= 30 ? (
@@ -10082,7 +10548,7 @@ function NeuroThriveApp() {
                     }} style={{ width:"100%", padding:"16px 20px", borderRadius:"16px", border:"1.5px solid rgba(80,200,120,0.3)", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(107,143,255,0.06))", color:"#50c878", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px" }}>
                       Complete My Day
                     </button>
-                    <div style={{ fontSize:"11px", color:"#6b7394", marginTop:"8px" }}>Lock in your progress for Day {daysElapsed}</div>
+                    <div style={{ fontSize:"12px", color:"#7888b8", marginTop:"8px" }}>Lock in your progress for Day {daysElapsed}</div>
                   </div>
                 ) : null;
               })()}
@@ -10106,7 +10572,7 @@ function NeuroThriveApp() {
 
                 return (
                   <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(107,143,255,0.06), rgba(80,200,120,0.04))", border:"1px solid rgba(107,143,255,0.15)" }}>
-                    <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"16px" }}>Daily Brain Scorecard</div>
+                    <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"16px" }}>Daily Brain Scorecard</div>
 
                     <div style={{ display:"flex", alignItems:"center", gap:"20px", marginBottom:"20px" }}>
                       <svg width="90" height="90" viewBox="0 0 90 90" style={{ flexShrink:0 }}>
@@ -10119,8 +10585,8 @@ function NeuroThriveApp() {
                       </svg>
                       <div>
                         <div style={{ fontSize:"16px", fontWeight:"700", color:lvl.color, letterSpacing:"0.5px", textTransform:"uppercase" }}>{lvl.label}</div>
-                        <div style={{ fontSize:"11px", color:"#8890b8", marginTop:"4px" }}>{bp.total} of {bp.max} brain points earned</div>
-                        {streak > 0 && <div style={{ fontSize:"11px", color:"#e8c87a", marginTop:"2px" }}>{streak}-day streak</div>}
+                        <div style={{ fontSize:"14px", color:"#8898c8", marginTop:"4px" }}>{bp.total} of {bp.max} brain points earned</div>
+                        {streak > 0 && <div style={{ fontSize:"14px", color:"#e8c87a", marginTop:"2px" }}>{streak}-day streak</div>}
                       </div>
                     </div>
 
@@ -10130,13 +10596,13 @@ function NeuroThriveApp() {
                       return (
                         <div key={i} style={{ marginBottom:"12px" }}>
                           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"4px" }}>
-                            <span style={{ fontSize:"12px", fontWeight:"600", color: full ? "#50c878" : "#c8ccf0", display:"flex", alignItems:"center", gap:"6px" }}><span style={{ width:"6px", height:"6px", borderRadius:"50%", background: full ? "#50c878" : cat.dot, display:"inline-block" }} />{cat.label}</span>
-                            <span style={{ fontSize:"11px", fontWeight:"700", color: full ? "#50c878" : "#7b9fff" }}>{cat.bp}/{cat.max} BP</span>
+                            <span style={{ fontSize:"14px", fontWeight:"600", color: full ? "#50c878" : "#c8ccf0", display:"flex", alignItems:"center", gap:"6px" }}><span style={{ width:"6px", height:"6px", borderRadius:"50%", background: full ? "#50c878" : cat.dot, display:"inline-block" }} />{cat.label}</span>
+                            <span style={{ fontSize:"13px", fontWeight:"700", color: full ? "#50c878" : "#7b9fff" }}>{cat.bp}/{cat.max} BP</span>
                           </div>
                           <div style={{ height:"8px", borderRadius:"4px", background:"rgba(110,120,200,0.1)", overflow:"hidden" }}>
                             <div style={{ width:`${Math.min(100, pct)}%`, height:"100%", borderRadius:"4px", background: full ? "linear-gradient(90deg,#40b868,#50c878)" : `linear-gradient(90deg,${lvl.color}88,${lvl.color})`, transition:"width 0.5s ease" }} />
                           </div>
-                          <div style={{ fontSize:"10px", color:"#8890b8", marginTop:"2px" }}>{cat.desc}</div>
+                          <div style={{ fontSize:"12px", color:"#8898c8", marginTop:"2px" }}>{cat.desc}</div>
                         </div>
                       );
                     })}
@@ -11104,10 +11570,170 @@ function NeuroThriveApp() {
           );
         })()}
 
+      {/* ── STEP 20: RECIPE BROWSER ─────────────────────────────────────── */}
+        {step === 20 && isPremium && (() => {
+          const cats = [
+            { id: "all", label: "All", emoji: "📋" },
+            { id: "breakfast", label: "Breakfast", emoji: "🌅" },
+            { id: "lunch", label: "Lunch", emoji: "☀️" },
+            { id: "dinner", label: "Dinner", emoji: "🌙" },
+            { id: "snacks", label: "Snacks", emoji: "🍎" },
+          ];
+
+          const cuisines = [{ id: "all", label: "All Cuisines", emoji: "🌍" }, ...CUISINE_TYPES, { id: "general", label: "General", emoji: "🍽️" }];
+
+          const condId = selectedConditions.length > 0 ? selectedConditions[0] : "default";
+          const q = recipeSearch.toLowerCase().trim();
+
+          // Build flat list with category labels
+          const allMeals = [];
+          ["breakfast","lunch","dinner","snacks"].forEach(cat => {
+            (ALL_MEALS[cat] || []).forEach(m => {
+              if (!(m.conditions.includes(condId) || m.conditions.includes("default"))) return;
+              if (recipeCat !== "all" && recipeCat !== cat) return;
+              const cuisineTags = getCuisine(m.name);
+              if (recipeCuisine !== "all" && !cuisineTags.includes(recipeCuisine)) return;
+              if (q && !m.name.toLowerCase().includes(q)) return;
+              allMeals.push({ ...m, cat, cuisineTags });
+            });
+          });
+
+          const getCuisineInfo = (id) => cuisines.find(c => c.id === id) || { label: "General", emoji: "🍽️", color: "#7b9fff" };
+
+          return (
+            <div>
+              <h2 style={S.sectionTitle}>Recipe Browser</h2>
+              <p style={S.sectionSub}>Search and explore {allMeals.length} recipes personalized for your brain</p>
+
+              {/* Search bar */}
+              <div style={{ position:"relative", marginBottom:"16px" }}>
+                <input
+                  type="text"
+                  placeholder="Search recipes... (e.g. salmon, pesto, curry)"
+                  value={recipeSearch}
+                  onChange={e => setRecipeSearch(e.target.value)}
+                  style={{ ...S.textarea, padding:"14px 18px 14px 44px", borderRadius:"14px", fontSize:"15px", width:"100%", boxSizing:"border-box" }}
+                />
+                <span style={{ position:"absolute", left:"16px", top:"50%", transform:"translateY(-50%)", fontSize:"18px", opacity:0.5 }}>🔍</span>
+                {recipeSearch && <button onClick={() => setRecipeSearch("")} style={{ position:"absolute", right:"14px", top:"50%", transform:"translateY(-50%)", background:"rgba(255,255,255,0.1)", border:"none", borderRadius:"50%", width:"24px", height:"24px", color:"#a0a8e8", cursor:"pointer", fontSize:"13px", fontWeight:"700" }}>×</button>}
+              </div>
+
+              {/* Category pills */}
+              <div style={{ display:"flex", gap:"8px", overflowX:"auto", marginBottom:"12px", paddingBottom:"4px" }}>
+                {cats.map(c => (
+                  <button key={c.id} onClick={() => setRecipeCat(c.id)} style={{ padding:"8px 16px", borderRadius:"20px", border: recipeCat === c.id ? "none" : "1px solid rgba(110,120,200,0.2)", background: recipeCat === c.id ? "linear-gradient(135deg,#7b9fff,#50c878)" : "rgba(255,255,255,0.04)", color: recipeCat === c.id ? "#fff" : "#8898c8", fontSize:"13px", fontWeight:"600", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0 }}>
+                    {c.emoji} {c.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Cuisine pills */}
+              <div style={{ display:"flex", gap:"8px", overflowX:"auto", marginBottom:"20px", paddingBottom:"4px" }}>
+                {cuisines.map(c => (
+                  <button key={c.id} onClick={() => setRecipeCuisine(c.id)} style={{ padding:"7px 14px", borderRadius:"20px", border: recipeCuisine === c.id ? "none" : "1px solid rgba(110,120,200,0.15)", background: recipeCuisine === c.id ? `${c.color || "#7b9fff"}` : "rgba(255,255,255,0.03)", color: recipeCuisine === c.id ? "#fff" : "#6b7ba8", fontSize:"12px", fontWeight:"600", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0 }}>
+                    {c.emoji} {c.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Results count */}
+              <p style={{ fontSize:"13px", color:"#6b7ba8", marginBottom:"14px" }}>{allMeals.length} recipe{allMeals.length !== 1 ? "s" : ""} found</p>
+
+              {/* Recipe cards */}
+              {allMeals.length === 0 && (
+                <div style={{ ...S.card, textAlign:"center", padding:"40px 20px" }}>
+                  <p style={{ fontSize:"16px", color:"#8898c8", marginBottom:"8px" }}>No recipes match your search</p>
+                  <p style={{ fontSize:"13px", color:"#6b7ba8" }}>Try different keywords or clear filters</p>
+                </div>
+              )}
+
+              {allMeals.map((meal, i) => {
+                const isExpanded = expandedRecipe === i;
+                const recipe = isExpanded ? generateRecipe(meal.name) : null;
+                const catLabel = cats.find(c => c.id === meal.cat);
+
+                return (
+                  <div key={i} style={{ ...S.card, marginBottom:"10px", cursor:"pointer", transition:"all 0.2s" }} onClick={() => setExpandedRecipe(isExpanded ? null : i)}>
+                    {/* Header row */}
+                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"12px" }}>
+                      <div style={{ flex:1 }}>
+                        <p style={{ fontSize:"15px", fontWeight:"600", color:"#eef0ff", margin:"0 0 6px 0", lineHeight:"1.4" }}>{meal.name}</p>
+                        <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
+                          {meal.cuisineTags.map(ct => { const ci = getCuisineInfo(ct); return (
+                            <span key={ct} style={{ fontSize:"11px", fontWeight:"600", color: ci.color || "#7b9fff", background:`rgba(123,159,255,0.08)`, padding:"3px 10px", borderRadius:"10px" }}>{ci.emoji} {ci.label}</span>
+                          ); })}
+                          <span style={{ fontSize:"11px", fontWeight:"600", color:"#8898c8", background:"rgba(255,255,255,0.04)", padding:"3px 10px", borderRadius:"10px" }}>{catLabel?.emoji} {catLabel?.label}</span>
+                        </div>
+                      </div>
+                      <span style={{ fontSize:"18px", color:"#6b7ba8", transform: isExpanded ? "rotate(180deg)" : "none", transition:"transform 0.2s", flexShrink:0, marginTop:"4px" }}>▾</span>
+                    </div>
+
+                    {/* Expanded recipe */}
+                    {isExpanded && recipe && (
+                      <div style={{ marginTop:"16px", borderTop:"1px solid rgba(110,120,200,0.12)", paddingTop:"16px" }} onClick={e => e.stopPropagation()}>
+                        <div style={{ display:"flex", gap:"12px", marginBottom:"16px" }}>
+                          <div style={{ background:"rgba(123,159,255,0.08)", borderRadius:"12px", padding:"10px 16px", textAlign:"center" }}>
+                            <p style={{ fontSize:"10px", fontWeight:"700", color:"#6b7ba8", letterSpacing:"1px", textTransform:"uppercase", margin:"0" }}>SERVES</p>
+                            <p style={{ fontSize:"20px", fontWeight:"700", color:"#eef0ff", margin:"4px 0 0 0" }}>{recipe.serves}</p>
+                          </div>
+                          <div style={{ background:"rgba(123,159,255,0.08)", borderRadius:"12px", padding:"10px 16px", textAlign:"center" }}>
+                            <p style={{ fontSize:"10px", fontWeight:"700", color:"#6b7ba8", letterSpacing:"1px", textTransform:"uppercase", margin:"0" }}>TIME</p>
+                            <p style={{ fontSize:"20px", fontWeight:"700", color:"#eef0ff", margin:"4px 0 0 0" }}>{recipe.time}</p>
+                          </div>
+                        </div>
+
+                        <p style={{ fontSize:"12px", fontWeight:"700", color:"#50c878", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"10px" }}>INGREDIENTS</p>
+                        {recipe.ingredients.map((ing, j) => (
+                          <div key={j} style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"8px" }}>
+                            <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#50c878", marginTop:"7px", flexShrink:0 }} />
+                            <span style={{ fontSize:"14px", color:"#c8d0f0", lineHeight:"1.5" }}>{ing}</span>
+                          </div>
+                        ))}
+
+                        <p style={{ fontSize:"12px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1px", textTransform:"uppercase", marginTop:"20px", marginBottom:"10px" }}>INSTRUCTIONS</p>
+                        {recipe.steps.map((s, j) => (
+                          <div key={j} style={{ display:"flex", gap:"12px", marginBottom:"12px" }}>
+                            <span style={{ width:"26px", height:"26px", borderRadius:"50%", background:"linear-gradient(135deg,#7b9fff,#50c878)", color:"#fff", fontSize:"12px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>{j+1}</span>
+                            <span style={{ fontSize:"14px", color:"#c8d0f0", lineHeight:"1.6", flex:1 }}>{s}</span>
+                          </div>
+                        ))}
+
+                        {recipe.tip && (
+                          <div style={{ background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)", borderRadius:"12px", padding:"14px", marginTop:"16px" }}>
+                            <p style={{ fontSize:"13px", color:"#e8c87a", margin:0, lineHeight:"1.5" }}>💡 <strong>Pro Tip:</strong> {recipe.tip}</p>
+                          </div>
+                        )}
+
+                        {recipe.nutrition && recipe.nutrition.length > 0 && (
+                          <div style={{ marginTop:"16px" }}>
+                            <p style={{ fontSize:"12px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"10px" }}>🧠 BRAIN NUTRITION</p>
+                            {recipe.nutrition.map((n, j) => (
+                              <div key={j} style={{ display:"flex", alignItems:"flex-start", gap:"8px", marginBottom:"6px" }}>
+                                <span style={{ color:"#ba68c8", fontSize:"12px", marginTop:"3px", flexShrink:0 }}>◆</span>
+                                <span style={{ fontSize:"13px", color:"#a0a8d0", lineHeight:"1.5" }}>{n}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              <div style={{ height:"20px" }} />
+              <div style={{ display:"flex", justifyContent:"space-between" }}>
+                <button style={S.btnOutline} onClick={goBack}>← Back</button>
+                <button style={S.btn} onClick={() => navigateTo(12)}>Today's Checklist →</button>
+              </div>
+            </div>
+          );
+        })()}
+
       {/* ── MEAL EXPLANATION + RECIPE MODAL ────────────────────────────────── */}
       {explainModal && (
         <div onClick={() => setExplainModal(null)} style={{ position:"fixed", inset:0, zIndex:1000, background:"rgba(26,26,26,0.65)", backdropFilter:"blur(8px)", display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
-          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"24px", padding:"28px", maxWidth:"560px", width:"100%", maxHeight:"85vh", overflowY:"auto", position:"relative", boxShadow:"0 32px 80px rgba(0,0,0,0.3)" }}>
+          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"24px", padding:"28px", maxWidth:"560px", width:"100%", maxHeight:"85vh", overflowY:"auto", position:"relative", boxShadow:"0 32px 80px rgba(0,0,0,0.3)", zoom:"1.1" }}>
             <button onClick={() => setExplainModal(null)} style={{ position:"absolute", top:"16px", right:"16px", background:"rgba(255,255,255,0.07)", border:"none", borderRadius:"50%", width:"32px", height:"32px", color:"#a0a8e8", cursor:"pointer", fontSize:"16px", display:"flex", alignItems:"center", justifyContent:"center", fontWeight:"700" }}>×</button>
 
             <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(80,112,240,0.12)", color:"#7b9fff", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>{explainModal.mealType}</div>
@@ -11235,9 +11861,9 @@ function NeuroThriveApp() {
         if (!brain) return null;
         return (
           <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, overflowY:"auto", padding:"24px", backdropFilter:"blur(12px)" }}>
-            <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+            <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Plus Jakarta Sans',sans-serif", zoom:"1.1" }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: condKeys.length > 1 ? "16px" : "24px" }}>
-                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", margin:0 }}>{brain.emoji} {brain.title}</h2>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"30px", fontWeight:"300", color:"#eef0ff", margin:0 }}>{brain.emoji} {brain.title}</h2>
                 <button onClick={() => setShowBrainExplainer(false)} style={{ background:"rgba(110,120,200,0.15)", border:"none", color:"#8890b8", fontSize:"18px", width:"36px", height:"36px", borderRadius:"50%", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
               </div>
 
@@ -11247,40 +11873,40 @@ function NeuroThriveApp() {
                     const b = BRAIN_ON_CONDITION[ck];
                     const isActive = ck === activeBrainTab;
                     return (
-                      <button key={ck} onClick={() => setBrainExplainerTab(ck)} style={{ padding:"7px 14px", borderRadius:"12px", border: isActive ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: isActive ? "rgba(85,112,240,0.15)" : "transparent", color: isActive ? "#a0b8ff" : "#6b7394", fontSize:"12px", fontWeight: isActive ? "700" : "500", cursor:"pointer", transition:"all 0.15s" }}>{b ? b.emoji : "🧠"} {b ? b.title.replace("Your Brain on ","") : ck}</button>
+                      <button key={ck} onClick={() => setBrainExplainerTab(ck)} style={{ padding:"9px 16px", borderRadius:"12px", border: isActive ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.25)", background: isActive ? "rgba(85,112,240,0.18)" : "transparent", color: isActive ? "#a0b8ff" : "#8898c8", fontSize:"14px", fontWeight: isActive ? "700" : "500", cursor:"pointer", transition:"all 0.15s" }}>{b ? b.emoji : "🧠"} {b ? b.title.replace("Your Brain on ","") : ck}</button>
                     );
                   })}
                 </div>
               )}
 
-              <p style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.8, marginBottom:"24px" }}>{brain.overview}</p>
+              <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.8, marginBottom:"24px" }}>{brain.overview}</p>
 
-              <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"14px" }}>Neurotransmitter Profile</div>
+              <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"14px" }}>Neurotransmitter Profile</div>
               {brain.neurotransmitters.map((nt, i) => (
-                <div key={i} style={{ padding:"16px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"10px" }}>
+                <div key={i} style={{ padding:"18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"12px" }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                    <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{nt.name}</span>
-                    <span style={{ padding:"3px 10px", borderRadius:"20px", fontSize:"10px", fontWeight:"700", background: nt.status === "Low" || nt.status === "Depleted" ? "rgba(224,96,96,0.12)" : nt.status === "Elevated" || nt.status === "High" ? "rgba(224,180,96,0.12)" : "rgba(107,143,255,0.12)", color: nt.status === "Low" || nt.status === "Depleted" ? "#e06060" : nt.status === "Elevated" || nt.status === "High" ? "#e0b460" : "#7b9fff" }}>{nt.status}</span>
+                    <span style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700" }}>{nt.name}</span>
+                    <span style={{ padding:"4px 12px", borderRadius:"20px", fontSize:"12px", fontWeight:"700", background: nt.status === "Low" || nt.status === "Depleted" ? "rgba(224,96,96,0.12)" : nt.status === "Elevated" || nt.status === "High" ? "rgba(224,180,96,0.12)" : "rgba(107,143,255,0.12)", color: nt.status === "Low" || nt.status === "Depleted" ? "#e06060" : nt.status === "Elevated" || nt.status === "High" ? "#e0b460" : "#7b9fff" }}>{nt.status}</span>
                   </div>
-                  <p style={{ color:"#a0a8e8", fontSize:"12px", lineHeight:1.6, margin:"0 0 4px 0" }}><strong style={{ color:"#c8ccf0" }}>Role:</strong> {nt.role}</p>
-                  <p style={{ color:"#a0a8e8", fontSize:"12px", lineHeight:1.6, margin:"0 0 4px 0" }}><strong style={{ color:"#c8ccf0" }}>Impact:</strong> {nt.impact}</p>
-                  <p style={{ color:"#50c878", fontSize:"12px", lineHeight:1.6, margin:0 }}><strong style={{ color:"#70d898" }}>Nutrition:</strong> {nt.nutrition}</p>
+                  <p style={{ color:"#a0a8e8", fontSize:"14px", lineHeight:1.6, margin:"0 0 6px 0" }}><strong style={{ color:"#c8ccf0" }}>Role:</strong> {nt.role}</p>
+                  <p style={{ color:"#a0a8e8", fontSize:"14px", lineHeight:1.6, margin:"0 0 6px 0" }}><strong style={{ color:"#c8ccf0" }}>Impact:</strong> {nt.impact}</p>
+                  <p style={{ color:"#50c878", fontSize:"14px", lineHeight:1.6, margin:0 }}><strong style={{ color:"#70d898" }}>Nutrition:</strong> {nt.nutrition}</p>
                 </div>
               ))}
 
               {brain.brainRegions && (
                 <>
-                  <div style={{ fontSize:"11px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", margin:"24px 0 14px 0" }}>Brain Regions Affected</div>
-                  <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:"0 0 24px 0" }}>{brain.brainRegions}</p>
+                  <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", margin:"24px 0 14px 0" }}>Brain Regions Affected</div>
+                  <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:"0 0 24px 0" }}>{brain.brainRegions}</p>
                 </>
               )}
 
-              <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(80,200,120,0.05)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"24px" }}>
-                <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"8px" }}>How Your Nutrition Helps</div>
-                <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:0 }}>{brain.howNutritionHelps}</p>
+              <div style={{ padding:"20px", borderRadius:"16px", background:"rgba(80,200,120,0.05)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"24px" }}>
+                <div style={{ fontSize:"12px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"8px" }}>How Your Nutrition Helps</div>
+                <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:0 }}>{brain.howNutritionHelps}</p>
               </div>
 
-              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"14px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Close</button>
+              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Close</button>
             </div>
           </div>
         );
@@ -11289,7 +11915,7 @@ function NeuroThriveApp() {
       {/* ── Paywall Overlay ── */}
       {(showPaywall || paywallActive) && (
         <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(12px)" }}>
-          <div style={{ maxWidth:"520px", width:"100%", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+          <div style={{ maxWidth:"520px", width:"100%", fontFamily:"'Plus Jakarta Sans',sans-serif", zoom:"1.1" }}>
 
             {/* Header */}
             <div style={{ textAlign:"center", marginBottom:"32px" }}>
@@ -11348,7 +11974,7 @@ function NeuroThriveApp() {
       )}
       {legalPage && (
         <div onClick={() => setLegalPage(null)} style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.92)", zIndex:200, display:"flex", alignItems:"flex-start", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(8px)" }}>
-          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"24px", padding:"36px 32px", maxWidth:"640px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 32px 80px rgba(0,0,0,0.5)", marginTop:"24px" }}>
+          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"24px", padding:"36px 32px", maxWidth:"640px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 32px 80px rgba(0,0,0,0.5)", marginTop:"24px", zoom:"1.1" }}>
             <button onClick={() => setLegalPage(null)} style={{ position:"absolute", top:"20px", right:"20px", background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.2)", color:"#7b9fff", borderRadius:"50%", width:"32px", height:"32px", cursor:"pointer", fontSize:"16px", display:"flex", alignItems:"center", justifyContent:"center" }}>×</button>
 
             {legalPage === "terms" && (
