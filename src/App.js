@@ -6853,15 +6853,15 @@ function NeuroThriveApp() {
 
   // ── Auth screen styles ─────────────────────────────────────────────────────
   const SA = {
-    overlay: { minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.1) 0%, transparent 55%), linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Plus Jakarta Sans',sans-serif" },
+    overlay: { minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.1) 0%, transparent 55%), linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Inter',sans-serif" },
     card: { background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.5)" },
     logo: { textAlign:"center", marginBottom:"32px" },
     logoText: { fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", letterSpacing:"2px" },
     logoSub: { fontSize:"12px", color:"#7b9fff", letterSpacing:"3px", textTransform:"uppercase", marginTop:"4px" },
     label: { fontSize:"12px", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px", display:"block" },
-    input: { width:"100%", padding:"14px 16px", borderRadius:"12px", border:"1px solid rgba(110,120,200,0.25)", background:"rgba(240,244,255,0.05)", color:"#eef0ff", fontSize:"15px", fontFamily:"'Plus Jakarta Sans',sans-serif", outline:"none", boxSizing:"border-box", marginBottom:"16px" },
-    btn: { width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", marginTop:"8px" },
-    link: { color:"#7b9fff", fontSize:"13px", cursor:"pointer", textDecoration:"underline", background:"none", border:"none", fontFamily:"'Plus Jakarta Sans',sans-serif", padding:0 },
+    input: { width:"100%", padding:"14px 16px", borderRadius:"12px", border:"1px solid rgba(110,120,200,0.25)", background:"rgba(240,244,255,0.05)", color:"#eef0ff", fontSize:"15px", fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box", marginBottom:"16px" },
+    btn: { width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", marginTop:"8px" },
+    link: { color:"#7b9fff", fontSize:"13px", cursor:"pointer", textDecoration:"underline", background:"none", border:"none", fontFamily:"'Inter',sans-serif", padding:0 },
     error: { color:"#e07070", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(220,100,100,0.1)", borderRadius:"10px", border:"1px solid rgba(220,100,100,0.2)" },
     success: { color:"#7b9fff", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(107,143,255,0.1)", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.2)" },
     divider: { textAlign:"center", color:"#8890b8", fontSize:"12px", margin:"16px 0" },
@@ -6888,7 +6888,7 @@ function NeuroThriveApp() {
   // ── Show auth screen if not logged in ──────────────────────────────────────
   if (authLoading) return (
     <div style={{ ...SA.overlay }}>
-      <div style={{ color:"#7b9fff", fontSize:"16px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Loading...</div>
+      <div style={{ color:"#7b9fff", fontSize:"16px", fontFamily:"'Inter',sans-serif" }}>Loading...</div>
     </div>
   );
 
@@ -6978,7 +6978,7 @@ function NeuroThriveApp() {
 
   // ── Mandatory disclaimer screen (shows after welcome page, skipped for returning users) ──
   if (!disclaimerAccepted && step > 0) return (
-    <div style={{ minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.1) 0%, transparent 55%), linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+    <div style={{ minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.1) 0%, transparent 55%), linear-gradient(180deg,#080c18 0%,#0a0f1e 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Inter',sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&display=swap');`}</style>
       <div style={{ background:"linear-gradient(145deg,#0c1020,#111828)", borderRadius:"28px", padding:"40px 32px", maxWidth:"480px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.5)" }}>
         <div style={{ textAlign:"center", marginBottom:"28px" }}>
@@ -7014,7 +7014,7 @@ function NeuroThriveApp() {
           </p>
         </div>
 
-        <button onClick={() => setDisclaimerAccepted(true)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
+        <button onClick={() => setDisclaimerAccepted(true)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
           I Understand: Continue to NeuroThrive
         </button>
         <p style={{ textAlign:"center", color:"#8890b8", fontSize:"11px", marginTop:"16px", lineHeight:1.6 }}>
@@ -8060,7 +8060,7 @@ function NeuroThriveApp() {
   const globalDayIdx = selectedWeek*7+selectedDayIdx;
 
   const S = {
-    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#060a14 0%,#080e1c 50%,#060a14 100%)", fontFamily:"'Plus Jakarta Sans',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em", fontSize:"15px" },
+    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#060a14 0%,#080e1c 50%,#060a14 100%)", fontFamily:"'Inter',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em", fontSize:"15px" },
     nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.08)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
     logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
     navTabs: { display:"flex", gap:"1px", overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none", flexShrink:1, minWidth:0 },
@@ -8085,7 +8085,7 @@ function NeuroThriveApp() {
     divider: { height:"1px", background:"linear-gradient(90deg, transparent, rgba(107,143,255,0.12), transparent)", margin:"24px 0" },
     moodRow: { display:"flex", gap:"10px", flexWrap:"wrap", marginBottom:"20px" },
     moodBtn: (sel) => ({ flex:1, minWidth:"55px", padding:"12px 6px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", color:sel?"#a0b8ff":"#7888b8", fontWeight:sel?"600":"400" }),
-    textarea: { width:"100%", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.1)", borderRadius:"14px", color:"#e8ecff", fontFamily:"'Plus Jakarta Sans',system-ui,sans-serif", fontSize:"15px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
+    textarea: { width:"100%", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(107,143,255,0.1)", borderRadius:"14px", color:"#e8ecff", fontFamily:"'Inter',system-ui,sans-serif", fontSize:"15px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
     affirmCard: { textAlign:"center", padding:"56px 36px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"24px", marginBottom:"20px", position:"relative", overflow:"hidden", boxShadow:"0 4px 32px rgba(0,0,0,0.15)" },
     successBanner: { background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.18)", borderRadius:"14px", padding:"16px 22px", color:"#70d890", fontSize:"14px", fontWeight:"600", textAlign:"center", marginBottom:"16px", backdropFilter:"blur(8px)" },
     dot: (a,d) => ({ width:"6px", height:"6px", borderRadius:"50%", background:a?"#5570f0":d?"rgba(80,112,240,0.4)":"rgba(107,143,255,0.15)", transition:"all 0.3s" }),
@@ -8117,7 +8117,7 @@ function NeuroThriveApp() {
   return (
     <div style={S.app}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { box-sizing: border-box; }
         body { margin: 0; background: #060a14; }
         * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -8589,11 +8589,11 @@ function NeuroThriveApp() {
 
             <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
               {/* Brain-Optimized */}
-              <div style={{ padding:"28px 24px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(80,200,120,0.03))", border:"1.5px solid rgba(80,200,120,0.25)", textAlign:"center" }}>
+              <div style={{ padding:"28px 24px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(80,112,240,0.03))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center" }}>
                 <div style={{ fontSize:"32px", marginBottom:"10px" }}>🧠</div>
                 <h3 style={{ fontSize:"19px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"10px" }}>Optimize for My Brain</h3>
-                <p style={{ color:"#a0c8b0", fontSize:"15px", lineHeight:1.6, marginBottom:"18px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>No dietary restrictions. We build the best possible menu using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
-                <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #50c878, #40b868)", color:"#fff", border:"none", padding:"15px 32px", borderRadius:"50px", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 24px rgba(80,200,120,0.35)" }}>
+                <p style={{ color:"#a0b8ff", fontSize:"15px", lineHeight:1.6, marginBottom:"18px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>No dietary restrictions. We build the best possible menu using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
+                <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", border:"none", padding:"15px 32px", borderRadius:"50px", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 24px rgba(80,112,240,0.35)" }}>
                   Build Brain-Optimized Menu →
                 </button>
               </div>
@@ -8728,19 +8728,19 @@ function NeuroThriveApp() {
 
         {/* PAYWALL GATE: show if step >= 4 and not premium (skip step 13, onboarding) */}
         {step >= 4 && step !== 13 && !isPremium && (
-          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Inter',sans-serif" }}>
             <div style={{ fontSize:"52px", marginBottom:"16px" }}>🧠</div>
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
             <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready; subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", width:"100%", maxWidth:"380px" }}>
-              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#7b9fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#7b9fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
                 {checkoutLoading === "annual" ? "Loading..." : "Get Annual: $59.99/yr (save 50%)"}
               </button>
-              <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#c8d0ff", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
+              <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(107,143,255,0.1)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#c8d0ff", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
                 {checkoutLoading === "monthly" ? "Loading..." : "Monthly: $9.99/mo"}
               </button>
             </div>
-            <button onClick={() => setStep(3)} style={{ marginTop:"24px", color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>← Go back</button>
+            <button onClick={() => setStep(3)} style={{ marginTop:"24px", color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>← Go back</button>
           </div>
         )}
 
@@ -9319,7 +9319,7 @@ function NeuroThriveApp() {
                   <div style={{ flex:1 }}>
                     <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"500", marginBottom:"4px" }}>{label}</div>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-                      <input type="time" value={reminderTimes[key]} onChange={e => setReminderTimes(prev => ({ ...prev, [key]:e.target.value }))} style={{ background:"rgba(240,244,255,0.08)", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#eef0ff", padding:"8px 12px", fontSize:"15px", fontFamily:"'Plus Jakarta Sans',sans-serif", cursor:"pointer", outline:"none", minWidth:"110px" }} />
+                      <input type="time" value={reminderTimes[key]} onChange={e => setReminderTimes(prev => ({ ...prev, [key]:e.target.value }))} style={{ background:"rgba(240,244,255,0.08)", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#eef0ff", padding:"8px 12px", fontSize:"15px", fontFamily:"'Inter',sans-serif", cursor:"pointer", outline:"none", minWidth:"110px" }} />
                       <span style={{ color:"#8890b8", fontSize:"11px" }}>tap to change</span>
                     </div>
                   </div>
@@ -9345,7 +9345,7 @@ function NeuroThriveApp() {
                 <div style={{ display:"flex", alignItems:"center", gap:"12px", paddingTop:"14px", borderTop:"1px solid rgba(107,143,255,0.12)" }}>
                   <span style={{ color:"#8890b8", fontSize:"13px", whiteSpace:"nowrap" }}>Deliver at</span>
                   <input type="time" value={affirmNotifTime} onChange={e => setAffirmNotifTime(e.target.value)}
-                    style={{ padding:"8px 12px", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.25)", background:"rgba(107,143,255,0.07)", color:"#eef0ff", fontSize:"14px", fontFamily:"'Plus Jakarta Sans',sans-serif", outline:"none" }} />
+                    style={{ padding:"8px 12px", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.25)", background:"rgba(107,143,255,0.07)", color:"#eef0ff", fontSize:"14px", fontFamily:"'Inter',sans-serif", outline:"none" }} />
                   <span style={{ color:"#7b9fff", fontSize:"12px" }}>daily</span>
                 </div>
               )}
@@ -11825,27 +11825,27 @@ function NeuroThriveApp() {
 
       {/* ── Copyright Footer ── */}
       <footer style={{ textAlign:"center", padding:"32px 24px 28px", borderTop:"1px solid rgba(107,143,255,0.08)", marginTop:"24px" }}>
-        <div style={{ fontSize:"13px", color:"#8890b8", fontFamily:"'Plus Jakarta Sans',sans-serif", letterSpacing:"0.3px" }}>
+        <div style={{ fontSize:"13px", color:"#8890b8", fontFamily:"'Inter',sans-serif", letterSpacing:"0.3px" }}>
           © {new Date().getFullYear()} NeuroThrive. All rights reserved.
         </div>
         <div style={{ fontSize:"11px", color:"rgba(136,144,184,0.5)", marginTop:"6px", letterSpacing:"0.5px" }}>
           Proprietary content. Unauthorized reproduction or distribution is prohibited.
         </div>
         <div style={{ display:"flex", justifyContent:"center", gap:"20px", marginTop:"12px", flexWrap:"wrap" }}>
-          <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Terms of Service</button>
-          <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Privacy Policy</button>
-          <button onClick={() => setDisclaimerAccepted(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Health Disclaimer</button>
-          <button onClick={() => { setRefsExpanded(null); setLegalPage("references"); }} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Scientific References</button>
+          <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Terms of Service</button>
+          <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Privacy Policy</button>
+          <button onClick={() => setDisclaimerAccepted(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Health Disclaimer</button>
+          <button onClick={() => { setRefsExpanded(null); setLegalPage("references"); }} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Scientific References</button>
         </div>
         {user && (
           <div style={{ marginTop:"16px" }}>
             {!deleteConfirm ? (
-              <button onClick={() => setDeleteConfirm(true)} style={{ color:"#e06060", background:"none", border:"none", fontSize:"11px", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", opacity:0.7 }}>Delete Account</button>
+              <button onClick={() => setDeleteConfirm(true)} style={{ color:"#e06060", background:"none", border:"none", fontSize:"11px", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity:0.7 }}>Delete Account</button>
             ) : (
               <div style={{ display:"inline-flex", alignItems:"center", gap:"10px", padding:"10px 16px", borderRadius:"12px", background:"rgba(224,96,96,0.08)", border:"1px solid rgba(224,96,96,0.25)" }}>
                 <span style={{ color:"#e06060", fontSize:"12px" }}>Permanently delete all your data?</span>
-                <button onClick={handleDeleteAccount} style={{ color:"#fff", background:"#e06060", border:"none", fontSize:"11px", fontWeight:"700", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Yes, Delete</button>
-                <button onClick={() => setDeleteConfirm(false)} style={{ color:"#8890b8", background:"none", border:"1px solid rgba(110,120,200,0.25)", fontSize:"11px", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Cancel</button>
+                <button onClick={handleDeleteAccount} style={{ color:"#fff", background:"#e06060", border:"none", fontSize:"11px", fontWeight:"700", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Inter',sans-serif" }}>Yes, Delete</button>
+                <button onClick={() => setDeleteConfirm(false)} style={{ color:"#8890b8", background:"none", border:"1px solid rgba(110,120,200,0.25)", fontSize:"11px", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Inter',sans-serif" }}>Cancel</button>
               </div>
             )}
           </div>
@@ -11861,7 +11861,7 @@ function NeuroThriveApp() {
         if (!brain) return null;
         return (
           <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, overflowY:"auto", padding:"24px", backdropFilter:"blur(12px)" }}>
-            <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Plus Jakarta Sans',sans-serif", zoom:"1.1" }}>
+            <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Inter',sans-serif", zoom:"1.1" }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: condKeys.length > 1 ? "16px" : "24px" }}>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"30px", fontWeight:"300", color:"#eef0ff", margin:0 }}>{brain.emoji} {brain.title}</h2>
                 <button onClick={() => setShowBrainExplainer(false)} style={{ background:"rgba(110,120,200,0.15)", border:"none", color:"#8890b8", fontSize:"18px", width:"36px", height:"36px", borderRadius:"50%", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
@@ -11906,7 +11906,7 @@ function NeuroThriveApp() {
                 <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:0 }}>{brain.howNutritionHelps}</p>
               </div>
 
-              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Close</button>
+              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Close</button>
             </div>
           </div>
         );
@@ -11915,7 +11915,7 @@ function NeuroThriveApp() {
       {/* ── Paywall Overlay ── */}
       {(showPaywall || paywallActive) && (
         <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(12px)" }}>
-          <div style={{ maxWidth:"520px", width:"100%", fontFamily:"'Plus Jakarta Sans',sans-serif", zoom:"1.1" }}>
+          <div style={{ maxWidth:"520px", width:"100%", fontFamily:"'Inter',sans-serif", zoom:"1.1" }}>
 
             {/* Header */}
             <div style={{ textAlign:"center", marginBottom:"32px" }}>
@@ -11948,7 +11948,7 @@ function NeuroThriveApp() {
                 <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px", marginTop:"8px" }}>$59.99</div>
                 <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per year</div>
                 <div style={{ color:"#8890b8", fontSize:"12px" }}>Just $5/month</div>
-                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
+                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
                   {checkoutLoading === "annual" ? "Redirecting..." : "Start Annual Plan →"}
                 </button>
               </div>
@@ -11958,7 +11958,7 @@ function NeuroThriveApp() {
                 <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px" }}>$9.99</div>
                 <div style={{ color:"#8890b8", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per month</div>
                 <div style={{ color:"#8890b8", fontSize:"12px" }}>Cancel anytime</div>
-                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"rgba(107,143,255,0.15)", color:"#7b9fff", border:"1px solid rgba(107,143,255,0.3)", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
+                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"rgba(107,143,255,0.15)", color:"#7b9fff", border:"1px solid rgba(107,143,255,0.3)", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
                   {checkoutLoading === "monthly" ? "Redirecting..." : "Start Monthly Plan"}
                 </button>
               </div>
@@ -11966,8 +11966,8 @@ function NeuroThriveApp() {
 
             <div style={{ textAlign:"center" }}>
               <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:"0 0 8px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
-              <p style={{ color:"rgba(136,144,184,0.6)", fontSize:"10px", lineHeight:1.6, margin:"0 0 12px 0" }}>Subscriptions auto-renew at the end of each billing period at the current price unless cancelled at least 24 hours before the period ends. By subscribing you agree to our <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Terms</button> and <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Privacy Policy</button>.</p>
-              <button onClick={() => { setShowPaywall(false); setStep(2); }} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>← Go back</button>
+              <p style={{ color:"rgba(136,144,184,0.6)", fontSize:"10px", lineHeight:1.6, margin:"0 0 12px 0" }}>Subscriptions auto-renew at the end of each billing period at the current price unless cancelled at least 24 hours before the period ends. By subscribing you agree to our <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Terms</button> and <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Privacy Policy</button>.</p>
+              <button onClick={() => { setShowPaywall(false); setStep(2); }} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>← Go back</button>
             </div>
           </div>
         </div>
@@ -12060,7 +12060,7 @@ function NeuroThriveApp() {
               </div>
             )}
 
-            <button onClick={() => setLegalPage(null)} style={{ marginTop:"8px", width:"100%", padding:"14px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Close</button>
+            <button onClick={() => setLegalPage(null)} style={{ marginTop:"8px", width:"100%", padding:"14px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Close</button>
           </div>
         </div>
       )}
