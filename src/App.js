@@ -19,25 +19,25 @@ const supabase = createClient(
 );
 
 const MENTAL_CONDITIONS = [
-  { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬" },
-  { id: "adhd", label: "ADHD", emoji: "⚡" },
-  { id: "anxiety", label: "Anxiety", emoji: "🌊" },
-  { id: "depression", label: "Depression", emoji: "🌧️" },
-  { id: "bipolar", label: "Bipolar Disorder", emoji: "🔄" },
-  { id: "schizophrenia", label: "Schizophrenia", emoji: "🧩" },
-  { id: "autism", label: "Autism Spectrum", emoji: "🌈" },
-  { id: "ptsd", label: "PTSD", emoji: "🛡️" },
-  { id: "did", label: "DID", emoji: "🪞" },
-  { id: "bpd", label: "Borderline PD", emoji: "🌅" },
-  { id: "npd", label: "Narcissistic PD", emoji: "🌟" },
-  { id: "hpd", label: "Histrionic PD", emoji: "🌻" },
-  { id: "aspd", label: "Antisocial PD", emoji: "🔒" },
-  { id: "ocd", label: "OCD", emoji: "🔁" },
-  { id: "eating", label: "Eating Disorders", emoji: "🍃" },
-  { id: "phobia", label: "Phobias", emoji: "🦋" },
-  { id: "bfrb", label: "Body-Focused Repetitive", emoji: "🌿" },
-  { id: "ppd", label: "Paranoid PD", emoji: "🏡" },
-  { id: "spd", label: "Schizoid PD", emoji: "🏔️" },
+  { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬", color: "#7b9fff", desc: "General brain optimization, no specific diagnosis" },
+  { id: "adhd", label: "ADHD", emoji: "⚡", color: "#e8c87a", desc: "Focus, dopamine support, and sustained energy" },
+  { id: "anxiety", label: "Anxiety", emoji: "🌊", color: "#50b8dc", desc: "Calming nutrients, magnesium, and gut health" },
+  { id: "depression", label: "Depression", emoji: "🌧️", color: "#6888cc", desc: "Serotonin boosters, omega-3s, and folate" },
+  { id: "bipolar", label: "Bipolar Disorder", emoji: "🔄", color: "#ba68c8", desc: "Mood stability, steady blood sugar, and omega-3s" },
+  { id: "schizophrenia", label: "Schizophrenia", emoji: "🧩", color: "#50c8a0", desc: "Antioxidants, B vitamins, and anti-inflammatory foods" },
+  { id: "autism", label: "Autism Spectrum", emoji: "🌈", color: "#e08870", desc: "Gut health, sensory-friendly textures, and B6" },
+  { id: "ptsd", label: "PTSD", emoji: "🛡️", color: "#5090d0", desc: "Stress-reducing nutrients and nervous system support" },
+  { id: "did", label: "DID", emoji: "🪞", color: "#8878c8", desc: "Blood sugar stability and consistent energy" },
+  { id: "bpd", label: "Borderline PD", emoji: "🌅", color: "#e07868", desc: "Emotional balance, omega-3s, and magnesium" },
+  { id: "npd", label: "Narcissistic PD", emoji: "🌟", color: "#d0a850", desc: "Serotonin support and impulse regulation" },
+  { id: "hpd", label: "Histrionic PD", emoji: "🌻", color: "#d8a040", desc: "Mood regulation and gut-brain axis support" },
+  { id: "aspd", label: "Antisocial PD", emoji: "🔒", color: "#7890a8", desc: "Omega-3s for frontal lobe and impulse control" },
+  { id: "ocd", label: "OCD", emoji: "🔁", color: "#60a8d0", desc: "Serotonin support, complex carbs, and zinc" },
+  { id: "eating", label: "Eating Disorders", emoji: "🍃", color: "#50c878", desc: "Gentle nourishment and balanced nutrition" },
+  { id: "phobia", label: "Phobias", emoji: "🦋", color: "#a080d0", desc: "Anxiety-reducing nutrients and calming foods" },
+  { id: "bfrb", label: "Body-Focused Repetitive", emoji: "🌿", color: "#60b890", desc: "NAC support, antioxidants, and B vitamins" },
+  { id: "ppd", label: "Paranoid PD", emoji: "🏡", color: "#80a878", desc: "Calming nutrients and gut-brain connection" },
+  { id: "spd", label: "Schizoid PD", emoji: "🏔️", color: "#7098b0", desc: "Cognitive support and anti-inflammatory foods" },
 ];
 
 // Diet types: these define what you DO eat (inclusion-based)
@@ -8395,21 +8395,34 @@ function NeuroThriveApp() {
         {step === 2 && (
           <div>
             <h2 style={S.sectionTitle}>What do you live with?</h2>
-            <p style={S.sectionSub}>Select all that apply. You are not defined by these labels; they simply help us personalize your plan.</p>
-            <div style={S.grid}>
-              {MENTAL_CONDITIONS.map(c => (
-                <div key={c.id} style={S.chip(selectedConditions.includes(c.id))} onClick={() => toggleItem(selectedConditions, setSelectedConditions, c.id)}>
-                  <span style={{ fontSize:"17px" }}>{c.emoji}</span>
-                  <span style={{ display:"flex", flexDirection:"column" }}>
-                    <span style={c.id === "neuro_core" ? { fontSize:"11px" } : {}}>{c.label}</span>
-                    {c.id === "neuro_core" && <span style={{ fontSize:"8px", fontWeight:"600", color:"#7b9fff", marginTop:"1px" }}>No Diagnosis</span>}
-                  </span>
-                </div>
-              ))}
+            <p style={S.sectionSub}>Select all that apply. Your plan will be built around the neuroscience of each condition.</p>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px", marginBottom:"32px" }}>
+              {MENTAL_CONDITIONS.map(c => {
+                const sel = selectedConditions.includes(c.id);
+                return (
+                  <div key={c.id} onClick={() => toggleItem(selectedConditions, setSelectedConditions, c.id)} style={{
+                    padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
+                    border: sel ? `1.5px solid ${c.color}70` : "1px solid rgba(110,120,200,0.12)",
+                    background: sel ? `linear-gradient(135deg, ${c.color}18, ${c.color}08)` : "rgba(255,255,255,0.02)",
+                    transform: sel ? "scale(1.02)" : "scale(1)",
+                    boxShadow: sel ? `0 4px 20px ${c.color}20` : "none",
+                  }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"6px" }}>
+                      <span style={{
+                        width:"36px", height:"36px", borderRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s",
+                        background: sel ? `${c.color}25` : "rgba(110,120,200,0.08)",
+                      }}>{c.emoji}</span>
+                      <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: sel ? c.color : "#c0c8e8", transition:"all 0.2s" }}>{c.label}</span>
+                      {sel && <span style={{ marginLeft:"auto", width:"20px", height:"20px", borderRadius:"50%", background:c.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
+                    </div>
+                    <p style={{ margin:0, fontSize:"11px", lineHeight:1.5, color: sel ? `${c.color}cc` : "#6b7394", paddingLeft:"46px", transition:"color 0.2s" }}>{c.desc}</p>
+                  </div>
+                );
+              })}
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <button style={S.btnOutline} onClick={() => setStep(1)}>← Back</button>
-              <span style={{ color:"#999", fontSize:"13px", fontWeight:"500" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : ""}</span>
+              <span style={{ color: selectedConditions.length > 0 ? "#7b9fff" : "#6b7394", fontSize:"13px", fontWeight:"600", transition:"color 0.2s" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "None selected"}</span>
               <button style={S.btn} onClick={() => setStep(3)}>Continue →</button>
             </div>
           </div>
