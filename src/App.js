@@ -8784,9 +8784,9 @@ function NeuroThriveApp() {
                 <p style={S.sectionSub}>Tap any meal to see why each ingredient is on your plan, or get the recipe.</p>
               </div>
               <div style={{ display:"flex", gap:"8px" }}>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(15)}>Grocery List</button>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px" }} onClick={() => navigateTo(18)}>Meal Prep</button>
-                <button style={S.btnOutline} onClick={startNewCycle}>↺ New Cycle</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#50c878", borderColor:"rgba(80,200,120,0.4)", background:"rgba(80,200,120,0.08)" }} onClick={() => navigateTo(15)}>Grocery List</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#ba68c8", borderColor:"rgba(186,104,200,0.4)", background:"rgba(186,104,200,0.08)" }} onClick={() => navigateTo(18)}>Meal Prep</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#7b9fff", borderColor:"rgba(123,159,255,0.4)", background:"rgba(123,159,255,0.08)" }} onClick={startNewCycle}>↺ New Cycle</button>
               </div>
             </div>
 
