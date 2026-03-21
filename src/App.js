@@ -8620,8 +8620,8 @@ function NeuroThriveApp() {
 
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
                 {/* Brain-Optimized */}
-                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" }}>
-                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(255,255,255,1))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>🧠</div>
+                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"#ffffff", border:"1.5px solid rgba(49,60,98,0.1)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 2px 8px rgba(49,60,98,0.06)" }}>
+                  <span style={{ fontSize:"36px", marginBottom:"14px" }}>🧠</span>
                   <h3 style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
                   <p style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>We pick the best neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}. Allergy restrictions still apply.</p>
                   <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", border:"none", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%" }}>
@@ -8630,8 +8630,8 @@ function NeuroThriveApp() {
                 </div>
 
                 {/* Customize */}
-                <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background: showCustomize ? "linear-gradient(145deg, rgba(107,143,255,0.12), rgba(255,255,255,1))" : "linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s", display:"flex", flexDirection:"column", alignItems:"center" }}>
-                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(255,255,255,1))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>⚙️</div>
+                <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background: showCustomize ? "rgba(95,137,248,0.06)" : "#ffffff", border: showCustomize ? "1.5px solid rgba(95,137,248,0.3)" : "1.5px solid rgba(49,60,98,0.1)", textAlign:"center", cursor:"pointer", transition:"all 0.2s", display:"flex", flexDirection:"column", alignItems:"center", boxShadow:"0 2px 8px rgba(49,60,98,0.06)" }}>
+                  <span style={{ fontSize:"36px", marginBottom:"14px" }}>⚙️</span>
                   <h3 style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
                   <p style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
                   <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%", boxSizing:"border-box" }}>{showCustomize ? "Hide Options ↑" : "Customize →"}</span>
