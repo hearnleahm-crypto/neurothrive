@@ -8597,11 +8597,11 @@ function NeuroThriveApp() {
                       boxShadow: sel ? `0 4px 20px ${c.color}20` : "none",
                     }}>
                       <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"4px" }}>
-                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s", background: sel ? `${c.color}25` : "rgba(255,255,255,1)" }}>{c.emoji}</span>
+                        <span style={{ width:"10px", height:"10px", borderRadius:"50%", flexShrink:0, transition:"all 0.2s", background: c.color, opacity: sel ? 1 : 0.5 }} />
                         <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: "#313C62", transition:"all 0.2s", flex:1 }}>{c.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:c.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
-                      <p style={{ margin:0, fontSize:"11px", lineHeight:1.4, color: sel ? `${c.color}cc` : "#4A5478", paddingLeft:"46px", transition:"color 0.2s" }}>{c.desc}</p>
+                      <p style={{ margin:0, fontSize:"11px", lineHeight:1.4, color: sel ? `${c.color}cc` : "#4A5478", paddingLeft:"20px", transition:"color 0.2s" }}>{c.desc}</p>
                     </div>
                   );
                 })}
@@ -8623,7 +8623,7 @@ function NeuroThriveApp() {
                 <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" }}>
                   <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(255,255,255,1))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>🧠</div>
                   <h3 style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
-                  <p style={{ color:"#8098cc", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>We pick the best neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}. Allergy restrictions still apply.</p>
+                  <p style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>We pick the best neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}. Allergy restrictions still apply.</p>
                   <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", border:"none", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%" }}>
                     Brain-Optimized →
                   </button>
@@ -8633,7 +8633,7 @@ function NeuroThriveApp() {
                 <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background: showCustomize ? "linear-gradient(145deg, rgba(107,143,255,0.12), rgba(255,255,255,1))" : "linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s", display:"flex", flexDirection:"column", alignItems:"center" }}>
                   <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(255,255,255,1))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>⚙️</div>
                   <h3 style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
-                  <p style={{ color:"#8098cc", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
+                  <p style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
                   <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%", boxSizing:"border-box" }}>{showCustomize ? "Hide Options ↑" : "Customize →"}</span>
                 </div>
               </div>
@@ -8643,7 +8643,7 @@ function NeuroThriveApp() {
                 {/* ── Diet Type ── */}
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#50c878", flexShrink:0 }} />
-                  <h3 style={{ color:"#50c878", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Diet Type</h3>
+                  <h3 style={{ color:"#313C62", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Diet Type</h3>
                 </div>
                 <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
@@ -8657,8 +8657,8 @@ function NeuroThriveApp() {
                         transform: sel ? "scale(1.02)" : "scale(1)",
                         boxShadow: sel ? `0 4px 16px ${d.color}20` : "none",
                       }}>
-                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `${d.color}25` : "rgba(255,255,255,1)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
-                        <span style={{ color: sel ? d.color : "#4A5478", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
+                        <span style={{ fontSize:"18px", flexShrink:0 }}>{d.emoji}</span>
+                        <span style={{ color: "#313C62", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:d.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
@@ -8670,7 +8670,7 @@ function NeuroThriveApp() {
                 {/* ── Allergens ── */}
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#e05070", flexShrink:0 }} />
-                  <h3 style={{ color:"#e05070", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Allergens & Restrictions</h3>
+                  <h3 style={{ color:"#313C62", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Allergens & Restrictions</h3>
                 </div>
                 <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
@@ -8684,8 +8684,8 @@ function NeuroThriveApp() {
                         transform: sel ? "scale(1.02)" : "scale(1)",
                         boxShadow: sel ? "0 4px 16px rgba(224,80,112,0.15)" : "none",
                       }}>
-                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
-                        <span style={{ color: sel ? "#e05070" : "#4A5478", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
+                        <span style={{ fontSize:"18px", flexShrink:0 }}>{d.emoji}</span>
+                        <span style={{ color: "#313C62", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:"#e05070", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
@@ -8718,7 +8718,7 @@ function NeuroThriveApp() {
                 {/* ── Food Preferences ── */}
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
-                  <h3 style={{ color:"#e8c87a", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>What Foods Do You Love?</h3>
+                  <h3 style={{ color:"#313C62", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>What Foods Do You Love?</h3>
                 </div>
                 <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them.</p>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
@@ -8734,8 +8734,8 @@ function NeuroThriveApp() {
                         transform: sel ? "scale(1.02)" : "scale(1)",
                         boxShadow: sel ? `0 4px 16px rgba(${catRgb},0.15)` : "none",
                       }}>
-                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `rgba(${catRgb},0.25)` : `rgba(${catRgb},0.08)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{f.emoji}</span>
-                        <span style={{ color: sel ? catColor : "#4A5478", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{f.label}</span>
+                        <span style={{ fontSize:"18px", flexShrink:0 }}>{f.emoji}</span>
+                        <span style={{ color: "#313C62", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{f.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:catColor, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
@@ -8747,7 +8747,7 @@ function NeuroThriveApp() {
                 {/* ── Calorie Target ── */}
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#5F89F8", flexShrink:0 }} />
-                  <h3 style={{ color:"#5F89F8", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Daily Calorie Target</h3>
+                  <h3 style={{ color:"#313C62", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Daily Calorie Target</h3>
                 </div>
                 <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"16px", lineHeight:1.5 }}>Higher targets add a second snack and heartier portions.</p>
                 <div style={{ display:"flex", gap:"12px", marginBottom:"28px" }}>
