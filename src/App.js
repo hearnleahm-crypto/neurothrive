@@ -103,16 +103,16 @@ const DIETARY_RESTRICTIONS = [
 const DIETARY = [...DIET_TYPES, ...DIETARY_RESTRICTIONS];
 
 const CUISINE_TYPES = [
-  { id: "american", label: "American & Comfort", emoji: "🍔", mono: "AC", color: "#e8a050" },
-  { id: "mexican_latin", label: "Mexican & Latin", emoji: "🌮", mono: "ML", color: "#e07060" },
-  { id: "asian", label: "Asian", emoji: "🥢", mono: "AS", color: "#e0c060" },
-  { id: "mediterranean", label: "Mediterranean", emoji: "🫒", mono: "MD", color: "#50b8a0" },
-  { id: "indian_curry", label: "Indian & Curry", emoji: "🍛", mono: "IC", color: "#d08850" },
-  { id: "italian", label: "Italian", emoji: "🍝", mono: "IT", color: "#d06060" },
-  { id: "southern_cajun", label: "Southern & Cajun", emoji: "🫘", mono: "SC", color: "#c09060" },
-  { id: "caribbean", label: "Caribbean", emoji: "🥥", mono: "CB", color: "#50b8c8" },
-  { id: "african", label: "African", emoji: "🍲", mono: "AF", color: "#c87850" },
-  { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜", mono: "SE", color: "#60c080" },
+  { id: "american", label: "American & Comfort", emoji: "🍔", mono: "AC", color: "#e8a050", desc: "Burgers, grilled chicken, mac & cheese, hearty classics" },
+  { id: "mexican_latin", label: "Mexican & Latin", emoji: "🌮", mono: "ML", color: "#e07060", desc: "Tacos, burritos, enchiladas, fresh salsas" },
+  { id: "asian", label: "Asian", emoji: "🥢", mono: "AS", color: "#e0c060", desc: "Stir-fries, teriyaki, miso, kimchi, ramen" },
+  { id: "mediterranean", label: "Mediterranean", emoji: "🫒", mono: "MD", color: "#50b8a0", desc: "Hummus, falafel, herb-roasted dishes, olive oil" },
+  { id: "indian_curry", label: "Indian & Curry", emoji: "🍛", mono: "IC", color: "#d08850", desc: "Curries, tikka masala, dal, biryani, tandoori" },
+  { id: "italian", label: "Italian", emoji: "🍝", mono: "IT", color: "#d06060", desc: "Pasta, risotto, bruschetta, caprese, pesto" },
+  { id: "southern_cajun", label: "Southern & Cajun", emoji: "🫘", mono: "SC", color: "#c09060", desc: "Gumbo, jambalaya, collard greens, blackened fish" },
+  { id: "caribbean", label: "Caribbean", emoji: "🥥", mono: "CB", color: "#50b8c8", desc: "Jerk chicken, plantain, rice & peas, tropical flavors" },
+  { id: "african", label: "African", emoji: "🍲", mono: "AF", color: "#c87850", desc: "Groundnut stew, jollof rice, egusi, suya, injera" },
+  { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜", mono: "SE", color: "#60c080", desc: "Pad thai, pho, satay, curries, lemongrass" },
 ];
 
 const FOOD_PREF_COLORS = { protein:"#e87070", seafood:"#50a0dc", fruit:"#ba68c8", veggie:"#50c878", grain:"#e8c87a", legume:"#c89860", combo:"#7b9fff" };
@@ -8577,75 +8577,115 @@ function NeuroThriveApp() {
         {step === 3 && (
           <div>
             {/* Step 1: Cuisines */}
-            <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"8px" }}>
-              <span style={{ width:"30px", height:"30px", borderRadius:"50%", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(85,112,240,0.1))", color:"#7b9fff", fontSize:"14px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>1</span>
-              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
-            </div>
-            <p style={{ color:"#8898c8", fontSize:"15px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"40px" }}>Select the cuisines you love. Leave blank to include all.</p>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px", marginBottom:"28px" }}>
-              {CUISINE_TYPES.map(c => {
-                const sel = selectedCuisines.includes(c.id);
-                return (
-                  <div key={c.id} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? `1.5px solid ${c.color}60` : "1px solid rgba(110,120,200,0.18)", background: sel ? `${c.color}14` : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? `${c.color}30` : "rgba(107,143,255,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{c.emoji}</span>
-                    <span style={{ color: sel ? c.color : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{c.label}</span>
-                  </div>
-                );
-              })}
+            {/* ── Section 1: Cuisines ── */}
+            <div style={{ marginBottom:"32px" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"8px" }}>
+                <span style={{ width:"36px", height:"36px", borderRadius:"12px", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", fontSize:"15px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:"0 4px 16px rgba(85,112,240,0.3)" }}>1</span>
+                <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
+              </div>
+              <p style={{ color:"#6b7394", fontSize:"14px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"48px" }}>Select the cuisines you love. Leave blank to include all.</p>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
+                {CUISINE_TYPES.map(c => {
+                  const sel = selectedCuisines.includes(c.id);
+                  return (
+                    <div key={c.id} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)} style={{
+                      padding:"16px 14px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
+                      border: sel ? `1.5px solid ${c.color}70` : "1px solid rgba(110,120,200,0.12)",
+                      background: sel ? `linear-gradient(135deg, ${c.color}18, ${c.color}08)` : "rgba(255,255,255,0.02)",
+                      transform: sel ? "scale(1.02)" : "scale(1)",
+                      boxShadow: sel ? `0 4px 20px ${c.color}20` : "none",
+                    }}>
+                      <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"4px" }}>
+                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s", background: sel ? `${c.color}25` : "rgba(110,120,200,0.08)" }}>{c.emoji}</span>
+                        <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: sel ? c.color : "#c0c8e8", transition:"all 0.2s", flex:1 }}>{c.label}</span>
+                        {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:c.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
+                      </div>
+                      <p style={{ margin:0, fontSize:"11px", lineHeight:1.4, color: sel ? `${c.color}cc` : "#6b7394", paddingLeft:"46px", transition:"color 0.2s" }}>{c.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              {selectedCuisines.length > 0 && (
+                <div style={{ marginTop:"12px", fontSize:"13px", color:"#7b9fff", fontWeight:"600", textAlign:"center" }}>{selectedCuisines.length} cuisine{selectedCuisines.length > 1 ? "s" : ""} selected</div>
+              )}
             </div>
 
-            {/* Step 2: Choose path */}
-            <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
-              <span style={{ width:"30px", height:"30px", borderRadius:"50%", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(85,112,240,0.1))", color:"#7b9fff", fontSize:"14px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>2</span>
-              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
-            </div>
-
-            <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
-              {/* Brain-Optimized */}
-              <div style={{ padding:"28px 24px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(80,112,240,0.03))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center" }}>
-                <div style={{ fontSize:"32px", marginBottom:"10px" }}>🧠</div>
-                <h3 style={{ fontSize:"19px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"10px" }}>Optimize for My Brain</h3>
-                <p style={{ color:"#a0b8ff", fontSize:"15px", lineHeight:1.6, marginBottom:"18px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>No dietary restrictions. We build the best possible menu using the top neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}.</p>
-                <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", border:"none", padding:"15px 32px", borderRadius:"50px", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 24px rgba(80,112,240,0.35)" }}>
-                  Build Brain-Optimized Menu →
-                </button>
+            {/* ── Section 2: Choose path ── */}
+            <div style={{ marginBottom:"16px" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"16px" }}>
+                <span style={{ width:"36px", height:"36px", borderRadius:"12px", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", fontSize:"15px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:"0 4px 16px rgba(85,112,240,0.3)" }}>2</span>
+                <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
               </div>
 
-              {/* Customize */}
-              <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"28px 24px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(107,143,255,0.1), rgba(80,112,240,0.03))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s" }}>
-                <div style={{ fontSize:"32px", marginBottom:"10px" }}>⚙️</div>
-                <h3 style={{ fontSize:"19px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"10px" }}>Customize My Plan</h3>
-                <p style={{ color:"#a0b8ff", fontSize:"15px", lineHeight:1.6, marginBottom:"18px", maxWidth:"340px", marginLeft:"auto", marginRight:"auto" }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
-                <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"15px 32px", borderRadius:"50px", fontSize:"15px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 24px rgba(80,112,240,0.35)" }}>{showCustomize ? "Hide Options ↑" : "Customize My Plan →"}</span>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
+                {/* Brain-Optimized */}
+                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(107,143,255,0.1), rgba(107,143,255,0.02))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" }}>
+                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(107,143,255,0.08))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>🧠</div>
+                  <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
+                  <p style={{ color:"#8098cc", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>We pick the best neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}. Allergy restrictions still apply.</p>
+                  <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", border:"none", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%" }}>
+                    Brain-Optimized →
+                  </button>
+                </div>
+
+                {/* Customize */}
+                <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background: showCustomize ? "linear-gradient(145deg, rgba(107,143,255,0.12), rgba(107,143,255,0.04))" : "linear-gradient(145deg, rgba(107,143,255,0.08), rgba(107,143,255,0.02))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s", display:"flex", flexDirection:"column", alignItems:"center" }}>
+                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(107,143,255,0.08))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>⚙️</div>
+                  <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
+                  <p style={{ color:"#8098cc", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
+                  <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%", boxSizing:"border-box" }}>{showCustomize ? "Hide Options ↑" : "Customize →"}</span>
+                </div>
               </div>
             </div>
 
-            {showCustomize && <div style={{ marginTop:"20px" }}>
-                <h3 style={{ color:"#50c878", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Diet Type</h3>
-                <p style={{ color:"#8898c8", fontSize:"15px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+            {showCustomize && <div style={{ marginTop:"24px" }}>
+                {/* ── Diet Type ── */}
+                <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
+                  <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#50c878", flexShrink:0 }} />
+                  <h3 style={{ color:"#50c878", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Diet Type</h3>
+                </div>
+                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                   {DIET_TYPES.map(d => {
                     const sel = selectedDiet.includes(d.id);
                     return (
-                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? `1.5px solid ${d.color}60` : "1px solid rgba(110,120,200,0.18)", background: sel ? `${d.color}14` : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? `${d.color}30` : "rgba(80,200,120,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{d.emoji}</span>
-                        <span style={{ color: sel ? d.color : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
+                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{
+                        display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
+                        border: sel ? `1.5px solid ${d.color}70` : "1px solid rgba(110,120,200,0.12)",
+                        background: sel ? `linear-gradient(135deg, ${d.color}18, ${d.color}08)` : "rgba(255,255,255,0.02)",
+                        transform: sel ? "scale(1.02)" : "scale(1)",
+                        boxShadow: sel ? `0 4px 16px ${d.color}20` : "none",
+                      }}>
+                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `${d.color}25` : "rgba(80,200,120,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
+                        <span style={{ color: sel ? d.color : "#8898c8", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
+                        {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:d.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
                   })}
                 </div>
 
-                <div style={{ height:"24px" }} />
+                <div style={{ height:"28px" }} />
 
-                <h3 style={{ color:"#e05070", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>Allergens & Restrictions</h3>
-                <p style={{ color:"#8898c8", fontSize:"15px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+                {/* ── Allergens ── */}
+                <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
+                  <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#e05070", flexShrink:0 }} />
+                  <h3 style={{ color:"#e05070", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Allergens & Restrictions</h3>
+                </div>
+                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                   {DIETARY_RESTRICTIONS.map(d => {
                     const sel = selectedDiet.includes(d.id);
                     return (
-                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? "1.5px solid rgba(224,80,112,0.5)" : "1px solid rgba(110,120,200,0.18)", background: sel ? "rgba(224,80,112,0.1)" : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{d.emoji}</span>
-                        <span style={{ color: sel ? "#e05070" : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{d.label}</span>
+                      <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{
+                        display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
+                        border: sel ? "1.5px solid rgba(224,80,112,0.5)" : "1px solid rgba(110,120,200,0.12)",
+                        background: sel ? "linear-gradient(135deg, rgba(224,80,112,0.12), rgba(224,80,112,0.04))" : "rgba(255,255,255,0.02)",
+                        transform: sel ? "scale(1.02)" : "scale(1)",
+                        boxShadow: sel ? "0 4px 16px rgba(224,80,112,0.15)" : "none",
+                      }}>
+                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
+                        <span style={{ color: sel ? "#e05070" : "#8898c8", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
+                        {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:"#e05070", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
                   })}
@@ -8672,40 +8712,64 @@ function NeuroThriveApp() {
                   </div>
                 )}
 
-                <div style={S.divider} />
+                <div style={{ height:"8px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.12), transparent)", borderRadius:"4px", margin:"24px 0" }} />
 
-                <h3 style={{ color:"#e8c87a", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"12px" }}>What Foods Do You Love?</h3>
-                <p style={{ color:"#8898c8", fontSize:"15px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them. The more you select, the more personalized your plan.</p>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+                {/* ── Food Preferences ── */}
+                <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
+                  <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
+                  <h3 style={{ color:"#e8c87a", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>What Foods Do You Love?</h3>
+                </div>
+                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them.</p>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                   {FOOD_PREFS.map(f => {
                     const sel = selectedFoodPrefs.includes(f.id);
                     const catColor = FOOD_PREF_COLORS[f.cat] || "#7b9fff";
                     const catRgb = FOOD_PREF_RGB[f.cat] || "123,159,255";
                     return (
-                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"14px", border: sel ? `1.5px solid ${catColor}60` : "1px solid rgba(110,120,200,0.18)", background: sel ? `rgba(${catRgb},0.1)` : "rgba(255,255,255,0.03)", cursor:"pointer", transition:"all 0.15s" }}>
-                        <span style={{ width:"34px", height:"34px", borderRadius:"10px", background: sel ? `rgba(${catRgb},0.25)` : `rgba(${catRgb},0.08)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"20px", flexShrink:0, transition:"all 0.15s" }}>{f.emoji}</span>
-                        <span style={{ color: sel ? catColor : "#8898c8", fontSize:"15px", fontWeight: sel ? "700" : "500" }}>{f.label}</span>
+                      <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{
+                        display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
+                        border: sel ? `1.5px solid ${catColor}70` : "1px solid rgba(110,120,200,0.12)",
+                        background: sel ? `linear-gradient(135deg, rgba(${catRgb},0.14), rgba(${catRgb},0.04))` : "rgba(255,255,255,0.02)",
+                        transform: sel ? "scale(1.02)" : "scale(1)",
+                        boxShadow: sel ? `0 4px 16px rgba(${catRgb},0.15)` : "none",
+                      }}>
+                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `rgba(${catRgb},0.25)` : `rgba(${catRgb},0.08)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{f.emoji}</span>
+                        <span style={{ color: sel ? catColor : "#8898c8", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{f.label}</span>
+                        {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:catColor, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
                   })}
                 </div>
 
-                <div style={S.divider} />
+                <div style={{ height:"8px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.12), transparent)", borderRadius:"4px", margin:"24px 0" }} />
 
-                <h2 style={{ ...S.sectionTitle, fontSize:"22px" }}>Daily calorie target</h2>
-                <p style={S.sectionSub}>Choose the range that fits your goals. Higher targets add a second snack and heartier portions.</p>
-                <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
+                {/* ── Calorie Target ── */}
+                <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
+                  <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#7b9fff", flexShrink:0 }} />
+                  <h3 style={{ color:"#7b9fff", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Daily Calorie Target</h3>
+                </div>
+                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"16px", lineHeight:1.5 }}>Higher targets add a second snack and heartier portions.</p>
+                <div style={{ display:"flex", gap:"12px", marginBottom:"28px" }}>
                   {[
-                    { id:"1200", label:"1,200–1,500", sub:"Lower calorie", desc:"Lighter meals, one snack" },
-                    { id:"1500", label:"1,500–2,000", sub:"Moderate", desc:"Balanced meals, one snack" },
-                    { id:"2000", label:"2,000–2,500", sub:"Higher calorie", desc:"Heartier meals, two snacks" },
-                  ].map(opt => (
-                    <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{ flex:1, padding:"18px 14px", borderRadius:"16px", border: calorieTarget===opt.id ? "1.5px solid #5570f0" : "1px solid rgba(107,143,255,0.1)", background: calorieTarget===opt.id ? "rgba(80,112,240,0.12)" : "rgba(255,255,255,0.02)", cursor:"pointer", textAlign:"center", transition:"all 0.2s" }}>
-                      <div style={{ fontSize:"16px", fontWeight:"700", color: calorieTarget===opt.id ? "#a0b8ff" : "#7888b8", marginBottom:"4px" }}>{opt.label}</div>
-                      <div style={{ fontSize:"12px", fontWeight:"600", color: calorieTarget===opt.id ? "#5570f0" : "#8898c8", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"4px" }}>{opt.sub}</div>
-                      <div style={{ fontSize:"12px", color:"#8898c8" }}>{opt.desc}</div>
-                    </button>
-                  ))}
+                    { id:"1200", label:"1,200–1,500", sub:"Lighter", emoji:"🍃", color:"#50c878" },
+                    { id:"1500", label:"1,500–2,000", sub:"Balanced", emoji:"⚖️", color:"#7b9fff" },
+                    { id:"2000", label:"2,000–2,500", sub:"Heartier", emoji:"💪", color:"#e8c87a" },
+                  ].map(opt => {
+                    const sel = calorieTarget===opt.id;
+                    return (
+                      <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{
+                        flex:1, padding:"20px 14px", borderRadius:"16px", cursor:"pointer", textAlign:"center", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
+                        border: sel ? `1.5px solid ${opt.color}70` : "1px solid rgba(110,120,200,0.12)",
+                        background: sel ? `linear-gradient(145deg, ${opt.color}18, ${opt.color}08)` : "rgba(255,255,255,0.02)",
+                        transform: sel ? "scale(1.03)" : "scale(1)",
+                        boxShadow: sel ? `0 4px 20px ${opt.color}20` : "none",
+                      }}>
+                        <div style={{ fontSize:"22px", marginBottom:"8px" }}>{opt.emoji}</div>
+                        <div style={{ fontSize:"15px", fontWeight:"700", color: sel ? opt.color : "#7888b8", marginBottom:"4px", transition:"all 0.2s" }}>{opt.label}</div>
+                        <div style={{ fontSize:"12px", fontWeight:"600", color: sel ? `${opt.color}cc` : "#6b7394", letterSpacing:"0.5px", textTransform:"uppercase" }}>{opt.sub}</div>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
