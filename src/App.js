@@ -19,7 +19,7 @@ const supabase = createClient(
 );
 
 const MENTAL_CONDITIONS = [
-  { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬", color: "#7b9fff", desc: "General brain optimization, no specific diagnosis" },
+  { id: "neuro_core", label: "Neuro Core Plan", emoji: "🧬", color: "#5F89F8", desc: "General brain optimization, no specific diagnosis" },
   { id: "adhd", label: "ADHD", emoji: "⚡", color: "#e8c87a", desc: "Focus, dopamine support, and sustained energy" },
   { id: "anxiety", label: "Anxiety", emoji: "🌊", color: "#50b8dc", desc: "Calming nutrients, magnesium, and gut health" },
   { id: "depression", label: "Depression", emoji: "🌧️", color: "#6888cc", desc: "Serotonin boosters, omega-3s, and folate" },
@@ -115,7 +115,7 @@ const CUISINE_TYPES = [
   { id: "southeast_asian", label: "Southeast Asian", emoji: "🍜", mono: "SE", color: "#60c080", desc: "Pad thai, pho, satay, curries, lemongrass" },
 ];
 
-const FOOD_PREF_COLORS = { protein:"#e87070", seafood:"#50a0dc", fruit:"#ba68c8", veggie:"#50c878", grain:"#e8c87a", legume:"#c89860", combo:"#7b9fff" };
+const FOOD_PREF_COLORS = { protein:"#e87070", seafood:"#50a0dc", fruit:"#ba68c8", veggie:"#50c878", grain:"#e8c87a", legume:"#c89860", combo:"#5F89F8" };
 const FOOD_PREF_RGB = { protein:"232,112,112", seafood:"80,160,220", fruit:"186,104,200", veggie:"80,200,120", grain:"232,200,122", legume:"200,152,96", combo:"123,159,255" };
 const FOOD_PREFS = [
   // Proteins
@@ -6390,11 +6390,11 @@ class ErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) { return { error }; }
   render() {
     if (this.state.error) return (
-      <div style={{ padding:"40px", color:"#ff6b6b", fontFamily:"monospace", background:"#1a1f35", minHeight:"100vh" }}>
+      <div style={{ padding:"40px", color:"#ff6b6b", fontFamily:"monospace", background:"#DADDE8", minHeight:"100vh" }}>
         <h2>Something went wrong</h2>
         <pre style={{ whiteSpace:"pre-wrap", fontSize:"13px", color:"#e8c87a" }}>{this.state.error.toString()}</pre>
-        <pre style={{ whiteSpace:"pre-wrap", fontSize:"11px", color:"#8890b8", marginTop:"12px" }}>{this.state.error.stack}</pre>
-        <button onClick={() => this.setState({ error: null })} style={{ marginTop:"20px", padding:"10px 20px", background:"#5570f0", color:"#fff", border:"none", borderRadius:"12px", cursor:"pointer" }}>Try Again</button>
+        <pre style={{ whiteSpace:"pre-wrap", fontSize:"11px", color:"#3D4663", marginTop:"12px" }}>{this.state.error.stack}</pre>
+        <button onClick={() => this.setState({ error: null })} style={{ marginTop:"20px", padding:"10px 20px", background:"#5F89F8", color:"#fff", border:"none", borderRadius:"12px", cursor:"pointer" }}>Try Again</button>
       </div>
     );
     return this.props.children;
@@ -6853,18 +6853,18 @@ function NeuroThriveApp() {
 
   // ── Auth screen styles ─────────────────────────────────────────────────────
   const SA = {
-    overlay: { minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.18) 0%, transparent 55%), linear-gradient(180deg,#1e2340 0%,#222850 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Inter',sans-serif" },
-    card: { background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.5)" },
+    overlay: { minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(255,255,255,1) 0%, transparent 55%), linear-gradient(180deg,#D0D4E0 0%,#D0D4E0 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Inter',sans-serif" },
+    card: { background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.1)" },
     logo: { textAlign:"center", marginBottom:"32px" },
-    logoText: { fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", letterSpacing:"2px" },
-    logoSub: { fontSize:"12px", color:"#7b9fff", letterSpacing:"3px", textTransform:"uppercase", marginTop:"4px" },
-    label: { fontSize:"12px", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px", display:"block" },
-    input: { width:"100%", padding:"14px 16px", borderRadius:"12px", border:"1px solid rgba(110,120,200,0.25)", background:"rgba(240,244,255,0.05)", color:"#eef0ff", fontSize:"15px", fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box", marginBottom:"16px" },
-    btn: { width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", marginTop:"8px" },
-    link: { color:"#7b9fff", fontSize:"13px", cursor:"pointer", textDecoration:"underline", background:"none", border:"none", fontFamily:"'Inter',sans-serif", padding:0 },
+    logoText: { fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#313C62", letterSpacing:"2px" },
+    logoSub: { fontSize:"12px", color:"#5F89F8", letterSpacing:"3px", textTransform:"uppercase", marginTop:"4px" },
+    label: { fontSize:"12px", color:"#3D4663", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"600", marginBottom:"8px", display:"block" },
+    input: { width:"100%", padding:"14px 16px", borderRadius:"12px", border:"1px solid rgba(110,120,200,0.25)", background:"rgba(240,244,255,0.05)", color:"#313C62", fontSize:"15px", fontFamily:"'Inter',sans-serif", outline:"none", boxSizing:"border-box", marginBottom:"16px" },
+    btn: { width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", marginTop:"8px" },
+    link: { color:"#5F89F8", fontSize:"13px", cursor:"pointer", textDecoration:"underline", background:"none", border:"none", fontFamily:"'Inter',sans-serif", padding:0 },
     error: { color:"#e07070", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(220,100,100,0.1)", borderRadius:"10px", border:"1px solid rgba(220,100,100,0.2)" },
-    success: { color:"#7b9fff", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(107,143,255,0.18)", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.2)" },
-    divider: { textAlign:"center", color:"#8890b8", fontSize:"12px", margin:"16px 0" },
+    success: { color:"#5F89F8", fontSize:"13px", marginBottom:"12px", padding:"10px 14px", background:"rgba(255,255,255,1)", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.2)" },
+    divider: { textAlign:"center", color:"#3D4663", fontSize:"12px", margin:"16px 0" },
   };
 
   // ── Cycle complete check ───────────────────────────────────────────────────
@@ -6888,7 +6888,7 @@ function NeuroThriveApp() {
   // ── Show auth screen if not logged in ──────────────────────────────────────
   if (authLoading) return (
     <div style={{ ...SA.overlay }}>
-      <div style={{ color:"#7b9fff", fontSize:"16px", fontFamily:"'Inter',sans-serif" }}>Loading...</div>
+      <div style={{ color:"#5F89F8", fontSize:"16px", fontFamily:"'Inter',sans-serif" }}>Loading...</div>
     </div>
   );
 
@@ -6901,7 +6901,7 @@ function NeuroThriveApp() {
           <div style={SA.logoText}>🧠 NeuroThrive</div>
           <div style={SA.logoSub}>Set new password</div>
         </div>
-        <p style={{ color:"#8890b8", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Choose a new password for your account.</p>
+        <p style={{ color:"#3D4663", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Choose a new password for your account.</p>
         <label style={SA.label}>New Password</label>
         <input style={SA.input} type="password" placeholder="Min 6 characters" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
         {authError && <div style={SA.error}>{authError}</div>}
@@ -6961,7 +6961,7 @@ function NeuroThriveApp() {
 
         {authScreen === "reset" && (
           <>
-            <p style={{ color:"#8890b8", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Enter your email and we'll send you a link to reset your password.</p>
+            <p style={{ color:"#3D4663", fontSize:"14px", marginBottom:"20px", lineHeight:1.6 }}>Enter your email and we'll send you a link to reset your password.</p>
             <label style={SA.label}>Email</label>
             <input style={SA.input} type="email" placeholder="your@email.com" value={authEmail} onChange={e => setAuthEmail(e.target.value)} />
             {authError && <div style={SA.error}>{authError}</div>}
@@ -6978,46 +6978,46 @@ function NeuroThriveApp() {
 
   // ── Mandatory disclaimer screen (shows after welcome page, skipped for returning users) ──
   if (!disclaimerAccepted && step > 0) return (
-    <div style={{ minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(107,143,255,0.18) 0%, transparent 55%), linear-gradient(180deg,#1e2340 0%,#222850 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Inter',sans-serif" }}>
+    <div style={{ minHeight:"100vh", background:"radial-gradient(ellipse at 30% 20%, rgba(85,112,240,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, rgba(255,255,255,1) 0%, transparent 55%), linear-gradient(180deg,#D0D4E0 0%,#D0D4E0 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:"24px", fontFamily:"'Inter',sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&display=swap');`}</style>
-      <div style={{ background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"28px", padding:"40px 32px", maxWidth:"480px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.5)" }}>
+      <div style={{ background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"28px", padding:"40px 32px", maxWidth:"480px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 40px 80px rgba(0,0,0,0.1)" }}>
         <div style={{ textAlign:"center", marginBottom:"28px" }}>
-          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"300", color:"#eef0ff", letterSpacing:"2px", marginBottom:"6px" }}>🧠 NeuroThrive</div>
-          <div style={{ fontSize:"11px", color:"#7b9fff", letterSpacing:"3px", textTransform:"uppercase" }}>Before You Begin</div>
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"300", color:"#313C62", letterSpacing:"2px", marginBottom:"6px" }}>🧠 NeuroThrive</div>
+          <div style={{ fontSize:"11px", color:"#5F89F8", letterSpacing:"3px", textTransform:"uppercase" }}>Before You Begin</div>
         </div>
 
         <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"16px", padding:"20px", marginBottom:"20px" }}>
-          <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"12px" }}>⚕️ Health & Wellness Disclaimer</div>
-          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
-            NeuroThrive provides <strong style={{color:"#eef0ff"}}>general wellness information</strong> for educational purposes only. The content in this app, including meal suggestions, supplement information, and affirmations, is <strong style={{color:"#eef0ff"}}>not medical advice</strong> and is not intended to diagnose, treat, cure, or prevent any health condition.
+          <div style={{ fontSize:"11px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"12px" }}>⚕️ Health & Wellness Disclaimer</div>
+          <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
+            NeuroThrive provides <strong style={{color:"#313C62"}}>general wellness information</strong> for educational purposes only. The content in this app, including meal suggestions, supplement information, and affirmations, is <strong style={{color:"#313C62"}}>not medical advice</strong> and is not intended to diagnose, treat, cure, or prevent any health condition.
           </p>
-          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
-            Always consult a <strong style={{color:"#eef0ff"}}>qualified healthcare provider</strong> before making changes to your diet, starting supplements, or modifying any existing treatment plan, especially if you are currently taking medication or under the care of a mental health professional.
+          <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.85, margin:"0 0 12px 0" }}>
+            Always consult a <strong style={{color:"#313C62"}}>qualified healthcare provider</strong> before making changes to your diet, starting supplements, or modifying any existing treatment plan, especially if you are currently taking medication or under the care of a mental health professional.
           </p>
-          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.85, margin:0 }}>
-            Supplement information is provided for <strong style={{color:"#eef0ff"}}>educational reference only</strong>. Dosing, safety, and interactions vary by individual. NeuroThrive does not recommend specific dosing and is not responsible for decisions made based on information in this app.
+          <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.85, margin:0 }}>
+            Supplement information is provided for <strong style={{color:"#313C62"}}>educational reference only</strong>. Dosing, safety, and interactions vary by individual. NeuroThrive does not recommend specific dosing and is not responsible for decisions made based on information in this app.
           </p>
         </div>
 
-        <div style={{ background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.2)", borderRadius:"12px", padding:"14px 16px", marginBottom:"24px" }}>
+        <div style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(232,200,122,0.2)", borderRadius:"12px", padding:"14px 16px", marginBottom:"24px" }}>
           <p style={{ color:"#e8c87a", fontSize:"12px", lineHeight:1.75, margin:0 }}>
             🚨 <strong>If you are experiencing a mental health crisis</strong>, please contact a crisis line or emergency services immediately. In the US: <strong>988 Suicide & Crisis Lifeline: call or text 988</strong>.
           </p>
         </div>
 
-        <div style={{ display:"flex", gap:"8px", alignItems:"flex-start", marginBottom:"24px", padding:"14px 16px", borderRadius:"12px", background:"rgba(240,244,255,0.03)", border:"1px solid rgba(110,120,200,0.15)" }}>
-          <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:0 }}>
+        <div style={{ display:"flex", gap:"8px", alignItems:"flex-start", marginBottom:"24px", padding:"14px 16px", borderRadius:"12px", background:"rgba(240,244,255,0.03)", border:"1px solid rgba(49,60,98,0.12)" }}>
+          <p style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.7, margin:0 }}>
             By continuing you confirm you have read and understood this disclaimer and agree to our{" "}
-            <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Terms of Service</button>
+            <button onClick={() => setLegalPage("terms")} style={{ color:"#5F89F8", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Terms of Service</button>
             {" "}and{" "}
-            <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Privacy Policy</button>.
+            <button onClick={() => setLegalPage("privacy")} style={{ color:"#5F89F8", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"12px", textDecoration:"underline" }}>Privacy Policy</button>.
           </p>
         </div>
 
-        <button onClick={() => setDisclaimerAccepted(true)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
+        <button onClick={() => setDisclaimerAccepted(true)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", boxShadow:"0 4px 24px rgba(85,112,240,0.4)" }}>
           I Understand: Continue to NeuroThrive
         </button>
-        <p style={{ textAlign:"center", color:"#8890b8", fontSize:"11px", marginTop:"16px", lineHeight:1.6 }}>
+        <p style={{ textAlign:"center", color:"#3D4663", fontSize:"11px", marginTop:"16px", lineHeight:1.6 }}>
           © {new Date().getFullYear()} NeuroThrive. All rights reserved.
         </p>
       </div>
@@ -7354,7 +7354,7 @@ function NeuroThriveApp() {
       return { tier:"day-of", label:"Make fresh", color:"#e8c87a", storage:"Best fresh", dayOfTime:5 };
     }
     // Partial prep: everything else (salads, bowls, stir-fry, sandwiches, wraps, etc.)
-    return { tier:"partial-prep", label:"Prep components", color:"#7b9fff", storage:"Components: 3–4 days", dayOfTime:10 };
+    return { tier:"partial-prep", label:"Prep components", color:"#5F89F8", storage:"Components: 3–4 days", dayOfTime:10 };
   };
 
   const generatePrepPlan = (weekIdx) => {
@@ -7524,7 +7524,7 @@ function NeuroThriveApp() {
         usedIn: [`${m.dayLabel} ${m.mealType}`],
         category: "Full Meals",
         time: m.recipe ? parseInt(m.recipe.time) || 30 : 30,
-        color: "#7b9fff"
+        color: "#5F89F8"
       });
     });
 
@@ -7966,10 +7966,10 @@ function NeuroThriveApp() {
 
   const getBrainLevel = (pct) => {
     if (pct >= 90) return { label: "Thriving", emoji: "", color: "#50c878" };
-    if (pct >= 70) return { label: "Strong", emoji: "", color: "#7b9fff" };
+    if (pct >= 70) return { label: "Strong", emoji: "", color: "#5F89F8" };
     if (pct >= 50) return { label: "Building", emoji: "", color: "#e8c87a" };
     if (pct >= 25) return { label: "Warming Up", emoji: "", color: "#e0a050" };
-    return { label: "Just Starting", emoji: "", color: "#8890b8" };
+    return { label: "Just Starting", emoji: "", color: "#3D4663" };
   };
 
   const getCompletionStreak = () => {
@@ -7998,9 +7998,9 @@ function NeuroThriveApp() {
     const offset = circ - (bp.pct / 100) * circ;
 
     const catItems = [
-      { label: "Meals", bp: bp.categories.meals, max: bp.maxCats.meals, dot: "#7b9fff" },
+      { label: "Meals", bp: bp.categories.meals, max: bp.maxCats.meals, dot: "#5F89F8" },
       { label: "Morning", bp: bp.categories.morning, max: bp.maxCats.morning, dot: "#f0a830" },
-      { label: "Evening", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5570f0" },
+      { label: "Evening", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5F89F8" },
       { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, dot: "#50c878" },
       { label: "Water", bp: bp.categories.water, max: bp.maxCats.water, dot: "#60b0e0" },
       { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8" },
@@ -8014,7 +8014,7 @@ function NeuroThriveApp() {
       : catItems;
 
     return (
-      <div style={{ background: "rgba(80,200,120,0.04)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "16px 18px", marginBottom: "18px" }}>
+      <div style={{ background: "rgba(255,255,255,1)", border: "1px solid rgba(80,200,120,0.15)", borderRadius: "16px", padding: "16px 18px", marginBottom: "18px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "12px" }}>
           <svg width="52" height="52" viewBox="0 0 52 52" style={{ flexShrink: 0 }}>
             <circle cx="26" cy="26" r={r} fill="none" stroke="rgba(80,200,120,0.12)" strokeWidth="4.5" />
@@ -8024,9 +8024,9 @@ function NeuroThriveApp() {
             <text x="26" y="28" textAnchor="middle" fontSize="12" fontWeight="800" fill={level.color}>{bp.pct}%</text>
           </svg>
           <div style={{ flex: 1 }}>
-            <div style={{ color: "#eef0ff", fontSize: "14px", fontWeight: "700", letterSpacing: "-0.3px" }}>Brain Score · {bp.total} BP</div>
+            <div style={{ color: "#313C62", fontSize: "14px", fontWeight: "700", letterSpacing: "-0.3px" }}>Brain Score · {bp.total} BP</div>
             <div style={{ color: level.color, fontSize: "12px", fontWeight: "600", marginTop: "2px", letterSpacing: "0.5px", textTransform: "uppercase" }}>{level.label}</div>
-            <div style={{ color: "#8890b8", fontSize: "11px", marginTop: "2px" }}>
+            <div style={{ color: "#3D4663", fontSize: "11px", marginTop: "2px" }}>
               {bp.total} of {bp.max} brain points {streak > 0 && <span style={{ color: "#e8c87a" }}>· {streak}-day streak</span>}
             </div>
           </div>
@@ -8039,11 +8039,11 @@ function NeuroThriveApp() {
             return (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: cat.dot, flexShrink: 0 }} />
-                <span style={{ fontSize: "10px", fontWeight: "600", color: full ? "#50c878" : "#8890b8", width: "52px" }}>{cat.label}</span>
+                <span style={{ fontSize: "10px", fontWeight: "600", color: full ? "#50c878" : "#3D4663", width: "52px" }}>{cat.label}</span>
                 <div style={{ flex: 1, height: "6px", borderRadius: "3px", background: "rgba(110,120,200,0.12)", overflow: "hidden" }}>
                   <div style={{ width: `${Math.min(100, pct)}%`, height: "100%", borderRadius: "3px", background: full ? "#50c878" : level.color, transition: "width 0.5s ease" }} />
                 </div>
-                <span style={{ fontSize: "10px", fontWeight: "700", color: full ? "#50c878" : "#7b9fff", width: "36px", textAlign: "right" }}>{cat.bp}/{cat.max}</span>
+                <span style={{ fontSize: "10px", fontWeight: "700", color: full ? "#50c878" : "#5F89F8", width: "36px", textAlign: "right" }}>{cat.bp}/{cat.max}</span>
               </div>
             );
           })}
@@ -8060,36 +8060,36 @@ function NeuroThriveApp() {
   const globalDayIdx = selectedWeek*7+selectedDayIdx;
 
   const S = {
-    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(107,143,255,0.05) 0%, transparent 50%), linear-gradient(180deg,#1a1f35 0%,#1e2340 50%,#1a1f35 100%)", fontFamily:"'Inter',system-ui,-apple-system,sans-serif", color:"#e8ecff", letterSpacing:"-0.01em", fontSize:"15px" },
-    nav: { background:"rgba(6,10,20,0.8)", borderBottom:"1px solid rgba(107,143,255,0.15)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 1px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(107,143,255,0.06)" },
+    app: { minHeight:"100vh", background:"radial-gradient(ellipse at 15% 0%, rgba(85,112,240,0.08) 0%, transparent 50%), radial-gradient(ellipse at 85% 100%, rgba(255,255,255,1) 0%, transparent 50%), linear-gradient(180deg,#DADDE8 0%,#D0D4E0 50%,#DADDE8 100%)", fontFamily:"'Inter',system-ui,-apple-system,sans-serif", color:"#313C62", letterSpacing:"-0.01em", fontSize:"15px" },
+    nav: { background:"rgba(15,23,42,0.95)", borderBottom:"1px solid rgba(95,137,248,0.15)", padding:"0 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:100, backdropFilter:"blur(24px) saturate(1.4)", WebkitBackdropFilter:"blur(24px) saturate(1.4)", height:"56px", boxShadow:"0 4px 24px rgba(15,23,42,0.25)" },
     logo: { fontSize:"16px", fontWeight:"700", color:"#eef0ff", letterSpacing:"-0.3px", display:"flex", alignItems:"center", gap:"10px" },
     navTabs: { display:"flex", gap:"1px", overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none", flexShrink:1, minWidth:0 },
-    navTab: (a) => ({ padding:"8px 16px", borderRadius:"12px", border:"none", cursor:"pointer", fontSize:"13px", fontWeight:a?"600":"500", background:a?"rgba(107,143,255,0.12)":"transparent", color:a?"#a0b8ff":"#7888b8", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
+    navTab: (a) => ({ padding:"8px 16px", borderRadius:"12px", border:"none", cursor:"pointer", fontSize:"13px", fontWeight:a?"600":"500", background:a?"rgba(95,137,248,0.2)":"transparent", color:a?"#fff":"rgba(255,255,255,0.6)", letterSpacing:"0.01em", whiteSpace:"nowrap", flexShrink:0 }),
     main: { maxWidth:"720px", margin:"0 auto", padding:"44px 24px", zoom:"1.1" },
     hero: { textAlign:"center", padding:"80px 20px 60px" },
-    heroEyebrow: { display:"inline-block", fontSize:"11px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#7b9fff", background:"rgba(107,143,255,0.15)", border:"1px solid rgba(107,143,255,0.12)", padding:"8px 20px", borderRadius:"24px", marginBottom:"32px" },
-    heroTitle: { fontSize:"56px", fontWeight:"800", color:"#f0f2ff", lineHeight:1.04, marginBottom:"22px", letterSpacing:"-2.5px" },
-    heroAccent: { background:"linear-gradient(135deg,#7b9fff,#5570f0)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
-    heroSub: { fontSize:"17px", color:"#8090c0", maxWidth:"440px", margin:"0 auto 48px", lineHeight:1.75, fontWeight:"400", letterSpacing:"0.01em" },
-    btn: { background:"rgba(107,143,255,0.15)", color:"#a0b8ff", border:"1px solid rgba(107,143,255,0.2)", padding:"14px 30px", borderRadius:"50px", fontSize:"15px", fontWeight:"600", letterSpacing:"0.01em", cursor:"pointer", backdropFilter:"blur(8px)" },
-    btnOutline: { background:"rgba(255,255,255,0.07)", color:"#8898c8", border:"1px solid rgba(107,143,255,0.18)", padding:"13px 26px", borderRadius:"50px", fontSize:"15px", fontWeight:"500", cursor:"pointer", backdropFilter:"blur(8px)" },
-    btnAccent: { background:"linear-gradient(135deg,#5570f0 0%,#3d58e0 100%)", color:"#fff", border:"none", padding:"15px 36px", borderRadius:"50px", fontSize:"15px", fontWeight:"600", cursor:"pointer", boxShadow:"0 4px 20px rgba(85,112,240,0.35), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15)", letterSpacing:"0.01em" },
-    btnSm: { background:"rgba(255,255,255,0.08)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"12px", color:"#8898c8", padding:"7px 15px", cursor:"pointer", fontSize:"13px", fontWeight:"500" },
-    sectionTitle: { fontSize:"28px", color:"#f0f2ff", marginBottom:"8px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
-    sectionSub: { fontSize:"15px", color:"#8090c0", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
+    heroEyebrow: { display:"inline-block", fontSize:"11px", fontWeight:"600", letterSpacing:"3.5px", textTransform:"uppercase", color:"#5F89F8", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", padding:"8px 20px", borderRadius:"24px", marginBottom:"32px" },
+    heroTitle: { fontSize:"56px", fontWeight:"800", color:"#313C62", lineHeight:1.04, marginBottom:"22px", letterSpacing:"-2.5px" },
+    heroAccent: { background:"linear-gradient(135deg,#5F89F8,#5F89F8)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
+    heroSub: { fontSize:"17px", color:"#4A5478", maxWidth:"440px", margin:"0 auto 48px", lineHeight:1.75, fontWeight:"400", letterSpacing:"0.01em" },
+    btn: { background:"#ffffff", color:"#313C62", border:"1px solid rgba(49,60,98,0.12)", padding:"14px 30px", borderRadius:"50px", fontSize:"15px", fontWeight:"600", letterSpacing:"0.01em", cursor:"pointer", boxShadow:"0 2px 8px rgba(49,60,98,0.06)" },
+    btnOutline: { background:"#ffffff", color:"#313C62", border:"1px solid rgba(49,60,98,0.12)", padding:"13px 26px", borderRadius:"50px", fontSize:"15px", fontWeight:"500", cursor:"pointer", boxShadow:"0 1px 4px rgba(49,60,98,0.04)" },
+    btnAccent: { background:"linear-gradient(135deg,#5F89F8 0%,#4B72E0 100%)", color:"#fff", border:"none", padding:"15px 36px", borderRadius:"50px", fontSize:"15px", fontWeight:"600", cursor:"pointer", boxShadow:"0 4px 20px rgba(85,112,240,0.35), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15)", letterSpacing:"0.01em" },
+    btnSm: { background:"#ffffff", border:"1px solid rgba(49,60,98,0.1)", borderRadius:"12px", color:"#313C62", padding:"7px 15px", cursor:"pointer", fontSize:"13px", fontWeight:"500", boxShadow:"0 1px 3px rgba(49,60,98,0.04)" },
+    sectionTitle: { fontSize:"28px", color:"#313C62", marginBottom:"8px", fontWeight:"700", letterSpacing:"-0.6px", lineHeight:1.2 },
+    sectionSub: { fontSize:"15px", color:"#4A5478", marginBottom:"28px", lineHeight:1.7, letterSpacing:"0.01em" },
     grid: { display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px", marginBottom:"32px" },
-    chip: (sel) => ({ padding:"13px 16px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.18)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.07)", cursor:"pointer", fontSize:"14px", fontWeight:sel?"600":"400", color:sel?"#a0b8ff":"#8898c8", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)" }),
-    card: { background:"rgba(255,255,255,0.08)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"18px", padding:"22px", marginBottom:"18px", backdropFilter:"blur(12px)", boxShadow:"0 2px 16px rgba(0,0,0,0.15), 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.05)" },
+    chip: (sel) => ({ padding:"13px 16px", borderRadius:"14px", border:sel?"1.5px solid #5F89F8":"1px solid rgba(49,60,98,0.12)", background:sel?"rgba(95,137,248,0.08)":"#ffffff", cursor:"pointer", fontSize:"14px", fontWeight:sel?"600":"400", color:"#313C62", display:"flex", alignItems:"center", gap:"8px", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", boxShadow:sel?"0 2px 8px rgba(95,137,248,0.15)":"0 1px 4px rgba(49,60,98,0.04)" }),
+    card: { background:"#ffffff", border:"1px solid rgba(49,60,98,0.08)", borderRadius:"18px", padding:"22px", marginBottom:"18px", boxShadow:"0 2px 8px rgba(49,60,98,0.06), 0 8px 24px rgba(49,60,98,0.04)" },
     mealLabel: { fontSize:"11px", textTransform:"uppercase", letterSpacing:"2.5px", color:"#6b88e0", marginBottom:"10px", fontWeight:"700" },
-    tag: { display:"inline-block", padding:"5px 14px", borderRadius:"20px", background:"rgba(80,112,240,0.1)", border:"1px solid rgba(80,112,240,0.15)", color:"#a0b8ff", fontSize:"13px", fontWeight:"500", marginRight:"6px", marginBottom:"6px" },
+    tag: { display:"inline-block", padding:"5px 14px", borderRadius:"20px", background:"rgba(80,112,240,0.1)", border:"1px solid rgba(80,112,240,0.15)", color:"#4A5478", fontSize:"13px", fontWeight:"500", marginRight:"6px", marginBottom:"6px" },
     divider: { height:"1px", background:"linear-gradient(90deg, transparent, rgba(107,143,255,0.12), transparent)", margin:"24px 0" },
     moodRow: { display:"flex", gap:"10px", flexWrap:"wrap", marginBottom:"20px" },
-    moodBtn: (sel) => ({ flex:1, minWidth:"55px", padding:"12px 6px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(107,143,255,0.18)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,0.07)", cursor:"pointer", textAlign:"center", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", color:sel?"#a0b8ff":"#7888b8", fontWeight:sel?"600":"400" }),
-    textarea: { width:"100%", background:"rgba(255,255,255,0.08)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"14px", color:"#e8ecff", fontFamily:"'Inter',system-ui,sans-serif", fontSize:"15px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
-    affirmCard: { textAlign:"center", padding:"56px 36px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"24px", marginBottom:"20px", position:"relative", overflow:"hidden", boxShadow:"0 4px 32px rgba(0,0,0,0.15)" },
-    successBanner: { background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.18)", borderRadius:"14px", padding:"16px 22px", color:"#70d890", fontSize:"14px", fontWeight:"600", textAlign:"center", marginBottom:"16px", backdropFilter:"blur(8px)" },
-    dot: (a,d) => ({ width:"6px", height:"6px", borderRadius:"50%", background:a?"#5570f0":d?"rgba(80,112,240,0.4)":"rgba(107,143,255,0.15)", transition:"all 0.3s" }),
-    warningBanner: { background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"14px", padding:"16px 22px", color:"#a0b8ff", fontSize:"14px", fontWeight:"500", marginBottom:"18px" },
+    moodBtn: (sel) => ({ flex:1, minWidth:"55px", padding:"12px 6px", borderRadius:"14px", border:sel?"1px solid rgba(85,112,240,0.5)":"1px solid rgba(255,255,255,1)", background:sel?"rgba(80,112,240,0.12)":"rgba(255,255,255,1)", cursor:"pointer", textAlign:"center", transition:"all 0.2s cubic-bezier(0.25,0.46,0.45,0.94)", color:sel?"#4A5478":"#5F89F8", fontWeight:sel?"600":"400" }),
+    textarea: { width:"100%", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)", borderRadius:"14px", color:"#313C62", fontFamily:"'Inter',system-ui,sans-serif", fontSize:"15px", padding:"16px", resize:"vertical", minHeight:"80px", outline:"none", boxSizing:"border-box", marginBottom:"16px", transition:"border-color 0.2s, box-shadow 0.2s" },
+    affirmCard: { textAlign:"center", padding:"56px 36px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"24px", marginBottom:"20px", position:"relative", overflow:"hidden", boxShadow:"0 4px 32px rgba(0,0,0,0.15)" },
+    successBanner: { background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.18)", borderRadius:"14px", padding:"16px 22px", color:"#70d890", fontSize:"14px", fontWeight:"600", textAlign:"center", marginBottom:"16px", backdropFilter:"blur(8px)" },
+    dot: (a,d) => ({ width:"6px", height:"6px", borderRadius:"50%", background:a?"#5F89F8":d?"rgba(80,112,240,0.4)":"rgba(255,255,255,1)", transition:"all 0.3s" }),
+    warningBanner: { background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", borderRadius:"14px", padding:"16px 22px", color:"#4A5478", fontSize:"14px", fontWeight:"500", marginBottom:"18px" },
   };
 
   const STEPS = ["Welcome","Gender","Conditions","Diet","Menu","Journal","(unused)","Supplements","Reminders","Toolkit","Routine","Progress"];
@@ -8119,14 +8119,14 @@ function NeuroThriveApp() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { box-sizing: border-box; }
-        body { margin: 0; background: #1a1f35; }
+        body { margin: 0; background: #DADDE8; }
         * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
         @keyframes pulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
         @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-        @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(107,143,255,0.18); } 50% { box-shadow: 0 0 40px rgba(107,143,255,0.25); } }
+        @keyframes glow { 0%,100% { box-shadow: 0 0 20px rgba(255,255,255,1); } 50% { box-shadow: 0 0 40px rgba(107,143,255,0.25); } }
         @keyframes subtleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
         @keyframes checkPop { 0% { transform: scale(0); opacity:0; } 50% { transform: scale(1.3); } 100% { transform: scale(1); opacity:1; } }
         @keyframes checkGlow { 0% { box-shadow: 0 0 0 0 rgba(80,200,120,0.4); } 100% { box-shadow: 0 0 0 8px rgba(80,200,120,0); } }
@@ -8143,23 +8143,23 @@ function NeuroThriveApp() {
         ::-webkit-scrollbar-thumb { background: rgba(107,143,255,0.2); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(107,143,255,0.4); }
         ::selection { background: rgba(107,143,255,0.25); color: #fff; }
-        input:focus, textarea:focus { border-color: rgba(107,143,255,0.4) !important; box-shadow: 0 0 0 3px rgba(107,143,255,0.15); outline: none; }
+        input:focus, textarea:focus { border-color: rgba(107,143,255,0.4) !important; box-shadow: 0 0 0 3px rgba(255,255,255,1); outline: none; }
       `}</style>
 
       {showConfetti && (
         <div style={{ position:"fixed", inset:0, zIndex:9999, pointerEvents:"none", overflow:"hidden" }}>
           {Array.from({ length: 40 }).map((_, i) => {
-            const colors = ["#50c878","#7b9fff","#e8c87a","#f06292","#ba68c8","#4dd0e1"];
+            const colors = ["#50c878","#5F89F8","#e8c87a","#f06292","#ba68c8","#4dd0e1"];
             const left = ((i * 2.5 + i * 7.3) % 100);
             const size = 6 + (i % 5) * 2;
             const dur = 1.5 + (i % 4) * 0.5;
             const delay = (i % 6) * 0.1;
             return <div key={i} style={{ position:"absolute", left:`${left}%`, top:"-20px", width:`${size}px`, height:`${size}px`, borderRadius: i % 2 === 0 ? "50%" : "2px", background: colors[i % 6], animation:`confettiDrop ${dur}s ${delay}s ease-in forwards`, opacity:0.9 }} />;
           })}
-          <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", animation:"celebrateScale 0.5s ease-out", textAlign:"center", padding:"32px 40px", borderRadius:"24px", background:"rgba(10,14,28,0.92)", border:"1px solid rgba(80,200,120,0.3)", boxShadow:"0 0 60px rgba(80,200,120,0.15), 0 20px 60px rgba(0,0,0,0.4)", backdropFilter:"blur(20px)" }}>
+          <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", animation:"celebrateScale 0.5s ease-out", textAlign:"center", padding:"32px 40px", borderRadius:"24px", background:"rgba(255,255,255,0.95)", border:"1px solid rgba(80,200,120,0.3)", boxShadow:"0 0 60px rgba(80,200,120,0.15), 0 20px 60px rgba(0,0,0,0.1)", backdropFilter:"blur(20px)" }}>
             <div style={{ fontSize:"40px", marginBottom:"12px" }}>🧠</div>
             <div style={{ fontSize:"20px", fontWeight:"800", color:"#50c878", letterSpacing:"-0.5px" }}>Brain Score: 100%</div>
-            <div style={{ fontSize:"13px", color:"#8890b8", marginTop:"8px", lineHeight:1.6 }}>Every neuron is thanking you today.</div>
+            <div style={{ fontSize:"13px", color:"#3D4663", marginTop:"8px", lineHeight:1.6 }}>Every neuron is thanking you today.</div>
           </div>
         </div>
       )}
@@ -8167,23 +8167,23 @@ function NeuroThriveApp() {
       {/* Swap Lock Warning Modal */}
       {swapLockWarning && (
         <div style={{ position:"fixed", inset:0, zIndex:2000, background:"rgba(0,0,0,0.6)", backdropFilter:"blur(6px)", display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
-          <div style={{ background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"24px", padding:"28px", maxWidth:"380px", width:"100%", border:"1px solid rgba(232,200,122,0.25)", boxShadow:"0 32px 80px rgba(0,0,0,0.4)", textAlign:"center" }}>
+          <div style={{ background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"24px", padding:"28px", maxWidth:"380px", width:"100%", border:"1px solid rgba(232,200,122,0.25)", boxShadow:"0 32px 80px rgba(0,0,0,0.1)", textAlign:"center" }}>
             <div style={{ fontSize:"40px", marginBottom:"12px" }}>🔒</div>
-            <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", marginBottom:"10px" }}>Week is Locked</h3>
-            <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, marginBottom:"20px" }}>
+            <h3 style={{ color:"#313C62", fontSize:"17px", fontWeight:"700", marginBottom:"10px" }}>Week is Locked</h3>
+            <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.7, marginBottom:"20px" }}>
               You've locked in this week's grocery list. Swapping this meal means you may need to buy different ingredients.
             </p>
             <div style={{ display:"flex", gap:"10px" }}>
-              <button onClick={() => setSwapLockWarning(null)} style={{ flex:1, padding:"12px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#8890b8", fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Keep Current</button>
+              <button onClick={() => setSwapLockWarning(null)} style={{ flex:1, padding:"12px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#3D4663", fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Keep Current</button>
               <button onClick={() => {
                 const w = swapLockWarning;
                 // Unlock the week, do the swap
                 setLockedWeeks(prev => { const copy = { ...prev }; delete copy[w.weekIdx]; return copy; });
                 doSwap(w.currentMeal, w.mealType, w.mealKey, w.dayIdx);
                 setSwapLockWarning(null);
-              }} style={{ flex:1, padding:"12px", borderRadius:"14px", border:"1px solid rgba(232,200,122,0.3)", background:"rgba(232,200,122,0.08)", color:"#e8c87a", fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Unlock & Swap</button>
+              }} style={{ flex:1, padding:"12px", borderRadius:"14px", border:"1px solid rgba(232,200,122,0.3)", background:"rgba(255,255,255,1)", color:"#e8c87a", fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Unlock & Swap</button>
             </div>
-            <p style={{ color:"#6b7394", fontSize:"11px", marginTop:"14px", lineHeight:1.5 }}>This will unlock the week so your grocery list updates with the new meal.</p>
+            <p style={{ color:"#4A5478", fontSize:"11px", marginTop:"14px", lineHeight:1.5 }}>This will unlock the week so your grocery list updates with the new meal.</p>
           </div>
         </div>
       )}
@@ -8191,7 +8191,7 @@ function NeuroThriveApp() {
       <nav style={S.nav}>
         <div style={{ ...S.logo, cursor:"pointer" }} onClick={() => setStep(0)}>
           <span style={{ fontSize:"20px" }}>🧠</span>
-          <span>Neuro<span style={{ color:"#7b9fff" }}>Thrive</span></span>
+          <span>Neuro<span style={{ color:"#5F89F8" }}>Thrive</span></span>
         </div>
         <div className="nav-tabs-scroll" style={S.navTabs}>
           {step > 0 && step <= 3 && prevStep === null && [
@@ -8206,7 +8206,7 @@ function NeuroThriveApp() {
               {isPremium && (() => {
                 const todayBP = dailyChecks[todayKey] ? getBrainPoints(todayKey) : { pct: 0 };
                 const pct = todayBP.pct;
-                const dotColor = pct >= 100 ? "#50c878" : pct >= 50 ? "#e8c87a" : "#6b7394";
+                const dotColor = pct >= 100 ? "#50c878" : pct >= 50 ? "#e8c87a" : "#4A5478";
                 return (
                   <button style={{ ...S.navTab(step===12), display:"inline-flex", alignItems:"center", gap:"5px" }} onClick={() => setStep(12)}>
                     <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: dotColor, flexShrink:0 }} />
@@ -8242,7 +8242,7 @@ function NeuroThriveApp() {
               return (
               <>
                 <div onClick={() => { setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ position:"fixed", inset:0, zIndex:199 }} />
-                <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#111828", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"14px", padding:"6px", minWidth:"200px", zIndex:200, boxShadow:"0 12px 40px rgba(0,0,0,0.4)", maxHeight:"70vh", overflowY:"auto" }}>
+                <div style={{ position:"absolute", top:"100%", right:0, marginTop:"8px", background:"#0f172a", border:"1px solid rgba(95,137,248,0.15)", borderRadius:"14px", padding:"6px", minWidth:"200px", zIndex:200, boxShadow:"0 12px 40px rgba(15,23,42,0.4)", maxHeight:"70vh", overflowY:"auto" }}>
                   {groups.map(g => {
                     const isActive = activeGroup && activeGroup.key === g.key;
                     const isExpanded = moreMenuGroup === g.key;
@@ -8252,25 +8252,25 @@ function NeuroThriveApp() {
                         <button onClick={() => {
                           if (isSingle) { navigateTo(g.items[0].s); setShowMoreMenu(false); setMoreMenuGroup(null); }
                           else setMoreMenuGroup(isExpanded ? null : g.key);
-                        }} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%", padding:"10px 14px", borderRadius:"12px", border:"none", background: isActive ? "rgba(107,143,255,0.15)" : "transparent", color: isActive ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: isActive ? "600" : "500", cursor:"pointer", textAlign:"left" }}>
+                        }} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%", padding:"10px 14px", borderRadius:"12px", border:"none", background: isActive ? "rgba(95,137,248,0.2)" : "transparent", color: isActive ? "#fff" : "rgba(255,255,255,0.7)", fontSize:"13px", fontWeight: isActive ? "600" : "500", cursor:"pointer", textAlign:"left" }}>
                           <span>{g.label}</span>
-                          {!isSingle && <span style={{ fontSize:"10px", color:"#6b7394", transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)", transition:"transform 0.2s" }}>▼</span>}
+                          {!isSingle && <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.5)", transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)", transition:"transform 0.2s" }}>▼</span>}
                         </button>
                         {isExpanded && !isSingle && g.items.map(item => (
-                          <button key={item.s} onClick={() => { navigateTo(item.s); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"8px 14px 8px 28px", borderRadius:"12px", border:"none", background: step===item.s ? "rgba(107,143,255,0.12)" : "transparent", color: step===item.s ? "#a0b8ff" : "#6b7394", fontSize:"12px", fontWeight: step===item.s ? "600" : "400", cursor:"pointer", textAlign:"left" }}>{item.label}</button>
+                          <button key={item.s} onClick={() => { navigateTo(item.s); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"8px 14px 8px 28px", borderRadius:"12px", border:"none", background: step===item.s ? "rgba(95,137,248,0.2)" : "transparent", color: step===item.s ? "#fff" : "rgba(255,255,255,0.6)", fontSize:"12px", fontWeight: step===item.s ? "600" : "400", cursor:"pointer", textAlign:"left" }}>{item.label}</button>
                         ))}
                       </div>
                     );
                   })}
                   <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", margin:"4px 6px" }} />
-                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"12px", border:"none", background: showBrainExplainer ? "rgba(107,143,255,0.12)" : "transparent", color: showBrainExplainer ? "#a0b8ff" : "#8890b8", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
+                  <button onClick={() => { setShowBrainExplainer(true); setShowMoreMenu(false); setMoreMenuGroup(null); }} style={{ display:"block", width:"100%", padding:"10px 14px", borderRadius:"12px", border:"none", background: showBrainExplainer ? "rgba(95,137,248,0.2)" : "transparent", color: showBrainExplainer ? "#fff" : "rgba(255,255,255,0.7)", fontSize:"13px", fontWeight: showBrainExplainer ? "600" : "500", cursor:"pointer", textAlign:"left" }}>Your Brain</button>
                 </div>
               </>
               );
             })()}
           </div>
         )}
-        <button onClick={handleLogout} style={{ marginLeft:"8px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#8890b8", fontSize:"11px", fontWeight:"600", cursor:"pointer", letterSpacing:"0.5px", flexShrink:0 }}>Sign Out</button>
+        <button onClick={handleLogout} style={{ marginLeft:"8px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(110,120,200,0.25)", background:"transparent", color:"#3D4663", fontSize:"11px", fontWeight:"600", cursor:"pointer", letterSpacing:"0.5px", flexShrink:0 }}>Sign Out</button>
       </nav>
 
       <div style={S.main}>
@@ -8305,18 +8305,19 @@ function NeuroThriveApp() {
                   onClick={() => setSelectedGender(g.id)}
                   style={{
                     padding:"20px 22px", borderRadius:"18px", cursor:"pointer",
-                    border: selectedGender === g.id ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.18)",
-                    background: selectedGender === g.id ? "rgba(80,112,240,0.12)" : "rgba(240,244,255,0.04)",
+                    border: selectedGender === g.id ? "1.5px solid #5F89F8" : "1px solid rgba(49,60,98,0.1)",
+                    background: selectedGender === g.id ? "rgba(95,137,248,0.08)" : "#ffffff",
+                    boxShadow: selectedGender === g.id ? "0 2px 8px rgba(95,137,248,0.15)" : "0 1px 4px rgba(49,60,98,0.04)",
                     transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px",
                   }}
                 >
                   <span style={{ fontSize:"20px" }}></span>
                   <div style={{ flex:1 }}>
-                    <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"600", marginBottom:"4px" }}>{g.label}</div>
-                    <div style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.5 }}>{g.desc}</div>
+                    <div style={{ color:"#313C62", fontSize:"16px", fontWeight:"600", marginBottom:"4px" }}>{g.label}</div>
+                    <div style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.5 }}>{g.desc}</div>
                   </div>
                   {selectedGender === g.id && (
-                    <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5570f0", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                    <div style={{ width:"22px", height:"22px", borderRadius:"50%", background:"#5F89F8", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                       <span style={{ color:"#fff", fontSize:"13px", fontWeight:"800" }}>✓</span>
                     </div>
                   )}
@@ -8325,44 +8326,44 @@ function NeuroThriveApp() {
             </div>
             {/* Cycle Sync: only for female */}
             {selectedGender === "female" && (
-              <div style={{ marginBottom:"28px", padding:"20px", borderRadius:"18px", background:"rgba(168,120,210,0.06)", border:"1px solid rgba(168,120,210,0.15)" }}>
+              <div style={{ marginBottom:"28px", padding:"20px", borderRadius:"18px", background:"linear-gradient(135deg, rgba(168,120,210,0.08), rgba(200,140,230,0.04))", border:"1px solid rgba(168,120,210,0.25)", boxShadow:"0 2px 12px rgba(168,120,210,0.1)" }}>
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"8px" }}>
                   <span style={{ fontSize:"20px" }}>🌙</span>
                   <div>
-                    <div style={{ color:"#e8d0ff", fontSize:"15px", fontWeight:"700" }}>Cycle Sync Nutrition</div>
-                    <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.5, marginTop:"2px" }}>Get nutrition tips tailored to your current menstrual phase</div>
+                    <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"700" }}>Cycle Sync Nutrition</div>
+                    <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.5, marginTop:"2px" }}>Get nutrition tips tailored to your current menstrual phase</div>
                   </div>
                 </div>
                 <div style={{ display:"flex", gap:"10px", marginTop:"14px" }}>
                   <button
                     onClick={() => setCycleSyncEnabled(true)}
-                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled === true ? "1.5px solid rgba(168,120,210,0.5)" : "1px solid rgba(168,120,210,0.2)", background: cycleSyncEnabled === true ? "rgba(168,120,210,0.15)" : "rgba(168,120,210,0.04)", color: cycleSyncEnabled === true ? "#c8a0e8" : "#8890b8", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled === true ? "1.5px solid #9B59B6" : "1px solid rgba(168,120,210,0.3)", background: cycleSyncEnabled === true ? "linear-gradient(135deg,#9B59B6,#8E44AD)" : "#ffffff", color: cycleSyncEnabled === true ? "#fff" : "#7B5EA0", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s", boxShadow: cycleSyncEnabled === true ? "0 2px 8px rgba(155,89,182,0.3)" : "none" }}
                   >🌕 Sync my cycle</button>
                   <button
                     onClick={() => { setCycleSyncEnabled(false); setLastPeriodDate(""); }}
-                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled === false ? "1.5px solid rgba(85,112,240,0.5)" : "1px solid rgba(110,120,200,0.15)", background: cycleSyncEnabled === false ? "rgba(85,112,240,0.15)" : "rgba(110,120,200,0.03)", color: cycleSyncEnabled === false ? "#a0b8ff" : "#6b7394", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
+                    style={{ flex:1, padding:"11px 16px", borderRadius:"12px", border: cycleSyncEnabled === false ? "1.5px solid #5F89F8" : "1px solid rgba(49,60,98,0.1)", background: cycleSyncEnabled === false ? "rgba(95,137,248,0.08)" : "#ffffff", color: cycleSyncEnabled === false ? "#5F89F8" : "#4A5478", fontSize:"13px", fontWeight:"600", cursor:"pointer", transition:"all 0.2s" }}
                   >Skip for now</button>
                 </div>
                 {cycleSyncEnabled && (
                   <div style={{ marginTop:"18px", display:"flex", flexDirection:"column", gap:"14px" }}>
                     <div>
-                      <label style={{ display:"block", color:"#a0b8ff", fontSize:"12px", fontWeight:"600", marginBottom:"6px", letterSpacing:"0.5px" }}>First day of your last period</label>
+                      <label style={{ display:"block", color:"#4A5478", fontSize:"12px", fontWeight:"600", marginBottom:"6px", letterSpacing:"0.5px" }}>First day of your last period</label>
                       <input
                         type="date"
                         value={lastPeriodDate}
                         onChange={e => setLastPeriodDate(e.target.value)}
-                        style={{ width:"100%", padding:"11px 14px", borderRadius:"12px", border:"1px solid rgba(168,120,210,0.25)", background:"rgba(6,10,20,0.6)", color:"#e8ecff", fontSize:"14px", fontFamily:"inherit", outline:"none", boxSizing:"border-box" }}
+                        style={{ width:"100%", padding:"11px 14px", borderRadius:"12px", border:"1px solid rgba(168,120,210,0.25)", background:"rgba(255,255,255,1)", color:"#313C62", fontSize:"14px", fontFamily:"inherit", outline:"none", boxSizing:"border-box" }}
                       />
                     </div>
                     <div>
-                      <label style={{ display:"block", color:"#a0b8ff", fontSize:"12px", fontWeight:"600", marginBottom:"6px", letterSpacing:"0.5px" }}>Average cycle length: {cycleLength} days</label>
+                      <label style={{ display:"block", color:"#4A5478", fontSize:"12px", fontWeight:"600", marginBottom:"6px", letterSpacing:"0.5px" }}>Average cycle length: {cycleLength} days</label>
                       <input
                         type="range"
                         min="21" max="35" value={cycleLength}
                         onChange={e => setCycleLength(Number(e.target.value))}
                         style={{ width:"100%", accentColor:"#a880d0" }}
                       />
-                      <div style={{ display:"flex", justifyContent:"space-between", color:"#6b7394", fontSize:"10px", marginTop:"2px" }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", color:"#4A5478", fontSize:"10px", marginTop:"2px" }}>
                         <span>21 days</span><span>28 avg</span><span>35 days</span>
                       </div>
                     </div>
@@ -8373,10 +8374,10 @@ function NeuroThriveApp() {
                         <div style={{ padding:"12px 16px", borderRadius:"12px", background:"rgba(168,120,210,0.1)", border:"1px solid rgba(168,120,210,0.2)" }}>
                           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
                             <span style={{ fontSize:"16px" }}>{phase.emoji}</span>
-                            <span style={{ color:"#c8a0e8", fontSize:"14px", fontWeight:"700" }}>{phase.label}</span>
-                            <span style={{ color:"#8890b8", fontSize:"11px" }}>· Day {phase.day}</span>
+                            <span style={{ color:"#7B5EA0", fontSize:"14px", fontWeight:"700" }}>{phase.label}</span>
+                            <span style={{ color:"#3D4663", fontSize:"11px" }}>· Day {phase.day}</span>
                           </div>
-                          <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6 }}>{phase.desc}</div>
+                          <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.6 }}>{phase.desc}</div>
                         </div>
                       );
                     })()}
@@ -8403,26 +8404,26 @@ function NeuroThriveApp() {
                   <div key={c.id} onClick={() => toggleItem(selectedConditions, setSelectedConditions, c.id)} style={{
                     padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
                     border: sel ? `1.5px solid ${c.color}70` : "1px solid rgba(110,120,200,0.12)",
-                    background: sel ? `linear-gradient(135deg, ${c.color}18, ${c.color}08)` : "rgba(255,255,255,0.07)",
+                    background: sel ? `linear-gradient(135deg, ${c.color}18, ${c.color}08)` : "rgba(255,255,255,1)",
                     transform: sel ? "scale(1.02)" : "scale(1)",
                     boxShadow: sel ? `0 4px 20px ${c.color}20` : "none",
                   }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"6px" }}>
                       <span style={{
-                        width:"36px", height:"36px", borderRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s",
-                        background: sel ? `${c.color}25` : "rgba(110,120,200,0.08)",
-                      }}>{c.emoji}</span>
-                      <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: sel ? c.color : "#c0c8e8", transition:"all 0.2s" }}>{c.label}</span>
+                        width:"10px", height:"10px", borderRadius:"50%", flexShrink:0, transition:"all 0.2s",
+                        background: c.color, opacity: sel ? 1 : 0.5,
+                      }} />
+                      <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: "#313C62", transition:"all 0.2s" }}>{c.label}</span>
                       {sel && <span style={{ marginLeft:"auto", width:"20px", height:"20px", borderRadius:"50%", background:c.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                     </div>
-                    <p style={{ margin:0, fontSize:"11px", lineHeight:1.5, color: sel ? `${c.color}cc` : "#6b7394", paddingLeft:"46px", transition:"color 0.2s" }}>{c.desc}</p>
+                    <p style={{ margin:0, fontSize:"11px", lineHeight:1.5, color: sel ? `${c.color}cc` : "#4A5478", paddingLeft:"20px", transition:"color 0.2s" }}>{c.desc}</p>
                   </div>
                 );
               })}
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
               <button style={S.btnOutline} onClick={() => setStep(1)}>← Back</button>
-              <span style={{ color: selectedConditions.length > 0 ? "#7b9fff" : "#6b7394", fontSize:"13px", fontWeight:"600", transition:"color 0.2s" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "None selected"}</span>
+              <span style={{ color: selectedConditions.length > 0 ? "#5F89F8" : "#4A5478", fontSize:"13px", fontWeight:"600", transition:"color 0.2s" }}>{selectedConditions.length > 0 ? `${selectedConditions.length} selected` : "None selected"}</span>
               <button style={S.btn} onClick={() => setStep(3)}>Continue →</button>
             </div>
           </div>
@@ -8435,11 +8436,11 @@ function NeuroThriveApp() {
             return (
               <div style={{ textAlign:"center", paddingTop:"40px" }}>
                 <div style={{ fontSize:"56px", marginBottom:"20px" }}>✅</div>
-                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", margin:"0 0 12px 0", letterSpacing:"0.5px" }}>Your 30-Day Menu Is Ready</h2>
-                <p style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, margin:"0 auto 32px auto", maxWidth:"340px" }}>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#313C62", margin:"0 0 12px 0", letterSpacing:"0.5px" }}>Your 30-Day Menu Is Ready</h2>
+                <p style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, margin:"0 auto 32px auto", maxWidth:"340px" }}>
                   Your personalized meal plan has been built based on your conditions and dietary needs.
                 </p>
-                <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:"0 auto 36px auto", maxWidth:"340px" }}>
+                <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.7, margin:"0 auto 36px auto", maxWidth:"340px" }}>
                   Now let's build a morning and evening routine designed specifically for your brain.
                 </p>
                 <button style={{ ...S.btn, width:"100%", padding:"16px", fontSize:"15px", marginBottom:"12px" }} onClick={() => setRoutineQPage("morning")}>
@@ -8450,12 +8451,12 @@ function NeuroThriveApp() {
                 }}>
                   Skip for Now
                 </button>
-                <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px", marginTop:"8px", color:"#7b9fff", borderColor:"rgba(107,143,255,0.3)" }} onClick={() => {
+                <button style={{ ...S.btnOutline, width:"100%", padding:"14px", fontSize:"13px", marginTop:"8px", color:"#5F89F8", borderColor:"rgba(107,143,255,0.3)" }} onClick={() => {
                   syncMenuToToday(); setStep(4);
                 }}>
                   View My 30-Day Menu →
                 </button>
-                <p style={{ color:"#6b7394", fontSize:"11px", marginTop:"12px", lineHeight:1.5 }}>You can always build your routine later from the More menu.</p>
+                <p style={{ color:"#4A5478", fontSize:"11px", marginTop:"12px", lineHeight:1.5 }}>You can always build your routine later from the More menu.</p>
               </div>
             );
           }
@@ -8474,12 +8475,12 @@ function NeuroThriveApp() {
                 <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                   <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:gradient, color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                   <div style={{ flex:1 }}>
-                    <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
-                    <div style={{ color:"#8890b8", fontSize:"11px" }}>{s.time}</div>
+                    <div style={{ color:"#313C62", fontSize:"14px", fontWeight:"600" }}>{s.title}</div>
+                    <div style={{ color:"#3D4663", fontSize:"11px" }}>{s.time}</div>
                   </div>
                   <button onClick={() => removeStep(period, i)} style={{ width:"28px", height:"28px", borderRadius:"50%", border:"1px solid rgba(224,96,96,0.3)", background:"rgba(224,96,96,0.06)", color:"#e06060", fontSize:"14px", fontWeight:"700", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0 }}>✕</button>
                 </div>
-                <p style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
+                <p style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.6, margin:"8px 0 0 34px" }}>{s.desc}</p>
               </div>
             );
 
@@ -8488,14 +8489,14 @@ function NeuroThriveApp() {
                 <h2 style={S.sectionTitle}>Your Personalized Routine</h2>
                 <p style={S.sectionSub}>Here's your routine. Remove anything that doesn't fit; you can always rebuild later.</p>
 
-                <div style={{ fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>Morning Routine</div>
+                <div style={{ fontSize:"15px", color:"#313C62", fontWeight:"700", marginBottom:"14px" }}>Morning Routine</div>
                 {personalRoutine.morning.length > 0 ? personalRoutine.morning.map((s, i) => renderStep(s, i, "morning", "linear-gradient(135deg,#f0a830,#e87020)")) : (
-                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No morning steps; that's okay!</div>
+                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#3D4663", fontSize:"13px" }}>No morning steps; that's okay!</div>
                 )}
 
-                <div style={{ marginTop:"24px", fontSize:"15px", color:"#eef0ff", fontWeight:"700", marginBottom:"14px" }}>Evening Routine</div>
-                {personalRoutine.evening.length > 0 ? personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5570f0,#4060e0)")) : (
-                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#8890b8", fontSize:"13px" }}>No evening steps; that's okay!</div>
+                <div style={{ marginTop:"24px", fontSize:"15px", color:"#313C62", fontWeight:"700", marginBottom:"14px" }}>Evening Routine</div>
+                {personalRoutine.evening.length > 0 ? personalRoutine.evening.map((s, i) => renderStep(s, i, "evening", "linear-gradient(135deg,#5F89F8,#4B72E0)")) : (
+                  <div style={{ ...S.card, padding:"16px", textAlign:"center", color:"#3D4663", fontSize:"13px" }}>No evening steps; that's okay!</div>
                 )}
 
                 <div style={{ display:"flex", justifyContent:"space-between", marginTop:"24px" }}>
@@ -8526,7 +8527,7 @@ function NeuroThriveApp() {
 
               {questions.map((q, qi) => (
                 <div key={q.id} style={{ marginBottom:"24px" }}>
-                  <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700", marginBottom:"12px" }}>{q.question}</div>
+                  <div style={{ color:"#313C62", fontSize:"14px", fontWeight:"700", marginBottom:"12px" }}>{q.question}</div>
                   <div style={S.grid}>
                     {q.options.map(opt => (
                       <div
@@ -8580,10 +8581,10 @@ function NeuroThriveApp() {
             {/* ── Section 1: Cuisines ── */}
             <div style={{ marginBottom:"32px" }}>
               <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"8px" }}>
-                <span style={{ width:"36px", height:"36px", borderRadius:"12px", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", fontSize:"15px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:"0 4px 16px rgba(85,112,240,0.3)" }}>1</span>
-                <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
+                <span style={{ width:"36px", height:"36px", borderRadius:"12px", background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", fontSize:"15px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:"0 4px 16px rgba(85,112,240,0.3)" }}>1</span>
+                <h2 style={{ fontSize:"22px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>What cuisines do you enjoy?</h2>
               </div>
-              <p style={{ color:"#6b7394", fontSize:"14px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"48px" }}>Select the cuisines you love. Leave blank to include all.</p>
+              <p style={{ color:"#4A5478", fontSize:"14px", lineHeight:1.5, marginBottom:"16px", paddingLeft:"48px" }}>Select the cuisines you love. Leave blank to include all.</p>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                 {CUISINE_TYPES.map(c => {
                   const sel = selectedCuisines.includes(c.id);
@@ -8591,49 +8592,49 @@ function NeuroThriveApp() {
                     <div key={c.id} onClick={() => toggleItem(selectedCuisines, setSelectedCuisines, c.id)} style={{
                       padding:"16px 14px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
                       border: sel ? `1.5px solid ${c.color}70` : "1px solid rgba(110,120,200,0.12)",
-                      background: sel ? `linear-gradient(135deg, ${c.color}18, ${c.color}08)` : "rgba(255,255,255,0.07)",
+                      background: sel ? `linear-gradient(135deg, ${c.color}18, ${c.color}08)` : "rgba(255,255,255,1)",
                       transform: sel ? "scale(1.02)" : "scale(1)",
                       boxShadow: sel ? `0 4px 20px ${c.color}20` : "none",
                     }}>
                       <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"4px" }}>
-                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s", background: sel ? `${c.color}25` : "rgba(110,120,200,0.08)" }}>{c.emoji}</span>
-                        <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: sel ? c.color : "#c0c8e8", transition:"all 0.2s", flex:1 }}>{c.label}</span>
+                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s", background: sel ? `${c.color}25` : "rgba(255,255,255,1)" }}>{c.emoji}</span>
+                        <span style={{ fontSize:"14px", fontWeight: sel ? "700" : "500", color: "#313C62", transition:"all 0.2s", flex:1 }}>{c.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:c.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
-                      <p style={{ margin:0, fontSize:"11px", lineHeight:1.4, color: sel ? `${c.color}cc` : "#6b7394", paddingLeft:"46px", transition:"color 0.2s" }}>{c.desc}</p>
+                      <p style={{ margin:0, fontSize:"11px", lineHeight:1.4, color: sel ? `${c.color}cc` : "#4A5478", paddingLeft:"46px", transition:"color 0.2s" }}>{c.desc}</p>
                     </div>
                   );
                 })}
               </div>
               {selectedCuisines.length > 0 && (
-                <div style={{ marginTop:"12px", fontSize:"13px", color:"#7b9fff", fontWeight:"600", textAlign:"center" }}>{selectedCuisines.length} cuisine{selectedCuisines.length > 1 ? "s" : ""} selected</div>
+                <div style={{ marginTop:"12px", fontSize:"13px", color:"#5F89F8", fontWeight:"600", textAlign:"center" }}>{selectedCuisines.length} cuisine{selectedCuisines.length > 1 ? "s" : ""} selected</div>
               )}
             </div>
 
             {/* ── Section 2: Choose path ── */}
             <div style={{ marginBottom:"16px" }}>
               <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"16px" }}>
-                <span style={{ width:"36px", height:"36px", borderRadius:"12px", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", fontSize:"15px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:"0 4px 16px rgba(85,112,240,0.3)" }}>2</span>
-                <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
+                <span style={{ width:"36px", height:"36px", borderRadius:"12px", background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", fontSize:"15px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:"0 4px 16px rgba(85,112,240,0.3)" }}>2</span>
+                <h2 style={{ fontSize:"22px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", margin:0 }}>Build your menu</h2>
               </div>
 
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
                 {/* Brain-Optimized */}
-                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(107,143,255,0.18), rgba(107,143,255,0.02))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" }}>
-                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(107,143,255,0.15))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>🧠</div>
-                  <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
+                <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1.5px solid rgba(107,143,255,0.25)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" }}>
+                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(255,255,255,1))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>🧠</div>
+                  <h3 style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Optimize for My Brain</h3>
                   <p style={{ color:"#8098cc", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>We pick the best neuroscience-informed foods for your condition{selectedConditions.length > 1 ? "s" : ""}. Allergy restrictions still apply.</p>
-                  <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", border:"none", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%" }}>
+                  <button onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", border:"none", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%" }}>
                     Brain-Optimized →
                   </button>
                 </div>
 
                 {/* Customize */}
-                <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background: showCustomize ? "linear-gradient(145deg, rgba(107,143,255,0.12), rgba(107,143,255,0.04))" : "linear-gradient(145deg, rgba(107,143,255,0.15), rgba(107,143,255,0.02))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s", display:"flex", flexDirection:"column", alignItems:"center" }}>
-                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(107,143,255,0.15))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>⚙️</div>
-                  <h3 style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
+                <div onClick={() => setShowCustomize(p => !p)} style={{ padding:"24px 20px", borderRadius:"20px", background: showCustomize ? "linear-gradient(145deg, rgba(107,143,255,0.12), rgba(255,255,255,1))" : "linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border: showCustomize ? "1.5px solid rgba(107,143,255,0.4)" : "1.5px solid rgba(107,143,255,0.2)", textAlign:"center", cursor:"pointer", transition:"all 0.2s", display:"flex", flexDirection:"column", alignItems:"center" }}>
+                  <div style={{ width:"52px", height:"52px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(107,143,255,0.2), rgba(255,255,255,1))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px", marginBottom:"14px" }}>⚙️</div>
+                  <h3 style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"8px" }}>Customize My Plan</h3>
                   <p style={{ color:"#8098cc", fontSize:"13px", lineHeight:1.6, marginBottom:"18px", flex:1 }}>Set dietary restrictions, allergens, food preferences, and calorie targets.</p>
-                  <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5570f0, #4060e0)", color:"#fff", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%", boxSizing:"border-box" }}>{showCustomize ? "Hide Options ↑" : "Customize →"}</span>
+                  <span style={{ display:"inline-block", background:"linear-gradient(135deg, #5F89F8, #4B72E0)", color:"#fff", padding:"13px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(80,112,240,0.3)", width:"100%", boxSizing:"border-box" }}>{showCustomize ? "Hide Options ↑" : "Customize →"}</span>
                 </div>
               </div>
             </div>
@@ -8644,7 +8645,7 @@ function NeuroThriveApp() {
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#50c878", flexShrink:0 }} />
                   <h3 style={{ color:"#50c878", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Diet Type</h3>
                 </div>
-                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
+                <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Your menu will be tailored to fit these dietary styles.</p>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                   {DIET_TYPES.map(d => {
                     const sel = selectedDiet.includes(d.id);
@@ -8652,12 +8653,12 @@ function NeuroThriveApp() {
                       <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{
                         display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
                         border: sel ? `1.5px solid ${d.color}70` : "1px solid rgba(110,120,200,0.12)",
-                        background: sel ? `linear-gradient(135deg, ${d.color}18, ${d.color}08)` : "rgba(255,255,255,0.07)",
+                        background: sel ? `linear-gradient(135deg, ${d.color}18, ${d.color}08)` : "rgba(255,255,255,1)",
                         transform: sel ? "scale(1.02)" : "scale(1)",
                         boxShadow: sel ? `0 4px 16px ${d.color}20` : "none",
                       }}>
-                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `${d.color}25` : "rgba(80,200,120,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
-                        <span style={{ color: sel ? d.color : "#8898c8", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
+                        <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `${d.color}25` : "rgba(255,255,255,1)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
+                        <span style={{ color: sel ? d.color : "#4A5478", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:d.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
@@ -8671,7 +8672,7 @@ function NeuroThriveApp() {
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#e05070", flexShrink:0 }} />
                   <h3 style={{ color:"#e05070", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Allergens & Restrictions</h3>
                 </div>
-                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
+                <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Meals containing these ingredients will be removed from your plan.</p>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                   {DIETARY_RESTRICTIONS.map(d => {
                     const sel = selectedDiet.includes(d.id);
@@ -8679,12 +8680,12 @@ function NeuroThriveApp() {
                       <div key={d.id} onClick={() => toggleItem(selectedDiet, setSelectedDiet, d.id)} style={{
                         display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
                         border: sel ? "1.5px solid rgba(224,80,112,0.5)" : "1px solid rgba(110,120,200,0.12)",
-                        background: sel ? "linear-gradient(135deg, rgba(224,80,112,0.12), rgba(224,80,112,0.04))" : "rgba(255,255,255,0.07)",
+                        background: sel ? "linear-gradient(135deg, rgba(224,80,112,0.12), rgba(224,80,112,0.04))" : "rgba(255,255,255,1)",
                         transform: sel ? "scale(1.02)" : "scale(1)",
                         boxShadow: sel ? "0 4px 16px rgba(224,80,112,0.15)" : "none",
                       }}>
                         <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? "rgba(224,80,112,0.25)" : "rgba(224,80,112,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{d.emoji}</span>
-                        <span style={{ color: sel ? "#e05070" : "#8898c8", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
+                        <span style={{ color: sel ? "#e05070" : "#4A5478", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{d.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:"#e05070", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
@@ -8703,11 +8704,11 @@ function NeuroThriveApp() {
                   );
                 })()}
                 {(selectedDiet.includes("halal") || selectedDiet.includes("kosher")) && (
-                  <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"20px" }}>
-                    <div style={{ color:"#a0b8ff", fontSize:"14px", lineHeight:1.7 }}>
+                  <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"20px" }}>
+                    <div style={{ color:"#4A5478", fontSize:"14px", lineHeight:1.7 }}>
                       {selectedDiet.includes("kosher") && <span>✡️ <strong>Kosher:</strong> Pork, shellfish, and meat-dairy combinations are excluded. </span>}
                       {selectedDiet.includes("halal") && <span>☪️ <strong>Halal:</strong> Pork and shellfish are excluded. </span>}
-                      <span style={{ color:"#8890b8" }}>Note: Meals use standard grocery ingredients. Please source certified {selectedDiet.includes("halal") && selectedDiet.includes("kosher") ? "halal/kosher" : selectedDiet.includes("halal") ? "halal" : "kosher"} products according to your observance level.</span>
+                      <span style={{ color:"#3D4663" }}>Note: Meals use standard grocery ingredients. Please source certified {selectedDiet.includes("halal") && selectedDiet.includes("kosher") ? "halal/kosher" : selectedDiet.includes("halal") ? "halal" : "kosher"} products according to your observance level.</span>
                     </div>
                   </div>
                 )}
@@ -8719,22 +8720,22 @@ function NeuroThriveApp() {
                   <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
                   <h3 style={{ color:"#e8c87a", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>What Foods Do You Love?</h3>
                 </div>
-                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them.</p>
+                <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", lineHeight:1.5 }}>Select your favorites and we'll build your menu around them.</p>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
                   {FOOD_PREFS.map(f => {
                     const sel = selectedFoodPrefs.includes(f.id);
-                    const catColor = FOOD_PREF_COLORS[f.cat] || "#7b9fff";
+                    const catColor = FOOD_PREF_COLORS[f.cat] || "#5F89F8";
                     const catRgb = FOOD_PREF_RGB[f.cat] || "123,159,255";
                     return (
                       <div key={f.id} onClick={() => toggleItem(selectedFoodPrefs, setSelectedFoodPrefs, f.id)} style={{
                         display:"flex", alignItems:"center", gap:"12px", padding:"14px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
                         border: sel ? `1.5px solid ${catColor}70` : "1px solid rgba(110,120,200,0.12)",
-                        background: sel ? `linear-gradient(135deg, rgba(${catRgb},0.14), rgba(${catRgb},0.04))` : "rgba(255,255,255,0.07)",
+                        background: sel ? `linear-gradient(135deg, rgba(${catRgb},0.14), rgba(${catRgb},0.04))` : "rgba(255,255,255,1)",
                         transform: sel ? "scale(1.02)" : "scale(1)",
                         boxShadow: sel ? `0 4px 16px rgba(${catRgb},0.15)` : "none",
                       }}>
                         <span style={{ width:"36px", height:"36px", borderRadius:"10px", background: sel ? `rgba(${catRgb},0.25)` : `rgba(${catRgb},0.08)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"18px", flexShrink:0, transition:"all 0.2s" }}>{f.emoji}</span>
-                        <span style={{ color: sel ? catColor : "#8898c8", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{f.label}</span>
+                        <span style={{ color: sel ? catColor : "#4A5478", fontSize:"14px", fontWeight: sel ? "700" : "500", flex:1, transition:"all 0.2s" }}>{f.label}</span>
                         {sel && <span style={{ width:"20px", height:"20px", borderRadius:"50%", background:catColor, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", color:"#fff", fontWeight:"800", flexShrink:0 }}>✓</span>}
                       </div>
                     );
@@ -8745,14 +8746,14 @@ function NeuroThriveApp() {
 
                 {/* ── Calorie Target ── */}
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"14px" }}>
-                  <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#7b9fff", flexShrink:0 }} />
-                  <h3 style={{ color:"#7b9fff", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Daily Calorie Target</h3>
+                  <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#5F89F8", flexShrink:0 }} />
+                  <h3 style={{ color:"#5F89F8", fontSize:"16px", fontWeight:"700", letterSpacing:"0.5px", textTransform:"uppercase", margin:0 }}>Daily Calorie Target</h3>
                 </div>
-                <p style={{ color:"#6b7394", fontSize:"14px", marginBottom:"16px", lineHeight:1.5 }}>Higher targets add a second snack and heartier portions.</p>
+                <p style={{ color:"#4A5478", fontSize:"14px", marginBottom:"16px", lineHeight:1.5 }}>Higher targets add a second snack and heartier portions.</p>
                 <div style={{ display:"flex", gap:"12px", marginBottom:"28px" }}>
                   {[
                     { id:"1200", label:"1,200–1,500", sub:"Lighter", emoji:"🍃", color:"#50c878" },
-                    { id:"1500", label:"1,500–2,000", sub:"Balanced", emoji:"⚖️", color:"#7b9fff" },
+                    { id:"1500", label:"1,500–2,000", sub:"Balanced", emoji:"⚖️", color:"#5F89F8" },
                     { id:"2000", label:"2,000–2,500", sub:"Heartier", emoji:"💪", color:"#e8c87a" },
                   ].map(opt => {
                     const sel = calorieTarget===opt.id;
@@ -8760,13 +8761,13 @@ function NeuroThriveApp() {
                       <button key={opt.id} onClick={() => setCalorieTarget(opt.id)} style={{
                         flex:1, padding:"20px 14px", borderRadius:"16px", cursor:"pointer", textAlign:"center", transition:"all 0.25s cubic-bezier(0.25,0.46,0.45,0.94)",
                         border: sel ? `1.5px solid ${opt.color}70` : "1px solid rgba(110,120,200,0.12)",
-                        background: sel ? `linear-gradient(145deg, ${opt.color}18, ${opt.color}08)` : "rgba(255,255,255,0.07)",
+                        background: sel ? `linear-gradient(145deg, ${opt.color}18, ${opt.color}08)` : "rgba(255,255,255,1)",
                         transform: sel ? "scale(1.03)" : "scale(1)",
                         boxShadow: sel ? `0 4px 20px ${opt.color}20` : "none",
                       }}>
                         <div style={{ fontSize:"22px", marginBottom:"8px" }}>{opt.emoji}</div>
-                        <div style={{ fontSize:"15px", fontWeight:"700", color: sel ? opt.color : "#7888b8", marginBottom:"4px", transition:"all 0.2s" }}>{opt.label}</div>
-                        <div style={{ fontSize:"12px", fontWeight:"600", color: sel ? `${opt.color}cc` : "#6b7394", letterSpacing:"0.5px", textTransform:"uppercase" }}>{opt.sub}</div>
+                        <div style={{ fontSize:"15px", fontWeight:"700", color: sel ? opt.color : "#5F89F8", marginBottom:"4px", transition:"all 0.2s" }}>{opt.label}</div>
+                        <div style={{ fontSize:"12px", fontWeight:"600", color: sel ? `${opt.color}cc` : "#4A5478", letterSpacing:"0.5px", textTransform:"uppercase" }}>{opt.sub}</div>
                       </button>
                     );
                   })}
@@ -8790,14 +8791,14 @@ function NeuroThriveApp() {
         {/* CYCLE COMPLETE MODAL */}
         {showCycleComplete && (
           <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.7)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:200, padding:"20px" }}>
-            <div style={{ background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.4)", zoom:"1.1" }}>
+            <div style={{ background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"28px", padding:"40px 32px", maxWidth:"420px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.1)", zoom:"1.1" }}>
               <div style={{ fontSize:"56px", marginBottom:"16px" }}>🌿</div>
-              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px" }}>Cycle {planCycle} Complete</h2>
-              <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.6, marginBottom:"8px" }}>You've completed 30 days of nourishing your mind and body. That's something to be genuinely proud of.</p>
-              <p style={{ color:"#7b9fff", fontSize:"14px", marginBottom:"28px", fontStyle:"italic" }}>Your new Cycle {planCycle+1} menu is ready: fresh meals, same personalisation.</p>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"32px", fontWeight:"400", color:"#313C62", marginBottom:"12px" }}>Cycle {planCycle} Complete</h2>
+              <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.6, marginBottom:"8px" }}>You've completed 30 days of nourishing your mind and body. That's something to be genuinely proud of.</p>
+              <p style={{ color:"#5F89F8", fontSize:"14px", marginBottom:"28px", fontStyle:"italic" }}>Your new Cycle {planCycle+1} menu is ready: fresh meals, same personalisation.</p>
               <div style={{ display:"flex", gap:"12px", justifyContent:"center", flexWrap:"wrap" }}>
-                <button onClick={startNewCycle} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"14px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Start Cycle {planCycle+1}</button>
-                <button onClick={() => setShowCycleComplete(false)} style={{ background:"transparent", color:"#8890b8", border:"1px solid rgba(110,120,200,0.3)", padding:"14px 24px", borderRadius:"50px", fontSize:"14px", cursor:"pointer" }}>Stay on This Menu</button>
+                <button onClick={startNewCycle} style={{ background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", padding:"14px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Start Cycle {planCycle+1}</button>
+                <button onClick={() => setShowCycleComplete(false)} style={{ background:"transparent", color:"#3D4663", border:"1px solid rgba(110,120,200,0.3)", padding:"14px 24px", borderRadius:"50px", fontSize:"14px", cursor:"pointer" }}>Stay on This Menu</button>
               </div>
             </div>
           </div>
@@ -8807,44 +8808,44 @@ function NeuroThriveApp() {
         {step >= 4 && step !== 13 && !isPremium && (
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", textAlign:"center", fontFamily:"'Inter',sans-serif" }}>
             <div style={{ fontSize:"52px", marginBottom:"16px" }}>🧠</div>
-            <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
-            <p style={{ color:"#8890b8", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready; subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
+            <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#313C62", margin:"0 0 10px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
+            <p style={{ color:"#3D4663", fontSize:"15px", maxWidth:"400px", lineHeight:1.7, margin:"0 0 32px 0" }}>Your personalized plan is ready; subscribe to unlock your 30-day menu, journal, routines, supplements, and reminders.</p>
             <div style={{ display:"flex", flexDirection:"column", gap:"14px", width:"100%", maxWidth:"380px" }}>
-              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5570f0,#7b9fff)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
+              <button onClick={() => startCheckout("annual")} style={{ background:"linear-gradient(135deg,#5F89F8,#5F89F8)", border:"none", borderRadius:"14px", padding:"18px 24px", color:"#fff", fontSize:"16px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
                 {checkoutLoading === "annual" ? "Loading..." : "Get Annual: $59.99/yr (save 50%)"}
               </button>
-              <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(107,143,255,0.18)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#c8d0ff", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
+              <button onClick={() => startCheckout("monthly")} style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.3)", borderRadius:"14px", padding:"16px 24px", color:"#313C62", fontSize:"15px", fontWeight:"500", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>
                 {checkoutLoading === "monthly" ? "Loading..." : "Monthly: $9.99/mo"}
               </button>
             </div>
-            <button onClick={() => setStep(3)} style={{ marginTop:"24px", color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>← Go back</button>
+            <button onClick={() => setStep(3)} style={{ marginTop:"24px", color:"#3D4663", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>← Go back</button>
           </div>
         )}
 
         {/* FEATURE TOUR OVERLAY */}
         {showTour && (
           <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px", backdropFilter:"blur(6px)", overflowY:"auto" }}>
-            <div style={{ background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.5)", animation:"fadeUp 0.3s ease", position:"relative", zoom:"1.1" }}>
+            <div style={{ background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"28px", padding:"40px 32px", maxWidth:"440px", width:"100%", textAlign:"center", border:"1px solid rgba(107,143,255,0.25)", boxShadow:"0 40px 100px rgba(0,0,0,0.1)", animation:"fadeUp 0.3s ease", position:"relative", zoom:"1.1" }}>
               <div style={{ fontSize:"56px", marginBottom:"16px" }}>{TOUR_SLIDES[tourStep].emoji}</div>
-              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"400", color:"#eef0ff", marginBottom:"12px", letterSpacing:"0.5px" }}>{TOUR_SLIDES[tourStep].title}</h2>
-              <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7, marginBottom:"28px", maxWidth:"360px", marginLeft:"auto", marginRight:"auto" }}>{TOUR_SLIDES[tourStep].desc}</p>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"400", color:"#313C62", marginBottom:"12px", letterSpacing:"0.5px" }}>{TOUR_SLIDES[tourStep].title}</h2>
+              <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.7, marginBottom:"28px", maxWidth:"360px", marginLeft:"auto", marginRight:"auto" }}>{TOUR_SLIDES[tourStep].desc}</p>
               {/* Dots */}
               <div style={{ display:"flex", justifyContent:"center", gap:"6px", marginBottom:"24px" }}>
                 {TOUR_SLIDES.map((_, i) => (
-                  <div key={i} style={{ width: i === tourStep ? "20px" : "6px", height:"6px", borderRadius:"3px", background: i === tourStep ? "#5570f0" : "rgba(107,143,255,0.2)", transition:"all 0.3s", cursor:"pointer" }} onClick={() => setTourStep(i)} />
+                  <div key={i} style={{ width: i === tourStep ? "20px" : "6px", height:"6px", borderRadius:"3px", background: i === tourStep ? "#5F89F8" : "rgba(107,143,255,0.2)", transition:"all 0.3s", cursor:"pointer" }} onClick={() => setTourStep(i)} />
                 ))}
               </div>
               <div style={{ display:"flex", gap:"12px", justifyContent:"center" }}>
                 {tourStep > 0 && (
-                  <button onClick={() => setTourStep(t => t - 1)} style={{ background:"transparent", color:"#8890b8", border:"1px solid rgba(110,120,200,0.3)", padding:"12px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"500", cursor:"pointer" }}>← Back</button>
+                  <button onClick={() => setTourStep(t => t - 1)} style={{ background:"transparent", color:"#3D4663", border:"1px solid rgba(110,120,200,0.3)", padding:"12px 24px", borderRadius:"50px", fontSize:"14px", fontWeight:"500", cursor:"pointer" }}>← Back</button>
                 )}
                 {tourStep < TOUR_SLIDES.length - 1 ? (
-                  <button onClick={() => setTourStep(t => t + 1)} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Next →</button>
+                  <button onClick={() => setTourStep(t => t + 1)} style={{ background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Next →</button>
                 ) : (
                   <button onClick={finishTour} style={{ background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{marginLeft:"6px",verticalAlign:"middle",marginTop:"-2px"}}><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="12" y1="2" x2="12" y2="7" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="12" y1="17" x2="12" y2="22" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="2" y1="12" x2="7" y2="12" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="17" y1="12" x2="22" y2="12" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><line x1="4.9" y1="4.9" x2="8.1" y2="8.1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><line x1="15.9" y1="15.9" x2="19.1" y2="19.1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><line x1="4.9" y1="19.1" x2="8.1" y2="15.9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><line x1="15.9" y1="8.1" x2="19.1" y2="4.9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="2" r="1.5" fill="#fff"/><circle cx="12" cy="22" r="1.5" fill="#fff"/><circle cx="2" cy="12" r="1.5" fill="#fff"/><circle cx="22" cy="12" r="1.5" fill="#fff"/><circle cx="4.9" cy="4.9" r="1.2" fill="#fff"/><circle cx="19.1" cy="19.1" r="1.2" fill="#fff"/><circle cx="4.9" cy="19.1" r="1.2" fill="#fff"/><circle cx="19.1" cy="4.9" r="1.2" fill="#fff"/></svg></button>
                 )}
               </div>
-              <button onClick={finishTour} style={{ marginTop:"16px", background:"none", border:"none", color:"#6b7394", fontSize:"13px", cursor:"pointer", textDecoration:"underline", padding:"8px 16px" }}>Skip tour</button>
+              <button onClick={finishTour} style={{ marginTop:"16px", background:"none", border:"none", color:"#4A5478", fontSize:"13px", cursor:"pointer", textDecoration:"underline", padding:"8px 16px" }}>Skip tour</button>
             </div>
           </div>
         )}
@@ -8856,27 +8857,27 @@ function NeuroThriveApp() {
               <div>
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"6px" }}>
                   <h2 style={{ ...S.sectionTitle, marginBottom:"0" }}>Your 30-Day Menu</h2>
-                  <span style={{ background:"rgba(107,143,255,0.15)", border:"1px solid rgba(107,143,255,0.3)", color:"#7b9fff", fontSize:"11px", fontWeight:"600", letterSpacing:"1.5px", padding:"4px 12px", borderRadius:"20px", textTransform:"uppercase" }}>Cycle {planCycle}</span>
+                  <span style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.3)", color:"#5F89F8", fontSize:"11px", fontWeight:"600", letterSpacing:"1.5px", padding:"4px 12px", borderRadius:"20px", textTransform:"uppercase" }}>Cycle {planCycle}</span>
                 </div>
                 <p style={S.sectionSub}>Tap any meal to see why each ingredient is on your plan, or get the recipe.</p>
               </div>
               <div style={{ display:"flex", gap:"8px" }}>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#50c878", borderColor:"rgba(80,200,120,0.4)", background:"rgba(80,200,120,0.08)" }} onClick={() => navigateTo(15)}>Grocery List</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#50c878", borderColor:"rgba(80,200,120,0.4)", background:"rgba(255,255,255,1)" }} onClick={() => navigateTo(15)}>Grocery List</button>
                 <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#ba68c8", borderColor:"rgba(186,104,200,0.4)", background:"rgba(186,104,200,0.08)" }} onClick={() => navigateTo(18)}>Meal Prep</button>
-                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#7b9fff", borderColor:"rgba(123,159,255,0.4)", background:"rgba(123,159,255,0.08)" }} onClick={startNewCycle}>↺ New Cycle</button>
+                <button style={{ ...S.btnOutline, fontSize:"12px", padding:"8px 14px", color:"#5F89F8", borderColor:"rgba(123,159,255,0.4)", background:"rgba(123,159,255,0.08)" }} onClick={startNewCycle}>↺ New Cycle</button>
               </div>
             </div>
 
             {cycleStartDate && (
               <div style={{ ...S.card, marginBottom:"14px", padding:"14px 18px" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                  <span style={{ fontSize:"12px", color:"#8890b8", fontWeight:"500" }}>Started {new Date(cycleStartDate).toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" })}</span>
-                  <span style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"600" }}>Day {daysElapsed} of 30</span>
+                  <span style={{ fontSize:"12px", color:"#3D4663", fontWeight:"500" }}>Started {new Date(cycleStartDate).toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" })}</span>
+                  <span style={{ fontSize:"12px", color:"#5F89F8", fontWeight:"600" }}>Day {daysElapsed} of 30</span>
                 </div>
-                <div style={{ height:"6px", background:"rgba(110,120,200,0.15)", borderRadius:"10px", overflow:"hidden" }}>
-                  <div style={{ height:"100%", width:`${(daysElapsed/30)*100}%`, background:"linear-gradient(90deg,#5570f0,#9db5ff)", borderRadius:"10px", transition:"width 0.5s ease" }} />
+                <div style={{ height:"6px", background:"rgba(49,60,98,0.12)", borderRadius:"10px", overflow:"hidden" }}>
+                  <div style={{ height:"100%", width:`${(daysElapsed/30)*100}%`, background:"linear-gradient(90deg,#5F89F8,#5F89F8)", borderRadius:"10px", transition:"width 0.5s ease" }} />
                 </div>
-                <div style={{ marginTop:"8px", fontSize:"11px", color:"#8890b8" }}>
+                <div style={{ marginTop:"8px", fontSize:"11px", color:"#3D4663" }}>
                   {30-daysElapsed > 0 ? `${30-daysElapsed} days remaining` : "🌿 Cycle complete! Start your next 30 days whenever you're ready."}
                 </div>
               </div>
@@ -8890,30 +8891,30 @@ function NeuroThriveApp() {
             )}
 
             {isPremium && brainOptimized && (
-              <div style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(80,200,120,0.08), rgba(80,200,120,0.04))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"12px", display:"flex", alignItems:"center", gap:"12px" }}>
+              <div style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"12px", display:"flex", alignItems:"center", gap:"12px" }}>
                 <span style={{ fontSize:"16px" }}>🧠</span>
                 <div style={{ flex:1 }}>
                   <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700" }}>Brain-Optimized Menu</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>No dietary restrictions – built for your brain chemistry</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px", marginTop:"2px" }}>No dietary restrictions – built for your brain chemistry</div>
                 </div>
-                <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"12px", border:"1px solid rgba(110,120,200,0.2)", background:"transparent", color:"#8890b8", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
+                <button onClick={() => setStep(3)} style={{ padding:"5px 12px", borderRadius:"12px", border:"1px solid rgba(49,60,98,0.15)", background:"transparent", color:"#3D4663", fontSize:"10px", fontWeight:"600", cursor:"pointer" }}>Customize</button>
               </div>
             )}
 
             {isPremium && (
-              <div onClick={() => navigateTo(19)} style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(107,143,255,0.15), rgba(123,159,255,0.04))", border:"1px solid rgba(107,143,255,0.15)", marginBottom:"18px", cursor:"pointer", display:"flex", alignItems:"center", gap:"12px" }}>
+              <div onClick={() => navigateTo(19)} style={{ padding:"12px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(123,159,255,0.04))", border:"1px solid rgba(255,255,255,1)", marginBottom:"18px", cursor:"pointer", display:"flex", alignItems:"center", gap:"12px" }}>
                 <span style={{ fontSize:"18px" }}>🧬</span>
                 <div style={{ flex:1 }}>
-                  <div style={{ color:"#a0b8ff", fontSize:"13px", fontWeight:"700" }}>Brain Diet Guide</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"2px" }}>See the optimal diet for your brain type</div>
+                  <div style={{ color:"#4A5478", fontSize:"13px", fontWeight:"700" }}>Brain Diet Guide</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px", marginTop:"2px" }}>See the optimal diet for your brain type</div>
                 </div>
-                <span style={{ color:"#7b9fff", fontSize:"14px" }}>→</span>
+                <span style={{ color:"#5F89F8", fontSize:"14px" }}>→</span>
               </div>
             )}
 
             {selectedDiet.length > 0 && (
               <div style={{ marginBottom:"18px" }}>
-                <div style={{ fontSize:"11px", fontWeight:"700", color:"#8890b8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Active filters</div>
+                <div style={{ fontSize:"11px", fontWeight:"700", color:"#3D4663", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Active filters</div>
                 {selectedDiet.map(d => { const item = DIETARY.find(x=>x.id===d); return <span key={d} style={S.tag}>{item?.emoji} {item?.label}</span>; })}
               </div>
             )}
@@ -8921,7 +8922,7 @@ function NeuroThriveApp() {
             {/* Week tabs */}
             <div style={{ display:"flex", gap:"8px", marginBottom:"14px" }}>
               {WEEKS.map((w,i) => (
-                <button key={w} onClick={() => { setSelectedWeek(i); setSelectedDayIdx(0); }} style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:selectedWeek===i?"2px solid #5570f0":"1px solid rgba(110,120,200,0.18)", background:selectedWeek===i?"#5570f0":"rgba(240,244,255,0.04)", color:selectedWeek===i?"#fff":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>{w}</button>
+                <button key={w} onClick={() => { setSelectedWeek(i); setSelectedDayIdx(0); }} style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:selectedWeek===i?"2px solid #5F89F8":"1px solid rgba(110,120,200,0.18)", background:selectedWeek===i?"#5F89F8":"rgba(240,244,255,0.04)", color:selectedWeek===i?"#fff":"#3D4663", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>{w}</button>
               ))}
             </div>
 
@@ -8930,7 +8931,7 @@ function NeuroThriveApp() {
               {weekDays.map((d,i) => {
                 const dayGlobalIdx = selectedWeek * 7 + i;
                 return (
-                  <button key={d.day} onClick={() => setSelectedDayIdx(i)} style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:selectedDayIdx===i?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.14)", background:selectedDayIdx===i?"rgba(107,143,255,0.12)":"rgba(240,244,255,0.04)", color:selectedDayIdx===i?"#9db5ff":"#8890b8", fontSize:"11px", fontWeight:selectedDayIdx===i?"700":"500", cursor:"pointer", transition:"all 0.15s", textAlign:"center" }}>
+                  <button key={d.day} onClick={() => setSelectedDayIdx(i)} style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:selectedDayIdx===i?"2px solid #5F89F8":"1px solid rgba(110,120,200,0.14)", background:selectedDayIdx===i?"rgba(107,143,255,0.12)":"rgba(240,244,255,0.04)", color:selectedDayIdx===i?"#5F89F8":"#3D4663", fontSize:"11px", fontWeight:selectedDayIdx===i?"700":"500", cursor:"pointer", transition:"all 0.15s", textAlign:"center" }}>
                     <div>{formatPlanDate(dayGlobalIdx, "weekday") || DAY_NAMES[i]}</div>
                     <div style={{ fontSize:"9px", marginTop:"2px", opacity:0.7 }}>{formatPlanDate(dayGlobalIdx, "short") || `Day ${d.day}`}</div>
                   </button>
@@ -8941,7 +8942,7 @@ function NeuroThriveApp() {
             {currentDay && (
               <>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
-                  <div style={{ fontSize:"17px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px" }}>Day {currentDay.day} <span style={{ color:"#8890b8", fontWeight:"400" }}>: {formatPlanDate(globalDayIdx) || DAY_NAMES[selectedDayIdx]}</span></div>
+                  <div style={{ fontSize:"17px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px" }}>Day {currentDay.day} <span style={{ color:"#3D4663", fontWeight:"400" }}>: {formatPlanDate(globalDayIdx) || DAY_NAMES[selectedDayIdx]}</span></div>
                   <div style={{ display:"flex", gap:"8px" }}>
                     <button style={S.btnSm} onClick={() => { const prev=globalDayIdx-1; if(prev>=0){setSelectedWeek(Math.floor(prev/7));setSelectedDayIdx(prev%7);} }}>← Prev</button>
                     <button style={S.btnSm} onClick={() => { const next=globalDayIdx+1; if(next<30){setSelectedWeek(Math.floor(next/7));setSelectedDayIdx(next%7);} }}>Next →</button>
@@ -8950,7 +8951,7 @@ function NeuroThriveApp() {
 
                 <ProgressBanner context="menu" />
 
-                <div style={{ color:"#8890b8", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
+                <div style={{ color:"#3D4663", fontSize:"11px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
                   Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
                 </div>
 
@@ -8976,9 +8977,9 @@ function NeuroThriveApp() {
 
                       {/* Swapped indicator */}
                       {alt && (
-                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px", padding:"6px 10px", borderRadius:"10px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)" }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px", padding:"6px 10px", borderRadius:"10px", background:"rgba(255,255,255,1)", border:"1px solid rgba(232,200,122,0.15)" }}>
                           <span style={{ color:"#e8c87a", fontSize:"10px", fontWeight:"700" }}>Swapped</span>
-                          <span style={{ color:"#8890b8", fontSize:"10px" }}>from {originalMeal.length > 35 ? originalMeal.slice(0,35) + "…" : originalMeal}</span>
+                          <span style={{ color:"#3D4663", fontSize:"10px" }}>from {originalMeal.length > 35 ? originalMeal.slice(0,35) + "…" : originalMeal}</span>
                           <button onClick={() => { setAltMeal(prev => { const copy = { ...prev }; delete copy[altKey]; return copy; }); setSwapHistory(prev => { const copy = { ...prev }; delete copy[altKey]; return copy; }); updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[key]; return { ...prev, meals: { ...prev.meals, [key]: false }, foodLog: newLog }; }); }} style={{ marginLeft:"auto", background:"none", border:"none", color:"#e8c87a", fontSize:"10px", fontWeight:"600", cursor:"pointer", padding:"2px 6px", textDecoration:"underline" }}>Undo</button>
                         </div>
                       )}
@@ -8988,22 +8989,22 @@ function NeuroThriveApp() {
                         <button onClick={() => toggleMealCheck(key, activeMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s", padding:0, flexShrink:0, marginTop:"2px", animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
                           {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
                         </button>
-                        <span style={{ flex:1, color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, transition:"all 0.3s" }}>{activeMeal}</span>
+                        <span style={{ flex:1, color: mealChecked ? "#50c878" : "#313C62", fontSize:"15px", fontWeight:"600", lineHeight:1.5, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, transition:"all 0.3s" }}>{activeMeal}</span>
                         <button onClick={(e) => { e.stopPropagation(); toggleFavorite(activeMeal); }} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"18px", flexShrink:0, transition:"transform 0.2s", transform: isFavorite(activeMeal) ? "scale(1.15)" : "scale(1)" }} title={isFavorite(activeMeal) ? "Remove from favorites" : "Add to favorites"}>{isFavorite(activeMeal) ? "❤️" : "🤍"}</button>
                       </div>
                       <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px" }}>
-                        <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.18)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                        <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.2)" }}>
                           <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
-                          <span style={{ color:"#7b9fff", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(activeMeal)}</span>
+                          <span style={{ color:"#5F89F8", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(activeMeal)}</span>
                         </div>
                         {(() => { const bs = getBrainScore(activeMeal); return (
                           <>
-                            <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : bs.score >= 3 ? "rgba(107,143,255,0.15)" : "rgba(255,255,255,0.09)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                              <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
-                              <span style={{ color: bs.score >= 4 ? "#50c878" : bs.score >= 3 ? "#7b9fff" : "#6b7394", fontSize:"11px", fontWeight:"700" }}>{bs.score}/5</span>
+                            <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : bs.score >= 3 ? "rgba(255,255,255,1)" : "rgba(255,255,255,1)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(255,255,255,1)" }}>
+                              <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#5F89F8", flexShrink:0 }} />
+                              <span style={{ color: bs.score >= 4 ? "#50c878" : bs.score >= 3 ? "#5F89F8" : "#4A5478", fontSize:"11px", fontWeight:"700" }}>{bs.score}/5</span>
                             </div>
                             {bs.nutrients.length > 0 && bs.nutrients.map((n,i) => (
-                              <span key={i} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.18)", color:"#8890b8", fontSize:"10px", fontWeight:"600" }}>{n}</span>
+                              <span key={i} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)", color:"#3D4663", fontSize:"10px", fontWeight:"600" }}>{n}</span>
                             ))}
                           </>
                         );})()}
@@ -9013,28 +9014,28 @@ function NeuroThriveApp() {
                       {(() => { const gn = getGenderNote(activeMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(globalDayIdx)); if (!gn) return null; return (
                         <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginBottom:"12px" }}>
                           <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
-                          <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"11px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
+                          <span style={{ color: gn.phase ? "#7B5EA0" : "#50a0dc", fontSize:"11px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
                         </div>
                       );})()}
 
                       {/* Meal action buttons */}
                       <div style={{ display:"flex", gap:"7px", flexWrap:"wrap" }}>
                         <button
-                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(255,255,255,1)", color:"#5F89F8", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
                           onClick={() => openExplain(activeMeal, label, globalDayIdx)}
                         >Why this?</button>
                         <button
-                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#5F89F8", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
                           onClick={() => openRecipe(activeMeal, label, globalDayIdx)}
                         >Recipe</button>
                         {(swapHistory[`${globalDayIdx}_${key}`]?.length > 0) && (
                           <button
-                            style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(160,160,200,0.2)", background:"rgba(160,160,200,0.06)", color:"#a0a8c8", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                            style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(160,160,200,0.2)", background:"rgba(255,255,255,1)", color:"#4A5478", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
                             onClick={() => swapGoBack(key, globalDayIdx)}
                           >← Previous</button>
                         )}
                         <button
-                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(232,200,122,0.25)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
+                          style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(232,200,122,0.25)", background:"rgba(255,255,255,1)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", transition:"all 0.15s" }}
                           onClick={() => getAltMeal(activeMeal, label, key)}
                         >{alt ? "Swap Again" : "Swap"}</button>
                       </div>
@@ -9046,13 +9047,13 @@ function NeuroThriveApp() {
 
             {/* Week at a glance */}
             <details style={{ marginTop:"8px", marginBottom:"20px" }}>
-              <summary style={{ color:"#8890b8", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
-                <span style={{ color:"#7b9fff" }}>▸</span> View full week at a glance
+              <summary style={{ color:"#3D4663", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
+                <span style={{ color:"#5F89F8" }}>▸</span> View full week at a glance
               </summary>
               <div style={{ marginTop:"12px", display:"grid", gap:"8px" }}>
                 {weekDays.map((day,i) => (
                   <div key={day.day} onClick={() => setSelectedDayIdx(i)} style={{ padding:"14px 16px", borderRadius:"14px", background:selectedDayIdx===i?"rgba(80,112,240,0.1)":"rgba(240,244,255,0.04)", border:selectedDayIdx===i?"1px solid rgba(107,143,255,0.35)":"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day}: {formatPlanDate(selectedWeek * 7 + i) || DAY_NAMES[i]}</div>
+                    <div style={{ color:"#5F89F8", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700", marginBottom:"6px" }}>Day {day.day}: {formatPlanDate(selectedWeek * 7 + i) || DAY_NAMES[i]}</div>
                     <div style={{ color:"#7a90f0", fontSize:"12px", lineHeight:1.8 }}>🌅 {day.breakfast}<br/>☀️ {day.lunch}<br/>🌙 {day.dinner}<br/>🍎 {day.snacks}{day.snacks2 && <><br/>🍊 {day.snacks2}</>}</div>
                   </div>
                 ))}
@@ -9060,14 +9061,14 @@ function NeuroThriveApp() {
             </details>
 
             <details style={{ marginBottom:"24px" }}>
-              <summary style={{ color:"#8890b8", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
-                <span style={{ color:"#7b9fff" }}>▸</span> View all 30 days
+              <summary style={{ color:"#3D4663", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
+                <span style={{ color:"#5F89F8" }}>▸</span> View all 30 days
               </summary>
               <div style={{ marginTop:"12px", display:"grid", gap:"6px" }}>
                 {menu30.map((day,i) => (
                   <div key={day.day} onClick={() => { setSelectedWeek(Math.floor(i/7)); setSelectedDayIdx(i%7); }} style={{ padding:"10px 14px", borderRadius:"12px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.12)", cursor:"pointer", transition:"all 0.15s" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"10px", fontWeight:"700", marginBottom:"3px" }}>Day {day.day} {formatPlanDate(i, "short") && <span style={{ color:"#8890b8", fontWeight:"500" }}>: {formatPlanDate(i, "short")}</span>}</div>
-                    <div style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6 }}>🌅 {day.breakfast} · ☀️ {day.lunch} · 🌙 {day.dinner}</div>
+                    <div style={{ color:"#5F89F8", fontSize:"10px", fontWeight:"700", marginBottom:"3px" }}>Day {day.day} {formatPlanDate(i, "short") && <span style={{ color:"#3D4663", fontWeight:"500" }}>: {formatPlanDate(i, "short")}</span>}</div>
+                    <div style={{ color:"#3D4663", fontSize:"11px", lineHeight:1.6 }}>🌅 {day.breakfast} · ☀️ {day.lunch} · 🌙 {day.dinner}</div>
                   </div>
                 ))}
               </div>
@@ -9089,10 +9090,10 @@ function NeuroThriveApp() {
             <ProgressBanner context="journal" />
             {logSaved && <div style={S.successBanner}>✓ Today's log saved! Every entry matters.</div>}
             {moodInsight && (
-              <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.18)", marginBottom:"16px" }}>
-                <div style={{ fontSize:"13px", fontWeight:"700", color:"#a0b8ff", marginBottom:"8px" }}>🧠 What Your Brain Needs Right Now</div>
-                <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.7, margin:0 }}>{moodInsight}</p>
-                <button onClick={() => setMoodInsight(null)} style={{ marginTop:"10px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(107,143,255,0.2)", background:"transparent", color:"#7b9fff", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}>Dismiss</button>
+              <div style={{ padding:"18px", borderRadius:"16px", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)", marginBottom:"16px" }}>
+                <div style={{ fontSize:"13px", fontWeight:"700", color:"#4A5478", marginBottom:"8px" }}>🧠 What Your Brain Needs Right Now</div>
+                <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.7, margin:0 }}>{moodInsight}</p>
+                <button onClick={() => setMoodInsight(null)} style={{ marginTop:"10px", padding:"6px 14px", borderRadius:"20px", border:"1px solid rgba(107,143,255,0.2)", background:"transparent", color:"#5F89F8", fontSize:"11px", fontWeight:"600", cursor:"pointer" }}>Dismiss</button>
               </div>
             )}
             <div style={S.card}>
@@ -9117,7 +9118,7 @@ function NeuroThriveApp() {
               <div style={S.mealLabel}>Any symptoms today?</div>
               <div style={{ display:"flex", flexWrap:"wrap", gap:"8px", marginBottom:"12px" }}>
                 {GENERAL_SYMPTOMS.map(s => (
-                  <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"20px", fontSize:"12px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.07)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                  <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"20px", fontSize:"12px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(49,60,98,0.12)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,1)", color: todaySymptoms[s.id] ? "#7B5EA0" : "#5F89F8", transition:"all 0.15s" }}>{s.label}</button>
                 ))}
               </div>
               {(() => {
@@ -9127,27 +9128,27 @@ function NeuroThriveApp() {
                 if (unique.length === 0) return null;
                 return (
                   <div style={{ marginBottom:"12px" }}>
-                    <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Condition-Specific</div>
+                    <div style={{ fontSize:"10px", fontWeight:"700", color:"#3D4663", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Condition-Specific</div>
                     <div style={{ display:"flex", flexWrap:"wrap", gap:"8px" }}>
                       {unique.map(s => (
-                        <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"20px", fontSize:"12px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.07)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#7888b8", transition:"all 0.15s" }}>{s.label}</button>
+                        <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"20px", fontSize:"12px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(49,60,98,0.12)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,1)", color: todaySymptoms[s.id] ? "#7B5EA0" : "#5F89F8", transition:"all 0.15s" }}>{s.label}</button>
                       ))}
                     </div>
                   </div>
                 );
               })()}
               {Object.keys(todaySymptoms).length > 0 && (
-                <div style={{ background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"14px", padding:"14px 16px", marginBottom:"16px" }}>
+                <div style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"14px", padding:"14px 16px", marginBottom:"16px" }}>
                   <div style={{ fontSize:"10px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"10px" }}>Set Intensity</div>
                   {Object.entries(todaySymptoms).map(([id, level]) => {
                     const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
                     const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
                     return (
                       <div key={id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"8px" }}>
-                        <span style={{ color:"#d4a0e8", fontSize:"12px", fontWeight:"600", flex:"1" }}>{label}</span>
+                        <span style={{ color:"#7B5EA0", fontSize:"12px", fontWeight:"600", flex:"1" }}>{label}</span>
                         <div style={{ display:"flex", gap:"6px" }}>
                           {INTENSITY_LEVELS.map(il => (
-                            <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"4px 12px", borderRadius:"14px", fontSize:"10px", fontWeight:"700", letterSpacing:"0.5px", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(110,120,200,0.15)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#6b7394", transition:"all 0.15s" }}>{il.label}</button>
+                            <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"4px 12px", borderRadius:"14px", fontSize:"10px", fontWeight:"700", letterSpacing:"0.5px", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(49,60,98,0.12)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#4A5478", transition:"all 0.15s" }}>{il.label}</button>
                           ))}
                         </div>
                       </div>
@@ -9158,7 +9159,7 @@ function NeuroThriveApp() {
               <div style={S.mealLabel}>Notes (optional)</div>
               <textarea style={S.textarea} placeholder="How did eating feel today? Any changes you noticed? Be kind to yourself..." value={todayNote} onChange={evt => setTodayNote(evt.target.value)} />
               <button
-                style={{ background:(todayMood && todayEnergy)?"linear-gradient(135deg,#5570f0,#4060e0)":"rgba(110,120,200,0.15)", color:(todayMood && todayEnergy)?"#fff":"#8890b8", border:"none", padding:"14px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:(todayMood && todayEnergy)?"pointer":"default", width:"100%", transition:"all 0.2s" }}
+                style={{ background:(todayMood && todayEnergy)?"linear-gradient(135deg,#5F89F8,#4B72E0)":"rgba(49,60,98,0.12)", color:(todayMood && todayEnergy)?"#fff":"#3D4663", border:"none", padding:"14px", borderRadius:"50px", fontSize:"14px", fontWeight:"700", cursor:(todayMood && todayEnergy)?"pointer":"default", width:"100%", transition:"all 0.2s" }}
                 onClick={saveLog}
               >{(todayMood && todayEnergy) ? "Save Today's Log" : "Select mood & energy to save"}</button>
             </div>
@@ -9173,10 +9174,10 @@ function NeuroThriveApp() {
                   return (
                     <div key={idx} style={{ padding:"16px 18px", borderRadius:"14px", background:"rgba(240,244,255,0.05)", border:"1px solid rgba(110,120,200,0.14)", marginBottom:"10px" }}>
                       <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"6px" }}>
-                        <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
-                        <span style={{ fontSize:"13px", color:"#8890b8" }}>{MOOD_EMOJIS.find(m=>m.val===log.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===log.energy)?.emoji}</span>
+                        <span style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
+                        <span style={{ fontSize:"13px", color:"#3D4663" }}>{MOOD_EMOJIS.find(m=>m.val===log.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===log.energy)?.emoji}</span>
                       </div>
-                      {log.note && <p style={{ color:"#a0a8e8", fontSize:"13px", margin:0, lineHeight:1.5 }}>{log.note}</p>}
+                      {log.note && <p style={{ color:"#4A5478", fontSize:"13px", margin:0, lineHeight:1.5 }}>{log.note}</p>}
                       {symKeys.length > 0 && (
                         <div style={{ display:"flex", flexWrap:"wrap", gap:"4px", marginTop:"8px" }}>
                           {symKeys.map(id => {
@@ -9196,20 +9197,20 @@ function NeuroThriveApp() {
                 <button onClick={() => setShowPatterns(!showPatterns)} style={{ background:"transparent", border:"1px solid rgba(186,104,200,0.25)", color:"#ba68c8", padding:"10px 22px", borderRadius:"14px", fontSize:"13px", fontWeight:"600", cursor:"pointer", width:"100%", transition:"all 0.15s" }}>{showPatterns ? "Hide Symptom Patterns" : "View Symptom Patterns"}</button>
                 {showPatterns && (() => {
                   const patterns = getSymptomPatterns();
-                  if (!patterns) return <p style={{ color:"#8890b8", fontSize:"12px", textAlign:"center", marginTop:"12px" }}>Keep tracking symptoms to see patterns emerge.</p>;
+                  if (!patterns) return <p style={{ color:"#3D4663", fontSize:"12px", textAlign:"center", marginTop:"12px" }}>Keep tracking symptoms to see patterns emerge.</p>;
                   return (
-                    <div style={{ marginTop:"14px", padding:"18px", borderRadius:"16px", background:"rgba(186,104,200,0.06)", borderLeft:"3px solid #ba68c8", border:"1px solid rgba(186,104,200,0.15)", borderLeftWidth:"3px" }}>
-                      <div style={{ fontSize:"13px", fontWeight:"700", color:"#d4a0e8", marginBottom:"14px" }}>Your Symptom Patterns</div>
+                    <div style={{ marginTop:"14px", padding:"18px", borderRadius:"16px", background:"rgba(255,255,255,1)", borderLeft:"3px solid #ba68c8", border:"1px solid rgba(186,104,200,0.15)", borderLeftWidth:"3px" }}>
+                      <div style={{ fontSize:"13px", fontWeight:"700", color:"#7B5EA0", marginBottom:"14px" }}>Your Symptom Patterns</div>
                       {patterns.map(p => (
                         <div key={p.id} style={{ marginBottom:"14px" }}>
                           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"4px" }}>
-                            <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600" }}>{p.label}</span>
+                            <span style={{ color:"#313C62", fontSize:"13px", fontWeight:"600" }}>{p.label}</span>
                             <span style={{ color:"#ba68c8", fontSize:"11px", fontWeight:"700" }}>{p.freq}%</span>
                           </div>
                           <div style={{ height:"4px", borderRadius:"4px", background:"rgba(186,104,200,0.15)", marginBottom:"6px" }}>
                             <div style={{ height:"4px", borderRadius:"4px", background:"linear-gradient(90deg,#ba68c8,#9050a0)", width:`${Math.min(p.freq, 100)}%`, transition:"width 0.3s" }} />
                           </div>
-                          <p style={{ color:"#8890b8", fontSize:"11px", margin:0, lineHeight:1.5 }}>{p.insight}</p>
+                          <p style={{ color:"#3D4663", fontSize:"11px", margin:0, lineHeight:1.5 }}>{p.insight}</p>
                         </div>
                       ))}
                     </div>
@@ -9238,9 +9239,9 @@ function NeuroThriveApp() {
             <h2 style={S.sectionTitle}>Supplements</h2>
             <p style={S.sectionSub}>Evidence-based supplements matched to your conditions. Always consult your doctor before starting anything new.</p>
             <div style={{ background:"rgba(200,190,160,0.08)", border:"1px solid rgba(200,190,160,0.2)", borderRadius:"14px", padding:"14px 18px", marginBottom:"24px" }}>
-              <div style={{ fontSize:"11px", textTransform:"uppercase", letterSpacing:"2px", color:"#8890b8", fontWeight:"600", marginBottom:"6px" }}>⚕️ Educational Information Only</div>
-              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:"0 0 10px 0" }}>The supplements below are provided for <strong style={{color:"#c8ccf0"}}>educational and informational purposes only</strong>. This is not medical advice and is not intended to diagnose, treat, cure, or prevent any condition.</p>
-              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:0 }}>Dosing, safety, and interactions vary significantly by individual health status and medications. <strong style={{color:"#c8ccf0"}}>Always consult a qualified healthcare provider</strong>, such as your doctor, psychiatrist, or registered dietitian, before starting, stopping, or changing any supplement.</p>
+              <div style={{ fontSize:"11px", textTransform:"uppercase", letterSpacing:"2px", color:"#3D4663", fontWeight:"600", marginBottom:"6px" }}>⚕️ Educational Information Only</div>
+              <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.7, margin:"0 0 10px 0" }}>The supplements below are provided for <strong style={{color:"#3D4663"}}>educational and informational purposes only</strong>. This is not medical advice and is not intended to diagnose, treat, cure, or prevent any condition.</p>
+              <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.7, margin:0 }}>Dosing, safety, and interactions vary significantly by individual health status and medications. <strong style={{color:"#3D4663"}}>Always consult a qualified healthcare provider</strong>, such as your doctor, psychiatrist, or registered dietitian, before starting, stopping, or changing any supplement.</p>
             </div>
             {(() => {
               // Gather supplements for ALL selected conditions, deduplicated by name
@@ -9276,8 +9277,8 @@ function NeuroThriveApp() {
                 <div>
                   {condLabels.length > 0 && (
                     <div style={{ ...S.card, marginBottom:"20px", padding:"12px 18px" }}>
-                      <span style={{ fontSize:"11px", color:"#8890b8", textTransform:"uppercase", letterSpacing:"2px" }}>Personalized for: </span>
-                      <span style={{ color:"#7b9fff", fontWeight:"600", fontSize:"13px" }}>{condLabels.join(" · ")}</span>
+                      <span style={{ fontSize:"11px", color:"#3D4663", textTransform:"uppercase", letterSpacing:"2px" }}>Personalized for: </span>
+                      <span style={{ color:"#5F89F8", fontWeight:"600", fontSize:"13px" }}>{condLabels.join(" · ")}</span>
                     </div>
                   )}
                   {allSupps.map((s, i) => (
@@ -9285,54 +9286,54 @@ function NeuroThriveApp() {
                       <summary style={{ padding:"18px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:"14px", listStyle:"none" }}>
                         <span style={{ fontSize:"26px", flexShrink:0 }}>{s.emoji}</span>
                         <div style={{ flex:1 }}>
-                          <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"500", marginBottom:"3px" }}>{s.name}</div>
-                          {s.dose && <div style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"500" }}>{s.dose}</div>}
+                          <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"500", marginBottom:"3px" }}>{s.name}</div>
+                          {s.dose && <div style={{ color:"#5F89F8", fontSize:"12px", fontWeight:"500" }}>{s.dose}</div>}
                           {s.forConditions && s.forConditions.length > 0 && selectedConditions.length > 1 && (
                             <div style={{ marginTop:"5px", display:"flex", gap:"5px", flexWrap:"wrap" }}>
                               {s.forConditions.map(label => (
-                                <span key={label} style={{ fontSize:"10px", fontWeight:"600", padding:"2px 8px", borderRadius:"10px", background:"rgba(107,143,255,0.15)", color:"#7b9fff", letterSpacing:"0.5px" }}>{label}</span>
+                                <span key={label} style={{ fontSize:"10px", fontWeight:"600", padding:"2px 8px", borderRadius:"10px", background:"rgba(255,255,255,1)", color:"#5F89F8", letterSpacing:"0.5px" }}>{label}</span>
                               ))}
                             </div>
                           )}
                         </div>
-                        <span style={{ color:"#8890b8", fontSize:"18px", flexShrink:0 }}>+</span>
+                        <span style={{ color:"#3D4663", fontSize:"18px", flexShrink:0 }}>+</span>
                       </summary>
                       <div style={{ padding:"0 20px 20px 20px", borderTop:"1px solid rgba(110,120,200,0.12)", paddingTop:"16px" }}>
                         {s.why && (
-                          <div style={{ marginBottom:"16px", padding:"14px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(85,112,240,0.1), rgba(107,143,255,0.06))", border:"1px solid rgba(107,143,255,0.2)" }}>
-                            <div style={{ fontSize:"10px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"8px" }}>Why This Helps You</div>
-                            <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0 }}>{s.why}</p>
+                          <div style={{ marginBottom:"16px", padding:"14px 16px", borderRadius:"14px", background:"linear-gradient(135deg, rgba(85,112,240,0.1), rgba(255,255,255,1))", border:"1px solid rgba(107,143,255,0.2)" }}>
+                            <div style={{ fontSize:"10px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"8px" }}>Why This Helps You</div>
+                            <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.8, margin:0 }}>{s.why}</p>
                           </div>
                         )}
                         <div style={{ marginBottom:"12px" }}>
-                          <div style={{ fontSize:"10px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"600", marginBottom:"6px" }}>🔬 The Science</div>
-                          <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.75, margin:0 }}>{s.science}</p>
+                          <div style={{ fontSize:"10px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"600", marginBottom:"6px" }}>🔬 The Science</div>
+                          <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.75, margin:0 }}>{s.science}</p>
                         </div>
                         <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginBottom:"12px" }}>
-                          <div style={{ flex:1, minWidth:"140px", padding:"10px 14px", borderRadius:"10px", background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.15)" }}>
-                            <div style={{ fontSize:"10px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"1.5px", marginBottom:"4px" }}>⏰ When to Take</div>
-                            <div style={{ color:"#c8ccf0", fontSize:"12px", lineHeight:1.6 }}>{s.timing}</div>
+                          <div style={{ flex:1, minWidth:"140px", padding:"10px 14px", borderRadius:"10px", background:"rgba(107,143,255,0.07)", border:"1px solid rgba(255,255,255,1)" }}>
+                            <div style={{ fontSize:"10px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"1.5px", marginBottom:"4px" }}>⏰ When to Take</div>
+                            <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.6 }}>{s.timing}</div>
                           </div>
                           <div style={{ flex:1, minWidth:"140px", padding:"10px 14px", borderRadius:"10px", background:"rgba(200,160,100,0.06)", border:"1px solid rgba(200,160,100,0.15)" }}>
                             <div style={{ fontSize:"10px", color:"#e8c87a", textTransform:"uppercase", letterSpacing:"1.5px", marginBottom:"4px" }}>⚠️ Caution</div>
-                            <div style={{ color:"#c8ccf0", fontSize:"12px", lineHeight:1.6 }}>{s.caution}</div>
+                            <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.6 }}>{s.caution}</div>
                           </div>
                         </div>
                         {s.minerals && s.minerals.length > 0 && (
                           <div style={{ marginBottom:"12px" }}>
-                            <div style={{ fontSize:"10px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"10px" }}>💎 Key Minerals & Their Functions</div>
+                            <div style={{ fontSize:"10px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"10px" }}>💎 Key Minerals & Their Functions</div>
                             {s.minerals.map((m, mi) => (
-                              <div key={mi} style={{ padding:"10px 14px", borderRadius:"10px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"8px" }}>
+                              <div key={mi} style={{ padding:"10px 14px", borderRadius:"10px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"8px" }}>
                                 <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
                                   <span style={{ fontSize:"16px" }}>{m.emoji}</span>
-                                  <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"600" }}>{m.name}</span>
+                                  <span style={{ color:"#313C62", fontSize:"13px", fontWeight:"600" }}>{m.name}</span>
                                 </div>
-                                <p style={{ color:"#a8aed0", fontSize:"12px", lineHeight:1.65, margin:0, paddingLeft:"24px" }}>{m.role}</p>
+                                <p style={{ color:"#4A5478", fontSize:"12px", lineHeight:1.65, margin:0, paddingLeft:"24px" }}>{m.role}</p>
                               </div>
                             ))}
                           </div>
                         )}
-                        {s.link && <a href={s.link} target="_blank" rel="noopener noreferrer" style={{ fontSize:"11px", color:"#7b9fff", textDecoration:"none", borderBottom:"1px solid rgba(107,143,255,0.3)" }}>📄 View Research →</a>}
+                        {s.link && <a href={s.link} target="_blank" rel="noopener noreferrer" style={{ fontSize:"11px", color:"#5F89F8", textDecoration:"none", borderBottom:"1px solid rgba(107,143,255,0.3)" }}>📄 View Research →</a>}
                       </div>
                     </details>
                   ))}
@@ -9354,11 +9355,11 @@ function NeuroThriveApp() {
 
             {/* ── Daily Affirmation ── */}
             <div style={{ marginBottom:"28px" }}>
-              <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"14px" }}>Daily Affirmation</h3>
+              <h3 style={{ color:"#4A5478", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"14px" }}>Daily Affirmation</h3>
               <div style={S.affirmCard}>
                 <div style={{ position:"absolute", top:"24px", left:"28px", fontSize:"72px", lineHeight:1, color:"rgba(107,143,255,0.2)", fontFamily:"'Cormorant Garamond',serif" }}>"</div>
-                <p style={{ fontSize:"22px", lineHeight:1.55, color:"#eef0ff", fontStyle:"italic", marginBottom:"20px", opacity:animating?0:1, transition:"opacity 0.3s", position:"relative", zIndex:1, fontWeight:"300" }}>{AFFIRMATIONS[affirmIdx].text}</p>
-                <div style={{ fontSize:"12px", color:"#7b9fff", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700" }}>: {AFFIRMATIONS[affirmIdx].author}</div>
+                <p style={{ fontSize:"22px", lineHeight:1.55, color:"#313C62", fontStyle:"italic", marginBottom:"20px", opacity:animating?0:1, transition:"opacity 0.3s", position:"relative", zIndex:1, fontWeight:"300" }}>{AFFIRMATIONS[affirmIdx].text}</p>
+                <div style={{ fontSize:"12px", color:"#5F89F8", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700" }}>: {AFFIRMATIONS[affirmIdx].author}</div>
               </div>
               <div style={{ display:"flex", justifyContent:"center", gap:"12px", marginBottom:"16px" }}>
                 <button style={S.btnOutline} onClick={prevAffirm}>← Prev</button>
@@ -9369,23 +9370,23 @@ function NeuroThriveApp() {
             <div style={S.divider} />
 
             {/* ── Meal Reminders ── */}
-            <h3 style={{ color:"#a0b8ff", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"14px", marginTop:"24px" }}>Meal Reminders</h3>
+            <h3 style={{ color:"#4A5478", fontSize:"15px", fontWeight:"600", letterSpacing:"0.5px", textTransform:"uppercase", marginBottom:"14px", marginTop:"24px" }}>Meal Reminders</h3>
             <div style={{ ...S.card, marginBottom:"24px", textAlign:"center", padding:"28px 24px" }}>
               <div style={{ fontSize:"40px", marginBottom:"12px" }}>🔔</div>
               {notifPermission === "granted" ? (
                 <div>
-                  <div style={{ color:"#7b9fff", fontSize:"15px", fontWeight:"500", marginBottom:"6px" }}>Notifications enabled ✓</div>
-                  <p style={{ color:"#8890b8", fontSize:"13px", margin:0 }}>Reminders are active while this tab is open.</p>
+                  <div style={{ color:"#5F89F8", fontSize:"15px", fontWeight:"500", marginBottom:"6px" }}>Notifications enabled ✓</div>
+                  <p style={{ color:"#3D4663", fontSize:"13px", margin:0 }}>Reminders are active while this tab is open.</p>
                 </div>
               ) : notifPermission === "denied" ? (
                 <div>
                   <div style={{ color:"#e8c87a", fontSize:"15px", fontWeight:"500", marginBottom:"6px" }}>Notifications blocked</div>
-                  <p style={{ color:"#8890b8", fontSize:"13px", margin:"0 0 14px 0" }}>Please enable notifications for this site in your browser settings, then refresh.</p>
+                  <p style={{ color:"#3D4663", fontSize:"13px", margin:"0 0 14px 0" }}>Please enable notifications for this site in your browser settings, then refresh.</p>
                 </div>
               ) : (
                 <div>
-                  <p style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"18px" }}>Enable browser notifications so NeuroThrive can remind you to eat at the times you choose.</p>
-                  <button onClick={requestNotifPermission} style={{ background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Enable Notifications</button>
+                  <p style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, marginBottom:"18px" }}>Enable browser notifications so NeuroThrive can remind you to eat at the times you choose.</p>
+                  <button onClick={requestNotifPermission} style={{ background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", padding:"12px 28px", borderRadius:"50px", fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>Enable Notifications</button>
                 </div>
               )}
             </div>
@@ -9394,13 +9395,13 @@ function NeuroThriveApp() {
                 <div key={key} style={{ ...S.card, display:"flex", alignItems:"center", gap:"14px", padding:"16px 20px", marginBottom:"10px" }}>
                   <span style={{ fontSize:"22px" }}>{emoji}</span>
                   <div style={{ flex:1 }}>
-                    <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"500", marginBottom:"4px" }}>{label}</div>
+                    <div style={{ color:"#313C62", fontSize:"14px", fontWeight:"500", marginBottom:"4px" }}>{label}</div>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-                      <input type="time" value={reminderTimes[key]} onChange={e => setReminderTimes(prev => ({ ...prev, [key]:e.target.value }))} style={{ background:"rgba(240,244,255,0.08)", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#eef0ff", padding:"8px 12px", fontSize:"15px", fontFamily:"'Inter',sans-serif", cursor:"pointer", outline:"none", minWidth:"110px" }} />
-                      <span style={{ color:"#8890b8", fontSize:"11px" }}>tap to change</span>
+                      <input type="time" value={reminderTimes[key]} onChange={e => setReminderTimes(prev => ({ ...prev, [key]:e.target.value }))} style={{ background:"rgba(240,244,255,0.08)", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#313C62", padding:"8px 12px", fontSize:"15px", fontFamily:"'Inter',sans-serif", cursor:"pointer", outline:"none", minWidth:"110px" }} />
+                      <span style={{ color:"#3D4663", fontSize:"11px" }}>tap to change</span>
                     </div>
                   </div>
-                  <div onClick={() => setReminderActive(prev => ({ ...prev, [key]:!prev[key] }))} style={{ width:"44px", height:"24px", borderRadius:"12px", background:reminderActive[key]?"#5570f0":"rgba(110,120,200,0.2)", cursor:"pointer", position:"relative", transition:"background 0.2s", flexShrink:0 }}>
+                  <div onClick={() => setReminderActive(prev => ({ ...prev, [key]:!prev[key] }))} style={{ width:"44px", height:"24px", borderRadius:"12px", background:reminderActive[key]?"#5F89F8":"rgba(49,60,98,0.15)", cursor:"pointer", position:"relative", transition:"background 0.2s", flexShrink:0 }}>
                     <div style={{ position:"absolute", top:"3px", left:reminderActive[key]?"22px":"3px", width:"18px", height:"18px", borderRadius:"50%", background:"#fff", transition:"left 0.2s", boxShadow:"0 1px 4px rgba(0,0,0,0.2)" }} />
                   </div>
                 </div>
@@ -9411,19 +9412,19 @@ function NeuroThriveApp() {
               <div style={{ display:"flex", alignItems:"center", gap:"14px", marginBottom: affirmNotifEnabled ? "16px" : "0" }}>
                 <span style={{ fontSize:"24px" }}>💙</span>
                 <div style={{ flex:1 }}>
-                  <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"500", marginBottom:"3px" }}>Daily Affirmation</div>
-                  <div style={{ color:"#8890b8", fontSize:"12px" }}>Receive a random affirmation every day</div>
+                  <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"500", marginBottom:"3px" }}>Daily Affirmation</div>
+                  <div style={{ color:"#3D4663", fontSize:"12px" }}>Receive a random affirmation every day</div>
                 </div>
-                <div onClick={() => setAffirmNotifEnabled(p => !p)} style={{ width:"44px", height:"24px", borderRadius:"12px", background:affirmNotifEnabled?"#5570f0":"rgba(110,120,200,0.2)", cursor:"pointer", position:"relative", transition:"background 0.2s", flexShrink:0 }}>
+                <div onClick={() => setAffirmNotifEnabled(p => !p)} style={{ width:"44px", height:"24px", borderRadius:"12px", background:affirmNotifEnabled?"#5F89F8":"rgba(49,60,98,0.15)", cursor:"pointer", position:"relative", transition:"background 0.2s", flexShrink:0 }}>
                   <div style={{ position:"absolute", top:"3px", left:affirmNotifEnabled?"22px":"3px", width:"18px", height:"18px", borderRadius:"50%", background:"#fff", transition:"left 0.2s", boxShadow:"0 1px 4px rgba(0,0,0,0.2)" }} />
                 </div>
               </div>
               {affirmNotifEnabled && (
                 <div style={{ display:"flex", alignItems:"center", gap:"12px", paddingTop:"14px", borderTop:"1px solid rgba(107,143,255,0.12)" }}>
-                  <span style={{ color:"#8890b8", fontSize:"13px", whiteSpace:"nowrap" }}>Deliver at</span>
+                  <span style={{ color:"#3D4663", fontSize:"13px", whiteSpace:"nowrap" }}>Deliver at</span>
                   <input type="time" value={affirmNotifTime} onChange={e => setAffirmNotifTime(e.target.value)}
-                    style={{ padding:"8px 12px", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.25)", background:"rgba(107,143,255,0.07)", color:"#eef0ff", fontSize:"14px", fontFamily:"'Inter',sans-serif", outline:"none" }} />
-                  <span style={{ color:"#7b9fff", fontSize:"12px" }}>daily</span>
+                    style={{ padding:"8px 12px", borderRadius:"10px", border:"1px solid rgba(107,143,255,0.25)", background:"rgba(107,143,255,0.07)", color:"#313C62", fontSize:"14px", fontFamily:"'Inter',sans-serif", outline:"none" }} />
+                  <span style={{ color:"#5F89F8", fontSize:"12px" }}>daily</span>
                 </div>
               )}
             </div>
@@ -9447,11 +9448,11 @@ function NeuroThriveApp() {
               const uniqueKeys = [...new Set(condKeys)];
               const tips = uniqueKeys.map(k => REMINDER_TIPS[k] || REMINDER_TIPS.default);
               return (
-                <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"14px", padding:"16px 18px", marginBottom:"24px" }}>
+                <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(255,255,255,1)", borderRadius:"14px", padding:"16px 18px", marginBottom:"24px" }}>
                   {tips.map((t, i) => (
                     <div key={i} style={{ marginBottom: i < tips.length - 1 ? "14px" : 0 }}>
-                      <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"600", marginBottom:"6px" }}>{t.emoji} {t.label} Tip</div>
-                      <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.7, margin:0 }}>{t.tip}</p>
+                      <div style={{ fontSize:"11px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"600", marginBottom:"6px" }}>{t.emoji} {t.label} Tip</div>
+                      <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.7, margin:0 }}>{t.tip}</p>
                       {i < tips.length - 1 && <div style={{ height:"1px", background:"rgba(107,143,255,0.12)", margin:"14px 0 0" }} />}
                     </div>
                   ))}
@@ -9461,7 +9462,7 @@ function NeuroThriveApp() {
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px" }}>
               <button style={S.btnOutline} onClick={goBack}>← Back</button>
               <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
-                {reminderSaved && <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500" }}>✓ Reminders saved!</span>}
+                {reminderSaved && <span style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"500" }}>✓ Reminders saved!</span>}
                 <button style={S.btnAccent} onClick={saveReminders}>Save Reminders</button>
               </div>
             </div>
@@ -9504,10 +9505,10 @@ function NeuroThriveApp() {
                   if (relevant.length === 0) return null;
                   return (
                     <div key={cat.id} onClick={() => setToolkitCategory(cat.id)}
-                      style={{ padding:"22px 18px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", textAlign:"center" }}>
+                      style={{ padding:"22px 18px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", textAlign:"center" }}>
                       <div style={{ fontSize:"32px", marginBottom:"8px" }}>{cat.emoji}</div>
-                      <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600", marginBottom:"6px" }}>{cat.label}</div>
-                      <div style={{ color:"#7b9fff", fontSize:"12px" }}>{relevant.length} tool{relevant.length !== 1 ? "s" : ""}</div>
+                      <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"600", marginBottom:"6px" }}>{cat.label}</div>
+                      <div style={{ color:"#5F89F8", fontSize:"12px" }}>{relevant.length} tool{relevant.length !== 1 ? "s" : ""}</div>
                     </div>
                   );
                 })}
@@ -9524,9 +9525,9 @@ function NeuroThriveApp() {
               return (
                 <div>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"20px" }}>
-                    <button onClick={() => setToolkitCategory(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <button onClick={() => setToolkitCategory(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#3D4663", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
                     <span style={{ fontSize:"22px" }}>{cat.emoji}</span>
-                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{cat.label}</h3>
+                    <h3 style={{ color:"#313C62", fontSize:"17px", fontWeight:"700", margin:0 }}>{cat.label}</h3>
                   </div>
                   {isCrisis && (
                     <div style={{ padding:"16px 20px", borderRadius:"14px", border:"1px solid rgba(220,80,80,0.3)", background:"rgba(220,80,80,0.08)", marginBottom:"20px" }}>
@@ -9538,10 +9539,10 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", flexDirection:"column", gap:"12px", marginBottom:"32px" }}>
                     {relevantStates.map(state => (
                       <div key={state.id} onClick={() => setToolkitState(state.id)}
-                        style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px" }}>
+                        style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", display:"flex", alignItems:"center", gap:"16px" }}>
                         <span style={{ fontSize:"30px" }}>{state.emoji}</span>
-                        <span style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"500" }}>{state.label}</span>
-                        <span style={{ marginLeft:"auto", color:"#7b9fff", fontSize:"18px" }}>→</span>
+                        <span style={{ color:"#313C62", fontSize:"16px", fontWeight:"500" }}>{state.label}</span>
+                        <span style={{ marginLeft:"auto", color:"#5F89F8", fontSize:"18px" }}>→</span>
                       </div>
                     ))}
                   </div>
@@ -9559,9 +9560,9 @@ function NeuroThriveApp() {
               return (
                 <div>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"24px" }}>
-                    <button onClick={() => setToolkitState(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <button onClick={() => setToolkitState(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#3D4663", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
                     <span style={{ fontSize:"22px" }}>{stateInfo?.emoji}</span>
-                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{stateInfo?.label}</h3>
+                    <h3 style={{ color:"#313C62", fontSize:"17px", fontWeight:"700", margin:0 }}>{stateInfo?.label}</h3>
                   </div>
                   {isCrisisState && (
                     <div style={{ padding:"16px 20px", borderRadius:"14px", border:"1px solid rgba(220,80,80,0.3)", background:"rgba(220,80,80,0.08)", marginBottom:"20px" }}>
@@ -9573,10 +9574,10 @@ function NeuroThriveApp() {
                   {steps.map((s, i) => (
                     <div key={i} style={{ ...S.card, padding:"20px 22px", marginBottom:"12px" }}>
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
-                        <div style={{ minWidth:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#5570f0,#7b9fff)", color:"#fff", fontSize:"13px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{s.s}</div>
+                        <div style={{ minWidth:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#5F89F8,#5F89F8)", color:"#fff", fontSize:"13px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{s.s}</div>
                         <div>
-                          <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.t}</div>
-                          <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.d}</div>
+                          <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.t}</div>
+                          <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.8 }}>{s.d}</div>
                         </div>
                       </div>
                     </div>
@@ -9600,8 +9601,8 @@ function NeuroThriveApp() {
             <p style={S.sectionSub}>Morning and evening routines tailored to your conditions, the two highest-leverage points in your day.</p>
             <ProgressBanner context="routine" />
             <div style={{ display:"flex", gap:"10px", marginBottom:"28px" }}>
-              <button onClick={() => setRoutineTab("morning")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="morning"?"2px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:routineTab==="morning"?"#5570f0":"rgba(240,244,255,0.04)", color:routineTab==="morning"?"#fff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌅 Morning</button>
-              <button onClick={() => setRoutineTab("evening")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="evening"?"2px solid #7b9fff":"1px solid rgba(110,120,200,0.2)", background:routineTab==="evening"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:routineTab==="evening"?"#9db5ff":"#8890b8", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌙 Evening</button>
+              <button onClick={() => setRoutineTab("morning")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="morning"?"2px solid #5F89F8":"1px solid rgba(49,60,98,0.15)", background:routineTab==="morning"?"#5F89F8":"rgba(240,244,255,0.04)", color:routineTab==="morning"?"#fff":"#3D4663", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌅 Morning</button>
+              <button onClick={() => setRoutineTab("evening")} style={{ flex:1, padding:"14px", borderRadius:"14px", border:routineTab==="evening"?"2px solid #5F89F8":"1px solid rgba(49,60,98,0.15)", background:routineTab==="evening"?"rgba(255,255,255,1)":"rgba(240,244,255,0.04)", color:routineTab==="evening"?"#5F89F8":"#3D4663", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"all 0.2s" }}>🌙 Evening</button>
             </div>
             {(() => {
               const condKey = selectedConditions.includes("neuro_core") ? "neuro_core"
@@ -9616,8 +9617,8 @@ function NeuroThriveApp() {
               return (
                 <div>
                   <div style={{ ...S.card, padding:"12px 18px", marginBottom:"20px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <span style={{ color:"#8890b8", fontSize:"13px" }}>Personalized for <strong style={{color:"#7b9fff"}}>{routine.label || (selectedConditions.length > 0 ? selectedConditions.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean).join(" · ") : "Your Brain")}</strong></span>
-                    <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
+                    <span style={{ color:"#3D4663", fontSize:"13px" }}>Personalized for <strong style={{color:"#5F89F8"}}>{routine.label || (selectedConditions.length > 0 ? selectedConditions.map(id => MENTAL_CONDITIONS.find(c => c.id === id)?.label).filter(Boolean).join(" · ") : "Your Brain")}</strong></span>
+                    <span style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"600" }}>⏱ {totalTime} min total</span>
                   </div>
                   {(() => {
                     const exerciseDone = !!getTodayChecks().exercise;
@@ -9626,7 +9627,7 @@ function NeuroThriveApp() {
 
                     const renderExerciseLink = () => (
                       <div style={{ marginTop:"8px" }}>
-                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"12px", fontWeight:"600", padding:0 }}>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#5F89F8", fontSize:"12px", fontWeight:"600", padding:0 }}>
                           See all exercises →
                         </button>
                       </div>
@@ -9636,15 +9637,15 @@ function NeuroThriveApp() {
                       const isChecked = !!todayRoutineChecks[i];
                       const isExStep = isExerciseStep(s);
                       return (
-                      <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: isExStep && exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : undefined, background: isExStep && exerciseDone ? "rgba(80,200,120,0.06)" : undefined }}>
+                      <div key={i} style={{ ...S.card, padding:"22px 22px", marginBottom:"18px", border: isExStep && exerciseDone ? "1.5px solid rgba(80,200,120,0.35)" : undefined, background: isExStep && exerciseDone ? "rgba(255,255,255,1)" : undefined }}>
                         <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
                           <div style={{ textAlign:"center", flexShrink:0 }}>
-                            <div style={{ width:"36px", height:"36px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : routineTab==="morning" ? "linear-gradient(135deg,#f0a830,#e87020)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
-                            <div style={{ fontSize:"11px", color:"#8890b8", whiteSpace:"nowrap" }}>{isExStep ? "15+ min" : s.time}</div>
+                            <div style={{ width:"36px", height:"36px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : routineTab==="morning" ? "linear-gradient(135deg,#f0a830,#e87020)" : "linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", fontSize:"14px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"4px" }}>{i+1}</div>
+                            <div style={{ fontSize:"11px", color:"#3D4663", whiteSpace:"nowrap" }}>{isExStep ? "15+ min" : s.time}</div>
                           </div>
                           <div style={{ flex:1 }}>
-                            <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
-                            <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
+                            <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"700", marginBottom:"8px" }}>{s.title}</div>
+                            <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.8 }}>{s.desc}</div>
                             {isExStep && renderExerciseLink()}
                           </div>
                           {isExStep ? (
@@ -9790,24 +9791,24 @@ function NeuroThriveApp() {
                 if (!hasAnyData && total === 0) return null;
 
                 return (
-                  <div style={{ background:"linear-gradient(135deg, rgba(107,143,255,0.15), rgba(80,200,120,0.06))", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"20px", padding:"22px 20px", marginBottom:"24px" }}>
+                  <div style={{ background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1px solid rgba(107,143,255,0.2)", borderRadius:"20px", padding:"22px 20px", marginBottom:"24px" }}>
                     <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
-                      <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700" }}>Weekly Recap</div>
-                      <div style={{ color:"#8890b8", fontSize:"11px" }}>{new Date(weekDates[0] + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" })} – {new Date(weekDates[6] + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" })}</div>
+                      <div style={{ color:"#313C62", fontSize:"16px", fontWeight:"700" }}>Weekly Recap</div>
+                      <div style={{ color:"#3D4663", fontSize:"11px" }}>{new Date(weekDates[0] + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" })} – {new Date(weekDates[6] + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" })}</div>
                     </div>
 
                     {/* Brain score mini chart */}
                     {avgScore !== null && (
                       <div style={{ marginBottom:"18px" }}>
                         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                          <span style={{ color:"#8890b8", fontSize:"11px", fontWeight:"600" }}>Brain Score</span>
-                          <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700" }}>{avgScore}% avg</span>
+                          <span style={{ color:"#3D4663", fontSize:"11px", fontWeight:"600" }}>Brain Score</span>
+                          <span style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700" }}>{avgScore}% avg</span>
                         </div>
                         <div style={{ display:"flex", gap:"4px", alignItems:"flex-end", height:"40px" }}>
                           {weekScores.map((score, i) => (
                             <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:"3px" }}>
                               <div style={{ width:"100%", borderRadius:"4px 4px 0 0", background: score === null ? "rgba(110,120,200,0.1)" : score >= 70 ? "linear-gradient(180deg,#50c878,#40a868)" : score >= 40 ? "linear-gradient(180deg,#e8c87a,#d0a860)" : "linear-gradient(180deg,#e86060,#c04848)", height: score === null ? "4px" : `${Math.max(4, (score / 100) * 36)}px`, transition:"height 0.3s" }} />
-                              <span style={{ fontSize:"9px", color:"#6b7394" }}>{weekDayLabels[i]}</span>
+                              <span style={{ fontSize:"9px", color:"#4A5478" }}>{weekDayLabels[i]}</span>
                             </div>
                           ))}
                         </div>
@@ -9817,17 +9818,17 @@ function NeuroThriveApp() {
                     {/* Weekly stats grid */}
                     <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"10px" }}>
                       {[
-                        { label: "Meals", value: totalMeals, sub: `${mealDays}/7 days`, color: "#7b9fff" },
+                        { label: "Meals", value: totalMeals, sub: `${mealDays}/7 days`, color: "#5F89F8" },
                         { label: "Exercise", value: `${exerciseDays}/7`, sub: "days active", color: "#50c878" },
                         { label: "Water", value: avgWater, sub: "avg glasses", color: "#60b0e0" },
                         { label: "Morning", value: `${morningDays}/7`, sub: "routines", color: "#f0a830" },
-                        { label: "Evening", value: `${eveningDays}/7`, sub: "routines", color: "#5570f0" },
+                        { label: "Evening", value: `${eveningDays}/7`, sub: "routines", color: "#5F89F8" },
                         { label: "Journal", value: `${journalDays}/7`, sub: "entries", color: "#ba68c8" },
                       ].map((stat, i) => (
-                        <div key={i} style={{ background:"rgba(255,255,255,0.08)", borderRadius:"12px", padding:"10px 8px", textAlign:"center" }}>
+                        <div key={i} style={{ background:"rgba(255,255,255,1)", borderRadius:"12px", padding:"10px 8px", textAlign:"center" }}>
                           <div style={{ fontSize:"18px", fontWeight:"800", color: stat.color, marginBottom:"2px" }}>{stat.value}</div>
-                          <div style={{ fontSize:"9px", fontWeight:"700", textTransform:"uppercase", letterSpacing:"1px", color:"#8890b8", marginBottom:"1px" }}>{stat.label}</div>
-                          <div style={{ fontSize:"9px", color:"#6b7394" }}>{stat.sub}</div>
+                          <div style={{ fontSize:"9px", fontWeight:"700", textTransform:"uppercase", letterSpacing:"1px", color:"#3D4663", marginBottom:"1px" }}>{stat.label}</div>
+                          <div style={{ fontSize:"9px", color:"#4A5478" }}>{stat.sub}</div>
                         </div>
                       ))}
                     </div>
@@ -9838,8 +9839,8 @@ function NeuroThriveApp() {
               {total === 0 ? (
                 <div style={{ ...S.card, textAlign:"center", padding:"48px 32px" }}>
                   <div style={{ fontSize:"48px", marginBottom:"16px" }}>📓</div>
-                  <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
-                  <div style={{ color:"#8890b8", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal & Symptom Tracker on your Checklist; after a few days, your progress charts will appear here.</div>
+                  <div style={{ color:"#313C62", fontSize:"17px", fontWeight:"600", marginBottom:"8px" }}>No entries yet</div>
+                  <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, marginBottom:"24px" }}>Start logging your mood and energy in the Journal & Symptom Tracker on your Checklist; after a few days, your progress charts will appear here.</div>
                   <button style={S.btnAccent} onClick={() => navigateTo(12)}>Open Checklist →</button>
                 </div>
               ) : (
@@ -9852,20 +9853,20 @@ function NeuroThriveApp() {
                       { label:"Avg Energy", value: avgEnergy, sub: energyLabel(avgEnergy), icon:"⚡" },
                       { label:"Day Streak", value: streak, sub: streak === 1 ? "day logged" : "days logged", icon:"🔥" },
                     ].map((card, i) => (
-                      <div key={i} style={{ background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.15)", borderRadius:"18px", padding:"18px 16px", textAlign:"center" }}>
+                      <div key={i} style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)", borderRadius:"18px", padding:"18px 16px", textAlign:"center" }}>
                         <div style={{ fontSize:"24px", marginBottom:"6px" }}>{card.icon}</div>
-                        <div style={{ fontSize:"26px", fontWeight:"800", color:"#eef0ff", letterSpacing:"-0.5px", lineHeight:1.1, marginBottom:"4px" }}>{card.value}</div>
-                        <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#5570f0", fontWeight:"700", marginBottom:"2px" }}>{card.label}</div>
-                        <div style={{ fontSize:"11px", color:"#8890b8" }}>{card.sub}</div>
+                        <div style={{ fontSize:"26px", fontWeight:"800", color:"#313C62", letterSpacing:"-0.5px", lineHeight:1.1, marginBottom:"4px" }}>{card.value}</div>
+                        <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#5F89F8", fontWeight:"700", marginBottom:"2px" }}>{card.label}</div>
+                        <div style={{ fontSize:"11px", color:"#3D4663" }}>{card.sub}</div>
                       </div>
                     ))}
                   </div>
 
                   {/* ── Range selector ── */}
                   <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
-                    <div style={{ fontSize:"13px", color:"#8890b8", fontWeight:"600", alignSelf:"center", marginRight:"4px" }}>Show:</div>
+                    <div style={{ fontSize:"13px", color:"#3D4663", fontWeight:"600", alignSelf:"center", marginRight:"4px" }}>Show:</div>
                     {[7, 14, 30].map(r => (
-                      <button key={r} onClick={() => setProgressRange(r)} style={{ padding:"7px 18px", borderRadius:"20px", border:progressRange===r?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.2)", background:progressRange===r?"rgba(80,112,240,0.18)":"rgba(240,244,255,0.04)", color:progressRange===r?"#9db5ff":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>
+                      <button key={r} onClick={() => setProgressRange(r)} style={{ padding:"7px 18px", borderRadius:"20px", border:progressRange===r?"1.5px solid #5F89F8":"1px solid rgba(49,60,98,0.15)", background:progressRange===r?"rgba(80,112,240,0.18)":"rgba(240,244,255,0.04)", color:progressRange===r?"#5F89F8":"#3D4663", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>
                         {r}d
                       </button>
                     ))}
@@ -9874,33 +9875,33 @@ function NeuroThriveApp() {
                   {/* ── Line charts ── */}
                   {rangedLogs.length >= 2 ? (
                     <div style={{ ...S.card, marginBottom:"20px", padding:"20px 16px" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Mood & Energy: Last {Math.min(progressRange, rangedLogs.length)} Entries</div>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#5F89F8", fontWeight:"700", marginBottom:"16px" }}>Mood & Energy: Last {Math.min(progressRange, rangedLogs.length)} Entries</div>
 
                       <svg viewBox={`0 0 ${W} ${H}`} style={{ width:"100%", height:"auto", display:"block", marginBottom:"8px" }}>
                         {/* Grid lines */}
                         {[1,2,3,4,5].map(v => (
                           <g key={v}>
                             <line x1={PAD.l} y1={toY(v)} x2={W - PAD.r} y2={toY(v)} stroke="rgba(110,120,200,0.1)" strokeWidth="1" />
-                            <text x={PAD.l - 6} y={toY(v) + 4} textAnchor="end" fontSize="8" fill="#8890b8">{v}</text>
+                            <text x={PAD.l - 6} y={toY(v) + 4} textAnchor="end" fontSize="8" fill="#3D4663">{v}</text>
                           </g>
                         ))}
                         {/* X labels: show first, middle, last */}
                         {rangedLogs.length > 0 && [0, Math.floor((rangedLogs.length-1)/2), rangedLogs.length-1].filter((v,i,a) => a.indexOf(v)===i).map(i => (
-                          <text key={i} x={toX(i, rangedLogs.length)} y={H - 4} textAnchor="middle" fontSize="8" fill="#8890b8">
+                          <text key={i} x={toX(i, rangedLogs.length)} y={H - 4} textAnchor="middle" fontSize="8" fill="#3D4663">
                             {rangedLogs[i]?.date?.replace(/\w+,\s/, "") || ""}
                           </text>
                         ))}
                         {/* Mood area fill */}
-                        <path d={makeArea(rangedLogs, "mood")} fill="rgba(107,143,255,0.15)" />
+                        <path d={makeArea(rangedLogs, "mood")} fill="rgba(255,255,255,1)" />
                         {/* Energy area fill */}
                         <path d={makeArea(rangedLogs, "energy")} fill="rgba(232,200,122,0.07)" />
                         {/* Mood line */}
-                        <path d={makePath(rangedLogs, "mood")} fill="none" stroke="#7b9fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d={makePath(rangedLogs, "mood")} fill="none" stroke="#5F89F8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         {/* Energy line */}
                         <path d={makePath(rangedLogs, "energy")} fill="none" stroke="#e8c87a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="5 3" />
                         {/* Mood dots */}
                         {rangedLogs.map((d, i) => (
-                          <circle key={i} cx={toX(i, rangedLogs.length)} cy={toY(d.mood)} r="3.5" fill="#7b9fff" />
+                          <circle key={i} cx={toX(i, rangedLogs.length)} cy={toY(d.mood)} r="3.5" fill="#5F89F8" />
                         ))}
                         {/* Energy dots */}
                         {rangedLogs.map((d, i) => (
@@ -9911,17 +9912,17 @@ function NeuroThriveApp() {
                       {/* Legend */}
                       <div style={{ display:"flex", gap:"20px", justifyContent:"center" }}>
                         <div style={{ display:"flex", alignItems:"center", gap:"6px" }}>
-                          <div style={{ width:"20px", height:"2px", background:"#7b9fff", borderRadius:"2px" }} />
-                          <span style={{ fontSize:"11px", color:"#8890b8" }}>Mood</span>
+                          <div style={{ width:"20px", height:"2px", background:"#5F89F8", borderRadius:"2px" }} />
+                          <span style={{ fontSize:"11px", color:"#3D4663" }}>Mood</span>
                         </div>
                         <div style={{ display:"flex", alignItems:"center", gap:"6px" }}>
                           <div style={{ width:"20px", height:"2px", background:"#e8c87a", borderRadius:"2px", backgroundImage:"repeating-linear-gradient(90deg,#e8c87a 0,#e8c87a 5px,transparent 5px,transparent 8px)" }} />
-                          <span style={{ fontSize:"11px", color:"#8890b8" }}>Energy</span>
+                          <span style={{ fontSize:"11px", color:"#3D4663" }}>Energy</span>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div style={{ ...S.card, textAlign:"center", padding:"28px", marginBottom:"20px", color:"#8890b8", fontSize:"13px" }}>
+                    <div style={{ ...S.card, textAlign:"center", padding:"28px", marginBottom:"20px", color:"#3D4663", fontSize:"13px" }}>
                       Log at least 2 entries to see your chart.
                     </div>
                   )}
@@ -9929,7 +9930,7 @@ function NeuroThriveApp() {
                   {/* ── Day-of-week pattern ── */}
                   {logs.length >= 7 && (
                     <div style={{ ...S.card, marginBottom:"20px" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Day of Week Pattern</div>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#5F89F8", fontWeight:"700", marginBottom:"16px" }}>Day of Week Pattern</div>
                       <div style={{ display:"flex", gap:"8px", alignItems:"flex-end", height:"64px" }}>
                         {DOW_NAMES.map((name, i) => {
                           const val = dowAvg[i];
@@ -9938,15 +9939,15 @@ function NeuroThriveApp() {
                           const isBest = i === bestDow;
                           return (
                             <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:"4px", height:"100%", justifyContent:"flex-end" }}>
-                              <div style={{ fontSize:"9px", color: isBest ? "#e8c87a" : "#7b9fff", fontWeight:"700", opacity: isActive ? 1 : 0 }}>{val !== null ? val.toFixed(1) : ""}</div>
-                              <div style={{ width:"100%", maxWidth:"32px", height:`${Math.max(isActive ? pct : 0, 8)}%`, borderRadius:"6px 6px 3px 3px", background: isBest ? "linear-gradient(180deg,#e8c87a,#d4a832)" : isActive ? "linear-gradient(180deg,#7b9fff,#5570f0)" : "rgba(110,120,200,0.12)", transition:"all 0.3s", minHeight: isActive ? "8px" : "4px" }} />
-                              <div style={{ fontSize:"9px", color: isBest ? "#e8c87a" : "#8890b8", fontWeight: isBest ? "700" : "400" }}>{name}</div>
+                              <div style={{ fontSize:"9px", color: isBest ? "#e8c87a" : "#5F89F8", fontWeight:"700", opacity: isActive ? 1 : 0 }}>{val !== null ? val.toFixed(1) : ""}</div>
+                              <div style={{ width:"100%", maxWidth:"32px", height:`${Math.max(isActive ? pct : 0, 8)}%`, borderRadius:"6px 6px 3px 3px", background: isBest ? "linear-gradient(180deg,#e8c87a,#d4a832)" : isActive ? "linear-gradient(180deg,#5F89F8,#5F89F8)" : "rgba(110,120,200,0.12)", transition:"all 0.3s", minHeight: isActive ? "8px" : "4px" }} />
+                              <div style={{ fontSize:"9px", color: isBest ? "#e8c87a" : "#3D4663", fontWeight: isBest ? "700" : "400" }}>{name}</div>
                             </div>
                           );
                         })}
                       </div>
                       {bestDow !== null && (
-                        <div style={{ marginTop:"14px", padding:"10px 14px", borderRadius:"12px", background:"rgba(232,200,122,0.08)", border:"1px solid rgba(232,200,122,0.2)" }}>
+                        <div style={{ marginTop:"14px", padding:"10px 14px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(232,200,122,0.2)" }}>
                           <span style={{ fontSize:"12px", color:"#e8c87a" }}>Your best day tends to be <strong>{DOW_NAMES[bestDow]}</strong>, avg mood {dowAvg[bestDow]?.toFixed(1)}/5</span>
                         </div>
                       )}
@@ -9994,8 +9995,8 @@ function NeuroThriveApp() {
                           <svg viewBox={`0 0 ${cW} ${cH}`} style={{ width:"100%", height:"auto", display:"block", marginBottom:"8px" }}>
                             {[0, 25, 50, 75, 100].map(v => (
                               <g key={v}>
-                                <line x1={cPAD.l} y1={cPAD.t + cChartH - (v / 100) * cChartH} x2={cW - cPAD.r} y2={cPAD.t + cChartH - (v / 100) * cChartH} stroke="rgba(110,120,200,0.08)" strokeWidth="1" />
-                                {v % 50 === 0 && <text x={cPAD.l - 6} y={cPAD.t + cChartH - (v / 100) * cChartH + 3} textAnchor="end" fontSize="7" fill="#8890b8">{v}%</text>}
+                                <line x1={cPAD.l} y1={cPAD.t + cChartH - (v / 100) * cChartH} x2={cW - cPAD.r} y2={cPAD.t + cChartH - (v / 100) * cChartH} stroke="rgba(255,255,255,1)" strokeWidth="1" />
+                                {v % 50 === 0 && <text x={cPAD.l - 6} y={cPAD.t + cChartH - (v / 100) * cChartH + 3} textAnchor="end" fontSize="7" fill="#3D4663">{v}%</text>}
                               </g>
                             ))}
                             {completionData.map((d, i) => {
@@ -10005,7 +10006,7 @@ function NeuroThriveApp() {
                                 <g key={i}>
                                   <rect x={x} y={cPAD.t + cChartH - h} width={barW} height={Math.max(h, 1)} rx="2" fill={d.pct > 50 ? "#50c878" : d.pct > 0 ? "rgba(80,200,120,0.4)" : "rgba(110,120,200,0.12)"} />
                                   {(i === 0 || i === daysToShow - 1 || i === Math.floor(daysToShow / 2)) && (
-                                    <text x={x + barW / 2} y={cH - 4} textAnchor="middle" fontSize="7" fill="#8890b8">{d.key.slice(5)}</text>
+                                    <text x={x + barW / 2} y={cH - 4} textAnchor="middle" fontSize="7" fill="#3D4663">{d.key.slice(5)}</text>
                                   )}
                                 </g>
                               );
@@ -10021,9 +10022,9 @@ function NeuroThriveApp() {
                           ].map((card, i) => (
                             <div key={i} style={{ background:"rgba(80,200,120,0.05)", border:"1px solid rgba(80,200,120,0.15)", borderRadius:"18px", padding:"18px 16px", textAlign:"center" }}>
                               <div style={{ fontSize:"24px", marginBottom:"6px" }}>{card.icon}</div>
-                              <div style={{ fontSize:"26px", fontWeight:"800", color:"#eef0ff", letterSpacing:"-0.5px", lineHeight:1.1, marginBottom:"4px" }}>{card.value}</div>
+                              <div style={{ fontSize:"26px", fontWeight:"800", color:"#313C62", letterSpacing:"-0.5px", lineHeight:1.1, marginBottom:"4px" }}>{card.value}</div>
                               <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#50c878", fontWeight:"700", marginBottom:"2px" }}>{card.label}</div>
-                              <div style={{ fontSize:"11px", color:"#8890b8" }}>{card.sub}</div>
+                              <div style={{ fontSize:"11px", color:"#3D4663" }}>{card.sub}</div>
                             </div>
                           ))}
                         </div>
@@ -10048,13 +10049,13 @@ function NeuroThriveApp() {
                         <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#50c878", fontWeight:"700", marginBottom:"16px" }}>Food Log</div>
                         {foodLogDays.map((day, di) => (
                           <div key={day.date} style={{ padding:"12px 0", borderBottom: di < foodLogDays.length - 1 ? "1px solid rgba(110,120,200,0.1)" : "none" }}>
-                            <div style={{ color:"#9db5ff", fontSize:"13px", fontWeight:"700", marginBottom:"8px" }}>{day.label}</div>
+                            <div style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700", marginBottom:"8px" }}>{day.label}</div>
                             <div style={{ display:"flex", flexDirection:"column", gap:"4px" }}>
                               {Object.entries(day.log).map(([mealKey, mealName]) => (
                                 <div key={mealKey} style={{ display:"flex", alignItems:"center", gap:"8px" }}>
                                   <span style={{ color:"#50c878", fontSize:"12px" }}>✓</span>
                                   <span style={{ color:"#e8c87a", fontSize:"10px", fontWeight:"700", textTransform:"uppercase", letterSpacing:"1px", minWidth:"60px" }}>{mealKey === "snacks2" ? "Snack 2" : mealKey}</span>
-                                  <span style={{ color:"#c8ccf0", fontSize:"12px" }}>{mealName}</span>
+                                  <span style={{ color:"#3D4663", fontSize:"12px" }}>{mealName}</span>
                                 </div>
                               ))}
                             </div>
@@ -10066,33 +10067,33 @@ function NeuroThriveApp() {
 
                   {/* ── Recent log list ── */}
                   <div style={{ ...S.card }}>
-                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"16px" }}>Recent Entries</div>
+                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#5F89F8", fontWeight:"700", marginBottom:"16px" }}>Recent Entries</div>
                     {logs.slice(0, 10).map((log, i) => {
-                      const moodDot = ["#e06060","#e09060","#e0d060","#80c870","#60b870"][log.mood - 1] || "#8890b8";
-                      const energyDot = ["#6080e0","#8890b8","#e8c87a","#80d0c0","#60d0a0"][log.energy - 1] || "#8890b8";
+                      const moodDot = ["#e06060","#e09060","#e0d060","#80c870","#60b870"][log.mood - 1] || "#3D4663";
+                      const energyDot = ["#6080e0","#3D4663","#e8c87a","#80d0c0","#60d0a0"][log.energy - 1] || "#3D4663";
                       const moodEmoji = MOOD_EMOJIS.find(m => m.val === log.mood)?.emoji || "";
                       const energyEmoji = ENERGY_EMOJIS.find(e => e.val === log.energy)?.emoji || "";
                       return (
                         <div key={i} style={{ padding:"14px 0", borderBottom: i < Math.min(9, logs.length-1) ? "1px solid rgba(110,120,200,0.1)" : "none" }}>
                           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: log.note ? "6px" : "0" }}>
-                            <span style={{ color:"#9db5ff", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
+                            <span style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700" }}>{log.date}</span>
                             <div style={{ display:"flex", gap:"10px" }}>
-                              <span style={{ display:"flex", alignItems:"center", gap:"4px", fontSize:"12px", color:"#c8ccf0" }}>
+                              <span style={{ display:"flex", alignItems:"center", gap:"4px", fontSize:"12px", color:"#3D4663" }}>
                                 <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:moodDot, display:"inline-block" }} />
                                 {moodEmoji} {log.mood}/5
                               </span>
-                              <span style={{ display:"flex", alignItems:"center", gap:"4px", fontSize:"12px", color:"#c8ccf0" }}>
+                              <span style={{ display:"flex", alignItems:"center", gap:"4px", fontSize:"12px", color:"#3D4663" }}>
                                 <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:energyDot, display:"inline-block" }} />
                                 {energyEmoji} {log.energy}/5
                               </span>
                             </div>
                           </div>
-                          {log.note && <p style={{ margin:0, fontSize:"12px", color:"#8890b8", lineHeight:1.6, fontStyle:"italic" }}>"{log.note}"</p>}
+                          {log.note && <p style={{ margin:0, fontSize:"12px", color:"#3D4663", lineHeight:1.6, fontStyle:"italic" }}>"{log.note}"</p>}
                         </div>
                       );
                     })}
                     {logs.length > 10 && (
-                      <div style={{ textAlign:"center", paddingTop:"14px", color:"#8890b8", fontSize:"12px" }}>+ {logs.length - 10} more entries in your Journal</div>
+                      <div style={{ textAlign:"center", paddingTop:"14px", color:"#3D4663", fontSize:"12px" }}>+ {logs.length - 10} more entries in your Journal</div>
                     )}
                   </div>
                 </>
@@ -10100,21 +10101,21 @@ function NeuroThriveApp() {
 
               {/* Quick Actions */}
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px", marginTop:"32px" }}>
-                <div onClick={() => navigateTo(8)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", cursor:"pointer" }}>
-                  <div style={{ color:"#d4a0e8", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Journal</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>Log today's mood and energy</div>
+                <div onClick={() => navigateTo(8)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(186,104,200,0.15)", cursor:"pointer" }}>
+                  <div style={{ color:"#7B5EA0", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Journal</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px", lineHeight:1.4 }}>Log today's mood and energy</div>
                 </div>
-                <div onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.15)", cursor:"pointer" }}>
-                  <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>30-Day Menu</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>Browse meals and recipes</div>
+                <div onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)", cursor:"pointer" }}>
+                  <div style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>30-Day Menu</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px", lineHeight:1.4 }}>Browse meals and recipes</div>
                 </div>
                 <div onClick={() => navigateTo(10)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(240,168,48,0.06)", border:"1px solid rgba(240,168,48,0.15)", cursor:"pointer" }}>
                   <div style={{ color:"#f0a830", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Routine</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>View your daily routine</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px", lineHeight:1.4 }}>View your daily routine</div>
                 </div>
-                <div onClick={() => navigateTo(12)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", cursor:"pointer" }}>
+                <div onClick={() => navigateTo(12)} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.15)", cursor:"pointer" }}>
                   <div style={{ color:"#50c878", fontSize:"13px", fontWeight:"700", marginBottom:"4px" }}>Today</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px", lineHeight:1.4 }}>Back to your checklist</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px", lineHeight:1.4 }}>Back to your checklist</div>
                 </div>
               </div>
 
@@ -10127,7 +10128,7 @@ function NeuroThriveApp() {
 
       {/* STEP 12: TODAY */}
         {step === 12 && !isPremium && (
-          <div style={{ textAlign:"center", padding:"60px 20px", color:"#8890b8" }}>
+          <div style={{ textAlign:"center", padding:"60px 20px", color:"#3D4663" }}>
             <div style={{ fontSize:"32px", marginBottom:"12px" }}>🧠</div>
             <div style={{ fontSize:"14px" }}>Loading your plan...</div>
           </div>
@@ -10142,8 +10143,8 @@ function NeuroThriveApp() {
           const morningChecks = todayChecks.routine?.morning || [];
           const eveningChecks = todayChecks.routine?.evening || [];
           const hasJournal = logs.some(l => l.date && l.date.includes(new Date(todayKey + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })));
-          const sectionDivider = { height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.15), transparent)", margin:"40px 0" };
-          const sectionHeader = (text) => ({ fontSize:"20px", color:"#eef0ff", fontWeight:"700", marginBottom:"16px", letterSpacing:"-0.3px", paddingBottom:"10px", borderBottom:"1px solid rgba(110,120,200,0.1)" });
+          const sectionDivider = { height:"1px", background:"linear-gradient(90deg, transparent, rgba(49,60,98,0.12), transparent)", margin:"40px 0" };
+          const sectionHeader = (text) => ({ fontSize:"20px", color:"#313C62", fontWeight:"700", marginBottom:"16px", letterSpacing:"-0.3px", paddingBottom:"10px", borderBottom:"1px solid rgba(110,120,200,0.1)" });
           const hour = new Date().getHours();
           const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
           // Auto-sync to today's menu day based on daysElapsed
@@ -10169,10 +10170,10 @@ function NeuroThriveApp() {
                 const todayFact = facts[factIdx];
                 if (!todayFact) return null;
                 return (
-                  <div style={{ padding:"20px 20px 20px 22px", borderRadius:"16px", background:"rgba(107,143,255,0.05)", border:"none", borderLeft:"3px solid #7b9fff", marginBottom:"16px", marginTop:"16px" }}>
-                    <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
-                    <p style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.7, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
-                    <p style={{ color:"#a0b8ff", fontSize:"14px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{todayFact.connection}</p>
+                  <div style={{ padding:"20px 20px 20px 22px", borderRadius:"16px", background:"rgba(255,255,255,1)", border:"none", borderLeft:"3px solid #5F89F8", marginBottom:"16px", marginTop:"16px" }}>
+                    <div style={{ fontSize:"12px", color:"#5F89F8", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"10px" }}>Did You Know?</div>
+                    <p style={{ color:"#313C62", fontSize:"15px", fontWeight:"600", lineHeight:1.7, margin:"0 0 10px 0" }}>{todayFact.fact}</p>
+                    <p style={{ color:"#4A5478", fontSize:"14px", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{todayFact.connection}</p>
                   </div>
                 );
               })()}
@@ -10195,13 +10196,13 @@ function NeuroThriveApp() {
                   ? `Today you're eating ${mealNames[0]}, ${mealNames[1]}, and ${mealNames[2]}. ${insight.mealConnection}`
                   : insight.mealConnection;
                 return (
-                  <div style={{ padding:"22px", borderRadius:"16px", background:"rgba(80,200,120,0.04)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
+                  <div style={{ padding:"22px", borderRadius:"16px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"16px" }}>
                     <div style={{ fontSize:"12px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"6px" }}>Day {daysElapsed} Insight</div>
-                    <div style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:"0 0 14px 0" }}>{insight.body}</p>
-                    <div style={{ padding:"14px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.1)" }}>
+                    <div style={{ color:"#313C62", fontSize:"17px", fontWeight:"700", marginBottom:"8px" }}>{insight.title}</div>
+                    <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.7, margin:"0 0 14px 0" }}>{insight.body}</p>
+                    <div style={{ padding:"14px 16px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.1)" }}>
                       <div style={{ fontSize:"11px", color:"#50c878", fontWeight:"700", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"6px" }}>Meal Connection</div>
-                      <p style={{ color:"#a0c8b0", fontSize:"14px", lineHeight:1.6, margin:0 }}>{dynamicConnection}</p>
+                      <p style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.6, margin:0 }}>{dynamicConnection}</p>
                     </div>
                   </div>
                 );
@@ -10209,7 +10210,7 @@ function NeuroThriveApp() {
 
               {/* Section B: Today's Meals */}
               <div style={sectionDivider} />
-              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); navigateTo(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"10px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
+              <div onClick={() => { setGroceryWeek(Math.floor(todayDayIdx / 7)); navigateTo(15); }} style={{ padding:"10px 16px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"10px", cursor:"pointer", display:"flex", alignItems:"center", gap:"10px" }}>
                 <span style={{ fontSize:"16px" }}>🛒</span>
                 <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"600" }}>Check your 30-Day Meal Plan for grocery lists</span>
                 <span style={{ marginLeft:"auto", color:"#50c878", fontSize:"14px" }}>→</span>
@@ -10225,25 +10226,25 @@ function NeuroThriveApp() {
                 const dayNum = todayDayIdx || 0;
                 const nutrient = allNutrients[dayNum % allNutrients.length];
                 return (
-                  <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #7b9fff", background:"linear-gradient(135deg, rgba(107,143,255,0.06), rgba(107,143,255,0.02))" }}>
+                  <div style={{ ...S.card, padding:"16px 18px", marginBottom:"16px", borderLeft:"3px solid #5F89F8", background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(255,255,255,1))" }}>
                     <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px" }}>
-                      <div style={{ fontSize:"11px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
-                      <span onClick={() => navigateTo(19)} style={{ color:"#7888b8", fontSize:"11px", cursor:"pointer" }}>Full Guide →</span>
+                      <div style={{ fontSize:"11px", fontWeight:"700", color:"#5F89F8", letterSpacing:"1.2px", textTransform:"uppercase" }}>Today's Brain Nutrition Tip</div>
+                      <span onClick={() => navigateTo(19)} style={{ color:"#5F89F8", fontSize:"11px", cursor:"pointer" }}>Full Guide →</span>
                     </div>
                     <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"6px" }}>
-                      <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#7b9fff" }} />
-                      <span style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700" }}>{nutrient.name}</span>
+                      <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#5F89F8" }} />
+                      <span style={{ color:"#313C62", fontSize:"15px", fontWeight:"700" }}>{nutrient.name}</span>
                     </div>
-                    <p style={{ color:"#a0a8d0", fontSize:"14px", lineHeight:1.5, margin:"0 0 8px 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
-                    <p style={{ color:"#8898c8", fontSize:"13px", lineHeight:1.4, margin:"0 0 0 11px" }}>Top sources: {nutrient.topSources}</p>
+                    <p style={{ color:"#4A5478", fontSize:"14px", lineHeight:1.5, margin:"0 0 8px 11px" }}>{nutrient.role.split("—")[0].split(";")[0].trim()}</p>
+                    <p style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.4, margin:"0 0 0 11px" }}>Top sources: {nutrient.topSources}</p>
                   </div>
                 );
               })()}
               <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div style={sectionHeader("Today's Meals")}>Today's Meals</div>
-                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#7b9fff", fontSize:"13px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Browse All 30 Days →</span>
+                <span onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ color:"#5F89F8", fontSize:"13px", cursor:"pointer", fontWeight:"600", flexShrink:0 }}>Browse All 30 Days →</span>
               </div>
-              <div style={{ color:"#8898c8", fontSize:"14px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
+              <div style={{ color:"#4A5478", fontSize:"14px", marginBottom:"14px", padding:"0 4px", lineHeight:1.6 }}>
                 Tap the <span style={{ color:"#50c878", fontWeight:"700" }}>checkbox</span> when you eat a meal. Tap the <span style={{ color:"#e05070", fontWeight:"700" }}>heart</span> to favorite it; favorites show up more in your next cycle.
               </div>
               {todayDay && [
@@ -10261,76 +10262,76 @@ function NeuroThriveApp() {
                 const mealChecked = todayChecks.meals[key];
                 const bs = getBrainScore(activeMeal);
                 return (
-                  <div key={key} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px", background: mealChecked ? "rgba(80,200,120,0.04)" : undefined, border: mealChecked ? "1px solid rgba(80,200,120,0.2)" : undefined, transition:"all 0.3s" }}>
+                  <div key={key} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px", background: mealChecked ? "rgba(255,255,255,1)" : undefined, border: mealChecked ? "1px solid rgba(80,200,120,0.2)" : undefined, transition:"all 0.3s" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => toggleMealCheck(key, activeMeal)} style={{ width:"24px", height:"24px", borderRadius:"7px", border: mealChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: mealChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === "meal-" + key ? "checkGlow 0.6s ease-out" : undefined }}>
                         {mealChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === "meal-" + key ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
                       </button>
                       <div style={{ flex:1, minWidth:0 }}>
-                        <div style={{ fontSize:"12px", color:"#8898c8", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
-                        <div style={{ color: mealChecked ? "#50c878" : "#eef0ff", fontSize:"16px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{activeMeal}</div>
+                        <div style={{ fontSize:"12px", color:"#4A5478", fontWeight:"600", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"3px" }}>{emoji} {label}</div>
+                        <div style={{ color: mealChecked ? "#50c878" : "#313C62", fontSize:"16px", fontWeight:"600", lineHeight:1.4, textDecoration: mealChecked ? "line-through" : "none", opacity: mealChecked ? 0.7 : 1, overflow:"hidden", textOverflow:"ellipsis", transition:"all 0.3s" }}>{activeMeal}</div>
                       </div>
                       <button onClick={(e) => { e.stopPropagation(); toggleFavorite(activeMeal); }} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"16px", flexShrink:0, transition:"transform 0.2s", transform: isFavorite(activeMeal) ? "scale(1.15)" : "scale(1)" }} title={isFavorite(activeMeal) ? "Remove from favorites" : "Add to favorites"}>{isFavorite(activeMeal) ? "❤️" : "🤍"}</button>
                     </div>
                     {/* Swapped indicator */}
                     {alt && (
-                      <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"8px", marginLeft:"34px", padding:"5px 10px", borderRadius:"8px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)" }}>
+                      <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"8px", marginLeft:"34px", padding:"5px 10px", borderRadius:"8px", background:"rgba(255,255,255,1)", border:"1px solid rgba(232,200,122,0.15)" }}>
                         <span style={{ color:"#e8c87a", fontSize:"12px", fontWeight:"700" }}>Swapped</span>
-                        <span style={{ color:"#8898c8", fontSize:"12px" }}>from {originalMeal.length > 30 ? originalMeal.slice(0,30) + "…" : originalMeal}</span>
+                        <span style={{ color:"#4A5478", fontSize:"12px" }}>from {originalMeal.length > 30 ? originalMeal.slice(0,30) + "…" : originalMeal}</span>
                         <button onClick={() => { setAltMeal(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); setSwapHistory(prev => { const copy = { ...prev }; delete copy[todayAltKey]; return copy; }); updateTodayChecks(prev => { const newLog = { ...prev.foodLog }; delete newLog[key]; return { ...prev, meals: { ...prev.meals, [key]: false }, foodLog: newLog }; }); }} style={{ marginLeft:"auto", background:"none", border:"none", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", padding:"2px 4px", textDecoration:"underline" }}>Undo</button>
                       </div>
                     )}
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginTop:"10px", marginLeft:"34px", flexWrap:"wrap" }}>
-                      <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(107,143,255,0.18)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"3px 8px", borderRadius:"16px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.2)" }}>
                         <span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
-                        <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"700" }}>{estimateCalories(activeMeal)}</span>
+                        <span style={{ color:"#5F89F8", fontSize:"12px", fontWeight:"700" }}>{estimateCalories(activeMeal)}</span>
                       </div>
-                      <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"5px 10px", borderRadius:"16px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.15)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
-                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"12px", fontWeight:"700" }}>{bs.score}/5</span>
+                      <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"5px 10px", borderRadius:"16px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(255,255,255,1)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(255,255,255,1)" }}>
+                        <span style={{ width:"5px", height:"5px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#5F89F8", flexShrink:0 }} />
+                        <span style={{ color: bs.score >= 4 ? "#50c878" : "#5F89F8", fontSize:"12px", fontWeight:"700" }}>{bs.score}/5</span>
                       </div>
-                      <button onClick={() => openExplain(activeMeal, label, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
-                      <button onClick={() => openRecipe(activeMeal, label, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(80,112,240,0.06)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                      <button onClick={() => openExplain(activeMeal, label, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(255,255,255,1)", color:"#5F89F8", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
+                      <button onClick={() => openRecipe(activeMeal, label, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(80,112,240,0.25)", background:"rgba(255,255,255,1)", color:"#5F89F8", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                       {(swapHistory[`${todayGlobalIdx}_${key}`]?.length > 0) && (
-                        <button onClick={() => swapGoBack(key, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(160,160,200,0.15)", background:"rgba(160,160,200,0.06)", color:"#a0a8c8", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>← Previous</button>
+                        <button onClick={() => swapGoBack(key, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(160,160,200,0.15)", background:"rgba(255,255,255,1)", color:"#4A5478", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>← Previous</button>
                       )}
-                      <button onClick={() => getAltMeal(activeMeal, label, key, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(232,200,122,0.15)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>{alt ? "Swap Again" : "Swap"}</button>
+                      <button onClick={() => getAltMeal(activeMeal, label, key, todayGlobalIdx)} style={{ padding:"5px 12px", borderRadius:"16px", border:"1px solid rgba(232,200,122,0.15)", background:"rgba(255,255,255,1)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>{alt ? "Swap Again" : "Swap"}</button>
                     </div>
                     {/* Cycle / gender note */}
                     {(() => { const gn = getGenderNote(activeMeal, selectedGender, cycleSyncEnabled, lastPeriodDate, cycleLength, getPlanDate(todayGlobalIdx)); if (!gn) return null; return (
                       <div style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"4px 10px", borderRadius:"20px", background: gn.phase ? "rgba(168,120,210,0.1)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.15)", marginTop:"8px", marginLeft:"34px" }}>
                         <span style={{ fontSize:"11px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
-                        <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"11px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
+                        <span style={{ color: gn.phase ? "#7B5EA0" : "#50a0dc", fontSize:"11px", fontWeight:"600" }}>{gn.phase ? gn.phase.label : "Men's Health"}</span>
                       </div>
                     );})()}
                   </div>
                 );
               })}
-              {!todayDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#8890b8" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
+              {!todayDay && <div style={{ ...S.card, padding:"20px", textAlign:"center", color:"#3D4663" }}>No meal plan loaded yet. Go to Menu to generate your plan.</div>}
 
               {todayDay && (
-                <div onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"12px 16px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", cursor:"pointer", marginTop:"6px" }}>
-                  <div style={{ width:"36px", height:"36px", borderRadius:"10px", background:"rgba(107,143,255,0.18)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                <div onClick={() => { syncMenuToToday(); navigateTo(4); }} style={{ display:"flex", alignItems:"center", gap:"12px", padding:"12px 16px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", cursor:"pointer", marginTop:"6px" }}>
+                  <div style={{ width:"36px", height:"36px", borderRadius:"10px", background:"rgba(255,255,255,1)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                     <span style={{ fontSize:"16px" }}>📋</span>
                   </div>
                   <div style={{ flex:1 }}>
-                    <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600" }}>View Full 30-Day Menu</div>
-                    <div style={{ color:"#8898c8", fontSize:"13px", marginTop:"2px" }}>Browse upcoming meals, swap dishes, and see recipes</div>
+                    <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"600" }}>View Full 30-Day Menu</div>
+                    <div style={{ color:"#4A5478", fontSize:"13px", marginTop:"2px" }}>Browse upcoming meals, swap dishes, and see recipes</div>
                   </div>
-                  <span style={{ color:"#7b9fff", fontSize:"14px" }}>→</span>
+                  <span style={{ color:"#5F89F8", fontSize:"14px" }}>→</span>
                 </div>
               )}
 
               {/* Section C: Morning Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Morning Routine")}>Morning Routine</div>
-              <div style={{ color:"#8898c8", fontSize:"13px", marginBottom:"10px" }}>{routine.morning.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (morningChecks[i] ? 1 : 0)), 0)}/{routine.morning.length} done</div>
+              <div style={{ color:"#4A5478", fontSize:"13px", marginBottom:"10px" }}>{routine.morning.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (morningChecks[i] ? 1 : 0)), 0)}/{routine.morning.length} done</div>
               {routine.morning.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!morningChecks[i];
                 const isExpanded = !!expandedTodayRoutine[`m${i}`];
                 return (
-                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
+                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(255,255,255,1)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
                         const ck = isExStep ? "exercise" : "today-m-" + i;
@@ -10350,15 +10351,15 @@ function NeuroThriveApp() {
                       </button>
                       <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#f0a830,#e87020)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`m${i}`]: !p[`m${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
-                        <div style={{ color:"#8898c8", fontSize:"13px" }}>{isExStep ? "15+ min" : s.time}</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#313C62", fontSize:"15px", fontWeight:"600", transition:"color 0.3s" }}>{s.title}</div>
+                        <div style={{ color:"#4A5478", fontSize:"13px" }}>{isExStep ? "15+ min" : s.time}</div>
                       </div>
                     </div>
-                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                    {isExpanded && !isExStep && <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
                     {isExpanded && isExStep && (
                       <div style={{ marginTop:"8px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                        <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#5F89F8", fontSize:"13px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -10373,13 +10374,13 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
                     <span style={{ fontSize:"18px" }}>{cs.emoji}</span>
                     <div>
-                      <div style={{ color:"#e8d0ff", fontSize:"14px", fontWeight:"700" }}>{cp.label}: Suggested Exercise: {cs.type}</div>
+                      <div style={{ color:"#313C62", fontSize:"14px", fontWeight:"700" }}>{cp.label}: Suggested Exercise: {cs.type}</div>
                       <div style={{ color:"#b0a0d0", fontSize:"13px", lineHeight:1.6, marginTop:"3px" }}>{cs.why}</div>
                     </div>
                   </div>
                 </div>
               ) : null; })()}
-              <div style={{ ...S.card, padding:"14px 16px", marginBottom:"12px", border: todayChecks.exercise ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: todayChecks.exercise ? "rgba(80,200,120,0.06)" : undefined }}>
+              <div style={{ ...S.card, padding:"14px 16px", marginBottom:"12px", border: todayChecks.exercise ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: todayChecks.exercise ? "rgba(255,255,255,1)" : undefined }}>
                 <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                   <button onClick={() => {
                     if (!todayChecks.exercise) triggerCheckAnim("exercise-today");
@@ -10390,8 +10391,8 @@ function NeuroThriveApp() {
                   </button>
                   <div style={{ width:"24px", height:"24px", borderRadius:"50%", background:"linear-gradient(135deg,#50c878,#40a868)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>🏃</div>
                   <div style={{ flex:1 }}>
-                    <div style={{ color: todayChecks.exercise ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600", transition:"color 0.3s" }}>Exercise</div>
-                    <div style={{ color:"#8898c8", fontSize:"13px" }}>{todayChecks.exercise ? "Done for today" : "Any movement counts"}</div>
+                    <div style={{ color: todayChecks.exercise ? "#50c878" : "#313C62", fontSize:"15px", fontWeight:"600", transition:"color 0.3s" }}>Exercise</div>
+                    <div style={{ color:"#4A5478", fontSize:"13px" }}>{todayChecks.exercise ? "Done for today" : "Any movement counts"}</div>
                   </div>
                 </div>
                 {/* Show selected exercises as chips */}
@@ -10400,37 +10401,37 @@ function NeuroThriveApp() {
                     {Object.keys(todayChecks.exerciseOptions).filter(k => todayChecks.exerciseOptions[k]).map(title => {
                       const opt = exRoutine.options.find(o => o.title === title);
                       return (
-                        <span key={title} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"5px 11px", borderRadius:"16px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
+                        <span key={title} style={{ display:"inline-flex", alignItems:"center", gap:"4px", padding:"5px 11px", borderRadius:"16px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.2)", color:"#50c878", fontSize:"12px", fontWeight:"600" }}>
                           {opt ? opt.emoji : "🏃"} {title}
                         </span>
                       );
                     })}
                   </div>
                 )}
-                <button onClick={() => navigateTo(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
+                <button onClick={() => navigateTo(17)} style={{ display:"block", marginTop:"10px", marginLeft:"58px", background:"none", border:"none", cursor:"pointer", color:"#5F89F8", fontSize:"13px", fontWeight:"600", padding:0 }}>Browse exercises →</button>
               </div>
 
               {/* Section D: Journal & Symptom Tracker */}
               <div style={sectionDivider} />
               <details open={!hasJournal} style={{ marginBottom:"16px" }}>
-                <summary style={{ listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", borderRadius:"16px", background: hasJournal ? "rgba(80,200,120,0.04)" : "rgba(186,104,200,0.06)", border: hasJournal ? "1px solid rgba(80,200,120,0.2)" : "1.5px solid rgba(186,104,200,0.25)" }}>
+                <summary style={{ listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 18px", borderRadius:"16px", background: hasJournal ? "rgba(255,255,255,1)" : "rgba(255,255,255,1)", border: hasJournal ? "1px solid rgba(80,200,120,0.2)" : "1.5px solid rgba(186,104,200,0.25)" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                     {hasJournal ? <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span> : <span style={{ width:"24px", height:"24px", borderRadius:"7px", border:"1.5px solid rgba(186,104,200,0.4)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }} />}
                     <div>
-                      <div style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>Journal & Symptom Tracker</div>
-                      <div style={{ color: hasJournal ? "#8898c8" : "#ba68c8", fontSize:"13px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today – tap to view" : "Log mood & energy for +5 Brain Points"}</div>
+                      <div style={{ color:"#313C62", fontSize:"14px", fontWeight:"700" }}>Journal & Symptom Tracker</div>
+                      <div style={{ color: hasJournal ? "#4A5478" : "#ba68c8", fontSize:"13px", marginTop:"2px", fontWeight: hasJournal ? "400" : "600" }}>{hasJournal ? "Logged today – tap to view" : "Log mood & energy for +5 Brain Points"}</div>
                     </div>
                   </div>
-                  <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"600" }}>▾</span>
+                  <span style={{ color:"#5F89F8", fontSize:"12px", fontWeight:"600" }}>▾</span>
                 </summary>
                 <div style={{ ...S.card, marginTop:"10px" }}>
                   {hasJournal ? (
                     <div>
                       <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"8px" }}>
                         <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Today's entry</span>
-                        <span style={{ fontSize:"13px", color:"#8890b8" }}>{MOOD_EMOJIS.find(m=>m.val===logs[0]?.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===logs[0]?.energy)?.emoji}</span>
+                        <span style={{ fontSize:"13px", color:"#3D4663" }}>{MOOD_EMOJIS.find(m=>m.val===logs[0]?.mood)?.emoji} · {ENERGY_EMOJIS.find(e=>e.val===logs[0]?.energy)?.emoji}</span>
                       </div>
-                      {logs[0]?.note && <p style={{ color:"#a0a8e8", fontSize:"14px", margin:"0 0 8px 0", lineHeight:1.5 }}>{logs[0].note}</p>}
+                      {logs[0]?.note && <p style={{ color:"#4A5478", fontSize:"14px", margin:"0 0 8px 0", lineHeight:1.5 }}>{logs[0].note}</p>}
                       {logs[0]?.symptoms && Object.keys(logs[0].symptoms).length > 0 && (
                         <div style={{ display:"flex", flexWrap:"wrap", gap:"4px" }}>
                           {Object.entries(logs[0].symptoms).map(([id, level]) => {
@@ -10441,49 +10442,49 @@ function NeuroThriveApp() {
                           })}
                         </div>
                       )}
-                      <button onClick={() => navigateTo(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>Open full journal →</button>
+                      <button onClick={() => navigateTo(8)} style={{ marginTop:"12px", background:"none", border:"none", cursor:"pointer", color:"#5F89F8", fontSize:"13px", fontWeight:"600", padding:0 }}>Open full journal →</button>
                     </div>
                   ) : (
                     <div>
                       <div style={{ marginBottom:"10px" }}>
-                        <div style={{ color:"#8898c8", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
+                        <div style={{ color:"#4A5478", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Mood</div>
                         <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
                           {MOOD_EMOJIS.map(mood => (
-                            <button key={mood.val} onClick={() => setTodayMood(mood.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayMood===mood.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayMood===mood.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{mood.emoji}</button>
+                            <button key={mood.val} onClick={() => setTodayMood(mood.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayMood===mood.val ? "2px solid #5F89F8" : "1px solid rgba(49,60,98,0.15)", background: todayMood===mood.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{mood.emoji}</button>
                           ))}
                         </div>
                       </div>
                       <div style={{ marginBottom:"10px" }}>
-                        <div style={{ color:"#8898c8", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
+                        <div style={{ color:"#4A5478", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Energy</div>
                         <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
                           {ENERGY_EMOJIS.map(energy => (
-                            <button key={energy.val} onClick={() => setTodayEnergy(energy.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayEnergy===energy.val ? "2px solid #5570f0" : "1px solid rgba(110,120,200,0.2)", background: todayEnergy===energy.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{energy.emoji}</button>
+                            <button key={energy.val} onClick={() => setTodayEnergy(energy.val)} style={{ padding:"6px 10px", borderRadius:"10px", border: todayEnergy===energy.val ? "2px solid #5F89F8" : "1px solid rgba(49,60,98,0.15)", background: todayEnergy===energy.val ? "rgba(85,112,240,0.15)" : "rgba(240,244,255,0.04)", cursor:"pointer", fontSize:"18px" }}>{energy.emoji}</button>
                           ))}
                         </div>
                       </div>
                       <div style={{ marginBottom:"10px" }}>
-                        <div style={{ color:"#8898c8", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Symptoms</div>
+                        <div style={{ color:"#4A5478", fontSize:"13px", fontWeight:"600", marginBottom:"6px" }}>Symptoms</div>
                         <div style={{ display:"flex", flexWrap:"wrap", gap:"6px" }}>
                           {GENERAL_SYMPTOMS.map(s => (
-                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"16px", fontSize:"13px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.07)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#8898c8", transition:"all 0.15s" }}>{s.label}</button>
+                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"16px", fontSize:"13px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(49,60,98,0.12)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,1)", color: todaySymptoms[s.id] ? "#7B5EA0" : "#4A5478", transition:"all 0.15s" }}>{s.label}</button>
                           ))}
                           {selectedConditions.flatMap(c => CONDITION_SYMPTOMS[c] || []).filter((s, i, arr) => arr.findIndex(x => x.id === s.id) === i).map(s => (
-                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"16px", fontSize:"13px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(110,120,200,0.15)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,0.07)", color: todaySymptoms[s.id] ? "#d4a0e8" : "#8898c8", transition:"all 0.15s" }}>{s.label}</button>
+                            <button key={s.id} onClick={() => toggleSymptom(s.id)} style={{ padding:"8px 14px", borderRadius:"16px", fontSize:"13px", fontWeight:"600", cursor:"pointer", border: todaySymptoms[s.id] ? "1px solid rgba(186,104,200,0.4)" : "1px solid rgba(49,60,98,0.12)", background: todaySymptoms[s.id] ? "rgba(186,104,200,0.12)" : "rgba(255,255,255,1)", color: todaySymptoms[s.id] ? "#7B5EA0" : "#4A5478", transition:"all 0.15s" }}>{s.label}</button>
                           ))}
                         </div>
                       </div>
                       {Object.keys(todaySymptoms).length > 0 && (
-                        <div style={{ background:"rgba(186,104,200,0.06)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"12px", padding:"12px 14px", marginBottom:"10px" }}>
+                        <div style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(186,104,200,0.15)", borderRadius:"12px", padding:"12px 14px", marginBottom:"10px" }}>
                           <div style={{ fontSize:"11px", fontWeight:"700", color:"#ba68c8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"8px" }}>Set Intensity</div>
                           {Object.entries(todaySymptoms).map(([id, level]) => {
                             const allSyms = [...GENERAL_SYMPTOMS, ...Object.values(CONDITION_SYMPTOMS).flat()];
                             const label = allSyms.find(s => s.id === id)?.label || id.replace(/_/g, " ");
                             return (
                               <div key={id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"6px" }}>
-                                <span style={{ color:"#d4a0e8", fontSize:"13px", fontWeight:"600", flex:"1" }}>{label}</span>
+                                <span style={{ color:"#7B5EA0", fontSize:"13px", fontWeight:"600", flex:"1" }}>{label}</span>
                                 <div style={{ display:"flex", gap:"4px" }}>
                                   {INTENSITY_LEVELS.map(il => (
-                                    <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"4px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"700", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(110,120,200,0.15)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#7888b8", transition:"all 0.15s" }}>{il.label}</button>
+                                    <button key={il.id} onClick={() => setSymptomIntensity(id, il.id)} style={{ padding:"4px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"700", cursor:"pointer", border: `1px solid ${level === il.id ? il.color : "rgba(49,60,98,0.12)"}`, background: level === il.id ? `${il.color}18` : "transparent", color: level === il.id ? il.color : "#5F89F8", transition:"all 0.15s" }}>{il.label}</button>
                                   ))}
                                 </div>
                               </div>
@@ -10492,7 +10493,7 @@ function NeuroThriveApp() {
                         </div>
                       )}
                       <textarea style={{ ...S.textarea, minHeight:"60px" }} placeholder="Notes (optional)..." value={todayNote} onChange={e => setTodayNote(e.target.value)} />
-                      <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"12px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5570f0,#4060e0)" : "rgba(110,120,200,0.15)", color: (todayMood && todayEnergy) ? "#fff" : "#8898c8", fontSize:"14px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
+                      <button onClick={saveLog} style={{ marginTop:"8px", width:"100%", padding:"12px", borderRadius:"12px", border:"none", background: (todayMood && todayEnergy) ? "linear-gradient(135deg,#5F89F8,#4B72E0)" : "rgba(49,60,98,0.12)", color: (todayMood && todayEnergy) ? "#fff" : "#4A5478", fontSize:"14px", fontWeight:"700", cursor: (todayMood && todayEnergy) ? "pointer" : "default" }}>{(todayMood && todayEnergy) ? "Save Log" : "Select mood & energy"}</button>
                     </div>
                   )}
                 </div>
@@ -10510,8 +10511,8 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                     <span style={{ fontSize:"20px" }}>💧</span>
                     <div>
-                      <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700" }}>{todayChecks.water || 0}/{waterGoal} glasses <span style={{ color:"#8898c8", fontSize:"13px", fontWeight:"400" }}>(8oz each)</span></div>
-                      <div style={{ color:"#8898c8", fontSize:"13px", marginTop:"2px" }}>{(todayChecks.water || 0) >= bpThreshold ? "Great hydration! +5 BP" : `Drink ${bpThreshold}+ glasses for +5 BP`}</div>
+                      <div style={{ color:"#313C62", fontSize:"16px", fontWeight:"700" }}>{todayChecks.water || 0}/{waterGoal} glasses <span style={{ color:"#4A5478", fontSize:"13px", fontWeight:"400" }}>(8oz each)</span></div>
+                      <div style={{ color:"#4A5478", fontSize:"13px", marginTop:"2px" }}>{(todayChecks.water || 0) >= bpThreshold ? "Great hydration! +5 BP" : `Drink ${bpThreshold}+ glasses for +5 BP`}</div>
                     </div>
                   </div>
                 </div>
@@ -10523,7 +10524,7 @@ function NeuroThriveApp() {
                         const current = todayChecks.water || 0;
                         const newVal = current === n ? n - 1 : n;
                         updateTodayChecks(prev => ({ ...prev, water: newVal }));
-                      }} style={{ width:"32px", height:"32px", borderRadius:"50%", border: filled ? "2px solid #60b0e0" : "2px solid rgba(110,120,200,0.2)", background: filled ? "rgba(96,176,224,0.15)" : "rgba(255,255,255,0.07)", color: filled ? "#60b0e0" : "#4a5070", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s", display:"flex", alignItems:"center", justifyContent:"center" }}>{n}</button>
+                      }} style={{ width:"32px", height:"32px", borderRadius:"50%", border: filled ? "2px solid #60b0e0" : "2px solid rgba(49,60,98,0.15)", background: filled ? "rgba(96,176,224,0.15)" : "rgba(255,255,255,1)", color: filled ? "#60b0e0" : "#4a5070", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s", display:"flex", alignItems:"center", justifyContent:"center" }}>{n}</button>
                     );
                   })}
                 </div>
@@ -10534,12 +10535,12 @@ function NeuroThriveApp() {
                 <details style={{ marginBottom:"4px" }}>
                   <summary style={{ color:"#60b0e0", fontSize:"13px", cursor:"pointer", fontWeight:"600", letterSpacing:"0.5px" }}>Calculate your personal water goal</summary>
                   <div style={{ marginTop:"10px", padding:"12px", borderRadius:"12px", background:"rgba(96,176,224,0.06)", border:"1px solid rgba(96,176,224,0.15)" }}>
-                    <div style={{ color:"#8898c8", fontSize:"13px", marginBottom:"8px" }}>Enter your body weight to calculate how much water your brain and body need daily:</div>
+                    <div style={{ color:"#4A5478", fontSize:"13px", marginBottom:"8px" }}>Enter your body weight to calculate how much water your brain and body need daily:</div>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
-                      <input type="number" placeholder="Weight" style={{ width:"80px", padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(255,255,255,0.09)", color:"#eef0ff", fontSize:"14px", fontFamily:"inherit", outline:"none" }} id="water-calc-weight" />
-                      <select id="water-calc-unit" style={{ padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(255,255,255,0.09)", color:"#eef0ff", fontSize:"13px", fontFamily:"inherit", outline:"none" }}>
-                        <option value="lbs" style={{ background:"#242a48" }}>lbs</option>
-                        <option value="kg" style={{ background:"#242a48" }}>kg</option>
+                      <input type="number" placeholder="Weight" style={{ width:"80px", padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(255,255,255,1)", color:"#313C62", fontSize:"14px", fontFamily:"inherit", outline:"none" }} id="water-calc-weight" />
+                      <select id="water-calc-unit" style={{ padding:"8px 10px", borderRadius:"10px", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(255,255,255,1)", color:"#313C62", fontSize:"13px", fontFamily:"inherit", outline:"none" }}>
+                        <option value="lbs" style={{ background:"#C8CCd8" }}>lbs</option>
+                        <option value="kg" style={{ background:"#C8CCd8" }}>kg</option>
                       </select>
                       <button onClick={() => {
                         const w = parseFloat(document.getElementById("water-calc-weight")?.value);
@@ -10552,10 +10553,10 @@ function NeuroThriveApp() {
                         updateTodayChecks(prev => ({ ...prev, waterGoal: clamped }));
                       }} style={{ padding:"8px 14px", borderRadius:"10px", background:"#60b0e0", color:"#fff", border:"none", fontSize:"13px", fontWeight:"700", cursor:"pointer", whiteSpace:"nowrap" }}>Set Goal</button>
                     </div>
-                    <div style={{ color:"#8898c8", fontSize:"12px", lineHeight:1.5 }}>Formula: body weight ÷ 2 = daily oz ÷ 8 = glasses. Active people or those in hot climates may need more.</div>
+                    <div style={{ color:"#4A5478", fontSize:"12px", lineHeight:1.5 }}>Formula: body weight ÷ 2 = daily oz ÷ 8 = glasses. Active people or those in hot climates may need more.</div>
                   </div>
                 </details>
-                <p style={{ color:"#8898c8", fontSize:"13px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water. Even mild dehydration impairs focus and mood.</p>
+                <p style={{ color:"#4A5478", fontSize:"13px", margin:"6px 0 0 0", lineHeight:1.5 }}>Your brain is 75% water. Even mild dehydration impairs focus and mood.</p>
                 </>);
                 })()}
               </div>
@@ -10563,13 +10564,13 @@ function NeuroThriveApp() {
               {/* Section F: Evening Routine */}
               <div style={sectionDivider} />
               <div style={sectionHeader("Evening Routine")}>Evening Routine</div>
-              <div style={{ color:"#8898c8", fontSize:"13px", marginBottom:"10px" }}>{routine.evening.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (eveningChecks[i] ? 1 : 0)), 0)}/{routine.evening.length} done</div>
+              <div style={{ color:"#4A5478", fontSize:"13px", marginBottom:"10px" }}>{routine.evening.reduce((c, s, i) => c + ((s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title)) ? (todayChecks.exercise ? 1 : 0) : (eveningChecks[i] ? 1 : 0)), 0)}/{routine.evening.length} done</div>
               {routine.evening.map((s, i) => {
                 const isExStep = !!s.isWorkout || /^(Morning Workout|Evening Workout)$/i.test(s.title);
                 const isChecked = isExStep ? !!todayChecks.exercise : !!eveningChecks[i];
                 const isExpanded = !!expandedTodayRoutine[`e${i}`];
                 return (
-                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
+                  <div key={i} style={{ ...S.card, padding:"12px 14px", marginBottom:"8px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isExStep && isChecked ? "rgba(255,255,255,1)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
                         const ck = isExStep ? "exercise" : "today-e-" + i;
@@ -10587,17 +10588,17 @@ function NeuroThriveApp() {
                       }} style={{ width:"24px", height:"24px", borderRadius:"7px", border: isChecked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: isChecked ? "rgba(80,200,120,0.15)" : "transparent", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", padding:0, flexShrink:0, animation: justChecked === (isExStep ? "exercise" : "today-e-" + i) ? "checkGlow 0.6s ease-out" : undefined }}>
                         {isChecked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1, animation: justChecked === (isExStep ? "exercise" : "today-e-" + i) ? "checkPop 0.3s ease-out" : undefined }}>✓</span>}
                       </button>
-                      <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
+                      <div style={{ width:"22px", height:"22px", borderRadius:"50%", background: isExStep ? "linear-gradient(135deg,#50c878,#40a868)" : "linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedTodayRoutine(p => ({ ...p, [`e${i}`]: !p[`e${i}`] }))}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"15px", fontWeight:"600" }}>{s.title}</div>
-                        <div style={{ color:"#8898c8", fontSize:"13px" }}>{isExStep ? "15+ min" : s.time}</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#313C62", fontSize:"15px", fontWeight:"600" }}>{s.title}</div>
+                        <div style={{ color:"#4A5478", fontSize:"13px" }}>{isExStep ? "15+ min" : s.time}</div>
                       </div>
                     </div>
-                    {isExpanded && !isExStep && <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
+                    {isExpanded && !isExStep && <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, marginTop:"8px", marginLeft:"56px" }}>{s.desc}</div>}
                     {isExpanded && isExStep && (
                       <div style={{ marginTop:"8px", marginLeft:"56px" }}>
-                        <div style={{ color:"#b0b8e8", fontSize:"14px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
-                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#7b9fff", fontSize:"13px", fontWeight:"600", padding:0 }}>See all exercises →</button>
+                        <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7, marginBottom:"8px" }}>{s.desc}</div>
+                        <button onClick={() => navigateTo(17)} style={{ background:"none", border:"none", cursor:"pointer", color:"#5F89F8", fontSize:"13px", fontWeight:"600", padding:0 }}>See all exercises →</button>
                       </div>
                     )}
                   </div>
@@ -10609,23 +10610,23 @@ function NeuroThriveApp() {
                 const bp2 = getBrainPoints(todayKey);
                 const isDayComplete = todayChecks.dayComplete;
                 if (isDayComplete) return (
-                  <div style={{ textAlign:"center", padding:"28px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(107,143,255,0.06))", border:"1.5px solid rgba(80,200,120,0.25)", marginBottom:"8px" }}>
+                  <div style={{ textAlign:"center", padding:"28px 20px", borderRadius:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(255,255,255,1))", border:"1.5px solid rgba(80,200,120,0.25)", marginBottom:"8px" }}>
                     <div style={{ fontSize:"32px", marginBottom:"10px" }}>✨</div>
                     <div style={{ fontSize:"18px", fontWeight:"700", color:"#50c878", marginBottom:"6px" }}>Day {daysElapsed} Complete</div>
-                    <div style={{ fontSize:"14px", color:"#a0c8b0", lineHeight:1.7 }}>
+                    <div style={{ fontSize:"14px", color:"#3D4663", lineHeight:1.7 }}>
                       You scored {bp2.pct}% today. Every choice you made is strengthening your brain.
                     </div>
-                    <div style={{ fontSize:"13px", color:"#7888b8", marginTop:"10px" }}>Tomorrow's checklist resets at midnight.</div>
+                    <div style={{ fontSize:"13px", color:"#5F89F8", marginTop:"10px" }}>Tomorrow's checklist resets at midnight.</div>
                   </div>
                 );
                 return bp2.pct >= 30 ? (
                   <div style={{ textAlign:"center", marginTop:"8px", marginBottom:"8px" }}>
                     <button onClick={() => {
                       updateTodayChecks(prev => ({ ...prev, dayComplete: true }));
-                    }} style={{ width:"100%", padding:"16px 20px", borderRadius:"16px", border:"1.5px solid rgba(80,200,120,0.3)", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(107,143,255,0.06))", color:"#50c878", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px" }}>
+                    }} style={{ width:"100%", padding:"16px 20px", borderRadius:"16px", border:"1.5px solid rgba(80,200,120,0.3)", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(255,255,255,1))", color:"#50c878", fontSize:"15px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px" }}>
                       Complete My Day
                     </button>
-                    <div style={{ fontSize:"12px", color:"#7888b8", marginTop:"8px" }}>Lock in your progress for Day {daysElapsed}</div>
+                    <div style={{ fontSize:"12px", color:"#5F89F8", marginTop:"8px" }}>Lock in your progress for Day {daysElapsed}</div>
                   </div>
                 ) : null;
               })()}
@@ -10637,9 +10638,9 @@ function NeuroThriveApp() {
                 const lvl = getBrainLevel(bp.pct);
                 const streak = getCompletionStreak();
                 const cats = [
-                  { label: "Nutrition", bp: bp.categories.meals, max: bp.maxCats.meals, dot: "#7b9fff", desc: "Brain-boosting meals eaten" },
+                  { label: "Nutrition", bp: bp.categories.meals, max: bp.maxCats.meals, dot: "#5F89F8", desc: "Brain-boosting meals eaten" },
                   { label: "Morning Routine", bp: bp.categories.morning, max: bp.maxCats.morning, dot: "#f0a830", desc: "Morning steps completed" },
-                  { label: "Evening Routine", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5570f0", desc: "Evening steps completed" },
+                  { label: "Evening Routine", bp: bp.categories.evening, max: bp.maxCats.evening, dot: "#5F89F8", desc: "Evening steps completed" },
                   { label: "Exercise", bp: bp.categories.exercise, max: bp.maxCats.exercise, dot: "#50c878", desc: "Movement for BDNF & dopamine" },
                   { label: "Hydration", bp: bp.categories.water, max: bp.maxCats.water, dot: "#60b0e0", desc: "75%+ of daily water goal" },
                   { label: "Journal", bp: bp.categories.journal, max: bp.maxCats.journal, dot: "#ba68c8", desc: "Log mood & energy" },
@@ -10648,8 +10649,8 @@ function NeuroThriveApp() {
                 const off2 = circ2 - (bp.pct / 100) * circ2;
 
                 return (
-                  <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(107,143,255,0.06), rgba(80,200,120,0.04))", border:"1px solid rgba(107,143,255,0.15)" }}>
-                    <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"16px" }}>Daily Brain Scorecard</div>
+                  <div style={{ padding:"24px 20px", borderRadius:"20px", background:"linear-gradient(145deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1px solid rgba(255,255,255,1)" }}>
+                    <div style={{ fontSize:"12px", color:"#5F89F8", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"16px" }}>Daily Brain Scorecard</div>
 
                     <div style={{ display:"flex", alignItems:"center", gap:"20px", marginBottom:"20px" }}>
                       <svg width="90" height="90" viewBox="0 0 90 90" style={{ flexShrink:0 }}>
@@ -10658,11 +10659,11 @@ function NeuroThriveApp() {
                           strokeDasharray={circ2} strokeDashoffset={off2}
                           transform="rotate(-90 45 45)" style={{ transition: "stroke-dashoffset 0.5s ease" }} />
                         <text x="45" y="42" textAnchor="middle" fontSize="18" fontWeight="800" fill={lvl.color}>{bp.pct}%</text>
-                        <text x="45" y="56" textAnchor="middle" fontSize="9" fontWeight="600" fill="#8890b8">{bp.total} BP</text>
+                        <text x="45" y="56" textAnchor="middle" fontSize="9" fontWeight="600" fill="#3D4663">{bp.total} BP</text>
                       </svg>
                       <div>
                         <div style={{ fontSize:"16px", fontWeight:"700", color:lvl.color, letterSpacing:"0.5px", textTransform:"uppercase" }}>{lvl.label}</div>
-                        <div style={{ fontSize:"14px", color:"#8898c8", marginTop:"4px" }}>{bp.total} of {bp.max} brain points earned</div>
+                        <div style={{ fontSize:"14px", color:"#4A5478", marginTop:"4px" }}>{bp.total} of {bp.max} brain points earned</div>
                         {streak > 0 && <div style={{ fontSize:"14px", color:"#e8c87a", marginTop:"2px" }}>{streak}-day streak</div>}
                       </div>
                     </div>
@@ -10673,19 +10674,19 @@ function NeuroThriveApp() {
                       return (
                         <div key={i} style={{ marginBottom:"12px" }}>
                           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"4px" }}>
-                            <span style={{ fontSize:"14px", fontWeight:"600", color: full ? "#50c878" : "#c8ccf0", display:"flex", alignItems:"center", gap:"6px" }}><span style={{ width:"6px", height:"6px", borderRadius:"50%", background: full ? "#50c878" : cat.dot, display:"inline-block" }} />{cat.label}</span>
-                            <span style={{ fontSize:"13px", fontWeight:"700", color: full ? "#50c878" : "#7b9fff" }}>{cat.bp}/{cat.max} BP</span>
+                            <span style={{ fontSize:"14px", fontWeight:"600", color: full ? "#50c878" : "#3D4663", display:"flex", alignItems:"center", gap:"6px" }}><span style={{ width:"6px", height:"6px", borderRadius:"50%", background: full ? "#50c878" : cat.dot, display:"inline-block" }} />{cat.label}</span>
+                            <span style={{ fontSize:"13px", fontWeight:"700", color: full ? "#50c878" : "#5F89F8" }}>{cat.bp}/{cat.max} BP</span>
                           </div>
                           <div style={{ height:"8px", borderRadius:"4px", background:"rgba(110,120,200,0.1)", overflow:"hidden" }}>
                             <div style={{ width:`${Math.min(100, pct)}%`, height:"100%", borderRadius:"4px", background: full ? "linear-gradient(90deg,#40b868,#50c878)" : `linear-gradient(90deg,${lvl.color}88,${lvl.color})`, transition:"width 0.5s ease" }} />
                           </div>
-                          <div style={{ fontSize:"12px", color:"#8898c8", marginTop:"2px" }}>{cat.desc}</div>
+                          <div style={{ fontSize:"12px", color:"#4A5478", marginTop:"2px" }}>{cat.desc}</div>
                         </div>
                       );
                     })}
 
                     {bp.pct >= 70 && bp.pct < 100 && (
-                      <div style={{ marginTop:"16px", padding:"12px", borderRadius:"12px", background:"rgba(80,200,120,0.08)", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
+                      <div style={{ marginTop:"16px", padding:"12px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.2)", textAlign:"center" }}>
                         <div style={{ fontSize:"13px", fontWeight:"700", color:"#50c878" }}>
                           {bp.pct >= 90 ? "Almost there. Just a few more items to finish your day." : "Strong day for your brain. You're building real neural change."}
                         </div>
@@ -10693,10 +10694,10 @@ function NeuroThriveApp() {
                     )}
 
                     {bp.pct >= 100 && (
-                      <div style={{ marginTop:"16px", padding:"20px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(107,143,255,0.15))", border:"1.5px solid rgba(80,200,120,0.3)", textAlign:"center" }}>
+                      <div style={{ marginTop:"16px", padding:"20px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(80,200,120,0.12), rgba(255,255,255,1))", border:"1.5px solid rgba(80,200,120,0.3)", textAlign:"center" }}>
                         <div style={{ fontSize:"28px", marginBottom:"8px" }}>✨</div>
                         <div style={{ fontSize:"16px", fontWeight:"700", color:"#50c878", marginBottom:"6px" }}>Day Complete</div>
-                        <div style={{ fontSize:"13px", color:"#a0c8b0", lineHeight:1.6, marginBottom:"4px" }}>
+                        <div style={{ fontSize:"13px", color:"#3D4663", lineHeight:1.6, marginBottom:"4px" }}>
                           You nourished your brain, moved your body, and checked in with yourself. That's real change.
                         </div>
                         {streak > 1 && <div style={{ fontSize:"12px", color:"#e8c87a", fontWeight:"600", marginTop:"8px" }}>{streak}-day streak. Your brain is building new patterns.</div>}
@@ -10712,8 +10713,8 @@ function NeuroThriveApp() {
 
                         // Background gradient
                         const bg = ctx.createLinearGradient(0, 0, 600, 600);
-                        bg.addColorStop(0, "#1a1f35");
-                        bg.addColorStop(1, "#242a48");
+                        bg.addColorStop(0, "#DADDE8");
+                        bg.addColorStop(1, "#C8CCd8");
                         ctx.fillStyle = bg;
                         ctx.beginPath();
                         // Rounded rect
@@ -10726,7 +10727,7 @@ function NeuroThriveApp() {
                         ctx.fill();
 
                         // Subtle grid pattern
-                        ctx.strokeStyle = "rgba(107,143,255,0.04)";
+                        ctx.strokeStyle = "rgba(255,255,255,1)";
                         ctx.lineWidth = 1;
                         for (let i = 0; i < 600; i += 30) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 600); ctx.stroke(); ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(600, i); ctx.stroke(); }
 
@@ -10737,14 +10738,14 @@ function NeuroThriveApp() {
 
                         // Brand name
                         ctx.font = "700 16px -apple-system, BlinkMacSystemFont, sans-serif";
-                        ctx.fillStyle = "#8890b8";
+                        ctx.fillStyle = "#3D4663";
                         ctx.letterSpacing = "3px";
                         ctx.fillText("NEUROTHRIVE", 300, 100);
 
                         // Score circle
                         const cx = 300, cy = 210, cr = 70;
-                        ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.fillStyle = "rgba(110,120,200,0.08)"; ctx.fill();
-                        ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.strokeStyle = "rgba(110,120,200,0.15)"; ctx.lineWidth = 8; ctx.stroke();
+                        ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.fillStyle = "rgba(255,255,255,1)"; ctx.fill();
+                        ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.strokeStyle = "rgba(49,60,98,0.12)"; ctx.lineWidth = 8; ctx.stroke();
                         // Progress arc
                         const startAngle = -Math.PI / 2;
                         const endAngle = startAngle + (bp.pct / 100) * Math.PI * 2;
@@ -10755,7 +10756,7 @@ function NeuroThriveApp() {
                         ctx.textAlign = "center";
                         ctx.fillText(`${bp.pct}%`, cx, cy + 8);
                         ctx.font = "600 12px -apple-system, BlinkMacSystemFont, sans-serif";
-                        ctx.fillStyle = "#8890b8";
+                        ctx.fillStyle = "#3D4663";
                         ctx.fillText(`${bp.total} of ${bp.max} Brain Points`, cx, cy + 30);
 
                         // Level label
@@ -10779,11 +10780,11 @@ function NeuroThriveApp() {
                           // Label
                           ctx.font = "600 12px -apple-system, BlinkMacSystemFont, sans-serif";
                           ctx.textAlign = "left";
-                          ctx.fillStyle = full ? "#50c878" : "#c8ccf0";
+                          ctx.fillStyle = full ? "#50c878" : "#3D4663";
                           ctx.fillText(cat.label, 60, y);
                           // BP count
                           ctx.textAlign = "right";
-                          ctx.fillStyle = full ? "#50c878" : "#7b9fff";
+                          ctx.fillStyle = full ? "#50c878" : "#5F89F8";
                           ctx.fillText(`${cat.bp}/${cat.max}`, 540, y);
                           // Bar bg
                           ctx.fillStyle = "rgba(110,120,200,0.1)";
@@ -10806,12 +10807,12 @@ function NeuroThriveApp() {
                         // Day count
                         ctx.textAlign = "center";
                         ctx.font = "600 11px -apple-system, BlinkMacSystemFont, sans-serif";
-                        ctx.fillStyle = "#6b7394";
+                        ctx.fillStyle = "#4A5478";
                         ctx.fillText(`Day ${daysElapsed} · ${new Date().toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" })}`, 300, 565);
 
                         // App promo line
                         ctx.font = "700 12px -apple-system, BlinkMacSystemFont, sans-serif";
-                        ctx.fillStyle = "#7b9fff";
+                        ctx.fillStyle = "#5F89F8";
                         ctx.fillText("Feed your brain. Track your growth.", 300, 585);
 
                         // App URL
@@ -10840,7 +10841,7 @@ function NeuroThriveApp() {
                           }
                         }, "image/png");
                       }}
-                      style={{ width:"100%", marginTop:"16px", padding:"14px 20px", borderRadius:"14px", border:"1px solid rgba(107,143,255,0.25)", background:"linear-gradient(135deg, rgba(107,143,255,0.18), rgba(80,200,120,0.06))", color:"#7b9fff", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", transition:"all 0.2s" }}
+                      style={{ width:"100%", marginTop:"16px", padding:"14px 20px", borderRadius:"14px", border:"1px solid rgba(107,143,255,0.25)", background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(255,255,255,1))", color:"#5F89F8", fontSize:"14px", fontWeight:"700", cursor:"pointer", letterSpacing:"0.3px", transition:"all 0.2s" }}
                     >
                       Share My Brain Score
                     </button>
@@ -10853,8 +10854,8 @@ function NeuroThriveApp() {
                 const bp2 = getBrainPoints(todayKey);
                 const isDone = bp2.pct >= 100 || todayChecks.dayComplete;
                 return isDone ? (
-                  <div style={{ textAlign:"center", marginTop:"48px", padding:"24px 20px", borderRadius:"20px", background:"rgba(107,143,255,0.04)", border:"1px solid rgba(107,143,255,0.18)" }}>
-                    <div style={{ fontSize:"14px", color:"#8890b8", lineHeight:1.7, marginBottom:"16px" }}>
+                  <div style={{ textAlign:"center", marginTop:"48px", padding:"24px 20px", borderRadius:"20px", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)" }}>
+                    <div style={{ fontSize:"14px", color:"#3D4663", lineHeight:1.7, marginBottom:"16px" }}>
                       You've done everything you can for your brain today.<br/>Rest well. Tomorrow is a new day to thrive.
                     </div>
                     <div style={{ display:"flex", gap:"10px", justifyContent:"center", flexWrap:"wrap" }}>
@@ -10896,11 +10897,11 @@ function NeuroThriveApp() {
                   if (catTools.length === 0) return null;
                   return (
                     <div key={cat.id} onClick={() => setNsCategory(cat.id)}
-                      style={{ padding:"22px 18px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", textAlign:"center" }}>
+                      style={{ padding:"22px 18px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s", textAlign:"center" }}>
                       <div style={{ fontSize:"32px", marginBottom:"8px" }}>{cat.emoji}</div>
-                      <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"600", marginBottom:"6px" }}>{cat.label}</div>
+                      <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"600", marginBottom:"6px" }}>{cat.label}</div>
                       <div style={{ color:"#9098c8", fontSize:"12px", lineHeight:1.5, marginBottom:"6px" }}>{cat.desc}</div>
-                      <div style={{ color:"#7b9fff", fontSize:"12px" }}>{catTools.length} tool{catTools.length !== 1 ? "s" : ""}</div>
+                      <div style={{ color:"#5F89F8", fontSize:"12px" }}>{catTools.length} tool{catTools.length !== 1 ? "s" : ""}</div>
                     </div>
                   );
                 })}
@@ -10914,9 +10915,9 @@ function NeuroThriveApp() {
               return (
                 <div>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"20px" }}>
-                    <button onClick={() => setNsCategory(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <button onClick={() => setNsCategory(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#3D4663", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
                     <span style={{ fontSize:"22px" }}>{cat.emoji}</span>
-                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{cat.label}</h3>
+                    <h3 style={{ color:"#313C62", fontSize:"17px", fontWeight:"700", margin:0 }}>{cat.label}</h3>
                   </div>
                   {nsCategory === "emergency" && (
                     <div style={{ padding:"16px 20px", borderRadius:"14px", border:"1px solid rgba(220,80,80,0.3)", background:"rgba(220,80,80,0.08)", marginBottom:"20px" }}>
@@ -10928,13 +10929,13 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", flexDirection:"column", gap:"12px", marginBottom:"32px" }}>
                     {catTools.map((tool, i) => (
                       <div key={i} onClick={() => setNsTool(i)}
-                        style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s" }}>
+                        style={{ padding:"20px 22px", borderRadius:"18px", cursor:"pointer", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(240,244,255,0.04)", transition:"all 0.2s" }}>
                         <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                           <div style={{ flex:1 }}>
-                            <div style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"600", marginBottom:"6px" }}>{tool.t}</div>
-                            <div style={{ color:"#8890b8", fontSize:"12px" }}>⏱ {tool.time} · {tool.when.length > 60 ? tool.when.slice(0, 60) + "…" : tool.when}</div>
+                            <div style={{ color:"#313C62", fontSize:"16px", fontWeight:"600", marginBottom:"6px" }}>{tool.t}</div>
+                            <div style={{ color:"#3D4663", fontSize:"12px" }}>⏱ {tool.time} · {tool.when.length > 60 ? tool.when.slice(0, 60) + "…" : tool.when}</div>
                           </div>
-                          <span style={{ color:"#7b9fff", fontSize:"18px", flexShrink:0, marginLeft:"12px" }}>→</span>
+                          <span style={{ color:"#5F89F8", fontSize:"18px", flexShrink:0, marginLeft:"12px" }}>→</span>
                         </div>
                       </div>
                     ))}
@@ -10952,38 +10953,38 @@ function NeuroThriveApp() {
               return (
                 <div>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"24px" }}>
-                    <button onClick={() => setNsTool(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#8890b8", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
+                    <button onClick={() => setNsTool(null)} style={{ background:"transparent", border:"1px solid rgba(110,120,200,0.25)", borderRadius:"10px", color:"#3D4663", padding:"8px 14px", cursor:"pointer", fontSize:"13px" }}>← Back</button>
                     <span style={{ fontSize:"22px" }}>{cat.emoji}</span>
-                    <h3 style={{ color:"#eef0ff", fontSize:"17px", fontWeight:"700", margin:0 }}>{tool.t}</h3>
+                    <h3 style={{ color:"#313C62", fontSize:"17px", fontWeight:"700", margin:0 }}>{tool.t}</h3>
                   </div>
 
                   <div style={{ display:"flex", gap:"12px", marginBottom:"20px" }}>
-                    <div style={{ padding:"8px 14px", borderRadius:"10px", background:"rgba(107,143,255,0.15)", border:"1px solid rgba(107,143,255,0.15)" }}>
-                      <span style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"600" }}>⏱ {tool.time}</span>
+                    <div style={{ padding:"8px 14px", borderRadius:"10px", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)" }}>
+                      <span style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"600" }}>⏱ {tool.time}</span>
                     </div>
                   </div>
 
                   {/* When to use */}
-                  <div style={{ ...S.card, padding:"18px 22px", marginBottom:"16px", border:"1px solid rgba(80,200,120,0.15)", background:"rgba(80,200,120,0.04)" }}>
+                  <div style={{ ...S.card, padding:"18px 22px", marginBottom:"16px", border:"1px solid rgba(80,200,120,0.15)", background:"rgba(255,255,255,1)" }}>
                     <div style={{ color:"#50c878", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"8px" }}>Best For</div>
-                    <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.7 }}>{tool.when}</div>
+                    <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.7 }}>{tool.when}</div>
                   </div>
 
                   {/* How to do it */}
-                  <div style={{ color:"#8890b8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"14px", marginTop:"24px" }}>How To Do It</div>
+                  <div style={{ color:"#3D4663", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"14px", marginTop:"24px" }}>How To Do It</div>
                   {tool.how.map((step, i) => (
                     <div key={i} style={{ ...S.card, padding:"18px 22px", marginBottom:"12px" }}>
                       <div style={{ display:"flex", alignItems:"flex-start", gap:"14px" }}>
-                        <div style={{ minWidth:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#5570f0,#7b9fff)", color:"#fff", fontSize:"13px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{i + 1}</div>
-                        <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.8 }}>{step}</div>
+                        <div style={{ minWidth:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#5F89F8,#5F89F8)", color:"#fff", fontSize:"13px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{i + 1}</div>
+                        <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.8 }}>{step}</div>
                       </div>
                     </div>
                   ))}
 
                   {/* Why it works */}
                   <div style={{ ...S.card, padding:"22px", marginTop:"24px", border:"1px solid rgba(168,120,210,0.2)", background:"rgba(168,120,210,0.05)" }}>
-                    <div style={{ color:"#c8a0e8", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"10px" }}>🧠 The Neuroscience</div>
-                    <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.9 }}>{tool.why}</div>
+                    <div style={{ color:"#7B5EA0", fontSize:"11px", textTransform:"uppercase", letterSpacing:"1.5px", fontWeight:"700", marginBottom:"10px" }}>🧠 The Neuroscience</div>
+                    <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.9 }}>{tool.why}</div>
                   </div>
                 </div>
               );
@@ -11011,13 +11012,13 @@ function NeuroThriveApp() {
             {/* Week selector */}
             <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
               <button onClick={() => { setGroceryWeek(-1); setGroceryChecked({}); }}
-                style={{ flex:1.2, padding:"10px 4px", borderRadius:"12px", border:groceryWeek===-1?"2px solid #50c878":"1px solid rgba(110,120,200,0.18)", background:groceryWeek===-1?"rgba(80,200,120,0.12)":"rgba(240,244,255,0.04)", color:groceryWeek===-1?"#50c878":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Full Month</button>
+                style={{ flex:1.2, padding:"10px 4px", borderRadius:"12px", border:groceryWeek===-1?"2px solid #50c878":"1px solid rgba(110,120,200,0.18)", background:groceryWeek===-1?"rgba(80,200,120,0.12)":"rgba(240,244,255,0.04)", color:groceryWeek===-1?"#50c878":"#3D4663", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Full Month</button>
               {WEEKS_LABELS.map((w, i) => {
                 const hasData = menu30.slice(i*7, i*7+7).length > 0;
                 if (!hasData) return null;
                 return (
                   <button key={w} onClick={() => { setGroceryWeek(i); setGroceryChecked({}); }}
-                    style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:groceryWeek===i?"2px solid #50c878":"1px solid rgba(110,120,200,0.18)", background:groceryWeek===i?"rgba(80,200,120,0.12)":"rgba(240,244,255,0.04)", color:groceryWeek===i?"#50c878":"#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>{w}</button>
+                    style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border:groceryWeek===i?"2px solid #50c878":"1px solid rgba(110,120,200,0.18)", background:groceryWeek===i?"rgba(80,200,120,0.12)":"rgba(240,244,255,0.04)", color:groceryWeek===i?"#50c878":"#3D4663", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>{w}</button>
                 );
               })}
             </div>
@@ -11029,19 +11030,19 @@ function NeuroThriveApp() {
                 <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
                   {isLocked ? (
                     <>
-                      <div style={{ flex:1, display:"flex", alignItems:"center", gap:"8px", padding:"10px 14px", borderRadius:"12px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.2)" }}>
+                      <div style={{ flex:1, display:"flex", alignItems:"center", gap:"8px", padding:"10px 14px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.2)" }}>
                         <span style={{ fontSize:"16px" }}>🔒</span>
                         <div>
                           <div style={{ color:"#50c878", fontSize:"12px", fontWeight:"700" }}>Week Locked In</div>
-                          <div style={{ color:"#8890b8", fontSize:"10px" }}>Swapping a meal will prompt you to unlock first</div>
+                          <div style={{ color:"#3D4663", fontSize:"10px" }}>Swapping a meal will prompt you to unlock first</div>
                         </div>
                       </div>
                       <button onClick={() => setLockedWeeks(prev => { const copy = { ...prev }; delete copy[groceryWeek]; return copy; })}
-                        style={{ padding:"10px 16px", borderRadius:"12px", border:"1px solid rgba(232,200,122,0.25)", background:"rgba(232,200,122,0.06)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", flexShrink:0 }}>Unlock</button>
+                        style={{ padding:"10px 16px", borderRadius:"12px", border:"1px solid rgba(232,200,122,0.25)", background:"rgba(255,255,255,1)", color:"#e8c87a", fontSize:"12px", fontWeight:"600", cursor:"pointer", flexShrink:0 }}>Unlock</button>
                     </>
                   ) : (
                     <button onClick={() => setLockedWeeks(prev => ({ ...prev, [groceryWeek]: { lockedAt: new Date().toISOString() } }))}
-                      style={{ width:"100%", padding:"12px 16px", borderRadius:"12px", border:"1px solid rgba(80,200,120,0.2)", background:"rgba(80,200,120,0.04)", color:"#50c878", fontSize:"13px", fontWeight:"600", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+                      style={{ width:"100%", padding:"12px 16px", borderRadius:"12px", border:"1px solid rgba(80,200,120,0.2)", background:"rgba(255,255,255,1)", color:"#50c878", fontSize:"13px", fontWeight:"600", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
                       <span>🔒</span> Lock In This Week's Groceries
                     </button>
                   )}
@@ -11052,10 +11053,10 @@ function NeuroThriveApp() {
             {/* Progress bar */}
             <div style={{ ...S.card, padding:"14px 18px", marginBottom:"20px" }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                <span style={{ color:"#8890b8", fontSize:"12px" }}>{checkedCount} of {totalItems} items</span>
+                <span style={{ color:"#3D4663", fontSize:"12px" }}>{checkedCount} of {totalItems} items</span>
                 <span style={{ color:"#50c878", fontSize:"12px", fontWeight:"600" }}>{totalItems > 0 ? Math.round((checkedCount / totalItems) * 100) : 0}%</span>
               </div>
-              <div style={{ height:"6px", background:"rgba(110,120,200,0.15)", borderRadius:"10px", overflow:"hidden" }}>
+              <div style={{ height:"6px", background:"rgba(49,60,98,0.12)", borderRadius:"10px", overflow:"hidden" }}>
                 <div style={{ height:"100%", width:`${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%`, background:"linear-gradient(90deg,#50c878,#40a868)", borderRadius:"10px", transition:"width 0.3s ease" }} />
               </div>
             </div>
@@ -11071,8 +11072,8 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
                       <span style={{ fontSize:"18px" }}>{aisle.emoji}</span>
-                      <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{aisle.label}</span>
-                      <span style={{ color:"#8890b8", fontSize:"11px" }}>({items.length})</span>
+                      <span style={{ color:"#313C62", fontSize:"14px", fontWeight:"700" }}>{aisle.label}</span>
+                      <span style={{ color:"#3D4663", fontSize:"11px" }}>({items.length})</span>
                     </div>
                     {allChecked && <span style={{ color:"#50c878", fontSize:"11px", fontWeight:"600" }}>All done</span>}
                   </div>
@@ -11081,11 +11082,11 @@ function NeuroThriveApp() {
                     return (
                       <div key={item.key}
                         onClick={() => setGroceryChecked(prev => ({ ...prev, [item.key]: !prev[item.key] }))}
-                        style={{ display:"flex", alignItems:"center", gap:"12px", padding:"12px 16px", marginBottom:"4px", borderRadius:"12px", cursor:"pointer", background: checked ? "rgba(80,200,120,0.04)" : "transparent", transition:"all 0.2s" }}>
+                        style={{ display:"flex", alignItems:"center", gap:"12px", padding:"12px 16px", marginBottom:"4px", borderRadius:"12px", cursor:"pointer", background: checked ? "rgba(255,255,255,1)" : "transparent", transition:"all 0.2s" }}>
                         <div style={{ width:"22px", height:"22px", borderRadius:"6px", border: checked ? "2px solid #50c878" : "1.5px solid rgba(110,120,200,0.25)", background: checked ? "rgba(80,200,120,0.15)" : "transparent", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, transition:"all 0.2s" }}>
                           {checked && <span style={{ color:"#50c878", fontSize:"14px", fontWeight:"800", lineHeight:1 }}>✓</span>}
                         </div>
-                        <span style={{ color: checked ? "#6b8b6b" : "#c8ccf0", fontSize:"14px", textDecoration: checked ? "line-through" : "none", opacity: checked ? 0.6 : 1, transition:"all 0.2s", lineHeight:1.5 }}>{item.label}</span>
+                        <span style={{ color: checked ? "#6b8b6b" : "#3D4663", fontSize:"14px", textDecoration: checked ? "line-through" : "none", opacity: checked ? 0.6 : 1, transition:"all 0.2s", lineHeight:1.5 }}>{item.label}</span>
                       </div>
                     );
                   })}
@@ -11096,7 +11097,7 @@ function NeuroThriveApp() {
             {totalItems === 0 && (
               <div style={{ textAlign:"center", padding:"40px 20px" }}>
                 <div style={{ fontSize:"40px", marginBottom:"12px" }}>🛒</div>
-                <p style={{ color:"#8890b8", fontSize:"14px" }}>No meals found for this week. Generate your menu first.</p>
+                <p style={{ color:"#3D4663", fontSize:"14px" }}>No meals found for this week. Generate your menu first.</p>
               </div>
             )}
 
@@ -11123,8 +11124,8 @@ function NeuroThriveApp() {
             {favoriteMeals.length === 0 && (
               <div style={{ textAlign:"center", padding:"60px 20px" }}>
                 <div style={{ fontSize:"48px", marginBottom:"16px" }}>🤍</div>
-                <p style={{ color:"#8890b8", fontSize:"15px", lineHeight:1.7 }}>No favorites yet!</p>
-                <p style={{ color:"#6b7394", fontSize:"13px", lineHeight:1.6 }}>Browse your 30-Day Menu or Today's Checklist and tap the heart icon next to any meal to save it here.</p>
+                <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.7 }}>No favorites yet!</p>
+                <p style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.6 }}>Browse your 30-Day Menu or Today's Checklist and tap the heart icon next to any meal to save it here.</p>
                 <button style={{ ...S.btn, marginTop:"20px" }} onClick={() => navigateTo(4)}>Browse Menu →</button>
               </div>
             )}
@@ -11135,25 +11136,25 @@ function NeuroThriveApp() {
                 <div key={meal} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px" }}>
                   <div style={{ display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"10px" }}>
                     <div style={{ width:"28px", height:"28px", borderRadius:"50%", background:"linear-gradient(135deg,#e05070,#d04060)", color:"#fff", fontSize:"12px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{i+1}</div>
-                    <span style={{ flex:1, color:"#eef0ff", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{meal}</span>
+                    <span style={{ flex:1, color:"#313C62", fontSize:"15px", fontWeight:"600", lineHeight:1.5 }}>{meal}</span>
                     <button onClick={() => toggleFavorite(meal)} style={{ background:"none", border:"none", cursor:"pointer", padding:"4px", fontSize:"18px", flexShrink:0 }} title="Remove from favorites">❤️</button>
                   </div>
                   <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:"6px", marginBottom:"12px", marginLeft:"38px" }}>
-                    <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(107,143,255,0.18)", border:"1px solid rgba(107,143,255,0.2)" }}>
+                    <div style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"4px 10px", borderRadius:"20px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.2)" }}>
                       <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#e8c87a", flexShrink:0 }} />
-                      <span style={{ color:"#7b9fff", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(meal)}</span>
+                      <span style={{ color:"#5F89F8", fontSize:"11px", fontWeight:"700", letterSpacing:"0.5px" }}>{estimateCalories(meal)}</span>
                     </div>
-                    <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(107,143,255,0.15)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(107,143,255,0.15)" }}>
-                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#7b9fff", flexShrink:0 }} />
-                      <span style={{ color: bs.score >= 4 ? "#50c878" : "#7b9fff", fontSize:"11px", fontWeight:"700" }}>{bs.score}/5</span>
+                    <div style={{ display:"inline-flex", alignItems:"center", gap:"3px", padding:"4px 10px", borderRadius:"20px", background: bs.score >= 4 ? "rgba(80,200,120,0.1)" : "rgba(255,255,255,1)", border: bs.score >= 4 ? "1px solid rgba(80,200,120,0.25)" : "1px solid rgba(255,255,255,1)" }}>
+                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: bs.score >= 4 ? "#50c878" : "#5F89F8", flexShrink:0 }} />
+                      <span style={{ color: bs.score >= 4 ? "#50c878" : "#5F89F8", fontSize:"11px", fontWeight:"700" }}>{bs.score}/5</span>
                     </div>
                     {bs.nutrients.length > 0 && bs.nutrients.slice(0,3).map((n,ni) => (
-                      <span key={ni} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.18)", color:"#8890b8", fontSize:"10px", fontWeight:"600" }}>{n}</span>
+                      <span key={ni} style={{ padding:"3px 8px", borderRadius:"12px", background:"rgba(255,255,255,1)", border:"1px solid rgba(255,255,255,1)", color:"#3D4663", fontSize:"10px", fontWeight:"600" }}>{n}</span>
                     ))}
                   </div>
                   <div style={{ display:"flex", gap:"7px", flexWrap:"wrap", marginLeft:"38px" }}>
-                    <button onClick={() => openExplain(meal, "Favorite", 0)} style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(110,120,200,0.2)", background:"rgba(110,120,200,0.07)", color:"#9db5ff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
-                    <button onClick={() => openRecipe(meal, "Favorite", 0)} style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#7b9fff", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
+                    <button onClick={() => openExplain(meal, "Favorite", 0)} style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1px solid rgba(49,60,98,0.15)", background:"rgba(255,255,255,1)", color:"#5F89F8", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Why this?</button>
+                    <button onClick={() => openRecipe(meal, "Favorite", 0)} style={{ flex:1, padding:"9px 10px", borderRadius:"10px", border:"1.5px solid rgba(80,112,240,0.3)", background:"rgba(80,112,240,0.07)", color:"#5F89F8", fontSize:"12px", fontWeight:"600", cursor:"pointer" }}>Recipe</button>
                   </div>
                 </div>
               );
@@ -11187,13 +11188,13 @@ function NeuroThriveApp() {
 
               {/* Time preference toggle */}
               <div style={{ ...S.card, padding:"16px 18px", marginBottom:"20px" }}>
-                <div style={{ color:"#8890b8", fontSize:"12px", fontWeight:"600", marginBottom:"10px" }}>I prefer to exercise in the:</div>
-                <div style={{ display:"flex", gap:"0", borderRadius:"12px", overflow:"hidden", border:"1px solid rgba(110,120,200,0.2)" }}>
+                <div style={{ color:"#3D4663", fontSize:"12px", fontWeight:"600", marginBottom:"10px" }}>I prefer to exercise in the:</div>
+                <div style={{ display:"flex", gap:"0", borderRadius:"12px", overflow:"hidden", border:"1px solid rgba(49,60,98,0.15)" }}>
                   {["morning", "evening"].map(t => (
-                    <button key={t} onClick={() => setExerciseTimePref(t)} style={{ flex:1, padding:"10px 16px", border:"none", background: exerciseTimePref === t ? "rgba(80,200,120,0.15)" : "transparent", color: exerciseTimePref === t ? "#50c878" : "#8890b8", fontSize:"13px", fontWeight: exerciseTimePref === t ? "700" : "500", cursor:"pointer", textTransform:"capitalize", transition:"all 0.2s", borderRight: t === "morning" ? "1px solid rgba(110,120,200,0.2)" : "none" }}>{t}</button>
+                    <button key={t} onClick={() => setExerciseTimePref(t)} style={{ flex:1, padding:"10px 16px", border:"none", background: exerciseTimePref === t ? "rgba(80,200,120,0.15)" : "transparent", color: exerciseTimePref === t ? "#50c878" : "#3D4663", fontSize:"13px", fontWeight: exerciseTimePref === t ? "700" : "500", cursor:"pointer", textTransform:"capitalize", transition:"all 0.2s", borderRight: t === "morning" ? "1px solid rgba(49,60,98,0.15)" : "none" }}>{t}</button>
                   ))}
                 </div>
-                <div style={{ color:"#6b7394", fontSize:"11px", marginTop:"8px" }}>Your exercise step will appear in your {exerciseTimePref} routine.</div>
+                <div style={{ color:"#4A5478", fontSize:"11px", marginTop:"8px" }}>Your exercise step will appear in your {exerciseTimePref} routine.</div>
               </div>
 
               {/* Cycle sync card — females only */}
@@ -11203,7 +11204,7 @@ function NeuroThriveApp() {
                   <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                     <span style={{ fontSize:"24px" }}>{cycleSuggestion.emoji}</span>
                     <div>
-                      <div style={{ color:"#e8d0ff", fontSize:"14px", fontWeight:"700" }}>Suggested Exercise: {cycleSuggestion.type}</div>
+                      <div style={{ color:"#313C62", fontSize:"14px", fontWeight:"700" }}>Suggested Exercise: {cycleSuggestion.type}</div>
                       <div style={{ color:"#b0a0d0", fontSize:"12px", lineHeight:1.7, marginTop:"4px" }}>{cycleSuggestion.why}</div>
                     </div>
                   </div>
@@ -11211,13 +11212,13 @@ function NeuroThriveApp() {
               )}
 
               {/* Exercise cards */}
-              <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#7b9fff", fontWeight:"700", marginBottom:"14px" }}>Exercises for {exRoutine.label}</div>
+              <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#5F89F8", fontWeight:"700", marginBottom:"14px" }}>Exercises for {exRoutine.label}</div>
 
               {exRoutine.options.map((opt, i) => {
                 const isChecked = !!exerciseOpts[opt.title];
                 const isExpanded = expandedExercise === i;
                 return (
-                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isChecked ? "rgba(80,200,120,0.06)" : undefined }}>
+                  <div key={i} style={{ ...S.card, padding:"14px 16px", marginBottom:"10px", border: isChecked ? "1.5px solid rgba(80,200,120,0.3)" : undefined, background: isChecked ? "rgba(255,255,255,1)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
                       <button onClick={() => {
                         const newVal = !isChecked;
@@ -11234,12 +11235,12 @@ function NeuroThriveApp() {
                       </button>
                       <span style={{ fontSize:"22px", flexShrink:0 }}>{opt.emoji}</span>
                       <div style={{ flex:1, cursor:"pointer" }} onClick={() => setExpandedExercise(isExpanded ? null : i)}>
-                        <div style={{ color: isChecked ? "#50c878" : "#eef0ff", fontSize:"14px", fontWeight:"700", transition:"color 0.3s" }}>{opt.title}</div>
-                        <div style={{ color:"#8890b8", fontSize:"11px" }}>Tap to {isExpanded ? "hide" : "see"} the neuroscience</div>
+                        <div style={{ color: isChecked ? "#50c878" : "#313C62", fontSize:"14px", fontWeight:"700", transition:"color 0.3s" }}>{opt.title}</div>
+                        <div style={{ color:"#3D4663", fontSize:"11px" }}>Tap to {isExpanded ? "hide" : "see"} the neuroscience</div>
                       </div>
                     </div>
                     {isExpanded && (
-                      <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.8, marginTop:"10px", marginLeft:"58px", paddingTop:"8px", borderTop:"1px solid rgba(110,120,200,0.1)" }}>{opt.desc}</div>
+                      <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.8, marginTop:"10px", marginLeft:"58px", paddingTop:"8px", borderTop:"1px solid rgba(110,120,200,0.1)" }}>{opt.desc}</div>
                     )}
                   </div>
                 );
@@ -11247,7 +11248,7 @@ function NeuroThriveApp() {
 
               {/* Status summary */}
               {anySelected && (
-                <div style={{ ...S.card, padding:"14px 18px", marginTop:"16px", background:"rgba(80,200,120,0.06)", border:"1px solid rgba(80,200,120,0.2)" }}>
+                <div style={{ ...S.card, padding:"14px 18px", marginTop:"16px", background:"rgba(255,255,255,1)", border:"1px solid rgba(80,200,120,0.2)" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
                     <span style={{ color:"#50c878", fontSize:"16px", fontWeight:"800" }}>✓</span>
                     <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"600" }}>Exercise marked done · +10 Brain Points</span>
@@ -11284,31 +11285,31 @@ function NeuroThriveApp() {
               <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
                 {[0,1,2,3].map(w => (
                   <button key={w} onClick={() => { setMealPrepWeek(w); setMealPrepChecked({}); }}
-                    style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border: mealPrepWeek===w ? "2px solid #50c878" : "1px solid rgba(110,120,200,0.18)", background: mealPrepWeek===w ? "rgba(80,200,120,0.12)" : "rgba(240,244,255,0.04)", color: mealPrepWeek===w ? "#50c878" : "#8890b8", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>
+                    style={{ flex:1, padding:"10px 4px", borderRadius:"12px", border: mealPrepWeek===w ? "2px solid #50c878" : "1px solid rgba(110,120,200,0.18)", background: mealPrepWeek===w ? "rgba(80,200,120,0.12)" : "rgba(240,244,255,0.04)", color: mealPrepWeek===w ? "#50c878" : "#3D4663", fontSize:"12px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>
                     Week {w+1}
                   </button>
                 ))}
               </div>
 
               {/* Prep Summary */}
-              <div style={{ ...S.card, padding:"20px", marginBottom:"20px", background:"linear-gradient(135deg, rgba(80,200,120,0.06), rgba(107,143,255,0.06))", border:"1px solid rgba(80,200,120,0.2)" }}>
-                <div style={{ color:"#eef0ff", fontSize:"15px", fontWeight:"700", marginBottom:"12px" }}>Prep Summary</div>
+              <div style={{ ...S.card, padding:"20px", marginBottom:"20px", background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(255,255,255,1))", border:"1px solid rgba(80,200,120,0.2)" }}>
+                <div style={{ color:"#313C62", fontSize:"15px", fontWeight:"700", marginBottom:"12px" }}>Prep Summary</div>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"12px", marginBottom:"14px" }}>
                   <div style={{ textAlign:"center" }}>
                     <div style={{ fontSize:"22px", fontWeight:"800", color:"#50c878" }}>{plan.fullPrepCount}</div>
-                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1px" }}>Prep ahead</div>
+                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#3D4663", textTransform:"uppercase", letterSpacing:"1px" }}>Prep ahead</div>
                   </div>
                   <div style={{ textAlign:"center" }}>
-                    <div style={{ fontSize:"22px", fontWeight:"800", color:"#7b9fff" }}>{plan.partialCount}</div>
-                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1px" }}>Prep components</div>
+                    <div style={{ fontSize:"22px", fontWeight:"800", color:"#5F89F8" }}>{plan.partialCount}</div>
+                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#3D4663", textTransform:"uppercase", letterSpacing:"1px" }}>Prep components</div>
                   </div>
                   <div style={{ textAlign:"center" }}>
                     <div style={{ fontSize:"22px", fontWeight:"800", color:"#e8c87a" }}>{plan.dayOfCount}</div>
-                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#8890b8", textTransform:"uppercase", letterSpacing:"1px" }}>Make fresh</div>
+                    <div style={{ fontSize:"9px", fontWeight:"700", color:"#3D4663", textTransform:"uppercase", letterSpacing:"1px" }}>Make fresh</div>
                   </div>
                 </div>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                  <span style={{ color:"#8890b8", fontSize:"12px" }}>Total prep time: <strong style={{ color:"#eef0ff" }}>~{plan.totalPrepTime} min</strong></span>
+                  <span style={{ color:"#3D4663", fontSize:"12px" }}>Total prep time: <strong style={{ color:"#313C62" }}>~{plan.totalPrepTime} min</strong></span>
                   {totalTasks > 0 && <span style={{ color:"#50c878", fontSize:"11px", fontWeight:"600" }}>{checkedCount}/{totalTasks} done</span>}
                 </div>
                 {totalTasks > 0 && (
@@ -11321,7 +11322,7 @@ function NeuroThriveApp() {
               {/* Batch Prep Tasks */}
               {plan.batchTasks.length > 0 && (
                 <div style={{ marginBottom:"24px" }}>
-                  <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"2.5px", textTransform:"uppercase", marginBottom:"12px" }}>Prep Day Tasks</div>
+                  <div style={{ fontSize:"10px", fontWeight:"700", color:"#3D4663", letterSpacing:"2.5px", textTransform:"uppercase", marginBottom:"12px" }}>Prep Day Tasks</div>
                   {plan.batchTasks.map((task, i) => (
                     <details key={i} style={{ ...S.card, padding:"0", marginBottom:"10px", borderLeft:`3px solid ${task.color}`, overflow:"hidden" }}>
                       <summary style={{ listStyle:"none", cursor:"pointer", padding:"14px 16px", display:"flex", alignItems:"flex-start", gap:"12px" }}>
@@ -11329,12 +11330,12 @@ function NeuroThriveApp() {
                           {mealPrepChecked[i] && <span style={{ color:"#50c878", fontSize:"13px", fontWeight:"800" }}>✓</span>}
                         </button>
                         <div style={{ flex:1 }}>
-                          <div style={{ color: mealPrepChecked[i] ? "#50c878" : "#eef0ff", fontSize:"13px", fontWeight:"600", textDecoration: mealPrepChecked[i] ? "line-through" : "none", transition:"all 0.2s" }}>{task.task}</div>
+                          <div style={{ color: mealPrepChecked[i] ? "#50c878" : "#313C62", fontSize:"13px", fontWeight:"600", textDecoration: mealPrepChecked[i] ? "line-through" : "none", transition:"all 0.2s" }}>{task.task}</div>
                           <div style={{ display:"flex", gap:"8px", alignItems:"center", marginTop:"4px", flexWrap:"wrap" }}>
-                            <span style={{ fontSize:"10px", color:"#6b7394" }}>~{task.time} min</span>
-                            <span style={{ fontSize:"10px", color:"#6b7394" }}>·</span>
-                            <span style={{ fontSize:"10px", color:"#8890b8" }}>{task.quantity}</span>
-                            <span style={{ fontSize:"10px", color:"#6b7394" }}>·</span>
+                            <span style={{ fontSize:"10px", color:"#4A5478" }}>~{task.time} min</span>
+                            <span style={{ fontSize:"10px", color:"#4A5478" }}>·</span>
+                            <span style={{ fontSize:"10px", color:"#3D4663" }}>{task.quantity}</span>
+                            <span style={{ fontSize:"10px", color:"#4A5478" }}>·</span>
                             <span style={{ fontSize:"10px", color:task.color }}>Tap for instructions</span>
                           </div>
                         </div>
@@ -11342,26 +11343,26 @@ function NeuroThriveApp() {
                       <div style={{ padding:"0 16px 16px 50px", borderTop:"1px solid rgba(110,120,200,0.1)" }}>
                         {task.ingredients && task.ingredients.length > 0 && (
                           <div style={{ marginTop:"12px", marginBottom:"10px" }}>
-                            <div style={{ fontSize:"10px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Ingredients</div>
+                            <div style={{ fontSize:"10px", fontWeight:"700", color:"#5F89F8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Ingredients</div>
                             {task.ingredients.map((ing, j) => (
-                              <div key={j} style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7, paddingLeft:"8px", borderLeft:"2px solid rgba(110,120,200,0.15)" }}>{ing}</div>
+                              <div key={j} style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.7, paddingLeft:"8px", borderLeft:"2px solid rgba(49,60,98,0.12)" }}>{ing}</div>
                             ))}
                           </div>
                         )}
                         {task.cook && (
                           <div style={{ marginBottom:"10px" }}>
                             <div style={{ fontSize:"10px", fontWeight:"700", color:"#50c878", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>How to Cook</div>
-                            <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7 }}>{task.cook}</div>
+                            <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.7 }}>{task.cook}</div>
                           </div>
                         )}
                         {task.store && (
                           <div style={{ marginBottom:"8px" }}>
                             <div style={{ fontSize:"10px", fontWeight:"700", color:"#e8c87a", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Storage</div>
-                            <div style={{ color:"#b0b8e8", fontSize:"12px", lineHeight:1.7 }}>{task.store}</div>
+                            <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.7 }}>{task.store}</div>
                           </div>
                         )}
                         <div style={{ marginTop:"8px" }}>
-                          <div style={{ fontSize:"10px", fontWeight:"700", color:"#8890b8", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"4px" }}>Used In</div>
+                          <div style={{ fontSize:"10px", fontWeight:"700", color:"#3D4663", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"4px" }}>Used In</div>
                           <div style={{ display:"flex", flexWrap:"wrap", gap:"4px" }}>
                             {task.usedIn.map((u, j) => (
                               <span key={j} style={{ padding:"3px 10px", borderRadius:"12px", fontSize:"10px", fontWeight:"600", background:`${task.color}10`, border:`1px solid ${task.color}30`, color:task.color }}>{u}</span>
@@ -11376,20 +11377,20 @@ function NeuroThriveApp() {
 
               {/* Day-by-Day Assembly */}
               <details style={{ marginBottom:"20px" }}>
-                <summary style={{ color:"#8890b8", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
-                  <span style={{ color:"#7b9fff" }}>▸</span> Day-by-day assembly guide
+                <summary style={{ color:"#3D4663", cursor:"pointer", fontSize:"13px", fontWeight:"600", listStyle:"none", display:"flex", alignItems:"center", gap:"6px", padding:"8px 0" }}>
+                  <span style={{ color:"#5F89F8" }}>▸</span> Day-by-day assembly guide
                 </summary>
                 <div style={{ marginTop:"12px", display:"grid", gap:"10px" }}>
                   {plan.dayPlan.map((day, di) => (
                     <div key={di} style={{ padding:"14px 16px", borderRadius:"14px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.12)" }}>
                       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                        <span style={{ color:"#7b9fff", fontSize:"12px", fontWeight:"700", letterSpacing:"1px", textTransform:"uppercase" }}>{day.dayLabel}</span>
-                        <span style={{ fontSize:"10px", color:"#8890b8" }}>~{day.assemblyTime} min assembly</span>
+                        <span style={{ color:"#5F89F8", fontSize:"12px", fontWeight:"700", letterSpacing:"1px", textTransform:"uppercase" }}>{day.dayLabel}</span>
+                        <span style={{ fontSize:"10px", color:"#3D4663" }}>~{day.assemblyTime} min assembly</span>
                       </div>
                       {day.meals.map((m, mi) => (
                         <div key={mi} style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
                           <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: m.classification.color, flexShrink:0 }} />
-                          <span style={{ color:"#b0b8e8", fontSize:"12px", flex:1 }}>{m.mealName}</span>
+                          <span style={{ color:"#3D4663", fontSize:"12px", flex:1 }}>{m.mealName}</span>
                           <span style={{ fontSize:"9px", fontWeight:"600", color: m.classification.color, padding:"2px 8px", borderRadius:"10px", border:`1px solid ${m.classification.color}30`, background:`${m.classification.color}10` }}>{m.classification.label}</span>
                         </div>
                       ))}
@@ -11400,10 +11401,10 @@ function NeuroThriveApp() {
 
               {/* Legend */}
               <div style={{ display:"flex", gap:"16px", justifyContent:"center", marginBottom:"20px" }}>
-                {[{label:"Prep ahead",color:"#50c878"},{label:"Prep components",color:"#7b9fff"},{label:"Make fresh",color:"#e8c87a"}].map(l => (
+                {[{label:"Prep ahead",color:"#50c878"},{label:"Prep components",color:"#5F89F8"},{label:"Make fresh",color:"#e8c87a"}].map(l => (
                   <div key={l.label} style={{ display:"flex", alignItems:"center", gap:"5px" }}>
                     <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:l.color }} />
-                    <span style={{ fontSize:"10px", color:"#8890b8" }}>{l.label}</span>
+                    <span style={{ fontSize:"10px", color:"#3D4663" }}>{l.label}</span>
                   </div>
                 ))}
               </div>
@@ -11421,7 +11422,7 @@ function NeuroThriveApp() {
           const condIds = selectedConditions.length > 0 ? selectedConditions : ["default"];
           const guides = condIds.map(id => BRAIN_DIET_GUIDE[id] || BRAIN_DIET_GUIDE.default);
           const multi = guides.length > 1;
-          const condColors = ["#7b9fff","#50c878","#ba68c8","#e8c87a","#e05070","#60d0d0"];
+          const condColors = ["#5F89F8","#50c878","#ba68c8","#e8c87a","#e05070","#60d0d0"];
           const condLabels = guides.map(g => g.label);
           const condEmojis = guides.map(g => g.emoji);
 
@@ -11484,8 +11485,8 @@ function NeuroThriveApp() {
 
           return (
             <div>
-              <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(107,143,255,0.12)", color:"#7b9fff", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>Brain Diet Guide</div>
-              <h2 style={{ fontSize:"22px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"6px" }}>
+              <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(107,143,255,0.12)", color:"#5F89F8", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>Brain Diet Guide</div>
+              <h2 style={{ fontSize:"22px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"6px" }}>
                 {multi ? "Your Integrated Brain Diet" : "Your Optimal Brain Diet"}
               </h2>
               {multi && (
@@ -11498,7 +11499,7 @@ function NeuroThriveApp() {
                   ))}
                 </div>
               )}
-              <p style={{ color:"#8890b8", fontSize:"13px", lineHeight:1.6, marginBottom:"20px" }}>
+              <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.6, marginBottom:"20px" }}>
                 {multi
                   ? `This guide merges the optimal nutritional strategies for ${condLabels.join(" and ")} into one integrated plan. Foods that benefit multiple conditions are prioritized. They give your brain the most value per bite.`
                   : "Science-informed nutritional guidance personalized for your brain type. These are the foods and patterns that target the specific neurotransmitter systems your condition affects."
@@ -11512,21 +11513,21 @@ function NeuroThriveApp() {
                     <span style={{ fontSize:"16px" }}>{guide.emoji}</span>
                     <span style={{ color: condColors[gi % condColors.length], fontSize:"14px", fontWeight:"700" }}>{guide.label}</span>
                   </div>
-                  <p style={{ color:"#c8ccf0", fontSize:"12px", lineHeight:1.7, margin:0 }}>{guide.summary}</p>
+                  <p style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.7, margin:0 }}>{guide.summary}</p>
                 </div>
               ))}
 
-              <div style={{ height:"1px", background:"linear-gradient(90deg, transparent, rgba(110,120,200,0.15), transparent)", margin:"20px 0" }} />
+              <div style={{ height:"1px", background:"linear-gradient(90deg, transparent, rgba(49,60,98,0.12), transparent)", margin:"20px 0" }} />
 
               {/* Merged Priority Nutrients */}
               <div style={{ marginBottom:"16px" }}>
-                <div style={{ fontSize:"11px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Priority Nutrients</div>
-                {multi && <p style={{ color:"#6b7394", fontSize:"11px", marginBottom:"12px", padding:"0 4px" }}>Nutrients are ranked by how many of your conditions they support. Shared nutrients give your brain the highest return.</p>}
+                <div style={{ fontSize:"11px", fontWeight:"700", color:"#5F89F8", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Priority Nutrients</div>
+                {multi && <p style={{ color:"#4A5478", fontSize:"11px", marginBottom:"12px", padding:"0 4px" }}>Nutrients are ranked by how many of your conditions they support. Shared nutrients give your brain the highest return.</p>}
                 {mergedNutrients.sort((a,b) => b.conds.length - a.conds.length).map((n, i) => (
-                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", border: multi && n.conds.length === guides.length ? "1px solid rgba(80,200,120,0.2)" : undefined, background: multi && n.conds.length === guides.length ? "rgba(80,200,120,0.04)" : undefined }}>
+                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", border: multi && n.conds.length === guides.length ? "1px solid rgba(80,200,120,0.2)" : undefined, background: multi && n.conds.length === guides.length ? "rgba(255,255,255,1)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px", flexWrap:"wrap" }}>
-                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: n.conds.length === guides.length ? "#50c878" : "#7b9fff", flexShrink:0 }} />
-                      <span style={{ color:"#eef0ff", fontSize:"14px", fontWeight:"700" }}>{n.name}</span>
+                      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background: n.conds.length === guides.length ? "#50c878" : "#5F89F8", flexShrink:0 }} />
+                      <span style={{ color:"#313C62", fontSize:"14px", fontWeight:"700" }}>{n.name}</span>
                       {multi && (
                         <div style={{ display:"flex", gap:"4px", marginLeft:"auto", flexWrap:"wrap" }}>
                           {n.conds.length === guides.length ? <AllBadge /> : n.conds.map(ci => <CondBadge key={ci} ci={ci} />)}
@@ -11534,16 +11535,16 @@ function NeuroThriveApp() {
                       )}
                     </div>
                     {n.roles.length === 1 || !multi ? (
-                      <p style={{ color:"#a0a8d0", fontSize:"12px", lineHeight:1.6, margin:"0 0 6px 14px" }}>{n.roles[0].role}</p>
+                      <p style={{ color:"#4A5478", fontSize:"12px", lineHeight:1.6, margin:"0 0 6px 14px" }}>{n.roles[0].role}</p>
                     ) : (
                       n.roles.map((r, ri) => (
                         <div key={ri} style={{ margin:"0 0 4px 14px", display:"flex", gap:"6px", alignItems:"flex-start" }}>
                           <span style={{ color: condColors[r.condIdx % condColors.length], fontSize:"10px", fontWeight:"700", minWidth:"fit-content", marginTop:"2px" }}>{condLabels[r.condIdx]}:</span>
-                          <span style={{ color:"#a0a8d0", fontSize:"12px", lineHeight:1.5 }}>{r.role}</span>
+                          <span style={{ color:"#4A5478", fontSize:"12px", lineHeight:1.5 }}>{r.role}</span>
                         </div>
                       ))
                     )}
-                    <p style={{ color:"#6b7394", fontSize:"11px", margin:"4px 0 0 14px" }}>Top sources: {[...n.sources].slice(0, 6).join(", ")}</p>
+                    <p style={{ color:"#4A5478", fontSize:"11px", margin:"4px 0 0 14px" }}>Top sources: {[...n.sources].slice(0, 6).join(", ")}</p>
                   </div>
                 ))}
               </div>
@@ -11551,11 +11552,11 @@ function NeuroThriveApp() {
               {/* Merged Power Foods */}
               <div style={{ marginBottom:"16px" }}>
                 <div style={{ fontSize:"11px", fontWeight:"700", color:"#50c878", letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:"10px", padding:"0 4px" }}>Power Foods</div>
-                {multi && <p style={{ color:"#6b7394", fontSize:"11px", marginBottom:"12px", padding:"0 4px" }}>Foods that benefit all your conditions are highlighted and listed first.</p>}
+                {multi && <p style={{ color:"#4A5478", fontSize:"11px", marginBottom:"12px", padding:"0 4px" }}>Foods that benefit all your conditions are highlighted and listed first.</p>}
                 {mergedPower.map((f, i) => (
-                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft: multi && f.conds.length === guides.length ? "3px solid #50c878" : "3px solid rgba(80,200,120,0.3)", background: multi && f.conds.length === guides.length ? "rgba(80,200,120,0.04)" : undefined }}>
+                  <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft: multi && f.conds.length === guides.length ? "3px solid #50c878" : "3px solid rgba(80,200,120,0.3)", background: multi && f.conds.length === guides.length ? "rgba(255,255,255,1)" : undefined }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px", flexWrap:"wrap" }}>
-                      <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{f.food}</span>
+                      <span style={{ color:"#313C62", fontSize:"13px", fontWeight:"700" }}>{f.food}</span>
                       {multi && (
                         <div style={{ display:"flex", gap:"4px", marginLeft:"auto", flexWrap:"wrap" }}>
                           {f.conds.length === guides.length ? <AllBadge /> : f.conds.map(ci => <CondBadge key={ci} ci={ci} />)}
@@ -11563,12 +11564,12 @@ function NeuroThriveApp() {
                       )}
                     </div>
                     {f.whys.length === 1 || !multi ? (
-                      <p style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.whys[0].why}</p>
+                      <p style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.6, margin:0 }}>{f.whys[0].why}</p>
                     ) : (
                       f.whys.map((w, wi) => (
                         <div key={wi} style={{ margin: wi > 0 ? "4px 0 0 0" : 0, display:"flex", gap:"6px", alignItems:"flex-start" }}>
                           <span style={{ color: condColors[w.condIdx % condColors.length], fontSize:"10px", fontWeight:"700", minWidth:"fit-content", marginTop:"2px" }}>{condLabels[w.condIdx]}:</span>
-                          <span style={{ color:"#a0c8b0", fontSize:"12px", lineHeight:1.5 }}>{w.why}</span>
+                          <span style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.5 }}>{w.why}</span>
                         </div>
                       ))
                     )}
@@ -11582,7 +11583,7 @@ function NeuroThriveApp() {
                 {mergedAvoid.map((f, i) => (
                   <div key={i} style={{ ...S.card, padding:"14px 18px", marginBottom:"8px", borderLeft:"3px solid rgba(224,80,112,0.3)" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"6px", flexWrap:"wrap" }}>
-                      <span style={{ color:"#eef0ff", fontSize:"13px", fontWeight:"700" }}>{f.food}</span>
+                      <span style={{ color:"#313C62", fontSize:"13px", fontWeight:"700" }}>{f.food}</span>
                       {multi && (
                         <div style={{ display:"flex", gap:"4px", marginLeft:"auto", flexWrap:"wrap" }}>
                           {f.conds.length === guides.length ? <AllBadge /> : f.conds.map(ci => <CondBadge key={ci} ci={ci} />)}
@@ -11609,7 +11610,7 @@ function NeuroThriveApp() {
                   {multi ? "Meal Patterns by Condition" : "Ideal Meal Pattern"}
                 </div>
                 {guides.map((guide, gi) => (
-                  <div key={condIds[gi]} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px", background:"linear-gradient(135deg, rgba(232,200,122,0.06), rgba(232,200,122,0.02))", borderLeft:`3px solid ${multi ? condColors[gi % condColors.length] : "rgba(232,200,122,0.4)"}` }}>
+                  <div key={condIds[gi]} style={{ ...S.card, padding:"18px 20px", marginBottom:"10px", background:"linear-gradient(135deg, rgba(255,255,255,1), rgba(232,200,122,0.02))", borderLeft:`3px solid ${multi ? condColors[gi % condColors.length] : "rgba(232,200,122,0.4)"}` }}>
                     {multi && (
                       <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"10px" }}>
                         <span style={{ fontSize:"14px" }}>{guide.emoji}</span>
@@ -11617,10 +11618,10 @@ function NeuroThriveApp() {
                       </div>
                     )}
                     <div style={{ display:"grid", gap:"8px" }}>
-                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Frequency: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.frequency}</span></div>
-                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Macro Split: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.macroSplit}</span></div>
-                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Timing: </span><span style={{ color:"#c8ccf0", fontSize:"12px" }}>{guide.mealPattern.timing}</span></div>
-                      <div style={{ marginTop:"4px", padding:"10px 14px", borderRadius:"10px", background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.12)" }}>
+                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Frequency: </span><span style={{ color:"#3D4663", fontSize:"12px" }}>{guide.mealPattern.frequency}</span></div>
+                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Macro Split: </span><span style={{ color:"#3D4663", fontSize:"12px" }}>{guide.mealPattern.macroSplit}</span></div>
+                      <div><span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Timing: </span><span style={{ color:"#3D4663", fontSize:"12px" }}>{guide.mealPattern.timing}</span></div>
+                      <div style={{ marginTop:"4px", padding:"10px 14px", borderRadius:"10px", background:"rgba(255,255,255,1)", border:"1px solid rgba(232,200,122,0.12)" }}>
                         <span style={{ color:"#e8c87a", fontSize:"11px", fontWeight:"700" }}>Key Rule: </span><span style={{ color:"#d4c8a0", fontSize:"12px", lineHeight:1.6 }}>{guide.mealPattern.keyRule}</span>
                       </div>
                     </div>
@@ -11628,14 +11629,14 @@ function NeuroThriveApp() {
                 ))}
               </div>
 
-              <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginTop:"20px", marginBottom:"20px" }}>
-                <p style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.6, margin:0 }}>This guide is informed by neuroscience research on nutrition and brain chemistry. It is not a substitute for professional medical advice. Always consult your doctor before making significant dietary changes.</p>
+              <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", marginTop:"20px", marginBottom:"20px" }}>
+                <p style={{ color:"#3D4663", fontSize:"11px", lineHeight:1.6, margin:0 }}>This guide is informed by neuroscience research on nutrition and brain chemistry. It is not a substitute for professional medical advice. Always consult your doctor before making significant dietary changes.</p>
               </div>
 
               {!brainOptimized && (
-                <div onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ padding:"16px 20px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(80,200,120,0.04))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"20px", cursor:"pointer", textAlign:"center" }}>
+                <div onClick={() => { setBrainOptimized(true); buildMenu(menu30 && menu30.length > 0, true); }} style={{ padding:"16px 20px", borderRadius:"16px", background:"linear-gradient(135deg, rgba(80,200,120,0.1), rgba(255,255,255,1))", border:"1px solid rgba(80,200,120,0.2)", marginBottom:"20px", cursor:"pointer", textAlign:"center" }}>
                   <div style={{ color:"#50c878", fontSize:"14px", fontWeight:"700", marginBottom:"4px" }}>Build this menu for me</div>
-                  <div style={{ color:"#6b7394", fontSize:"11px" }}>Generate a brain-optimized 30-day menu based on these recommendations</div>
+                  <div style={{ color:"#4A5478", fontSize:"11px" }}>Generate a brain-optimized 30-day menu based on these recommendations</div>
                 </div>
               )}
 
@@ -11675,7 +11676,7 @@ function NeuroThriveApp() {
             });
           });
 
-          const getCuisineInfo = (id) => cuisines.find(c => c.id === id) || { label: "General", emoji: "🍽️", color: "#7b9fff" };
+          const getCuisineInfo = (id) => cuisines.find(c => c.id === id) || { label: "General", emoji: "🍽️", color: "#5F89F8" };
 
           return (
             <div>
@@ -11692,13 +11693,13 @@ function NeuroThriveApp() {
                   style={{ ...S.textarea, padding:"14px 18px 14px 44px", borderRadius:"14px", fontSize:"15px", width:"100%", boxSizing:"border-box" }}
                 />
                 <span style={{ position:"absolute", left:"16px", top:"50%", transform:"translateY(-50%)", fontSize:"18px", opacity:0.5 }}>🔍</span>
-                {recipeSearch && <button onClick={() => setRecipeSearch("")} style={{ position:"absolute", right:"14px", top:"50%", transform:"translateY(-50%)", background:"rgba(255,255,255,0.1)", border:"none", borderRadius:"50%", width:"24px", height:"24px", color:"#a0a8e8", cursor:"pointer", fontSize:"13px", fontWeight:"700" }}>×</button>}
+                {recipeSearch && <button onClick={() => setRecipeSearch("")} style={{ position:"absolute", right:"14px", top:"50%", transform:"translateY(-50%)", background:"rgba(255,255,255,0.1)", border:"none", borderRadius:"50%", width:"24px", height:"24px", color:"#4A5478", cursor:"pointer", fontSize:"13px", fontWeight:"700" }}>×</button>}
               </div>
 
               {/* Category pills */}
               <div style={{ display:"flex", gap:"8px", overflowX:"auto", marginBottom:"12px", paddingBottom:"4px" }}>
                 {cats.map(c => (
-                  <button key={c.id} onClick={() => setRecipeCat(c.id)} style={{ padding:"8px 16px", borderRadius:"20px", border: recipeCat === c.id ? "none" : "1px solid rgba(110,120,200,0.2)", background: recipeCat === c.id ? "linear-gradient(135deg,#7b9fff,#50c878)" : "rgba(255,255,255,0.09)", color: recipeCat === c.id ? "#fff" : "#8898c8", fontSize:"13px", fontWeight:"600", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0 }}>
+                  <button key={c.id} onClick={() => setRecipeCat(c.id)} style={{ padding:"8px 16px", borderRadius:"20px", border: recipeCat === c.id ? "none" : "1px solid rgba(49,60,98,0.15)", background: recipeCat === c.id ? "linear-gradient(135deg,#5F89F8,#50c878)" : "rgba(255,255,255,1)", color: recipeCat === c.id ? "#fff" : "#4A5478", fontSize:"13px", fontWeight:"600", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0 }}>
                     {c.emoji} {c.label}
                   </button>
                 ))}
@@ -11707,7 +11708,7 @@ function NeuroThriveApp() {
               {/* Cuisine pills */}
               <div style={{ display:"flex", gap:"8px", overflowX:"auto", marginBottom:"20px", paddingBottom:"4px" }}>
                 {cuisines.map(c => (
-                  <button key={c.id} onClick={() => setRecipeCuisine(c.id)} style={{ padding:"7px 14px", borderRadius:"20px", border: recipeCuisine === c.id ? "none" : "1px solid rgba(110,120,200,0.15)", background: recipeCuisine === c.id ? `${c.color || "#7b9fff"}` : "rgba(255,255,255,0.08)", color: recipeCuisine === c.id ? "#fff" : "#6b7ba8", fontSize:"12px", fontWeight:"600", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0 }}>
+                  <button key={c.id} onClick={() => setRecipeCuisine(c.id)} style={{ padding:"7px 14px", borderRadius:"20px", border: recipeCuisine === c.id ? "none" : "1px solid rgba(49,60,98,0.12)", background: recipeCuisine === c.id ? `${c.color || "#5F89F8"}` : "rgba(255,255,255,1)", color: recipeCuisine === c.id ? "#fff" : "#6b7ba8", fontSize:"12px", fontWeight:"600", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0 }}>
                     {c.emoji} {c.label}
                   </button>
                 ))}
@@ -11719,7 +11720,7 @@ function NeuroThriveApp() {
               {/* Recipe cards */}
               {allMeals.length === 0 && (
                 <div style={{ ...S.card, textAlign:"center", padding:"40px 20px" }}>
-                  <p style={{ fontSize:"16px", color:"#8898c8", marginBottom:"8px" }}>No recipes match your search</p>
+                  <p style={{ fontSize:"16px", color:"#4A5478", marginBottom:"8px" }}>No recipes match your search</p>
                   <p style={{ fontSize:"13px", color:"#6b7ba8" }}>Try different keywords or clear filters</p>
                 </div>
               )}
@@ -11734,12 +11735,12 @@ function NeuroThriveApp() {
                     {/* Header row */}
                     <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"12px" }}>
                       <div style={{ flex:1 }}>
-                        <p style={{ fontSize:"15px", fontWeight:"600", color:"#eef0ff", margin:"0 0 6px 0", lineHeight:"1.4" }}>{meal.name}</p>
+                        <p style={{ fontSize:"15px", fontWeight:"600", color:"#313C62", margin:"0 0 6px 0", lineHeight:"1.4" }}>{meal.name}</p>
                         <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
                           {meal.cuisineTags.map(ct => { const ci = getCuisineInfo(ct); return (
-                            <span key={ct} style={{ fontSize:"11px", fontWeight:"600", color: ci.color || "#7b9fff", background:`rgba(123,159,255,0.08)`, padding:"3px 10px", borderRadius:"10px" }}>{ci.emoji} {ci.label}</span>
+                            <span key={ct} style={{ fontSize:"11px", fontWeight:"600", color: ci.color || "#5F89F8", background:`rgba(123,159,255,0.08)`, padding:"3px 10px", borderRadius:"10px" }}>{ci.emoji} {ci.label}</span>
                           ); })}
-                          <span style={{ fontSize:"11px", fontWeight:"600", color:"#8898c8", background:"rgba(255,255,255,0.09)", padding:"3px 10px", borderRadius:"10px" }}>{catLabel?.emoji} {catLabel?.label}</span>
+                          <span style={{ fontSize:"11px", fontWeight:"600", color:"#4A5478", background:"rgba(255,255,255,1)", padding:"3px 10px", borderRadius:"10px" }}>{catLabel?.emoji} {catLabel?.label}</span>
                         </div>
                       </div>
                       <span style={{ fontSize:"18px", color:"#6b7ba8", transform: isExpanded ? "rotate(180deg)" : "none", transition:"transform 0.2s", flexShrink:0, marginTop:"4px" }}>▾</span>
@@ -11751,11 +11752,11 @@ function NeuroThriveApp() {
                         <div style={{ display:"flex", gap:"12px", marginBottom:"16px" }}>
                           <div style={{ background:"rgba(123,159,255,0.08)", borderRadius:"12px", padding:"10px 16px", textAlign:"center" }}>
                             <p style={{ fontSize:"10px", fontWeight:"700", color:"#6b7ba8", letterSpacing:"1px", textTransform:"uppercase", margin:"0" }}>SERVES</p>
-                            <p style={{ fontSize:"20px", fontWeight:"700", color:"#eef0ff", margin:"4px 0 0 0" }}>{recipe.serves}</p>
+                            <p style={{ fontSize:"20px", fontWeight:"700", color:"#313C62", margin:"4px 0 0 0" }}>{recipe.serves}</p>
                           </div>
                           <div style={{ background:"rgba(123,159,255,0.08)", borderRadius:"12px", padding:"10px 16px", textAlign:"center" }}>
                             <p style={{ fontSize:"10px", fontWeight:"700", color:"#6b7ba8", letterSpacing:"1px", textTransform:"uppercase", margin:"0" }}>TIME</p>
-                            <p style={{ fontSize:"20px", fontWeight:"700", color:"#eef0ff", margin:"4px 0 0 0" }}>{recipe.time}</p>
+                            <p style={{ fontSize:"20px", fontWeight:"700", color:"#313C62", margin:"4px 0 0 0" }}>{recipe.time}</p>
                           </div>
                         </div>
 
@@ -11767,16 +11768,16 @@ function NeuroThriveApp() {
                           </div>
                         ))}
 
-                        <p style={{ fontSize:"12px", fontWeight:"700", color:"#7b9fff", letterSpacing:"1px", textTransform:"uppercase", marginTop:"20px", marginBottom:"10px" }}>INSTRUCTIONS</p>
+                        <p style={{ fontSize:"12px", fontWeight:"700", color:"#5F89F8", letterSpacing:"1px", textTransform:"uppercase", marginTop:"20px", marginBottom:"10px" }}>INSTRUCTIONS</p>
                         {recipe.steps.map((s, j) => (
                           <div key={j} style={{ display:"flex", gap:"12px", marginBottom:"12px" }}>
-                            <span style={{ width:"26px", height:"26px", borderRadius:"50%", background:"linear-gradient(135deg,#7b9fff,#50c878)", color:"#fff", fontSize:"12px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>{j+1}</span>
+                            <span style={{ width:"26px", height:"26px", borderRadius:"50%", background:"linear-gradient(135deg,#5F89F8,#50c878)", color:"#fff", fontSize:"12px", fontWeight:"700", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>{j+1}</span>
                             <span style={{ fontSize:"14px", color:"#c8d0f0", lineHeight:"1.6", flex:1 }}>{s}</span>
                           </div>
                         ))}
 
                         {recipe.tip && (
-                          <div style={{ background:"rgba(232,200,122,0.06)", border:"1px solid rgba(232,200,122,0.15)", borderRadius:"12px", padding:"14px", marginTop:"16px" }}>
+                          <div style={{ background:"rgba(255,255,255,1)", border:"1px solid rgba(232,200,122,0.15)", borderRadius:"12px", padding:"14px", marginTop:"16px" }}>
                             <p style={{ fontSize:"13px", color:"#e8c87a", margin:0, lineHeight:"1.5" }}>💡 <strong>Pro Tip:</strong> {recipe.tip}</p>
                           </div>
                         )}
@@ -11787,7 +11788,7 @@ function NeuroThriveApp() {
                             {recipe.nutrition.map((n, j) => (
                               <div key={j} style={{ display:"flex", alignItems:"flex-start", gap:"8px", marginBottom:"6px" }}>
                                 <span style={{ color:"#ba68c8", fontSize:"12px", marginTop:"3px", flexShrink:0 }}>◆</span>
-                                <span style={{ fontSize:"13px", color:"#a0a8d0", lineHeight:"1.5" }}>{n}</span>
+                                <span style={{ fontSize:"13px", color:"#4A5478", lineHeight:"1.5" }}>{n}</span>
                               </div>
                             ))}
                           </div>
@@ -11810,16 +11811,16 @@ function NeuroThriveApp() {
       {/* ── MEAL EXPLANATION + RECIPE MODAL ────────────────────────────────── */}
       {explainModal && (
         <div onClick={() => setExplainModal(null)} style={{ position:"fixed", inset:0, zIndex:1000, background:"rgba(26,26,26,0.65)", backdropFilter:"blur(8px)", display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
-          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"24px", padding:"28px", maxWidth:"560px", width:"100%", maxHeight:"85vh", overflowY:"auto", position:"relative", boxShadow:"0 32px 80px rgba(0,0,0,0.3)", zoom:"1.1" }}>
-            <button onClick={() => setExplainModal(null)} style={{ position:"absolute", top:"16px", right:"16px", background:"rgba(255,255,255,0.07)", border:"none", borderRadius:"50%", width:"32px", height:"32px", color:"#a0a8e8", cursor:"pointer", fontSize:"16px", display:"flex", alignItems:"center", justifyContent:"center", fontWeight:"700" }}>×</button>
+          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"24px", padding:"28px", maxWidth:"560px", width:"100%", maxHeight:"85vh", overflowY:"auto", position:"relative", boxShadow:"0 32px 80px rgba(0,0,0,0.3)", zoom:"1.1" }}>
+            <button onClick={() => setExplainModal(null)} style={{ position:"absolute", top:"16px", right:"16px", background:"rgba(255,255,255,1)", border:"none", borderRadius:"50%", width:"32px", height:"32px", color:"#4A5478", cursor:"pointer", fontSize:"16px", display:"flex", alignItems:"center", justifyContent:"center", fontWeight:"700" }}>×</button>
 
-            <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(80,112,240,0.12)", color:"#7b9fff", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>{explainModal.mealType}</div>
-            <h3 style={{ fontSize:"18px", color:"#eef0ff", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"18px", lineHeight:1.3, paddingRight:"32px" }}>{explainModal.meal}</h3>
+            <div style={{ display:"inline-block", padding:"4px 12px", borderRadius:"20px", background:"rgba(80,112,240,0.12)", color:"#5F89F8", fontSize:"10px", letterSpacing:"2px", textTransform:"uppercase", fontWeight:"700", marginBottom:"10px" }}>{explainModal.mealType}</div>
+            <h3 style={{ fontSize:"18px", color:"#313C62", fontWeight:"700", letterSpacing:"-0.3px", marginBottom:"18px", lineHeight:1.3, paddingRight:"32px" }}>{explainModal.meal}</h3>
 
             {/* Tabs */}
             <div style={{ display:"flex", gap:"8px", marginBottom:"20px" }}>
-              <button onClick={() => handleModalTab("why")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="why"?"1.5px solid #7b9fff":"1px solid rgba(110,120,200,0.18)", background:modalTab==="why"?"rgba(107,143,255,0.15)":"rgba(240,244,255,0.04)", color:modalTab==="why"?"#9db5ff":"#8890b8", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Why This?</button>
-              <button onClick={() => handleModalTab("recipe")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="recipe"?"1.5px solid #5570f0":"1px solid rgba(110,120,200,0.18)", background:modalTab==="recipe"?"#5570f0":"rgba(240,244,255,0.04)", color:modalTab==="recipe"?"#fff":"#8890b8", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Recipe</button>
+              <button onClick={() => handleModalTab("why")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="why"?"1.5px solid #5F89F8":"1px solid rgba(110,120,200,0.18)", background:modalTab==="why"?"rgba(255,255,255,1)":"rgba(240,244,255,0.04)", color:modalTab==="why"?"#5F89F8":"#3D4663", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Why This?</button>
+              <button onClick={() => handleModalTab("recipe")} style={{ flex:1, padding:"10px", borderRadius:"12px", border:modalTab==="recipe"?"1.5px solid #5F89F8":"1px solid rgba(110,120,200,0.18)", background:modalTab==="recipe"?"#5F89F8":"rgba(240,244,255,0.04)", color:modalTab==="recipe"?"#fff":"#3D4663", fontSize:"13px", fontWeight:"700", cursor:"pointer", transition:"all 0.15s" }}>Recipe</button>
             </div>
 
             <div style={{ height:"1px", background:"rgba(110,120,200,0.12)", marginBottom:"18px" }} />
@@ -11831,13 +11832,13 @@ function NeuroThriveApp() {
                   <div style={{ marginBottom:"16px", padding:"12px 16px", borderRadius:"14px", background: gn.phase ? "rgba(168,120,210,0.08)" : "rgba(80,160,220,0.08)", border: gn.phase ? "1px solid rgba(168,120,210,0.2)" : "1px solid rgba(80,160,220,0.2)" }}>
                     <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"4px" }}>
                       <span style={{ fontSize:"14px" }}>{gn.phase ? gn.phase.emoji : "♂️"}</span>
-                      <span style={{ color: gn.phase ? "#c8a0e8" : "#50a0dc", fontSize:"13px", fontWeight:"700" }}>{gn.phase ? `${gn.phase.label} · Day ${gn.phase.day}` : "Men's Health"}</span>
+                      <span style={{ color: gn.phase ? "#7B5EA0" : "#50a0dc", fontSize:"13px", fontWeight:"700" }}>{gn.phase ? `${gn.phase.label} · Day ${gn.phase.day}` : "Men's Health"}</span>
                     </div>
                     <div style={{ color: gn.phase ? "#d4b8f0" : "#80c0e8", fontSize:"13px", lineHeight:1.6 }}>{gn.short}</div>
-                    {gn.detail && <div style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.6, marginTop:"6px" }}>{gn.detail}</div>}
+                    {gn.detail && <div style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.6, marginTop:"6px" }}>{gn.detail}</div>}
                   </div>
                 );})()}
-                <div style={{ color:"#c8ccf0", fontSize:"14px", lineHeight:1.9, whiteSpace:"pre-wrap" }}>{explainText}</div>
+                <div style={{ color:"#3D4663", fontSize:"14px", lineHeight:1.9, whiteSpace:"pre-wrap" }}>{explainText}</div>
               </div>
             )}
 
@@ -11848,45 +11849,45 @@ function NeuroThriveApp() {
                 <div>
                   <div style={{ display:"flex", gap:"12px", marginBottom:"22px" }}>
                     <div style={{ padding:"10px 18px", borderRadius:"12px", background:"rgba(240,244,255,0.06)", border:"1px solid rgba(110,120,200,0.16)", textAlign:"center" }}>
-                      <div style={{ fontSize:"10px", color:"#8890b8", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700" }}>Serves</div>
-                      <div style={{ fontSize:"18px", color:"#eef0ff", fontWeight:"700", marginTop:"2px" }}>{recipe.serves}</div>
+                      <div style={{ fontSize:"10px", color:"#3D4663", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700" }}>Serves</div>
+                      <div style={{ fontSize:"18px", color:"#313C62", fontWeight:"700", marginTop:"2px" }}>{recipe.serves}</div>
                     </div>
                     <div style={{ padding:"10px 18px", borderRadius:"12px", background:"rgba(240,244,255,0.06)", border:"1px solid rgba(110,120,200,0.16)", textAlign:"center" }}>
-                      <div style={{ fontSize:"10px", color:"#8890b8", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700" }}>Time</div>
-                      <div style={{ fontSize:"18px", color:"#eef0ff", fontWeight:"700", marginTop:"2px" }}>{recipe.time}</div>
+                      <div style={{ fontSize:"10px", color:"#3D4663", letterSpacing:"1.5px", textTransform:"uppercase", fontWeight:"700" }}>Time</div>
+                      <div style={{ fontSize:"18px", color:"#313C62", fontWeight:"700", marginTop:"2px" }}>{recipe.time}</div>
                     </div>
                   </div>
                   <div style={{ marginBottom:"22px" }}>
-                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"12px" }}>Ingredients</div>
+                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#5F89F8", fontWeight:"700", marginBottom:"12px" }}>Ingredients</div>
                     {recipe.ingredients.map((ing, i) => (
-                      <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:"10px", padding:"8px 0", borderBottom:"1px solid rgba(110,120,200,0.1)", color:"#c8ccf0", fontSize:"14px" }}>
-                        <span style={{ color:"#7b9fff", flexShrink:0, fontWeight:"700" }}>•</span>{ing}
+                      <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:"10px", padding:"8px 0", borderBottom:"1px solid rgba(110,120,200,0.1)", color:"#3D4663", fontSize:"14px" }}>
+                        <span style={{ color:"#5F89F8", flexShrink:0, fontWeight:"700" }}>•</span>{ing}
                       </div>
                     ))}
                   </div>
                   <div style={{ marginBottom:"20px" }}>
-                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#7b9fff", fontWeight:"700", marginBottom:"12px" }}>Instructions</div>
+                    <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"2px", color:"#5F89F8", fontWeight:"700", marginBottom:"12px" }}>Instructions</div>
                     {recipe.steps.map((s, i) => (
                       <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:"12px", marginBottom:"14px" }}>
-                        <div style={{ minWidth:"24px", height:"24px", borderRadius:"50%", background:"#5570f0", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{i+1}</div>
+                        <div style={{ minWidth:"24px", height:"24px", borderRadius:"50%", background:"#5F89F8", color:"#fff", fontSize:"11px", fontWeight:"800", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"1px" }}>{i+1}</div>
                         <div style={{ color:"#b8c0f8", fontSize:"14px", lineHeight:1.7 }}>{s}</div>
                       </div>
                     ))}
                   </div>
                   {recipe.nutrition && recipe.nutrition.length > 0 && (
                     <div style={{ marginBottom:"16px", padding:"14px 18px", borderRadius:"14px", background:"rgba(80,112,240,0.07)", border:"1.5px solid rgba(80,112,240,0.18)" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#7b9fff", fontWeight:"700", marginBottom:"10px" }}>🧠 Brain Nutrition Highlights</div>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#5F89F8", fontWeight:"700", marginBottom:"10px" }}>🧠 Brain Nutrition Highlights</div>
                       {recipe.nutrition.map((n, i) => (
                         <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:"8px", marginBottom:"6px", color:"#b8c0f8", fontSize:"13px", lineHeight:1.6 }}>
-                          <span style={{ color:"#7b9fff", flexShrink:0 }}>✦</span>{n}
+                          <span style={{ color:"#5F89F8", flexShrink:0 }}>✦</span>{n}
                         </div>
                       ))}
                     </div>
                   )}
                   {recipe.tip && (
-                    <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.07)", border:"1.5px solid rgba(107,143,255,0.18)" }}>
-                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#7b9fff", fontWeight:"700", marginBottom:"6px" }}>Pro Tip</div>
-                      <div style={{ color:"#a0a8e8", fontSize:"13px", lineHeight:1.65 }}>{recipe.tip}</div>
+                    <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.07)", border:"1.5px solid rgba(255,255,255,1)" }}>
+                      <div style={{ fontSize:"10px", textTransform:"uppercase", letterSpacing:"1.5px", color:"#5F89F8", fontWeight:"700", marginBottom:"6px" }}>Pro Tip</div>
+                      <div style={{ color:"#4A5478", fontSize:"13px", lineHeight:1.65 }}>{recipe.tip}</div>
                     </div>
                   )}
                 </div>
@@ -11894,25 +11895,25 @@ function NeuroThriveApp() {
             })()}
 
             <div style={{ marginTop:"24px", textAlign:"center" }}>
-              <button onClick={() => setExplainModal(null)} style={{ background:"#5570f0", color:"#fff", border:"none", padding:"11px 28px", borderRadius:"50px", fontSize:"13px", fontWeight:"700", cursor:"pointer" }}>Done ✓</button>
+              <button onClick={() => setExplainModal(null)} style={{ background:"#5F89F8", color:"#fff", border:"none", padding:"11px 28px", borderRadius:"50px", fontSize:"13px", fontWeight:"700", cursor:"pointer" }}>Done ✓</button>
             </div>
           </div>
         </div>
       )}
 
       {/* ── Copyright Footer ── */}
-      <footer style={{ textAlign:"center", padding:"32px 24px 28px", borderTop:"1px solid rgba(107,143,255,0.15)", marginTop:"24px" }}>
-        <div style={{ fontSize:"13px", color:"#8890b8", fontFamily:"'Inter',sans-serif", letterSpacing:"0.3px" }}>
+      <footer style={{ textAlign:"center", padding:"32px 24px 28px", borderTop:"1px solid rgba(255,255,255,1)", marginTop:"24px" }}>
+        <div style={{ fontSize:"13px", color:"#3D4663", fontFamily:"'Inter',sans-serif", letterSpacing:"0.3px" }}>
           © {new Date().getFullYear()} NeuroThrive. All rights reserved.
         </div>
         <div style={{ fontSize:"11px", color:"rgba(136,144,184,0.5)", marginTop:"6px", letterSpacing:"0.5px" }}>
           Proprietary content. Unauthorized reproduction or distribution is prohibited.
         </div>
         <div style={{ display:"flex", justifyContent:"center", gap:"20px", marginTop:"12px", flexWrap:"wrap" }}>
-          <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Terms of Service</button>
-          <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Privacy Policy</button>
-          <button onClick={() => setDisclaimerAccepted(false)} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Health Disclaimer</button>
-          <button onClick={() => { setRefsExpanded(null); setLegalPage("references"); }} style={{ color:"#7b9fff", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Scientific References</button>
+          <button onClick={() => setLegalPage("terms")} style={{ color:"#5F89F8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Terms of Service</button>
+          <button onClick={() => setLegalPage("privacy")} style={{ color:"#5F89F8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Privacy Policy</button>
+          <button onClick={() => setDisclaimerAccepted(false)} style={{ color:"#3D4663", background:"none", border:"none", fontSize:"12px", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Health Disclaimer</button>
+          <button onClick={() => { setRefsExpanded(null); setLegalPage("references"); }} style={{ color:"#5F89F8", background:"none", border:"none", fontSize:"12px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Scientific References</button>
         </div>
         {user && (
           <div style={{ marginTop:"16px" }}>
@@ -11922,7 +11923,7 @@ function NeuroThriveApp() {
               <div style={{ display:"inline-flex", alignItems:"center", gap:"10px", padding:"10px 16px", borderRadius:"12px", background:"rgba(224,96,96,0.08)", border:"1px solid rgba(224,96,96,0.25)" }}>
                 <span style={{ color:"#e06060", fontSize:"12px" }}>Permanently delete all your data?</span>
                 <button onClick={handleDeleteAccount} style={{ color:"#fff", background:"#e06060", border:"none", fontSize:"11px", fontWeight:"700", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Inter',sans-serif" }}>Yes, Delete</button>
-                <button onClick={() => setDeleteConfirm(false)} style={{ color:"#8890b8", background:"none", border:"1px solid rgba(110,120,200,0.25)", fontSize:"11px", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Inter',sans-serif" }}>Cancel</button>
+                <button onClick={() => setDeleteConfirm(false)} style={{ color:"#3D4663", background:"none", border:"1px solid rgba(110,120,200,0.25)", fontSize:"11px", cursor:"pointer", padding:"6px 14px", borderRadius:"8px", fontFamily:"'Inter',sans-serif" }}>Cancel</button>
               </div>
             )}
           </div>
@@ -11940,8 +11941,8 @@ function NeuroThriveApp() {
           <div style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.95)", zIndex:300, overflowY:"auto", padding:"24px", backdropFilter:"blur(12px)" }}>
             <div style={{ maxWidth:"520px", margin:"0 auto", fontFamily:"'Inter',sans-serif", zoom:"1.1" }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: condKeys.length > 1 ? "16px" : "24px" }}>
-                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"30px", fontWeight:"300", color:"#eef0ff", margin:0 }}>{brain.emoji} {brain.title}</h2>
-                <button onClick={() => setShowBrainExplainer(false)} style={{ background:"rgba(110,120,200,0.15)", border:"none", color:"#8890b8", fontSize:"18px", width:"36px", height:"36px", borderRadius:"50%", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"30px", fontWeight:"300", color:"#313C62", margin:0 }}>{brain.emoji} {brain.title}</h2>
+                <button onClick={() => setShowBrainExplainer(false)} style={{ background:"rgba(49,60,98,0.12)", border:"none", color:"#3D4663", fontSize:"18px", width:"36px", height:"36px", borderRadius:"50%", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
               </div>
 
               {condKeys.length > 1 && (
@@ -11950,40 +11951,40 @@ function NeuroThriveApp() {
                     const b = BRAIN_ON_CONDITION[ck];
                     const isActive = ck === activeBrainTab;
                     return (
-                      <button key={ck} onClick={() => setBrainExplainerTab(ck)} style={{ padding:"9px 16px", borderRadius:"12px", border: isActive ? "1.5px solid #5570f0" : "1px solid rgba(110,120,200,0.25)", background: isActive ? "rgba(85,112,240,0.18)" : "transparent", color: isActive ? "#a0b8ff" : "#8898c8", fontSize:"14px", fontWeight: isActive ? "700" : "500", cursor:"pointer", transition:"all 0.15s" }}>{b ? b.emoji : "🧠"} {b ? b.title.replace("Your Brain on ","") : ck}</button>
+                      <button key={ck} onClick={() => setBrainExplainerTab(ck)} style={{ padding:"9px 16px", borderRadius:"12px", border: isActive ? "1.5px solid #5F89F8" : "1px solid rgba(110,120,200,0.25)", background: isActive ? "rgba(85,112,240,0.18)" : "transparent", color: isActive ? "#4A5478" : "#4A5478", fontSize:"14px", fontWeight: isActive ? "700" : "500", cursor:"pointer", transition:"all 0.15s" }}>{b ? b.emoji : "🧠"} {b ? b.title.replace("Your Brain on ","") : ck}</button>
                     );
                   })}
                 </div>
               )}
 
-              <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.8, marginBottom:"24px" }}>{brain.overview}</p>
+              <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.8, marginBottom:"24px" }}>{brain.overview}</p>
 
-              <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"14px" }}>Neurotransmitter Profile</div>
+              <div style={{ fontSize:"12px", color:"#5F89F8", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"14px" }}>Neurotransmitter Profile</div>
               {brain.neurotransmitters.map((nt, i) => (
-                <div key={i} style={{ padding:"18px", borderRadius:"14px", background:"rgba(107,143,255,0.05)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"12px" }}>
+                <div key={i} style={{ padding:"18px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"12px" }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
-                    <span style={{ color:"#eef0ff", fontSize:"16px", fontWeight:"700" }}>{nt.name}</span>
-                    <span style={{ padding:"4px 12px", borderRadius:"20px", fontSize:"12px", fontWeight:"700", background: nt.status === "Low" || nt.status === "Depleted" ? "rgba(224,96,96,0.12)" : nt.status === "Elevated" || nt.status === "High" ? "rgba(224,180,96,0.12)" : "rgba(107,143,255,0.12)", color: nt.status === "Low" || nt.status === "Depleted" ? "#e06060" : nt.status === "Elevated" || nt.status === "High" ? "#e0b460" : "#7b9fff" }}>{nt.status}</span>
+                    <span style={{ color:"#313C62", fontSize:"16px", fontWeight:"700" }}>{nt.name}</span>
+                    <span style={{ padding:"4px 12px", borderRadius:"20px", fontSize:"12px", fontWeight:"700", background: nt.status === "Low" || nt.status === "Depleted" ? "rgba(224,96,96,0.12)" : nt.status === "Elevated" || nt.status === "High" ? "rgba(224,180,96,0.12)" : "rgba(107,143,255,0.12)", color: nt.status === "Low" || nt.status === "Depleted" ? "#e06060" : nt.status === "Elevated" || nt.status === "High" ? "#e0b460" : "#5F89F8" }}>{nt.status}</span>
                   </div>
-                  <p style={{ color:"#a0a8e8", fontSize:"14px", lineHeight:1.6, margin:"0 0 6px 0" }}><strong style={{ color:"#c8ccf0" }}>Role:</strong> {nt.role}</p>
-                  <p style={{ color:"#a0a8e8", fontSize:"14px", lineHeight:1.6, margin:"0 0 6px 0" }}><strong style={{ color:"#c8ccf0" }}>Impact:</strong> {nt.impact}</p>
+                  <p style={{ color:"#4A5478", fontSize:"14px", lineHeight:1.6, margin:"0 0 6px 0" }}><strong style={{ color:"#3D4663" }}>Role:</strong> {nt.role}</p>
+                  <p style={{ color:"#4A5478", fontSize:"14px", lineHeight:1.6, margin:"0 0 6px 0" }}><strong style={{ color:"#3D4663" }}>Impact:</strong> {nt.impact}</p>
                   <p style={{ color:"#50c878", fontSize:"14px", lineHeight:1.6, margin:0 }}><strong style={{ color:"#70d898" }}>Nutrition:</strong> {nt.nutrition}</p>
                 </div>
               ))}
 
               {brain.brainRegions && (
                 <>
-                  <div style={{ fontSize:"12px", color:"#7b9fff", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", margin:"24px 0 14px 0" }}>Brain Regions Affected</div>
-                  <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:"0 0 24px 0" }}>{brain.brainRegions}</p>
+                  <div style={{ fontSize:"12px", color:"#5F89F8", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", margin:"24px 0 14px 0" }}>Brain Regions Affected</div>
+                  <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.7, margin:"0 0 24px 0" }}>{brain.brainRegions}</p>
                 </>
               )}
 
               <div style={{ padding:"20px", borderRadius:"16px", background:"rgba(80,200,120,0.05)", border:"1px solid rgba(80,200,120,0.15)", marginBottom:"24px" }}>
                 <div style={{ fontSize:"12px", color:"#50c878", fontWeight:"700", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"8px" }}>How Your Nutrition Helps</div>
-                <p style={{ color:"#c8ccf0", fontSize:"15px", lineHeight:1.7, margin:0 }}>{brain.howNutritionHelps}</p>
+                <p style={{ color:"#3D4663", fontSize:"15px", lineHeight:1.7, margin:0 }}>{brain.howNutritionHelps}</p>
               </div>
 
-              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Close</button>
+              <button onClick={() => setShowBrainExplainer(false)} style={{ width:"100%", padding:"16px", borderRadius:"50px", background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", fontSize:"15px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Close</button>
             </div>
           </div>
         );
@@ -11997,13 +11998,13 @@ function NeuroThriveApp() {
             {/* Header */}
             <div style={{ textAlign:"center", marginBottom:"32px" }}>
               <div style={{ fontSize:"48px", marginBottom:"12px" }}>🧠</div>
-              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#eef0ff", margin:"0 0 8px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
-              <p style={{ color:"#8890b8", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalized plan is ready; unlock it to get started.</p>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"36px", fontWeight:"300", color:"#313C62", margin:"0 0 8px 0", letterSpacing:"1px" }}>Unlock NeuroThrive Premium</h2>
+              <p style={{ color:"#3D4663", fontSize:"15px", margin:0, lineHeight:1.6 }}>You've completed your profile. Your personalized plan is ready; unlock it to get started.</p>
             </div>
 
             {/* Features list */}
-            <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(107,143,255,0.18)", borderRadius:"16px", padding:"20px 24px", marginBottom:"24px" }}>
-              <div style={{ fontSize:"11px", color:"#7b9fff", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"14px" }}>Everything included</div>
+            <div style={{ background:"rgba(107,143,255,0.07)", border:"1px solid rgba(255,255,255,1)", borderRadius:"16px", padding:"20px 24px", marginBottom:"24px" }}>
+              <div style={{ fontSize:"11px", color:"#5F89F8", textTransform:"uppercase", letterSpacing:"2px", fontWeight:"700", marginBottom:"14px" }}>Everything included</div>
               {[
                 "30-day personalized mental health meal plan",
                 "Evidence-based supplement guidance for your conditions",
@@ -12013,51 +12014,51 @@ function NeuroThriveApp() {
                 "Unlimited plan regeneration & cycle tracking",
                 "New content added regularly",
               ].map((f, i) => (
-                <div key={i} style={{ display:"flex", alignItems:"center", gap:"10px", color:"#c8ccf0", fontSize:"14px", lineHeight:1.7, padding:"5px 0", borderBottom: i < 6 ? "1px solid rgba(107,143,255,0.15)" : "none" }}><span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#50c878", flexShrink:0 }} />{f}</div>
+                <div key={i} style={{ display:"flex", alignItems:"center", gap:"10px", color:"#3D4663", fontSize:"14px", lineHeight:1.7, padding:"5px 0", borderBottom: i < 6 ? "1px solid rgba(255,255,255,1)" : "none" }}><span style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#50c878", flexShrink:0 }} />{f}</div>
               ))}
             </div>
 
             {/* Pricing cards */}
             <div style={{ display:"flex", gap:"14px", marginBottom:"20px", flexWrap:"wrap" }}>
               {/* Annual: highlighted */}
-              <div style={{ flex:1, minWidth:"200px", background:"linear-gradient(135deg, rgba(85,112,240,0.2), rgba(107,143,255,0.18))", border:"1.5px solid #7b9fff", borderRadius:"18px", padding:"22px 20px", position:"relative", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("annual")}>
-                <div style={{ position:"absolute", top:"-12px", left:"50%", transform:"translateX(-50%)", background:"linear-gradient(135deg,#5570f0,#7b9fff)", borderRadius:"20px", padding:"4px 14px", fontSize:"11px", fontWeight:"700", color:"#fff", letterSpacing:"1px", whiteSpace:"nowrap" }}>BEST VALUE: SAVE 50%</div>
-                <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px", marginTop:"8px" }}>$59.99</div>
-                <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per year</div>
-                <div style={{ color:"#8890b8", fontSize:"12px" }}>Just $5/month</div>
-                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
+              <div style={{ flex:1, minWidth:"200px", background:"linear-gradient(135deg, rgba(85,112,240,0.2), rgba(255,255,255,1))", border:"1.5px solid #5F89F8", borderRadius:"18px", padding:"22px 20px", position:"relative", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("annual")}>
+                <div style={{ position:"absolute", top:"-12px", left:"50%", transform:"translateX(-50%)", background:"linear-gradient(135deg,#5F89F8,#5F89F8)", borderRadius:"20px", padding:"4px 14px", fontSize:"11px", fontWeight:"700", color:"#fff", letterSpacing:"1px", whiteSpace:"nowrap" }}>BEST VALUE: SAVE 50%</div>
+                <div style={{ color:"#313C62", fontSize:"22px", fontWeight:"700", marginBottom:"4px", marginTop:"8px" }}>$59.99</div>
+                <div style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per year</div>
+                <div style={{ color:"#3D4663", fontSize:"12px" }}>Just $5/month</div>
+                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
                   {checkoutLoading === "annual" ? "Redirecting..." : "Start Annual Plan →"}
                 </button>
               </div>
 
               {/* Monthly */}
-              <div style={{ flex:1, minWidth:"200px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(110,120,200,0.2)", borderRadius:"18px", padding:"22px 20px", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("monthly")}>
-                <div style={{ color:"#eef0ff", fontSize:"22px", fontWeight:"700", marginBottom:"4px" }}>$9.99</div>
-                <div style={{ color:"#8890b8", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per month</div>
-                <div style={{ color:"#8890b8", fontSize:"12px" }}>Cancel anytime</div>
-                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"rgba(107,143,255,0.15)", color:"#7b9fff", border:"1px solid rgba(107,143,255,0.3)", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
+              <div style={{ flex:1, minWidth:"200px", background:"rgba(240,244,255,0.04)", border:"1px solid rgba(49,60,98,0.15)", borderRadius:"18px", padding:"22px 20px", cursor:"pointer" }} onClick={() => !checkoutLoading && startCheckout("monthly")}>
+                <div style={{ color:"#313C62", fontSize:"22px", fontWeight:"700", marginBottom:"4px" }}>$9.99</div>
+                <div style={{ color:"#3D4663", fontSize:"13px", fontWeight:"500", marginBottom:"8px" }}>per month</div>
+                <div style={{ color:"#3D4663", fontSize:"12px" }}>Cancel anytime</div>
+                <button disabled={!!checkoutLoading} style={{ marginTop:"16px", width:"100%", padding:"12px", borderRadius:"50px", background:"rgba(255,255,255,1)", color:"#5F89F8", border:"1px solid rgba(107,143,255,0.3)", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif", opacity: checkoutLoading ? 0.7 : 1 }}>
                   {checkoutLoading === "monthly" ? "Redirecting..." : "Start Monthly Plan"}
                 </button>
               </div>
             </div>
 
             <div style={{ textAlign:"center" }}>
-              <p style={{ color:"#8890b8", fontSize:"12px", lineHeight:1.7, margin:"0 0 8px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
-              <p style={{ color:"rgba(136,144,184,0.6)", fontSize:"10px", lineHeight:1.6, margin:"0 0 12px 0" }}>Subscriptions auto-renew at the end of each billing period at the current price unless cancelled at least 24 hours before the period ends. By subscribing you agree to our <button onClick={() => setLegalPage("terms")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Terms</button> and <button onClick={() => setLegalPage("privacy")} style={{ color:"#7b9fff", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Privacy Policy</button>.</p>
-              <button onClick={() => { setShowPaywall(false); setStep(2); }} style={{ color:"#8890b8", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>← Go back</button>
+              <p style={{ color:"#3D4663", fontSize:"12px", lineHeight:1.7, margin:"0 0 8px 0" }}>🔒 Secure payment via Stripe. Cancel anytime. No hidden fees.</p>
+              <p style={{ color:"rgba(136,144,184,0.6)", fontSize:"10px", lineHeight:1.6, margin:"0 0 12px 0" }}>Subscriptions auto-renew at the end of each billing period at the current price unless cancelled at least 24 hours before the period ends. By subscribing you agree to our <button onClick={() => setLegalPage("terms")} style={{ color:"#5F89F8", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Terms</button> and <button onClick={() => setLegalPage("privacy")} style={{ color:"#5F89F8", background:"none", border:"none", padding:0, cursor:"pointer", fontSize:"10px", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>Privacy Policy</button>.</p>
+              <button onClick={() => { setShowPaywall(false); setStep(2); }} style={{ color:"#3D4663", background:"none", border:"none", fontSize:"13px", cursor:"pointer", textDecoration:"underline", fontFamily:"'Inter',sans-serif" }}>← Go back</button>
             </div>
           </div>
         </div>
       )}
       {legalPage && (
         <div onClick={() => setLegalPage(null)} style={{ position:"fixed", inset:0, background:"rgba(5,8,16,0.92)", zIndex:200, display:"flex", alignItems:"flex-start", justifyContent:"center", padding:"24px", overflowY:"auto", backdropFilter:"blur(8px)" }}>
-          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#222848,#283050)", borderRadius:"24px", padding:"36px 32px", maxWidth:"640px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 32px 80px rgba(0,0,0,0.5)", marginTop:"24px", zoom:"1.1" }}>
-            <button onClick={() => setLegalPage(null)} style={{ position:"absolute", top:"20px", right:"20px", background:"rgba(107,143,255,0.18)", border:"1px solid rgba(107,143,255,0.2)", color:"#7b9fff", borderRadius:"50%", width:"32px", height:"32px", cursor:"pointer", fontSize:"16px", display:"flex", alignItems:"center", justifyContent:"center" }}>×</button>
+          <div onClick={e => e.stopPropagation()} style={{ background:"linear-gradient(145deg,#ffffff,#f4f5fa)", borderRadius:"24px", padding:"36px 32px", maxWidth:"640px", width:"100%", border:"1px solid rgba(107,143,255,0.2)", boxShadow:"0 32px 80px rgba(0,0,0,0.1)", marginTop:"24px", zoom:"1.1" }}>
+            <button onClick={() => setLegalPage(null)} style={{ position:"absolute", top:"20px", right:"20px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.2)", color:"#5F89F8", borderRadius:"50%", width:"32px", height:"32px", cursor:"pointer", fontSize:"16px", display:"flex", alignItems:"center", justifyContent:"center" }}>×</button>
 
             {legalPage === "terms" && (
               <div>
-                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", marginBottom:"6px" }}>Terms of Service</h2>
-                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#313C62", marginBottom:"6px" }}>Terms of Service</h2>
+                <p style={{ color:"#5F89F8", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
                 {[
                   { title:"1. Acceptance of Terms", body:"By accessing or using NeuroThrive (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App." },
                   { title:"2. Not Medical Advice", body:"NeuroThrive provides general wellness and nutritional information for educational purposes only. The App is not a medical device and does not diagnose, treat, cure, or prevent any disease or medical condition.\n\nNothing in this App constitutes medical advice, diagnosis, or treatment. The meal plans, supplement information, affirmations, and routines are for informational and educational purposes only.\n\nAlways seek the advice of a qualified healthcare professional, including your physician, psychiatrist, or registered dietitian, before making any changes to your diet, starting supplements, or modifying any existing treatment plan. This is especially important if you are taking medication or under the care of a mental health professional.\n\nUse of this App does not create a healthcare provider-patient relationship." },
@@ -12072,8 +12073,8 @@ function NeuroThriveApp() {
                   { title:"11. Contact", body:"For questions about these Terms, please contact us at:\n\nEmail: support@neurothrive.app" },
                 ].map((s, i) => (
                   <div key={i} style={{ marginBottom:"20px" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700", marginBottom:"6px" }}>{s.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
+                    <div style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700", marginBottom:"6px" }}>{s.title}</div>
+                    <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
                   </div>
                 ))}
               </div>
@@ -12081,8 +12082,8 @@ function NeuroThriveApp() {
 
             {legalPage === "privacy" && (
               <div>
-                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", marginBottom:"6px" }}>Privacy Policy</h2>
-                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#313C62", marginBottom:"6px" }}>Privacy Policy</h2>
+                <p style={{ color:"#5F89F8", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"28px" }}>Effective Date: March 13, 2026</p>
                 {[
                   { title:"1. Introduction", body:"NeuroThrive (\"we,\" \"our,\" or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and related services (collectively, the \"App\"). By using the App, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use the App." },
                   { title:"2. Information We Collect", body:"We collect the following categories of information:\n\n• Account Information: Email address and encrypted password (required for account creation and authentication).\n• Profile Information: Gender selection, selected mental health conditions, dietary preferences, and calorie target. You choose what to provide.\n• Usage Data: Mood and energy journal entries, daily meal check-ins, food log history, routine and exercise completion data, and app navigation state.\n• Meal Plan Data: Your generated 30-day meal plan, plan cycle number, and cycle start date.\n• Reminder Preferences: Your chosen reminder times and notification settings.\n• Payment Information: Subscription plan type and status. Full payment details (credit card numbers) are processed and stored exclusively by our payment processor and are never stored on our servers.\n\nWe do NOT collect: location data, device sensor data, contacts, photos, browsing history, advertising identifiers, or any data from Apple HealthKit or similar health frameworks." },
@@ -12098,8 +12099,8 @@ function NeuroThriveApp() {
                   { title:"12. Contact Us", body:"If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at:\n\nEmail: support@neurothrive.app\n\nWe will respond to your inquiry within 30 days." },
                 ].map((s, i) => (
                   <div key={i} style={{ marginBottom:"20px" }}>
-                    <div style={{ color:"#7b9fff", fontSize:"13px", fontWeight:"700", marginBottom:"6px" }}>{s.title}</div>
-                    <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
+                    <div style={{ color:"#5F89F8", fontSize:"13px", fontWeight:"700", marginBottom:"6px" }}>{s.title}</div>
+                    <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>{s.body}</p>
                   </div>
                 ))}
               </div>
@@ -12107,26 +12108,26 @@ function NeuroThriveApp() {
 
             {legalPage === "references" && (
               <div>
-                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#eef0ff", marginBottom:"6px" }}>Scientific References</h2>
-                <p style={{ color:"#7b9fff", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"12px" }}>Sources Informing NeuroThrive Content</p>
-                <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(107,143,255,0.06)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"24px" }}>
-                  <p style={{ color:"#c8ccf0", fontSize:"13px", lineHeight:1.8, margin:0 }}>NeuroThrive is informed by published neuroscience and nutritional research. The references below support the facts and insights presented throughout the app. NeuroThrive does not claim to diagnose, treat, cure, or prevent any medical condition. Always consult a qualified healthcare professional before making changes to your diet or health regimen.</p>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"28px", fontWeight:"300", color:"#313C62", marginBottom:"6px" }}>Scientific References</h2>
+                <p style={{ color:"#5F89F8", fontSize:"11px", letterSpacing:"2px", textTransform:"uppercase", marginBottom:"12px" }}>Sources Informing NeuroThrive Content</p>
+                <div style={{ padding:"14px 18px", borderRadius:"14px", background:"rgba(255,255,255,1)", border:"1px solid rgba(107,143,255,0.12)", marginBottom:"24px" }}>
+                  <p style={{ color:"#3D4663", fontSize:"13px", lineHeight:1.8, margin:0 }}>NeuroThrive is informed by published neuroscience and nutritional research. The references below support the facts and insights presented throughout the app. NeuroThrive does not claim to diagnose, treat, cure, or prevent any medical condition. Always consult a qualified healthcare professional before making changes to your diet or health regimen.</p>
                 </div>
                 {Object.entries(SCIENTIFIC_REFERENCES).map(([key, section]) => {
                   const isOpen = refsExpanded === key;
                   return (
                     <div key={key} style={{ marginBottom:"8px" }}>
-                      <button onClick={() => setRefsExpanded(isOpen ? null : key)} style={{ width:"100%", padding:"14px 16px", borderRadius:"14px", border:"1px solid rgba(110,120,200,0.15)", background: isOpen ? "rgba(107,143,255,0.15)" : "rgba(240,244,255,0.03)", cursor:"pointer", display:"flex", justifyContent:"space-between", alignItems:"center", textAlign:"left" }}>
-                        <span style={{ color: isOpen ? "#7b9fff" : "#eef0ff", fontSize:"14px", fontWeight:"600" }}>{section.label}</span>
-                        <span style={{ color:"#8890b8", fontSize:"12px" }}>{section.refs.length} source{section.refs.length !== 1 ? "s" : ""} {isOpen ? "▲" : "▼"}</span>
+                      <button onClick={() => setRefsExpanded(isOpen ? null : key)} style={{ width:"100%", padding:"14px 16px", borderRadius:"14px", border:"1px solid rgba(49,60,98,0.12)", background: isOpen ? "rgba(255,255,255,1)" : "rgba(240,244,255,0.03)", cursor:"pointer", display:"flex", justifyContent:"space-between", alignItems:"center", textAlign:"left" }}>
+                        <span style={{ color: isOpen ? "#5F89F8" : "#313C62", fontSize:"14px", fontWeight:"600" }}>{section.label}</span>
+                        <span style={{ color:"#3D4663", fontSize:"12px" }}>{section.refs.length} source{section.refs.length !== 1 ? "s" : ""} {isOpen ? "▲" : "▼"}</span>
                       </button>
                       {isOpen && (
                         <div style={{ padding:"12px 16px", borderLeft:"3px solid rgba(107,143,255,0.3)", marginLeft:"8px", marginTop:"4px" }}>
                           {section.refs.map((ref, ri) => (
-                            <div key={ri} style={{ marginBottom:"16px", paddingBottom: ri < section.refs.length - 1 ? "16px" : "0", borderBottom: ri < section.refs.length - 1 ? "1px solid rgba(110,120,200,0.08)" : "none" }}>
-                              <div style={{ color:"#9db5ff", fontSize:"12px", lineHeight:1.6, marginBottom:"4px" }}>"{ref.claim}"</div>
-                              <div style={{ color:"#eef0ff", fontSize:"12px", fontWeight:"600", lineHeight:1.5 }}>{ref.source} ({ref.year})</div>
-                              <div style={{ color:"#8890b8", fontSize:"11px", lineHeight:1.5 }}>{ref.detail}. <span style={{ fontStyle:"italic" }}>{ref.journal}</span></div>
+                            <div key={ri} style={{ marginBottom:"16px", paddingBottom: ri < section.refs.length - 1 ? "16px" : "0", borderBottom: ri < section.refs.length - 1 ? "1px solid rgba(255,255,255,1)" : "none" }}>
+                              <div style={{ color:"#5F89F8", fontSize:"12px", lineHeight:1.6, marginBottom:"4px" }}>"{ref.claim}"</div>
+                              <div style={{ color:"#313C62", fontSize:"12px", fontWeight:"600", lineHeight:1.5 }}>{ref.source} ({ref.year})</div>
+                              <div style={{ color:"#3D4663", fontSize:"11px", lineHeight:1.5 }}>{ref.detail}. <span style={{ fontStyle:"italic" }}>{ref.journal}</span></div>
                             </div>
                           ))}
                         </div>
@@ -12137,7 +12138,7 @@ function NeuroThriveApp() {
               </div>
             )}
 
-            <button onClick={() => setLegalPage(null)} style={{ marginTop:"8px", width:"100%", padding:"14px", borderRadius:"50px", background:"linear-gradient(135deg,#5570f0,#4060e0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Close</button>
+            <button onClick={() => setLegalPage(null)} style={{ marginTop:"8px", width:"100%", padding:"14px", borderRadius:"50px", background:"linear-gradient(135deg,#5F89F8,#4B72E0)", color:"#fff", border:"none", fontSize:"14px", fontWeight:"600", cursor:"pointer", fontFamily:"'Inter',sans-serif" }}>Close</button>
           </div>
         </div>
       )}
